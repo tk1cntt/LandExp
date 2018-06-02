@@ -80,8 +80,8 @@ entity Article {
 }
 
 entity Category {
-   title String,
-   titleAlias String,
+   name String,
+   nameAlias String,
    createAt ZonedDateTime,
    updateAt ZonedDateTime
 }
@@ -114,7 +114,7 @@ entity Banner {
 relationship ManyToOne {
    District{city(name)} to City,
    Address{district(name)} to District,
-   House{address(name)} to Address,
+   House{address(streetAddress)} to Address,
    House{project(name)} to HouseProjects
    Category{category(name)} to Article,
    Category{parent(name)} to Category,
