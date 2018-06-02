@@ -6,8 +6,8 @@ entity District {
    name String
 }
 
-entity Address {
-   streetAddress String,
+entity Street {
+   name String,
    postalCode String,
    stateProvince String
 }
@@ -25,13 +25,11 @@ enum TypeOfSell {
 }
 
 entity House {
-   streetAddress String,
-   postalCode String,
-   city String,
+   address String,
    stateProvince String,
    statusType StatusType,
-   money Integer,
-   discount Integer,
+   money Float,
+   discount Float,
    direction String,
    floorNumber String,
    acreage String,
@@ -64,12 +62,12 @@ entity HouseUtilities {
 entity Article {
    title String,
    titleAlias String,
-   introtext String,
-   fulltext String,
-   metakey String,
-   metadesc String,
+   summary String,
+   content String,
+   metaKey String,
+   metaDescription String,
    statusType StatusType,
-   hiuseType HouseType,
+   houseType HouseType,
    hits Integer,
    createAt ZonedDateTime,
    updateAt ZonedDateTime
@@ -109,8 +107,8 @@ entity Banner {
 
 relationship ManyToOne {
    District{city(name)} to City,
-   Address{district(name)} to District,
-   House{address(streetAddress)} to Address,
+   Street{district(name)} to District,
+   House{street(name)} to Street,
    House{project(name)} to HouseProjects
    Article{category(name)} to Category,
    Category{parent(name)} to Category,
@@ -131,7 +129,7 @@ relationship ManyToMany {
 }
 
 // Set pagination options
-paginate House, Address, District, City with pagination
+paginate House, Street, District, City with pagination
 
 dto * with mapstruct
 
