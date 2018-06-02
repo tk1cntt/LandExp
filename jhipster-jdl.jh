@@ -54,15 +54,11 @@ enum HouseUtilityType {
 }
 
 entity SocialUtilities {
-   nearBy SocialUtilityType
+   name SocialUtilityType
 }
 
 entity HouseUtilities {
-   type HouseUtilityType
-}
-
-entity HouseUtilities {
-   name String
+   name HouseUtilityType
 }
 
 entity Article {
