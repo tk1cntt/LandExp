@@ -1,0 +1,143 @@
+entity City {
+   name String
+}
+
+entity District {
+   name String
+}
+
+entity Address {
+   streetAddress String,
+   postalCode String,
+   stateProvince String
+}
+
+enum HouseType {
+   FOR_BUY, FOR_SELL, FOR_RENT, FOR_HIRE
+}
+
+enum StatusType {
+   PENDING, APPROVED, CANCELED
+}
+
+enum TypeOfSell {
+   PENDING, APPROVED, CANCELED
+}
+
+entity House {
+   streetAddress String,
+   postalCode String,
+   city String,
+   stateProvince String,
+   statusType StatusType,
+   money Integer,
+   discount Integer,
+   direction String,
+   floorNumber String,
+   acreage String,
+   typeOfSell TypeOfSell,
+   hits Integer,
+   createAt ZonedDateTime,
+   updateAt ZonedDateTime
+}
+
+entity HouseProjects {
+   name String
+}
+
+enum SocialUtilityType {
+   NEAR_SCHOOL, NEAR_MARKET
+}
+
+enum HouseUtilityType {
+   INTERNET, PARKING, CAB_TV
+}
+
+entity SocialUtilities {
+   nearBy SocialUtilityType
+}
+
+entity HouseUtilities {
+   type HouseUtilityType
+}
+
+entity HouseUtilities {
+   name String
+}
+
+entity Articles {
+   title String,
+   titleAlias String,
+   introtext String,
+   fulltext String,
+   metakey String,
+   metadesc String,
+   statusType StatusType,
+   hiuseType HouseType,
+   hits Integer,
+   createAt ZonedDateTime,
+   updateAt ZonedDateTime
+}
+
+entity Category {
+   title String,
+   titleAlias String,
+   createAt ZonedDateTime,
+   updateAt ZonedDateTime
+}
+
+entity UserProfiles {
+   name String,
+   phoneNumber String
+}
+
+entity UserSubscription {
+   createAt ZonedDateTime,
+   updateAt ZonedDateTime
+}
+
+entity UserContractSetting {
+   createAt ZonedDateTime,
+   updateAt ZonedDateTime
+}
+
+entity Banner {
+   title String,
+   titleAlias String,
+   hits Integer,
+   publicUp ZonedDateTime,
+   publicDown ZonedDateTime,
+   createAt ZonedDateTime,
+   updateAt ZonedDateTime
+}
+
+relationship OneToMany {
+   City{city} to District,
+   District{district} to Address,
+   Category{category} to Articles,
+   Category{parent} to Category
+   House{address} to Address,
+   House{project} to HouseProjects,
+   House{houseUtility} to HouseUtilities,
+   House{socialUtility} to SocialUtilities
+}
+
+relationship ManyToOne {
+   Category{createBy} to User,
+   Category{updateBy} to User,
+   Banner{createBy} to User,
+   Banner{updateBy} to User,
+   UserProfiles{user} to User,
+   Articles{createBy} to User,
+   Articles{updateBy} to User,
+   House{createBy} to User,
+   House{updateBy} to User
+}
+
+// Set pagination options
+paginate House, Address, District, City with pagination
+
+dto * with mapstruct
+
+// Set service options to all except few
+service all with serviceImpl
