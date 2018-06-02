@@ -65,7 +65,7 @@ entity HouseUtilities {
    name String
 }
 
-entity Articles {
+entity Article {
    title String,
    titleAlias String,
    introtext String,
@@ -111,13 +111,16 @@ entity Banner {
    updateAt ZonedDateTime
 }
 
-relationship OneToMany {
-   City{city} to District,
-   District{district} to Address,
-   Category{category} to Articles,
-   Category{parent} to Category
+relationship OneToOne {
+   District{city} to City,
+   Address{district} to District,
    House{address} to Address,
-   House{project} to HouseProjects,
+   House{project} to HouseProjects
+}
+
+relationship OneToMany {
+   Category{category} to Article,
+   Category{parent} to Category,
    House{houseUtility} to HouseUtilities,
    House{socialUtility} to SocialUtilities
 }
@@ -128,8 +131,8 @@ relationship ManyToOne {
    Banner{createBy} to User,
    Banner{updateBy} to User,
    UserProfiles{user} to User,
-   Articles{createBy} to User,
-   Articles{updateBy} to User,
+   Article{createBy} to User,
+   Article{updateBy} to User,
    House{createBy} to User,
    House{updateBy} to User
 }
