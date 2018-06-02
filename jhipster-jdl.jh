@@ -112,7 +112,7 @@ relationship ManyToOne {
    Address{district(name)} to District,
    House{address(streetAddress)} to Address,
    House{project(name)} to HouseProjects
-   Category{category(name)} to Article,
+   Article{category(name)} to Category,
    Category{parent(name)} to Category,
    Category{createBy(login)} to User,
    Category{updateBy(login)} to User,
