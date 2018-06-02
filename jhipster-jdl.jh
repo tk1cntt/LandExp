@@ -111,14 +111,11 @@ entity Banner {
    updateAt ZonedDateTime
 }
 
-relationship OneToOne {
+relationship OneToMany {
    District{city} to City,
    Address{district} to District,
    House{address} to Address,
    House{project} to HouseProjects
-}
-
-relationship OneToMany {
    Category{category} to Article,
    Category{parent} to Category,
    House{houseUtility} to HouseUtilities,
