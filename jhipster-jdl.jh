@@ -111,27 +111,27 @@ entity Banner {
    updateAt ZonedDateTime
 }
 
-relationship OneToMany {
-   District{city} to City,
-   Address{district} to District,
-   House{address} to Address,
-   House{project} to HouseProjects
-   Category{category} to Article,
-   Category{parent} to Category,
-   House{houseUtility} to HouseUtilities,
-   House{socialUtility} to SocialUtilities
+relationship ManyToOne {
+   District{city(name)} to City,
+   Address{district(name)} to District,
+   House{address(name)} to Address,
+   House{project(name)} to HouseProjects
+   Category{category(name)} to Article,
+   Category{parent(name)} to Category,
+   Category{createBy(login)} to User,
+   Category{updateBy(login)} to User,
+   Banner{createBy(login)} to User,
+   Banner{updateBy(login)} to User,
+   UserProfiles{user(login)} to User,
+   Article{createBy(login)} to User,
+   Article{updateBy(login)} to User,
+   House{createBy(login)} to User,
+   House{updateBy(login)} to User
 }
 
-relationship ManyToOne {
-   Category{createBy} to User,
-   Category{updateBy} to User,
-   Banner{createBy} to User,
-   Banner{updateBy} to User,
-   UserProfiles{user} to User,
-   Article{createBy} to User,
-   Article{updateBy} to User,
-   House{createBy} to User,
-   House{updateBy} to User
+relationship ManyToMany {
+   House{houseUtility(name)} to HouseUtilities,
+   House{socialUtility(name)} to SocialUtilities
 }
 
 // Set pagination options
