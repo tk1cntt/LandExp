@@ -1,3 +1,7 @@
+entity Region {
+  name String
+}
+
 entity City {
    name String
 }
@@ -10,6 +14,11 @@ entity Street {
    name String,
    postalCode String,
    stateProvince String
+}
+
+entity UserRegion {
+   createAt ZonedDateTime,
+   updateAt ZonedDateTime
 }
 
 enum HouseType {
@@ -106,6 +115,7 @@ entity Banner {
 }
 
 relationship ManyToOne {
+   District{region(name)} to Region,
    District{city(name)} to City,
    Street{district(name)} to District,
    House{street(name)} to Street,
@@ -125,7 +135,9 @@ relationship ManyToOne {
 
 relationship ManyToMany {
    House{houseUtility(name)} to HouseUtilities,
-   House{socialUtility(name)} to SocialUtilities
+   House{socialUtility(name)} to SocialUtilities,
+   UserRegion{user(login)} to User,
+   UserRegion{region(name)} to Region
 }
 
 // Set pagination options
