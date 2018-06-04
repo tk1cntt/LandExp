@@ -1,22 +1,27 @@
 entity Region {
-  name String
+  name String,
+  enabled Boolean
 }
 
 entity City {
-   name String
+   name String,
+   enabled Boolean
 }
 
 entity District {
-   name String
+   name String,
+   enabled Boolean
 }
 
 entity Street {
    name String,
    postalCode String,
-   stateProvince String
+   stateProvince String,
+   enabled Boolean
 }
 
 entity UserRegion {
+   enabled Boolean,
    createAt ZonedDateTime,
    updateAt ZonedDateTime
 }
@@ -26,11 +31,16 @@ enum HouseType {
 }
 
 enum StatusType {
-   PENDING, APPROVED, CANCELED
+   PENDING, APPROVED, CANCELED, EXPIRED
 }
 
 enum TypeOfSell {
    PENDING, APPROVED, CANCELED
+}
+
+entity LandType {
+   name String,
+   enabled Boolean
 }
 
 entity House {
@@ -42,10 +52,23 @@ entity House {
    direction String,
    floorNumber String,
    acreage String,
-   typeOfSell TypeOfSell,
+   statusType StatusType,
+   actionType ActionType,
    hits Integer,
    createAt ZonedDateTime,
    updateAt ZonedDateTime
+}
+
+enum ActionType {
+   USER_SEARCH_BUY, USER_SEARCH_RENT, USER_UPDATE_NEWS, USER_SUBSCRIPTION
+}
+
+entity HouseTracking {
+   ac
+}
+
+entity UserTracking {
+   actionType ActionType,
 }
 
 entity HouseProjects {
@@ -104,9 +127,20 @@ entity UserContractSetting {
    updateAt ZonedDateTime
 }
 
+entity UserFinancial {
+   housePrice Float,
+   houseAcreage Float,
+   loanRate Float,
+   loanFromPeople Float,
+   customerMoneyHave Float,
+   customerMobile String,
+   customerEmail String
+}
+
 entity Banner {
    title String,
    titleAlias String,
+   area Integer,
    hits Integer,
    publicUp ZonedDateTime,
    publicDown ZonedDateTime,
@@ -115,11 +149,15 @@ entity Banner {
 }
 
 relationship ManyToOne {
+   UserSubscription(subscription(actionType)) to UserTracking,
+   UserTracking(city(name)) to City,
+   UserTracking(district(name)) to District,
    District{region(name)} to Region,
    District{city(name)} to City,
    Street{district(name)} to District,
    House{street(name)} to Street,
-   House{project(name)} to HouseProjects
+   House{project(name)} to HouseProjects,
+   House{landType(name)} to LandType,
    Article{category(name)} to Category,
    Category{parent(name)} to Category,
    Category{createBy(login)} to User,
