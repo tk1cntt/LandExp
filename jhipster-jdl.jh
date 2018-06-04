@@ -26,6 +26,10 @@ entity UserRegion {
    updateAt ZonedDateTime
 }
 
+enum UserActionType {
+   FOR_BUY, FOR_SELL, FOR_RENT, FOR_HIRE
+}
+
 enum HouseType {
    FOR_BUY, FOR_SELL, FOR_RENT, FOR_HIRE
 }
@@ -46,11 +50,10 @@ entity LandType {
 entity House {
    address String,
    stateProvince String,
-   statusType StatusType,
    money Float,
    discount Float,
    direction String,
-   floorNumber String,
+   floor String,
    acreage String,
    statusType StatusType,
    actionType ActionType,
@@ -66,10 +69,6 @@ entity HousePhoto {
 
 enum ActionType {
    USER_SEARCH_BUY, USER_SEARCH_RENT, USER_UPDATE_NEWS, USER_SUBSCRIPTION
-}
-
-entity UserTracking {
-   actionType ActionType,
 }
 
 entity HouseProjects {
@@ -97,10 +96,7 @@ entity Article {
    titleAlias String,
    summary String,
    content String,
-   metaKey String,
-   metaDescription String,
    statusType StatusType,
-   houseType HouseType,
    hits Integer,
    createAt ZonedDateTime,
    updateAt ZonedDateTime
@@ -132,15 +128,26 @@ enum UserActivityType {
    USER_SEARCH_BUY, USER_SEARCH_RENT, USER_CREATE_NEWS, USER_UPDATE_NEWS, USER_SUBSCRIPTION
 }
 
+entity UserTracking {
+   activityType UserActivityType
+}
+
 entity UserActivity {
+   sourceId String,
+   parentId String,
    activityType UserActivityType,
+   createAt ZonedDateTime,
+   updateAt ZonedDateTime
+}
+
+entity UserFeed {
    body String,
    createAt ZonedDateTime,
    updateAt ZonedDateTime
 }
 
 entity SearchTracking {
-   actionType ActionType,
+   actionType UserActivityType,
    keyword String,
    costFrom Float,
    costTo Float,
@@ -172,11 +179,12 @@ entity Banner {
 }
 
 relationship ManyToOne {
-   UserSubscription(subscription(actionType)) to UserTracking,
-   UserTracking(city(name)) to City,
-   UserTracking(district(name)) to District,
-   SearchTracking(city(name)) to City,
-   SearchTracking(district(name)) to District,
+   UserFeed{activity} to UserActivity,
+   UserSubscription{subscription(actionType)} to UserTracking,
+   UserTracking{city(name)} to City,
+   UserTracking{district(name)} to District,
+   SearchTracking{city(name)} to City,
+   SearchTracking{district(name)} to District,
    District{region(name)} to Region,
    District{city(name)} to City,
    Street{district(name)} to District,
@@ -189,7 +197,7 @@ relationship ManyToOne {
    Category{updateBy(login)} to User,
    Banner{createBy(login)} to User,
    Banner{updateBy(login)} to User,
-   HousePhoto{house{name}} to House,
+   HousePhoto{house(name)} to House,
    HousePhoto{createBy(login)} to User,
    UserProfiles{user(login)} to User,
    Article{createBy(login)} to User,
