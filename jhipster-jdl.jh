@@ -20,26 +20,29 @@ entity Street {
    enabled Boolean
 }
 
+relationship ManyToOne {
+   District{region(name)} to Region,
+   District{city(name)} to City,
+   Street{district(name)} to District
+}
+
 entity UserRegion {
    enabled Boolean,
    createAt ZonedDateTime,
    updateAt ZonedDateTime
 }
 
+relationship ManyToMany {
+   UserRegion{user(login)} to User,
+   UserRegion{region(name)} to Region
+}
+
 enum UserActionType {
    FOR_BUY, FOR_SELL, FOR_RENT, FOR_HIRE
 }
 
-enum HouseType {
-   FOR_BUY, FOR_SELL, FOR_RENT, FOR_HIRE
-}
-
 enum StatusType {
-   PENDING, APPROVED, CANCELED, EXPIRED
-}
-
-enum TypeOfSell {
-   PENDING, APPROVED, CANCELED
+   PENDING, PAID, APPROVED, CANCELED, EXPIRED, SOLD
 }
 
 enum LandType {
@@ -51,62 +54,78 @@ enum DirectionType {
 }
 
 enum AcreageType {
-   M2, HECTA
+   M2, HECTARE
+}
+
+enum SaleType {
+   SALE_SUPPORT, SALE_BY_MYSELF
 }
 
 entity House {
    address String,
-   stateProvince String,
    money Float,
+   acreage Float,
+   acreageType AcreageType,
    discount Float,
    direction DirectionType,
    floor String,
-   acreage Float,
-   acreageType AcreageType,
    bathRoom Integer,
    bedRoom Integer,
    parking Boolean,
    statusType StatusType,
-   actionType ActionType,
+   actionType UserActionType,
    landType LandType,
+   saleType SaleType,
+   fee Float,
+   feeMax Float,
    hits Integer,
    createAt ZonedDateTime,
    updateAt ZonedDateTime
 }
 
+entity ServiceFee {
+   saleType SaleType,
+   fee Float
+}
+
 relationship ManyToOne {
+   House{region(name)} to Region,
+   House{city(name)} to City,
    House{street(name)} to Street,
-   House{project(name)} to HouseProjects,
+   House{project(name)} to LandProjects,
    House{createBy(login)} to User,
    House{updateBy(login)} to User
 }
+
+entity HouseTracking {
+   activityType UserActivityType,
+   sourceId String,
+   sourceLink String,
+   description String,
+   createAt ZonedDateTime,
+   updateAt ZonedDateTime
+}
+
+relationship ManyToOne {
+   HouseTracking{house} to House,
+   HouseTracking{user(login)} to User
+}
+
 entity HousePhoto {
    fileName String,
    createAt ZonedDateTime
 }
 
-enum ActionType {
-   USER_SEARCH_BUY, USER_SEARCH_RENT, USER_UPDATE_NEWS, USER_SUBSCRIPTION
-}
-
-entity HouseProjects {
+entity LandProjects {
    name String
 }
 
-enum SocialUtilityType {
-   NEAR_SCHOOL, NEAR_MARKET
-}
-
-enum HouseUtilityType {
-   INTERNET, PARKING, CAB_TV
-}
-
-entity SocialUtilities {
-   name SocialUtilityType
-}
-
-entity HouseUtilities {
-   name HouseUtilityType
+relationship ManyToOne {
+   LandProjects{region(name)} to Region,
+   LandProjects{city(name)} to City,
+   LandProjects{street(name)} to Street,
+   LandProjects{createBy(login)} to User,
+   LandProjects{updateBy(login)} to User
 }
 
 entity Article {
@@ -120,6 +139,12 @@ entity Article {
    updateAt ZonedDateTime
 }
 
+relationship ManyToOne {
+   Article{category(name)} to Category,
+   Article{createBy(login)} to User,
+   Article{updateBy(login)} to User
+}
+
 entity Category {
    name String,
    nameAlias String,
@@ -127,41 +152,56 @@ entity Category {
    updateAt ZonedDateTime
 }
 
-entity UserProfiles {
+entity UserProfile {
    name String,
    phoneNumber String
 }
 
-entity UserSubscription {
-   createAt ZonedDateTime,
-   updateAt ZonedDateTime
-}
-
-entity UserContractSetting {
-   createAt ZonedDateTime,
-   updateAt ZonedDateTime
+relationship ManyToOne {
+   UserProfile{user(login)} to User
 }
 
 enum UserActivityType {
-   USER_SEARCH_BUY, USER_SEARCH_RENT, USER_CREATE_NEWS, USER_UPDATE_NEWS, USER_SUBSCRIPTION
+   USER_SEARCH_BUY, USER_SEARCH_RENT, USER_VIEW_NEWS, USER_LIKE_NEWS, USER_CREATE_NEWS, USER_UPDATE_NEWS, USER_SUBSCRIPTION, USER_UNSUBSCRIPTION, USER_REGISTERED_CONSULTING, USER_UPDATE_SALE_TYPE
+}
+
+entity UserSubscription {
+   actionType UserActivityType,
+   keyword String,
+   costFrom Float,
+   costTo Float,
+   acreageFrom Float,
+   acreageTo Float,
+   enabled Boolean,
+   createAt ZonedDateTime,
+   updateAt ZonedDateTime
+}
+
+relationship ManyToOne {
+   UserSubscription{user(login)} to User
 }
 
 entity UserTracking {
-   activityType UserActivityType
-}
-
-entity UserActivity {
-   sourceId String,
-   parentId String,
    activityType UserActivityType,
+   sourceId String,
+   sourceLink String,
+   description String,
    createAt ZonedDateTime,
    updateAt ZonedDateTime
+}
+
+relationship ManyToOne {
+   UserTracking{user(login} to User
 }
 
 entity UserFeed {
    body String,
    createAt ZonedDateTime,
    updateAt ZonedDateTime
+}
+
+relationship ManyToOne {
+   UserFeed{user(login} to User
 }
 
 entity SearchTracking {
@@ -175,6 +215,10 @@ entity SearchTracking {
    updateAt ZonedDateTime
 }
 
+relationship ManyToOne {
+   SearchTracking{user(login)} to User
+}
+
 entity UserFinancial {
    housePrice Float,
    houseAcreage Float,
@@ -183,6 +227,26 @@ entity UserFinancial {
    customerMoneyHave Float,
    customerMobile String,
    customerEmail String
+}
+
+relationship ManyToOne {
+   UserFinancial{user(login)} to User
+}
+
+enum CustomerLevel {
+   NORMAL, SILVER, GOLD, PLATIUM
+}
+
+entity PotentialCustomer {
+   level CustomerLevel,
+   description String,
+   createAt ZonedDateTime,
+   updateAt ZonedDateTime
+}
+
+relationship ManyToOne {
+   PotentialCustomer{customer(login)} to User
+   PotentialCustomer{user(login)} to User
 }
 
 entity Banner {
@@ -197,33 +261,8 @@ entity Banner {
 }
 
 relationship ManyToOne {
-   UserFeed{activity} to UserActivity,
-   UserSubscription{subscription(actionType)} to UserTracking,
-   UserTracking{city(name)} to City,
-   UserTracking{district(name)} to District,
-   SearchTracking{city(name)} to City,
-   SearchTracking{district(name)} to District,
-   District{region(name)} to Region,
-   District{city(name)} to City,
-   Street{district(name)} to District,
-   Article{category(name)} to Category,
-   Category{parent(name)} to Category,
-   Category{createBy(login)} to User,
-   Category{updateBy(login)} to User,
    Banner{createBy(login)} to User,
-   Banner{updateBy(login)} to User,
-   HousePhoto{house(name)} to House,
-   HousePhoto{createBy(login)} to User,
-   UserProfiles{user(login)} to User,
-   Article{createBy(login)} to User,
-   Article{updateBy(login)} to User
-}
-
-relationship ManyToMany {
-   House{houseUtility(name)} to HouseUtilities,
-   House{socialUtility(name)} to SocialUtilities,
-   UserRegion{user(login)} to User,
-   UserRegion{region(name)} to Region
+   Banner{updateBy(login)} to User
 }
 
 // Set pagination options
