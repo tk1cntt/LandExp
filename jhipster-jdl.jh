@@ -1,23 +1,23 @@
 entity Region {
    name String,
    enabled Boolean,
-   createAt ZonedDateTime,
-   updateAt ZonedDateTime
+   createAt LocalDate,
+   updateAt LocalDate
 
 }
 
 entity City {
    name String,
    enabled Boolean,
-   createAt ZonedDateTime,
-   updateAt ZonedDateTime
+   createAt LocalDate,
+   updateAt LocalDate
 }
 
 entity District {
    name String,
    enabled Boolean,
-   createAt ZonedDateTime,
-   updateAt ZonedDateTime
+   createAt LocalDate,
+   updateAt LocalDate
 }
 
 entity Street {
@@ -25,8 +25,8 @@ entity Street {
    postalCode String,
    stateProvince String,
    enabled Boolean,
-   createAt ZonedDateTime,
-   updateAt ZonedDateTime
+   createAt LocalDate,
+   updateAt LocalDate
 }
 
 relationship ManyToOne {
@@ -36,8 +36,8 @@ relationship ManyToOne {
 }
 
 entity UserRegion {
-   createAt ZonedDateTime,
-   updateAt ZonedDateTime
+   createAt LocalDate,
+   updateAt LocalDate
 }
 
 relationship ManyToOne {
@@ -94,8 +94,8 @@ entity House {
    feeMax Float,
    hits Integer,
    statusType StatusType,
-   createAt ZonedDateTime,
-   updateAt ZonedDateTime
+   createAt LocalDate,
+   updateAt LocalDate
 }
 
 entity ServiceFee {
@@ -116,7 +116,7 @@ entity HouseTracking {
    sourceId String,
    sourceLink String,
    description String,
-   createAt ZonedDateTime
+   createAt LocalDate
 }
 
 relationship ManyToOne {
@@ -126,7 +126,7 @@ relationship ManyToOne {
 
 entity HousePhoto {
    name String,
-   createAt ZonedDateTime
+   createAt LocalDate
 }
 
 entity LandProjects {
@@ -147,8 +147,8 @@ entity Article {
    content String,
    statusType StatusType,
    hits Integer,
-   createAt ZonedDateTime,
-   updateAt ZonedDateTime
+   createAt LocalDate,
+   updateAt LocalDate
 }
 
 relationship ManyToOne {
@@ -160,8 +160,8 @@ relationship ManyToOne {
 entity Category {
    name String,
    nameAlias String,
-   createAt ZonedDateTime,
-   updateAt ZonedDateTime
+   createAt LocalDate,
+   updateAt LocalDate
 }
 
 entity UserProfile {
@@ -191,8 +191,8 @@ entity UserSubscription {
    parking Boolean,
    landType LandType,
    enabled Boolean,
-   createAt ZonedDateTime,
-   updateAt ZonedDateTime
+   createAt LocalDate,
+   updateAt LocalDate
 }
 
 relationship ManyToOne {
@@ -206,7 +206,7 @@ entity UserTracking {
    sourceId String,
    sourceLink String,
    description String,
-   createAt ZonedDateTime
+   createAt LocalDate
 }
 
 relationship ManyToOne {
@@ -215,8 +215,8 @@ relationship ManyToOne {
 
 entity UserFeed {
    body String,
-   createAt ZonedDateTime,
-   updateAt ZonedDateTime
+   createAt LocalDate,
+   updateAt LocalDate
 }
 
 relationship ManyToOne {
@@ -236,7 +236,7 @@ entity SearchTracking {
    bedRoom Integer,
    parking Boolean,
    landType LandType,
-   createAt ZonedDateTime
+   createAt LocalDate
 }
 
 relationship ManyToOne {
@@ -266,8 +266,8 @@ enum CustomerLevel {
 entity PotentialCustomer {
    level CustomerLevel,
    description String,
-   createAt ZonedDateTime,
-   updateAt ZonedDateTime
+   createAt LocalDate,
+   updateAt LocalDate
 }
 
 relationship ManyToOne {
@@ -281,10 +281,10 @@ entity Banner {
    titleAlias String,
    area Integer,
    hits Integer,
-   publicUp ZonedDateTime,
-   publicDown ZonedDateTime,
-   createAt ZonedDateTime,
-   updateAt ZonedDateTime
+   publicUp LocalDate,
+   publicDown LocalDate,
+   createAt LocalDate,
+   updateAt LocalDate
 }
 
 relationship ManyToOne {
@@ -303,10 +303,10 @@ enum PaymentStatusType {
 entity Payment {
    code String,
    money Float,
-   paidTime ZonedDateTime,
+   paidTime LocalDate,
    paymentStatus PaymentStatusType,
-   createAt ZonedDateTime,
-   updateAt ZonedDateTime
+   createAt LocalDate,
+   updateAt LocalDate
 }
 
 relationship ManyToOne {
