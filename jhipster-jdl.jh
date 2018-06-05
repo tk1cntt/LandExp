@@ -75,8 +75,8 @@ entity House {
    address String,
    money Float,
    acreage Float,
-   acreageType AcreageType,
    discount Float,
+   acreageType AcreageType,
    direction DirectionType,
    floor String,
    bathRoom Integer,
@@ -170,7 +170,7 @@ relationship ManyToOne {
 }
 
 enum UserActivityType {
-   USER_SEARCH_BUY, USER_SEARCH_RENT, USER_VIEW_NEWS, USER_LIKE_NEWS, USER_CREATE_NEWS, USER_UPDATE_NEWS, USER_SUBSCRIPTION, USER_UNSUBSCRIPTION, USER_REGISTERED_CONSULTING, USER_UPDATE_SALE_TYPE, USER_PAID_NEWS, USER_SOLD_HOUSE, USER_BOUGTH_HOUSE
+   USER_SEARCH_BUY, USER_SEARCH_RENT, USER_VIEW_NEWS, USER_LIKE_NEWS, USER_CREATE_NEWS, USER_UPDATE_NEWS, USER_SUBSCRIPTION, USER_UNSUBSCRIPTION, USER_REGISTERED_CONSULTING, USER_UPDATE_SALE_TYPE, USER_PAID_NEWS, USER_SOLD_HOUSE, USER_BOUGTH_HOUSE, USER_CREATE_BANNER, USER_UPDATE_BANNER
 }
 
 entity UserSubscription {
@@ -269,8 +269,9 @@ entity PotentialCustomer {
 }
 
 relationship ManyToOne {
-   PotentialCustomer{customer(login)} to User
-   PotentialCustomer{user(login)} to User
+   PotentialCustomer{customer(login)} to User,
+   PotentialCustomer{createBy(login)} to User,
+   PotentialCustomer{updateBy(login)} to User
 }
 
 entity Banner {
@@ -287,6 +288,30 @@ entity Banner {
 relationship ManyToOne {
    Banner{createBy(login)} to User,
    Banner{updateBy(login)} to User
+}
+
+enum PaymentType {
+   CASH, BANK_TRANSFER, ONLINE
+}
+
+enum PaymentStatusType {
+   OPEN, PENDING, SUCCESS, FAILED
+}
+
+entity Payment {
+   code String,
+   money Float,
+   paidTime ZonedDateTime,
+   paymentStatus PaymentStatusType,
+   createAt ZonedDateTime,
+   updateAt ZonedDateTime
+}
+
+relationship ManyToOne {
+   Payment{house} to House,
+   Payment{customer(login)} to User,
+   Payment{createBy(login)} to User,
+   Payment{updateBy(login)} to User
 }
 
 // Set pagination options
