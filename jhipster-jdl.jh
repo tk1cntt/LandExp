@@ -1,23 +1,32 @@
 entity Region {
-  name String,
-  enabled Boolean
+   name String,
+   enabled Boolean,
+   createAt ZonedDateTime,
+   updateAt ZonedDateTime
+
 }
 
 entity City {
    name String,
-   enabled Boolean
+   enabled Boolean,
+   createAt ZonedDateTime,
+   updateAt ZonedDateTime
 }
 
 entity District {
    name String,
-   enabled Boolean
+   enabled Boolean,
+   createAt ZonedDateTime,
+   updateAt ZonedDateTime
 }
 
 entity Street {
    name String,
    postalCode String,
    stateProvince String,
-   enabled Boolean
+   enabled Boolean,
+   createAt ZonedDateTime,
+   updateAt ZonedDateTime
 }
 
 relationship ManyToOne {
@@ -58,7 +67,7 @@ enum AcreageType {
 }
 
 enum SaleType {
-   SALE_SUPPORT, SALE_BY_MYSELF
+   SALE_BY_MYSELF, SALE_SUPPORT
 }
 
 entity House {
@@ -102,8 +111,7 @@ entity HouseTracking {
    sourceId String,
    sourceLink String,
    description String,
-   createAt ZonedDateTime,
-   updateAt ZonedDateTime
+   createAt ZonedDateTime
 }
 
 relationship ManyToOne {
@@ -112,7 +120,7 @@ relationship ManyToOne {
 }
 
 entity HousePhoto {
-   fileName String,
+   name String,
    createAt ZonedDateTime
 }
 
@@ -172,6 +180,12 @@ entity UserSubscription {
    costTo Float,
    acreageFrom Float,
    acreageTo Float,
+   direction DirectionType,
+   floor String,
+   bathRoom Integer,
+   bedRoom Integer,
+   parking Boolean,
+   landType LandType,
    enabled Boolean,
    createAt ZonedDateTime,
    updateAt ZonedDateTime
@@ -179,6 +193,9 @@ entity UserSubscription {
 
 relationship ManyToOne {
    UserSubscription{user(login)} to User
+   UserSubscription{region(name)} to Region,
+   UserSubscription{city(name)} to City,
+   UserSubscription{street(name)} to Street
 }
 
 entity UserTracking {
@@ -186,8 +203,7 @@ entity UserTracking {
    sourceId String,
    sourceLink String,
    description String,
-   createAt ZonedDateTime,
-   updateAt ZonedDateTime
+   createAt ZonedDateTime
 }
 
 relationship ManyToOne {
@@ -211,12 +227,20 @@ entity SearchTracking {
    costTo Float,
    acreageFrom Float,
    acreageTo Float,
-   createAt ZonedDateTime,
-   updateAt ZonedDateTime
+   direction DirectionType,
+   floor String,
+   bathRoom Integer,
+   bedRoom Integer,
+   parking Boolean,
+   landType LandType,
+   createAt ZonedDateTime
 }
 
 relationship ManyToOne {
    SearchTracking{user(login)} to User
+   SearchTracking{region(name)} to Region,
+   SearchTracking{city(name)} to City,
+   SearchTracking{street(name)} to Street
 }
 
 entity UserFinancial {
