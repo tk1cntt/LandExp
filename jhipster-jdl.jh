@@ -42,9 +42,16 @@ enum TypeOfSell {
    PENDING, APPROVED, CANCELED
 }
 
-entity LandType {
-   name String,
-   enabled Boolean
+enum LandType {
+   APARTMENT, PENHOUSE, HOME, HOME_VILLA, HOME_STREET_SIDE, LAND_SCAPE, LAND_OF_PROJECT, WAREHOUSES, KIOSKS, OTHER
+}
+
+enum DirectionType {
+   NORTH, SOUTH, EAST, WEST, EAST_NORTH, WEST_NORTH, EAST_SOUTH, WEST_SOUTH
+}
+
+enum AcreageType {
+   M2, HECTA
 }
 
 entity House {
@@ -52,16 +59,27 @@ entity House {
    stateProvince String,
    money Float,
    discount Float,
-   direction String,
+   direction DirectionType,
    floor String,
-   acreage String,
+   acreage Float,
+   acreageType AcreageType,
+   bathRoom Integer,
+   bedRoom Integer,
+   parking Boolean,
    statusType StatusType,
    actionType ActionType,
+   landType LandType,
    hits Integer,
    createAt ZonedDateTime,
    updateAt ZonedDateTime
 }
 
+relationship ManyToOne {
+   House{street(name)} to Street,
+   House{project(name)} to HouseProjects,
+   House{createBy(login)} to User,
+   House{updateBy(login)} to User
+}
 entity HousePhoto {
    fileName String,
    createAt ZonedDateTime
@@ -188,9 +206,6 @@ relationship ManyToOne {
    District{region(name)} to Region,
    District{city(name)} to City,
    Street{district(name)} to District,
-   House{street(name)} to Street,
-   House{project(name)} to HouseProjects,
-   House{landType(name)} to LandType,
    Article{category(name)} to Category,
    Category{parent(name)} to Category,
    Category{createBy(login)} to User,
@@ -201,9 +216,7 @@ relationship ManyToOne {
    HousePhoto{createBy(login)} to User,
    UserProfiles{user(login)} to User,
    Article{createBy(login)} to User,
-   Article{updateBy(login)} to User,
-   House{createBy(login)} to User,
-   House{updateBy(login)} to User
+   Article{updateBy(login)} to User
 }
 
 relationship ManyToMany {
