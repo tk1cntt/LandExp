@@ -36,13 +36,15 @@ relationship ManyToOne {
 }
 
 entity UserRegion {
-   enabled Boolean,
    createAt ZonedDateTime,
    updateAt ZonedDateTime
 }
 
+relationship ManyToOne {
+   UserRegion{user(login)} to User
+}
+
 relationship ManyToMany {
-   UserRegion{user(login)} to User,
    UserRegion{region(name)} to Region
 }
 
@@ -70,13 +72,17 @@ enum SaleType {
    SALE_BY_MYSELF, SALE_SUPPORT
 }
 
+enum MoneyType {
+   MILLION, HUNDRED_MILLION, BILLION
+}
+
 entity House {
    actionType UserActionType,
    address String,
    money Float,
+   moneyType MoneyType,
    acreage Float,
    discount Float,
-   acreageType AcreageType,
    direction DirectionType,
    floor String,
    bathRoom Integer,
@@ -98,7 +104,6 @@ entity ServiceFee {
 }
 
 relationship ManyToOne {
-   House{region(name)} to Region,
    House{city(name)} to City,
    House{street(name)} to Street,
    House{project(name)} to LandProjects,
@@ -129,7 +134,6 @@ entity LandProjects {
 }
 
 relationship ManyToOne {
-   LandProjects{region(name)} to Region,
    LandProjects{city(name)} to City,
    LandProjects{street(name)} to Street,
    LandProjects{createBy(login)} to User,
@@ -193,7 +197,6 @@ entity UserSubscription {
 
 relationship ManyToOne {
    UserSubscription{user(login)} to User
-   UserSubscription{region(name)} to Region,
    UserSubscription{city(name)} to City,
    UserSubscription{street(name)} to Street
 }
@@ -238,7 +241,6 @@ entity SearchTracking {
 
 relationship ManyToOne {
    SearchTracking{user(login)} to User
-   SearchTracking{region(name)} to Region,
    SearchTracking{city(name)} to City,
    SearchTracking{street(name)} to Street
 }
