@@ -80,7 +80,7 @@ entity House {
    direction DirectionType,
    floor String,
    bathRoom Integer,
-   parking Integer,
+   parking Boolean,
    bedRoom Integer,
    landType LandType,
    saleType SaleType,
@@ -184,7 +184,7 @@ entity UserSubscription {
    floor String,
    bathRoom Integer,
    bedRoom Integer,
-   parking Integer,
+   parking Boolean,
    landType LandType,
    enabled Boolean,
    createAt ZonedDateTime,
@@ -231,7 +231,7 @@ entity SearchTracking {
    floor String,
    bathRoom Integer,
    bedRoom Integer,
-   parking Integer,
+   parking Boolean,
    landType LandType,
    createAt ZonedDateTime
 }
