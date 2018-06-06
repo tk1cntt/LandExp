@@ -317,9 +317,11 @@ relationship ManyToOne {
 }
 
 // Set pagination options
-paginate House, Street, District, City with pagination
+paginate House, Street, District, City, UserSubscription, SearchTracking, Payment, UserFinancial with pagination
 
 dto * with mapstruct
 
 // Set service options to all except few
-service all with serviceImpl
+service all with serviceClass
+
+filter House, UserSubscription, SearchTracking, Payment, UserFinancial
