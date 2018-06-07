@@ -10,7 +10,7 @@ const utils = require('./utils.js');
 const commonConfig = require('./webpack.common.js');
 
 const ENV = 'production';
-const extractCSS = new ExtractTextPlugin(`[name].[hash].css`);
+const extractCSS = new ExtractTextPlugin(`content/[name].[hash].css`);
 
 module.exports = webpackMerge(commonConfig({ env: ENV }), {
   // devtool: 'source-map', // Enable source maps. Please note that this will slow down the build
@@ -34,7 +34,8 @@ module.exports = webpackMerge(commonConfig({ env: ENV }), {
         test: /\.css$/,
         use: extractCSS.extract({
           fallback: 'style-loader',
-          use: ['css-loader']
+          use: ['css-loader'],
+          publicPath: '../'
         })
       }
     ]
