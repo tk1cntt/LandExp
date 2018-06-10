@@ -30,22 +30,18 @@ entity Street {
 }
 
 relationship ManyToOne {
-   District{region(name)} to Region,
    District{city(name)} to City,
    Street{district(name)} to District
 }
 
-entity UserRegion {
-   createAt LocalDate,
-   updateAt LocalDate
-}
-
-relationship ManyToOne {
-   UserRegion{user(login)} to User
-}
 
 relationship ManyToMany {
-   UserRegion{region(name)} to Region
+   Region{user(login)} to User
+}
+
+relationship OneToMany {
+   Region{districts} to District,
+   District{houses} to House
 }
 
 enum UserActionType {
@@ -57,7 +53,7 @@ enum StatusType {
 }
 
 enum LandType {
-   APARTMENT, PENHOUSE, HOME, HOME_VILLA, HOME_STREET_SIDE, LAND_SCAPE, LAND_OF_PROJECT, WAREHOUSES, KIOSKS, OTHER
+   APARTMENT, PEN_HOUSE, HOME, HOME_VILLA, HOME_STREET_SIDE, MOTEL_ROOM, OFFICE, LAND_SCAPE, LAND_OF_PROJECT, LAND_FARM, LAND_RESORT, WAREHOUSES, KIOSKS, OTHER
 }
 
 enum DirectionType {
@@ -73,10 +69,15 @@ enum SaleType {
 }
 
 enum MoneyType {
-   MILLION, HUNDRED_MILLION, BILLION
+   MILLION, BILLION
+}
+
+enum PresentType {
+   FURNITURE, DISCOUNT_PRICE
 }
 
 entity House {
+   avatar String,
    actionType UserActionType,
    address String,
    money Float,
@@ -84,14 +85,18 @@ entity House {
    acreage Float,
    discount Float,
    direction DirectionType,
+   directionBalcony DirectionType,
    floor String,
+   numberOfFloor Float,
    bathRoom Integer,
-   parking Boolean,
    bedRoom Integer,
+   parking Boolean,
+   furniture Boolean,
    landType LandType,
    saleType SaleType,
    fee Float,
    feeMax Float,
+   present PresentType,
    hits Integer,
    statusType StatusType,
    createAt LocalDate,
@@ -106,7 +111,7 @@ entity ServiceFee {
 relationship ManyToOne {
    House{city(name)} to City,
    House{street(name)} to Street,
-   House{project(name)} to LandProjects,
+   House{project(name)} to LandProject,
    House{createBy(login)} to User,
    House{updateBy(login)} to User
 }
@@ -125,22 +130,48 @@ relationship ManyToOne {
 }
 
 entity HousePhoto {
-   name String,
+   image ImageBlob,
    createAt LocalDate
 }
 
-entity LandProjects {
-   name String
+relationship ManyToOne {
+   HousePhoto{createBy(login)} to User,
+   HousePhoto{updateBy(login)} to User
+}
+
+relationship OneToMany {
+   House{photos} to HousePhoto
+}
+
+entity LandProject {
+   name String,
+   image ImageBlob
+}
+
+entity LandProjectPhoto {
+   image ImageBlob,
+   createAt LocalDate
 }
 
 relationship ManyToOne {
-   LandProjects{city(name)} to City,
-   LandProjects{street(name)} to Street,
-   LandProjects{createBy(login)} to User,
-   LandProjects{updateBy(login)} to User
+   LandProjectPhoto{createBy(login)} to User,
+   LandProjectPhoto{updateBy(login)} to User
+}
+
+relationship OneToMany {
+   LandProject{photos} to LandProjectPhoto
+}
+
+relationship ManyToOne {
+   LandProject{city(name)} to City,
+   LandProject{district(name)} to District,
+   LandProject{street(name)} to Street,
+   LandProject{createBy(login)} to User,
+   LandProject{updateBy(login)} to User
 }
 
 entity Article {
+   avatar ImageBlob,
    title String,
    titleAlias String,
    summary String,
@@ -170,7 +201,7 @@ entity UserProfile {
 }
 
 relationship ManyToOne {
-   UserProfile{user(login)} to User
+   UserProfile{user(email)} to User
 }
 
 enum UserActivityType {
@@ -198,6 +229,7 @@ entity UserSubscription {
 relationship ManyToOne {
    UserSubscription{user(login)} to User
    UserSubscription{city(name)} to City,
+   UserSubscription{district(name)} to District,
    UserSubscription{street(name)} to Street
 }
 
@@ -242,6 +274,7 @@ entity SearchTracking {
 relationship ManyToOne {
    SearchTracking{user(login)} to User
    SearchTracking{city(name)} to City,
+   SearchTracking{district(name)} to District,
    SearchTracking{street(name)} to Street
 }
 
@@ -260,7 +293,7 @@ relationship ManyToOne {
 }
 
 enum CustomerLevel {
-   NORMAL, SILVER, GOLD, PLATIUM
+   NORMAL, SILVER, GOLD, PLATINUM
 }
 
 entity PotentialCustomer {
@@ -317,9 +350,9 @@ relationship ManyToOne {
 }
 
 // Set pagination options
-paginate Region, District, Street, UserRegion, House, HouseTracking, HousePhoto with pagination
+paginate Region, District, Street, House, HouseTracking, HousePhoto with pagination
 
-paginate LandProjects, Article, Category, SearchTracking, Banner with pagination
+paginate LandProject, Article, Category, SearchTracking, Banner with pagination
 
 paginate UserProfile, UserSubscription, UserTracking, UserFeed, UserFinancial, PotentialCustomer, Payment with pagination
 
