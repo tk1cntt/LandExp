@@ -1,5 +1,7 @@
 package com.landexp.domain;
 
+
+import org.hibernate.annotations.CreationTimestamp;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 import javax.persistence.*;
@@ -30,6 +32,7 @@ public class HousePhoto implements Serializable {
     @Column(name = "image_content_type")
     private String imageContentType;
 
+    @CreationTimestamp
     @Column(name = "create_at")
     private LocalDate createAt;
 
