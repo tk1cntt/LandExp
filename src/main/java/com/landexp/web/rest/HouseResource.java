@@ -20,6 +20,7 @@ import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.annotation.Secured;
+import org.springframework.util.ObjectUtils;
 import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.*;
 
@@ -53,6 +54,28 @@ public class HouseResource {
     }
 
     /**
+     * GET  /houses/init : Init a new house.
+     *
+     * @return the ResponseEntity with status 201 (Created) and with body the new houseDTO, or with status 400 (Bad Request) if the house has already an ID
+     * @throws URISyntaxException if the Location URI syntax is incorrect
+     */
+    @GetMapping("/houses/init")
+    @Timed
+    @Secured(AuthoritiesConstants.USER)
+    public ResponseEntity<HouseDTO> initHouse() throws URISyntaxException {
+        log.debug("REST request to init House");
+        String username = SecurityUtils.getCurrentUserLogin().get();
+        HouseDTO houseDTO =  houseService.initHouse(username);
+        if (ObjectUtils.isEmpty(houseDTO)) {
+            houseDTO = new HouseDTO();
+            houseDTO.setStatusType(StatusType.PENDING);
+            log.debug("Save init House {}", houseDTO);
+            houseDTO = houseService.saveByUsername(houseDTO, username);
+        }
+        return ResponseUtil.wrapOrNotFound(Optional.of(houseDTO));
+    }
+
+    /**
      * POST  /houses : Create a new house.
      *
      * @param houseDTO the houseDTO to create
@@ -61,6 +84,7 @@ public class HouseResource {
      */
     @PostMapping("/houses")
     @Timed
+    @Secured(AuthoritiesConstants.USER)
     public ResponseEntity<HouseDTO> createHouse(@RequestBody HouseDTO houseDTO) throws URISyntaxException {
         log.debug("REST request to save House : {}", houseDTO);
         if (houseDTO.getId() != null) {
@@ -83,6 +107,7 @@ public class HouseResource {
      */
     @PutMapping("/houses")
     @Timed
+    @Secured(AuthoritiesConstants.USER)
     public ResponseEntity<HouseDTO> updateHouse(@RequestBody HouseDTO houseDTO) throws URISyntaxException {
         log.debug("REST request to update House : {}", houseDTO);
         if (houseDTO.getId() == null) {

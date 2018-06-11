@@ -1,8 +1,10 @@
 package com.landexp.service;
 
 import com.landexp.domain.House;
+import com.landexp.domain.User;
 import com.landexp.domain.enumeration.StatusType;
 import com.landexp.repository.HouseRepository;
+import com.landexp.repository.UserRepository;
 import com.landexp.repository.search.HouseSearchRepository;
 import com.landexp.service.dto.HouseDTO;
 import com.landexp.service.mapper.HouseMapper;
@@ -13,6 +15,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.util.ObjectUtils;
 
 
 import java.util.Optional;
@@ -34,10 +37,13 @@ public class HouseService {
 
     private final HouseSearchRepository houseSearchRepository;
 
-    public HouseService(HouseRepository houseRepository, HouseMapper houseMapper, HouseSearchRepository houseSearchRepository) {
+    private final UserRepository userRepository;
+
+    public HouseService(HouseRepository houseRepository, HouseMapper houseMapper, HouseSearchRepository houseSearchRepository, UserRepository userRepository) {
         this.houseRepository = houseRepository;
         this.houseMapper = houseMapper;
         this.houseSearchRepository = houseSearchRepository;
+        this.userRepository = userRepository;
     }
 
     /**
@@ -56,6 +62,24 @@ public class HouseService {
     }
 
     /**
+     * Save a house.
+     *
+     * @param houseDTO the entity to save
+     * @return the persisted entity
+     */
+    public HouseDTO saveByUsername(HouseDTO houseDTO, String username) {
+        log.debug("Request to save House : {}", houseDTO);
+        House house = houseMapper.toEntity(houseDTO);
+        Optional<User> existingUser = userRepository.findOneByLogin(username);
+        house.setCreateBy(existingUser.get());
+        house.setUpdateBy(existingUser.get());
+        house = houseRepository.save(house);
+        HouseDTO result = houseMapper.toDto(house);
+        houseSearchRepository.save(house);
+        return result;
+    }
+
+    /**
      * Get all the houses.
      *
      * @param pageable the pagination information
@@ -66,6 +90,22 @@ public class HouseService {
         log.debug("Request to get all Houses");
         return houseRepository.findAllByOrderByCreateAtDesc(pageable)
             .map(houseMapper::toDto);
+    }
+
+    /**
+     * Get init the houses.
+     *
+     * @return the persisted entity
+     */
+    @Transactional(readOnly = true)
+    public HouseDTO initHouse(String username) {
+        log.debug("Request to get init House {}", username);
+        House house = houseRepository.findFirstByStatusTypeAndCreateByLogin(StatusType.PENDING, username);
+        if (!ObjectUtils.isEmpty(house)) {
+            return houseMapper.toDto(house);
+        } else {
+            return null;
+        }
     }
 
     /**

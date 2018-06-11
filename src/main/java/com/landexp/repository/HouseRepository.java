@@ -5,10 +5,10 @@ import com.landexp.domain.enumeration.StatusType;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.*;
-import org.springframework.data.repository.PagingAndSortingRepository;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
+import java.util.Optional;
 
 /**
  * Spring Data  repository for the House entity.
@@ -28,4 +28,6 @@ public interface HouseRepository extends JpaRepository<House, Long>, JpaSpecific
     Page<House> findByDistrictRegionUsersLoginOrderByCreateAtDesc(String username, Pageable pageable);
 
     Page<House> findAllByOrderByCreateAtDesc(Pageable pageable);
+
+    House findFirstByStatusTypeAndCreateByLogin(StatusType statusType, String username);
 }
