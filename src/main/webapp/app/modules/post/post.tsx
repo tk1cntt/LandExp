@@ -14,19 +14,44 @@ import { getSession } from 'app/shared/reducers/authentication';
 
 import StepOne from './stepOne';
 import StepTwo from './stepTwo';
+import StepThree from './stepThree';
+import StepFour from './stepFour';
+import StepFive from './stepFive';
+import StepSix from './stepTwo';
+import StepSeven from './stepOne';
 
 import './antd.min.css';
 
-const steps = [{
-  title: 'First',
-  content: <StepOne />
-}, {
-  title: 'Second',
-  content: <StepTwo />
-}, {
-  title: 'Last',
-  content: <StepOne />
-}];
+const steps = [
+  {
+    title: 'Hình thức',
+    content: <StepOne />
+  },
+  {
+    title: 'Vị trí',
+    content: <StepTwo />
+  },
+  {
+    title: 'Đặc điểm',
+    content: <StepThree />
+  },
+  {
+    title: 'Giá',
+    content: <StepFour />
+  },
+  {
+    title: 'Liên hệ',
+    content: <StepFive />
+  },
+  {
+    title: 'Xác nhận',
+    content: <StepSix />
+  },
+  {
+    title: 'Thanh toán',
+    content: <StepSeven />
+  }
+];
 
 export interface IPostProp extends StateProps, DispatchProps {}
 
@@ -53,34 +78,30 @@ export class PostPage extends React.Component<IPostProp, IPostState> {
     const { current } = this.state;
     return (
       <Row>
-        <Col md="9">
+        <Col md="12">
+          <Steps size="small" current={current}>
+            {steps.map(item => <Step key={item.title} title={item.title} />)}
+          </Steps>
+        </Col>
+        <Col md="8" className="pad">
           <div>
-            <Steps current={current}>
-              {steps.map(item => <Step key={item.title} title={item.title} />)}
-            </Steps>
             <div className="steps-content">{steps[this.state.current].content}</div>
-            <div className="steps-action">
-              {
-                this.state.current < steps.length - 1
-                &&
-                <Button type="primary" onClick={() => this.next()}>Next</Button>
-              }
-              {
-                this.state.current === steps.length - 1
-                &&
-                <Button type="primary" onClick={() => message.success('Processing complete!')}>Done</Button>
-              }
-              {
-                this.state.current > 0
-                &&
-                <Button style={{ marginLeft: 8 }} onClick={() => this.prev()}>
-                  Previous
+            <div className="steps-action" style={{ marginTop: 16 }}>
+              {this.state.current === steps.length - 1 && (
+                <Button type="primary" onClick={() => message.success('Processing complete!')}>
+                  Done
                 </Button>
-              }
+              )}
+              {this.state.current > 0 && <Button onClick={() => this.prev()}>Previous</Button>}
+              {this.state.current < steps.length - 1 && (
+                <Button style={{ marginLeft: 8 }} type="primary" onClick={() => this.next()}>
+                  Next
+                </Button>
+              )}
             </div>
           </div>
         </Col>
-        <Col md="3" className="pad">
+        <Col md="4" className="pad">
           Main step
         </Col>
       </Row>
