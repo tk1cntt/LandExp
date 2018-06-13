@@ -28,7 +28,7 @@ export class StepThree extends React.Component<IStepThreeProp, IStepThreeState> 
     this.props.getSession();
   }
 
-  onChange = (e) => {
+  onChangeDirectionType = (e) => {
     this.setState({
       directionType: e.target.value,
     });

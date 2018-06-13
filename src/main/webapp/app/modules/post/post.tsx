@@ -83,7 +83,7 @@ export class PostPage extends React.Component<IPostProp, IPostState> {
             {steps.map(item => <Step key={item.title} title={item.title} />)}
           </Steps>
         </Col>
-        <Col md="8" className="pad">
+        <Col md="12">
           <div>
             <div className="steps-content">{steps[this.state.current].content}</div>
             <div className="steps-action" style={{ marginTop: 16 }}>
@@ -100,9 +100,6 @@ export class PostPage extends React.Component<IPostProp, IPostState> {
               )}
             </div>
           </div>
-        </Col>
-        <Col md="4" className="pad">
-          Main step
         </Col>
       </Row>
     );

@@ -20,7 +20,7 @@ export interface IStepOneState {
 }
 
 export class StepOne extends React.Component<IStepOneProp> {
-  state: IPostState = {
+  state: IStepOneState = {
     landType: '',
     actionType: ''
   };
@@ -52,8 +52,8 @@ export class StepOne extends React.Component<IStepOneProp> {
         <Col md="12">
           <div style={{ marginTop: 16 }}>
             <RadioGroup onChange={this.onChangeActionType} value={this.state.actionType} defaultValue="FOR_SELL">
-              <RadioButton value={'FOR_SELL'}>Bán</Radio>
-              <RadioButton value={'FOR_RENT'}>Cho thuê</Radio>
+              <RadioButton value={'FOR_SELL'}>Bán</RadioButton>
+              <RadioButton value={'FOR_RENT'}>Cho thuê</RadioButton>
             </RadioGroup>
           </div>
         </Col>

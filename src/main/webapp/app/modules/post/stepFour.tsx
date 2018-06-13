@@ -17,12 +17,12 @@ import { getSession } from 'app/shared/reducers/authentication';
 export interface IStepFourProp extends StateProps, DispatchProps {}
 
 export interface IStepFourState {
-  directionType: string
+  sellType: string
 }
 
 export class StepFour extends React.Component<IStepFourProp, IStepFourState> {
   state: IStepFourState = {
-    directionType: ''
+    sellType: ''
   };
 
   componentDidMount() {
@@ -32,7 +32,7 @@ export class StepFour extends React.Component<IStepFourProp, IStepFourState> {
   onChange = (e) => {
     console.log('radio checked', e.target.value);
     this.setState({
-      value: e.target.value,
+      sellType: e.target.value,
     });
   }
 
@@ -65,7 +65,7 @@ export class StepFour extends React.Component<IStepFourProp, IStepFourState> {
         </Col>
         <Col md="12">
           <div>
-            <RadioGroup onChange={this.onChange} value={this.state.value}>
+            <RadioGroup onChange={this.onChange} value={this.state.sellType}>
               <Radio style={radioStyle} value={1}>Tự bán</Radio>
               Người mua quan tâm sẽ liên hệ trực tiếp với bạn
               <Radio style={radioStyle} value={2}>Hỗ trợ bán</Radio>

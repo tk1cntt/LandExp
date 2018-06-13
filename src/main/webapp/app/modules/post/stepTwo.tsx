@@ -85,7 +85,11 @@ export class StepTwo extends React.Component<IStepTwoProp> {
           <h5>Vị trí bất động sản của bạn</h5>
         </Col>
         <Col md="12">
-          <Cascader style={{ width: '50%' }} options={options} onChange={this.onChange} placeholder="Please select" />
+          <div style={{ marginTop: 16 }}>
+            <Cascader style={{ width: '50%' }} options={options} onChange={this.onChange} placeholder="Chọn thành phố" />
+          </div>
+        </Col>
+        <Col md="12">
           <div style={{ marginTop: 16 }}>
             <Input addonBefore="Địa chỉ chi tiết" placeholder="Số nhà, ngõ, ngách, phố"/>
           </div>
