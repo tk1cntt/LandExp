@@ -14,15 +14,6 @@ import { IRootState } from 'app/shared/reducers';
 import { getSession } from 'app/shared/reducers/authentication';
 import district from 'app/entities/district/district';
 
-export interface IStepTwoProp extends StateProps, DispatchProps {
-  updateHouse: any
-}
-
-export interface IStepOneState {
-  city: any,
-  address: any
-}
-
 const options = [{
   value: 'HANOI',
   label: 'Hà Nội',
@@ -79,7 +70,16 @@ const options = [{
   }]
 }];
 
-export class StepTwo extends React.Component<IStepTwoProp> {
+export interface IStepTwoProp extends StateProps, DispatchProps {
+  updateHouse: any
+}
+
+export interface IStepOneState {
+  city: any,
+  address: any
+}
+
+export class StepTwo extends React.Component<IStepTwoProp, IStepOneState> {
   state: IStepOneState = {
     city: null,
     address: null

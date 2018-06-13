@@ -23,7 +23,7 @@ export interface IStepOneState {
   actionType: any
 }
 
-export class StepOne extends React.Component<IStepOneProp> {
+export class StepOne extends React.Component<IStepOneProp, IStepOneState> {
   state: IStepOneState = {
     landType: null,
     actionType: null

@@ -16,12 +16,16 @@ import { getSession } from 'app/shared/reducers/authentication';
 export interface IStepThreeProp extends StateProps, DispatchProps {}
 
 export interface IStepThreeState {
-  directionType: string
+  acreage: any,
+  acreageStreetSide: any,
+  bedRoom: any
 }
 
 export class StepThree extends React.Component<IStepThreeProp, IStepThreeState> {
   state: IStepThreeState = {
-    directionType: ''
+    acreage: null,
+    acreageStreetSide: null,
+    bedRoom: null
   };
 
   componentDidMount() {
@@ -30,8 +34,38 @@ export class StepThree extends React.Component<IStepThreeProp, IStepThreeState> 
 
   onChangeDirectionType = (e) => {
     this.setState({
-      directionType: e.target.value,
+      // directionType: e.target.value,
     });
+  }
+
+  onChangeAcreage = (e) => {
+    const { value } = e.target;
+    const reg = /^-?(0|[1-9][0-9]*)(\.[0-9]*)?$/;
+    if ((!isNaN(value) && reg.test(value)) || value === '' || value === '-') {
+      this.setState({
+        acreage: e.target.value,
+      });
+    }
+  }
+
+  onChangeAcreageStreetSide = (e) => {
+    const { value } = e.target;
+    const reg = /^-?(0|[1-9][0-9]*)(\.[0-9]*)?$/;
+    if ((!isNaN(value) && reg.test(value)) || value === '' || value === '-') {
+      this.setState({
+        acreageStreetSide: e.target.value,
+      });
+    }
+  }
+
+  onChangeBedRoom = (e) => {
+    const { value } = e.target;
+    const reg = /^-?([1-9]*)?$/;
+    if ((!isNaN(value) && reg.test(value)) || value === '' || value === '-') {
+      this.setState({
+        bedRoom: e.target.value,
+      });
+    }
   }
 
   render() {
@@ -43,17 +77,17 @@ export class StepThree extends React.Component<IStepThreeProp, IStepThreeState> 
         </Col>
         <Col md="6">
           <div style={{ marginTop: 16 }}>
-            <Input addonBefore="Diện tích" placeholder="Diện tích nhà bao nhiêu mét vuông?"/>
+            <Input addonBefore="Diện tích" value={this.state.acreage} defaultValue={this.state.acreage || this.props.house.acreage} onChange={this.onChangeAcreage} placeholder="Diện tích nhà bao nhiêu mét vuông?" />
           </div>
         </Col>
         <Col md="6">
           <div style={{ marginTop: 16 }}>
-            <Input addonBefore="Mặt tiền" placeholder="Diện tích mặt tiền bao nhiêu mét?"/>
+            <Input addonBefore="Mặt tiền" value={this.state.acreageStreetSide} defaultValue={this.state.acreageStreetSide || this.props.house.acreageStreetSide} onChange={this.onChangeAcreageStreetSide} placeholder="Diện tích mặt tiền bao nhiêu mét?" />
           </div>
         </Col>
         <Col md="6">
           <div style={{ marginTop: 16 }}>
-            <Input addonBefore="Số phòng ngủ" placeholder="Nhà bạn có bao nhiêu phòng ngủ?"/>
+            <Input addonBefore="Số phòng ngủ" value={this.state.bedRoom} defaultValue={this.state.bedRoom || this.props.house.bedRoom} onChange={this.onChangeBedRoom} placeholder="Nhà bạn có bao nhiêu phòng ngủ?" />
           </div>
         </Col>
         <Col md="6">
@@ -92,7 +126,8 @@ export class StepThree extends React.Component<IStepThreeProp, IStepThreeState> 
 
 const mapStateToProps = storeState => ({
   account: storeState.authentication.account,
-  isAuthenticated: storeState.authentication.isAuthenticated
+  isAuthenticated: storeState.authentication.isAuthenticated,
+  house: storeState.house.entity
 });
 
 const mapDispatchToProps = { getSession };

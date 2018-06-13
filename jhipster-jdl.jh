@@ -91,6 +91,7 @@ entity House {
    money Float,
    moneyType MoneyType,
    acreage Float,
+   acreageStreetSide Float,
    discount Float,
    direction DirectionType,
    directionBalcony DirectionType,
