@@ -17,10 +17,8 @@ import StepTwo from './stepTwo';
 import StepThree from './stepThree';
 import StepFour from './stepFour';
 import StepFive from './stepFive';
-import StepSix from './stepTwo';
+import StepSix from './stepSix';
 import StepSeven from './stepOne';
-
-import './antd.min.css';
 
 const steps = [
   {

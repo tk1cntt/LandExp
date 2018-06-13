@@ -16,6 +16,8 @@ import { hasAnyAuthority } from 'app/shared/auth/private-route';
 import { AUTHORITIES } from 'app/config/constants';
 import AppRoutes from 'app/routes';
 
+import './antd.min.css';
+
 export interface IAppProps extends StateProps, DispatchProps {}
 
 export class App extends React.Component<IAppProps> {
