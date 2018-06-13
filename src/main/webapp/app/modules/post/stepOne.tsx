@@ -56,18 +56,18 @@ export class StepOne extends React.Component<IStepOneProp> {
     return (
       <Row>
         <Col md="12">
-          <h5>Bạn muốn bán hay cho thuê bất động sản</h5>
+          <h6 style={{ marginTop: 16 }}>Bạn muốn bán hay cho thuê bất động sản?</h6>
         </Col>
         <Col md="12">
           <div style={{ marginTop: 16 }}>
             <RadioGroup onChange={this.onChangeActionType} value={this.state.actionType || this.props.house.actionType} defaultValue="FOR_SELL">
-              <RadioButton value={'FOR_SELL'}>Bán</RadioButton>
-              <RadioButton value={'FOR_RENT'}>Cho thuê</RadioButton>
+              <RadioButton value={'FOR_SELL'}>Bán bất động sản</RadioButton>
+              <RadioButton value={'FOR_RENT'}>Cho thuê bất động sản</RadioButton>
             </RadioGroup>
           </div>
         </Col>
         <Col md="12">
-          <h5 style={{ marginTop: 16 }}>Chọn loại bất động sản bạn muốn bán</h5>
+          <h6 style={{ marginTop: 16 }}>Chọn loại bất động sản bạn muốn bán</h6>
         </Col>
         <Col md="12">
           <div style={{ marginTop: 16 }}>

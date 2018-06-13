@@ -20,6 +20,13 @@ entity District {
    updateAt LocalDate
 }
 
+entity Ward {
+   name String,
+   enabled Boolean,
+   createAt LocalDate,
+   updateAt LocalDate
+}
+
 entity Street {
    name String,
    postalCode String,
@@ -31,7 +38,8 @@ entity Street {
 
 relationship ManyToOne {
    District{city(name)} to City,
-   Street{district(name)} to District
+   Ward{district(name)} to District,
+   Street{district(name)} to Ward
 }
 
 
