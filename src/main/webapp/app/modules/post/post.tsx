@@ -12,7 +12,7 @@ const Step = Steps.Step;
 import { IRootState } from 'app/shared/reducers';
 import { getSession } from 'app/shared/reducers/authentication';
 
-import { getEntity, updateEntity } from './post.reducer';
+import { getEntity, updateEntity } from './house.reducer';
 
 import StepOne from './stepOne';
 import StepTwo from './stepTwo';
