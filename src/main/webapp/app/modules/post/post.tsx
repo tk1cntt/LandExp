@@ -12,6 +12,8 @@ const Step = Steps.Step;
 import { IRootState } from 'app/shared/reducers';
 import { getSession } from 'app/shared/reducers/authentication';
 
+import { getEntity, updateEntity } from './post.reducer';
+
 import StepOne from './stepOne';
 import StepTwo from './stepTwo';
 import StepThree from './stepThree';
@@ -20,60 +22,101 @@ import StepFive from './stepFive';
 import StepSix from './stepSix';
 import StepSeven from './stepOne';
 
-const steps = [
-  {
-    title: 'Hình thức',
-    content: <StepOne />
-  },
-  {
-    title: 'Vị trí',
-    content: <StepTwo />
-  },
-  {
-    title: 'Đặc điểm',
-    content: <StepThree />
-  },
-  {
-    title: 'Giá',
-    content: <StepFour />
-  },
-  {
-    title: 'Liên hệ',
-    content: <StepFive />
-  },
-  {
-    title: 'Xác nhận',
-    content: <StepSix />
-  },
-  {
-    title: 'Thanh toán',
-    content: <StepSeven />
-  }
-];
-
 export interface IPostProp extends StateProps, DispatchProps {}
 
 export interface IPostState {
-  current: any;
+  current: any,
+  house: any
 }
 
 export class PostPage extends React.Component<IPostProp, IPostState> {
   state: IPostState = {
-    current: 0
+    current: 0,
+    house: {}
   };
+
   componentDidMount() {
     this.props.getSession();
+    this.props.getEntity('init');
   }
-  next() {
+
+  next = () => {
+    this.validateStep(this.state.current);
     const current = this.state.current + 1;
     this.setState({ current });
   }
-  prev() {
+
+  prev = () => {
     const current = this.state.current - 1;
     this.setState({ current });
   }
+
+  validateStep = (id) => {
+    switch (id) {
+      case 0:
+        this.validateStepOne();
+        break;
+      case 1:
+        this.validateStepTwo();
+        break;
+      default:
+        console.log("Validate step ", id);
+        break;
+    }
+  }
+
+  validateStepOne = () => {
+    console.log("Validate step one");
+  }
+
+  validateStepTwo = () => {
+    console.log("Validate step two");
+  }
+
+  saveEntity = () => {
+    console.log('Save entity', this.state.house);
+    // this.props.updateEntity(this.state.house);
+  };
+
+  updateHouse = (house) => {
+    let currentHouse = this.state.house;
+    currentHouse = Object.assign(currentHouse, house);
+    this.setState({
+      house: currentHouse
+    });
+  }
   render() {
-    const { current } = this.state;
+    const { current, house } = this.state;
+    const steps = [
+      {
+        title: 'Hình thức',
+        content: <StepOne updateHouse={this.updateHouse} />
+      },
+      {
+        title: 'Vị trí',
+        content: <StepTwo />
+      },
+      {
+        title: 'Đặc điểm',
+        content: <StepThree />
+      },
+      {
+        title: 'Giá',
+        content: <StepFour />
+      },
+      {
+        title: 'Liên hệ',
+        content: <StepFive />
+      },
+      {
+        title: 'Xác nhận',
+        content: <StepSix />
+      },
+      {
+        title: 'Thanh toán',
+        content: <StepSeven />
+      }
+    ];
     return (
       <Row>
         <Col md="12">
@@ -86,7 +129,7 @@ export class PostPage extends React.Component<IPostProp, IPostState> {
             <div className="steps-content">{steps[this.state.current].content}</div>
             <div className="steps-action" style={{ marginTop: 16 }}>
               {this.state.current === steps.length - 1 && (
-                <Button type="primary" onClick={() => message.success('Processing complete!')}>
+                <Button type="primary" onClick={() => this.saveEntity()}>
                   Done
                 </Button>
               )}
@@ -106,10 +149,13 @@ export class PostPage extends React.Component<IPostProp, IPostState> {
 
 const mapStateToProps = storeState => ({
   account: storeState.authentication.account,
-  isAuthenticated: storeState.authentication.isAuthenticated
+  isAuthenticated: storeState.authentication.isAuthenticated,
+  house: storeState.house.entity,
+  loading: storeState.house.loading,
+  updating: storeState.house.updating
 });
 
-const mapDispatchToProps = { getSession };
+const mapDispatchToProps = { getSession, getEntity, updateEntity };
 
 type StateProps = ReturnType<typeof mapStateToProps>;
 type DispatchProps = typeof mapDispatchToProps;

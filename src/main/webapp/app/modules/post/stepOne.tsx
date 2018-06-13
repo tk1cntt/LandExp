@@ -12,33 +12,42 @@ const RadioGroup = Radio.Group;
 import { IRootState } from 'app/shared/reducers';
 import { getSession } from 'app/shared/reducers/authentication';
 
-export interface IStepOneProp extends StateProps, DispatchProps {}
+import { updateEntity } from './post.reducer';
+
+export interface IStepOneProp extends StateProps, DispatchProps {
+  updateHouse: any
+}
 
 export interface IStepOneState {
-  landType: string,
-  actionType: string
+  landType: any,
+  actionType: any
 }
 
 export class StepOne extends React.Component<IStepOneProp> {
   state: IStepOneState = {
-    landType: '',
-    actionType: ''
+    landType: null,
+    actionType: null
   };
+
   componentDidMount() {
     this.props.getSession();
   }
 
   onChangeActionType = (e) => {
-    console.log('radio checked', e.target.value);
     this.setState({
-      actionType: e.target.value,
+      actionType: e.target.value
+    });
+    this.props.updateHouse({
+      actionType: e.target.value
     });
   }
 
   onChangeLandType = (e) => {
-    console.log('radio checked', e.target.value);
     this.setState({
-      landType: e.target.value,
+      landType: e.target.value
+    });
+    this.props.updateHouse({
+      landType: e.target.value
     });
   }
 
@@ -51,7 +60,7 @@ export class StepOne extends React.Component<IStepOneProp> {
         </Col>
         <Col md="12">
           <div style={{ marginTop: 16 }}>
-            <RadioGroup onChange={this.onChangeActionType} value={this.state.actionType} defaultValue="FOR_SELL">
+            <RadioGroup onChange={this.onChangeActionType} value={this.state.actionType || this.props.house.actionType} defaultValue="FOR_SELL">
               <RadioButton value={'FOR_SELL'}>Bán</RadioButton>
               <RadioButton value={'FOR_RENT'}>Cho thuê</RadioButton>
             </RadioGroup>
@@ -62,7 +71,7 @@ export class StepOne extends React.Component<IStepOneProp> {
         </Col>
         <Col md="12">
           <div style={{ marginTop: 16 }}>
-            <RadioGroup onChange={this.onChangeLandType} value={this.state.landType}>
+            <RadioGroup onChange={this.onChangeLandType} value={this.state.landType || this.props.house.landType}>
               <RadioButton value="APARTMENT">Chung cư</RadioButton>
               <RadioButton value="HOME">Nhà riêng</RadioButton>
               <RadioButton value="HOME_VILLA">Biệt thự</RadioButton>
@@ -72,7 +81,7 @@ export class StepOne extends React.Component<IStepOneProp> {
         </Col>
         <Col md="12">
           <div style={{ marginTop: 16 }}>
-            <RadioGroup onChange={this.onChangeLandType} value={this.state.landType}>
+            <RadioGroup onChange={this.onChangeLandType} value={this.state.landType || this.props.house.landType}>
               <RadioButton value="LAND_SCAPE">Đất ở</RadioButton>
               <RadioButton value="LAND_OF_PROJECT">Đất dự án</RadioButton>
               <RadioButton value="LAND_FARM">Đất nông nghiệp</RadioButton>
@@ -82,7 +91,7 @@ export class StepOne extends React.Component<IStepOneProp> {
         </Col>
         <Col md="12">
           <div style={{ marginTop: 16 }}>
-            <RadioGroup onChange={this.onChangeLandType} value={this.state.landType}>
+            <RadioGroup onChange={this.onChangeLandType} value={this.state.landType || this.props.house.landType}>
               <RadioButton value="MOTEL_ROOM">Phòng trọ</RadioButton>
               <RadioButton value="OFFICE">Văn phòng</RadioButton>
               <RadioButton value="WAREHOUSES">Kho, nhà xưởng</RadioButton>
@@ -98,7 +107,8 @@ export class StepOne extends React.Component<IStepOneProp> {
 
 const mapStateToProps = storeState => ({
   account: storeState.authentication.account,
-  isAuthenticated: storeState.authentication.isAuthenticated
+  isAuthenticated: storeState.authentication.isAuthenticated,
+  house: storeState.house.entity
 });
 
 const mapDispatchToProps = { getSession };
