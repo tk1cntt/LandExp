@@ -5,80 +5,60 @@ import { Link } from 'react-router-dom';
 import { Translate } from 'react-jhipster';
 import { connect } from 'react-redux';
 import { Row, Col, Alert } from 'reactstrap';
-import { Upload, Icon, Modal } from 'antd';
+import { Cascader, Input, Select, Radio } from 'antd';
+const InputGroup = Input.Group;
+const Option = Select.Option;
+const RadioButton = Radio.Button;
+const RadioGroup = Radio.Group;
 
 import { IRootState } from 'app/shared/reducers';
 import { getSession } from 'app/shared/reducers/authentication';
 
-export interface IStepSixProp extends StateProps, DispatchProps { }
+export interface IStepSixProp extends StateProps, DispatchProps {}
 
 export interface IStepSixState {
-  previewVisible: boolean,
-  previewImage: string,
-  fileList: any
+  value: string
 }
 
 export class StepSix extends React.Component<IStepSixProp, IStepSixState> {
   state: IStepSixState = {
-    previewVisible: false,
-    previewImage: '',
-    fileList: [{
-      uid: -1,
-      name: 'xxx.png',
-      status: 'done',
-      url: 'https://zos.alipayobjects.com/rmsportal/jkjgkEfvpUPVyRjUImniVslZfWPnJuuZ.png',
-    }],
+    value: ''
   };
 
   componentDidMount() {
     this.props.getSession();
   }
 
-  onImportFile = (file) => {
-    console.log(file);
-    // this.props.dispatch(importSpotAction(file));
-  }
-
-  handleCancel = () => this.setState({ previewVisible: false })
-
-  handlePreview = (file) => {
+  onChange = (e) => {
+    console.log('radio checked', e.target.value);
     this.setState({
-      previewImage: file.url || file.thumbUrl,
-      previewVisible: true,
+      value: e.target.value,
     });
   }
 
-  handleChange = ({ fileList }) => this.setState({ fileList })
-
   render() {
-    const propsDragger = {
-      name: 'file',
-      multiple: true,
-      onStart: this.onImportFile,
-    };
     const { account } = this.props;
-    const { previewVisible, previewImage, fileList } = this.state;
-    const uploadButton = (
-      <div>
-        <Icon type="plus" />
-        <div className="ant-upload-text">Upload</div>
-      </div>
-    );
+    const radioStyle = {
+      display: 'block',
+      height: '30px',
+      lineHeight: '30px',
+    };
     return (
-      <div className="clearfix">
-        <Upload
-          action="/houses/images/123456789"
-          listType="picture-card"
-          fileList={fileList}
-          onPreview={this.handlePreview}
-          onChange={this.handleChange}
-        >
-          {fileList.length >= 10 ? null : uploadButton}
-        </Upload>
-        <Modal visible={previewVisible} footer={null} onCancel={this.handleCancel}>
-          <img alt="example" style={{ width: '100%' }} src={previewImage} />
-        </Modal>
-      </div>
+      <Row>
+        <Col md="12">
+          <h5>Thông tin liên hệ của bạn?</h5>
+        </Col>
+        <Col md="12">
+          <div style={{ marginTop: 16 }}>
+            <Input addonBefore="Họ và tên " placeholder="Ho và tên người liên hệ"/>
+          </div>
+        </Col>
+        <Col md="12">
+          <div style={{ marginTop: 16 }}>
+            <Input addonBefore="Điện thoại" placeholder="Số điện thoại liên hệ"/>
+          </div>
+        </Col>
+      </Row>
     );
   }
 }

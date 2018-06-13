@@ -17,12 +17,12 @@ import { getSession } from 'app/shared/reducers/authentication';
 export interface IStepFiveProp extends StateProps, DispatchProps {}
 
 export interface IStepFiveState {
-  value: string
+  sellType: string
 }
 
 export class StepFive extends React.Component<IStepFiveProp, IStepFiveState> {
   state: IStepFiveState = {
-    value: ''
+    sellType: ''
   };
 
   componentDidMount() {
@@ -32,7 +32,7 @@ export class StepFive extends React.Component<IStepFiveProp, IStepFiveState> {
   onChange = (e) => {
     console.log('radio checked', e.target.value);
     this.setState({
-      value: e.target.value,
+      sellType: e.target.value,
     });
   }
 
@@ -46,16 +46,33 @@ export class StepFive extends React.Component<IStepFiveProp, IStepFiveState> {
     return (
       <Row>
         <Col md="12">
-          <h5>Thông tin liên hệ của bạn?</h5>
+          <h5>Giá và chính sách bán của bạn là gì?</h5>
         </Col>
         <Col md="12">
           <div style={{ marginTop: 16 }}>
-            <Input addonBefore="Họ và tên " placeholder="Ho và tên người liên hệ"/>
+            <Input addonBefore="Giá bán" placeholder="Giá bán ngôi nhà của bạn VNĐ?"/>
           </div>
         </Col>
         <Col md="12">
           <div style={{ marginTop: 16 }}>
-            <Input addonBefore="Điện thoại" placeholder="Số điện thoại liên hệ"/>
+            Phí đăng 200.000 VNĐ
+          </div>
+        </Col>
+        <Col md="12">
+          <div style={{ marginTop: 16 }}>
+            Hình thức bán
+          </div>
+        </Col>
+        <Col md="12">
+          <div>
+            <RadioGroup onChange={this.onChange} value={this.state.sellType}>
+              <Radio style={radioStyle} value={1}>Tự bán</Radio>
+              Người mua quan tâm sẽ liên hệ trực tiếp với bạn
+              <Radio style={radioStyle} value={2}>Hỗ trợ bán</Radio>
+              Chúng tôi hỗ trợ bán tận răng
+              <br/>
+              Phí hoa hồng bán: 0.5%/giá bán (Không quá 10 triệu VNĐ)
+            </RadioGroup>
           </div>
         </Col>
       </Row>

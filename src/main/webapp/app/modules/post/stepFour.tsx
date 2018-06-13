@@ -5,77 +5,69 @@ import { Link } from 'react-router-dom';
 import { Translate } from 'react-jhipster';
 import { connect } from 'react-redux';
 import { Row, Col, Alert } from 'reactstrap';
-import { Cascader, Input, Select, Radio } from 'antd';
-const InputGroup = Input.Group;
-const Option = Select.Option;
-const RadioButton = Radio.Button;
-const RadioGroup = Radio.Group;
+import { Upload, Icon, Modal } from 'antd';
 
 import { IRootState } from 'app/shared/reducers';
 import { getSession } from 'app/shared/reducers/authentication';
 
-export interface IStepFourProp extends StateProps, DispatchProps {}
+export interface IStepFourProp extends StateProps, DispatchProps { }
 
 export interface IStepFourState {
-  sellType: string
+  previewVisible: boolean;
+  previewImage: string;
+  fileList: any;
 }
 
 export class StepFour extends React.Component<IStepFourProp, IStepFourState> {
   state: IStepFourState = {
-    sellType: ''
+    previewVisible: false,
+    previewImage: '',
+    fileList: []
   };
 
   componentDidMount() {
     this.props.getSession();
   }
 
-  onChange = (e) => {
-    console.log('radio checked', e.target.value);
+  handleCancel = () => {
     this.setState({
-      sellType: e.target.value,
+      previewVisible: false
     });
   }
 
+  handlePreview = file => {
+    this.setState({
+      previewImage: file.url || file.thumbUrl,
+      previewVisible: true
+    });
+  }
+
+  handleChange = ({ fileList }) => this.setState({ fileList });
+
   render() {
     const { account } = this.props;
-    const radioStyle = {
-      display: 'block',
-      height: '30px',
-      lineHeight: '30px',
-    };
+    const { previewVisible, previewImage, fileList } = this.state;
+    const uploadButton = (
+      <div>
+        <Icon type="plus" />
+        <div className="ant-upload-text">Upload</div>
+      </div>
+    );
     return (
-      <Row>
-        <Col md="12">
-          <h5>Giá và chính sách bán của bạn là gì?</h5>
-        </Col>
-        <Col md="12">
-          <div style={{ marginTop: 16 }}>
-            <Input addonBefore="Giá bán" placeholder="Giá bán ngôi nhà của bạn VNĐ?"/>
-          </div>
-        </Col>
-        <Col md="12">
-          <div style={{ marginTop: 16 }}>
-            Phí đăng 200.000 VNĐ
-          </div>
-        </Col>
-        <Col md="12">
-          <div style={{ marginTop: 16 }}>
-            Hình thức bán
-          </div>
-        </Col>
-        <Col md="12">
-          <div>
-            <RadioGroup onChange={this.onChange} value={this.state.sellType}>
-              <Radio style={radioStyle} value={1}>Tự bán</Radio>
-              Người mua quan tâm sẽ liên hệ trực tiếp với bạn
-              <Radio style={radioStyle} value={2}>Hỗ trợ bán</Radio>
-              Chúng tôi hỗ trợ bán tận răng
-              <br/>
-              Phí hoa hồng bán: 0.5%/giá bán (Không quá 10 triệu VNĐ)
-            </RadioGroup>
-          </div>
-        </Col>
-      </Row>
+      <div className="clearfix" style={{ margin: 30 }}>
+        <Upload
+          action="/api/houses-images/123456789"
+          listType="picture-card"
+          fileList={fileList}
+          onPreview={this.handlePreview}
+          onChange={this.handleChange}
+        >
+          {fileList.length >= 10 ? null : uploadButton}
+        </Upload>
+        <Modal visible={previewVisible} footer={null} onCancel={this.handleCancel}>
+          <img alt="example" style={{ width: '100%' }} src={previewImage} />
+        </Modal>
+      </div>
     );
   }
 }

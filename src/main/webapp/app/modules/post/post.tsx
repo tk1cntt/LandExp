@@ -20,7 +20,7 @@ import StepThree from './stepThree';
 import StepFour from './stepFour';
 import StepFive from './stepFive';
 import StepSix from './stepSix';
-import StepSeven from './stepOne';
+import StepSeven from './stepSeven';
 
 export interface IPostProp extends StateProps, DispatchProps {}
 
@@ -100,16 +100,20 @@ export class PostPage extends React.Component<IPostProp, IPostState> {
         content: <StepThree />
       },
       {
-        title: 'Giá',
+        title: 'Hình ảnh',
         content: <StepFour />
       },
       {
-        title: 'Liên hệ',
+        title: 'Giá',
         content: <StepFive />
       },
       {
-        title: 'Xác nhận',
+        title: 'Liên hệ',
         content: <StepSix />
+      },
+      {
+        title: 'Xác nhận',
+        content: <StepSeven />
       },
       {
         title: 'Thanh toán',
@@ -127,15 +131,15 @@ export class PostPage extends React.Component<IPostProp, IPostState> {
           <div>
             <div className="steps-content">{steps[this.state.current].content}</div>
             <div className="steps-action" style={{ marginTop: 16 }}>
+              {this.state.current > 0 && <Button style={{ marginRight: 8 }} onClick={() => this.prev()}>Previous</Button>}
+              {this.state.current < steps.length - 1 && (
+                <Button type="primary" onClick={() => this.next()}>
+                  Next
+                </Button>
+              )}
               {this.state.current === steps.length - 1 && (
                 <Button type="primary" onClick={() => this.saveEntity()}>
                   Done
-                </Button>
-              )}
-              {this.state.current > 0 && <Button onClick={() => this.prev()}>Previous</Button>}
-              {this.state.current < steps.length - 1 && (
-                <Button style={{ marginLeft: 8 }} type="primary" onClick={() => this.next()}>
-                  Next
                 </Button>
               )}
             </div>
