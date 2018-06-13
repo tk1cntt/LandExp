@@ -5,6 +5,7 @@ import org.springframework.data.jpa.repository.*;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
+import java.util.Optional;
 
 /**
  * Spring Data  repository for the Payment entity.
@@ -22,4 +23,5 @@ public interface PaymentRepository extends JpaRepository<Payment, Long>, JpaSpec
     @Query("select payment from Payment payment where payment.updateBy.login = ?#{principal.username}")
     List<Payment> findByUpdateByIsCurrentUser();
 
+    Optional<Payment> findFirstByHouseId(Long id);
 }

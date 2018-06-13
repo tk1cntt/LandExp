@@ -106,6 +106,20 @@ public class PaymentResource {
     }
 
     /**
+     * GET  /houses/:id/payments : get payment of house.
+     *
+     * @param id the id of the houseDTO to retrieve
+     * @return the ResponseEntity with status 200 (OK) and with body the paymentDTO, or with status 404 (Not Found)
+     */
+    @GetMapping("/payments/{id}/houses")
+    @Timed
+    public ResponseEntity<PaymentDTO> getPaymentOfHouse(@PathVariable Long id) {
+        log.debug("REST request to get Payment : {}", id);
+        Optional<PaymentDTO> paymentDTO = paymentService.findByHouse(id);
+        return ResponseUtil.wrapOrNotFound(paymentDTO);
+    }
+    
+    /**
      * GET  /payments/:id : get the "id" payment.
      *
      * @param id the id of the paymentDTO to retrieve

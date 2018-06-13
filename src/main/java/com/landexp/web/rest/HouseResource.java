@@ -1,10 +1,14 @@
 package com.landexp.web.rest;
 
 import com.codahale.metrics.annotation.Timed;
+import com.landexp.config.Utils;
+import com.landexp.domain.enumeration.PaymentStatusType;
 import com.landexp.domain.enumeration.StatusType;
 import com.landexp.security.AuthoritiesConstants;
 import com.landexp.security.SecurityUtils;
 import com.landexp.service.HouseService;
+import com.landexp.service.PaymentService;
+import com.landexp.service.dto.PaymentDTO;
 import com.landexp.web.rest.errors.BadRequestAlertException;
 import com.landexp.web.rest.util.HeaderUtil;
 import com.landexp.web.rest.util.PaginationUtil;
@@ -27,6 +31,8 @@ import org.springframework.web.bind.annotation.*;
 import java.net.URI;
 import java.net.URISyntaxException;
 
+import java.time.LocalDate;
+import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.StreamSupport;
@@ -48,9 +54,12 @@ public class HouseResource {
 
     private final HouseQueryService houseQueryService;
 
-    public HouseResource(HouseService houseService, HouseQueryService houseQueryService) {
+    private final PaymentService paymentService;
+
+    public HouseResource(HouseService houseService, HouseQueryService houseQueryService, PaymentService paymentService) {
         this.houseService = houseService;
         this.houseQueryService = houseQueryService;
+        this.paymentService = paymentService;
     }
 
     /**
@@ -71,6 +80,17 @@ public class HouseResource {
             houseDTO.setStatusType(StatusType.PENDING);
             log.debug("Save init House {}", houseDTO);
             houseDTO = houseService.saveByUsername(houseDTO, username);
+            PaymentDTO paymentDTO = new PaymentDTO();
+            paymentDTO.setHouseId(houseDTO.getId());
+            paymentDTO.setCode(Utils.generatePaymentCode(houseDTO.getId()));
+            paymentDTO.setCreateAt(LocalDate.now());
+            paymentDTO.setPaymentStatus(PaymentStatusType.OPEN);
+            paymentDTO.setMoney(200000f);
+            paymentDTO.setCustomerId(houseDTO.getId());
+            paymentDTO.setCustomerLogin(username);
+            paymentDTO.setCreateById(houseDTO.getId());
+            paymentDTO.setCustomerLogin(username);
+            paymentService.save(paymentDTO);
         }
         return ResponseUtil.wrapOrNotFound(Optional.of(houseDTO));
     }
@@ -185,6 +205,7 @@ public class HouseResource {
      */
     @DeleteMapping("/houses/{id}")
     @Timed
+    @Secured(AuthoritiesConstants.USER)
     public ResponseEntity<Void> deleteHouse(@PathVariable Long id) {
         log.debug("REST request to delete House : {}", id);
         houseService.delete(id);

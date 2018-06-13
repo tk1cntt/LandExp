@@ -124,7 +124,12 @@
             <groupId>io.github.jhipster</groupId>
             <artifactId>jhipster-framework</artifactId>
         </dependency>
-
+        <!-- https://mvnrepository.com/artifact/org.hashids/hashids -->
+        <dependency>
+            <groupId>org.hashids</groupId>
+            <artifactId>hashids</artifactId>
+            <version>1.0.1</version>
+        </dependency>
         <!-- TODO To remove after final Spring Boot 2 release -->
         <dependency>
             <groupId>javax.xml.bind</groupId>
