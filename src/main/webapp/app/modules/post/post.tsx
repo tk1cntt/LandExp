@@ -25,8 +25,8 @@ import StepSeven from './stepOne';
 export interface IPostProp extends StateProps, DispatchProps {}
 
 export interface IPostState {
-  current: any,
-  house: any
+  current: any;
+  house: any;
 }
 
 export class PostPage extends React.Component<IPostProp, IPostState> {
@@ -51,7 +51,7 @@ export class PostPage extends React.Component<IPostProp, IPostState> {
     this.setState({ current });
   }
 
-  validateStep = (id) => {
+  validateStep = id => {
     switch (id) {
       case 0:
         this.validateStepOne();
@@ -60,25 +60,24 @@ export class PostPage extends React.Component<IPostProp, IPostState> {
         this.validateStepTwo();
         break;
       default:
-        console.log("Validate step ", id);
         break;
     }
   }
 
   validateStepOne = () => {
-    console.log("Validate step one");
+    // console.log('Validate step one');
   }
 
   validateStepTwo = () => {
-    console.log("Validate step two");
+    // console.log('Validate step two');
   }
 
   saveEntity = () => {
-    console.log('Save entity', this.state.house);
+    // console.log('Save entity', this.state.house);
     // this.props.updateEntity(this.state.house);
   };
 
-  updateHouse = (house) => {
+  updateHouse = house => {
     let currentHouse = this.state.house;
     currentHouse = Object.assign(currentHouse, house);
     this.setState({

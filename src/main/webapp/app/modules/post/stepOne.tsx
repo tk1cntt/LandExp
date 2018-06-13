@@ -15,12 +15,12 @@ import { getSession } from 'app/shared/reducers/authentication';
 import { updateEntity } from './post.reducer';
 
 export interface IStepOneProp extends StateProps, DispatchProps {
-  updateHouse: any
+  updateHouse: any;
 }
 
 export interface IStepOneState {
-  landType: any,
-  actionType: any
+  landType: any;
+  actionType: any;
 }
 
 export class StepOne extends React.Component<IStepOneProp, IStepOneState> {
@@ -33,7 +33,7 @@ export class StepOne extends React.Component<IStepOneProp, IStepOneState> {
     this.props.getSession();
   }
 
-  onChangeActionType = (e) => {
+  onChangeActionType = e => {
     this.setState({
       actionType: e.target.value
     });
@@ -42,7 +42,7 @@ export class StepOne extends React.Component<IStepOneProp, IStepOneState> {
     });
   }
 
-  onChangeLandType = (e) => {
+  onChangeLandType = e => {
     this.setState({
       landType: e.target.value
     });

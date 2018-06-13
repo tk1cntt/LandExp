@@ -71,12 +71,12 @@ const options = [{
 }];
 
 export interface IStepTwoProp extends StateProps, DispatchProps {
-  updateHouse: any
+  updateHouse: any;
 }
 
 export interface IStepOneState {
-  city: any,
-  address: any
+  city: any;
+  address: any;
 }
 
 export class StepTwo extends React.Component<IStepTwoProp, IStepOneState> {
@@ -89,7 +89,7 @@ export class StepTwo extends React.Component<IStepTwoProp, IStepOneState> {
     this.props.getSession();
   }
 
-  onChangeCascader = (value) => {
+  onChangeCascader = value => {
     this.setState({
       city: value
     });
@@ -100,7 +100,7 @@ export class StepTwo extends React.Component<IStepTwoProp, IStepOneState> {
     });
   }
 
-  onChangeAddress = (e) => {
+  onChangeAddress = e => {
     this.setState({
       address: e.target.value
     });
