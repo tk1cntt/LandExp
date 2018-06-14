@@ -101,6 +101,7 @@ entity House {
    bedRoom Integer,
    parking Boolean,
    furniture Boolean,
+   summary String,
    landType LandType,
    saleType SaleType,
    fee Float,
