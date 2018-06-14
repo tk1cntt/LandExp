@@ -133,6 +133,14 @@ export const getEntity: ICrudGetAction<IPayment> = id => {
   };
 };
 
+export const getPaymentOfHouse: ICrudGetAction<IPayment> = id => {
+  const requestUrl = `${apiUrl}/${id}/houses`;
+  return {
+    type: ACTION_TYPES.FETCH_PAYMENT,
+    payload: axios.get<IPayment>(requestUrl)
+  };
+};
+
 export const createEntity: ICrudPutAction<IPayment> = entity => async dispatch => {
   const result = await dispatch({
     type: ACTION_TYPES.CREATE_PAYMENT,

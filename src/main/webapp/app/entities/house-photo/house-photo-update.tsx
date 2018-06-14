@@ -64,7 +64,7 @@ export class HousePhotoUpdate extends React.Component<IHousePhotoUpdateProps, IH
         ...housePhoto,
         ...values
       };
-
+      console.log('Save house image', entity);
       if (this.state.isNew) {
         this.props.createEntity(entity);
       } else {

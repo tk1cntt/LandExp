@@ -13,7 +13,7 @@ const AutoCompleteOption = AutoComplete.Option;
 import { IRootState } from 'app/shared/reducers';
 import { getSession } from 'app/shared/reducers/authentication';
 
-import { getPaymentOfHouse } from './payment.reducer';
+import { getPaymentOfHouse } from '../../entities/payment/payment.reducer';
 
 import district from 'app/entities/district/district';
 

@@ -12,7 +12,8 @@ const Step = Steps.Step;
 import { IRootState } from 'app/shared/reducers';
 import { getSession } from 'app/shared/reducers/authentication';
 
-import { getEntity, updateEntity } from './house.reducer';
+import { getEntity, updateEntity } from '../../entities/house/house.reducer';
+import { createEntity } from '../../entities/house-photo/house-photo.reducer';
 
 import StepOne from './stepOne';
 import StepTwo from './stepTwo';
@@ -80,6 +81,9 @@ export class PostPage extends React.Component<IPostProp, IPostState> {
     };
     console.log('Update entity', entity);
     this.props.updateEntity(entity);
+    for (var i = 0, len = entity.images.length; i < len; i++) {
+      this.props.createEntity(entity.images[i]);
+    }
     this.next();
   };
 
@@ -174,7 +178,7 @@ const mapStateToProps = storeState => ({
   updating: storeState.house.updating
 });
 
-const mapDispatchToProps = { getSession, getEntity, updateEntity };
+const mapDispatchToProps = { getSession, getEntity, updateEntity, createEntity };
 
 type StateProps = ReturnType<typeof mapStateToProps>;
 type DispatchProps = typeof mapDispatchToProps;
