@@ -114,6 +114,21 @@ public class HousePhotoResource {
     }
 
     /**
+     * GET  /house-photos/:id/houses : get the photo of house.
+     *
+     * @param id the id of the housePhotoDTO to retrieve
+     * @return the ResponseEntity with status 200 (OK) and with body the housePhotoDTO, or with status 404 (Not Found)
+     */
+    @GetMapping("/house-photos/{id}/houses")
+    @Timed
+    public ResponseEntity<List<HousePhotoDTO>> getPhotoOfHouse(@PathVariable Long id, Pageable pageable) {
+        log.debug("REST request to get photo of house : {}", id);
+        Page<HousePhotoDTO> page = housePhotoService.findByHouse(id, pageable);
+        HttpHeaders headers = PaginationUtil.generatePaginationHttpHeaders(page, "/api/house-photos/" + id + "/houses");
+        return new ResponseEntity<>(page.getContent(), headers, HttpStatus.OK);
+    }
+
+    /**
      * DELETE  /house-photos/:id : delete the "id" housePhoto.
      *
      * @param id the id of the housePhotoDTO to delete

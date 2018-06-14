@@ -13,7 +13,7 @@ import { IRootState } from 'app/shared/reducers';
 import { getSession } from 'app/shared/reducers/authentication';
 
 import { getEntity, updateEntity } from '../../entities/house/house.reducer';
-import { createEntity } from '../../entities/house-photo/house-photo.reducer';
+import { createEntity as createPhoto, updateEntity as updatePhoto } from '../../entities/house-photo/house-photo.reducer';
 
 import StepOne from './stepOne';
 import StepTwo from './stepTwo';
@@ -81,15 +81,23 @@ export class PostPage extends React.Component<IPostProp, IPostState> {
     };
     console.log('Update entity', entity);
     this.props.updateEntity(entity);
-    for (var i = 0, len = entity.images.length; i < len; i++) {
-      this.props.createEntity(entity.images[i]);
+    if (entity.fileList) {
+      entity.fileList.map(file => {
+        let imageURL = file.thumbUrl;
+        let block = imageURL.split(";");
+        let realData = block[1].split(",")[1];
+        if (file.photoId) {
+          this.props.updatePhoto({ id: file.photoId, image: realData, imageContentType: file.type, houseId: this.props.house.id });
+        } else {
+          this.props.createPhoto({ image: realData, imageContentType: file.type, houseId: this.props.house.id });
+        }
+      });
     }
     this.next();
   };
 
   updateHouse = house => {
     const nextHouse = { ...this.state.house, ...house };
-    console.log('The next house', nextHouse);
     this.setState({
       house: nextHouse
     });
@@ -178,7 +186,7 @@ const mapStateToProps = storeState => ({
   updating: storeState.house.updating
 });
 
-const mapDispatchToProps = { getSession, getEntity, updateEntity, createEntity };
+const mapDispatchToProps = { getSession, getEntity, updateEntity, createPhoto, updatePhoto };
 
 type StateProps = ReturnType<typeof mapStateToProps>;
 type DispatchProps = typeof mapDispatchToProps;

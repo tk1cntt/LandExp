@@ -9,6 +9,7 @@ import { Upload, Icon, Modal } from 'antd';
 
 import { IRootState } from 'app/shared/reducers';
 import { getSession } from 'app/shared/reducers/authentication';
+import { deleteEntity } from '../../entities/house-photo/house-photo.reducer';
 
 export interface IStepFourProp extends StateProps, DispatchProps {
   updateHouse;
@@ -29,6 +30,15 @@ export class StepFour extends React.Component<IStepFourProp, IStepFourState> {
 
   componentDidMount() {
     this.props.getSession();
+    console.log(this.props.housePhotoList);
+    this.props.housePhotoList.map(photo => {
+      this.state.fileList.push({
+        uid: photo.id,
+        photoId: photo.id,
+        thumbUrl: 'data:image/jpeg;base64,' + photo.image,
+        type: photo.imageContentType
+      })
+    })
   }
 
   handleCancel = () => {
@@ -45,35 +55,17 @@ export class StepFour extends React.Component<IStepFourProp, IStepFourState> {
   }
 
   handleChange = ({ fileList }) => {
-    this.setState({ fileList });
-    const images = [];
-    /*
-    for (var i = 0, len = fileList.length; i < len; i++) {
-      console.log(fileList[i]);
-      console.log(fileList[i].type);
-      // console.log(fileList[i].thumbUrl);
-      let imageURL = fileList[i].thumbUrl;
-      // console.log(imageURL);
-      let block = imageURL.split(";");
-      // console.log(block);
-      let realData = block[1].split(",")[1];
-      // console.log(realData);
-      images.push({ image: realData, imageContentType: fileList[i].type, houseId: this.props.house.id });
+    const oldFiles = this.state.fileList;
+    let difference = oldFiles.filter(x => !fileList.includes(x));
+    if (difference) {
+      difference.map(file => {
+        if (file.photoId) {
+          this.props.deleteEntity(file.photoId);
+        }
+      })
     }
-    */
-    fileList.forEach(file => {
-      console.log(file);
-      console.log(file['type']);
-      console.log(file['thumbUrl']);
-      let imageURL = file.thumbUrl;
-      // console.log(imageURL);
-      let block = imageURL.split(";");
-      // console.log(block);
-      let realData = block[1].split(",")[1];
-      // console.log(realData);
-      images.push({ image: realData, imageContentType: file.type, houseId: this.props.house.id });
-    });
-    this.props.updateHouse({ images });
+    this.setState({ fileList });
+    this.props.updateHouse({ fileList });
   }
 
   render() {
@@ -106,10 +98,11 @@ export class StepFour extends React.Component<IStepFourProp, IStepFourState> {
 const mapStateToProps = storeState => ({
   account: storeState.authentication.account,
   isAuthenticated: storeState.authentication.isAuthenticated,
-  house: storeState.house.entity
+  house: storeState.house.entity,
+  housePhotoList: storeState.housePhoto.entities
 });
 
-const mapDispatchToProps = { getSession };
+const mapDispatchToProps = { getSession, deleteEntity };
 
 type StateProps = ReturnType<typeof mapStateToProps>;
 type DispatchProps = typeof mapDispatchToProps;

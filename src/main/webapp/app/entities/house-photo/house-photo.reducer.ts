@@ -144,6 +144,14 @@ export const getEntity: ICrudGetAction<IHousePhoto> = id => {
   };
 };
 
+export const getImageOfHouse: ICrudGetAllAction<IHousePhoto> = id => {
+  const requestUrl = `${apiUrl}/${id}/houses`;
+  return {
+    type: ACTION_TYPES.FETCH_HOUSEPHOTO_LIST,
+    payload: axios.get<IHousePhoto>(requestUrl)
+  };
+};
+
 export const createEntity: ICrudPutAction<IHousePhoto> = entity => async dispatch => {
   const result = await dispatch({
     type: ACTION_TYPES.CREATE_HOUSEPHOTO,

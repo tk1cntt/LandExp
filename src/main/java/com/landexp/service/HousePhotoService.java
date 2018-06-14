@@ -14,6 +14,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 
+import java.util.List;
 import java.util.Optional;
 
 import static org.elasticsearch.index.query.QueryBuilders.*;
@@ -64,6 +65,19 @@ public class HousePhotoService {
     public Page<HousePhotoDTO> findAll(Pageable pageable) {
         log.debug("Request to get all HousePhotos");
         return housePhotoRepository.findAll(pageable)
+            .map(housePhotoMapper::toDto);
+    }
+
+    /**
+     * Get all the housePhotos.
+     *
+     * @param pageable the pagination information
+     * @return the list of entities
+     */
+    @Transactional(readOnly = true)
+    public Page<HousePhotoDTO> findByHouse(Long id, Pageable pageable) {
+        log.debug("Request to get photo of house {}", id);
+        return housePhotoRepository.findByHouseId(id, pageable)
             .map(housePhotoMapper::toDto);
     }
 

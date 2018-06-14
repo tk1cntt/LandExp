@@ -14,6 +14,7 @@ import { IRootState } from 'app/shared/reducers';
 import { getSession } from 'app/shared/reducers/authentication';
 
 import { getPaymentOfHouse } from '../../entities/payment/payment.reducer';
+import { getImageOfHouse } from '../../entities/house-photo/house-photo.reducer';
 
 import district from 'app/entities/district/district';
 
@@ -91,6 +92,7 @@ export class StepTwo extends React.Component<IStepTwoProp, IStepOneState> {
   componentDidMount() {
     this.props.getSession();
     this.props.getPaymentOfHouse(this.props.house.id);
+    this.props.getImageOfHouse(this.props.house.id);
   }
 
   onChangeCascader = value => {
@@ -158,7 +160,7 @@ const mapStateToProps = storeState => ({
   house: storeState.house.entity
 });
 
-const mapDispatchToProps = { getSession, getPaymentOfHouse };
+const mapDispatchToProps = { getSession, getPaymentOfHouse, getImageOfHouse };
 
 type StateProps = ReturnType<typeof mapStateToProps>;
 type DispatchProps = typeof mapDispatchToProps;
