@@ -30,7 +30,7 @@ export class StepFive extends React.Component<IStepFiveProp, IStepFiveState> {
     money: null,
     discount: null,
     present: null,
-    any: null
+    sellType: null
   };
 
   componentDidMount() {

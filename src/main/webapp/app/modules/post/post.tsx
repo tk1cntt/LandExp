@@ -79,13 +79,12 @@ export class PostPage extends React.Component<IPostProp, IPostState> {
       ...house,
       ...this.state.house
     };
-    console.log('Update entity', entity);
     this.props.updateEntity(entity);
     if (entity.fileList) {
       entity.fileList.map(file => {
-        let imageURL = file.thumbUrl;
-        let block = imageURL.split(";");
-        let realData = block[1].split(",")[1];
+        const imageURL = file.thumbUrl;
+        const block = imageURL.split(';');
+        const realData = block[1].split(',')[1];
         if (file.photoId) {
           this.props.updatePhoto({ id: file.photoId, image: realData, imageContentType: file.type, houseId: this.props.house.id });
         } else {

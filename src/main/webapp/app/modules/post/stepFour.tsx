@@ -30,15 +30,14 @@ export class StepFour extends React.Component<IStepFourProp, IStepFourState> {
 
   componentDidMount() {
     this.props.getSession();
-    console.log(this.props.housePhotoList);
     this.props.housePhotoList.map(photo => {
       this.state.fileList.push({
         uid: photo.id,
         photoId: photo.id,
         thumbUrl: 'data:image/jpeg;base64,' + photo.image,
         type: photo.imageContentType
-      })
-    })
+      });
+    });
   }
 
   handleCancel = () => {
@@ -62,7 +61,7 @@ export class StepFour extends React.Component<IStepFourProp, IStepFourState> {
         if (file.photoId) {
           this.props.deleteEntity(file.photoId);
         }
-      })
+      });
     }
     this.setState({ fileList });
     this.props.updateHouse({ fileList });
