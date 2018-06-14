@@ -17,7 +17,7 @@ import { getSession } from 'app/shared/reducers/authentication';
 export interface IStepSixProp extends StateProps, DispatchProps {}
 
 export interface IStepSixState {
-  value: string
+  value: string;
 }
 
 export class StepSix extends React.Component<IStepSixProp, IStepSixState> {
@@ -29,20 +29,14 @@ export class StepSix extends React.Component<IStepSixProp, IStepSixState> {
     this.props.getSession();
   }
 
-  onChange = (e) => {
-    console.log('radio checked', e.target.value);
+  onChange = e => {
     this.setState({
-      value: e.target.value,
+      value: e.target.value
     });
   }
 
   render() {
     const { account } = this.props;
-    const radioStyle = {
-      display: 'block',
-      height: '30px',
-      lineHeight: '30px',
-    };
     return (
       <Row>
         <Col md="12">

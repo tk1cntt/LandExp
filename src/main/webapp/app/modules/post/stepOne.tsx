@@ -12,8 +12,6 @@ const RadioGroup = Radio.Group;
 import { IRootState } from 'app/shared/reducers';
 import { getSession } from 'app/shared/reducers/authentication';
 
-import { updateEntity } from './post.reducer';
-
 export interface IStepOneProp extends StateProps, DispatchProps {
   updateHouse: any;
 }

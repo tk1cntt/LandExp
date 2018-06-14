@@ -17,7 +17,7 @@ import { getSession } from 'app/shared/reducers/authentication';
 export interface IStepFiveProp extends StateProps, DispatchProps {}
 
 export interface IStepFiveState {
-  sellType: string
+  sellType: string;
 }
 
 export class StepFive extends React.Component<IStepFiveProp, IStepFiveState> {
@@ -29,10 +29,9 @@ export class StepFive extends React.Component<IStepFiveProp, IStepFiveState> {
     this.props.getSession();
   }
 
-  onChange = (e) => {
-    console.log('radio checked', e.target.value);
+  onChange = e => {
     this.setState({
-      sellType: e.target.value,
+      sellType: e.target.value
     });
   }
 
@@ -41,7 +40,7 @@ export class StepFive extends React.Component<IStepFiveProp, IStepFiveState> {
     const radioStyle = {
       display: 'block',
       height: '30px',
-      lineHeight: '30px',
+      lineHeight: '30px'
     };
     return (
       <Row>

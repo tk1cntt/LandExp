@@ -15,7 +15,7 @@ import { IRootState } from 'app/shared/reducers';
 import { getSession } from 'app/shared/reducers/authentication';
 
 export interface IStepThreeProp extends StateProps, DispatchProps {
-  updateHouse
+  updateHouse;
 }
 
 export interface IStepThreeState {
