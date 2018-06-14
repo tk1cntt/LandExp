@@ -28,6 +28,7 @@
                 "potentialCustomer": "Potential Customer",
                 "banner": "Banner",
                 "payment": "Payment",
+                "ward": "Ward",
                 "jhipster-needle-menu-add-entry": "JHipster will add additional entities here (do not translate!)"
             },
             "account": {

@@ -86,6 +86,9 @@ public class HouseResourceIntTest {
     private static final Float DEFAULT_ACREAGE = 1F;
     private static final Float UPDATED_ACREAGE = 2F;
 
+    private static final Float DEFAULT_ACREAGE_STREET_SIDE = 1F;
+    private static final Float UPDATED_ACREAGE_STREET_SIDE = 2F;
+
     private static final Float DEFAULT_DISCOUNT = 1F;
     private static final Float UPDATED_DISCOUNT = 2F;
 
@@ -113,11 +116,14 @@ public class HouseResourceIntTest {
     private static final Boolean DEFAULT_FURNITURE = false;
     private static final Boolean UPDATED_FURNITURE = true;
 
+    private static final String DEFAULT_SUMMARY = "AAAAAAAAAA";
+    private static final String UPDATED_SUMMARY = "BBBBBBBBBB";
+
     private static final LandType DEFAULT_LAND_TYPE = LandType.APARTMENT;
     private static final LandType UPDATED_LAND_TYPE = LandType.PEN_HOUSE;
 
     private static final SaleType DEFAULT_SALE_TYPE = SaleType.SALE_BY_MYSELF;
-    private static final SaleType UPDATED_SALE_TYPE = SaleType.SALE_SUPPORT;
+    private static final SaleType UPDATED_SALE_TYPE = SaleType.SALE_BY_MYSELF_VIP;
 
     private static final Float DEFAULT_FEE = 1F;
     private static final Float UPDATED_FEE = 2F;
@@ -125,11 +131,26 @@ public class HouseResourceIntTest {
     private static final Float DEFAULT_FEE_MAX = 1F;
     private static final Float UPDATED_FEE_MAX = 2F;
 
-    private static final PresentType DEFAULT_PRESENT = PresentType.BASIC_FURNITURE;
-    private static final PresentType UPDATED_PRESENT = PresentType.FULL_FURNITURE;
+    private static final PresentType DEFAULT_PRESENT = PresentType.NONE;
+    private static final PresentType UPDATED_PRESENT = PresentType.BASIC_FURNITURE;
 
     private static final Integer DEFAULT_HITS = 1;
     private static final Integer UPDATED_HITS = 2;
+
+    private static final String DEFAULT_CUSTOMER = "AAAAAAAAAA";
+    private static final String UPDATED_CUSTOMER = "BBBBBBBBBB";
+
+    private static final String DEFAULT_MOBILE = "AAAAAAAAAA";
+    private static final String UPDATED_MOBILE = "BBBBBBBBBB";
+
+    private static final String DEFAULT_EMAIL = "AAAAAAAAAA";
+    private static final String UPDATED_EMAIL = "BBBBBBBBBB";
+
+    private static final String DEFAULT_FACEBOOK = "AAAAAAAAAA";
+    private static final String UPDATED_FACEBOOK = "BBBBBBBBBB";
+
+    private static final String DEFAULT_ZALO = "AAAAAAAAAA";
+    private static final String UPDATED_ZALO = "BBBBBBBBBB";
 
     private static final StatusType DEFAULT_STATUS_TYPE = StatusType.PENDING;
     private static final StatusType UPDATED_STATUS_TYPE = StatusType.PAID;
@@ -146,7 +167,7 @@ public class HouseResourceIntTest {
 
     @Autowired
     private HouseMapper houseMapper;
-
+    
 
     @Autowired
     private HouseService houseService;
@@ -206,6 +227,7 @@ public class HouseResourceIntTest {
             .money(DEFAULT_MONEY)
             .moneyType(DEFAULT_MONEY_TYPE)
             .acreage(DEFAULT_ACREAGE)
+            .acreageStreetSide(DEFAULT_ACREAGE_STREET_SIDE)
             .discount(DEFAULT_DISCOUNT)
             .direction(DEFAULT_DIRECTION)
             .directionBalcony(DEFAULT_DIRECTION_BALCONY)
@@ -215,12 +237,18 @@ public class HouseResourceIntTest {
             .bedRoom(DEFAULT_BED_ROOM)
             .parking(DEFAULT_PARKING)
             .furniture(DEFAULT_FURNITURE)
+            .summary(DEFAULT_SUMMARY)
             .landType(DEFAULT_LAND_TYPE)
             .saleType(DEFAULT_SALE_TYPE)
             .fee(DEFAULT_FEE)
             .feeMax(DEFAULT_FEE_MAX)
             .present(DEFAULT_PRESENT)
             .hits(DEFAULT_HITS)
+            .customer(DEFAULT_CUSTOMER)
+            .mobile(DEFAULT_MOBILE)
+            .email(DEFAULT_EMAIL)
+            .facebook(DEFAULT_FACEBOOK)
+            .zalo(DEFAULT_ZALO)
             .statusType(DEFAULT_STATUS_TYPE)
             .createAt(DEFAULT_CREATE_AT)
             .updateAt(DEFAULT_UPDATE_AT);
@@ -254,6 +282,7 @@ public class HouseResourceIntTest {
         assertThat(testHouse.getMoney()).isEqualTo(DEFAULT_MONEY);
         assertThat(testHouse.getMoneyType()).isEqualTo(DEFAULT_MONEY_TYPE);
         assertThat(testHouse.getAcreage()).isEqualTo(DEFAULT_ACREAGE);
+        assertThat(testHouse.getAcreageStreetSide()).isEqualTo(DEFAULT_ACREAGE_STREET_SIDE);
         assertThat(testHouse.getDiscount()).isEqualTo(DEFAULT_DISCOUNT);
         assertThat(testHouse.getDirection()).isEqualTo(DEFAULT_DIRECTION);
         assertThat(testHouse.getDirectionBalcony()).isEqualTo(DEFAULT_DIRECTION_BALCONY);
@@ -263,12 +292,18 @@ public class HouseResourceIntTest {
         assertThat(testHouse.getBedRoom()).isEqualTo(DEFAULT_BED_ROOM);
         assertThat(testHouse.isParking()).isEqualTo(DEFAULT_PARKING);
         assertThat(testHouse.isFurniture()).isEqualTo(DEFAULT_FURNITURE);
+        assertThat(testHouse.getSummary()).isEqualTo(DEFAULT_SUMMARY);
         assertThat(testHouse.getLandType()).isEqualTo(DEFAULT_LAND_TYPE);
         assertThat(testHouse.getSaleType()).isEqualTo(DEFAULT_SALE_TYPE);
         assertThat(testHouse.getFee()).isEqualTo(DEFAULT_FEE);
         assertThat(testHouse.getFeeMax()).isEqualTo(DEFAULT_FEE_MAX);
         assertThat(testHouse.getPresent()).isEqualTo(DEFAULT_PRESENT);
         assertThat(testHouse.getHits()).isEqualTo(DEFAULT_HITS);
+        assertThat(testHouse.getCustomer()).isEqualTo(DEFAULT_CUSTOMER);
+        assertThat(testHouse.getMobile()).isEqualTo(DEFAULT_MOBILE);
+        assertThat(testHouse.getEmail()).isEqualTo(DEFAULT_EMAIL);
+        assertThat(testHouse.getFacebook()).isEqualTo(DEFAULT_FACEBOOK);
+        assertThat(testHouse.getZalo()).isEqualTo(DEFAULT_ZALO);
         assertThat(testHouse.getStatusType()).isEqualTo(DEFAULT_STATUS_TYPE);
         assertThat(testHouse.getCreateAt()).isEqualTo(DEFAULT_CREATE_AT);
         assertThat(testHouse.getUpdateAt()).isEqualTo(DEFAULT_UPDATE_AT);
@@ -317,6 +352,7 @@ public class HouseResourceIntTest {
             .andExpect(jsonPath("$.[*].money").value(hasItem(DEFAULT_MONEY.doubleValue())))
             .andExpect(jsonPath("$.[*].moneyType").value(hasItem(DEFAULT_MONEY_TYPE.toString())))
             .andExpect(jsonPath("$.[*].acreage").value(hasItem(DEFAULT_ACREAGE.doubleValue())))
+            .andExpect(jsonPath("$.[*].acreageStreetSide").value(hasItem(DEFAULT_ACREAGE_STREET_SIDE.doubleValue())))
             .andExpect(jsonPath("$.[*].discount").value(hasItem(DEFAULT_DISCOUNT.doubleValue())))
             .andExpect(jsonPath("$.[*].direction").value(hasItem(DEFAULT_DIRECTION.toString())))
             .andExpect(jsonPath("$.[*].directionBalcony").value(hasItem(DEFAULT_DIRECTION_BALCONY.toString())))
@@ -326,17 +362,23 @@ public class HouseResourceIntTest {
             .andExpect(jsonPath("$.[*].bedRoom").value(hasItem(DEFAULT_BED_ROOM)))
             .andExpect(jsonPath("$.[*].parking").value(hasItem(DEFAULT_PARKING.booleanValue())))
             .andExpect(jsonPath("$.[*].furniture").value(hasItem(DEFAULT_FURNITURE.booleanValue())))
+            .andExpect(jsonPath("$.[*].summary").value(hasItem(DEFAULT_SUMMARY.toString())))
             .andExpect(jsonPath("$.[*].landType").value(hasItem(DEFAULT_LAND_TYPE.toString())))
             .andExpect(jsonPath("$.[*].saleType").value(hasItem(DEFAULT_SALE_TYPE.toString())))
             .andExpect(jsonPath("$.[*].fee").value(hasItem(DEFAULT_FEE.doubleValue())))
             .andExpect(jsonPath("$.[*].feeMax").value(hasItem(DEFAULT_FEE_MAX.doubleValue())))
             .andExpect(jsonPath("$.[*].present").value(hasItem(DEFAULT_PRESENT.toString())))
             .andExpect(jsonPath("$.[*].hits").value(hasItem(DEFAULT_HITS)))
+            .andExpect(jsonPath("$.[*].customer").value(hasItem(DEFAULT_CUSTOMER.toString())))
+            .andExpect(jsonPath("$.[*].mobile").value(hasItem(DEFAULT_MOBILE.toString())))
+            .andExpect(jsonPath("$.[*].email").value(hasItem(DEFAULT_EMAIL.toString())))
+            .andExpect(jsonPath("$.[*].facebook").value(hasItem(DEFAULT_FACEBOOK.toString())))
+            .andExpect(jsonPath("$.[*].zalo").value(hasItem(DEFAULT_ZALO.toString())))
             .andExpect(jsonPath("$.[*].statusType").value(hasItem(DEFAULT_STATUS_TYPE.toString())))
             .andExpect(jsonPath("$.[*].createAt").value(hasItem(DEFAULT_CREATE_AT.toString())))
             .andExpect(jsonPath("$.[*].updateAt").value(hasItem(DEFAULT_UPDATE_AT.toString())));
     }
-
+    
 
     @Test
     @Transactional
@@ -355,6 +397,7 @@ public class HouseResourceIntTest {
             .andExpect(jsonPath("$.money").value(DEFAULT_MONEY.doubleValue()))
             .andExpect(jsonPath("$.moneyType").value(DEFAULT_MONEY_TYPE.toString()))
             .andExpect(jsonPath("$.acreage").value(DEFAULT_ACREAGE.doubleValue()))
+            .andExpect(jsonPath("$.acreageStreetSide").value(DEFAULT_ACREAGE_STREET_SIDE.doubleValue()))
             .andExpect(jsonPath("$.discount").value(DEFAULT_DISCOUNT.doubleValue()))
             .andExpect(jsonPath("$.direction").value(DEFAULT_DIRECTION.toString()))
             .andExpect(jsonPath("$.directionBalcony").value(DEFAULT_DIRECTION_BALCONY.toString()))
@@ -364,12 +407,18 @@ public class HouseResourceIntTest {
             .andExpect(jsonPath("$.bedRoom").value(DEFAULT_BED_ROOM))
             .andExpect(jsonPath("$.parking").value(DEFAULT_PARKING.booleanValue()))
             .andExpect(jsonPath("$.furniture").value(DEFAULT_FURNITURE.booleanValue()))
+            .andExpect(jsonPath("$.summary").value(DEFAULT_SUMMARY.toString()))
             .andExpect(jsonPath("$.landType").value(DEFAULT_LAND_TYPE.toString()))
             .andExpect(jsonPath("$.saleType").value(DEFAULT_SALE_TYPE.toString()))
             .andExpect(jsonPath("$.fee").value(DEFAULT_FEE.doubleValue()))
             .andExpect(jsonPath("$.feeMax").value(DEFAULT_FEE_MAX.doubleValue()))
             .andExpect(jsonPath("$.present").value(DEFAULT_PRESENT.toString()))
             .andExpect(jsonPath("$.hits").value(DEFAULT_HITS))
+            .andExpect(jsonPath("$.customer").value(DEFAULT_CUSTOMER.toString()))
+            .andExpect(jsonPath("$.mobile").value(DEFAULT_MOBILE.toString()))
+            .andExpect(jsonPath("$.email").value(DEFAULT_EMAIL.toString()))
+            .andExpect(jsonPath("$.facebook").value(DEFAULT_FACEBOOK.toString()))
+            .andExpect(jsonPath("$.zalo").value(DEFAULT_ZALO.toString()))
             .andExpect(jsonPath("$.statusType").value(DEFAULT_STATUS_TYPE.toString()))
             .andExpect(jsonPath("$.createAt").value(DEFAULT_CREATE_AT.toString()))
             .andExpect(jsonPath("$.updateAt").value(DEFAULT_UPDATE_AT.toString()));
@@ -607,6 +656,45 @@ public class HouseResourceIntTest {
 
         // Get all the houseList where acreage is null
         defaultHouseShouldNotBeFound("acreage.specified=false");
+    }
+
+    @Test
+    @Transactional
+    public void getAllHousesByAcreageStreetSideIsEqualToSomething() throws Exception {
+        // Initialize the database
+        houseRepository.saveAndFlush(house);
+
+        // Get all the houseList where acreageStreetSide equals to DEFAULT_ACREAGE_STREET_SIDE
+        defaultHouseShouldBeFound("acreageStreetSide.equals=" + DEFAULT_ACREAGE_STREET_SIDE);
+
+        // Get all the houseList where acreageStreetSide equals to UPDATED_ACREAGE_STREET_SIDE
+        defaultHouseShouldNotBeFound("acreageStreetSide.equals=" + UPDATED_ACREAGE_STREET_SIDE);
+    }
+
+    @Test
+    @Transactional
+    public void getAllHousesByAcreageStreetSideIsInShouldWork() throws Exception {
+        // Initialize the database
+        houseRepository.saveAndFlush(house);
+
+        // Get all the houseList where acreageStreetSide in DEFAULT_ACREAGE_STREET_SIDE or UPDATED_ACREAGE_STREET_SIDE
+        defaultHouseShouldBeFound("acreageStreetSide.in=" + DEFAULT_ACREAGE_STREET_SIDE + "," + UPDATED_ACREAGE_STREET_SIDE);
+
+        // Get all the houseList where acreageStreetSide equals to UPDATED_ACREAGE_STREET_SIDE
+        defaultHouseShouldNotBeFound("acreageStreetSide.in=" + UPDATED_ACREAGE_STREET_SIDE);
+    }
+
+    @Test
+    @Transactional
+    public void getAllHousesByAcreageStreetSideIsNullOrNotNull() throws Exception {
+        // Initialize the database
+        houseRepository.saveAndFlush(house);
+
+        // Get all the houseList where acreageStreetSide is not null
+        defaultHouseShouldBeFound("acreageStreetSide.specified=true");
+
+        // Get all the houseList where acreageStreetSide is null
+        defaultHouseShouldNotBeFound("acreageStreetSide.specified=false");
     }
 
     @Test
@@ -1016,6 +1104,45 @@ public class HouseResourceIntTest {
 
     @Test
     @Transactional
+    public void getAllHousesBySummaryIsEqualToSomething() throws Exception {
+        // Initialize the database
+        houseRepository.saveAndFlush(house);
+
+        // Get all the houseList where summary equals to DEFAULT_SUMMARY
+        defaultHouseShouldBeFound("summary.equals=" + DEFAULT_SUMMARY);
+
+        // Get all the houseList where summary equals to UPDATED_SUMMARY
+        defaultHouseShouldNotBeFound("summary.equals=" + UPDATED_SUMMARY);
+    }
+
+    @Test
+    @Transactional
+    public void getAllHousesBySummaryIsInShouldWork() throws Exception {
+        // Initialize the database
+        houseRepository.saveAndFlush(house);
+
+        // Get all the houseList where summary in DEFAULT_SUMMARY or UPDATED_SUMMARY
+        defaultHouseShouldBeFound("summary.in=" + DEFAULT_SUMMARY + "," + UPDATED_SUMMARY);
+
+        // Get all the houseList where summary equals to UPDATED_SUMMARY
+        defaultHouseShouldNotBeFound("summary.in=" + UPDATED_SUMMARY);
+    }
+
+    @Test
+    @Transactional
+    public void getAllHousesBySummaryIsNullOrNotNull() throws Exception {
+        // Initialize the database
+        houseRepository.saveAndFlush(house);
+
+        // Get all the houseList where summary is not null
+        defaultHouseShouldBeFound("summary.specified=true");
+
+        // Get all the houseList where summary is null
+        defaultHouseShouldNotBeFound("summary.specified=false");
+    }
+
+    @Test
+    @Transactional
     public void getAllHousesByLandTypeIsEqualToSomething() throws Exception {
         // Initialize the database
         houseRepository.saveAndFlush(house);
@@ -1274,6 +1401,201 @@ public class HouseResourceIntTest {
         defaultHouseShouldBeFound("hits.lessThan=" + UPDATED_HITS);
     }
 
+
+    @Test
+    @Transactional
+    public void getAllHousesByCustomerIsEqualToSomething() throws Exception {
+        // Initialize the database
+        houseRepository.saveAndFlush(house);
+
+        // Get all the houseList where customer equals to DEFAULT_CUSTOMER
+        defaultHouseShouldBeFound("customer.equals=" + DEFAULT_CUSTOMER);
+
+        // Get all the houseList where customer equals to UPDATED_CUSTOMER
+        defaultHouseShouldNotBeFound("customer.equals=" + UPDATED_CUSTOMER);
+    }
+
+    @Test
+    @Transactional
+    public void getAllHousesByCustomerIsInShouldWork() throws Exception {
+        // Initialize the database
+        houseRepository.saveAndFlush(house);
+
+        // Get all the houseList where customer in DEFAULT_CUSTOMER or UPDATED_CUSTOMER
+        defaultHouseShouldBeFound("customer.in=" + DEFAULT_CUSTOMER + "," + UPDATED_CUSTOMER);
+
+        // Get all the houseList where customer equals to UPDATED_CUSTOMER
+        defaultHouseShouldNotBeFound("customer.in=" + UPDATED_CUSTOMER);
+    }
+
+    @Test
+    @Transactional
+    public void getAllHousesByCustomerIsNullOrNotNull() throws Exception {
+        // Initialize the database
+        houseRepository.saveAndFlush(house);
+
+        // Get all the houseList where customer is not null
+        defaultHouseShouldBeFound("customer.specified=true");
+
+        // Get all the houseList where customer is null
+        defaultHouseShouldNotBeFound("customer.specified=false");
+    }
+
+    @Test
+    @Transactional
+    public void getAllHousesByMobileIsEqualToSomething() throws Exception {
+        // Initialize the database
+        houseRepository.saveAndFlush(house);
+
+        // Get all the houseList where mobile equals to DEFAULT_MOBILE
+        defaultHouseShouldBeFound("mobile.equals=" + DEFAULT_MOBILE);
+
+        // Get all the houseList where mobile equals to UPDATED_MOBILE
+        defaultHouseShouldNotBeFound("mobile.equals=" + UPDATED_MOBILE);
+    }
+
+    @Test
+    @Transactional
+    public void getAllHousesByMobileIsInShouldWork() throws Exception {
+        // Initialize the database
+        houseRepository.saveAndFlush(house);
+
+        // Get all the houseList where mobile in DEFAULT_MOBILE or UPDATED_MOBILE
+        defaultHouseShouldBeFound("mobile.in=" + DEFAULT_MOBILE + "," + UPDATED_MOBILE);
+
+        // Get all the houseList where mobile equals to UPDATED_MOBILE
+        defaultHouseShouldNotBeFound("mobile.in=" + UPDATED_MOBILE);
+    }
+
+    @Test
+    @Transactional
+    public void getAllHousesByMobileIsNullOrNotNull() throws Exception {
+        // Initialize the database
+        houseRepository.saveAndFlush(house);
+
+        // Get all the houseList where mobile is not null
+        defaultHouseShouldBeFound("mobile.specified=true");
+
+        // Get all the houseList where mobile is null
+        defaultHouseShouldNotBeFound("mobile.specified=false");
+    }
+
+    @Test
+    @Transactional
+    public void getAllHousesByEmailIsEqualToSomething() throws Exception {
+        // Initialize the database
+        houseRepository.saveAndFlush(house);
+
+        // Get all the houseList where email equals to DEFAULT_EMAIL
+        defaultHouseShouldBeFound("email.equals=" + DEFAULT_EMAIL);
+
+        // Get all the houseList where email equals to UPDATED_EMAIL
+        defaultHouseShouldNotBeFound("email.equals=" + UPDATED_EMAIL);
+    }
+
+    @Test
+    @Transactional
+    public void getAllHousesByEmailIsInShouldWork() throws Exception {
+        // Initialize the database
+        houseRepository.saveAndFlush(house);
+
+        // Get all the houseList where email in DEFAULT_EMAIL or UPDATED_EMAIL
+        defaultHouseShouldBeFound("email.in=" + DEFAULT_EMAIL + "," + UPDATED_EMAIL);
+
+        // Get all the houseList where email equals to UPDATED_EMAIL
+        defaultHouseShouldNotBeFound("email.in=" + UPDATED_EMAIL);
+    }
+
+    @Test
+    @Transactional
+    public void getAllHousesByEmailIsNullOrNotNull() throws Exception {
+        // Initialize the database
+        houseRepository.saveAndFlush(house);
+
+        // Get all the houseList where email is not null
+        defaultHouseShouldBeFound("email.specified=true");
+
+        // Get all the houseList where email is null
+        defaultHouseShouldNotBeFound("email.specified=false");
+    }
+
+    @Test
+    @Transactional
+    public void getAllHousesByFacebookIsEqualToSomething() throws Exception {
+        // Initialize the database
+        houseRepository.saveAndFlush(house);
+
+        // Get all the houseList where facebook equals to DEFAULT_FACEBOOK
+        defaultHouseShouldBeFound("facebook.equals=" + DEFAULT_FACEBOOK);
+
+        // Get all the houseList where facebook equals to UPDATED_FACEBOOK
+        defaultHouseShouldNotBeFound("facebook.equals=" + UPDATED_FACEBOOK);
+    }
+
+    @Test
+    @Transactional
+    public void getAllHousesByFacebookIsInShouldWork() throws Exception {
+        // Initialize the database
+        houseRepository.saveAndFlush(house);
+
+        // Get all the houseList where facebook in DEFAULT_FACEBOOK or UPDATED_FACEBOOK
+        defaultHouseShouldBeFound("facebook.in=" + DEFAULT_FACEBOOK + "," + UPDATED_FACEBOOK);
+
+        // Get all the houseList where facebook equals to UPDATED_FACEBOOK
+        defaultHouseShouldNotBeFound("facebook.in=" + UPDATED_FACEBOOK);
+    }
+
+    @Test
+    @Transactional
+    public void getAllHousesByFacebookIsNullOrNotNull() throws Exception {
+        // Initialize the database
+        houseRepository.saveAndFlush(house);
+
+        // Get all the houseList where facebook is not null
+        defaultHouseShouldBeFound("facebook.specified=true");
+
+        // Get all the houseList where facebook is null
+        defaultHouseShouldNotBeFound("facebook.specified=false");
+    }
+
+    @Test
+    @Transactional
+    public void getAllHousesByZaloIsEqualToSomething() throws Exception {
+        // Initialize the database
+        houseRepository.saveAndFlush(house);
+
+        // Get all the houseList where zalo equals to DEFAULT_ZALO
+        defaultHouseShouldBeFound("zalo.equals=" + DEFAULT_ZALO);
+
+        // Get all the houseList where zalo equals to UPDATED_ZALO
+        defaultHouseShouldNotBeFound("zalo.equals=" + UPDATED_ZALO);
+    }
+
+    @Test
+    @Transactional
+    public void getAllHousesByZaloIsInShouldWork() throws Exception {
+        // Initialize the database
+        houseRepository.saveAndFlush(house);
+
+        // Get all the houseList where zalo in DEFAULT_ZALO or UPDATED_ZALO
+        defaultHouseShouldBeFound("zalo.in=" + DEFAULT_ZALO + "," + UPDATED_ZALO);
+
+        // Get all the houseList where zalo equals to UPDATED_ZALO
+        defaultHouseShouldNotBeFound("zalo.in=" + UPDATED_ZALO);
+    }
+
+    @Test
+    @Transactional
+    public void getAllHousesByZaloIsNullOrNotNull() throws Exception {
+        // Initialize the database
+        houseRepository.saveAndFlush(house);
+
+        // Get all the houseList where zalo is not null
+        defaultHouseShouldBeFound("zalo.specified=true");
+
+        // Get all the houseList where zalo is null
+        defaultHouseShouldNotBeFound("zalo.specified=false");
+    }
 
     @Test
     @Transactional
@@ -1592,6 +1914,7 @@ public class HouseResourceIntTest {
             .andExpect(jsonPath("$.[*].money").value(hasItem(DEFAULT_MONEY.doubleValue())))
             .andExpect(jsonPath("$.[*].moneyType").value(hasItem(DEFAULT_MONEY_TYPE.toString())))
             .andExpect(jsonPath("$.[*].acreage").value(hasItem(DEFAULT_ACREAGE.doubleValue())))
+            .andExpect(jsonPath("$.[*].acreageStreetSide").value(hasItem(DEFAULT_ACREAGE_STREET_SIDE.doubleValue())))
             .andExpect(jsonPath("$.[*].discount").value(hasItem(DEFAULT_DISCOUNT.doubleValue())))
             .andExpect(jsonPath("$.[*].direction").value(hasItem(DEFAULT_DIRECTION.toString())))
             .andExpect(jsonPath("$.[*].directionBalcony").value(hasItem(DEFAULT_DIRECTION_BALCONY.toString())))
@@ -1601,12 +1924,18 @@ public class HouseResourceIntTest {
             .andExpect(jsonPath("$.[*].bedRoom").value(hasItem(DEFAULT_BED_ROOM)))
             .andExpect(jsonPath("$.[*].parking").value(hasItem(DEFAULT_PARKING.booleanValue())))
             .andExpect(jsonPath("$.[*].furniture").value(hasItem(DEFAULT_FURNITURE.booleanValue())))
+            .andExpect(jsonPath("$.[*].summary").value(hasItem(DEFAULT_SUMMARY.toString())))
             .andExpect(jsonPath("$.[*].landType").value(hasItem(DEFAULT_LAND_TYPE.toString())))
             .andExpect(jsonPath("$.[*].saleType").value(hasItem(DEFAULT_SALE_TYPE.toString())))
             .andExpect(jsonPath("$.[*].fee").value(hasItem(DEFAULT_FEE.doubleValue())))
             .andExpect(jsonPath("$.[*].feeMax").value(hasItem(DEFAULT_FEE_MAX.doubleValue())))
             .andExpect(jsonPath("$.[*].present").value(hasItem(DEFAULT_PRESENT.toString())))
             .andExpect(jsonPath("$.[*].hits").value(hasItem(DEFAULT_HITS)))
+            .andExpect(jsonPath("$.[*].customer").value(hasItem(DEFAULT_CUSTOMER.toString())))
+            .andExpect(jsonPath("$.[*].mobile").value(hasItem(DEFAULT_MOBILE.toString())))
+            .andExpect(jsonPath("$.[*].email").value(hasItem(DEFAULT_EMAIL.toString())))
+            .andExpect(jsonPath("$.[*].facebook").value(hasItem(DEFAULT_FACEBOOK.toString())))
+            .andExpect(jsonPath("$.[*].zalo").value(hasItem(DEFAULT_ZALO.toString())))
             .andExpect(jsonPath("$.[*].statusType").value(hasItem(DEFAULT_STATUS_TYPE.toString())))
             .andExpect(jsonPath("$.[*].createAt").value(hasItem(DEFAULT_CREATE_AT.toString())))
             .andExpect(jsonPath("$.[*].updateAt").value(hasItem(DEFAULT_UPDATE_AT.toString())));
@@ -1650,6 +1979,7 @@ public class HouseResourceIntTest {
             .money(UPDATED_MONEY)
             .moneyType(UPDATED_MONEY_TYPE)
             .acreage(UPDATED_ACREAGE)
+            .acreageStreetSide(UPDATED_ACREAGE_STREET_SIDE)
             .discount(UPDATED_DISCOUNT)
             .direction(UPDATED_DIRECTION)
             .directionBalcony(UPDATED_DIRECTION_BALCONY)
@@ -1659,12 +1989,18 @@ public class HouseResourceIntTest {
             .bedRoom(UPDATED_BED_ROOM)
             .parking(UPDATED_PARKING)
             .furniture(UPDATED_FURNITURE)
+            .summary(UPDATED_SUMMARY)
             .landType(UPDATED_LAND_TYPE)
             .saleType(UPDATED_SALE_TYPE)
             .fee(UPDATED_FEE)
             .feeMax(UPDATED_FEE_MAX)
             .present(UPDATED_PRESENT)
             .hits(UPDATED_HITS)
+            .customer(UPDATED_CUSTOMER)
+            .mobile(UPDATED_MOBILE)
+            .email(UPDATED_EMAIL)
+            .facebook(UPDATED_FACEBOOK)
+            .zalo(UPDATED_ZALO)
             .statusType(UPDATED_STATUS_TYPE)
             .createAt(UPDATED_CREATE_AT)
             .updateAt(UPDATED_UPDATE_AT);
@@ -1685,6 +2021,7 @@ public class HouseResourceIntTest {
         assertThat(testHouse.getMoney()).isEqualTo(UPDATED_MONEY);
         assertThat(testHouse.getMoneyType()).isEqualTo(UPDATED_MONEY_TYPE);
         assertThat(testHouse.getAcreage()).isEqualTo(UPDATED_ACREAGE);
+        assertThat(testHouse.getAcreageStreetSide()).isEqualTo(UPDATED_ACREAGE_STREET_SIDE);
         assertThat(testHouse.getDiscount()).isEqualTo(UPDATED_DISCOUNT);
         assertThat(testHouse.getDirection()).isEqualTo(UPDATED_DIRECTION);
         assertThat(testHouse.getDirectionBalcony()).isEqualTo(UPDATED_DIRECTION_BALCONY);
@@ -1694,12 +2031,18 @@ public class HouseResourceIntTest {
         assertThat(testHouse.getBedRoom()).isEqualTo(UPDATED_BED_ROOM);
         assertThat(testHouse.isParking()).isEqualTo(UPDATED_PARKING);
         assertThat(testHouse.isFurniture()).isEqualTo(UPDATED_FURNITURE);
+        assertThat(testHouse.getSummary()).isEqualTo(UPDATED_SUMMARY);
         assertThat(testHouse.getLandType()).isEqualTo(UPDATED_LAND_TYPE);
         assertThat(testHouse.getSaleType()).isEqualTo(UPDATED_SALE_TYPE);
         assertThat(testHouse.getFee()).isEqualTo(UPDATED_FEE);
         assertThat(testHouse.getFeeMax()).isEqualTo(UPDATED_FEE_MAX);
         assertThat(testHouse.getPresent()).isEqualTo(UPDATED_PRESENT);
         assertThat(testHouse.getHits()).isEqualTo(UPDATED_HITS);
+        assertThat(testHouse.getCustomer()).isEqualTo(UPDATED_CUSTOMER);
+        assertThat(testHouse.getMobile()).isEqualTo(UPDATED_MOBILE);
+        assertThat(testHouse.getEmail()).isEqualTo(UPDATED_EMAIL);
+        assertThat(testHouse.getFacebook()).isEqualTo(UPDATED_FACEBOOK);
+        assertThat(testHouse.getZalo()).isEqualTo(UPDATED_ZALO);
         assertThat(testHouse.getStatusType()).isEqualTo(UPDATED_STATUS_TYPE);
         assertThat(testHouse.getCreateAt()).isEqualTo(UPDATED_CREATE_AT);
         assertThat(testHouse.getUpdateAt()).isEqualTo(UPDATED_UPDATE_AT);
@@ -1769,6 +2112,7 @@ public class HouseResourceIntTest {
             .andExpect(jsonPath("$.[*].money").value(hasItem(DEFAULT_MONEY.doubleValue())))
             .andExpect(jsonPath("$.[*].moneyType").value(hasItem(DEFAULT_MONEY_TYPE.toString())))
             .andExpect(jsonPath("$.[*].acreage").value(hasItem(DEFAULT_ACREAGE.doubleValue())))
+            .andExpect(jsonPath("$.[*].acreageStreetSide").value(hasItem(DEFAULT_ACREAGE_STREET_SIDE.doubleValue())))
             .andExpect(jsonPath("$.[*].discount").value(hasItem(DEFAULT_DISCOUNT.doubleValue())))
             .andExpect(jsonPath("$.[*].direction").value(hasItem(DEFAULT_DIRECTION.toString())))
             .andExpect(jsonPath("$.[*].directionBalcony").value(hasItem(DEFAULT_DIRECTION_BALCONY.toString())))
@@ -1778,12 +2122,18 @@ public class HouseResourceIntTest {
             .andExpect(jsonPath("$.[*].bedRoom").value(hasItem(DEFAULT_BED_ROOM)))
             .andExpect(jsonPath("$.[*].parking").value(hasItem(DEFAULT_PARKING.booleanValue())))
             .andExpect(jsonPath("$.[*].furniture").value(hasItem(DEFAULT_FURNITURE.booleanValue())))
+            .andExpect(jsonPath("$.[*].summary").value(hasItem(DEFAULT_SUMMARY.toString())))
             .andExpect(jsonPath("$.[*].landType").value(hasItem(DEFAULT_LAND_TYPE.toString())))
             .andExpect(jsonPath("$.[*].saleType").value(hasItem(DEFAULT_SALE_TYPE.toString())))
             .andExpect(jsonPath("$.[*].fee").value(hasItem(DEFAULT_FEE.doubleValue())))
             .andExpect(jsonPath("$.[*].feeMax").value(hasItem(DEFAULT_FEE_MAX.doubleValue())))
             .andExpect(jsonPath("$.[*].present").value(hasItem(DEFAULT_PRESENT.toString())))
             .andExpect(jsonPath("$.[*].hits").value(hasItem(DEFAULT_HITS)))
+            .andExpect(jsonPath("$.[*].customer").value(hasItem(DEFAULT_CUSTOMER.toString())))
+            .andExpect(jsonPath("$.[*].mobile").value(hasItem(DEFAULT_MOBILE.toString())))
+            .andExpect(jsonPath("$.[*].email").value(hasItem(DEFAULT_EMAIL.toString())))
+            .andExpect(jsonPath("$.[*].facebook").value(hasItem(DEFAULT_FACEBOOK.toString())))
+            .andExpect(jsonPath("$.[*].zalo").value(hasItem(DEFAULT_ZALO.toString())))
             .andExpect(jsonPath("$.[*].statusType").value(hasItem(DEFAULT_STATUS_TYPE.toString())))
             .andExpect(jsonPath("$.[*].createAt").value(hasItem(DEFAULT_CREATE_AT.toString())))
             .andExpect(jsonPath("$.[*].updateAt").value(hasItem(DEFAULT_UPDATE_AT.toString())));

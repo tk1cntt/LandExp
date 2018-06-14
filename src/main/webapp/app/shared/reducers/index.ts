@@ -96,6 +96,10 @@ import banner, {
 import payment, {
   PaymentState
 } from 'app/entities/payment/payment.reducer';
+// prettier-ignore
+import ward, {
+  WardState
+} from 'app/entities/ward/ward.reducer';
 /* jhipster-needle-add-reducer-import - JHipster will add reducer here */
 
 export interface IRootState {
@@ -130,6 +134,7 @@ export interface IRootState {
   readonly potentialCustomer: PotentialCustomerState;
   readonly banner: BannerState;
   readonly payment: PaymentState;
+  readonly ward: WardState;
   /* jhipster-needle-add-reducer-type - JHipster will add reducer type here */
   readonly loadingBar: any;
 }
@@ -166,6 +171,7 @@ const rootReducer = combineReducers<IRootState>({
   potentialCustomer,
   banner,
   payment,
+  ward,
   /* jhipster-needle-add-reducer-combine - JHipster will add reducer here */
   loadingBar
 });

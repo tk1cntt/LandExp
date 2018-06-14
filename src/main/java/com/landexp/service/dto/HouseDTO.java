@@ -31,6 +31,8 @@ public class HouseDTO implements Serializable {
 
     private Float acreage;
 
+    private Float acreageStreetSide;
+
     private Float discount;
 
     private DirectionType direction;
@@ -49,6 +51,8 @@ public class HouseDTO implements Serializable {
 
     private Boolean furniture;
 
+    private String summary;
+
     private LandType landType;
 
     private SaleType saleType;
@@ -60,6 +64,16 @@ public class HouseDTO implements Serializable {
     private PresentType present;
 
     private Integer hits;
+
+    private String customer;
+
+    private String mobile;
+
+    private String email;
+
+    private String facebook;
+
+    private String zalo;
 
     private StatusType statusType;
 
@@ -145,6 +159,14 @@ public class HouseDTO implements Serializable {
         this.acreage = acreage;
     }
 
+    public Float getAcreageStreetSide() {
+        return acreageStreetSide;
+    }
+
+    public void setAcreageStreetSide(Float acreageStreetSide) {
+        this.acreageStreetSide = acreageStreetSide;
+    }
+
     public Float getDiscount() {
         return discount;
     }
@@ -217,6 +239,14 @@ public class HouseDTO implements Serializable {
         this.furniture = furniture;
     }
 
+    public String getSummary() {
+        return summary;
+    }
+
+    public void setSummary(String summary) {
+        this.summary = summary;
+    }
+
     public LandType getLandType() {
         return landType;
     }
@@ -263,6 +293,46 @@ public class HouseDTO implements Serializable {
 
     public void setHits(Integer hits) {
         this.hits = hits;
+    }
+
+    public String getCustomer() {
+        return customer;
+    }
+
+    public void setCustomer(String customer) {
+        this.customer = customer;
+    }
+
+    public String getMobile() {
+        return mobile;
+    }
+
+    public void setMobile(String mobile) {
+        this.mobile = mobile;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    public String getFacebook() {
+        return facebook;
+    }
+
+    public void setFacebook(String facebook) {
+        this.facebook = facebook;
+    }
+
+    public String getZalo() {
+        return zalo;
+    }
+
+    public void setZalo(String zalo) {
+        this.zalo = zalo;
     }
 
     public StatusType getStatusType() {
@@ -408,6 +478,7 @@ public class HouseDTO implements Serializable {
             ", money=" + getMoney() +
             ", moneyType='" + getMoneyType() + "'" +
             ", acreage=" + getAcreage() +
+            ", acreageStreetSide=" + getAcreageStreetSide() +
             ", discount=" + getDiscount() +
             ", direction='" + getDirection() + "'" +
             ", directionBalcony='" + getDirectionBalcony() + "'" +
@@ -417,12 +488,18 @@ public class HouseDTO implements Serializable {
             ", bedRoom=" + getBedRoom() +
             ", parking='" + isParking() + "'" +
             ", furniture='" + isFurniture() + "'" +
+            ", summary='" + getSummary() + "'" +
             ", landType='" + getLandType() + "'" +
             ", saleType='" + getSaleType() + "'" +
             ", fee=" + getFee() +
             ", feeMax=" + getFeeMax() +
             ", present='" + getPresent() + "'" +
             ", hits=" + getHits() +
+            ", customer='" + getCustomer() + "'" +
+            ", mobile='" + getMobile() + "'" +
+            ", email='" + getEmail() + "'" +
+            ", facebook='" + getFacebook() + "'" +
+            ", zalo='" + getZalo() + "'" +
             ", statusType='" + getStatusType() + "'" +
             ", createAt='" + getCreateAt() + "'" +
             ", updateAt='" + getUpdateAt() + "'" +

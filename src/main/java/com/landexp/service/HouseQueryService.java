@@ -98,6 +98,9 @@ public class HouseQueryService extends QueryService<House> {
             if (criteria.getAcreage() != null) {
                 specification = specification.and(buildRangeSpecification(criteria.getAcreage(), House_.acreage));
             }
+            if (criteria.getAcreageStreetSide() != null) {
+                specification = specification.and(buildRangeSpecification(criteria.getAcreageStreetSide(), House_.acreageStreetSide));
+            }
             if (criteria.getDiscount() != null) {
                 specification = specification.and(buildRangeSpecification(criteria.getDiscount(), House_.discount));
             }
@@ -125,6 +128,9 @@ public class HouseQueryService extends QueryService<House> {
             if (criteria.getFurniture() != null) {
                 specification = specification.and(buildSpecification(criteria.getFurniture(), House_.furniture));
             }
+            if (criteria.getSummary() != null) {
+                specification = specification.and(buildStringSpecification(criteria.getSummary(), House_.summary));
+            }
             if (criteria.getLandType() != null) {
                 specification = specification.and(buildSpecification(criteria.getLandType(), House_.landType));
             }
@@ -142,6 +148,21 @@ public class HouseQueryService extends QueryService<House> {
             }
             if (criteria.getHits() != null) {
                 specification = specification.and(buildRangeSpecification(criteria.getHits(), House_.hits));
+            }
+            if (criteria.getCustomer() != null) {
+                specification = specification.and(buildStringSpecification(criteria.getCustomer(), House_.customer));
+            }
+            if (criteria.getMobile() != null) {
+                specification = specification.and(buildStringSpecification(criteria.getMobile(), House_.mobile));
+            }
+            if (criteria.getEmail() != null) {
+                specification = specification.and(buildStringSpecification(criteria.getEmail(), House_.email));
+            }
+            if (criteria.getFacebook() != null) {
+                specification = specification.and(buildStringSpecification(criteria.getFacebook(), House_.facebook));
+            }
+            if (criteria.getZalo() != null) {
+                specification = specification.and(buildStringSpecification(criteria.getZalo(), House_.zalo));
             }
             if (criteria.getStatusType() != null) {
                 specification = specification.and(buildSpecification(criteria.getStatusType(), House_.statusType));

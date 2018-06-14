@@ -1,8 +1,6 @@
 package com.landexp.domain;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-import org.hibernate.annotations.CreationTimestamp;
-import org.hibernate.annotations.UpdateTimestamp;
 
 import javax.persistence.*;
 
@@ -12,12 +10,12 @@ import java.time.LocalDate;
 import java.util.Objects;
 
 /**
- * A Street.
+ * A Ward.
  */
 @Entity
-@Table(name = "street")
-@Document(indexName = "street")
-public class Street implements Serializable {
+@Table(name = "ward")
+@Document(indexName = "ward")
+public class Ward implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
@@ -28,26 +26,18 @@ public class Street implements Serializable {
     @Column(name = "name")
     private String name;
 
-    @Column(name = "postal_code")
-    private String postalCode;
-
-    @Column(name = "state_province")
-    private String stateProvince;
-
     @Column(name = "enabled")
     private Boolean enabled;
 
-    @CreationTimestamp
     @Column(name = "create_at")
     private LocalDate createAt;
 
-    @UpdateTimestamp
     @Column(name = "update_at")
     private LocalDate updateAt;
 
     @ManyToOne
     @JsonIgnoreProperties("")
-    private Ward district;
+    private District district;
 
     // jhipster-needle-entity-add-field - JHipster will add fields here, do not remove
     public Long getId() {
@@ -62,7 +52,7 @@ public class Street implements Serializable {
         return name;
     }
 
-    public Street name(String name) {
+    public Ward name(String name) {
         this.name = name;
         return this;
     }
@@ -71,37 +61,11 @@ public class Street implements Serializable {
         this.name = name;
     }
 
-    public String getPostalCode() {
-        return postalCode;
-    }
-
-    public Street postalCode(String postalCode) {
-        this.postalCode = postalCode;
-        return this;
-    }
-
-    public void setPostalCode(String postalCode) {
-        this.postalCode = postalCode;
-    }
-
-    public String getStateProvince() {
-        return stateProvince;
-    }
-
-    public Street stateProvince(String stateProvince) {
-        this.stateProvince = stateProvince;
-        return this;
-    }
-
-    public void setStateProvince(String stateProvince) {
-        this.stateProvince = stateProvince;
-    }
-
     public Boolean isEnabled() {
         return enabled;
     }
 
-    public Street enabled(Boolean enabled) {
+    public Ward enabled(Boolean enabled) {
         this.enabled = enabled;
         return this;
     }
@@ -114,7 +78,7 @@ public class Street implements Serializable {
         return createAt;
     }
 
-    public Street createAt(LocalDate createAt) {
+    public Ward createAt(LocalDate createAt) {
         this.createAt = createAt;
         return this;
     }
@@ -127,7 +91,7 @@ public class Street implements Serializable {
         return updateAt;
     }
 
-    public Street updateAt(LocalDate updateAt) {
+    public Ward updateAt(LocalDate updateAt) {
         this.updateAt = updateAt;
         return this;
     }
@@ -136,17 +100,17 @@ public class Street implements Serializable {
         this.updateAt = updateAt;
     }
 
-    public Ward getDistrict() {
+    public District getDistrict() {
         return district;
     }
 
-    public Street district(Ward ward) {
-        this.district = ward;
+    public Ward district(District district) {
+        this.district = district;
         return this;
     }
 
-    public void setDistrict(Ward ward) {
-        this.district = ward;
+    public void setDistrict(District district) {
+        this.district = district;
     }
     // jhipster-needle-entity-add-getters-setters - JHipster will add getters and setters here, do not remove
 
@@ -158,11 +122,11 @@ public class Street implements Serializable {
         if (o == null || getClass() != o.getClass()) {
             return false;
         }
-        Street street = (Street) o;
-        if (street.getId() == null || getId() == null) {
+        Ward ward = (Ward) o;
+        if (ward.getId() == null || getId() == null) {
             return false;
         }
-        return Objects.equals(getId(), street.getId());
+        return Objects.equals(getId(), ward.getId());
     }
 
     @Override
@@ -172,11 +136,9 @@ public class Street implements Serializable {
 
     @Override
     public String toString() {
-        return "Street{" +
+        return "Ward{" +
             "id=" + getId() +
             ", name='" + getName() + "'" +
-            ", postalCode='" + getPostalCode() + "'" +
-            ", stateProvince='" + getStateProvince() + "'" +
             ", enabled='" + isEnabled() + "'" +
             ", createAt='" + getCreateAt() + "'" +
             ", updateAt='" + getUpdateAt() + "'" +

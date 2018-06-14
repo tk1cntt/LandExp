@@ -97,7 +97,9 @@ export class ServiceFeeUpdate extends React.Component<IServiceFeeUpdateProps, IS
                     value={(!isNew && serviceFee.saleType) || 'SALE_BY_MYSELF'}
                   >
                     <option value="SALE_BY_MYSELF">SALE_BY_MYSELF</option>
+                    <option value="SALE_BY_MYSELF_VIP">SALE_BY_MYSELF_VIP</option>
                     <option value="SALE_SUPPORT">SALE_SUPPORT</option>
+                    <option value="SALE_SUPPORT_VIP">SALE_SUPPORT_VIP</option>
                   </AvInput>
                 </AvGroup>
                 <AvGroup>

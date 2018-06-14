@@ -56,7 +56,7 @@ export class StepFour extends React.Component<IStepFourProp, IStepFourState> {
 
   handleChange = ({ fileList }) => {
     const oldFiles = this.state.fileList;
-    let difference = oldFiles.filter(x => !fileList.includes(x));
+    const difference = oldFiles.filter(x => !fileList.includes(x));
     if (difference) {
       difference.map(file => {
         if (file.photoId) {

@@ -2,6 +2,7 @@
     "landexpApp": {
         "PresentType" : {
             "null": "",
+            "NONE": "NONE",
             "BASIC_FURNITURE": "BASIC_FURNITURE",
             "FULL_FURNITURE": "FULL_FURNITURE",
             "DISCOUNT_PRICE": "DISCOUNT_PRICE",

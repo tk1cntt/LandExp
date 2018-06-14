@@ -23,6 +23,7 @@ import UserFinancial from './user-financial';
 import PotentialCustomer from './potential-customer';
 import Banner from './banner';
 import Payment from './payment';
+import Ward from './ward';
 /* jhipster-needle-add-route-import - JHipster will add routes here */
 
 const Routes = ({ match }) => (
@@ -50,6 +51,7 @@ const Routes = ({ match }) => (
       <Route path={`${match.url}/potential-customer`} component={PotentialCustomer} />
       <Route path={`${match.url}/banner`} component={Banner} />
       <Route path={`${match.url}/payment`} component={Payment} />
+      <Route path={`${match.url}/ward`} component={Ward} />
       {/* jhipster-needle-add-route-path - JHipster will routes here */}
     </Switch>
   </div>

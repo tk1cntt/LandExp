@@ -90,6 +90,8 @@ public class HouseCriteria implements Serializable {
 
     private FloatFilter acreage;
 
+    private FloatFilter acreageStreetSide;
+
     private FloatFilter discount;
 
     private DirectionTypeFilter direction;
@@ -108,6 +110,8 @@ public class HouseCriteria implements Serializable {
 
     private BooleanFilter furniture;
 
+    private StringFilter summary;
+
     private LandTypeFilter landType;
 
     private SaleTypeFilter saleType;
@@ -119,6 +123,16 @@ public class HouseCriteria implements Serializable {
     private PresentTypeFilter present;
 
     private IntegerFilter hits;
+
+    private StringFilter customer;
+
+    private StringFilter mobile;
+
+    private StringFilter email;
+
+    private StringFilter facebook;
+
+    private StringFilter zalo;
 
     private StatusTypeFilter statusType;
 
@@ -199,6 +213,14 @@ public class HouseCriteria implements Serializable {
         this.acreage = acreage;
     }
 
+    public FloatFilter getAcreageStreetSide() {
+        return acreageStreetSide;
+    }
+
+    public void setAcreageStreetSide(FloatFilter acreageStreetSide) {
+        this.acreageStreetSide = acreageStreetSide;
+    }
+
     public FloatFilter getDiscount() {
         return discount;
     }
@@ -271,6 +293,14 @@ public class HouseCriteria implements Serializable {
         this.furniture = furniture;
     }
 
+    public StringFilter getSummary() {
+        return summary;
+    }
+
+    public void setSummary(StringFilter summary) {
+        this.summary = summary;
+    }
+
     public LandTypeFilter getLandType() {
         return landType;
     }
@@ -317,6 +347,46 @@ public class HouseCriteria implements Serializable {
 
     public void setHits(IntegerFilter hits) {
         this.hits = hits;
+    }
+
+    public StringFilter getCustomer() {
+        return customer;
+    }
+
+    public void setCustomer(StringFilter customer) {
+        this.customer = customer;
+    }
+
+    public StringFilter getMobile() {
+        return mobile;
+    }
+
+    public void setMobile(StringFilter mobile) {
+        this.mobile = mobile;
+    }
+
+    public StringFilter getEmail() {
+        return email;
+    }
+
+    public void setEmail(StringFilter email) {
+        this.email = email;
+    }
+
+    public StringFilter getFacebook() {
+        return facebook;
+    }
+
+    public void setFacebook(StringFilter facebook) {
+        this.facebook = facebook;
+    }
+
+    public StringFilter getZalo() {
+        return zalo;
+    }
+
+    public void setZalo(StringFilter zalo) {
+        this.zalo = zalo;
     }
 
     public StatusTypeFilter getStatusType() {
@@ -409,6 +479,7 @@ public class HouseCriteria implements Serializable {
                 (money != null ? "money=" + money + ", " : "") +
                 (moneyType != null ? "moneyType=" + moneyType + ", " : "") +
                 (acreage != null ? "acreage=" + acreage + ", " : "") +
+                (acreageStreetSide != null ? "acreageStreetSide=" + acreageStreetSide + ", " : "") +
                 (discount != null ? "discount=" + discount + ", " : "") +
                 (direction != null ? "direction=" + direction + ", " : "") +
                 (directionBalcony != null ? "directionBalcony=" + directionBalcony + ", " : "") +
@@ -418,12 +489,18 @@ public class HouseCriteria implements Serializable {
                 (bedRoom != null ? "bedRoom=" + bedRoom + ", " : "") +
                 (parking != null ? "parking=" + parking + ", " : "") +
                 (furniture != null ? "furniture=" + furniture + ", " : "") +
+                (summary != null ? "summary=" + summary + ", " : "") +
                 (landType != null ? "landType=" + landType + ", " : "") +
                 (saleType != null ? "saleType=" + saleType + ", " : "") +
                 (fee != null ? "fee=" + fee + ", " : "") +
                 (feeMax != null ? "feeMax=" + feeMax + ", " : "") +
                 (present != null ? "present=" + present + ", " : "") +
                 (hits != null ? "hits=" + hits + ", " : "") +
+                (customer != null ? "customer=" + customer + ", " : "") +
+                (mobile != null ? "mobile=" + mobile + ", " : "") +
+                (email != null ? "email=" + email + ", " : "") +
+                (facebook != null ? "facebook=" + facebook + ", " : "") +
+                (zalo != null ? "zalo=" + zalo + ", " : "") +
                 (statusType != null ? "statusType=" + statusType + ", " : "") +
                 (createAt != null ? "createAt=" + createAt + ", " : "") +
                 (updateAt != null ? "updateAt=" + updateAt + ", " : "") +

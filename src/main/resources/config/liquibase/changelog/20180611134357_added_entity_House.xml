@@ -46,6 +46,10 @@
                 <constraints nullable="true" />
             </column>
 
+            <column name="acreage_street_side" type="${floatType}">
+                <constraints nullable="true" />
+            </column>
+
             <column name="discount" type="${floatType}">
                 <constraints nullable="true" />
             </column>
@@ -82,6 +86,10 @@
                 <constraints nullable="true" />
             </column>
 
+            <column name="summary" type="varchar(255)">
+                <constraints nullable="true" />
+            </column>
+
             <column name="land_type" type="varchar(255)">
                 <constraints nullable="true" />
             </column>
@@ -103,6 +111,26 @@
             </column>
 
             <column name="hits" type="integer">
+                <constraints nullable="true" />
+            </column>
+
+            <column name="customer" type="varchar(255)">
+                <constraints nullable="true" />
+            </column>
+
+            <column name="mobile" type="varchar(255)">
+                <constraints nullable="true" />
+            </column>
+
+            <column name="email" type="varchar(255)">
+                <constraints nullable="true" />
+            </column>
+
+            <column name="facebook" type="varchar(255)">
+                <constraints nullable="true" />
+            </column>
+
+            <column name="zalo" type="varchar(255)">
                 <constraints nullable="true" />
             </column>
 

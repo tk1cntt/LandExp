@@ -5,14 +5,6 @@
             "fieldType": "String"
         },
         {
-            "fieldName": "postalCode",
-            "fieldType": "String"
-        },
-        {
-            "fieldName": "stateProvince",
-            "fieldType": "String"
-        },
-        {
             "fieldName": "enabled",
             "fieldType": "Boolean"
         },
@@ -29,14 +21,14 @@
         {
             "relationshipType": "many-to-one",
             "relationshipName": "district",
-            "otherEntityName": "ward",
+            "otherEntityName": "district",
             "otherEntityField": "name"
         }
     ],
-    "changelogDate": "20180611134356",
-    "entityTableName": "street",
+    "changelogDate": "20180614133329",
+    "entityTableName": "ward",
     "dto": "mapstruct",
-    "pagination": "pagination",
+    "pagination": "no",
     "service": "serviceClass",
     "jpaMetamodelFiltering": false,
     "fluentMethods": true,

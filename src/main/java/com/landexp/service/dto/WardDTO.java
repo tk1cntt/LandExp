@@ -5,17 +5,13 @@ import java.io.Serializable;
 import java.util.Objects;
 
 /**
- * A DTO for the Street entity.
+ * A DTO for the Ward entity.
  */
-public class StreetDTO implements Serializable {
+public class WardDTO implements Serializable {
 
     private Long id;
 
     private String name;
-
-    private String postalCode;
-
-    private String stateProvince;
 
     private Boolean enabled;
 
@@ -41,22 +37,6 @@ public class StreetDTO implements Serializable {
 
     public void setName(String name) {
         this.name = name;
-    }
-
-    public String getPostalCode() {
-        return postalCode;
-    }
-
-    public void setPostalCode(String postalCode) {
-        this.postalCode = postalCode;
-    }
-
-    public String getStateProvince() {
-        return stateProvince;
-    }
-
-    public void setStateProvince(String stateProvince) {
-        this.stateProvince = stateProvince;
     }
 
     public Boolean isEnabled() {
@@ -87,16 +67,16 @@ public class StreetDTO implements Serializable {
         return districtId;
     }
 
-    public void setDistrictId(Long wardId) {
-        this.districtId = wardId;
+    public void setDistrictId(Long districtId) {
+        this.districtId = districtId;
     }
 
     public String getDistrictName() {
         return districtName;
     }
 
-    public void setDistrictName(String wardName) {
-        this.districtName = wardName;
+    public void setDistrictName(String districtName) {
+        this.districtName = districtName;
     }
 
     @Override
@@ -108,11 +88,11 @@ public class StreetDTO implements Serializable {
             return false;
         }
 
-        StreetDTO streetDTO = (StreetDTO) o;
-        if (streetDTO.getId() == null || getId() == null) {
+        WardDTO wardDTO = (WardDTO) o;
+        if (wardDTO.getId() == null || getId() == null) {
             return false;
         }
-        return Objects.equals(getId(), streetDTO.getId());
+        return Objects.equals(getId(), wardDTO.getId());
     }
 
     @Override
@@ -122,11 +102,9 @@ public class StreetDTO implements Serializable {
 
     @Override
     public String toString() {
-        return "StreetDTO{" +
+        return "WardDTO{" +
             "id=" + getId() +
             ", name='" + getName() + "'" +
-            ", postalCode='" + getPostalCode() + "'" +
-            ", stateProvince='" + getStateProvince() + "'" +
             ", enabled='" + isEnabled() + "'" +
             ", createAt='" + getCreateAt() + "'" +
             ", updateAt='" + getUpdateAt() + "'" +

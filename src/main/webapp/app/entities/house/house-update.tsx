@@ -272,6 +272,12 @@ export class HouseUpdate extends React.Component<IHouseUpdateProps, IHouseUpdate
                   <AvField id="house-acreage" type="number" className="form-control" name="acreage" />
                 </AvGroup>
                 <AvGroup>
+                  <Label id="acreageStreetSideLabel" for="acreageStreetSide">
+                    <Translate contentKey="landexpApp.house.acreageStreetSide">Acreage Street Side</Translate>
+                  </Label>
+                  <AvField id="house-acreageStreetSide" type="number" className="form-control" name="acreageStreetSide" />
+                </AvGroup>
+                <AvGroup>
                   <Label id="discountLabel" for="discount">
                     <Translate contentKey="landexpApp.house.discount">Discount</Translate>
                   </Label>
@@ -356,6 +362,12 @@ export class HouseUpdate extends React.Component<IHouseUpdateProps, IHouseUpdate
                   </Label>
                 </AvGroup>
                 <AvGroup>
+                  <Label id="summaryLabel" for="summary">
+                    <Translate contentKey="landexpApp.house.summary">Summary</Translate>
+                  </Label>
+                  <AvField id="house-summary" type="text" name="summary" />
+                </AvGroup>
+                <AvGroup>
                   <Label id="landTypeLabel">
                     <Translate contentKey="landexpApp.house.landType">Land Type</Translate>
                   </Label>
@@ -394,7 +406,9 @@ export class HouseUpdate extends React.Component<IHouseUpdateProps, IHouseUpdate
                     value={(!isNew && house.saleType) || 'SALE_BY_MYSELF'}
                   >
                     <option value="SALE_BY_MYSELF">SALE_BY_MYSELF</option>
+                    <option value="SALE_BY_MYSELF_VIP">SALE_BY_MYSELF_VIP</option>
                     <option value="SALE_SUPPORT">SALE_SUPPORT</option>
+                    <option value="SALE_SUPPORT_VIP">SALE_SUPPORT_VIP</option>
                   </AvInput>
                 </AvGroup>
                 <AvGroup>
@@ -418,8 +432,9 @@ export class HouseUpdate extends React.Component<IHouseUpdateProps, IHouseUpdate
                     type="select"
                     className="form-control"
                     name="present"
-                    value={(!isNew && house.present) || 'BASIC_FURNITURE'}
+                    value={(!isNew && house.present) || 'NONE'}
                   >
+                    <option value="NONE">NONE</option>
                     <option value="BASIC_FURNITURE">BASIC_FURNITURE</option>
                     <option value="FULL_FURNITURE">FULL_FURNITURE</option>
                     <option value="DISCOUNT_PRICE">DISCOUNT_PRICE</option>
@@ -433,6 +448,36 @@ export class HouseUpdate extends React.Component<IHouseUpdateProps, IHouseUpdate
                     <Translate contentKey="landexpApp.house.hits">Hits</Translate>
                   </Label>
                   <AvField id="house-hits" type="number" className="form-control" name="hits" />
+                </AvGroup>
+                <AvGroup>
+                  <Label id="customerLabel" for="customer">
+                    <Translate contentKey="landexpApp.house.customer">Customer</Translate>
+                  </Label>
+                  <AvField id="house-customer" type="text" name="customer" />
+                </AvGroup>
+                <AvGroup>
+                  <Label id="mobileLabel" for="mobile">
+                    <Translate contentKey="landexpApp.house.mobile">Mobile</Translate>
+                  </Label>
+                  <AvField id="house-mobile" type="text" name="mobile" />
+                </AvGroup>
+                <AvGroup>
+                  <Label id="emailLabel" for="email">
+                    <Translate contentKey="landexpApp.house.email">Email</Translate>
+                  </Label>
+                  <AvField id="house-email" type="text" name="email" />
+                </AvGroup>
+                <AvGroup>
+                  <Label id="facebookLabel" for="facebook">
+                    <Translate contentKey="landexpApp.house.facebook">Facebook</Translate>
+                  </Label>
+                  <AvField id="house-facebook" type="text" name="facebook" />
+                </AvGroup>
+                <AvGroup>
+                  <Label id="zaloLabel" for="zalo">
+                    <Translate contentKey="landexpApp.house.zalo">Zalo</Translate>
+                  </Label>
+                  <AvField id="house-zalo" type="text" name="zalo" />
                 </AvGroup>
                 <AvGroup>
                   <Label id="statusTypeLabel">

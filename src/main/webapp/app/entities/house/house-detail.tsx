@@ -65,6 +65,12 @@ export class HouseDetail extends React.Component<IHouseDetailProps> {
             </dt>
             <dd>{house.acreage}</dd>
             <dt>
+              <span id="acreageStreetSide">
+                <Translate contentKey="landexpApp.house.acreageStreetSide">Acreage Street Side</Translate>
+              </span>
+            </dt>
+            <dd>{house.acreageStreetSide}</dd>
+            <dt>
               <span id="discount">
                 <Translate contentKey="landexpApp.house.discount">Discount</Translate>
               </span>
@@ -119,6 +125,12 @@ export class HouseDetail extends React.Component<IHouseDetailProps> {
             </dt>
             <dd>{house.furniture ? 'true' : 'false'}</dd>
             <dt>
+              <span id="summary">
+                <Translate contentKey="landexpApp.house.summary">Summary</Translate>
+              </span>
+            </dt>
+            <dd>{house.summary}</dd>
+            <dt>
               <span id="landType">
                 <Translate contentKey="landexpApp.house.landType">Land Type</Translate>
               </span>
@@ -154,6 +166,36 @@ export class HouseDetail extends React.Component<IHouseDetailProps> {
               </span>
             </dt>
             <dd>{house.hits}</dd>
+            <dt>
+              <span id="customer">
+                <Translate contentKey="landexpApp.house.customer">Customer</Translate>
+              </span>
+            </dt>
+            <dd>{house.customer}</dd>
+            <dt>
+              <span id="mobile">
+                <Translate contentKey="landexpApp.house.mobile">Mobile</Translate>
+              </span>
+            </dt>
+            <dd>{house.mobile}</dd>
+            <dt>
+              <span id="email">
+                <Translate contentKey="landexpApp.house.email">Email</Translate>
+              </span>
+            </dt>
+            <dd>{house.email}</dd>
+            <dt>
+              <span id="facebook">
+                <Translate contentKey="landexpApp.house.facebook">Facebook</Translate>
+              </span>
+            </dt>
+            <dd>{house.facebook}</dd>
+            <dt>
+              <span id="zalo">
+                <Translate contentKey="landexpApp.house.zalo">Zalo</Translate>
+              </span>
+            </dt>
+            <dd>{house.zalo}</dd>
             <dt>
               <span id="statusType">
                 <Translate contentKey="landexpApp.house.statusType">Status Type</Translate>

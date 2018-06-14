@@ -48,7 +48,7 @@ import com.landexp.domain.enumeration.SaleType;
 public class ServiceFeeResourceIntTest {
 
     private static final SaleType DEFAULT_SALE_TYPE = SaleType.SALE_BY_MYSELF;
-    private static final SaleType UPDATED_SALE_TYPE = SaleType.SALE_SUPPORT;
+    private static final SaleType UPDATED_SALE_TYPE = SaleType.SALE_BY_MYSELF_VIP;
 
     private static final Float DEFAULT_FEE = 1F;
     private static final Float UPDATED_FEE = 2F;

@@ -8,7 +8,7 @@ import org.mapstruct.*;
 /**
  * Mapper for the entity Street and its DTO StreetDTO.
  */
-@Mapper(componentModel = "spring", uses = {DistrictMapper.class})
+@Mapper(componentModel = "spring", uses = {WardMapper.class})
 public interface StreetMapper extends EntityMapper<StreetDTO, Street> {
 
     @Mapping(source = "district.id", target = "districtId")

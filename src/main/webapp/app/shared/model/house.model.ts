@@ -43,10 +43,13 @@ export const enum LandType {
 
 export const enum SaleType {
   SALE_BY_MYSELF = 'SALE_BY_MYSELF',
-  SALE_SUPPORT = 'SALE_SUPPORT'
+  SALE_BY_MYSELF_VIP = 'SALE_BY_MYSELF_VIP',
+  SALE_SUPPORT = 'SALE_SUPPORT',
+  SALE_SUPPORT_VIP = 'SALE_SUPPORT_VIP'
 }
 
 export const enum PresentType {
+  NONE = 'NONE',
   BASIC_FURNITURE = 'BASIC_FURNITURE',
   FULL_FURNITURE = 'FULL_FURNITURE',
   DISCOUNT_PRICE = 'DISCOUNT_PRICE',
@@ -72,6 +75,7 @@ export interface IHouse {
   money?: number;
   moneyType?: MoneyType;
   acreage?: number;
+  acreageStreetSide?: number;
   discount?: number;
   direction?: DirectionType;
   directionBalcony?: DirectionType;
@@ -81,12 +85,18 @@ export interface IHouse {
   bedRoom?: number;
   parking?: boolean;
   furniture?: boolean;
+  summary?: string;
   landType?: LandType;
   saleType?: SaleType;
   fee?: number;
   feeMax?: number;
   present?: PresentType;
   hits?: number;
+  customer?: string;
+  mobile?: string;
+  email?: string;
+  facebook?: string;
+  zalo?: string;
   statusType?: StatusType;
   createAt?: Moment;
   updateAt?: Moment;

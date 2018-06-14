@@ -62,6 +62,9 @@ public class House implements Serializable {
     @Column(name = "acreage")
     private Float acreage;
 
+    @Column(name = "acreage_street_side")
+    private Float acreageStreetSide;
+
     @Column(name = "discount")
     private Float discount;
 
@@ -91,6 +94,9 @@ public class House implements Serializable {
     @Column(name = "furniture")
     private Boolean furniture;
 
+    @Column(name = "summary")
+    private String summary;
+
     @Enumerated(EnumType.STRING)
     @Column(name = "land_type")
     private LandType landType;
@@ -111,6 +117,21 @@ public class House implements Serializable {
 
     @Column(name = "hits")
     private Integer hits;
+
+    @Column(name = "customer")
+    private String customer;
+
+    @Column(name = "mobile")
+    private String mobile;
+
+    @Column(name = "email")
+    private String email;
+
+    @Column(name = "facebook")
+    private String facebook;
+
+    @Column(name = "zalo")
+    private String zalo;
 
     @Enumerated(EnumType.STRING)
     @Column(name = "status_type")
@@ -238,6 +259,19 @@ public class House implements Serializable {
         this.acreage = acreage;
     }
 
+    public Float getAcreageStreetSide() {
+        return acreageStreetSide;
+    }
+
+    public House acreageStreetSide(Float acreageStreetSide) {
+        this.acreageStreetSide = acreageStreetSide;
+        return this;
+    }
+
+    public void setAcreageStreetSide(Float acreageStreetSide) {
+        this.acreageStreetSide = acreageStreetSide;
+    }
+
     public Float getDiscount() {
         return discount;
     }
@@ -355,6 +389,19 @@ public class House implements Serializable {
         this.furniture = furniture;
     }
 
+    public String getSummary() {
+        return summary;
+    }
+
+    public House summary(String summary) {
+        this.summary = summary;
+        return this;
+    }
+
+    public void setSummary(String summary) {
+        this.summary = summary;
+    }
+
     public LandType getLandType() {
         return landType;
     }
@@ -431,6 +478,71 @@ public class House implements Serializable {
 
     public void setHits(Integer hits) {
         this.hits = hits;
+    }
+
+    public String getCustomer() {
+        return customer;
+    }
+
+    public House customer(String customer) {
+        this.customer = customer;
+        return this;
+    }
+
+    public void setCustomer(String customer) {
+        this.customer = customer;
+    }
+
+    public String getMobile() {
+        return mobile;
+    }
+
+    public House mobile(String mobile) {
+        this.mobile = mobile;
+        return this;
+    }
+
+    public void setMobile(String mobile) {
+        this.mobile = mobile;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public House email(String email) {
+        this.email = email;
+        return this;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    public String getFacebook() {
+        return facebook;
+    }
+
+    public House facebook(String facebook) {
+        this.facebook = facebook;
+        return this;
+    }
+
+    public void setFacebook(String facebook) {
+        this.facebook = facebook;
+    }
+
+    public String getZalo() {
+        return zalo;
+    }
+
+    public House zalo(String zalo) {
+        this.zalo = zalo;
+        return this;
+    }
+
+    public void setZalo(String zalo) {
+        this.zalo = zalo;
     }
 
     public StatusType getStatusType() {
@@ -606,6 +718,7 @@ public class House implements Serializable {
             ", money=" + getMoney() +
             ", moneyType='" + getMoneyType() + "'" +
             ", acreage=" + getAcreage() +
+            ", acreageStreetSide=" + getAcreageStreetSide() +
             ", discount=" + getDiscount() +
             ", direction='" + getDirection() + "'" +
             ", directionBalcony='" + getDirectionBalcony() + "'" +
@@ -615,12 +728,18 @@ public class House implements Serializable {
             ", bedRoom=" + getBedRoom() +
             ", parking='" + isParking() + "'" +
             ", furniture='" + isFurniture() + "'" +
+            ", summary='" + getSummary() + "'" +
             ", landType='" + getLandType() + "'" +
             ", saleType='" + getSaleType() + "'" +
             ", fee=" + getFee() +
             ", feeMax=" + getFeeMax() +
             ", present='" + getPresent() + "'" +
             ", hits=" + getHits() +
+            ", customer='" + getCustomer() + "'" +
+            ", mobile='" + getMobile() + "'" +
+            ", email='" + getEmail() + "'" +
+            ", facebook='" + getFacebook() + "'" +
+            ", zalo='" + getZalo() + "'" +
             ", statusType='" + getStatusType() + "'" +
             ", createAt='" + getCreateAt() + "'" +
             ", updateAt='" + getUpdateAt() + "'" +

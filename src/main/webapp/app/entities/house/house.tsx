@@ -136,6 +136,9 @@ export class House extends React.Component<IHouseProps, IHouseState> {
                 <th className="hand" onClick={this.sort('acreage')}>
                   <Translate contentKey="landexpApp.house.acreage">Acreage</Translate> <FontAwesomeIcon icon="sort" />
                 </th>
+                <th className="hand" onClick={this.sort('acreageStreetSide')}>
+                  <Translate contentKey="landexpApp.house.acreageStreetSide">Acreage Street Side</Translate> <FontAwesomeIcon icon="sort" />
+                </th>
                 <th className="hand" onClick={this.sort('discount')}>
                   <Translate contentKey="landexpApp.house.discount">Discount</Translate> <FontAwesomeIcon icon="sort" />
                 </th>
@@ -163,6 +166,9 @@ export class House extends React.Component<IHouseProps, IHouseState> {
                 <th className="hand" onClick={this.sort('furniture')}>
                   <Translate contentKey="landexpApp.house.furniture">Furniture</Translate> <FontAwesomeIcon icon="sort" />
                 </th>
+                <th className="hand" onClick={this.sort('summary')}>
+                  <Translate contentKey="landexpApp.house.summary">Summary</Translate> <FontAwesomeIcon icon="sort" />
+                </th>
                 <th className="hand" onClick={this.sort('landType')}>
                   <Translate contentKey="landexpApp.house.landType">Land Type</Translate> <FontAwesomeIcon icon="sort" />
                 </th>
@@ -180,6 +186,21 @@ export class House extends React.Component<IHouseProps, IHouseState> {
                 </th>
                 <th className="hand" onClick={this.sort('hits')}>
                   <Translate contentKey="landexpApp.house.hits">Hits</Translate> <FontAwesomeIcon icon="sort" />
+                </th>
+                <th className="hand" onClick={this.sort('customer')}>
+                  <Translate contentKey="landexpApp.house.customer">Customer</Translate> <FontAwesomeIcon icon="sort" />
+                </th>
+                <th className="hand" onClick={this.sort('mobile')}>
+                  <Translate contentKey="landexpApp.house.mobile">Mobile</Translate> <FontAwesomeIcon icon="sort" />
+                </th>
+                <th className="hand" onClick={this.sort('email')}>
+                  <Translate contentKey="landexpApp.house.email">Email</Translate> <FontAwesomeIcon icon="sort" />
+                </th>
+                <th className="hand" onClick={this.sort('facebook')}>
+                  <Translate contentKey="landexpApp.house.facebook">Facebook</Translate> <FontAwesomeIcon icon="sort" />
+                </th>
+                <th className="hand" onClick={this.sort('zalo')}>
+                  <Translate contentKey="landexpApp.house.zalo">Zalo</Translate> <FontAwesomeIcon icon="sort" />
                 </th>
                 <th className="hand" onClick={this.sort('statusType')}>
                   <Translate contentKey="landexpApp.house.statusType">Status Type</Translate> <FontAwesomeIcon icon="sort" />
@@ -225,6 +246,7 @@ export class House extends React.Component<IHouseProps, IHouseState> {
                   <td>{house.money}</td>
                   <td>{house.moneyType}</td>
                   <td>{house.acreage}</td>
+                  <td>{house.acreageStreetSide}</td>
                   <td>{house.discount}</td>
                   <td>{house.direction}</td>
                   <td>{house.directionBalcony}</td>
@@ -234,12 +256,18 @@ export class House extends React.Component<IHouseProps, IHouseState> {
                   <td>{house.bedRoom}</td>
                   <td>{house.parking ? 'true' : 'false'}</td>
                   <td>{house.furniture ? 'true' : 'false'}</td>
+                  <td>{house.summary}</td>
                   <td>{house.landType}</td>
                   <td>{house.saleType}</td>
                   <td>{house.fee}</td>
                   <td>{house.feeMax}</td>
                   <td>{house.present}</td>
                   <td>{house.hits}</td>
+                  <td>{house.customer}</td>
+                  <td>{house.mobile}</td>
+                  <td>{house.email}</td>
+                  <td>{house.facebook}</td>
+                  <td>{house.zalo}</td>
                   <td>{house.statusType}</td>
                   <td>
                     <TextFormat type="date" value={house.createAt} format={APP_LOCAL_DATE_FORMAT} />

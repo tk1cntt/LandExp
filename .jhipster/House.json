@@ -27,6 +27,10 @@
             "fieldType": "Float"
         },
         {
+            "fieldName": "acreageStreetSide",
+            "fieldType": "Float"
+        },
+        {
             "fieldName": "discount",
             "fieldType": "Float"
         },
@@ -65,6 +69,10 @@
             "fieldType": "Boolean"
         },
         {
+            "fieldName": "summary",
+            "fieldType": "String"
+        },
+        {
             "fieldName": "landType",
             "fieldType": "LandType",
             "fieldValues": "APARTMENT,PEN_HOUSE,HOME,HOME_VILLA,HOME_STREET_SIDE,MOTEL_ROOM,OFFICE,LAND_SCAPE,LAND_OF_PROJECT,LAND_FARM,LAND_RESORT,WAREHOUSES,KIOSKS,OTHER"
@@ -72,7 +80,7 @@
         {
             "fieldName": "saleType",
             "fieldType": "SaleType",
-            "fieldValues": "SALE_BY_MYSELF,SALE_SUPPORT"
+            "fieldValues": "SALE_BY_MYSELF,SALE_BY_MYSELF_VIP,SALE_SUPPORT,SALE_SUPPORT_VIP"
         },
         {
             "fieldName": "fee",
@@ -85,11 +93,31 @@
         {
             "fieldName": "present",
             "fieldType": "PresentType",
-            "fieldValues": "BASIC_FURNITURE,FULL_FURNITURE,DISCOUNT_PRICE,SUPPORT_EXHIBIT,SUPPORT_FEE,HAVE_PRESENT"
+            "fieldValues": "NONE,BASIC_FURNITURE,FULL_FURNITURE,DISCOUNT_PRICE,SUPPORT_EXHIBIT,SUPPORT_FEE,HAVE_PRESENT"
         },
         {
             "fieldName": "hits",
             "fieldType": "Integer"
+        },
+        {
+            "fieldName": "customer",
+            "fieldType": "String"
+        },
+        {
+            "fieldName": "mobile",
+            "fieldType": "String"
+        },
+        {
+            "fieldName": "email",
+            "fieldType": "String"
+        },
+        {
+            "fieldName": "facebook",
+            "fieldType": "String"
+        },
+        {
+            "fieldName": "zalo",
+            "fieldType": "String"
         },
         {
             "fieldName": "statusType",
