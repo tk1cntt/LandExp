@@ -22,7 +22,7 @@ export interface IStepFiveState {
   money: any;
   discount: any;
   present: any;
-  sellType: any;
+  saleType: any;
 }
 
 export class StepFive extends React.Component<IStepFiveProp, IStepFiveState> {
@@ -30,7 +30,7 @@ export class StepFive extends React.Component<IStepFiveProp, IStepFiveState> {
     money: null,
     discount: null,
     present: null,
-    sellType: null
+    saleType: null
   };
 
   componentDidMount() {
@@ -64,12 +64,12 @@ export class StepFive extends React.Component<IStepFiveProp, IStepFiveState> {
     });
   }
 
-  onChangeSellType = e => {
+  onChangeSaleType = e => {
     this.setState({
-      sellType: e.target.value
+      saleType: e.target.value
     });
     this.props.updateHouse({
-      sellType: e.target.value
+      saleType: e.target.value
     });
   }
 
@@ -130,7 +130,7 @@ export class StepFive extends React.Component<IStepFiveProp, IStepFiveState> {
         </Col>
         <Col md="12">
           <div>
-            <RadioGroup onChange={this.onChangeSellType} value={this.state.sellType || this.props.house.sellType}>
+            <RadioGroup onChange={this.onChangeSaleType} value={this.state.saleType || this.props.house.saleType}>
               1. Thông thường (Người mua quan tâm sẽ liên hệ trực tiếp với bạn)
               <Radio style={radioStyle} value={'SALE_BY_MYSELF'}>Tin thường</Radio>
               Được đăng tin vô thời giạn trên trang web

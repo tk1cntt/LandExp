@@ -53,16 +53,13 @@ export class StepFour extends React.Component<IStepFourProp, IStepFourState> {
     });
   }
 
-  handleChange = ({ fileList }) => {
-    const oldFiles = this.state.fileList;
-    const difference = oldFiles.filter(x => !fileList.includes(x));
-    if (difference) {
-      difference.map(file => {
-        if (file.photoId) {
-          this.props.deleteEntity(file.photoId);
-        }
-      });
+  handleRemove = file => {
+    if (file.photoId) {
+      this.props.deleteEntity(file.photoId);
     }
+  }
+
+  handleChange = ({ fileList }) => {
     this.setState({ fileList });
     this.props.updateHouse({ fileList });
   }
@@ -83,6 +80,7 @@ export class StepFour extends React.Component<IStepFourProp, IStepFourState> {
           fileList={fileList}
           onPreview={this.handlePreview}
           onChange={this.handleChange}
+          onRemove={this.handleRemove}
         >
           {fileList.length >= 10 ? null : uploadButton}
         </Upload>
