@@ -73,8 +73,14 @@ export class PostPage extends React.Component<IPostProp, IPostState> {
   }
 
   saveEntity = () => {
-    // console.log('Save entity', this.state.house);
-    // this.props.updateEntity(this.state.house);
+    const { house } = this.props;
+    const entity = {
+      ...house,
+      ...this.state.house
+    };
+    console.log('Update entity', entity);
+    this.props.updateEntity(entity);
+    this.next();
   };
 
   updateHouse = house => {
@@ -109,7 +115,7 @@ export class PostPage extends React.Component<IPostProp, IPostState> {
       },
       {
         title: 'Liên hệ',
-        content: <StepSix />
+        content: <StepSix updateHouse={this.updateHouse} />
       },
       {
         title: 'Xác nhận',
@@ -131,10 +137,20 @@ export class PostPage extends React.Component<IPostProp, IPostState> {
           <div>
             <div className="steps-content">{steps[this.state.current].content}</div>
             <div className="steps-action" style={{ marginTop: 16 }}>
-              {this.state.current > 0 && <Button style={{ marginRight: 8 }} onClick={() => this.prev()}>Previous</Button>}
-              {this.state.current < steps.length - 1 && (
+              {this.state.current > 0 && <Button style={{ marginRight: 8 }} onClick={() => this.prev()}>Quay lại</Button>}
+              {this.state.current < steps.length - 3 && (
                 <Button type="primary" onClick={() => this.next()}>
-                  Next
+                  Tiếp tục
+                </Button>
+              )}
+              {this.state.current === steps.length - 3 && (
+                <Button type="primary" onClick={() => this.saveEntity()}>
+                  Hoàn tất
+                </Button>
+              )}
+              {this.state.current === steps.length - 2 && (
+                <Button type="primary" onClick={() => this.next()}>
+                  Thanh toán
                 </Button>
               )}
               {this.state.current === steps.length - 1 && (

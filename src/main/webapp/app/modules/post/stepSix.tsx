@@ -14,24 +14,73 @@ const RadioGroup = Radio.Group;
 import { IRootState } from 'app/shared/reducers';
 import { getSession } from 'app/shared/reducers/authentication';
 
-export interface IStepSixProp extends StateProps, DispatchProps {}
+export interface IStepSixProp extends StateProps, DispatchProps {
+  updateHouse;
+}
 
 export interface IStepSixState {
-  value: string;
+  customer: any;
+  mobile: any;
+  email: any;
+  zalo: any;
+  facebook: any;
 }
 
 export class StepSix extends React.Component<IStepSixProp, IStepSixState> {
   state: IStepSixState = {
-    value: ''
+    customer: null,
+    mobile: null,
+    email: null,
+    zalo: null,
+    facebook: null
   };
 
   componentDidMount() {
     this.props.getSession();
   }
 
-  onChange = e => {
+  onChangeCustomer = e => {
     this.setState({
-      value: e.target.value
+      customer: e.target.value
+    });
+    this.props.updateHouse({
+      customer: e.target.value
+    });
+  }
+
+  onChangeMobile = e => {
+    this.setState({
+      mobile: e.target.value
+    });
+    this.props.updateHouse({
+      mobile: e.target.value
+    });
+  }
+
+  onChangeEmail = e => {
+    this.setState({
+      email: e.target.value
+    });
+    this.props.updateHouse({
+      email: e.target.value
+    });
+  }
+
+  onChangeZalo = e => {
+    this.setState({
+      zalo: e.target.value
+    });
+    this.props.updateHouse({
+      zalo: e.target.value
+    });
+  }
+
+  onChangeFacebook = e => {
+    this.setState({
+      facebook: e.target.value
+    });
+    this.props.updateHouse({
+      facebook: e.target.value
     });
   }
 
@@ -44,12 +93,27 @@ export class StepSix extends React.Component<IStepSixProp, IStepSixState> {
         </Col>
         <Col md="12">
           <div style={{ marginTop: 16 }}>
-            <Input addonBefore="Họ và tên " placeholder="Ho và tên người liên hệ"/>
+            <Input onChange={this.onChangeCustomer} addonBefore="Họ và tên " placeholder="Ho và tên người liên hệ" />
           </div>
         </Col>
         <Col md="12">
           <div style={{ marginTop: 16 }}>
-            <Input addonBefore="Điện thoại" placeholder="Số điện thoại liên hệ"/>
+            <Input onChange={this.onChangeMobile} addonBefore="Điện thoại" placeholder="Số điện thoại liên hệ" />
+          </div>
+        </Col>
+        <Col md="12">
+          <div style={{ marginTop: 16 }}>
+            <Input onChange={this.onChangeEmail} addonBefore="Email" placeholder="Địa chỉ email" />
+          </div>
+        </Col>
+        <Col md="12">
+          <div style={{ marginTop: 16 }}>
+            <Input onChange={this.onChangeZalo} addonBefore="Zalo" placeholder="Số điện thoại Zalo" />
+          </div>
+        </Col>
+        <Col md="12">
+          <div style={{ marginTop: 16 }}>
+            <Input onChange={this.onChangeFacebook} addonBefore="Facebook" placeholder="Tài khoản facebook" />
           </div>
         </Col>
       </Row>

@@ -46,27 +46,10 @@ export class StepSeven extends React.Component<IStepSevenProp, IStepSevenState> 
 
   render() {
     const { account } = this.props;
-    const { previewVisible, previewImage, fileList } = this.state;
-    const uploadButton = (
-      <div>
-        <Icon type="plus" />
-        <div className="ant-upload-text">Upload</div>
-      </div>
-    );
     return (
       <div className="clearfix" style={{ margin: 30 }}>
-        <Upload
-          action="/api/houses-images/123456789"
-          listType="picture-card"
-          fileList={fileList}
-          onPreview={this.handlePreview}
-          onChange={this.handleChange}
-        >
-          {fileList.length >= 10 ? null : uploadButton}
-        </Upload>
-        <Modal visible={previewVisible} footer={null} onCancel={this.handleCancel}>
-          <img alt="example" style={{ width: '100%' }} src={previewImage} />
-        </Modal>
+        Ban da dang tin thanh cong tren website
+        Tiep tuc thanh toan
       </div>
     );
   }
