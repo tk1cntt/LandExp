@@ -108,6 +108,10 @@ entity House {
    feeMax Float,
    present PresentType,
    hits Integer,
+   mobile String,
+   email String,
+   facebook String,
+   zalo String,
    statusType StatusType,
    createAt LocalDate,
    updateAt LocalDate
