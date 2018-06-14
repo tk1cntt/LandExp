@@ -78,10 +78,10 @@ export class PostPage extends React.Component<IPostProp, IPostState> {
   };
 
   updateHouse = house => {
-    let currentHouse = this.state.house;
-    currentHouse = Object.assign(currentHouse, house);
+    const nextHouse = { ...this.state.house, ...house };
+    console.log('The next house', nextHouse);
     this.setState({
-      house: currentHouse
+      house: nextHouse
     });
   }
   render() {
@@ -97,7 +97,7 @@ export class PostPage extends React.Component<IPostProp, IPostState> {
       },
       {
         title: 'Đặc điểm',
-        content: <StepThree />
+        content: <StepThree updateHouse={this.updateHouse} />
       },
       {
         title: 'Hình ảnh',

@@ -14,7 +14,9 @@ const { TextArea } = Input;
 import { IRootState } from 'app/shared/reducers';
 import { getSession } from 'app/shared/reducers/authentication';
 
-export interface IStepThreeProp extends StateProps, DispatchProps {}
+export interface IStepThreeProp extends StateProps, DispatchProps {
+  updateHouse
+}
 
 export interface IStepThreeState {
   acreage: any;
@@ -25,6 +27,7 @@ export interface IStepThreeState {
   directionBalcony: any;
   numberOfFloor: any;
   floor: any;
+  parking: any;
 }
 
 export class StepThree extends React.Component<IStepThreeProp, IStepThreeState> {
@@ -36,23 +39,12 @@ export class StepThree extends React.Component<IStepThreeProp, IStepThreeState> 
     direction: null,
     directionBalcony: null,
     numberOfFloor: null,
-    floor: null
+    floor: null,
+    parking: null
   };
 
   componentDidMount() {
     this.props.getSession();
-  }
-
-  onChangeDirection = e => {
-    this.setState({
-      direction: e.target.value
-    });
-  }
-
-  onChangeDirectionBalcony = e => {
-    this.setState({
-      directionBalcony: e.target.value
-    });
   }
 
   onChangeAcreage = e => {
@@ -60,6 +52,9 @@ export class StepThree extends React.Component<IStepThreeProp, IStepThreeState> 
     const reg = /^-?(0|[1-9][0-9]*)(\.[0-9]*)?$/;
     if ((!isNaN(value) && reg.test(value)) || value === '' || value === '-') {
       this.setState({
+        acreage: e.target.value
+      });
+      this.props.updateHouse({
         acreage: e.target.value
       });
     }
@@ -72,6 +67,9 @@ export class StepThree extends React.Component<IStepThreeProp, IStepThreeState> 
       this.setState({
         acreageStreetSide: e.target.value
       });
+      this.props.updateHouse({
+        acreageStreetSide: e.target.value
+      });
     }
   }
 
@@ -81,6 +79,87 @@ export class StepThree extends React.Component<IStepThreeProp, IStepThreeState> 
     if ((!isNaN(value) && reg.test(value)) || value === '' || value === '-') {
       this.setState({
         bedRoom: e.target.value
+      });
+      this.props.updateHouse({
+        bedRoom: e.target.value
+      });
+    }
+  }
+
+  onChangeBathRoom = e => {
+    const { value } = e.target;
+    const reg = /^-?([1-9]*)?$/;
+    if ((!isNaN(value) && reg.test(value)) || value === '' || value === '-') {
+      this.setState({
+        bathRoom: e.target.value
+      });
+      this.props.updateHouse({
+        bathRoom: e.target.value
+      });
+    }
+  }
+
+  onChangeFloor = e => {
+    const { value } = e.target;
+    const reg = /^-?([1-9]*)?$/;
+    if ((!isNaN(value) && reg.test(value)) || value === '' || value === '-') {
+      this.setState({
+        floor: e.target.value
+      });
+      this.props.updateHouse({
+        floor: e.target.value
+      });
+    }
+  }
+
+  onChangeNumberOfFloor = e => {
+    const { value } = e.target;
+    const reg = /^-?([1-9]*)?$/;
+    if ((!isNaN(value) && reg.test(value)) || value === '' || value === '-') {
+      this.setState({
+        numberOfFloor: e.target.value
+      });
+      this.props.updateHouse({
+        numberOfFloor: e.target.value
+      });
+    }
+  }
+
+  onChangeDirection = e => {
+    const { value } = e.target;
+    const reg = /^-?([1-9]*)?$/;
+    if ((!isNaN(value) && reg.test(value)) || value === '' || value === '-') {
+      this.setState({
+        direction: e.target.value
+      });
+      this.props.updateHouse({
+        direction: e.target.value
+      });
+    }
+  }
+
+  onChangeDirectionBalcony = e => {
+    const { value } = e.target;
+    const reg = /^-?([1-9]*)?$/;
+    if ((!isNaN(value) && reg.test(value)) || value === '' || value === '-') {
+      this.setState({
+        directionBalcony: e.target.value
+      });
+      this.props.updateHouse({
+        directionBalcony: e.target.value
+      });
+    }
+  }
+
+  onChangeParking = e => {
+    const { value } = e.target;
+    const reg = /^-?([1-9]*)?$/;
+    if ((!isNaN(value) && reg.test(value)) || value === '' || value === '-') {
+      this.setState({
+        parking: e.target.value
+      });
+      this.props.updateHouse({
+        parking: e.target.value
       });
     }
   }
@@ -132,6 +211,7 @@ export class StepThree extends React.Component<IStepThreeProp, IStepThreeState> 
               addonBefore="Số phòng tắm"
               type="number" value={this.state.bathRoom}
               defaultValue={this.state.bathRoom || this.props.house.bathRoom}
+              onChange={this.onChangeBathRoom}
               placeholder="Nhà bạn có bao nhiêu phòng tắm?"
             />
           </div>
@@ -142,6 +222,7 @@ export class StepThree extends React.Component<IStepThreeProp, IStepThreeState> 
               addonBefore="Tầng số"
               value={this.state.floor}
               defaultValue={this.state.floor || this.props.house.floor}
+              onChange={this.onChangeFloor}
               placeholder="Nhà bạn ở tâng bao nhiêu?"/>
           </div>
         </Col>
@@ -152,6 +233,7 @@ export class StepThree extends React.Component<IStepThreeProp, IStepThreeState> 
               type="number"
               value={this.state.numberOfFloor}
               defaultValue={this.state.numberOfFloor || this.props.house.numberOfFloor}
+              onChange={this.onChangeNumberOfFloor}
               placeholder="Nhà bạn có bao nhiêu tầng?"/>
           </div>
         </Col>
