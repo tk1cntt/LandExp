@@ -10,7 +10,9 @@ import { Upload, Icon, Modal } from 'antd';
 import { IRootState } from 'app/shared/reducers';
 import { getSession } from 'app/shared/reducers/authentication';
 
-export interface IStepFourProp extends StateProps, DispatchProps { }
+export interface IStepFourProp extends StateProps, DispatchProps {
+  updateHouse;
+}
 
 export interface IStepFourState {
   previewVisible: boolean;
@@ -42,7 +44,10 @@ export class StepFour extends React.Component<IStepFourProp, IStepFourState> {
     });
   }
 
-  handleChange = ({ fileList }) => this.setState({ fileList });
+  handleChange = ({ fileList }) => {
+    this.setState({ fileList });
+    this.props.updateHouse({ images: fileList });
+  }
 
   render() {
     const { account } = this.props;
@@ -56,7 +61,6 @@ export class StepFour extends React.Component<IStepFourProp, IStepFourState> {
     return (
       <div className="clearfix" style={{ margin: 30 }}>
         <Upload
-          action="/api/houses-images/123456789"
           listType="picture-card"
           fileList={fileList}
           onPreview={this.handlePreview}
