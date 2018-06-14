@@ -14,23 +14,61 @@ const RadioGroup = Radio.Group;
 import { IRootState } from 'app/shared/reducers';
 import { getSession } from 'app/shared/reducers/authentication';
 
-export interface IStepFiveProp extends StateProps, DispatchProps {}
+export interface IStepFiveProp extends StateProps, DispatchProps {
+  updateHouse;
+}
 
 export interface IStepFiveState {
-  sellType: string;
+  money: any;
+  discount: any;
+  present: any;
+  sellType: any;
 }
 
 export class StepFive extends React.Component<IStepFiveProp, IStepFiveState> {
   state: IStepFiveState = {
-    sellType: ''
+    money: null,
+    discount: null,
+    present: null,
+    any: null
   };
 
   componentDidMount() {
     this.props.getSession();
   }
 
-  onChange = e => {
+  onChangeMoney = e => {
     this.setState({
+      money: e.target.value
+    });
+    this.props.updateHouse({
+      money: e.target.value
+    });
+  }
+
+  onChangeMoneyDiscount = e => {
+    this.setState({
+      discount: e.target.value
+    });
+    this.props.updateHouse({
+      discount: e.target.value
+    });
+  }
+
+  onChangePresent = e => {
+    this.setState({
+      present: e.target.value
+    });
+    this.props.updateHouse({
+      present: e.target.value
+    });
+  }
+
+  onChangeSellType = e => {
+    this.setState({
+      sellType: e.target.value
+    });
+    this.props.updateHouse({
       sellType: e.target.value
     });
   }
@@ -49,28 +87,63 @@ export class StepFive extends React.Component<IStepFiveProp, IStepFiveState> {
         </Col>
         <Col md="12">
           <div style={{ marginTop: 16 }}>
-            <Input addonBefore="Giá bán" placeholder="Giá bán ngôi nhà của bạn VNĐ?"/>
+            <Input
+              type="number"
+              onChange={this.onChangeMoney}
+              value={this.state.money || this.props.house.money}
+              addonBefore="Giá bán đề xuất"
+              placeholder="Giá bán đề xuất ngôi nhà của bạn VNĐ?" />
           </div>
         </Col>
         <Col md="12">
           <div style={{ marginTop: 16 }}>
-            Phí đăng 200.000 VNĐ
+            <Input
+              type="number"
+              onChange={this.onChangeMoneyDiscount}
+              value={this.state.discount || this.props.house.discount}
+              addonBefore="Giá bán mong muốn"
+              placeholder="Giá bán thực tế bạn muốn thu về VNĐ?" />
           </div>
         </Col>
         <Col md="12">
           <div style={{ marginTop: 16 }}>
-            Hình thức bán
+            Hỗ trợ sau mua bán
           </div>
         </Col>
         <Col md="12">
           <div>
-            <RadioGroup onChange={this.onChange} value={this.state.sellType}>
-              <Radio style={radioStyle} value={1}>Tự bán</Radio>
-              Người mua quan tâm sẽ liên hệ trực tiếp với bạn
-              <Radio style={radioStyle} value={2}>Hỗ trợ bán</Radio>
-              Chúng tôi hỗ trợ bán tận răng
-              <br/>
-              Phí hoa hồng bán: 0.5%/giá bán (Không quá 10 triệu VNĐ)
+            <RadioGroup onChange={this.onChangePresent} value={this.state.present || this.props.house.present}>
+              <Radio style={radioStyle} value={'NONE'}>Không hỗ trợ</Radio>
+              <Radio style={radioStyle} value={'BASIC_FURNITURE'}>Hỗ trợ nội thất cơ bản</Radio>
+              <Radio style={radioStyle} value={'FULL_FURNITURE'}>Hỗ trợ nội thất đầy đủ</Radio>
+              <Radio style={radioStyle} value={'DISCOUNT_PRICE'}>Hỗ trợ giảm giá</Radio>
+              <Radio style={radioStyle} value={'SUPPORT_EXHIBIT'}>Hỗ trợ giấy tờ</Radio>
+              <Radio style={radioStyle} value={'SUPPORT_FEE'}>Hỗ trợ phí giao dịch</Radio>
+              <Radio style={radioStyle} value={'HAVE_PRESENT'}>Có quà tặng</Radio>
+            </RadioGroup>
+          </div>
+        </Col>
+        <Col md="12">
+          <div style={{ marginTop: 16 }}>
+            Gói đăng tin
+          </div>
+        </Col>
+        <Col md="12">
+          <div>
+            <RadioGroup onChange={this.onChangeSellType} value={this.state.sellType || this.props.house.sellType}>
+              1. Thông thường (Người mua quan tâm sẽ liên hệ trực tiếp với bạn)
+              <Radio style={radioStyle} value={'SALE_BY_MYSELF'}>Tin thường</Radio>
+              Được đăng tin vô thời giạn trên trang web
+              <Radio style={radioStyle} value={'SALE_BY_MYSELF_VIP'}>Tin VIP</Radio>
+              Sẽ xuất hiện ưu tiên trên trang chủ và các trang tìm kiếm
+              <br />
+              2. Ký gửi (Chúng tôi hỗ trợ bán tận răng)
+              <Radio style={radioStyle} value={'SALE_SUPPORT'}>Ký gửi thường</Radio>
+              Chúng tôi sẽ tìm kiếm khách hàng giúp bạn
+              <Radio style={radioStyle} value={'SALE_SUPPORT_VIP'}>Ký gửi thường</Radio>
+              Sử dụng các nghiệp vụ marketing để bán được nhà của bạn hiệu quả nhất
+              <br />
+              Hoa hồng ký gửi: 0.5%/giá bán (Không quá 10 triệu VNĐ)
             </RadioGroup>
           </div>
         </Col>
@@ -81,7 +154,8 @@ export class StepFive extends React.Component<IStepFiveProp, IStepFiveState> {
 
 const mapStateToProps = storeState => ({
   account: storeState.authentication.account,
-  isAuthenticated: storeState.authentication.isAuthenticated
+  isAuthenticated: storeState.authentication.isAuthenticated,
+  house: storeState.house.entity
 });
 
 const mapDispatchToProps = { getSession };

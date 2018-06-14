@@ -111,7 +111,7 @@ export class PostPage extends React.Component<IPostProp, IPostState> {
       },
       {
         title: 'Giá',
-        content: <StepFive />
+        content: <StepFive updateHouse={this.updateHouse} />
       },
       {
         title: 'Liên hệ',
