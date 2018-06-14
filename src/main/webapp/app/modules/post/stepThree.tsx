@@ -28,6 +28,8 @@ export interface IStepThreeState {
   numberOfFloor: any;
   floor: any;
   parking: any;
+  furniture: any;
+  summary: any;
 }
 
 export class StepThree extends React.Component<IStepThreeProp, IStepThreeState> {
@@ -40,7 +42,9 @@ export class StepThree extends React.Component<IStepThreeProp, IStepThreeState> 
     directionBalcony: null,
     numberOfFloor: null,
     floor: null,
-    parking: null
+    parking: false,
+    furniture: false,
+    summary: null
   };
 
   componentDidMount() {
@@ -126,42 +130,48 @@ export class StepThree extends React.Component<IStepThreeProp, IStepThreeState> 
   }
 
   onChangeDirection = e => {
-    const { value } = e.target;
-    const reg = /^-?([1-9]*)?$/;
-    if ((!isNaN(value) && reg.test(value)) || value === '' || value === '-') {
-      this.setState({
-        direction: e.target.value
-      });
-      this.props.updateHouse({
-        direction: e.target.value
-      });
-    }
+    this.setState({
+      direction: e.target.value
+    });
+    this.props.updateHouse({
+      direction: e.target.value
+    });
   }
 
   onChangeDirectionBalcony = e => {
-    const { value } = e.target;
-    const reg = /^-?([1-9]*)?$/;
-    if ((!isNaN(value) && reg.test(value)) || value === '' || value === '-') {
-      this.setState({
-        directionBalcony: e.target.value
-      });
-      this.props.updateHouse({
-        directionBalcony: e.target.value
-      });
-    }
+    this.setState({
+      directionBalcony: e.target.value
+    });
+    this.props.updateHouse({
+      directionBalcony: e.target.value
+    });
   }
 
   onChangeParking = e => {
-    const { value } = e.target;
-    const reg = /^-?([1-9]*)?$/;
-    if ((!isNaN(value) && reg.test(value)) || value === '' || value === '-') {
-      this.setState({
-        parking: e.target.value
-      });
-      this.props.updateHouse({
-        parking: e.target.value
-      });
-    }
+    this.setState({
+      parking: e.target.checked
+    });
+    this.props.updateHouse({
+      parking: e.target.checked
+    });
+  }
+
+  onChangeFurniture = e => {
+    this.setState({
+      furniture: e.target.checked
+    });
+    this.props.updateHouse({
+      furniture: e.target.checked
+    });
+  }
+
+  onChangeSummary = e => {
+    this.setState({
+      summary: e.target.value
+    });
+    this.props.updateHouse({
+      summary: e.target.value
+    });
   }
 
   render() {
@@ -294,17 +304,17 @@ export class StepThree extends React.Component<IStepThreeProp, IStepThreeState> 
         </Col>
         <Col md="12">
           <div style={{ marginTop: 16 }}>
-            <Checkbox>Có chỗ để ôtô</Checkbox>
+            <Checkbox onChange={this.onChangeParking} checked={this.state.parking}>Có chỗ để ôtô</Checkbox>
           </div>
         </Col>
         <Col md="12">
           <div style={{ marginTop: 16 }}>
-            <Checkbox>Tiện nghi đầy đủ</Checkbox>
+            <Checkbox onChange={this.onChangeFurniture} checked={this.state.furniture}>Tiện nghi đầy đủ</Checkbox>
           </div>
         </Col>
         <Col md="12">
           <div style={{ marginTop: 16 }}>
-            <TextArea placeholder="Mô tả thêm về ngôi nhà của bạn" autosize={{ minRows: 2, maxRows: 6 }} />
+            <TextArea onChange={this.onChangeSummary} placeholder="Mô tả thêm về ngôi nhà của bạn" autosize={{ minRows: 2, maxRows: 6 }} />
           </div>
         </Col>
       </Row>
