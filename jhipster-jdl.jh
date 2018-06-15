@@ -42,16 +42,15 @@ relationship ManyToOne {
    Street{district(name)} to Ward
 }
 
-
 relationship ManyToMany {
    Region{user(login)} to User
 }
 
 relationship OneToMany {
-   District{cities} to City,
+   City{districts} to District,
    Region{districts} to District,
-   Ward{districts} to District,
-   District{houses} to House
+   District{wards} to Ward,
+   Ward{streets} to Street
 }
 
 enum UserActionType {
