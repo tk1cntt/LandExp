@@ -99,6 +99,9 @@ entity House {
    present PresentType,
    hits Integer,
    statusType StatusType,
+   googleId String,
+   latitude Float,
+   longitude Float,
    createAt LocalDate,
    updateAt LocalDate
 }
