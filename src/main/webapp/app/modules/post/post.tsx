@@ -162,12 +162,12 @@ export class PostPage extends React.Component<IPostProp, IPostState> {
     return (
       <Row>
         <Col md="12">
-          <Steps size="small" current={current}>
+          <Steps size="small" current={current} style={{ padding: '10px' }}>
             {steps.map(item => <Step key={item.title} title={item.title} />)}
           </Steps>
         </Col>
         <Col md="8">
-          <div style={{ marginTop: 10, background: '#ECECEC', height: '100%', padding: '10px' }}>
+          <div style={{ marginTop: 10, background: '#ECECEC', height: '100%', padding: '5px' }}>
             <Card title="Thông tin về ngôi nhà của bạn" bordered={false} style={{ width: '100%', height: '100%' }}>
               <div className="steps-content">{steps[this.state.current].content}</div>
               <div className="steps-action" style={{ marginTop: 16 }}>
@@ -197,7 +197,7 @@ export class PostPage extends React.Component<IPostProp, IPostState> {
           </div>
         </Col>
         <Col md="4">
-          <div style={{ marginTop: 10, background: '#ECECEC', height: '100%', padding: '10px' }}>
+          <div style={{ marginTop: 10, background: '#ECECEC', height: '100%', padding: '5px' }}>
             <Card title="Thông tin về ngôi nhà của bạn" bordered={false} style={{ width: '100%', height: '100%' }}>
               {actionTypeForm}
               {landTypeForm}

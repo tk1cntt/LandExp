@@ -119,10 +119,10 @@ export class StepTwo extends React.Component<IStepTwoProp, IStepOneState> {
     const { account } = this.props;
     const formItemLayout = {
       labelCol: {
-        span: 3
+        span: 4
       },
       wrapperCol: {
-        span: 9
+        span: 20
       }
     };
 

@@ -74,7 +74,7 @@ export class StepFour extends React.Component<IStepFourProp, IStepFourState> {
       </div>
     );
     return (
-      <div className="clearfix" style={{ padding: 30 }}>
+      <div className="clearfix" style={{ padding: 20 }}>
         <Upload
           listType="picture-card"
           fileList={fileList}
