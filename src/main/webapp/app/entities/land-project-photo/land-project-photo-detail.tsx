@@ -20,12 +20,14 @@ export class LandProjectPhotoDetail extends React.Component<ILandProjectPhotoDet
   }
 
   render() {
-    const { landProjectPhoto } = this.props;
+    const { landProjectPhotoEntity } = this.props;
     return (
       <Row>
         <Col md="8">
           <h2>
-            <Translate contentKey="landexpApp.landProjectPhoto.detail.title">LandProjectPhoto</Translate> [<b>{landProjectPhoto.id}</b>]
+            <Translate contentKey="landexpApp.landProjectPhoto.detail.title">LandProjectPhoto</Translate> [<b>
+              {landProjectPhotoEntity.id}
+            </b>]
           </h2>
           <dl className="jh-entity-details">
             <dt>
@@ -34,13 +36,16 @@ export class LandProjectPhotoDetail extends React.Component<ILandProjectPhotoDet
               </span>
             </dt>
             <dd>
-              {landProjectPhoto.image ? (
+              {landProjectPhotoEntity.image ? (
                 <div>
-                  <a onClick={openFile(landProjectPhoto.imageContentType, landProjectPhoto.image)}>
-                    <img src={`data:${landProjectPhoto.imageContentType};base64,${landProjectPhoto.image}`} style={{ maxHeight: '30px' }} />
+                  <a onClick={openFile(landProjectPhotoEntity.imageContentType, landProjectPhotoEntity.image)}>
+                    <img
+                      src={`data:${landProjectPhotoEntity.imageContentType};base64,${landProjectPhotoEntity.image}`}
+                      style={{ maxHeight: '30px' }}
+                    />
                   </a>
                   <span>
-                    {landProjectPhoto.imageContentType}, {byteSize(landProjectPhoto.image)}
+                    {landProjectPhotoEntity.imageContentType}, {byteSize(landProjectPhotoEntity.image)}
                   </span>
                 </div>
               ) : null}
@@ -51,20 +56,20 @@ export class LandProjectPhotoDetail extends React.Component<ILandProjectPhotoDet
               </span>
             </dt>
             <dd>
-              <TextFormat value={landProjectPhoto.createAt} type="date" format={APP_LOCAL_DATE_FORMAT} />
+              <TextFormat value={landProjectPhotoEntity.createAt} type="date" format={APP_LOCAL_DATE_FORMAT} />
             </dd>
             <dt>
               <Translate contentKey="landexpApp.landProjectPhoto.landProject">Land Project</Translate>
             </dt>
-            <dd>{landProjectPhoto.landProjectId ? landProjectPhoto.landProjectId : ''}</dd>
+            <dd>{landProjectPhotoEntity.landProjectId ? landProjectPhotoEntity.landProjectId : ''}</dd>
             <dt>
               <Translate contentKey="landexpApp.landProjectPhoto.createBy">Create By</Translate>
             </dt>
-            <dd>{landProjectPhoto.createByLogin ? landProjectPhoto.createByLogin : ''}</dd>
+            <dd>{landProjectPhotoEntity.createByLogin ? landProjectPhotoEntity.createByLogin : ''}</dd>
             <dt>
               <Translate contentKey="landexpApp.landProjectPhoto.updateBy">Update By</Translate>
             </dt>
-            <dd>{landProjectPhoto.updateByLogin ? landProjectPhoto.updateByLogin : ''}</dd>
+            <dd>{landProjectPhotoEntity.updateByLogin ? landProjectPhotoEntity.updateByLogin : ''}</dd>
           </dl>
           <Button tag={Link} to="/entity/land-project-photo" replace color="info">
             <FontAwesomeIcon icon="arrow-left" />{' '}
@@ -72,7 +77,7 @@ export class LandProjectPhotoDetail extends React.Component<ILandProjectPhotoDet
               <Translate contentKey="entity.action.back">Back</Translate>
             </span>
           </Button>&nbsp;
-          <Button tag={Link} to={`/entity/land-project-photo/${landProjectPhoto.id}/edit`} replace color="primary">
+          <Button tag={Link} to={`/entity/land-project-photo/${landProjectPhotoEntity.id}/edit`} replace color="primary">
             <FontAwesomeIcon icon="pencil-alt" />{' '}
             <span className="d-none d-md-inline">
               <Translate contentKey="entity.action.edit">Edit</Translate>
@@ -85,7 +90,7 @@ export class LandProjectPhotoDetail extends React.Component<ILandProjectPhotoDet
 }
 
 const mapStateToProps = ({ landProjectPhoto }: IRootState) => ({
-  landProjectPhoto: landProjectPhoto.entity
+  landProjectPhotoEntity: landProjectPhoto.entity
 });
 
 const mapDispatchToProps = { getEntity };

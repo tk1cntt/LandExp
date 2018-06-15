@@ -38,9 +38,9 @@ export class CategoryUpdate extends React.Component<ICategoryUpdateProps, ICateg
 
   saveEntity = (event, errors, values) => {
     if (errors.length === 0) {
-      const { category } = this.props;
+      const { categoryEntity } = this.props;
       const entity = {
-        ...category,
+        ...categoryEntity,
         ...values
       };
 
@@ -59,7 +59,7 @@ export class CategoryUpdate extends React.Component<ICategoryUpdateProps, ICateg
 
   render() {
     const isInvalid = false;
-    const { category, loading, updating } = this.props;
+    const { categoryEntity, loading, updating } = this.props;
     const { isNew } = this.state;
 
     return (
@@ -76,7 +76,7 @@ export class CategoryUpdate extends React.Component<ICategoryUpdateProps, ICateg
             {loading ? (
               <p>Loading...</p>
             ) : (
-              <AvForm model={isNew ? {} : category} onSubmit={this.saveEntity}>
+              <AvForm model={isNew ? {} : categoryEntity} onSubmit={this.saveEntity}>
                 {!isNew ? (
                   <AvGroup>
                     <Label for="id">
@@ -130,7 +130,7 @@ export class CategoryUpdate extends React.Component<ICategoryUpdateProps, ICateg
 }
 
 const mapStateToProps = (storeState: IRootState) => ({
-  category: storeState.category.entity,
+  categoryEntity: storeState.category.entity,
   loading: storeState.category.loading,
   updating: storeState.category.updating
 });

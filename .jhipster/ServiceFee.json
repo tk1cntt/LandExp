@@ -1,4 +1,5 @@
 {
+    "name": "ServiceFee",
     "fields": [
         {
             "fieldName": "saleType",

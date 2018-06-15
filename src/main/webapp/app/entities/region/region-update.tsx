@@ -44,9 +44,9 @@ export class RegionUpdate extends React.Component<IRegionUpdateProps, IRegionUpd
 
   saveEntity = (event, errors, values) => {
     if (errors.length === 0) {
-      const { region } = this.props;
+      const { regionEntity } = this.props;
       const entity = {
-        ...region,
+        ...regionEntity,
         ...values
       };
 
@@ -97,7 +97,7 @@ export class RegionUpdate extends React.Component<IRegionUpdateProps, IRegionUpd
 
   render() {
     const isInvalid = false;
-    const { region, users, loading, updating } = this.props;
+    const { regionEntity, users, loading, updating } = this.props;
     const { isNew } = this.state;
 
     return (
@@ -114,7 +114,7 @@ export class RegionUpdate extends React.Component<IRegionUpdateProps, IRegionUpd
             {loading ? (
               <p>Loading...</p>
             ) : (
-              <AvForm model={isNew ? {} : region} onSubmit={this.saveEntity}>
+              <AvForm model={isNew ? {} : regionEntity} onSubmit={this.saveEntity}>
                 {!isNew ? (
                   <AvGroup>
                     <Label for="id">
@@ -157,7 +157,7 @@ export class RegionUpdate extends React.Component<IRegionUpdateProps, IRegionUpd
                     multiple
                     className="form-control"
                     name="fakeusers"
-                    value={this.displayuser(region)}
+                    value={this.displayuser(regionEntity)}
                     onChange={this.userUpdate}
                   >
                     <option value="" key="0" />
@@ -193,7 +193,7 @@ export class RegionUpdate extends React.Component<IRegionUpdateProps, IRegionUpd
 
 const mapStateToProps = (storeState: IRootState) => ({
   users: storeState.userManagement.users,
-  region: storeState.region.entity,
+  regionEntity: storeState.region.entity,
   loading: storeState.region.loading,
   updating: storeState.region.updating
 });

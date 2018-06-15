@@ -44,9 +44,9 @@ export class UserProfileUpdate extends React.Component<IUserProfileUpdateProps, 
 
   saveEntity = (event, errors, values) => {
     if (errors.length === 0) {
-      const { userProfile } = this.props;
+      const { userProfileEntity } = this.props;
       const entity = {
-        ...userProfile,
+        ...userProfileEntity,
         ...values
       };
 
@@ -82,7 +82,7 @@ export class UserProfileUpdate extends React.Component<IUserProfileUpdateProps, 
 
   render() {
     const isInvalid = false;
-    const { userProfile, users, loading, updating } = this.props;
+    const { userProfileEntity, users, loading, updating } = this.props;
     const { isNew } = this.state;
 
     return (
@@ -99,7 +99,7 @@ export class UserProfileUpdate extends React.Component<IUserProfileUpdateProps, 
             {loading ? (
               <p>Loading...</p>
             ) : (
-              <AvForm model={isNew ? {} : userProfile} onSubmit={this.saveEntity}>
+              <AvForm model={isNew ? {} : userProfileEntity} onSubmit={this.saveEntity}>
                 {!isNew ? (
                   <AvGroup>
                     <Label for="id">
@@ -157,7 +157,7 @@ export class UserProfileUpdate extends React.Component<IUserProfileUpdateProps, 
 
 const mapStateToProps = (storeState: IRootState) => ({
   users: storeState.userManagement.users,
-  userProfile: storeState.userProfile.entity,
+  userProfileEntity: storeState.userProfile.entity,
   loading: storeState.userProfile.loading,
   updating: storeState.userProfile.updating
 });

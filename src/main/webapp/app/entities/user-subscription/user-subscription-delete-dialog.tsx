@@ -17,7 +17,7 @@ export class UserSubscriptionDeleteDialog extends React.Component<IUserSubscript
   }
 
   confirmDelete = event => {
-    this.props.deleteEntity(this.props.userSubscription.id);
+    this.props.deleteEntity(this.props.userSubscriptionEntity.id);
     this.handleClose(event);
   };
 
@@ -27,14 +27,14 @@ export class UserSubscriptionDeleteDialog extends React.Component<IUserSubscript
   };
 
   render() {
-    const { userSubscription } = this.props;
+    const { userSubscriptionEntity } = this.props;
     return (
       <Modal isOpen toggle={this.handleClose}>
         <ModalHeader toggle={this.handleClose}>
           <Translate contentKey="entity.delete.title">Confirm delete operation</Translate>
         </ModalHeader>
         <ModalBody>
-          <Translate contentKey="landexpApp.userSubscription.delete.question" interpolate={{ id: userSubscription.id }}>
+          <Translate contentKey="landexpApp.userSubscription.delete.question" interpolate={{ id: userSubscriptionEntity.id }}>
             Are you sure you want to delete this UserSubscription?
           </Translate>
         </ModalBody>
@@ -54,7 +54,7 @@ export class UserSubscriptionDeleteDialog extends React.Component<IUserSubscript
 }
 
 const mapStateToProps = ({ userSubscription }: IRootState) => ({
-  userSubscription: userSubscription.entity
+  userSubscriptionEntity: userSubscription.entity
 });
 
 const mapDispatchToProps = { getEntity, deleteEntity };

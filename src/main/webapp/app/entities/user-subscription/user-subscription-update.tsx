@@ -59,9 +59,9 @@ export class UserSubscriptionUpdate extends React.Component<IUserSubscriptionUpd
 
   saveEntity = (event, errors, values) => {
     if (errors.length === 0) {
-      const { userSubscription } = this.props;
+      const { userSubscriptionEntity } = this.props;
       const entity = {
-        ...userSubscription,
+        ...userSubscriptionEntity,
         ...values
       };
 
@@ -148,7 +148,7 @@ export class UserSubscriptionUpdate extends React.Component<IUserSubscriptionUpd
 
   render() {
     const isInvalid = false;
-    const { userSubscription, users, cities, districts, streets, loading, updating } = this.props;
+    const { userSubscriptionEntity, users, cities, districts, streets, loading, updating } = this.props;
     const { isNew } = this.state;
 
     return (
@@ -165,7 +165,7 @@ export class UserSubscriptionUpdate extends React.Component<IUserSubscriptionUpd
             {loading ? (
               <p>Loading...</p>
             ) : (
-              <AvForm model={isNew ? {} : userSubscription} onSubmit={this.saveEntity}>
+              <AvForm model={isNew ? {} : userSubscriptionEntity} onSubmit={this.saveEntity}>
                 {!isNew ? (
                   <AvGroup>
                     <Label for="id">
@@ -183,7 +183,7 @@ export class UserSubscriptionUpdate extends React.Component<IUserSubscriptionUpd
                     type="select"
                     className="form-control"
                     name="actionType"
-                    value={(!isNew && userSubscription.actionType) || 'USER_SEARCH_BUY'}
+                    value={(!isNew && userSubscriptionEntity.actionType) || 'USER_SEARCH_BUY'}
                   >
                     <option value="USER_SEARCH_BUY">USER_SEARCH_BUY</option>
                     <option value="USER_SEARCH_RENT">USER_SEARCH_RENT</option>
@@ -241,7 +241,7 @@ export class UserSubscriptionUpdate extends React.Component<IUserSubscriptionUpd
                     type="select"
                     className="form-control"
                     name="direction"
-                    value={(!isNew && userSubscription.direction) || 'NORTH'}
+                    value={(!isNew && userSubscriptionEntity.direction) || 'NORTH'}
                   >
                     <option value="NORTH">NORTH</option>
                     <option value="SOUTH">SOUTH</option>
@@ -286,7 +286,7 @@ export class UserSubscriptionUpdate extends React.Component<IUserSubscriptionUpd
                     type="select"
                     className="form-control"
                     name="landType"
-                    value={(!isNew && userSubscription.landType) || 'APARTMENT'}
+                    value={(!isNew && userSubscriptionEntity.landType) || 'APARTMENT'}
                   >
                     <option value="APARTMENT">APARTMENT</option>
                     <option value="PEN_HOUSE">PEN_HOUSE</option>
@@ -419,7 +419,7 @@ const mapStateToProps = (storeState: IRootState) => ({
   cities: storeState.city.entities,
   districts: storeState.district.entities,
   streets: storeState.street.entities,
-  userSubscription: storeState.userSubscription.entity,
+  userSubscriptionEntity: storeState.userSubscription.entity,
   loading: storeState.userSubscription.loading,
   updating: storeState.userSubscription.updating
 });

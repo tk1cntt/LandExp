@@ -1,4 +1,5 @@
 {
+    "name": "UserFinancial",
     "fields": [
         {
             "fieldName": "housePrice",

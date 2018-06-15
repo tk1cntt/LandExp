@@ -1,4 +1,5 @@
 {
+    "name": "Region",
     "fields": [
         {
             "fieldName": "name",

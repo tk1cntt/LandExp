@@ -1,4 +1,5 @@
 {
+    "name": "UserProfile",
     "fields": [
         {
             "fieldName": "name",

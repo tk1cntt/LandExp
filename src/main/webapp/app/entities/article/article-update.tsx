@@ -59,9 +59,9 @@ export class ArticleUpdate extends React.Component<IArticleUpdateProps, IArticle
 
   saveEntity = (event, errors, values) => {
     if (errors.length === 0) {
-      const { article } = this.props;
+      const { articleEntity } = this.props;
       const entity = {
-        ...article,
+        ...articleEntity,
         ...values
       };
 
@@ -131,10 +131,10 @@ export class ArticleUpdate extends React.Component<IArticleUpdateProps, IArticle
 
   render() {
     const isInvalid = false;
-    const { article, categories, users, loading, updating } = this.props;
+    const { articleEntity, categories, users, loading, updating } = this.props;
     const { isNew } = this.state;
 
-    const { avatar, avatarContentType } = article;
+    const { avatar, avatarContentType } = articleEntity;
 
     return (
       <div>
@@ -150,7 +150,7 @@ export class ArticleUpdate extends React.Component<IArticleUpdateProps, IArticle
             {loading ? (
               <p>Loading...</p>
             ) : (
-              <AvForm model={isNew ? {} : article} onSubmit={this.saveEntity}>
+              <AvForm model={isNew ? {} : articleEntity} onSubmit={this.saveEntity}>
                 {!isNew ? (
                   <AvGroup>
                     <Label for="id">
@@ -221,7 +221,7 @@ export class ArticleUpdate extends React.Component<IArticleUpdateProps, IArticle
                     type="select"
                     className="form-control"
                     name="statusType"
-                    value={(!isNew && article.statusType) || 'PENDING'}
+                    value={(!isNew && articleEntity.statusType) || 'PENDING'}
                   >
                     <option value="PENDING">PENDING</option>
                     <option value="PAID">PAID</option>
@@ -317,7 +317,7 @@ export class ArticleUpdate extends React.Component<IArticleUpdateProps, IArticle
 const mapStateToProps = (storeState: IRootState) => ({
   categories: storeState.category.entities,
   users: storeState.userManagement.users,
-  article: storeState.article.entity,
+  articleEntity: storeState.article.entity,
   loading: storeState.article.loading,
   updating: storeState.article.updating
 });

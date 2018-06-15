@@ -44,9 +44,9 @@ export class UserTrackingUpdate extends React.Component<IUserTrackingUpdateProps
 
   saveEntity = (event, errors, values) => {
     if (errors.length === 0) {
-      const { userTracking } = this.props;
+      const { userTrackingEntity } = this.props;
       const entity = {
-        ...userTracking,
+        ...userTrackingEntity,
         ...values
       };
 
@@ -82,7 +82,7 @@ export class UserTrackingUpdate extends React.Component<IUserTrackingUpdateProps
 
   render() {
     const isInvalid = false;
-    const { userTracking, users, loading, updating } = this.props;
+    const { userTrackingEntity, users, loading, updating } = this.props;
     const { isNew } = this.state;
 
     return (
@@ -99,7 +99,7 @@ export class UserTrackingUpdate extends React.Component<IUserTrackingUpdateProps
             {loading ? (
               <p>Loading...</p>
             ) : (
-              <AvForm model={isNew ? {} : userTracking} onSubmit={this.saveEntity}>
+              <AvForm model={isNew ? {} : userTrackingEntity} onSubmit={this.saveEntity}>
                 {!isNew ? (
                   <AvGroup>
                     <Label for="id">
@@ -117,7 +117,7 @@ export class UserTrackingUpdate extends React.Component<IUserTrackingUpdateProps
                     type="select"
                     className="form-control"
                     name="activityType"
-                    value={(!isNew && userTracking.activityType) || 'USER_SEARCH_BUY'}
+                    value={(!isNew && userTrackingEntity.activityType) || 'USER_SEARCH_BUY'}
                   >
                     <option value="USER_SEARCH_BUY">USER_SEARCH_BUY</option>
                     <option value="USER_SEARCH_RENT">USER_SEARCH_RENT</option>
@@ -197,7 +197,7 @@ export class UserTrackingUpdate extends React.Component<IUserTrackingUpdateProps
 
 const mapStateToProps = (storeState: IRootState) => ({
   users: storeState.userManagement.users,
-  userTracking: storeState.userTracking.entity,
+  userTrackingEntity: storeState.userTracking.entity,
   loading: storeState.userTracking.loading,
   updating: storeState.userTracking.updating
 });

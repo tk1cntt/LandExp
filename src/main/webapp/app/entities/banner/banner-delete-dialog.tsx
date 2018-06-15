@@ -17,7 +17,7 @@ export class BannerDeleteDialog extends React.Component<IBannerDeleteDialogProps
   }
 
   confirmDelete = event => {
-    this.props.deleteEntity(this.props.banner.id);
+    this.props.deleteEntity(this.props.bannerEntity.id);
     this.handleClose(event);
   };
 
@@ -27,14 +27,14 @@ export class BannerDeleteDialog extends React.Component<IBannerDeleteDialogProps
   };
 
   render() {
-    const { banner } = this.props;
+    const { bannerEntity } = this.props;
     return (
       <Modal isOpen toggle={this.handleClose}>
         <ModalHeader toggle={this.handleClose}>
           <Translate contentKey="entity.delete.title">Confirm delete operation</Translate>
         </ModalHeader>
         <ModalBody>
-          <Translate contentKey="landexpApp.banner.delete.question" interpolate={{ id: banner.id }}>
+          <Translate contentKey="landexpApp.banner.delete.question" interpolate={{ id: bannerEntity.id }}>
             Are you sure you want to delete this Banner?
           </Translate>
         </ModalBody>
@@ -54,7 +54,7 @@ export class BannerDeleteDialog extends React.Component<IBannerDeleteDialogProps
 }
 
 const mapStateToProps = ({ banner }: IRootState) => ({
-  banner: banner.entity
+  bannerEntity: banner.entity
 });
 
 const mapDispatchToProps = { getEntity, deleteEntity };

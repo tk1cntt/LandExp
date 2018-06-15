@@ -1,4 +1,5 @@
 {
+    "name": "Banner",
     "fields": [
         {
             "fieldName": "title",

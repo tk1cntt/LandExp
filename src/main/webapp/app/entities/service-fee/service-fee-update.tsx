@@ -38,9 +38,9 @@ export class ServiceFeeUpdate extends React.Component<IServiceFeeUpdateProps, IS
 
   saveEntity = (event, errors, values) => {
     if (errors.length === 0) {
-      const { serviceFee } = this.props;
+      const { serviceFeeEntity } = this.props;
       const entity = {
-        ...serviceFee,
+        ...serviceFeeEntity,
         ...values
       };
 
@@ -59,7 +59,7 @@ export class ServiceFeeUpdate extends React.Component<IServiceFeeUpdateProps, IS
 
   render() {
     const isInvalid = false;
-    const { serviceFee, loading, updating } = this.props;
+    const { serviceFeeEntity, loading, updating } = this.props;
     const { isNew } = this.state;
 
     return (
@@ -76,7 +76,7 @@ export class ServiceFeeUpdate extends React.Component<IServiceFeeUpdateProps, IS
             {loading ? (
               <p>Loading...</p>
             ) : (
-              <AvForm model={isNew ? {} : serviceFee} onSubmit={this.saveEntity}>
+              <AvForm model={isNew ? {} : serviceFeeEntity} onSubmit={this.saveEntity}>
                 {!isNew ? (
                   <AvGroup>
                     <Label for="id">
@@ -94,7 +94,7 @@ export class ServiceFeeUpdate extends React.Component<IServiceFeeUpdateProps, IS
                     type="select"
                     className="form-control"
                     name="saleType"
-                    value={(!isNew && serviceFee.saleType) || 'SALE_BY_MYSELF'}
+                    value={(!isNew && serviceFeeEntity.saleType) || 'SALE_BY_MYSELF'}
                   >
                     <option value="SALE_BY_MYSELF">SALE_BY_MYSELF</option>
                     <option value="SALE_BY_MYSELF_VIP">SALE_BY_MYSELF_VIP</option>
@@ -129,7 +129,7 @@ export class ServiceFeeUpdate extends React.Component<IServiceFeeUpdateProps, IS
 }
 
 const mapStateToProps = (storeState: IRootState) => ({
-  serviceFee: storeState.serviceFee.entity,
+  serviceFeeEntity: storeState.serviceFee.entity,
   loading: storeState.serviceFee.loading,
   updating: storeState.serviceFee.updating
 });

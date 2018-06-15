@@ -1,4 +1,5 @@
 {
+    "name": "LandProjectPhoto",
     "fields": [
         {
             "fieldName": "image",

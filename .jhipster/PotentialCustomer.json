@@ -1,4 +1,5 @@
 {
+    "name": "PotentialCustomer",
     "fields": [
         {
             "fieldName": "level",

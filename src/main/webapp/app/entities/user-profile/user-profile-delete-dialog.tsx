@@ -17,7 +17,7 @@ export class UserProfileDeleteDialog extends React.Component<IUserProfileDeleteD
   }
 
   confirmDelete = event => {
-    this.props.deleteEntity(this.props.userProfile.id);
+    this.props.deleteEntity(this.props.userProfileEntity.id);
     this.handleClose(event);
   };
 
@@ -27,14 +27,14 @@ export class UserProfileDeleteDialog extends React.Component<IUserProfileDeleteD
   };
 
   render() {
-    const { userProfile } = this.props;
+    const { userProfileEntity } = this.props;
     return (
       <Modal isOpen toggle={this.handleClose}>
         <ModalHeader toggle={this.handleClose}>
           <Translate contentKey="entity.delete.title">Confirm delete operation</Translate>
         </ModalHeader>
         <ModalBody>
-          <Translate contentKey="landexpApp.userProfile.delete.question" interpolate={{ id: userProfile.id }}>
+          <Translate contentKey="landexpApp.userProfile.delete.question" interpolate={{ id: userProfileEntity.id }}>
             Are you sure you want to delete this UserProfile?
           </Translate>
         </ModalBody>
@@ -54,7 +54,7 @@ export class UserProfileDeleteDialog extends React.Component<IUserProfileDeleteD
 }
 
 const mapStateToProps = ({ userProfile }: IRootState) => ({
-  userProfile: userProfile.entity
+  userProfileEntity: userProfile.entity
 });
 
 const mapDispatchToProps = { getEntity, deleteEntity };

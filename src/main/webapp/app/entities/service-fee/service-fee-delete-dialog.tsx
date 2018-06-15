@@ -17,7 +17,7 @@ export class ServiceFeeDeleteDialog extends React.Component<IServiceFeeDeleteDia
   }
 
   confirmDelete = event => {
-    this.props.deleteEntity(this.props.serviceFee.id);
+    this.props.deleteEntity(this.props.serviceFeeEntity.id);
     this.handleClose(event);
   };
 
@@ -27,14 +27,14 @@ export class ServiceFeeDeleteDialog extends React.Component<IServiceFeeDeleteDia
   };
 
   render() {
-    const { serviceFee } = this.props;
+    const { serviceFeeEntity } = this.props;
     return (
       <Modal isOpen toggle={this.handleClose}>
         <ModalHeader toggle={this.handleClose}>
           <Translate contentKey="entity.delete.title">Confirm delete operation</Translate>
         </ModalHeader>
         <ModalBody>
-          <Translate contentKey="landexpApp.serviceFee.delete.question" interpolate={{ id: serviceFee.id }}>
+          <Translate contentKey="landexpApp.serviceFee.delete.question" interpolate={{ id: serviceFeeEntity.id }}>
             Are you sure you want to delete this ServiceFee?
           </Translate>
         </ModalBody>
@@ -54,7 +54,7 @@ export class ServiceFeeDeleteDialog extends React.Component<IServiceFeeDeleteDia
 }
 
 const mapStateToProps = ({ serviceFee }: IRootState) => ({
-  serviceFee: serviceFee.entity
+  serviceFeeEntity: serviceFee.entity
 });
 
 const mapDispatchToProps = { getEntity, deleteEntity };

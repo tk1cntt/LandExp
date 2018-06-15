@@ -17,7 +17,7 @@ export class UserFinancialDeleteDialog extends React.Component<IUserFinancialDel
   }
 
   confirmDelete = event => {
-    this.props.deleteEntity(this.props.userFinancial.id);
+    this.props.deleteEntity(this.props.userFinancialEntity.id);
     this.handleClose(event);
   };
 
@@ -27,14 +27,14 @@ export class UserFinancialDeleteDialog extends React.Component<IUserFinancialDel
   };
 
   render() {
-    const { userFinancial } = this.props;
+    const { userFinancialEntity } = this.props;
     return (
       <Modal isOpen toggle={this.handleClose}>
         <ModalHeader toggle={this.handleClose}>
           <Translate contentKey="entity.delete.title">Confirm delete operation</Translate>
         </ModalHeader>
         <ModalBody>
-          <Translate contentKey="landexpApp.userFinancial.delete.question" interpolate={{ id: userFinancial.id }}>
+          <Translate contentKey="landexpApp.userFinancial.delete.question" interpolate={{ id: userFinancialEntity.id }}>
             Are you sure you want to delete this UserFinancial?
           </Translate>
         </ModalBody>
@@ -54,7 +54,7 @@ export class UserFinancialDeleteDialog extends React.Component<IUserFinancialDel
 }
 
 const mapStateToProps = ({ userFinancial }: IRootState) => ({
-  userFinancial: userFinancial.entity
+  userFinancialEntity: userFinancial.entity
 });
 
 const mapDispatchToProps = { getEntity, deleteEntity };

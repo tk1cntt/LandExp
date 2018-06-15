@@ -20,12 +20,12 @@ export class UserProfileDetail extends React.Component<IUserProfileDetailProps> 
   }
 
   render() {
-    const { userProfile } = this.props;
+    const { userProfileEntity } = this.props;
     return (
       <Row>
         <Col md="8">
           <h2>
-            <Translate contentKey="landexpApp.userProfile.detail.title">UserProfile</Translate> [<b>{userProfile.id}</b>]
+            <Translate contentKey="landexpApp.userProfile.detail.title">UserProfile</Translate> [<b>{userProfileEntity.id}</b>]
           </h2>
           <dl className="jh-entity-details">
             <dt>
@@ -33,17 +33,17 @@ export class UserProfileDetail extends React.Component<IUserProfileDetailProps> 
                 <Translate contentKey="landexpApp.userProfile.name">Name</Translate>
               </span>
             </dt>
-            <dd>{userProfile.name}</dd>
+            <dd>{userProfileEntity.name}</dd>
             <dt>
               <span id="phoneNumber">
                 <Translate contentKey="landexpApp.userProfile.phoneNumber">Phone Number</Translate>
               </span>
             </dt>
-            <dd>{userProfile.phoneNumber}</dd>
+            <dd>{userProfileEntity.phoneNumber}</dd>
             <dt>
               <Translate contentKey="landexpApp.userProfile.user">User</Translate>
             </dt>
-            <dd>{userProfile.userEmail ? userProfile.userEmail : ''}</dd>
+            <dd>{userProfileEntity.userEmail ? userProfileEntity.userEmail : ''}</dd>
           </dl>
           <Button tag={Link} to="/entity/user-profile" replace color="info">
             <FontAwesomeIcon icon="arrow-left" />{' '}
@@ -51,7 +51,7 @@ export class UserProfileDetail extends React.Component<IUserProfileDetailProps> 
               <Translate contentKey="entity.action.back">Back</Translate>
             </span>
           </Button>&nbsp;
-          <Button tag={Link} to={`/entity/user-profile/${userProfile.id}/edit`} replace color="primary">
+          <Button tag={Link} to={`/entity/user-profile/${userProfileEntity.id}/edit`} replace color="primary">
             <FontAwesomeIcon icon="pencil-alt" />{' '}
             <span className="d-none d-md-inline">
               <Translate contentKey="entity.action.edit">Edit</Translate>
@@ -64,7 +64,7 @@ export class UserProfileDetail extends React.Component<IUserProfileDetailProps> 
 }
 
 const mapStateToProps = ({ userProfile }: IRootState) => ({
-  userProfile: userProfile.entity
+  userProfileEntity: userProfile.entity
 });
 
 const mapDispatchToProps = { getEntity };

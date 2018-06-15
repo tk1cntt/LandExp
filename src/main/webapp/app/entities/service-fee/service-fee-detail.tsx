@@ -20,12 +20,12 @@ export class ServiceFeeDetail extends React.Component<IServiceFeeDetailProps> {
   }
 
   render() {
-    const { serviceFee } = this.props;
+    const { serviceFeeEntity } = this.props;
     return (
       <Row>
         <Col md="8">
           <h2>
-            <Translate contentKey="landexpApp.serviceFee.detail.title">ServiceFee</Translate> [<b>{serviceFee.id}</b>]
+            <Translate contentKey="landexpApp.serviceFee.detail.title">ServiceFee</Translate> [<b>{serviceFeeEntity.id}</b>]
           </h2>
           <dl className="jh-entity-details">
             <dt>
@@ -33,13 +33,13 @@ export class ServiceFeeDetail extends React.Component<IServiceFeeDetailProps> {
                 <Translate contentKey="landexpApp.serviceFee.saleType">Sale Type</Translate>
               </span>
             </dt>
-            <dd>{serviceFee.saleType}</dd>
+            <dd>{serviceFeeEntity.saleType}</dd>
             <dt>
               <span id="fee">
                 <Translate contentKey="landexpApp.serviceFee.fee">Fee</Translate>
               </span>
             </dt>
-            <dd>{serviceFee.fee}</dd>
+            <dd>{serviceFeeEntity.fee}</dd>
           </dl>
           <Button tag={Link} to="/entity/service-fee" replace color="info">
             <FontAwesomeIcon icon="arrow-left" />{' '}
@@ -47,7 +47,7 @@ export class ServiceFeeDetail extends React.Component<IServiceFeeDetailProps> {
               <Translate contentKey="entity.action.back">Back</Translate>
             </span>
           </Button>&nbsp;
-          <Button tag={Link} to={`/entity/service-fee/${serviceFee.id}/edit`} replace color="primary">
+          <Button tag={Link} to={`/entity/service-fee/${serviceFeeEntity.id}/edit`} replace color="primary">
             <FontAwesomeIcon icon="pencil-alt" />{' '}
             <span className="d-none d-md-inline">
               <Translate contentKey="entity.action.edit">Edit</Translate>
@@ -60,7 +60,7 @@ export class ServiceFeeDetail extends React.Component<IServiceFeeDetailProps> {
 }
 
 const mapStateToProps = ({ serviceFee }: IRootState) => ({
-  serviceFee: serviceFee.entity
+  serviceFeeEntity: serviceFee.entity
 });
 
 const mapDispatchToProps = { getEntity };

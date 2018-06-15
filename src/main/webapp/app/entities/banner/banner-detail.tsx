@@ -20,12 +20,12 @@ export class BannerDetail extends React.Component<IBannerDetailProps> {
   }
 
   render() {
-    const { banner } = this.props;
+    const { bannerEntity } = this.props;
     return (
       <Row>
         <Col md="8">
           <h2>
-            <Translate contentKey="landexpApp.banner.detail.title">Banner</Translate> [<b>{banner.id}</b>]
+            <Translate contentKey="landexpApp.banner.detail.title">Banner</Translate> [<b>{bannerEntity.id}</b>]
           </h2>
           <dl className="jh-entity-details">
             <dt>
@@ -33,32 +33,32 @@ export class BannerDetail extends React.Component<IBannerDetailProps> {
                 <Translate contentKey="landexpApp.banner.title">Title</Translate>
               </span>
             </dt>
-            <dd>{banner.title}</dd>
+            <dd>{bannerEntity.title}</dd>
             <dt>
               <span id="titleAlias">
                 <Translate contentKey="landexpApp.banner.titleAlias">Title Alias</Translate>
               </span>
             </dt>
-            <dd>{banner.titleAlias}</dd>
+            <dd>{bannerEntity.titleAlias}</dd>
             <dt>
               <span id="area">
                 <Translate contentKey="landexpApp.banner.area">Area</Translate>
               </span>
             </dt>
-            <dd>{banner.area}</dd>
+            <dd>{bannerEntity.area}</dd>
             <dt>
               <span id="hits">
                 <Translate contentKey="landexpApp.banner.hits">Hits</Translate>
               </span>
             </dt>
-            <dd>{banner.hits}</dd>
+            <dd>{bannerEntity.hits}</dd>
             <dt>
               <span id="publicUp">
                 <Translate contentKey="landexpApp.banner.publicUp">Public Up</Translate>
               </span>
             </dt>
             <dd>
-              <TextFormat value={banner.publicUp} type="date" format={APP_LOCAL_DATE_FORMAT} />
+              <TextFormat value={bannerEntity.publicUp} type="date" format={APP_LOCAL_DATE_FORMAT} />
             </dd>
             <dt>
               <span id="publicDown">
@@ -66,7 +66,7 @@ export class BannerDetail extends React.Component<IBannerDetailProps> {
               </span>
             </dt>
             <dd>
-              <TextFormat value={banner.publicDown} type="date" format={APP_LOCAL_DATE_FORMAT} />
+              <TextFormat value={bannerEntity.publicDown} type="date" format={APP_LOCAL_DATE_FORMAT} />
             </dd>
             <dt>
               <span id="createAt">
@@ -74,7 +74,7 @@ export class BannerDetail extends React.Component<IBannerDetailProps> {
               </span>
             </dt>
             <dd>
-              <TextFormat value={banner.createAt} type="date" format={APP_LOCAL_DATE_FORMAT} />
+              <TextFormat value={bannerEntity.createAt} type="date" format={APP_LOCAL_DATE_FORMAT} />
             </dd>
             <dt>
               <span id="updateAt">
@@ -82,16 +82,16 @@ export class BannerDetail extends React.Component<IBannerDetailProps> {
               </span>
             </dt>
             <dd>
-              <TextFormat value={banner.updateAt} type="date" format={APP_LOCAL_DATE_FORMAT} />
+              <TextFormat value={bannerEntity.updateAt} type="date" format={APP_LOCAL_DATE_FORMAT} />
             </dd>
             <dt>
               <Translate contentKey="landexpApp.banner.createBy">Create By</Translate>
             </dt>
-            <dd>{banner.createByLogin ? banner.createByLogin : ''}</dd>
+            <dd>{bannerEntity.createByLogin ? bannerEntity.createByLogin : ''}</dd>
             <dt>
               <Translate contentKey="landexpApp.banner.updateBy">Update By</Translate>
             </dt>
-            <dd>{banner.updateByLogin ? banner.updateByLogin : ''}</dd>
+            <dd>{bannerEntity.updateByLogin ? bannerEntity.updateByLogin : ''}</dd>
           </dl>
           <Button tag={Link} to="/entity/banner" replace color="info">
             <FontAwesomeIcon icon="arrow-left" />{' '}
@@ -99,7 +99,7 @@ export class BannerDetail extends React.Component<IBannerDetailProps> {
               <Translate contentKey="entity.action.back">Back</Translate>
             </span>
           </Button>&nbsp;
-          <Button tag={Link} to={`/entity/banner/${banner.id}/edit`} replace color="primary">
+          <Button tag={Link} to={`/entity/banner/${bannerEntity.id}/edit`} replace color="primary">
             <FontAwesomeIcon icon="pencil-alt" />{' '}
             <span className="d-none d-md-inline">
               <Translate contentKey="entity.action.edit">Edit</Translate>
@@ -112,7 +112,7 @@ export class BannerDetail extends React.Component<IBannerDetailProps> {
 }
 
 const mapStateToProps = ({ banner }: IRootState) => ({
-  banner: banner.entity
+  bannerEntity: banner.entity
 });
 
 const mapDispatchToProps = { getEntity };

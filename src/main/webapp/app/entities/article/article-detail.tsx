@@ -20,12 +20,12 @@ export class ArticleDetail extends React.Component<IArticleDetailProps> {
   }
 
   render() {
-    const { article } = this.props;
+    const { articleEntity } = this.props;
     return (
       <Row>
         <Col md="8">
           <h2>
-            <Translate contentKey="landexpApp.article.detail.title">Article</Translate> [<b>{article.id}</b>]
+            <Translate contentKey="landexpApp.article.detail.title">Article</Translate> [<b>{articleEntity.id}</b>]
           </h2>
           <dl className="jh-entity-details">
             <dt>
@@ -34,13 +34,13 @@ export class ArticleDetail extends React.Component<IArticleDetailProps> {
               </span>
             </dt>
             <dd>
-              {article.avatar ? (
+              {articleEntity.avatar ? (
                 <div>
-                  <a onClick={openFile(article.avatarContentType, article.avatar)}>
-                    <img src={`data:${article.avatarContentType};base64,${article.avatar}`} style={{ maxHeight: '30px' }} />
+                  <a onClick={openFile(articleEntity.avatarContentType, articleEntity.avatar)}>
+                    <img src={`data:${articleEntity.avatarContentType};base64,${articleEntity.avatar}`} style={{ maxHeight: '30px' }} />
                   </a>
                   <span>
-                    {article.avatarContentType}, {byteSize(article.avatar)}
+                    {articleEntity.avatarContentType}, {byteSize(articleEntity.avatar)}
                   </span>
                 </div>
               ) : null}
@@ -50,44 +50,44 @@ export class ArticleDetail extends React.Component<IArticleDetailProps> {
                 <Translate contentKey="landexpApp.article.title">Title</Translate>
               </span>
             </dt>
-            <dd>{article.title}</dd>
+            <dd>{articleEntity.title}</dd>
             <dt>
               <span id="titleAlias">
                 <Translate contentKey="landexpApp.article.titleAlias">Title Alias</Translate>
               </span>
             </dt>
-            <dd>{article.titleAlias}</dd>
+            <dd>{articleEntity.titleAlias}</dd>
             <dt>
               <span id="summary">
                 <Translate contentKey="landexpApp.article.summary">Summary</Translate>
               </span>
             </dt>
-            <dd>{article.summary}</dd>
+            <dd>{articleEntity.summary}</dd>
             <dt>
               <span id="content">
                 <Translate contentKey="landexpApp.article.content">Content</Translate>
               </span>
             </dt>
-            <dd>{article.content}</dd>
+            <dd>{articleEntity.content}</dd>
             <dt>
               <span id="statusType">
                 <Translate contentKey="landexpApp.article.statusType">Status Type</Translate>
               </span>
             </dt>
-            <dd>{article.statusType}</dd>
+            <dd>{articleEntity.statusType}</dd>
             <dt>
               <span id="hits">
                 <Translate contentKey="landexpApp.article.hits">Hits</Translate>
               </span>
             </dt>
-            <dd>{article.hits}</dd>
+            <dd>{articleEntity.hits}</dd>
             <dt>
               <span id="createAt">
                 <Translate contentKey="landexpApp.article.createAt">Create At</Translate>
               </span>
             </dt>
             <dd>
-              <TextFormat value={article.createAt} type="date" format={APP_LOCAL_DATE_FORMAT} />
+              <TextFormat value={articleEntity.createAt} type="date" format={APP_LOCAL_DATE_FORMAT} />
             </dd>
             <dt>
               <span id="updateAt">
@@ -95,20 +95,20 @@ export class ArticleDetail extends React.Component<IArticleDetailProps> {
               </span>
             </dt>
             <dd>
-              <TextFormat value={article.updateAt} type="date" format={APP_LOCAL_DATE_FORMAT} />
+              <TextFormat value={articleEntity.updateAt} type="date" format={APP_LOCAL_DATE_FORMAT} />
             </dd>
             <dt>
               <Translate contentKey="landexpApp.article.category">Category</Translate>
             </dt>
-            <dd>{article.categoryName ? article.categoryName : ''}</dd>
+            <dd>{articleEntity.categoryName ? articleEntity.categoryName : ''}</dd>
             <dt>
               <Translate contentKey="landexpApp.article.createBy">Create By</Translate>
             </dt>
-            <dd>{article.createByLogin ? article.createByLogin : ''}</dd>
+            <dd>{articleEntity.createByLogin ? articleEntity.createByLogin : ''}</dd>
             <dt>
               <Translate contentKey="landexpApp.article.updateBy">Update By</Translate>
             </dt>
-            <dd>{article.updateByLogin ? article.updateByLogin : ''}</dd>
+            <dd>{articleEntity.updateByLogin ? articleEntity.updateByLogin : ''}</dd>
           </dl>
           <Button tag={Link} to="/entity/article" replace color="info">
             <FontAwesomeIcon icon="arrow-left" />{' '}
@@ -116,7 +116,7 @@ export class ArticleDetail extends React.Component<IArticleDetailProps> {
               <Translate contentKey="entity.action.back">Back</Translate>
             </span>
           </Button>&nbsp;
-          <Button tag={Link} to={`/entity/article/${article.id}/edit`} replace color="primary">
+          <Button tag={Link} to={`/entity/article/${articleEntity.id}/edit`} replace color="primary">
             <FontAwesomeIcon icon="pencil-alt" />{' '}
             <span className="d-none d-md-inline">
               <Translate contentKey="entity.action.edit">Edit</Translate>
@@ -129,7 +129,7 @@ export class ArticleDetail extends React.Component<IArticleDetailProps> {
 }
 
 const mapStateToProps = ({ article }: IRootState) => ({
-  article: article.entity
+  articleEntity: article.entity
 });
 
 const mapDispatchToProps = { getEntity };

@@ -48,9 +48,9 @@ export class PotentialCustomerUpdate extends React.Component<IPotentialCustomerU
 
   saveEntity = (event, errors, values) => {
     if (errors.length === 0) {
-      const { potentialCustomer } = this.props;
+      const { potentialCustomerEntity } = this.props;
       const entity = {
-        ...potentialCustomer,
+        ...potentialCustomerEntity,
         ...values
       };
 
@@ -120,7 +120,7 @@ export class PotentialCustomerUpdate extends React.Component<IPotentialCustomerU
 
   render() {
     const isInvalid = false;
-    const { potentialCustomer, users, loading, updating } = this.props;
+    const { potentialCustomerEntity, users, loading, updating } = this.props;
     const { isNew } = this.state;
 
     return (
@@ -137,7 +137,7 @@ export class PotentialCustomerUpdate extends React.Component<IPotentialCustomerU
             {loading ? (
               <p>Loading...</p>
             ) : (
-              <AvForm model={isNew ? {} : potentialCustomer} onSubmit={this.saveEntity}>
+              <AvForm model={isNew ? {} : potentialCustomerEntity} onSubmit={this.saveEntity}>
                 {!isNew ? (
                   <AvGroup>
                     <Label for="id">
@@ -155,7 +155,7 @@ export class PotentialCustomerUpdate extends React.Component<IPotentialCustomerU
                     type="select"
                     className="form-control"
                     name="level"
-                    value={(!isNew && potentialCustomer.level) || 'NORMAL'}
+                    value={(!isNew && potentialCustomerEntity.level) || 'NORMAL'}
                   >
                     <option value="NORMAL">NORMAL</option>
                     <option value="SILVER">SILVER</option>
@@ -266,7 +266,7 @@ export class PotentialCustomerUpdate extends React.Component<IPotentialCustomerU
 
 const mapStateToProps = (storeState: IRootState) => ({
   users: storeState.userManagement.users,
-  potentialCustomer: storeState.potentialCustomer.entity,
+  potentialCustomerEntity: storeState.potentialCustomer.entity,
   loading: storeState.potentialCustomer.loading,
   updating: storeState.potentialCustomer.updating
 });

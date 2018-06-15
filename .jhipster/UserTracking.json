@@ -1,4 +1,5 @@
 {
+    "name": "UserTracking",
     "fields": [
         {
             "fieldName": "activityType",

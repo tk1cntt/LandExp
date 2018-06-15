@@ -44,9 +44,9 @@ export class UserFeedUpdate extends React.Component<IUserFeedUpdateProps, IUserF
 
   saveEntity = (event, errors, values) => {
     if (errors.length === 0) {
-      const { userFeed } = this.props;
+      const { userFeedEntity } = this.props;
       const entity = {
-        ...userFeed,
+        ...userFeedEntity,
         ...values
       };
 
@@ -82,7 +82,7 @@ export class UserFeedUpdate extends React.Component<IUserFeedUpdateProps, IUserF
 
   render() {
     const isInvalid = false;
-    const { userFeed, users, loading, updating } = this.props;
+    const { userFeedEntity, users, loading, updating } = this.props;
     const { isNew } = this.state;
 
     return (
@@ -99,7 +99,7 @@ export class UserFeedUpdate extends React.Component<IUserFeedUpdateProps, IUserF
             {loading ? (
               <p>Loading...</p>
             ) : (
-              <AvForm model={isNew ? {} : userFeed} onSubmit={this.saveEntity}>
+              <AvForm model={isNew ? {} : userFeedEntity} onSubmit={this.saveEntity}>
                 {!isNew ? (
                   <AvGroup>
                     <Label for="id">
@@ -163,7 +163,7 @@ export class UserFeedUpdate extends React.Component<IUserFeedUpdateProps, IUserF
 
 const mapStateToProps = (storeState: IRootState) => ({
   users: storeState.userManagement.users,
-  userFeed: storeState.userFeed.entity,
+  userFeedEntity: storeState.userFeed.entity,
   loading: storeState.userFeed.loading,
   updating: storeState.userFeed.updating
 });

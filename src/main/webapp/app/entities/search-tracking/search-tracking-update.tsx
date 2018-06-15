@@ -59,9 +59,9 @@ export class SearchTrackingUpdate extends React.Component<ISearchTrackingUpdateP
 
   saveEntity = (event, errors, values) => {
     if (errors.length === 0) {
-      const { searchTracking } = this.props;
+      const { searchTrackingEntity } = this.props;
       const entity = {
-        ...searchTracking,
+        ...searchTrackingEntity,
         ...values
       };
 
@@ -148,7 +148,7 @@ export class SearchTrackingUpdate extends React.Component<ISearchTrackingUpdateP
 
   render() {
     const isInvalid = false;
-    const { searchTracking, users, cities, districts, streets, loading, updating } = this.props;
+    const { searchTrackingEntity, users, cities, districts, streets, loading, updating } = this.props;
     const { isNew } = this.state;
 
     return (
@@ -165,7 +165,7 @@ export class SearchTrackingUpdate extends React.Component<ISearchTrackingUpdateP
             {loading ? (
               <p>Loading...</p>
             ) : (
-              <AvForm model={isNew ? {} : searchTracking} onSubmit={this.saveEntity}>
+              <AvForm model={isNew ? {} : searchTrackingEntity} onSubmit={this.saveEntity}>
                 {!isNew ? (
                   <AvGroup>
                     <Label for="id">
@@ -183,7 +183,7 @@ export class SearchTrackingUpdate extends React.Component<ISearchTrackingUpdateP
                     type="select"
                     className="form-control"
                     name="actionType"
-                    value={(!isNew && searchTracking.actionType) || 'USER_SEARCH_BUY'}
+                    value={(!isNew && searchTrackingEntity.actionType) || 'USER_SEARCH_BUY'}
                   >
                     <option value="USER_SEARCH_BUY">USER_SEARCH_BUY</option>
                     <option value="USER_SEARCH_RENT">USER_SEARCH_RENT</option>
@@ -241,7 +241,7 @@ export class SearchTrackingUpdate extends React.Component<ISearchTrackingUpdateP
                     type="select"
                     className="form-control"
                     name="direction"
-                    value={(!isNew && searchTracking.direction) || 'NORTH'}
+                    value={(!isNew && searchTrackingEntity.direction) || 'NORTH'}
                   >
                     <option value="NORTH">NORTH</option>
                     <option value="SOUTH">SOUTH</option>
@@ -286,7 +286,7 @@ export class SearchTrackingUpdate extends React.Component<ISearchTrackingUpdateP
                     type="select"
                     className="form-control"
                     name="landType"
-                    value={(!isNew && searchTracking.landType) || 'APARTMENT'}
+                    value={(!isNew && searchTrackingEntity.landType) || 'APARTMENT'}
                   >
                     <option value="APARTMENT">APARTMENT</option>
                     <option value="PEN_HOUSE">PEN_HOUSE</option>
@@ -401,7 +401,7 @@ const mapStateToProps = (storeState: IRootState) => ({
   cities: storeState.city.entities,
   districts: storeState.district.entities,
   streets: storeState.street.entities,
-  searchTracking: storeState.searchTracking.entity,
+  searchTrackingEntity: storeState.searchTracking.entity,
   loading: storeState.searchTracking.loading,
   updating: storeState.searchTracking.updating
 });

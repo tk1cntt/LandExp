@@ -17,7 +17,7 @@ export class PotentialCustomerDeleteDialog extends React.Component<IPotentialCus
   }
 
   confirmDelete = event => {
-    this.props.deleteEntity(this.props.potentialCustomer.id);
+    this.props.deleteEntity(this.props.potentialCustomerEntity.id);
     this.handleClose(event);
   };
 
@@ -27,14 +27,14 @@ export class PotentialCustomerDeleteDialog extends React.Component<IPotentialCus
   };
 
   render() {
-    const { potentialCustomer } = this.props;
+    const { potentialCustomerEntity } = this.props;
     return (
       <Modal isOpen toggle={this.handleClose}>
         <ModalHeader toggle={this.handleClose}>
           <Translate contentKey="entity.delete.title">Confirm delete operation</Translate>
         </ModalHeader>
         <ModalBody>
-          <Translate contentKey="landexpApp.potentialCustomer.delete.question" interpolate={{ id: potentialCustomer.id }}>
+          <Translate contentKey="landexpApp.potentialCustomer.delete.question" interpolate={{ id: potentialCustomerEntity.id }}>
             Are you sure you want to delete this PotentialCustomer?
           </Translate>
         </ModalBody>
@@ -54,7 +54,7 @@ export class PotentialCustomerDeleteDialog extends React.Component<IPotentialCus
 }
 
 const mapStateToProps = ({ potentialCustomer }: IRootState) => ({
-  potentialCustomer: potentialCustomer.entity
+  potentialCustomerEntity: potentialCustomer.entity
 });
 
 const mapDispatchToProps = { getEntity, deleteEntity };

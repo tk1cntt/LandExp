@@ -20,12 +20,12 @@ export class LandProjectDetail extends React.Component<ILandProjectDetailProps> 
   }
 
   render() {
-    const { landProject } = this.props;
+    const { landProjectEntity } = this.props;
     return (
       <Row>
         <Col md="8">
           <h2>
-            <Translate contentKey="landexpApp.landProject.detail.title">LandProject</Translate> [<b>{landProject.id}</b>]
+            <Translate contentKey="landexpApp.landProject.detail.title">LandProject</Translate> [<b>{landProjectEntity.id}</b>]
           </h2>
           <dl className="jh-entity-details">
             <dt>
@@ -33,20 +33,23 @@ export class LandProjectDetail extends React.Component<ILandProjectDetailProps> 
                 <Translate contentKey="landexpApp.landProject.name">Name</Translate>
               </span>
             </dt>
-            <dd>{landProject.name}</dd>
+            <dd>{landProjectEntity.name}</dd>
             <dt>
               <span id="image">
                 <Translate contentKey="landexpApp.landProject.image">Image</Translate>
               </span>
             </dt>
             <dd>
-              {landProject.image ? (
+              {landProjectEntity.image ? (
                 <div>
-                  <a onClick={openFile(landProject.imageContentType, landProject.image)}>
-                    <img src={`data:${landProject.imageContentType};base64,${landProject.image}`} style={{ maxHeight: '30px' }} />
+                  <a onClick={openFile(landProjectEntity.imageContentType, landProjectEntity.image)}>
+                    <img
+                      src={`data:${landProjectEntity.imageContentType};base64,${landProjectEntity.image}`}
+                      style={{ maxHeight: '30px' }}
+                    />
                   </a>
                   <span>
-                    {landProject.imageContentType}, {byteSize(landProject.image)}
+                    {landProjectEntity.imageContentType}, {byteSize(landProjectEntity.image)}
                   </span>
                 </div>
               ) : null}
@@ -54,23 +57,23 @@ export class LandProjectDetail extends React.Component<ILandProjectDetailProps> 
             <dt>
               <Translate contentKey="landexpApp.landProject.city">City</Translate>
             </dt>
-            <dd>{landProject.cityName ? landProject.cityName : ''}</dd>
+            <dd>{landProjectEntity.cityName ? landProjectEntity.cityName : ''}</dd>
             <dt>
               <Translate contentKey="landexpApp.landProject.district">District</Translate>
             </dt>
-            <dd>{landProject.districtName ? landProject.districtName : ''}</dd>
+            <dd>{landProjectEntity.districtName ? landProjectEntity.districtName : ''}</dd>
             <dt>
               <Translate contentKey="landexpApp.landProject.street">Street</Translate>
             </dt>
-            <dd>{landProject.streetName ? landProject.streetName : ''}</dd>
+            <dd>{landProjectEntity.streetName ? landProjectEntity.streetName : ''}</dd>
             <dt>
               <Translate contentKey="landexpApp.landProject.createBy">Create By</Translate>
             </dt>
-            <dd>{landProject.createByLogin ? landProject.createByLogin : ''}</dd>
+            <dd>{landProjectEntity.createByLogin ? landProjectEntity.createByLogin : ''}</dd>
             <dt>
               <Translate contentKey="landexpApp.landProject.updateBy">Update By</Translate>
             </dt>
-            <dd>{landProject.updateByLogin ? landProject.updateByLogin : ''}</dd>
+            <dd>{landProjectEntity.updateByLogin ? landProjectEntity.updateByLogin : ''}</dd>
           </dl>
           <Button tag={Link} to="/entity/land-project" replace color="info">
             <FontAwesomeIcon icon="arrow-left" />{' '}
@@ -78,7 +81,7 @@ export class LandProjectDetail extends React.Component<ILandProjectDetailProps> 
               <Translate contentKey="entity.action.back">Back</Translate>
             </span>
           </Button>&nbsp;
-          <Button tag={Link} to={`/entity/land-project/${landProject.id}/edit`} replace color="primary">
+          <Button tag={Link} to={`/entity/land-project/${landProjectEntity.id}/edit`} replace color="primary">
             <FontAwesomeIcon icon="pencil-alt" />{' '}
             <span className="d-none d-md-inline">
               <Translate contentKey="entity.action.edit">Edit</Translate>
@@ -91,7 +94,7 @@ export class LandProjectDetail extends React.Component<ILandProjectDetailProps> 
 }
 
 const mapStateToProps = ({ landProject }: IRootState) => ({
-  landProject: landProject.entity
+  landProjectEntity: landProject.entity
 });
 
 const mapDispatchToProps = { getEntity };

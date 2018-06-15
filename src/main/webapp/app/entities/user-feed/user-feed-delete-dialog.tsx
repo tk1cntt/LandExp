@@ -17,7 +17,7 @@ export class UserFeedDeleteDialog extends React.Component<IUserFeedDeleteDialogP
   }
 
   confirmDelete = event => {
-    this.props.deleteEntity(this.props.userFeed.id);
+    this.props.deleteEntity(this.props.userFeedEntity.id);
     this.handleClose(event);
   };
 
@@ -27,14 +27,14 @@ export class UserFeedDeleteDialog extends React.Component<IUserFeedDeleteDialogP
   };
 
   render() {
-    const { userFeed } = this.props;
+    const { userFeedEntity } = this.props;
     return (
       <Modal isOpen toggle={this.handleClose}>
         <ModalHeader toggle={this.handleClose}>
           <Translate contentKey="entity.delete.title">Confirm delete operation</Translate>
         </ModalHeader>
         <ModalBody>
-          <Translate contentKey="landexpApp.userFeed.delete.question" interpolate={{ id: userFeed.id }}>
+          <Translate contentKey="landexpApp.userFeed.delete.question" interpolate={{ id: userFeedEntity.id }}>
             Are you sure you want to delete this UserFeed?
           </Translate>
         </ModalBody>
@@ -54,7 +54,7 @@ export class UserFeedDeleteDialog extends React.Component<IUserFeedDeleteDialogP
 }
 
 const mapStateToProps = ({ userFeed }: IRootState) => ({
-  userFeed: userFeed.entity
+  userFeedEntity: userFeed.entity
 });
 
 const mapDispatchToProps = { getEntity, deleteEntity };

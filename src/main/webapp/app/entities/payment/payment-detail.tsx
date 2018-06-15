@@ -20,12 +20,12 @@ export class PaymentDetail extends React.Component<IPaymentDetailProps> {
   }
 
   render() {
-    const { payment } = this.props;
+    const { paymentEntity } = this.props;
     return (
       <Row>
         <Col md="8">
           <h2>
-            <Translate contentKey="landexpApp.payment.detail.title">Payment</Translate> [<b>{payment.id}</b>]
+            <Translate contentKey="landexpApp.payment.detail.title">Payment</Translate> [<b>{paymentEntity.id}</b>]
           </h2>
           <dl className="jh-entity-details">
             <dt>
@@ -33,34 +33,34 @@ export class PaymentDetail extends React.Component<IPaymentDetailProps> {
                 <Translate contentKey="landexpApp.payment.code">Code</Translate>
               </span>
             </dt>
-            <dd>{payment.code}</dd>
+            <dd>{paymentEntity.code}</dd>
             <dt>
               <span id="money">
                 <Translate contentKey="landexpApp.payment.money">Money</Translate>
               </span>
             </dt>
-            <dd>{payment.money}</dd>
+            <dd>{paymentEntity.money}</dd>
             <dt>
               <span id="paidTime">
                 <Translate contentKey="landexpApp.payment.paidTime">Paid Time</Translate>
               </span>
             </dt>
             <dd>
-              <TextFormat value={payment.paidTime} type="date" format={APP_LOCAL_DATE_FORMAT} />
+              <TextFormat value={paymentEntity.paidTime} type="date" format={APP_LOCAL_DATE_FORMAT} />
             </dd>
             <dt>
               <span id="paymentStatus">
                 <Translate contentKey="landexpApp.payment.paymentStatus">Payment Status</Translate>
               </span>
             </dt>
-            <dd>{payment.paymentStatus}</dd>
+            <dd>{paymentEntity.paymentStatus}</dd>
             <dt>
               <span id="createAt">
                 <Translate contentKey="landexpApp.payment.createAt">Create At</Translate>
               </span>
             </dt>
             <dd>
-              <TextFormat value={payment.createAt} type="date" format={APP_LOCAL_DATE_FORMAT} />
+              <TextFormat value={paymentEntity.createAt} type="date" format={APP_LOCAL_DATE_FORMAT} />
             </dd>
             <dt>
               <span id="updateAt">
@@ -68,24 +68,24 @@ export class PaymentDetail extends React.Component<IPaymentDetailProps> {
               </span>
             </dt>
             <dd>
-              <TextFormat value={payment.updateAt} type="date" format={APP_LOCAL_DATE_FORMAT} />
+              <TextFormat value={paymentEntity.updateAt} type="date" format={APP_LOCAL_DATE_FORMAT} />
             </dd>
             <dt>
               <Translate contentKey="landexpApp.payment.house">House</Translate>
             </dt>
-            <dd>{payment.houseId ? payment.houseId : ''}</dd>
+            <dd>{paymentEntity.houseId ? paymentEntity.houseId : ''}</dd>
             <dt>
               <Translate contentKey="landexpApp.payment.customer">Customer</Translate>
             </dt>
-            <dd>{payment.customerLogin ? payment.customerLogin : ''}</dd>
+            <dd>{paymentEntity.customerLogin ? paymentEntity.customerLogin : ''}</dd>
             <dt>
               <Translate contentKey="landexpApp.payment.createBy">Create By</Translate>
             </dt>
-            <dd>{payment.createByLogin ? payment.createByLogin : ''}</dd>
+            <dd>{paymentEntity.createByLogin ? paymentEntity.createByLogin : ''}</dd>
             <dt>
               <Translate contentKey="landexpApp.payment.updateBy">Update By</Translate>
             </dt>
-            <dd>{payment.updateByLogin ? payment.updateByLogin : ''}</dd>
+            <dd>{paymentEntity.updateByLogin ? paymentEntity.updateByLogin : ''}</dd>
           </dl>
           <Button tag={Link} to="/entity/payment" replace color="info">
             <FontAwesomeIcon icon="arrow-left" />{' '}
@@ -93,7 +93,7 @@ export class PaymentDetail extends React.Component<IPaymentDetailProps> {
               <Translate contentKey="entity.action.back">Back</Translate>
             </span>
           </Button>&nbsp;
-          <Button tag={Link} to={`/entity/payment/${payment.id}/edit`} replace color="primary">
+          <Button tag={Link} to={`/entity/payment/${paymentEntity.id}/edit`} replace color="primary">
             <FontAwesomeIcon icon="pencil-alt" />{' '}
             <span className="d-none d-md-inline">
               <Translate contentKey="entity.action.edit">Edit</Translate>
@@ -106,7 +106,7 @@ export class PaymentDetail extends React.Component<IPaymentDetailProps> {
 }
 
 const mapStateToProps = ({ payment }: IRootState) => ({
-  payment: payment.entity
+  paymentEntity: payment.entity
 });
 
 const mapDispatchToProps = { getEntity };

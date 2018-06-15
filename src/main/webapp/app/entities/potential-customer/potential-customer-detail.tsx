@@ -20,12 +20,14 @@ export class PotentialCustomerDetail extends React.Component<IPotentialCustomerD
   }
 
   render() {
-    const { potentialCustomer } = this.props;
+    const { potentialCustomerEntity } = this.props;
     return (
       <Row>
         <Col md="8">
           <h2>
-            <Translate contentKey="landexpApp.potentialCustomer.detail.title">PotentialCustomer</Translate> [<b>{potentialCustomer.id}</b>]
+            <Translate contentKey="landexpApp.potentialCustomer.detail.title">PotentialCustomer</Translate> [<b>
+              {potentialCustomerEntity.id}
+            </b>]
           </h2>
           <dl className="jh-entity-details">
             <dt>
@@ -33,20 +35,20 @@ export class PotentialCustomerDetail extends React.Component<IPotentialCustomerD
                 <Translate contentKey="landexpApp.potentialCustomer.level">Level</Translate>
               </span>
             </dt>
-            <dd>{potentialCustomer.level}</dd>
+            <dd>{potentialCustomerEntity.level}</dd>
             <dt>
               <span id="description">
                 <Translate contentKey="landexpApp.potentialCustomer.description">Description</Translate>
               </span>
             </dt>
-            <dd>{potentialCustomer.description}</dd>
+            <dd>{potentialCustomerEntity.description}</dd>
             <dt>
               <span id="createAt">
                 <Translate contentKey="landexpApp.potentialCustomer.createAt">Create At</Translate>
               </span>
             </dt>
             <dd>
-              <TextFormat value={potentialCustomer.createAt} type="date" format={APP_LOCAL_DATE_FORMAT} />
+              <TextFormat value={potentialCustomerEntity.createAt} type="date" format={APP_LOCAL_DATE_FORMAT} />
             </dd>
             <dt>
               <span id="updateAt">
@@ -54,20 +56,20 @@ export class PotentialCustomerDetail extends React.Component<IPotentialCustomerD
               </span>
             </dt>
             <dd>
-              <TextFormat value={potentialCustomer.updateAt} type="date" format={APP_LOCAL_DATE_FORMAT} />
+              <TextFormat value={potentialCustomerEntity.updateAt} type="date" format={APP_LOCAL_DATE_FORMAT} />
             </dd>
             <dt>
               <Translate contentKey="landexpApp.potentialCustomer.customer">Customer</Translate>
             </dt>
-            <dd>{potentialCustomer.customerLogin ? potentialCustomer.customerLogin : ''}</dd>
+            <dd>{potentialCustomerEntity.customerLogin ? potentialCustomerEntity.customerLogin : ''}</dd>
             <dt>
               <Translate contentKey="landexpApp.potentialCustomer.createBy">Create By</Translate>
             </dt>
-            <dd>{potentialCustomer.createByLogin ? potentialCustomer.createByLogin : ''}</dd>
+            <dd>{potentialCustomerEntity.createByLogin ? potentialCustomerEntity.createByLogin : ''}</dd>
             <dt>
               <Translate contentKey="landexpApp.potentialCustomer.updateBy">Update By</Translate>
             </dt>
-            <dd>{potentialCustomer.updateByLogin ? potentialCustomer.updateByLogin : ''}</dd>
+            <dd>{potentialCustomerEntity.updateByLogin ? potentialCustomerEntity.updateByLogin : ''}</dd>
           </dl>
           <Button tag={Link} to="/entity/potential-customer" replace color="info">
             <FontAwesomeIcon icon="arrow-left" />{' '}
@@ -75,7 +77,7 @@ export class PotentialCustomerDetail extends React.Component<IPotentialCustomerD
               <Translate contentKey="entity.action.back">Back</Translate>
             </span>
           </Button>&nbsp;
-          <Button tag={Link} to={`/entity/potential-customer/${potentialCustomer.id}/edit`} replace color="primary">
+          <Button tag={Link} to={`/entity/potential-customer/${potentialCustomerEntity.id}/edit`} replace color="primary">
             <FontAwesomeIcon icon="pencil-alt" />{' '}
             <span className="d-none d-md-inline">
               <Translate contentKey="entity.action.edit">Edit</Translate>
@@ -88,7 +90,7 @@ export class PotentialCustomerDetail extends React.Component<IPotentialCustomerD
 }
 
 const mapStateToProps = ({ potentialCustomer }: IRootState) => ({
-  potentialCustomer: potentialCustomer.entity
+  potentialCustomerEntity: potentialCustomer.entity
 });
 
 const mapDispatchToProps = { getEntity };

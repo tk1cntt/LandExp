@@ -69,9 +69,9 @@ export class LandProjectUpdate extends React.Component<ILandProjectUpdateProps, 
 
   saveEntity = (event, errors, values) => {
     if (errors.length === 0) {
-      const { landProject } = this.props;
+      const { landProjectEntity } = this.props;
       const entity = {
-        ...landProject,
+        ...landProjectEntity,
         ...values
       };
 
@@ -175,10 +175,10 @@ export class LandProjectUpdate extends React.Component<ILandProjectUpdateProps, 
 
   render() {
     const isInvalid = false;
-    const { landProject, cities, districts, streets, users, loading, updating } = this.props;
+    const { landProjectEntity, cities, districts, streets, users, loading, updating } = this.props;
     const { isNew } = this.state;
 
-    const { image, imageContentType } = landProject;
+    const { image, imageContentType } = landProjectEntity;
 
     return (
       <div>
@@ -194,7 +194,7 @@ export class LandProjectUpdate extends React.Component<ILandProjectUpdateProps, 
             {loading ? (
               <p>Loading...</p>
             ) : (
-              <AvForm model={isNew ? {} : landProject} onSubmit={this.saveEntity}>
+              <AvForm model={isNew ? {} : landProjectEntity} onSubmit={this.saveEntity}>
                 {!isNew ? (
                   <AvGroup>
                     <Label for="id">
@@ -356,7 +356,7 @@ const mapStateToProps = (storeState: IRootState) => ({
   districts: storeState.district.entities,
   streets: storeState.street.entities,
   users: storeState.userManagement.users,
-  landProject: storeState.landProject.entity,
+  landProjectEntity: storeState.landProject.entity,
   loading: storeState.landProject.loading,
   updating: storeState.landProject.updating
 });

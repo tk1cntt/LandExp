@@ -53,9 +53,9 @@ export class PaymentUpdate extends React.Component<IPaymentUpdateProps, IPayment
 
   saveEntity = (event, errors, values) => {
     if (errors.length === 0) {
-      const { payment } = this.props;
+      const { paymentEntity } = this.props;
       const entity = {
-        ...payment,
+        ...paymentEntity,
         ...values
       };
 
@@ -142,7 +142,7 @@ export class PaymentUpdate extends React.Component<IPaymentUpdateProps, IPayment
 
   render() {
     const isInvalid = false;
-    const { payment, houses, users, loading, updating } = this.props;
+    const { paymentEntity, houses, users, loading, updating } = this.props;
     const { isNew } = this.state;
 
     return (
@@ -159,7 +159,7 @@ export class PaymentUpdate extends React.Component<IPaymentUpdateProps, IPayment
             {loading ? (
               <p>Loading...</p>
             ) : (
-              <AvForm model={isNew ? {} : payment} onSubmit={this.saveEntity}>
+              <AvForm model={isNew ? {} : paymentEntity} onSubmit={this.saveEntity}>
                 {!isNew ? (
                   <AvGroup>
                     <Label for="id">
@@ -195,7 +195,7 @@ export class PaymentUpdate extends React.Component<IPaymentUpdateProps, IPayment
                     type="select"
                     className="form-control"
                     name="paymentStatus"
-                    value={(!isNew && payment.paymentStatus) || 'OPEN'}
+                    value={(!isNew && paymentEntity.paymentStatus) || 'OPEN'}
                   >
                     <option value="OPEN">OPEN</option>
                     <option value="PENDING">PENDING</option>
@@ -298,7 +298,7 @@ export class PaymentUpdate extends React.Component<IPaymentUpdateProps, IPayment
 const mapStateToProps = (storeState: IRootState) => ({
   houses: storeState.house.entities,
   users: storeState.userManagement.users,
-  payment: storeState.payment.entity,
+  paymentEntity: storeState.payment.entity,
   loading: storeState.payment.loading,
   updating: storeState.payment.updating
 });

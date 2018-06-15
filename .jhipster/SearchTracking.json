@@ -1,4 +1,5 @@
 {
+    "name": "SearchTracking",
     "fields": [
         {
             "fieldName": "actionType",

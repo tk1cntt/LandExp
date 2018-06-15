@@ -17,7 +17,7 @@ export class SearchTrackingDeleteDialog extends React.Component<ISearchTrackingD
   }
 
   confirmDelete = event => {
-    this.props.deleteEntity(this.props.searchTracking.id);
+    this.props.deleteEntity(this.props.searchTrackingEntity.id);
     this.handleClose(event);
   };
 
@@ -27,14 +27,14 @@ export class SearchTrackingDeleteDialog extends React.Component<ISearchTrackingD
   };
 
   render() {
-    const { searchTracking } = this.props;
+    const { searchTrackingEntity } = this.props;
     return (
       <Modal isOpen toggle={this.handleClose}>
         <ModalHeader toggle={this.handleClose}>
           <Translate contentKey="entity.delete.title">Confirm delete operation</Translate>
         </ModalHeader>
         <ModalBody>
-          <Translate contentKey="landexpApp.searchTracking.delete.question" interpolate={{ id: searchTracking.id }}>
+          <Translate contentKey="landexpApp.searchTracking.delete.question" interpolate={{ id: searchTrackingEntity.id }}>
             Are you sure you want to delete this SearchTracking?
           </Translate>
         </ModalBody>
@@ -54,7 +54,7 @@ export class SearchTrackingDeleteDialog extends React.Component<ISearchTrackingD
 }
 
 const mapStateToProps = ({ searchTracking }: IRootState) => ({
-  searchTracking: searchTracking.entity
+  searchTrackingEntity: searchTracking.entity
 });
 
 const mapDispatchToProps = { getEntity, deleteEntity };

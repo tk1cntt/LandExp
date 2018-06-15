@@ -46,9 +46,9 @@ export class BannerUpdate extends React.Component<IBannerUpdateProps, IBannerUpd
 
   saveEntity = (event, errors, values) => {
     if (errors.length === 0) {
-      const { banner } = this.props;
+      const { bannerEntity } = this.props;
       const entity = {
-        ...banner,
+        ...bannerEntity,
         ...values
       };
 
@@ -101,7 +101,7 @@ export class BannerUpdate extends React.Component<IBannerUpdateProps, IBannerUpd
 
   render() {
     const isInvalid = false;
-    const { banner, users, loading, updating } = this.props;
+    const { bannerEntity, users, loading, updating } = this.props;
     const { isNew } = this.state;
 
     return (
@@ -118,7 +118,7 @@ export class BannerUpdate extends React.Component<IBannerUpdateProps, IBannerUpd
             {loading ? (
               <p>Loading...</p>
             ) : (
-              <AvForm model={isNew ? {} : banner} onSubmit={this.saveEntity}>
+              <AvForm model={isNew ? {} : bannerEntity} onSubmit={this.saveEntity}>
                 {!isNew ? (
                   <AvGroup>
                     <Label for="id">
@@ -227,7 +227,7 @@ export class BannerUpdate extends React.Component<IBannerUpdateProps, IBannerUpd
 
 const mapStateToProps = (storeState: IRootState) => ({
   users: storeState.userManagement.users,
-  banner: storeState.banner.entity,
+  bannerEntity: storeState.banner.entity,
   loading: storeState.banner.loading,
   updating: storeState.banner.updating
 });

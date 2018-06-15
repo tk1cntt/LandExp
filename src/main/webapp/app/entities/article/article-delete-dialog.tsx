@@ -17,7 +17,7 @@ export class ArticleDeleteDialog extends React.Component<IArticleDeleteDialogPro
   }
 
   confirmDelete = event => {
-    this.props.deleteEntity(this.props.article.id);
+    this.props.deleteEntity(this.props.articleEntity.id);
     this.handleClose(event);
   };
 
@@ -27,14 +27,14 @@ export class ArticleDeleteDialog extends React.Component<IArticleDeleteDialogPro
   };
 
   render() {
-    const { article } = this.props;
+    const { articleEntity } = this.props;
     return (
       <Modal isOpen toggle={this.handleClose}>
         <ModalHeader toggle={this.handleClose}>
           <Translate contentKey="entity.delete.title">Confirm delete operation</Translate>
         </ModalHeader>
         <ModalBody>
-          <Translate contentKey="landexpApp.article.delete.question" interpolate={{ id: article.id }}>
+          <Translate contentKey="landexpApp.article.delete.question" interpolate={{ id: articleEntity.id }}>
             Are you sure you want to delete this Article?
           </Translate>
         </ModalBody>
@@ -54,7 +54,7 @@ export class ArticleDeleteDialog extends React.Component<IArticleDeleteDialogPro
 }
 
 const mapStateToProps = ({ article }: IRootState) => ({
-  article: article.entity
+  articleEntity: article.entity
 });
 
 const mapDispatchToProps = { getEntity, deleteEntity };

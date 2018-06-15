@@ -1,4 +1,5 @@
 {
+    "name": "UserFeed",
     "fields": [
         {
             "fieldName": "body",

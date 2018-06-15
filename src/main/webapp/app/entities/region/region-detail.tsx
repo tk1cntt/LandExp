@@ -20,12 +20,12 @@ export class RegionDetail extends React.Component<IRegionDetailProps> {
   }
 
   render() {
-    const { region } = this.props;
+    const { regionEntity } = this.props;
     return (
       <Row>
         <Col md="8">
           <h2>
-            <Translate contentKey="landexpApp.region.detail.title">Region</Translate> [<b>{region.id}</b>]
+            <Translate contentKey="landexpApp.region.detail.title">Region</Translate> [<b>{regionEntity.id}</b>]
           </h2>
           <dl className="jh-entity-details">
             <dt>
@@ -33,20 +33,20 @@ export class RegionDetail extends React.Component<IRegionDetailProps> {
                 <Translate contentKey="landexpApp.region.name">Name</Translate>
               </span>
             </dt>
-            <dd>{region.name}</dd>
+            <dd>{regionEntity.name}</dd>
             <dt>
               <span id="enabled">
                 <Translate contentKey="landexpApp.region.enabled">Enabled</Translate>
               </span>
             </dt>
-            <dd>{region.enabled ? 'true' : 'false'}</dd>
+            <dd>{regionEntity.enabled ? 'true' : 'false'}</dd>
             <dt>
               <span id="createAt">
                 <Translate contentKey="landexpApp.region.createAt">Create At</Translate>
               </span>
             </dt>
             <dd>
-              <TextFormat value={region.createAt} type="date" format={APP_LOCAL_DATE_FORMAT} />
+              <TextFormat value={regionEntity.createAt} type="date" format={APP_LOCAL_DATE_FORMAT} />
             </dd>
             <dt>
               <span id="updateAt">
@@ -54,17 +54,17 @@ export class RegionDetail extends React.Component<IRegionDetailProps> {
               </span>
             </dt>
             <dd>
-              <TextFormat value={region.updateAt} type="date" format={APP_LOCAL_DATE_FORMAT} />
+              <TextFormat value={regionEntity.updateAt} type="date" format={APP_LOCAL_DATE_FORMAT} />
             </dd>
             <dt>
               <Translate contentKey="landexpApp.region.user">User</Translate>
             </dt>
             <dd>
-              {region.users
-                ? region.users.map((val, i) => (
+              {regionEntity.users
+                ? regionEntity.users.map((val, i) => (
                     <span key={val.id}>
                       <a>{val.login}</a>
-                      {i === region.users.length - 1 ? '' : ', '}
+                      {i === regionEntity.users.length - 1 ? '' : ', '}
                     </span>
                   ))
                 : null}{' '}
@@ -76,7 +76,7 @@ export class RegionDetail extends React.Component<IRegionDetailProps> {
               <Translate contentKey="entity.action.back">Back</Translate>
             </span>
           </Button>&nbsp;
-          <Button tag={Link} to={`/entity/region/${region.id}/edit`} replace color="primary">
+          <Button tag={Link} to={`/entity/region/${regionEntity.id}/edit`} replace color="primary">
             <FontAwesomeIcon icon="pencil-alt" />{' '}
             <span className="d-none d-md-inline">
               <Translate contentKey="entity.action.edit">Edit</Translate>
@@ -89,7 +89,7 @@ export class RegionDetail extends React.Component<IRegionDetailProps> {
 }
 
 const mapStateToProps = ({ region }: IRootState) => ({
-  region: region.entity
+  regionEntity: region.entity
 });
 
 const mapDispatchToProps = { getEntity };

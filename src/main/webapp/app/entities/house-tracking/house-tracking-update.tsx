@@ -49,9 +49,9 @@ export class HouseTrackingUpdate extends React.Component<IHouseTrackingUpdatePro
 
   saveEntity = (event, errors, values) => {
     if (errors.length === 0) {
-      const { houseTracking } = this.props;
+      const { houseTrackingEntity } = this.props;
       const entity = {
-        ...houseTracking,
+        ...houseTrackingEntity,
         ...values
       };
 
@@ -104,7 +104,7 @@ export class HouseTrackingUpdate extends React.Component<IHouseTrackingUpdatePro
 
   render() {
     const isInvalid = false;
-    const { houseTracking, houses, users, loading, updating } = this.props;
+    const { houseTrackingEntity, houses, users, loading, updating } = this.props;
     const { isNew } = this.state;
 
     return (
@@ -121,7 +121,7 @@ export class HouseTrackingUpdate extends React.Component<IHouseTrackingUpdatePro
             {loading ? (
               <p>Loading...</p>
             ) : (
-              <AvForm model={isNew ? {} : houseTracking} onSubmit={this.saveEntity}>
+              <AvForm model={isNew ? {} : houseTrackingEntity} onSubmit={this.saveEntity}>
                 {!isNew ? (
                   <AvGroup>
                     <Label for="id">
@@ -139,7 +139,7 @@ export class HouseTrackingUpdate extends React.Component<IHouseTrackingUpdatePro
                     type="select"
                     className="form-control"
                     name="activityType"
-                    value={(!isNew && houseTracking.activityType) || 'USER_SEARCH_BUY'}
+                    value={(!isNew && houseTrackingEntity.activityType) || 'USER_SEARCH_BUY'}
                   >
                     <option value="USER_SEARCH_BUY">USER_SEARCH_BUY</option>
                     <option value="USER_SEARCH_RENT">USER_SEARCH_RENT</option>
@@ -235,7 +235,7 @@ export class HouseTrackingUpdate extends React.Component<IHouseTrackingUpdatePro
 const mapStateToProps = (storeState: IRootState) => ({
   houses: storeState.house.entities,
   users: storeState.userManagement.users,
-  houseTracking: storeState.houseTracking.entity,
+  houseTrackingEntity: storeState.houseTracking.entity,
   loading: storeState.houseTracking.loading,
   updating: storeState.houseTracking.updating
 });

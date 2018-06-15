@@ -44,9 +44,9 @@ export class UserFinancialUpdate extends React.Component<IUserFinancialUpdatePro
 
   saveEntity = (event, errors, values) => {
     if (errors.length === 0) {
-      const { userFinancial } = this.props;
+      const { userFinancialEntity } = this.props;
       const entity = {
-        ...userFinancial,
+        ...userFinancialEntity,
         ...values
       };
 
@@ -82,7 +82,7 @@ export class UserFinancialUpdate extends React.Component<IUserFinancialUpdatePro
 
   render() {
     const isInvalid = false;
-    const { userFinancial, users, loading, updating } = this.props;
+    const { userFinancialEntity, users, loading, updating } = this.props;
     const { isNew } = this.state;
 
     return (
@@ -99,7 +99,7 @@ export class UserFinancialUpdate extends React.Component<IUserFinancialUpdatePro
             {loading ? (
               <p>Loading...</p>
             ) : (
-              <AvForm model={isNew ? {} : userFinancial} onSubmit={this.saveEntity}>
+              <AvForm model={isNew ? {} : userFinancialEntity} onSubmit={this.saveEntity}>
                 {!isNew ? (
                   <AvGroup>
                     <Label for="id">
@@ -187,7 +187,7 @@ export class UserFinancialUpdate extends React.Component<IUserFinancialUpdatePro
 
 const mapStateToProps = (storeState: IRootState) => ({
   users: storeState.userManagement.users,
-  userFinancial: storeState.userFinancial.entity,
+  userFinancialEntity: storeState.userFinancial.entity,
   loading: storeState.userFinancial.loading,
   updating: storeState.userFinancial.updating
 });

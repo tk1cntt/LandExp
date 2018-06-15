@@ -20,12 +20,12 @@ export class CategoryDetail extends React.Component<ICategoryDetailProps> {
   }
 
   render() {
-    const { category } = this.props;
+    const { categoryEntity } = this.props;
     return (
       <Row>
         <Col md="8">
           <h2>
-            <Translate contentKey="landexpApp.category.detail.title">Category</Translate> [<b>{category.id}</b>]
+            <Translate contentKey="landexpApp.category.detail.title">Category</Translate> [<b>{categoryEntity.id}</b>]
           </h2>
           <dl className="jh-entity-details">
             <dt>
@@ -33,20 +33,20 @@ export class CategoryDetail extends React.Component<ICategoryDetailProps> {
                 <Translate contentKey="landexpApp.category.name">Name</Translate>
               </span>
             </dt>
-            <dd>{category.name}</dd>
+            <dd>{categoryEntity.name}</dd>
             <dt>
               <span id="nameAlias">
                 <Translate contentKey="landexpApp.category.nameAlias">Name Alias</Translate>
               </span>
             </dt>
-            <dd>{category.nameAlias}</dd>
+            <dd>{categoryEntity.nameAlias}</dd>
             <dt>
               <span id="createAt">
                 <Translate contentKey="landexpApp.category.createAt">Create At</Translate>
               </span>
             </dt>
             <dd>
-              <TextFormat value={category.createAt} type="date" format={APP_LOCAL_DATE_FORMAT} />
+              <TextFormat value={categoryEntity.createAt} type="date" format={APP_LOCAL_DATE_FORMAT} />
             </dd>
             <dt>
               <span id="updateAt">
@@ -54,7 +54,7 @@ export class CategoryDetail extends React.Component<ICategoryDetailProps> {
               </span>
             </dt>
             <dd>
-              <TextFormat value={category.updateAt} type="date" format={APP_LOCAL_DATE_FORMAT} />
+              <TextFormat value={categoryEntity.updateAt} type="date" format={APP_LOCAL_DATE_FORMAT} />
             </dd>
           </dl>
           <Button tag={Link} to="/entity/category" replace color="info">
@@ -63,7 +63,7 @@ export class CategoryDetail extends React.Component<ICategoryDetailProps> {
               <Translate contentKey="entity.action.back">Back</Translate>
             </span>
           </Button>&nbsp;
-          <Button tag={Link} to={`/entity/category/${category.id}/edit`} replace color="primary">
+          <Button tag={Link} to={`/entity/category/${categoryEntity.id}/edit`} replace color="primary">
             <FontAwesomeIcon icon="pencil-alt" />{' '}
             <span className="d-none d-md-inline">
               <Translate contentKey="entity.action.edit">Edit</Translate>
@@ -76,7 +76,7 @@ export class CategoryDetail extends React.Component<ICategoryDetailProps> {
 }
 
 const mapStateToProps = ({ category }: IRootState) => ({
-  category: category.entity
+  categoryEntity: category.entity
 });
 
 const mapDispatchToProps = { getEntity };

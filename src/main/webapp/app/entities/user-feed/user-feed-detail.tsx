@@ -20,12 +20,12 @@ export class UserFeedDetail extends React.Component<IUserFeedDetailProps> {
   }
 
   render() {
-    const { userFeed } = this.props;
+    const { userFeedEntity } = this.props;
     return (
       <Row>
         <Col md="8">
           <h2>
-            <Translate contentKey="landexpApp.userFeed.detail.title">UserFeed</Translate> [<b>{userFeed.id}</b>]
+            <Translate contentKey="landexpApp.userFeed.detail.title">UserFeed</Translate> [<b>{userFeedEntity.id}</b>]
           </h2>
           <dl className="jh-entity-details">
             <dt>
@@ -33,14 +33,14 @@ export class UserFeedDetail extends React.Component<IUserFeedDetailProps> {
                 <Translate contentKey="landexpApp.userFeed.body">Body</Translate>
               </span>
             </dt>
-            <dd>{userFeed.body}</dd>
+            <dd>{userFeedEntity.body}</dd>
             <dt>
               <span id="createAt">
                 <Translate contentKey="landexpApp.userFeed.createAt">Create At</Translate>
               </span>
             </dt>
             <dd>
-              <TextFormat value={userFeed.createAt} type="date" format={APP_LOCAL_DATE_FORMAT} />
+              <TextFormat value={userFeedEntity.createAt} type="date" format={APP_LOCAL_DATE_FORMAT} />
             </dd>
             <dt>
               <span id="updateAt">
@@ -48,12 +48,12 @@ export class UserFeedDetail extends React.Component<IUserFeedDetailProps> {
               </span>
             </dt>
             <dd>
-              <TextFormat value={userFeed.updateAt} type="date" format={APP_LOCAL_DATE_FORMAT} />
+              <TextFormat value={userFeedEntity.updateAt} type="date" format={APP_LOCAL_DATE_FORMAT} />
             </dd>
             <dt>
               <Translate contentKey="landexpApp.userFeed.user">User</Translate>
             </dt>
-            <dd>{userFeed.userLogin ? userFeed.userLogin : ''}</dd>
+            <dd>{userFeedEntity.userLogin ? userFeedEntity.userLogin : ''}</dd>
           </dl>
           <Button tag={Link} to="/entity/user-feed" replace color="info">
             <FontAwesomeIcon icon="arrow-left" />{' '}
@@ -61,7 +61,7 @@ export class UserFeedDetail extends React.Component<IUserFeedDetailProps> {
               <Translate contentKey="entity.action.back">Back</Translate>
             </span>
           </Button>&nbsp;
-          <Button tag={Link} to={`/entity/user-feed/${userFeed.id}/edit`} replace color="primary">
+          <Button tag={Link} to={`/entity/user-feed/${userFeedEntity.id}/edit`} replace color="primary">
             <FontAwesomeIcon icon="pencil-alt" />{' '}
             <span className="d-none d-md-inline">
               <Translate contentKey="entity.action.edit">Edit</Translate>
@@ -74,7 +74,7 @@ export class UserFeedDetail extends React.Component<IUserFeedDetailProps> {
 }
 
 const mapStateToProps = ({ userFeed }: IRootState) => ({
-  userFeed: userFeed.entity
+  userFeedEntity: userFeed.entity
 });
 
 const mapDispatchToProps = { getEntity };

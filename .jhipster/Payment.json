@@ -1,4 +1,5 @@
 {
+    "name": "Payment",
     "fields": [
         {
             "fieldName": "code",

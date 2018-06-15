@@ -59,9 +59,9 @@ export class LandProjectPhotoUpdate extends React.Component<ILandProjectPhotoUpd
 
   saveEntity = (event, errors, values) => {
     if (errors.length === 0) {
-      const { landProjectPhoto } = this.props;
+      const { landProjectPhotoEntity } = this.props;
       const entity = {
-        ...landProjectPhoto,
+        ...landProjectPhotoEntity,
         ...values
       };
 
@@ -131,10 +131,10 @@ export class LandProjectPhotoUpdate extends React.Component<ILandProjectPhotoUpd
 
   render() {
     const isInvalid = false;
-    const { landProjectPhoto, landProjects, users, loading, updating } = this.props;
+    const { landProjectPhotoEntity, landProjects, users, loading, updating } = this.props;
     const { isNew } = this.state;
 
-    const { image, imageContentType } = landProjectPhoto;
+    const { image, imageContentType } = landProjectPhotoEntity;
 
     return (
       <div>
@@ -150,7 +150,7 @@ export class LandProjectPhotoUpdate extends React.Component<ILandProjectPhotoUpd
             {loading ? (
               <p>Loading...</p>
             ) : (
-              <AvForm model={isNew ? {} : landProjectPhoto} onSubmit={this.saveEntity}>
+              <AvForm model={isNew ? {} : landProjectPhotoEntity} onSubmit={this.saveEntity}>
                 {!isNew ? (
                   <AvGroup>
                     <Label for="id">
@@ -280,7 +280,7 @@ export class LandProjectPhotoUpdate extends React.Component<ILandProjectPhotoUpd
 const mapStateToProps = (storeState: IRootState) => ({
   landProjects: storeState.landProject.entities,
   users: storeState.userManagement.users,
-  landProjectPhoto: storeState.landProjectPhoto.entity,
+  landProjectPhotoEntity: storeState.landProjectPhoto.entity,
   loading: storeState.landProjectPhoto.loading,
   updating: storeState.landProjectPhoto.updating
 });

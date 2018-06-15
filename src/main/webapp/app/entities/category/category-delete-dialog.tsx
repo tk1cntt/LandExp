@@ -17,7 +17,7 @@ export class CategoryDeleteDialog extends React.Component<ICategoryDeleteDialogP
   }
 
   confirmDelete = event => {
-    this.props.deleteEntity(this.props.category.id);
+    this.props.deleteEntity(this.props.categoryEntity.id);
     this.handleClose(event);
   };
 
@@ -27,14 +27,14 @@ export class CategoryDeleteDialog extends React.Component<ICategoryDeleteDialogP
   };
 
   render() {
-    const { category } = this.props;
+    const { categoryEntity } = this.props;
     return (
       <Modal isOpen toggle={this.handleClose}>
         <ModalHeader toggle={this.handleClose}>
           <Translate contentKey="entity.delete.title">Confirm delete operation</Translate>
         </ModalHeader>
         <ModalBody>
-          <Translate contentKey="landexpApp.category.delete.question" interpolate={{ id: category.id }}>
+          <Translate contentKey="landexpApp.category.delete.question" interpolate={{ id: categoryEntity.id }}>
             Are you sure you want to delete this Category?
           </Translate>
         </ModalBody>
@@ -54,7 +54,7 @@ export class CategoryDeleteDialog extends React.Component<ICategoryDeleteDialogP
 }
 
 const mapStateToProps = ({ category }: IRootState) => ({
-  category: category.entity
+  categoryEntity: category.entity
 });
 
 const mapDispatchToProps = { getEntity, deleteEntity };

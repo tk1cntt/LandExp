@@ -1,4 +1,5 @@
 {
+    "name": "HouseTracking",
     "fields": [
         {
             "fieldName": "activityType",

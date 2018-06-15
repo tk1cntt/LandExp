@@ -20,12 +20,12 @@ export class UserTrackingDetail extends React.Component<IUserTrackingDetailProps
   }
 
   render() {
-    const { userTracking } = this.props;
+    const { userTrackingEntity } = this.props;
     return (
       <Row>
         <Col md="8">
           <h2>
-            <Translate contentKey="landexpApp.userTracking.detail.title">UserTracking</Translate> [<b>{userTracking.id}</b>]
+            <Translate contentKey="landexpApp.userTracking.detail.title">UserTracking</Translate> [<b>{userTrackingEntity.id}</b>]
           </h2>
           <dl className="jh-entity-details">
             <dt>
@@ -33,37 +33,37 @@ export class UserTrackingDetail extends React.Component<IUserTrackingDetailProps
                 <Translate contentKey="landexpApp.userTracking.activityType">Activity Type</Translate>
               </span>
             </dt>
-            <dd>{userTracking.activityType}</dd>
+            <dd>{userTrackingEntity.activityType}</dd>
             <dt>
               <span id="sourceId">
                 <Translate contentKey="landexpApp.userTracking.sourceId">Source Id</Translate>
               </span>
             </dt>
-            <dd>{userTracking.sourceId}</dd>
+            <dd>{userTrackingEntity.sourceId}</dd>
             <dt>
               <span id="sourceLink">
                 <Translate contentKey="landexpApp.userTracking.sourceLink">Source Link</Translate>
               </span>
             </dt>
-            <dd>{userTracking.sourceLink}</dd>
+            <dd>{userTrackingEntity.sourceLink}</dd>
             <dt>
               <span id="description">
                 <Translate contentKey="landexpApp.userTracking.description">Description</Translate>
               </span>
             </dt>
-            <dd>{userTracking.description}</dd>
+            <dd>{userTrackingEntity.description}</dd>
             <dt>
               <span id="createAt">
                 <Translate contentKey="landexpApp.userTracking.createAt">Create At</Translate>
               </span>
             </dt>
             <dd>
-              <TextFormat value={userTracking.createAt} type="date" format={APP_LOCAL_DATE_FORMAT} />
+              <TextFormat value={userTrackingEntity.createAt} type="date" format={APP_LOCAL_DATE_FORMAT} />
             </dd>
             <dt>
               <Translate contentKey="landexpApp.userTracking.user">User</Translate>
             </dt>
-            <dd>{userTracking.userLogin ? userTracking.userLogin : ''}</dd>
+            <dd>{userTrackingEntity.userLogin ? userTrackingEntity.userLogin : ''}</dd>
           </dl>
           <Button tag={Link} to="/entity/user-tracking" replace color="info">
             <FontAwesomeIcon icon="arrow-left" />{' '}
@@ -71,7 +71,7 @@ export class UserTrackingDetail extends React.Component<IUserTrackingDetailProps
               <Translate contentKey="entity.action.back">Back</Translate>
             </span>
           </Button>&nbsp;
-          <Button tag={Link} to={`/entity/user-tracking/${userTracking.id}/edit`} replace color="primary">
+          <Button tag={Link} to={`/entity/user-tracking/${userTrackingEntity.id}/edit`} replace color="primary">
             <FontAwesomeIcon icon="pencil-alt" />{' '}
             <span className="d-none d-md-inline">
               <Translate contentKey="entity.action.edit">Edit</Translate>
@@ -84,7 +84,7 @@ export class UserTrackingDetail extends React.Component<IUserTrackingDetailProps
 }
 
 const mapStateToProps = ({ userTracking }: IRootState) => ({
-  userTracking: userTracking.entity
+  userTrackingEntity: userTracking.entity
 });
 
 const mapDispatchToProps = { getEntity };

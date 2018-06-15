@@ -17,7 +17,7 @@ export class PaymentDeleteDialog extends React.Component<IPaymentDeleteDialogPro
   }
 
   confirmDelete = event => {
-    this.props.deleteEntity(this.props.payment.id);
+    this.props.deleteEntity(this.props.paymentEntity.id);
     this.handleClose(event);
   };
 
@@ -27,14 +27,14 @@ export class PaymentDeleteDialog extends React.Component<IPaymentDeleteDialogPro
   };
 
   render() {
-    const { payment } = this.props;
+    const { paymentEntity } = this.props;
     return (
       <Modal isOpen toggle={this.handleClose}>
         <ModalHeader toggle={this.handleClose}>
           <Translate contentKey="entity.delete.title">Confirm delete operation</Translate>
         </ModalHeader>
         <ModalBody>
-          <Translate contentKey="landexpApp.payment.delete.question" interpolate={{ id: payment.id }}>
+          <Translate contentKey="landexpApp.payment.delete.question" interpolate={{ id: paymentEntity.id }}>
             Are you sure you want to delete this Payment?
           </Translate>
         </ModalBody>
@@ -54,7 +54,7 @@ export class PaymentDeleteDialog extends React.Component<IPaymentDeleteDialogPro
 }
 
 const mapStateToProps = ({ payment }: IRootState) => ({
-  payment: payment.entity
+  paymentEntity: payment.entity
 });
 
 const mapDispatchToProps = { getEntity, deleteEntity };

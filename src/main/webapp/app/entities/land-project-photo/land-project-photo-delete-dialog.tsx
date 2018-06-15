@@ -17,7 +17,7 @@ export class LandProjectPhotoDeleteDialog extends React.Component<ILandProjectPh
   }
 
   confirmDelete = event => {
-    this.props.deleteEntity(this.props.landProjectPhoto.id);
+    this.props.deleteEntity(this.props.landProjectPhotoEntity.id);
     this.handleClose(event);
   };
 
@@ -27,14 +27,14 @@ export class LandProjectPhotoDeleteDialog extends React.Component<ILandProjectPh
   };
 
   render() {
-    const { landProjectPhoto } = this.props;
+    const { landProjectPhotoEntity } = this.props;
     return (
       <Modal isOpen toggle={this.handleClose}>
         <ModalHeader toggle={this.handleClose}>
           <Translate contentKey="entity.delete.title">Confirm delete operation</Translate>
         </ModalHeader>
         <ModalBody>
-          <Translate contentKey="landexpApp.landProjectPhoto.delete.question" interpolate={{ id: landProjectPhoto.id }}>
+          <Translate contentKey="landexpApp.landProjectPhoto.delete.question" interpolate={{ id: landProjectPhotoEntity.id }}>
             Are you sure you want to delete this LandProjectPhoto?
           </Translate>
         </ModalBody>
@@ -54,7 +54,7 @@ export class LandProjectPhotoDeleteDialog extends React.Component<ILandProjectPh
 }
 
 const mapStateToProps = ({ landProjectPhoto }: IRootState) => ({
-  landProjectPhoto: landProjectPhoto.entity
+  landProjectPhotoEntity: landProjectPhoto.entity
 });
 
 const mapDispatchToProps = { getEntity, deleteEntity };
