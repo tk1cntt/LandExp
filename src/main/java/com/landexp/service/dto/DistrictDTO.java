@@ -1,7 +1,10 @@
 package com.landexp.service.dto;
 
+import com.landexp.domain.Ward;
+
 import java.time.LocalDate;
 import java.io.Serializable;
+import java.util.List;
 import java.util.Objects;
 
 /**
@@ -22,6 +25,8 @@ public class DistrictDTO implements Serializable {
     private Long regionId;
 
     private Long cityId;
+
+    private List<WardDTO> wards;
 
     public Long getId() {
         return id;
@@ -77,6 +82,15 @@ public class DistrictDTO implements Serializable {
 
     public void setCityId(Long cityId) {
         this.cityId = cityId;
+    }
+
+
+    public List<WardDTO> getWards() {
+        return wards;
+    }
+
+    public void setWards(List<WardDTO> wards) {
+        this.wards = wards;
     }
 
     @Override
