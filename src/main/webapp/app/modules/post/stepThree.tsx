@@ -174,11 +174,8 @@ export class StepThree extends React.Component<IStepThreeProp, IStepThreeState> 
     const { account } = this.props;
     return (
       <Row>
-        <Col md="12">
-          <h6 style={{ marginTop: 16 }}>Đặc điểm ngôi nhà của bạn</h6>
-        </Col>
         <Col md="6">
-          <div style={{ marginTop: 16 }}>
+          <div>
             <Input
               addonBefore="Diện tích"
               value={this.state.acreage || this.props.house.acreage}

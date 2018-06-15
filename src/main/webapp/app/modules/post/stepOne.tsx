@@ -54,7 +54,7 @@ export class StepOne extends React.Component<IStepOneProp, IStepOneState> {
     return (
       <Row>
         <Col md="12">
-          <h6 style={{ marginTop: 16 }}>Bạn muốn bán hay cho thuê bất động sản?</h6>
+          <h6>Bạn muốn bán hay cho thuê bất động sản?</h6>
         </Col>
         <Col md="12">
           <div style={{ marginTop: 16 }}>

@@ -6,7 +6,7 @@ import { Translate } from 'react-jhipster';
 import { connect } from 'react-redux';
 import { Row, Col, Alert } from 'reactstrap';
 
-import { Steps, Button, message } from 'antd';
+import { Steps, Button, Card } from 'antd';
 const Step = Steps.Step;
 
 import { IRootState } from 'app/shared/reducers';
@@ -137,6 +137,28 @@ export class PostPage extends React.Component<IPostProp, IPostState> {
         content: <StepSeven />
       }
     ];
+
+    const actionTypeForm = this.state.house.actionType || this.props.house.actionType ? (
+      <Row>
+        <Col md="6">Hình thức bán</Col>
+        <Col md="6">{this.state.house.actionType || this.props.house.actionType}</Col>
+      </Row>
+    ) : null;
+
+    const landTypeForm = this.state.house.landType ? (
+      <Row>
+        <Col md="6">Loại bất động sản</Col>
+        <Col md="6">{this.state.house.landType || this.props.house.landType}</Col>
+      </Row>
+    ) : null;
+
+    const locationForm = (
+      <Row>
+        <Col md="12">Vị trí</Col>
+        <Col md="12">So 11 Ngo 12 Duong 13 - Cau Giay - Ha noi</Col>
+      </Row>
+    );
+
     return (
       <Row>
         <Col md="12">
@@ -144,32 +166,43 @@ export class PostPage extends React.Component<IPostProp, IPostState> {
             {steps.map(item => <Step key={item.title} title={item.title} />)}
           </Steps>
         </Col>
-        <Col md="12">
-          <div>
-            <div className="steps-content">{steps[this.state.current].content}</div>
-            <div className="steps-action" style={{ marginTop: 16 }}>
-              {this.state.current > 0 && <Button style={{ marginRight: 8 }} onClick={this.prev}>Quay lại</Button>}
-              {this.state.current < steps.length - 3 && (
-                <Button type="primary" onClick={this.next}>
-                  Tiếp tục
-                </Button>
-              )}
-              {this.state.current === steps.length - 3 && (
-                <Button type="primary" onClick={this.saveEntity}>
-                  Hoàn tất
-                </Button>
-              )}
-              {this.state.current === steps.length - 2 && (
-                <Button type="primary" onClick={this.next}>
-                  Thanh toán
-                </Button>
-              )}
-              {this.state.current === steps.length - 1 && (
-                <Button type="primary" onClick={this.saveEntity}>
-                  Done
-                </Button>
-              )}
-            </div>
+        <Col md="8">
+          <div style={{ marginTop: 10, background: '#ECECEC', height: '100%', padding: '10px' }}>
+            <Card title="Thông tin về ngôi nhà của bạn" bordered={false} style={{ width: '100%', height: '100%' }}>
+              <div className="steps-content">{steps[this.state.current].content}</div>
+              <div className="steps-action" style={{ marginTop: 16 }}>
+                {this.state.current > 0 && <Button style={{ marginRight: 8 }} onClick={this.prev}>Quay lại</Button>}
+                {this.state.current < steps.length - 3 && (
+                  <Button type="primary" onClick={this.next}>
+                    Tiếp tục
+                  </Button>
+                )}
+                {this.state.current === steps.length - 3 && (
+                  <Button type="primary" onClick={this.saveEntity}>
+                    Hoàn tất
+                  </Button>
+                )}
+                {this.state.current === steps.length - 2 && (
+                  <Button type="primary" onClick={this.next}>
+                    Thanh toán
+                  </Button>
+                )}
+                {this.state.current === steps.length - 1 && (
+                  <Button type="primary" onClick={this.saveEntity}>
+                    Done
+                  </Button>
+                )}
+              </div>
+            </Card>
+          </div>
+        </Col>
+        <Col md="4">
+          <div style={{ marginTop: 10, background: '#ECECEC', height: '100%', padding: '10px' }}>
+            <Card title="Thông tin về ngôi nhà của bạn" bordered={false} style={{ width: '100%', height: '100%' }}>
+              {actionTypeForm}
+              {landTypeForm}
+              {locationForm}
+            </Card>
           </div>
         </Col>
       </Row>

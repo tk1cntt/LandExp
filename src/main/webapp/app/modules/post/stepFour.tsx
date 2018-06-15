@@ -70,11 +70,11 @@ export class StepFour extends React.Component<IStepFourProp, IStepFourState> {
     const uploadButton = (
       <div>
         <Icon type="plus" />
-        <div className="ant-upload-text">Upload</div>
+        <div className="ant-upload-text">Chọn hình ảnh ngôi nhà của bạn</div>
       </div>
     );
     return (
-      <div className="clearfix" style={{ margin: 30 }}>
+      <div className="clearfix" style={{ padding: 30 }}>
         <Upload
           listType="picture-card"
           fileList={fileList}

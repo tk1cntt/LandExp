@@ -130,9 +130,6 @@ export class StepTwo extends React.Component<IStepTwoProp, IStepOneState> {
 
     return (
       <Row>
-        <Col md="6">
-          <center><h6 style={{ marginTop: 16 }}>Vị trí bất động sản của bạn</h6></center>
-        </Col>
         <Col md="12">
           <Form>
             <FormItem

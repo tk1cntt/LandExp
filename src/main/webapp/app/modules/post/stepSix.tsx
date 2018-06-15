@@ -89,7 +89,7 @@ export class StepSix extends React.Component<IStepSixProp, IStepSixState> {
     return (
       <Row>
         <Col md="12">
-          <h5>Thông tin liên hệ của bạn?</h5>
+          <h6>Thông tin liên hệ của bạn?</h6>
         </Col>
         <Col md="12">
           <div style={{ marginTop: 16 }}>

@@ -83,7 +83,7 @@ export class StepFive extends React.Component<IStepFiveProp, IStepFiveState> {
     return (
       <Row>
         <Col md="12">
-          <h5>Giá và chính sách bán của bạn là gì?</h5>
+          <h6>Giá và chính sách bán của bạn là gì?</h6>
         </Col>
         <Col md="12">
           <div style={{ marginTop: 16 }}>
