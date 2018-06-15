@@ -93,8 +93,14 @@ export class StepOne extends React.Component<IStepOneProp, IStepOneState> {
               <RadioButton value="MOTEL_ROOM">Phòng trọ</RadioButton>
               <RadioButton value="OFFICE">Văn phòng</RadioButton>
               <RadioButton value="WAREHOUSES">Kho, nhà xưởng</RadioButton>
-              <RadioButton value="KIOSKS">Của hàng, Ki ốt</RadioButton>
-              <RadioButton value="OTHER">Loại khác</RadioButton>
+              <RadioButton value="KIOSKS">Cửa hàng, Ki ốt</RadioButton>
+            </RadioGroup>
+          </div>
+        </Col>
+        <Col md="12">
+          <div style={{ marginTop: 16 }}>
+            <RadioGroup onChange={this.onChangeLandType} value={this.state.landType || this.props.house.landType}>
+              <RadioButton value="OTHER">Loại bất động sản khác</RadioButton>
             </RadioGroup>
           </div>
         </Col>

@@ -83,10 +83,7 @@ export class StepFive extends React.Component<IStepFiveProp, IStepFiveState> {
     return (
       <Row>
         <Col md="12">
-          <h6>Giá và chính sách bán của bạn là gì?</h6>
-        </Col>
-        <Col md="12">
-          <div style={{ marginTop: 16 }}>
+          <div>
             <Input
               type="number"
               onChange={this.onChangeMoney}
@@ -140,7 +137,7 @@ export class StepFive extends React.Component<IStepFiveProp, IStepFiveState> {
               2. Ký gửi (Chúng tôi hỗ trợ bán tận răng)
               <Radio style={radioStyle} value={'SALE_SUPPORT'}>Ký gửi thường</Radio>
               Chúng tôi sẽ tìm kiếm khách hàng giúp bạn
-              <Radio style={radioStyle} value={'SALE_SUPPORT_VIP'}>Ký gửi thường</Radio>
+              <Radio style={radioStyle} value={'SALE_SUPPORT_VIP'}>Ký gửi VIP</Radio>
               Sử dụng các nghiệp vụ marketing để bán được nhà của bạn hiệu quả nhất
               <br />
               Hoa hồng ký gửi: 0.5%/giá bán (Không quá 10 triệu VNĐ)

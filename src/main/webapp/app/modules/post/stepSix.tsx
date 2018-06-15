@@ -89,11 +89,8 @@ export class StepSix extends React.Component<IStepSixProp, IStepSixState> {
     return (
       <Row>
         <Col md="12">
-          <h6>Thông tin liên hệ của bạn?</h6>
-        </Col>
-        <Col md="12">
-          <div style={{ marginTop: 16 }}>
-            <Input onChange={this.onChangeCustomer} addonBefore="Họ và tên " placeholder="Ho và tên người liên hệ" />
+          <div>
+            <Input onChange={this.onChangeCustomer} addonBefore="Họ và tên " placeholder="Họ và tên người liên hệ" />
           </div>
         </Col>
         <Col md="12">
@@ -108,12 +105,12 @@ export class StepSix extends React.Component<IStepSixProp, IStepSixState> {
         </Col>
         <Col md="12">
           <div style={{ marginTop: 16 }}>
-            <Input onChange={this.onChangeZalo} addonBefore="Zalo" placeholder="Số điện thoại Zalo" />
+            <Input onChange={this.onChangeZalo} addonBefore="Zalo" placeholder="Tài khoản Zalo" />
           </div>
         </Col>
         <Col md="12">
           <div style={{ marginTop: 16 }}>
-            <Input onChange={this.onChangeFacebook} addonBefore="Facebook" placeholder="Tài khoản facebook" />
+            <Input onChange={this.onChangeFacebook} addonBefore="Facebook" placeholder="Tài khoản Facebook" />
           </div>
         </Col>
       </Row>

@@ -70,7 +70,7 @@ export class StepFour extends React.Component<IStepFourProp, IStepFourState> {
     const uploadButton = (
       <div>
         <Icon type="plus" />
-        <div className="ant-upload-text">Chọn hình ảnh ngôi nhà của bạn</div>
+        <div className="ant-upload-text">Chọn hình ảnh giới thiệu nhà của bạn</div>
       </div>
     );
     return (
