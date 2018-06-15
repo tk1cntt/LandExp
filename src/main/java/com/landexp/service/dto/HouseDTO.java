@@ -2,6 +2,7 @@ package com.landexp.service.dto;
 
 import java.time.LocalDate;
 import java.io.Serializable;
+import java.util.List;
 import java.util.Objects;
 import com.landexp.domain.enumeration.UserActionType;
 import com.landexp.domain.enumeration.MoneyType;
@@ -102,6 +103,8 @@ public class HouseDTO implements Serializable {
     private Long updateById;
 
     private String updateByLogin;
+
+    private List<HousePhotoDTO> photos;
 
     public Long getId() {
         return id;
@@ -445,6 +448,14 @@ public class HouseDTO implements Serializable {
 
     public void setUpdateByLogin(String userLogin) {
         this.updateByLogin = userLogin;
+    }
+
+    public List<HousePhotoDTO> getPhotos() {
+        return photos;
+    }
+
+    public void setPhotos(List<HousePhotoDTO> photos) {
+        this.photos = photos;
     }
 
     @Override

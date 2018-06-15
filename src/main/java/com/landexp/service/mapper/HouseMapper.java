@@ -8,7 +8,7 @@ import org.mapstruct.*;
 /**
  * Mapper for the entity House and its DTO HouseDTO.
  */
-@Mapper(componentModel = "spring", uses = {DistrictMapper.class, CityMapper.class, StreetMapper.class, LandProjectMapper.class, UserMapper.class})
+@Mapper(componentModel = "spring", uses = {DistrictMapper.class, CityMapper.class, StreetMapper.class, LandProjectMapper.class, UserMapper.class, HousePhotoMapper.class})
 public interface HouseMapper extends EntityMapper<HouseDTO, House> {
 
     @Mapping(source = "district.id", target = "districtId")
@@ -22,6 +22,7 @@ public interface HouseMapper extends EntityMapper<HouseDTO, House> {
     @Mapping(source = "createBy.login", target = "createByLogin")
     @Mapping(source = "updateBy.id", target = "updateById")
     @Mapping(source = "updateBy.login", target = "updateByLogin")
+    @Mapping(source = "photos", target = "photos")
     HouseDTO toDto(House house);
 
     @Mapping(source = "districtId", target = "district")
