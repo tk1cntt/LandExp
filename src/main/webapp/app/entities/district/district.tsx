@@ -136,6 +136,9 @@ export class District extends React.Component<IDistrictProps, IDistrictState> {
                 <th>
                   <Translate contentKey="landexpApp.district.city">City</Translate> <FontAwesomeIcon icon="sort" />
                 </th>
+                <th>
+                  <Translate contentKey="landexpApp.district.ward">Ward</Translate> <FontAwesomeIcon icon="sort" />
+                </th>
                 <th />
               </tr>
             </thead>
@@ -157,6 +160,7 @@ export class District extends React.Component<IDistrictProps, IDistrictState> {
                   </td>
                   <td>{district.regionId ? <Link to={`region/${district.regionId}`}>{district.regionId}</Link> : ''}</td>
                   <td>{district.cityName ? <Link to={`city/${district.cityId}`}>{district.cityName}</Link> : ''}</td>
+                  <td>{district.wardId ? <Link to={`ward/${district.wardId}`}>{district.wardId}</Link> : ''}</td>
                   <td className="text-right">
                     <div className="btn-group flex-btn-group-container">
                       <Button tag={Link} to={`${match.url}/${district.id}`} color="info" size="sm">

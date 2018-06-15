@@ -32,6 +32,9 @@ public class HousePhoto implements Serializable {
     @Column(name = "image_content_type")
     private String imageContentType;
 
+    @Column(name = "enabled")
+    private Boolean enabled;
+
     @CreationTimestamp
     @Column(name = "create_at")
     private LocalDate createAt;
@@ -81,6 +84,19 @@ public class HousePhoto implements Serializable {
 
     public void setImageContentType(String imageContentType) {
         this.imageContentType = imageContentType;
+    }
+
+    public Boolean isEnabled() {
+        return enabled;
+    }
+
+    public HousePhoto enabled(Boolean enabled) {
+        this.enabled = enabled;
+        return this;
+    }
+
+    public void setEnabled(Boolean enabled) {
+        this.enabled = enabled;
     }
 
     public LocalDate getCreateAt() {
@@ -162,6 +178,7 @@ public class HousePhoto implements Serializable {
             "id=" + getId() +
             ", image='" + getImage() + "'" +
             ", imageContentType='" + getImageContentType() + "'" +
+            ", enabled='" + isEnabled() + "'" +
             ", createAt='" + getCreateAt() + "'" +
             "}";
     }

@@ -205,6 +205,15 @@ export class House extends React.Component<IHouseProps, IHouseState> {
                 <th className="hand" onClick={this.sort('statusType')}>
                   <Translate contentKey="landexpApp.house.statusType">Status Type</Translate> <FontAwesomeIcon icon="sort" />
                 </th>
+                <th className="hand" onClick={this.sort('googleId')}>
+                  <Translate contentKey="landexpApp.house.googleId">Google Id</Translate> <FontAwesomeIcon icon="sort" />
+                </th>
+                <th className="hand" onClick={this.sort('latitude')}>
+                  <Translate contentKey="landexpApp.house.latitude">Latitude</Translate> <FontAwesomeIcon icon="sort" />
+                </th>
+                <th className="hand" onClick={this.sort('longitude')}>
+                  <Translate contentKey="landexpApp.house.longitude">Longitude</Translate> <FontAwesomeIcon icon="sort" />
+                </th>
                 <th className="hand" onClick={this.sort('createAt')}>
                   <Translate contentKey="landexpApp.house.createAt">Create At</Translate> <FontAwesomeIcon icon="sort" />
                 </th>
@@ -269,6 +278,9 @@ export class House extends React.Component<IHouseProps, IHouseState> {
                   <td>{house.facebook}</td>
                   <td>{house.zalo}</td>
                   <td>{house.statusType}</td>
+                  <td>{house.googleId}</td>
+                  <td>{house.latitude}</td>
+                  <td>{house.longitude}</td>
                   <td>
                     <TextFormat type="date" value={house.createAt} format={APP_LOCAL_DATE_FORMAT} />
                   </td>

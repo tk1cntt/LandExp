@@ -4,6 +4,7 @@ export interface IHousePhoto {
   id?: number;
   imageContentType?: string;
   image?: any;
+  enabled?: boolean;
   createAt?: Moment;
   houseId?: number;
   createByLogin?: string;
@@ -12,4 +13,6 @@ export interface IHousePhoto {
   updateById?: number;
 }
 
-export const defaultValue: Readonly<IHousePhoto> = {};
+export const defaultValue: Readonly<IHousePhoto> = {
+  enabled: false
+};

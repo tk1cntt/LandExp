@@ -20,12 +20,12 @@ export class DistrictDetail extends React.Component<IDistrictDetailProps> {
   }
 
   render() {
-    const { district } = this.props;
+    const { districtEntity } = this.props;
     return (
       <Row>
         <Col md="8">
           <h2>
-            <Translate contentKey="landexpApp.district.detail.title">District</Translate> [<b>{district.id}</b>]
+            <Translate contentKey="landexpApp.district.detail.title">District</Translate> [<b>{districtEntity.id}</b>]
           </h2>
           <dl className="jh-entity-details">
             <dt>
@@ -33,20 +33,20 @@ export class DistrictDetail extends React.Component<IDistrictDetailProps> {
                 <Translate contentKey="landexpApp.district.name">Name</Translate>
               </span>
             </dt>
-            <dd>{district.name}</dd>
+            <dd>{districtEntity.name}</dd>
             <dt>
               <span id="enabled">
                 <Translate contentKey="landexpApp.district.enabled">Enabled</Translate>
               </span>
             </dt>
-            <dd>{district.enabled ? 'true' : 'false'}</dd>
+            <dd>{districtEntity.enabled ? 'true' : 'false'}</dd>
             <dt>
               <span id="createAt">
                 <Translate contentKey="landexpApp.district.createAt">Create At</Translate>
               </span>
             </dt>
             <dd>
-              <TextFormat value={district.createAt} type="date" format={APP_LOCAL_DATE_FORMAT} />
+              <TextFormat value={districtEntity.createAt} type="date" format={APP_LOCAL_DATE_FORMAT} />
             </dd>
             <dt>
               <span id="updateAt">
@@ -54,16 +54,20 @@ export class DistrictDetail extends React.Component<IDistrictDetailProps> {
               </span>
             </dt>
             <dd>
-              <TextFormat value={district.updateAt} type="date" format={APP_LOCAL_DATE_FORMAT} />
+              <TextFormat value={districtEntity.updateAt} type="date" format={APP_LOCAL_DATE_FORMAT} />
             </dd>
             <dt>
               <Translate contentKey="landexpApp.district.region">Region</Translate>
             </dt>
-            <dd>{district.regionId ? district.regionId : ''}</dd>
+            <dd>{districtEntity.regionId ? districtEntity.regionId : ''}</dd>
             <dt>
               <Translate contentKey="landexpApp.district.city">City</Translate>
             </dt>
-            <dd>{district.cityName ? district.cityName : ''}</dd>
+            <dd>{districtEntity.cityName ? districtEntity.cityName : ''}</dd>
+            <dt>
+              <Translate contentKey="landexpApp.district.ward">Ward</Translate>
+            </dt>
+            <dd>{districtEntity.wardId ? districtEntity.wardId : ''}</dd>
           </dl>
           <Button tag={Link} to="/entity/district" replace color="info">
             <FontAwesomeIcon icon="arrow-left" />{' '}
@@ -71,7 +75,7 @@ export class DistrictDetail extends React.Component<IDistrictDetailProps> {
               <Translate contentKey="entity.action.back">Back</Translate>
             </span>
           </Button>&nbsp;
-          <Button tag={Link} to={`/entity/district/${district.id}/edit`} replace color="primary">
+          <Button tag={Link} to={`/entity/district/${districtEntity.id}/edit`} replace color="primary">
             <FontAwesomeIcon icon="pencil-alt" />{' '}
             <span className="d-none d-md-inline">
               <Translate contentKey="entity.action.edit">Edit</Translate>
@@ -84,7 +88,7 @@ export class DistrictDetail extends React.Component<IDistrictDetailProps> {
 }
 
 const mapStateToProps = ({ district }: IRootState) => ({
-  district: district.entity
+  districtEntity: district.entity
 });
 
 const mapDispatchToProps = { getEntity };

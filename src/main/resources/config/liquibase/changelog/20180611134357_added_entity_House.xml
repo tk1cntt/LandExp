@@ -138,6 +138,18 @@
                 <constraints nullable="true" />
             </column>
 
+            <column name="google_id" type="varchar(255)">
+                <constraints nullable="true" />
+            </column>
+
+            <column name="latitude" type="${floatType}">
+                <constraints nullable="true" />
+            </column>
+
+            <column name="longitude" type="${floatType}">
+                <constraints nullable="true" />
+            </column>
+
             <column name="create_at" type="date">
                 <constraints nullable="true" />
             </column>

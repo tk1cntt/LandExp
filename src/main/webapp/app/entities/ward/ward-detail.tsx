@@ -20,12 +20,12 @@ export class WardDetail extends React.Component<IWardDetailProps> {
   }
 
   render() {
-    const { ward } = this.props;
+    const { wardEntity } = this.props;
     return (
       <Row>
         <Col md="8">
           <h2>
-            <Translate contentKey="landexpApp.ward.detail.title">Ward</Translate> [<b>{ward.id}</b>]
+            <Translate contentKey="landexpApp.ward.detail.title">Ward</Translate> [<b>{wardEntity.id}</b>]
           </h2>
           <dl className="jh-entity-details">
             <dt>
@@ -33,20 +33,20 @@ export class WardDetail extends React.Component<IWardDetailProps> {
                 <Translate contentKey="landexpApp.ward.name">Name</Translate>
               </span>
             </dt>
-            <dd>{ward.name}</dd>
+            <dd>{wardEntity.name}</dd>
             <dt>
               <span id="enabled">
                 <Translate contentKey="landexpApp.ward.enabled">Enabled</Translate>
               </span>
             </dt>
-            <dd>{ward.enabled ? 'true' : 'false'}</dd>
+            <dd>{wardEntity.enabled ? 'true' : 'false'}</dd>
             <dt>
               <span id="createAt">
                 <Translate contentKey="landexpApp.ward.createAt">Create At</Translate>
               </span>
             </dt>
             <dd>
-              <TextFormat value={ward.createAt} type="date" format={APP_LOCAL_DATE_FORMAT} />
+              <TextFormat value={wardEntity.createAt} type="date" format={APP_LOCAL_DATE_FORMAT} />
             </dd>
             <dt>
               <span id="updateAt">
@@ -54,12 +54,12 @@ export class WardDetail extends React.Component<IWardDetailProps> {
               </span>
             </dt>
             <dd>
-              <TextFormat value={ward.updateAt} type="date" format={APP_LOCAL_DATE_FORMAT} />
+              <TextFormat value={wardEntity.updateAt} type="date" format={APP_LOCAL_DATE_FORMAT} />
             </dd>
             <dt>
               <Translate contentKey="landexpApp.ward.district">District</Translate>
             </dt>
-            <dd>{ward.districtName ? ward.districtName : ''}</dd>
+            <dd>{wardEntity.districtName ? wardEntity.districtName : ''}</dd>
           </dl>
           <Button tag={Link} to="/entity/ward" replace color="info">
             <FontAwesomeIcon icon="arrow-left" />{' '}
@@ -67,7 +67,7 @@ export class WardDetail extends React.Component<IWardDetailProps> {
               <Translate contentKey="entity.action.back">Back</Translate>
             </span>
           </Button>&nbsp;
-          <Button tag={Link} to={`/entity/ward/${ward.id}/edit`} replace color="primary">
+          <Button tag={Link} to={`/entity/ward/${wardEntity.id}/edit`} replace color="primary">
             <FontAwesomeIcon icon="pencil-alt" />{' '}
             <span className="d-none d-md-inline">
               <Translate contentKey="entity.action.edit">Edit</Translate>
@@ -80,7 +80,7 @@ export class WardDetail extends React.Component<IWardDetailProps> {
 }
 
 const mapStateToProps = ({ ward }: IRootState) => ({
-  ward: ward.entity
+  wardEntity: ward.entity
 });
 
 const mapDispatchToProps = { getEntity };

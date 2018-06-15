@@ -17,7 +17,7 @@ export class WardDeleteDialog extends React.Component<IWardDeleteDialogProps> {
   }
 
   confirmDelete = event => {
-    this.props.deleteEntity(this.props.ward.id);
+    this.props.deleteEntity(this.props.wardEntity.id);
     this.handleClose(event);
   };
 
@@ -27,14 +27,14 @@ export class WardDeleteDialog extends React.Component<IWardDeleteDialogProps> {
   };
 
   render() {
-    const { ward } = this.props;
+    const { wardEntity } = this.props;
     return (
       <Modal isOpen toggle={this.handleClose}>
         <ModalHeader toggle={this.handleClose}>
           <Translate contentKey="entity.delete.title">Confirm delete operation</Translate>
         </ModalHeader>
         <ModalBody>
-          <Translate contentKey="landexpApp.ward.delete.question" interpolate={{ id: ward.id }}>
+          <Translate contentKey="landexpApp.ward.delete.question" interpolate={{ id: wardEntity.id }}>
             Are you sure you want to delete this Ward?
           </Translate>
         </ModalBody>
@@ -54,7 +54,7 @@ export class WardDeleteDialog extends React.Component<IWardDeleteDialogProps> {
 }
 
 const mapStateToProps = ({ ward }: IRootState) => ({
-  ward: ward.entity
+  wardEntity: ward.entity
 });
 
 const mapDispatchToProps = { getEntity, deleteEntity };

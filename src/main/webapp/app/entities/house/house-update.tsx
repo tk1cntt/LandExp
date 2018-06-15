@@ -66,9 +66,9 @@ export class HouseUpdate extends React.Component<IHouseUpdateProps, IHouseUpdate
 
   saveEntity = (event, errors, values) => {
     if (errors.length === 0) {
-      const { house } = this.props;
+      const { houseEntity } = this.props;
       const entity = {
-        ...house,
+        ...houseEntity,
         ...values
       };
 
@@ -189,7 +189,7 @@ export class HouseUpdate extends React.Component<IHouseUpdateProps, IHouseUpdate
 
   render() {
     const isInvalid = false;
-    const { house, districts, cities, streets, landProjects, users, loading, updating } = this.props;
+    const { houseEntity, districts, cities, streets, landProjects, users, loading, updating } = this.props;
     const { isNew } = this.state;
 
     return (
@@ -206,7 +206,7 @@ export class HouseUpdate extends React.Component<IHouseUpdateProps, IHouseUpdate
             {loading ? (
               <p>Loading...</p>
             ) : (
-              <AvForm model={isNew ? {} : house} onSubmit={this.saveEntity}>
+              <AvForm model={isNew ? {} : houseEntity} onSubmit={this.saveEntity}>
                 {!isNew ? (
                   <AvGroup>
                     <Label for="id">
@@ -230,7 +230,7 @@ export class HouseUpdate extends React.Component<IHouseUpdateProps, IHouseUpdate
                     type="select"
                     className="form-control"
                     name="actionType"
-                    value={(!isNew && house.actionType) || 'FOR_BUY'}
+                    value={(!isNew && houseEntity.actionType) || 'FOR_BUY'}
                   >
                     <option value="FOR_BUY">FOR_BUY</option>
                     <option value="FOR_SELL">FOR_SELL</option>
@@ -259,7 +259,7 @@ export class HouseUpdate extends React.Component<IHouseUpdateProps, IHouseUpdate
                     type="select"
                     className="form-control"
                     name="moneyType"
-                    value={(!isNew && house.moneyType) || 'MILLION'}
+                    value={(!isNew && houseEntity.moneyType) || 'MILLION'}
                   >
                     <option value="MILLION">MILLION</option>
                     <option value="BILLION">BILLION</option>
@@ -292,7 +292,7 @@ export class HouseUpdate extends React.Component<IHouseUpdateProps, IHouseUpdate
                     type="select"
                     className="form-control"
                     name="direction"
-                    value={(!isNew && house.direction) || 'NORTH'}
+                    value={(!isNew && houseEntity.direction) || 'NORTH'}
                   >
                     <option value="NORTH">NORTH</option>
                     <option value="SOUTH">SOUTH</option>
@@ -313,7 +313,7 @@ export class HouseUpdate extends React.Component<IHouseUpdateProps, IHouseUpdate
                     type="select"
                     className="form-control"
                     name="directionBalcony"
-                    value={(!isNew && house.directionBalcony) || 'NORTH'}
+                    value={(!isNew && houseEntity.directionBalcony) || 'NORTH'}
                   >
                     <option value="NORTH">NORTH</option>
                     <option value="SOUTH">SOUTH</option>
@@ -376,7 +376,7 @@ export class HouseUpdate extends React.Component<IHouseUpdateProps, IHouseUpdate
                     type="select"
                     className="form-control"
                     name="landType"
-                    value={(!isNew && house.landType) || 'APARTMENT'}
+                    value={(!isNew && houseEntity.landType) || 'APARTMENT'}
                   >
                     <option value="APARTMENT">APARTMENT</option>
                     <option value="PEN_HOUSE">PEN_HOUSE</option>
@@ -403,7 +403,7 @@ export class HouseUpdate extends React.Component<IHouseUpdateProps, IHouseUpdate
                     type="select"
                     className="form-control"
                     name="saleType"
-                    value={(!isNew && house.saleType) || 'SALE_BY_MYSELF'}
+                    value={(!isNew && houseEntity.saleType) || 'SALE_BY_MYSELF'}
                   >
                     <option value="SALE_BY_MYSELF">SALE_BY_MYSELF</option>
                     <option value="SALE_BY_MYSELF_VIP">SALE_BY_MYSELF_VIP</option>
@@ -432,7 +432,7 @@ export class HouseUpdate extends React.Component<IHouseUpdateProps, IHouseUpdate
                     type="select"
                     className="form-control"
                     name="present"
-                    value={(!isNew && house.present) || 'NONE'}
+                    value={(!isNew && houseEntity.present) || 'NONE'}
                   >
                     <option value="NONE">NONE</option>
                     <option value="BASIC_FURNITURE">BASIC_FURNITURE</option>
@@ -488,7 +488,7 @@ export class HouseUpdate extends React.Component<IHouseUpdateProps, IHouseUpdate
                     type="select"
                     className="form-control"
                     name="statusType"
-                    value={(!isNew && house.statusType) || 'PENDING'}
+                    value={(!isNew && houseEntity.statusType) || 'PENDING'}
                   >
                     <option value="PENDING">PENDING</option>
                     <option value="PAID">PAID</option>
@@ -497,6 +497,24 @@ export class HouseUpdate extends React.Component<IHouseUpdateProps, IHouseUpdate
                     <option value="EXPIRED">EXPIRED</option>
                     <option value="SOLD">SOLD</option>
                   </AvInput>
+                </AvGroup>
+                <AvGroup>
+                  <Label id="googleIdLabel" for="googleId">
+                    <Translate contentKey="landexpApp.house.googleId">Google Id</Translate>
+                  </Label>
+                  <AvField id="house-googleId" type="text" name="googleId" />
+                </AvGroup>
+                <AvGroup>
+                  <Label id="latitudeLabel" for="latitude">
+                    <Translate contentKey="landexpApp.house.latitude">Latitude</Translate>
+                  </Label>
+                  <AvField id="house-latitude" type="number" className="form-control" name="latitude" />
+                </AvGroup>
+                <AvGroup>
+                  <Label id="longitudeLabel" for="longitude">
+                    <Translate contentKey="landexpApp.house.longitude">Longitude</Translate>
+                  </Label>
+                  <AvField id="house-longitude" type="number" className="form-control" name="longitude" />
                 </AvGroup>
                 <AvGroup>
                   <Label id="createAtLabel" for="createAt">
@@ -626,7 +644,7 @@ const mapStateToProps = (storeState: IRootState) => ({
   streets: storeState.street.entities,
   landProjects: storeState.landProject.entities,
   users: storeState.userManagement.users,
-  house: storeState.house.entity,
+  houseEntity: storeState.house.entity,
   loading: storeState.house.loading,
   updating: storeState.house.updating
 });

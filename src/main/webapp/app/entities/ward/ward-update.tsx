@@ -20,6 +20,7 @@ export interface IWardUpdateProps extends StateProps, DispatchProps, RouteCompon
 
 export interface IWardUpdateState {
   isNew: boolean;
+  districtsId: number;
   districtId: number;
 }
 
@@ -27,6 +28,7 @@ export class WardUpdate extends React.Component<IWardUpdateProps, IWardUpdateSta
   constructor(props) {
     super(props);
     this.state = {
+      districtsId: 0,
       districtId: 0,
       isNew: !this.props.match.params || !this.props.match.params.id
     };
@@ -44,9 +46,9 @@ export class WardUpdate extends React.Component<IWardUpdateProps, IWardUpdateSta
 
   saveEntity = (event, errors, values) => {
     if (errors.length === 0) {
-      const { ward } = this.props;
+      const { wardEntity } = this.props;
       const entity = {
-        ...ward,
+        ...wardEntity,
         ...values
       };
 
@@ -82,7 +84,7 @@ export class WardUpdate extends React.Component<IWardUpdateProps, IWardUpdateSta
 
   render() {
     const isInvalid = false;
-    const { ward, districts, loading, updating } = this.props;
+    const { wardEntity, districts, loading, updating } = this.props;
     const { isNew } = this.state;
 
     return (
@@ -99,7 +101,7 @@ export class WardUpdate extends React.Component<IWardUpdateProps, IWardUpdateSta
             {loading ? (
               <p>Loading...</p>
             ) : (
-              <AvForm model={isNew ? {} : ward} onSubmit={this.saveEntity}>
+              <AvForm model={isNew ? {} : wardEntity} onSubmit={this.saveEntity}>
                 {!isNew ? (
                   <AvGroup>
                     <Label for="id">
@@ -169,7 +171,7 @@ export class WardUpdate extends React.Component<IWardUpdateProps, IWardUpdateSta
 
 const mapStateToProps = (storeState: IRootState) => ({
   districts: storeState.district.entities,
-  ward: storeState.ward.entity,
+  wardEntity: storeState.ward.entity,
   loading: storeState.ward.loading,
   updating: storeState.ward.updating
 });

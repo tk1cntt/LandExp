@@ -123,6 +123,9 @@ export class HousePhoto extends React.Component<IHousePhotoProps, IHousePhotoSta
                 <th className="hand" onClick={this.sort('image')}>
                   <Translate contentKey="landexpApp.housePhoto.image">Image</Translate> <FontAwesomeIcon icon="sort" />
                 </th>
+                <th className="hand" onClick={this.sort('enabled')}>
+                  <Translate contentKey="landexpApp.housePhoto.enabled">Enabled</Translate> <FontAwesomeIcon icon="sort" />
+                </th>
                 <th className="hand" onClick={this.sort('createAt')}>
                   <Translate contentKey="landexpApp.housePhoto.createAt">Create At</Translate> <FontAwesomeIcon icon="sort" />
                 </th>
@@ -159,6 +162,7 @@ export class HousePhoto extends React.Component<IHousePhotoProps, IHousePhotoSta
                       </div>
                     ) : null}
                   </td>
+                  <td>{housePhoto.enabled ? 'true' : 'false'}</td>
                   <td>
                     <TextFormat type="date" value={housePhoto.createAt} format={APP_LOCAL_DATE_FORMAT} />
                   </td>

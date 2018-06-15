@@ -15,6 +15,7 @@ public interface WardMapper extends EntityMapper<WardDTO, Ward> {
     @Mapping(source = "district.name", target = "districtName")
     WardDTO toDto(Ward ward);
 
+    @Mapping(target = "districts", ignore = true)
     @Mapping(source = "districtId", target = "district")
     Ward toEntity(WardDTO wardDTO);
 

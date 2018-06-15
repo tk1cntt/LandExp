@@ -1,4 +1,5 @@
 {
+    "name": "House",
     "fields": [
         {
             "fieldName": "avatar",
@@ -123,6 +124,18 @@
             "fieldName": "statusType",
             "fieldType": "StatusType",
             "fieldValues": "PENDING,PAID,APPROVED,CANCELED,EXPIRED,SOLD"
+        },
+        {
+            "fieldName": "googleId",
+            "fieldType": "String"
+        },
+        {
+            "fieldName": "latitude",
+            "fieldType": "Float"
+        },
+        {
+            "fieldName": "longitude",
+            "fieldType": "Float"
         },
         {
             "fieldName": "createAt",

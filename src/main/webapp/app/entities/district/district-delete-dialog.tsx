@@ -17,7 +17,7 @@ export class DistrictDeleteDialog extends React.Component<IDistrictDeleteDialogP
   }
 
   confirmDelete = event => {
-    this.props.deleteEntity(this.props.district.id);
+    this.props.deleteEntity(this.props.districtEntity.id);
     this.handleClose(event);
   };
 
@@ -27,14 +27,14 @@ export class DistrictDeleteDialog extends React.Component<IDistrictDeleteDialogP
   };
 
   render() {
-    const { district } = this.props;
+    const { districtEntity } = this.props;
     return (
       <Modal isOpen toggle={this.handleClose}>
         <ModalHeader toggle={this.handleClose}>
           <Translate contentKey="entity.delete.title">Confirm delete operation</Translate>
         </ModalHeader>
         <ModalBody>
-          <Translate contentKey="landexpApp.district.delete.question" interpolate={{ id: district.id }}>
+          <Translate contentKey="landexpApp.district.delete.question" interpolate={{ id: districtEntity.id }}>
             Are you sure you want to delete this District?
           </Translate>
         </ModalBody>
@@ -54,7 +54,7 @@ export class DistrictDeleteDialog extends React.Component<IDistrictDeleteDialogP
 }
 
 const mapStateToProps = ({ district }: IRootState) => ({
-  district: district.entity
+  districtEntity: district.entity
 });
 
 const mapDispatchToProps = { getEntity, deleteEntity };

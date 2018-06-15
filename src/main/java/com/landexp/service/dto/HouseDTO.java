@@ -78,6 +78,12 @@ public class HouseDTO implements Serializable {
 
     private StatusType statusType;
 
+    private String googleId;
+
+    private Float latitude;
+
+    private Float longitude;
+
     private LocalDate createAt;
 
     private LocalDate updateAt;
@@ -346,6 +352,30 @@ public class HouseDTO implements Serializable {
         this.statusType = statusType;
     }
 
+    public String getGoogleId() {
+        return googleId;
+    }
+
+    public void setGoogleId(String googleId) {
+        this.googleId = googleId;
+    }
+
+    public Float getLatitude() {
+        return latitude;
+    }
+
+    public void setLatitude(Float latitude) {
+        this.latitude = latitude;
+    }
+
+    public Float getLongitude() {
+        return longitude;
+    }
+
+    public void setLongitude(Float longitude) {
+        this.longitude = longitude;
+    }
+
     public LocalDate getCreateAt() {
         return createAt;
     }
@@ -512,6 +542,9 @@ public class HouseDTO implements Serializable {
             ", facebook='" + getFacebook() + "'" +
             ", zalo='" + getZalo() + "'" +
             ", statusType='" + getStatusType() + "'" +
+            ", googleId='" + getGoogleId() + "'" +
+            ", latitude=" + getLatitude() +
+            ", longitude=" + getLongitude() +
             ", createAt='" + getCreateAt() + "'" +
             ", updateAt='" + getUpdateAt() + "'" +
             ", district=" + getDistrictId() +

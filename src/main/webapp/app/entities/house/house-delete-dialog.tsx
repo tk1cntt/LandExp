@@ -17,7 +17,7 @@ export class HouseDeleteDialog extends React.Component<IHouseDeleteDialogProps> 
   }
 
   confirmDelete = event => {
-    this.props.deleteEntity(this.props.house.id);
+    this.props.deleteEntity(this.props.houseEntity.id);
     this.handleClose(event);
   };
 
@@ -27,14 +27,14 @@ export class HouseDeleteDialog extends React.Component<IHouseDeleteDialogProps> 
   };
 
   render() {
-    const { house } = this.props;
+    const { houseEntity } = this.props;
     return (
       <Modal isOpen toggle={this.handleClose}>
         <ModalHeader toggle={this.handleClose}>
           <Translate contentKey="entity.delete.title">Confirm delete operation</Translate>
         </ModalHeader>
         <ModalBody>
-          <Translate contentKey="landexpApp.house.delete.question" interpolate={{ id: house.id }}>
+          <Translate contentKey="landexpApp.house.delete.question" interpolate={{ id: houseEntity.id }}>
             Are you sure you want to delete this House?
           </Translate>
         </ModalBody>
@@ -54,7 +54,7 @@ export class HouseDeleteDialog extends React.Component<IHouseDeleteDialogProps> 
 }
 
 const mapStateToProps = ({ house }: IRootState) => ({
-  house: house.entity
+  houseEntity: house.entity
 });
 
 const mapDispatchToProps = { getEntity, deleteEntity };

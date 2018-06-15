@@ -155,6 +155,15 @@ public class HouseResourceIntTest {
     private static final StatusType DEFAULT_STATUS_TYPE = StatusType.PENDING;
     private static final StatusType UPDATED_STATUS_TYPE = StatusType.PAID;
 
+    private static final String DEFAULT_GOOGLE_ID = "AAAAAAAAAA";
+    private static final String UPDATED_GOOGLE_ID = "BBBBBBBBBB";
+
+    private static final Float DEFAULT_LATITUDE = 1F;
+    private static final Float UPDATED_LATITUDE = 2F;
+
+    private static final Float DEFAULT_LONGITUDE = 1F;
+    private static final Float UPDATED_LONGITUDE = 2F;
+
     private static final LocalDate DEFAULT_CREATE_AT = LocalDate.ofEpochDay(0L);
     private static final LocalDate UPDATED_CREATE_AT = LocalDate.now(ZoneId.systemDefault());
 
@@ -250,6 +259,9 @@ public class HouseResourceIntTest {
             .facebook(DEFAULT_FACEBOOK)
             .zalo(DEFAULT_ZALO)
             .statusType(DEFAULT_STATUS_TYPE)
+            .googleId(DEFAULT_GOOGLE_ID)
+            .latitude(DEFAULT_LATITUDE)
+            .longitude(DEFAULT_LONGITUDE)
             .createAt(DEFAULT_CREATE_AT)
             .updateAt(DEFAULT_UPDATE_AT);
         return house;
@@ -305,6 +317,9 @@ public class HouseResourceIntTest {
         assertThat(testHouse.getFacebook()).isEqualTo(DEFAULT_FACEBOOK);
         assertThat(testHouse.getZalo()).isEqualTo(DEFAULT_ZALO);
         assertThat(testHouse.getStatusType()).isEqualTo(DEFAULT_STATUS_TYPE);
+        assertThat(testHouse.getGoogleId()).isEqualTo(DEFAULT_GOOGLE_ID);
+        assertThat(testHouse.getLatitude()).isEqualTo(DEFAULT_LATITUDE);
+        assertThat(testHouse.getLongitude()).isEqualTo(DEFAULT_LONGITUDE);
         assertThat(testHouse.getCreateAt()).isEqualTo(DEFAULT_CREATE_AT);
         assertThat(testHouse.getUpdateAt()).isEqualTo(DEFAULT_UPDATE_AT);
 
@@ -375,6 +390,9 @@ public class HouseResourceIntTest {
             .andExpect(jsonPath("$.[*].facebook").value(hasItem(DEFAULT_FACEBOOK.toString())))
             .andExpect(jsonPath("$.[*].zalo").value(hasItem(DEFAULT_ZALO.toString())))
             .andExpect(jsonPath("$.[*].statusType").value(hasItem(DEFAULT_STATUS_TYPE.toString())))
+            .andExpect(jsonPath("$.[*].googleId").value(hasItem(DEFAULT_GOOGLE_ID.toString())))
+            .andExpect(jsonPath("$.[*].latitude").value(hasItem(DEFAULT_LATITUDE.doubleValue())))
+            .andExpect(jsonPath("$.[*].longitude").value(hasItem(DEFAULT_LONGITUDE.doubleValue())))
             .andExpect(jsonPath("$.[*].createAt").value(hasItem(DEFAULT_CREATE_AT.toString())))
             .andExpect(jsonPath("$.[*].updateAt").value(hasItem(DEFAULT_UPDATE_AT.toString())));
     }
@@ -420,6 +438,9 @@ public class HouseResourceIntTest {
             .andExpect(jsonPath("$.facebook").value(DEFAULT_FACEBOOK.toString()))
             .andExpect(jsonPath("$.zalo").value(DEFAULT_ZALO.toString()))
             .andExpect(jsonPath("$.statusType").value(DEFAULT_STATUS_TYPE.toString()))
+            .andExpect(jsonPath("$.googleId").value(DEFAULT_GOOGLE_ID.toString()))
+            .andExpect(jsonPath("$.latitude").value(DEFAULT_LATITUDE.doubleValue()))
+            .andExpect(jsonPath("$.longitude").value(DEFAULT_LONGITUDE.doubleValue()))
             .andExpect(jsonPath("$.createAt").value(DEFAULT_CREATE_AT.toString()))
             .andExpect(jsonPath("$.updateAt").value(DEFAULT_UPDATE_AT.toString()));
     }
@@ -1638,6 +1659,123 @@ public class HouseResourceIntTest {
 
     @Test
     @Transactional
+    public void getAllHousesByGoogleIdIsEqualToSomething() throws Exception {
+        // Initialize the database
+        houseRepository.saveAndFlush(house);
+
+        // Get all the houseList where googleId equals to DEFAULT_GOOGLE_ID
+        defaultHouseShouldBeFound("googleId.equals=" + DEFAULT_GOOGLE_ID);
+
+        // Get all the houseList where googleId equals to UPDATED_GOOGLE_ID
+        defaultHouseShouldNotBeFound("googleId.equals=" + UPDATED_GOOGLE_ID);
+    }
+
+    @Test
+    @Transactional
+    public void getAllHousesByGoogleIdIsInShouldWork() throws Exception {
+        // Initialize the database
+        houseRepository.saveAndFlush(house);
+
+        // Get all the houseList where googleId in DEFAULT_GOOGLE_ID or UPDATED_GOOGLE_ID
+        defaultHouseShouldBeFound("googleId.in=" + DEFAULT_GOOGLE_ID + "," + UPDATED_GOOGLE_ID);
+
+        // Get all the houseList where googleId equals to UPDATED_GOOGLE_ID
+        defaultHouseShouldNotBeFound("googleId.in=" + UPDATED_GOOGLE_ID);
+    }
+
+    @Test
+    @Transactional
+    public void getAllHousesByGoogleIdIsNullOrNotNull() throws Exception {
+        // Initialize the database
+        houseRepository.saveAndFlush(house);
+
+        // Get all the houseList where googleId is not null
+        defaultHouseShouldBeFound("googleId.specified=true");
+
+        // Get all the houseList where googleId is null
+        defaultHouseShouldNotBeFound("googleId.specified=false");
+    }
+
+    @Test
+    @Transactional
+    public void getAllHousesByLatitudeIsEqualToSomething() throws Exception {
+        // Initialize the database
+        houseRepository.saveAndFlush(house);
+
+        // Get all the houseList where latitude equals to DEFAULT_LATITUDE
+        defaultHouseShouldBeFound("latitude.equals=" + DEFAULT_LATITUDE);
+
+        // Get all the houseList where latitude equals to UPDATED_LATITUDE
+        defaultHouseShouldNotBeFound("latitude.equals=" + UPDATED_LATITUDE);
+    }
+
+    @Test
+    @Transactional
+    public void getAllHousesByLatitudeIsInShouldWork() throws Exception {
+        // Initialize the database
+        houseRepository.saveAndFlush(house);
+
+        // Get all the houseList where latitude in DEFAULT_LATITUDE or UPDATED_LATITUDE
+        defaultHouseShouldBeFound("latitude.in=" + DEFAULT_LATITUDE + "," + UPDATED_LATITUDE);
+
+        // Get all the houseList where latitude equals to UPDATED_LATITUDE
+        defaultHouseShouldNotBeFound("latitude.in=" + UPDATED_LATITUDE);
+    }
+
+    @Test
+    @Transactional
+    public void getAllHousesByLatitudeIsNullOrNotNull() throws Exception {
+        // Initialize the database
+        houseRepository.saveAndFlush(house);
+
+        // Get all the houseList where latitude is not null
+        defaultHouseShouldBeFound("latitude.specified=true");
+
+        // Get all the houseList where latitude is null
+        defaultHouseShouldNotBeFound("latitude.specified=false");
+    }
+
+    @Test
+    @Transactional
+    public void getAllHousesByLongitudeIsEqualToSomething() throws Exception {
+        // Initialize the database
+        houseRepository.saveAndFlush(house);
+
+        // Get all the houseList where longitude equals to DEFAULT_LONGITUDE
+        defaultHouseShouldBeFound("longitude.equals=" + DEFAULT_LONGITUDE);
+
+        // Get all the houseList where longitude equals to UPDATED_LONGITUDE
+        defaultHouseShouldNotBeFound("longitude.equals=" + UPDATED_LONGITUDE);
+    }
+
+    @Test
+    @Transactional
+    public void getAllHousesByLongitudeIsInShouldWork() throws Exception {
+        // Initialize the database
+        houseRepository.saveAndFlush(house);
+
+        // Get all the houseList where longitude in DEFAULT_LONGITUDE or UPDATED_LONGITUDE
+        defaultHouseShouldBeFound("longitude.in=" + DEFAULT_LONGITUDE + "," + UPDATED_LONGITUDE);
+
+        // Get all the houseList where longitude equals to UPDATED_LONGITUDE
+        defaultHouseShouldNotBeFound("longitude.in=" + UPDATED_LONGITUDE);
+    }
+
+    @Test
+    @Transactional
+    public void getAllHousesByLongitudeIsNullOrNotNull() throws Exception {
+        // Initialize the database
+        houseRepository.saveAndFlush(house);
+
+        // Get all the houseList where longitude is not null
+        defaultHouseShouldBeFound("longitude.specified=true");
+
+        // Get all the houseList where longitude is null
+        defaultHouseShouldNotBeFound("longitude.specified=false");
+    }
+
+    @Test
+    @Transactional
     public void getAllHousesByCreateAtIsEqualToSomething() throws Exception {
         // Initialize the database
         houseRepository.saveAndFlush(house);
@@ -1937,6 +2075,9 @@ public class HouseResourceIntTest {
             .andExpect(jsonPath("$.[*].facebook").value(hasItem(DEFAULT_FACEBOOK.toString())))
             .andExpect(jsonPath("$.[*].zalo").value(hasItem(DEFAULT_ZALO.toString())))
             .andExpect(jsonPath("$.[*].statusType").value(hasItem(DEFAULT_STATUS_TYPE.toString())))
+            .andExpect(jsonPath("$.[*].googleId").value(hasItem(DEFAULT_GOOGLE_ID.toString())))
+            .andExpect(jsonPath("$.[*].latitude").value(hasItem(DEFAULT_LATITUDE.doubleValue())))
+            .andExpect(jsonPath("$.[*].longitude").value(hasItem(DEFAULT_LONGITUDE.doubleValue())))
             .andExpect(jsonPath("$.[*].createAt").value(hasItem(DEFAULT_CREATE_AT.toString())))
             .andExpect(jsonPath("$.[*].updateAt").value(hasItem(DEFAULT_UPDATE_AT.toString())));
     }
@@ -2002,6 +2143,9 @@ public class HouseResourceIntTest {
             .facebook(UPDATED_FACEBOOK)
             .zalo(UPDATED_ZALO)
             .statusType(UPDATED_STATUS_TYPE)
+            .googleId(UPDATED_GOOGLE_ID)
+            .latitude(UPDATED_LATITUDE)
+            .longitude(UPDATED_LONGITUDE)
             .createAt(UPDATED_CREATE_AT)
             .updateAt(UPDATED_UPDATE_AT);
         HouseDTO houseDTO = houseMapper.toDto(updatedHouse);
@@ -2044,6 +2188,9 @@ public class HouseResourceIntTest {
         assertThat(testHouse.getFacebook()).isEqualTo(UPDATED_FACEBOOK);
         assertThat(testHouse.getZalo()).isEqualTo(UPDATED_ZALO);
         assertThat(testHouse.getStatusType()).isEqualTo(UPDATED_STATUS_TYPE);
+        assertThat(testHouse.getGoogleId()).isEqualTo(UPDATED_GOOGLE_ID);
+        assertThat(testHouse.getLatitude()).isEqualTo(UPDATED_LATITUDE);
+        assertThat(testHouse.getLongitude()).isEqualTo(UPDATED_LONGITUDE);
         assertThat(testHouse.getCreateAt()).isEqualTo(UPDATED_CREATE_AT);
         assertThat(testHouse.getUpdateAt()).isEqualTo(UPDATED_UPDATE_AT);
 
@@ -2135,6 +2282,9 @@ public class HouseResourceIntTest {
             .andExpect(jsonPath("$.[*].facebook").value(hasItem(DEFAULT_FACEBOOK.toString())))
             .andExpect(jsonPath("$.[*].zalo").value(hasItem(DEFAULT_ZALO.toString())))
             .andExpect(jsonPath("$.[*].statusType").value(hasItem(DEFAULT_STATUS_TYPE.toString())))
+            .andExpect(jsonPath("$.[*].googleId").value(hasItem(DEFAULT_GOOGLE_ID.toString())))
+            .andExpect(jsonPath("$.[*].latitude").value(hasItem(DEFAULT_LATITUDE.doubleValue())))
+            .andExpect(jsonPath("$.[*].longitude").value(hasItem(DEFAULT_LONGITUDE.doubleValue())))
             .andExpect(jsonPath("$.[*].createAt").value(hasItem(DEFAULT_CREATE_AT.toString())))
             .andExpect(jsonPath("$.[*].updateAt").value(hasItem(DEFAULT_UPDATE_AT.toString())));
     }

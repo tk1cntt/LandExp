@@ -167,6 +167,15 @@ public class HouseQueryService extends QueryService<House> {
             if (criteria.getStatusType() != null) {
                 specification = specification.and(buildSpecification(criteria.getStatusType(), House_.statusType));
             }
+            if (criteria.getGoogleId() != null) {
+                specification = specification.and(buildStringSpecification(criteria.getGoogleId(), House_.googleId));
+            }
+            if (criteria.getLatitude() != null) {
+                specification = specification.and(buildRangeSpecification(criteria.getLatitude(), House_.latitude));
+            }
+            if (criteria.getLongitude() != null) {
+                specification = specification.and(buildRangeSpecification(criteria.getLongitude(), House_.longitude));
+            }
             if (criteria.getCreateAt() != null) {
                 specification = specification.and(buildRangeSpecification(criteria.getCreateAt(), House_.createAt));
             }

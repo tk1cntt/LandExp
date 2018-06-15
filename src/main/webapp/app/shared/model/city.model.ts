@@ -6,6 +6,7 @@ export interface ICity {
   enabled?: boolean;
   createAt?: Moment;
   updateAt?: Moment;
+  districtId?: number;
 }
 
 export const defaultValue: Readonly<ICity> = {

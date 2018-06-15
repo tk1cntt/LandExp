@@ -18,6 +18,7 @@
                 "title": "House Photo"
             },
             "image": "Image",
+            "enabled": "Enabled",
             "createAt": "Create At",
             "house": "House",
             "createBy": "Create By",

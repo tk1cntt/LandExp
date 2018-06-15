@@ -56,6 +56,9 @@ public class HousePhotoResourceIntTest {
     private static final String DEFAULT_IMAGE_CONTENT_TYPE = "image/jpg";
     private static final String UPDATED_IMAGE_CONTENT_TYPE = "image/png";
 
+    private static final Boolean DEFAULT_ENABLED = false;
+    private static final Boolean UPDATED_ENABLED = true;
+
     private static final LocalDate DEFAULT_CREATE_AT = LocalDate.ofEpochDay(0L);
     private static final LocalDate UPDATED_CREATE_AT = LocalDate.now(ZoneId.systemDefault());
 
@@ -115,6 +118,7 @@ public class HousePhotoResourceIntTest {
         HousePhoto housePhoto = new HousePhoto()
             .image(DEFAULT_IMAGE)
             .imageContentType(DEFAULT_IMAGE_CONTENT_TYPE)
+            .enabled(DEFAULT_ENABLED)
             .createAt(DEFAULT_CREATE_AT);
         return housePhoto;
     }
@@ -142,6 +146,7 @@ public class HousePhotoResourceIntTest {
         HousePhoto testHousePhoto = housePhotoList.get(housePhotoList.size() - 1);
         assertThat(testHousePhoto.getImage()).isEqualTo(DEFAULT_IMAGE);
         assertThat(testHousePhoto.getImageContentType()).isEqualTo(DEFAULT_IMAGE_CONTENT_TYPE);
+        assertThat(testHousePhoto.isEnabled()).isEqualTo(DEFAULT_ENABLED);
         assertThat(testHousePhoto.getCreateAt()).isEqualTo(DEFAULT_CREATE_AT);
 
         // Validate the HousePhoto in Elasticsearch
@@ -184,6 +189,7 @@ public class HousePhotoResourceIntTest {
             .andExpect(jsonPath("$.[*].id").value(hasItem(housePhoto.getId().intValue())))
             .andExpect(jsonPath("$.[*].imageContentType").value(hasItem(DEFAULT_IMAGE_CONTENT_TYPE)))
             .andExpect(jsonPath("$.[*].image").value(hasItem(Base64Utils.encodeToString(DEFAULT_IMAGE))))
+            .andExpect(jsonPath("$.[*].enabled").value(hasItem(DEFAULT_ENABLED.booleanValue())))
             .andExpect(jsonPath("$.[*].createAt").value(hasItem(DEFAULT_CREATE_AT.toString())));
     }
     
@@ -201,6 +207,7 @@ public class HousePhotoResourceIntTest {
             .andExpect(jsonPath("$.id").value(housePhoto.getId().intValue()))
             .andExpect(jsonPath("$.imageContentType").value(DEFAULT_IMAGE_CONTENT_TYPE))
             .andExpect(jsonPath("$.image").value(Base64Utils.encodeToString(DEFAULT_IMAGE)))
+            .andExpect(jsonPath("$.enabled").value(DEFAULT_ENABLED.booleanValue()))
             .andExpect(jsonPath("$.createAt").value(DEFAULT_CREATE_AT.toString()));
     }
     @Test
@@ -226,6 +233,7 @@ public class HousePhotoResourceIntTest {
         updatedHousePhoto
             .image(UPDATED_IMAGE)
             .imageContentType(UPDATED_IMAGE_CONTENT_TYPE)
+            .enabled(UPDATED_ENABLED)
             .createAt(UPDATED_CREATE_AT);
         HousePhotoDTO housePhotoDTO = housePhotoMapper.toDto(updatedHousePhoto);
 
@@ -240,6 +248,7 @@ public class HousePhotoResourceIntTest {
         HousePhoto testHousePhoto = housePhotoList.get(housePhotoList.size() - 1);
         assertThat(testHousePhoto.getImage()).isEqualTo(UPDATED_IMAGE);
         assertThat(testHousePhoto.getImageContentType()).isEqualTo(UPDATED_IMAGE_CONTENT_TYPE);
+        assertThat(testHousePhoto.isEnabled()).isEqualTo(UPDATED_ENABLED);
         assertThat(testHousePhoto.getCreateAt()).isEqualTo(UPDATED_CREATE_AT);
 
         // Validate the HousePhoto in Elasticsearch
@@ -303,6 +312,7 @@ public class HousePhotoResourceIntTest {
             .andExpect(jsonPath("$.[*].id").value(hasItem(housePhoto.getId().intValue())))
             .andExpect(jsonPath("$.[*].imageContentType").value(hasItem(DEFAULT_IMAGE_CONTENT_TYPE)))
             .andExpect(jsonPath("$.[*].image").value(hasItem(Base64Utils.encodeToString(DEFAULT_IMAGE))))
+            .andExpect(jsonPath("$.[*].enabled").value(hasItem(DEFAULT_ENABLED.booleanValue())))
             .andExpect(jsonPath("$.[*].createAt").value(hasItem(DEFAULT_CREATE_AT.toString())));
     }
 

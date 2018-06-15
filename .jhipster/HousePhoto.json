@@ -1,9 +1,14 @@
 {
+    "name": "HousePhoto",
     "fields": [
         {
             "fieldName": "image",
             "fieldType": "byte[]",
             "fieldTypeBlobContent": "image"
+        },
+        {
+            "fieldName": "enabled",
+            "fieldType": "Boolean"
         },
         {
             "fieldName": "createAt",

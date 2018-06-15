@@ -1,4 +1,5 @@
 {
+    "name": "District",
     "fields": [
         {
             "fieldName": "name",
@@ -26,6 +27,12 @@
         },
         {
             "relationshipType": "one-to-many",
+            "relationshipName": "cities",
+            "otherEntityName": "city",
+            "otherEntityRelationshipName": "district"
+        },
+        {
+            "relationshipType": "one-to-many",
             "relationshipName": "houses",
             "otherEntityName": "house",
             "otherEntityRelationshipName": "district"
@@ -35,6 +42,12 @@
             "relationshipName": "city",
             "otherEntityName": "city",
             "otherEntityField": "name"
+        },
+        {
+            "relationshipName": "ward",
+            "otherEntityName": "ward",
+            "relationshipType": "many-to-one",
+            "otherEntityField": "id"
         }
     ],
     "changelogDate": "20180611134355",

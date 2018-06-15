@@ -1,4 +1,5 @@
 {
+    "name": "City",
     "fields": [
         {
             "fieldName": "name",
@@ -17,7 +18,14 @@
             "fieldType": "LocalDate"
         }
     ],
-    "relationships": [],
+    "relationships": [
+        {
+            "relationshipName": "district",
+            "otherEntityName": "district",
+            "relationshipType": "many-to-one",
+            "otherEntityField": "id"
+        }
+    ],
     "changelogDate": "20180611134354",
     "entityTableName": "city",
     "dto": "mapstruct",

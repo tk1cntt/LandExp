@@ -20,12 +20,12 @@ export class HouseDetail extends React.Component<IHouseDetailProps> {
   }
 
   render() {
-    const { house } = this.props;
+    const { houseEntity } = this.props;
     return (
       <Row>
         <Col md="8">
           <h2>
-            <Translate contentKey="landexpApp.house.detail.title">House</Translate> [<b>{house.id}</b>]
+            <Translate contentKey="landexpApp.house.detail.title">House</Translate> [<b>{houseEntity.id}</b>]
           </h2>
           <dl className="jh-entity-details">
             <dt>
@@ -33,182 +33,200 @@ export class HouseDetail extends React.Component<IHouseDetailProps> {
                 <Translate contentKey="landexpApp.house.avatar">Avatar</Translate>
               </span>
             </dt>
-            <dd>{house.avatar}</dd>
+            <dd>{houseEntity.avatar}</dd>
             <dt>
               <span id="actionType">
                 <Translate contentKey="landexpApp.house.actionType">Action Type</Translate>
               </span>
             </dt>
-            <dd>{house.actionType}</dd>
+            <dd>{houseEntity.actionType}</dd>
             <dt>
               <span id="address">
                 <Translate contentKey="landexpApp.house.address">Address</Translate>
               </span>
             </dt>
-            <dd>{house.address}</dd>
+            <dd>{houseEntity.address}</dd>
             <dt>
               <span id="money">
                 <Translate contentKey="landexpApp.house.money">Money</Translate>
               </span>
             </dt>
-            <dd>{house.money}</dd>
+            <dd>{houseEntity.money}</dd>
             <dt>
               <span id="moneyType">
                 <Translate contentKey="landexpApp.house.moneyType">Money Type</Translate>
               </span>
             </dt>
-            <dd>{house.moneyType}</dd>
+            <dd>{houseEntity.moneyType}</dd>
             <dt>
               <span id="acreage">
                 <Translate contentKey="landexpApp.house.acreage">Acreage</Translate>
               </span>
             </dt>
-            <dd>{house.acreage}</dd>
+            <dd>{houseEntity.acreage}</dd>
             <dt>
               <span id="acreageStreetSide">
                 <Translate contentKey="landexpApp.house.acreageStreetSide">Acreage Street Side</Translate>
               </span>
             </dt>
-            <dd>{house.acreageStreetSide}</dd>
+            <dd>{houseEntity.acreageStreetSide}</dd>
             <dt>
               <span id="discount">
                 <Translate contentKey="landexpApp.house.discount">Discount</Translate>
               </span>
             </dt>
-            <dd>{house.discount}</dd>
+            <dd>{houseEntity.discount}</dd>
             <dt>
               <span id="direction">
                 <Translate contentKey="landexpApp.house.direction">Direction</Translate>
               </span>
             </dt>
-            <dd>{house.direction}</dd>
+            <dd>{houseEntity.direction}</dd>
             <dt>
               <span id="directionBalcony">
                 <Translate contentKey="landexpApp.house.directionBalcony">Direction Balcony</Translate>
               </span>
             </dt>
-            <dd>{house.directionBalcony}</dd>
+            <dd>{houseEntity.directionBalcony}</dd>
             <dt>
               <span id="floor">
                 <Translate contentKey="landexpApp.house.floor">Floor</Translate>
               </span>
             </dt>
-            <dd>{house.floor}</dd>
+            <dd>{houseEntity.floor}</dd>
             <dt>
               <span id="numberOfFloor">
                 <Translate contentKey="landexpApp.house.numberOfFloor">Number Of Floor</Translate>
               </span>
             </dt>
-            <dd>{house.numberOfFloor}</dd>
+            <dd>{houseEntity.numberOfFloor}</dd>
             <dt>
               <span id="bathRoom">
                 <Translate contentKey="landexpApp.house.bathRoom">Bath Room</Translate>
               </span>
             </dt>
-            <dd>{house.bathRoom}</dd>
+            <dd>{houseEntity.bathRoom}</dd>
             <dt>
               <span id="bedRoom">
                 <Translate contentKey="landexpApp.house.bedRoom">Bed Room</Translate>
               </span>
             </dt>
-            <dd>{house.bedRoom}</dd>
+            <dd>{houseEntity.bedRoom}</dd>
             <dt>
               <span id="parking">
                 <Translate contentKey="landexpApp.house.parking">Parking</Translate>
               </span>
             </dt>
-            <dd>{house.parking ? 'true' : 'false'}</dd>
+            <dd>{houseEntity.parking ? 'true' : 'false'}</dd>
             <dt>
               <span id="furniture">
                 <Translate contentKey="landexpApp.house.furniture">Furniture</Translate>
               </span>
             </dt>
-            <dd>{house.furniture ? 'true' : 'false'}</dd>
+            <dd>{houseEntity.furniture ? 'true' : 'false'}</dd>
             <dt>
               <span id="summary">
                 <Translate contentKey="landexpApp.house.summary">Summary</Translate>
               </span>
             </dt>
-            <dd>{house.summary}</dd>
+            <dd>{houseEntity.summary}</dd>
             <dt>
               <span id="landType">
                 <Translate contentKey="landexpApp.house.landType">Land Type</Translate>
               </span>
             </dt>
-            <dd>{house.landType}</dd>
+            <dd>{houseEntity.landType}</dd>
             <dt>
               <span id="saleType">
                 <Translate contentKey="landexpApp.house.saleType">Sale Type</Translate>
               </span>
             </dt>
-            <dd>{house.saleType}</dd>
+            <dd>{houseEntity.saleType}</dd>
             <dt>
               <span id="fee">
                 <Translate contentKey="landexpApp.house.fee">Fee</Translate>
               </span>
             </dt>
-            <dd>{house.fee}</dd>
+            <dd>{houseEntity.fee}</dd>
             <dt>
               <span id="feeMax">
                 <Translate contentKey="landexpApp.house.feeMax">Fee Max</Translate>
               </span>
             </dt>
-            <dd>{house.feeMax}</dd>
+            <dd>{houseEntity.feeMax}</dd>
             <dt>
               <span id="present">
                 <Translate contentKey="landexpApp.house.present">Present</Translate>
               </span>
             </dt>
-            <dd>{house.present}</dd>
+            <dd>{houseEntity.present}</dd>
             <dt>
               <span id="hits">
                 <Translate contentKey="landexpApp.house.hits">Hits</Translate>
               </span>
             </dt>
-            <dd>{house.hits}</dd>
+            <dd>{houseEntity.hits}</dd>
             <dt>
               <span id="customer">
                 <Translate contentKey="landexpApp.house.customer">Customer</Translate>
               </span>
             </dt>
-            <dd>{house.customer}</dd>
+            <dd>{houseEntity.customer}</dd>
             <dt>
               <span id="mobile">
                 <Translate contentKey="landexpApp.house.mobile">Mobile</Translate>
               </span>
             </dt>
-            <dd>{house.mobile}</dd>
+            <dd>{houseEntity.mobile}</dd>
             <dt>
               <span id="email">
                 <Translate contentKey="landexpApp.house.email">Email</Translate>
               </span>
             </dt>
-            <dd>{house.email}</dd>
+            <dd>{houseEntity.email}</dd>
             <dt>
               <span id="facebook">
                 <Translate contentKey="landexpApp.house.facebook">Facebook</Translate>
               </span>
             </dt>
-            <dd>{house.facebook}</dd>
+            <dd>{houseEntity.facebook}</dd>
             <dt>
               <span id="zalo">
                 <Translate contentKey="landexpApp.house.zalo">Zalo</Translate>
               </span>
             </dt>
-            <dd>{house.zalo}</dd>
+            <dd>{houseEntity.zalo}</dd>
             <dt>
               <span id="statusType">
                 <Translate contentKey="landexpApp.house.statusType">Status Type</Translate>
               </span>
             </dt>
-            <dd>{house.statusType}</dd>
+            <dd>{houseEntity.statusType}</dd>
+            <dt>
+              <span id="googleId">
+                <Translate contentKey="landexpApp.house.googleId">Google Id</Translate>
+              </span>
+            </dt>
+            <dd>{houseEntity.googleId}</dd>
+            <dt>
+              <span id="latitude">
+                <Translate contentKey="landexpApp.house.latitude">Latitude</Translate>
+              </span>
+            </dt>
+            <dd>{houseEntity.latitude}</dd>
+            <dt>
+              <span id="longitude">
+                <Translate contentKey="landexpApp.house.longitude">Longitude</Translate>
+              </span>
+            </dt>
+            <dd>{houseEntity.longitude}</dd>
             <dt>
               <span id="createAt">
                 <Translate contentKey="landexpApp.house.createAt">Create At</Translate>
               </span>
             </dt>
             <dd>
-              <TextFormat value={house.createAt} type="date" format={APP_LOCAL_DATE_FORMAT} />
+              <TextFormat value={houseEntity.createAt} type="date" format={APP_LOCAL_DATE_FORMAT} />
             </dd>
             <dt>
               <span id="updateAt">
@@ -216,32 +234,32 @@ export class HouseDetail extends React.Component<IHouseDetailProps> {
               </span>
             </dt>
             <dd>
-              <TextFormat value={house.updateAt} type="date" format={APP_LOCAL_DATE_FORMAT} />
+              <TextFormat value={houseEntity.updateAt} type="date" format={APP_LOCAL_DATE_FORMAT} />
             </dd>
             <dt>
               <Translate contentKey="landexpApp.house.district">District</Translate>
             </dt>
-            <dd>{house.districtId ? house.districtId : ''}</dd>
+            <dd>{houseEntity.districtId ? houseEntity.districtId : ''}</dd>
             <dt>
               <Translate contentKey="landexpApp.house.city">City</Translate>
             </dt>
-            <dd>{house.cityName ? house.cityName : ''}</dd>
+            <dd>{houseEntity.cityName ? houseEntity.cityName : ''}</dd>
             <dt>
               <Translate contentKey="landexpApp.house.street">Street</Translate>
             </dt>
-            <dd>{house.streetName ? house.streetName : ''}</dd>
+            <dd>{houseEntity.streetName ? houseEntity.streetName : ''}</dd>
             <dt>
               <Translate contentKey="landexpApp.house.project">Project</Translate>
             </dt>
-            <dd>{house.projectName ? house.projectName : ''}</dd>
+            <dd>{houseEntity.projectName ? houseEntity.projectName : ''}</dd>
             <dt>
               <Translate contentKey="landexpApp.house.createBy">Create By</Translate>
             </dt>
-            <dd>{house.createByLogin ? house.createByLogin : ''}</dd>
+            <dd>{houseEntity.createByLogin ? houseEntity.createByLogin : ''}</dd>
             <dt>
               <Translate contentKey="landexpApp.house.updateBy">Update By</Translate>
             </dt>
-            <dd>{house.updateByLogin ? house.updateByLogin : ''}</dd>
+            <dd>{houseEntity.updateByLogin ? houseEntity.updateByLogin : ''}</dd>
           </dl>
           <Button tag={Link} to="/entity/house" replace color="info">
             <FontAwesomeIcon icon="arrow-left" />{' '}
@@ -249,7 +267,7 @@ export class HouseDetail extends React.Component<IHouseDetailProps> {
               <Translate contentKey="entity.action.back">Back</Translate>
             </span>
           </Button>&nbsp;
-          <Button tag={Link} to={`/entity/house/${house.id}/edit`} replace color="primary">
+          <Button tag={Link} to={`/entity/house/${houseEntity.id}/edit`} replace color="primary">
             <FontAwesomeIcon icon="pencil-alt" />{' '}
             <span className="d-none d-md-inline">
               <Translate contentKey="entity.action.edit">Edit</Translate>
@@ -262,7 +280,7 @@ export class HouseDetail extends React.Component<IHouseDetailProps> {
 }
 
 const mapStateToProps = ({ house }: IRootState) => ({
-  house: house.entity
+  houseEntity: house.entity
 });
 
 const mapDispatchToProps = { getEntity };

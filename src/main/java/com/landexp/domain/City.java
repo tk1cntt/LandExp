@@ -3,6 +3,7 @@ package com.landexp.domain;
 
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 import javax.persistence.*;
 
@@ -38,6 +39,10 @@ public class City implements Serializable {
     @UpdateTimestamp
     @Column(name = "update_at")
     private LocalDate updateAt;
+
+    @ManyToOne
+    @JsonIgnoreProperties("cities")
+    private District district;
 
     // jhipster-needle-entity-add-field - JHipster will add fields here, do not remove
     public Long getId() {
@@ -98,6 +103,19 @@ public class City implements Serializable {
 
     public void setUpdateAt(LocalDate updateAt) {
         this.updateAt = updateAt;
+    }
+
+    public District getDistrict() {
+        return district;
+    }
+
+    public City district(District district) {
+        this.district = district;
+        return this;
+    }
+
+    public void setDistrict(District district) {
+        this.district = district;
     }
     // jhipster-needle-entity-add-getters-setters - JHipster will add getters and setters here, do not remove
 

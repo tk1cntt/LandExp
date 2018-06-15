@@ -98,6 +98,9 @@ export interface IHouse {
   facebook?: string;
   zalo?: string;
   statusType?: StatusType;
+  googleId?: string;
+  latitude?: number;
+  longitude?: number;
   createAt?: Moment;
   updateAt?: Moment;
   districtId?: number;

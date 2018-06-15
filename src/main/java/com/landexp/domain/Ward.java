@@ -1,5 +1,6 @@
 package com.landexp.domain;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 import javax.persistence.*;
@@ -7,6 +8,8 @@ import javax.persistence.*;
 import org.springframework.data.elasticsearch.annotations.Document;
 import java.io.Serializable;
 import java.time.LocalDate;
+import java.util.HashSet;
+import java.util.Set;
 import java.util.Objects;
 
 /**
@@ -34,6 +37,9 @@ public class Ward implements Serializable {
 
     @Column(name = "update_at")
     private LocalDate updateAt;
+
+    @OneToMany(mappedBy = "ward")
+    private Set<District> districts = new HashSet<>();
 
     @ManyToOne
     @JsonIgnoreProperties("")
@@ -98,6 +104,31 @@ public class Ward implements Serializable {
 
     public void setUpdateAt(LocalDate updateAt) {
         this.updateAt = updateAt;
+    }
+
+    public Set<District> getDistricts() {
+        return districts;
+    }
+
+    public Ward districts(Set<District> districts) {
+        this.districts = districts;
+        return this;
+    }
+
+    public Ward addDistricts(District district) {
+        this.districts.add(district);
+        district.setWard(this);
+        return this;
+    }
+
+    public Ward removeDistricts(District district) {
+        this.districts.remove(district);
+        district.setWard(null);
+        return this;
+    }
+
+    public void setDistricts(Set<District> districts) {
+        this.districts = districts;
     }
 
     public District getDistrict() {

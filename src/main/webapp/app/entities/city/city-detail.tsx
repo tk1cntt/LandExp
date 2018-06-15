@@ -20,12 +20,12 @@ export class CityDetail extends React.Component<ICityDetailProps> {
   }
 
   render() {
-    const { city } = this.props;
+    const { cityEntity } = this.props;
     return (
       <Row>
         <Col md="8">
           <h2>
-            <Translate contentKey="landexpApp.city.detail.title">City</Translate> [<b>{city.id}</b>]
+            <Translate contentKey="landexpApp.city.detail.title">City</Translate> [<b>{cityEntity.id}</b>]
           </h2>
           <dl className="jh-entity-details">
             <dt>
@@ -33,20 +33,20 @@ export class CityDetail extends React.Component<ICityDetailProps> {
                 <Translate contentKey="landexpApp.city.name">Name</Translate>
               </span>
             </dt>
-            <dd>{city.name}</dd>
+            <dd>{cityEntity.name}</dd>
             <dt>
               <span id="enabled">
                 <Translate contentKey="landexpApp.city.enabled">Enabled</Translate>
               </span>
             </dt>
-            <dd>{city.enabled ? 'true' : 'false'}</dd>
+            <dd>{cityEntity.enabled ? 'true' : 'false'}</dd>
             <dt>
               <span id="createAt">
                 <Translate contentKey="landexpApp.city.createAt">Create At</Translate>
               </span>
             </dt>
             <dd>
-              <TextFormat value={city.createAt} type="date" format={APP_LOCAL_DATE_FORMAT} />
+              <TextFormat value={cityEntity.createAt} type="date" format={APP_LOCAL_DATE_FORMAT} />
             </dd>
             <dt>
               <span id="updateAt">
@@ -54,8 +54,12 @@ export class CityDetail extends React.Component<ICityDetailProps> {
               </span>
             </dt>
             <dd>
-              <TextFormat value={city.updateAt} type="date" format={APP_LOCAL_DATE_FORMAT} />
+              <TextFormat value={cityEntity.updateAt} type="date" format={APP_LOCAL_DATE_FORMAT} />
             </dd>
+            <dt>
+              <Translate contentKey="landexpApp.city.district">District</Translate>
+            </dt>
+            <dd>{cityEntity.districtId ? cityEntity.districtId : ''}</dd>
           </dl>
           <Button tag={Link} to="/entity/city" replace color="info">
             <FontAwesomeIcon icon="arrow-left" />{' '}
@@ -63,7 +67,7 @@ export class CityDetail extends React.Component<ICityDetailProps> {
               <Translate contentKey="entity.action.back">Back</Translate>
             </span>
           </Button>&nbsp;
-          <Button tag={Link} to={`/entity/city/${city.id}/edit`} replace color="primary">
+          <Button tag={Link} to={`/entity/city/${cityEntity.id}/edit`} replace color="primary">
             <FontAwesomeIcon icon="pencil-alt" />{' '}
             <span className="d-none d-md-inline">
               <Translate contentKey="entity.action.edit">Edit</Translate>
@@ -76,7 +80,7 @@ export class CityDetail extends React.Component<ICityDetailProps> {
 }
 
 const mapStateToProps = ({ city }: IRootState) => ({
-  city: city.entity
+  cityEntity: city.entity
 });
 
 const mapDispatchToProps = { getEntity };

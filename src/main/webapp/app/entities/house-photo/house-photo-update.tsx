@@ -59,11 +59,12 @@ export class HousePhotoUpdate extends React.Component<IHousePhotoUpdateProps, IH
 
   saveEntity = (event, errors, values) => {
     if (errors.length === 0) {
-      const { housePhoto } = this.props;
+      const { housePhotoEntity } = this.props;
       const entity = {
-        ...housePhoto,
+        ...housePhotoEntity,
         ...values
       };
+
       if (this.state.isNew) {
         this.props.createEntity(entity);
       } else {
@@ -130,10 +131,10 @@ export class HousePhotoUpdate extends React.Component<IHousePhotoUpdateProps, IH
 
   render() {
     const isInvalid = false;
-    const { housePhoto, houses, users, loading, updating } = this.props;
+    const { housePhotoEntity, houses, users, loading, updating } = this.props;
     const { isNew } = this.state;
 
-    const { image, imageContentType } = housePhoto;
+    const { image, imageContentType } = housePhotoEntity;
 
     return (
       <div>
@@ -149,7 +150,7 @@ export class HousePhotoUpdate extends React.Component<IHousePhotoUpdateProps, IH
             {loading ? (
               <p>Loading...</p>
             ) : (
-              <AvForm model={isNew ? {} : housePhoto} onSubmit={this.saveEntity}>
+              <AvForm model={isNew ? {} : housePhotoEntity} onSubmit={this.saveEntity}>
                 {!isNew ? (
                   <AvGroup>
                     <Label for="id">
@@ -186,6 +187,12 @@ export class HousePhotoUpdate extends React.Component<IHousePhotoUpdateProps, IH
                     ) : null}
                     <input id="file_image" type="file" onChange={this.onBlobChange(true, 'image')} accept="image/*" />
                   </AvGroup>
+                </AvGroup>
+                <AvGroup>
+                  <Label id="enabledLabel" check>
+                    <AvInput id="house-photo-enabled" type="checkbox" className="form-control" name="enabled" />
+                    <Translate contentKey="landexpApp.housePhoto.enabled">Enabled</Translate>
+                  </Label>
                 </AvGroup>
                 <AvGroup>
                   <Label id="createAtLabel" for="createAt">
@@ -273,7 +280,7 @@ export class HousePhotoUpdate extends React.Component<IHousePhotoUpdateProps, IH
 const mapStateToProps = (storeState: IRootState) => ({
   houses: storeState.house.entities,
   users: storeState.userManagement.users,
-  housePhoto: storeState.housePhoto.entity,
+  housePhotoEntity: storeState.housePhoto.entity,
   loading: storeState.housePhoto.loading,
   updating: storeState.housePhoto.updating
 });

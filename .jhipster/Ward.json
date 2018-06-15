@@ -1,4 +1,5 @@
 {
+    "name": "Ward",
     "fields": [
         {
             "fieldName": "name",
@@ -18,6 +19,12 @@
         }
     ],
     "relationships": [
+        {
+            "relationshipType": "one-to-many",
+            "relationshipName": "districts",
+            "otherEntityName": "district",
+            "otherEntityRelationshipName": "ward"
+        },
         {
             "relationshipType": "many-to-one",
             "relationshipName": "district",

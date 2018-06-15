@@ -17,7 +17,7 @@ export class CityDeleteDialog extends React.Component<ICityDeleteDialogProps> {
   }
 
   confirmDelete = event => {
-    this.props.deleteEntity(this.props.city.id);
+    this.props.deleteEntity(this.props.cityEntity.id);
     this.handleClose(event);
   };
 
@@ -27,14 +27,14 @@ export class CityDeleteDialog extends React.Component<ICityDeleteDialogProps> {
   };
 
   render() {
-    const { city } = this.props;
+    const { cityEntity } = this.props;
     return (
       <Modal isOpen toggle={this.handleClose}>
         <ModalHeader toggle={this.handleClose}>
           <Translate contentKey="entity.delete.title">Confirm delete operation</Translate>
         </ModalHeader>
         <ModalBody>
-          <Translate contentKey="landexpApp.city.delete.question" interpolate={{ id: city.id }}>
+          <Translate contentKey="landexpApp.city.delete.question" interpolate={{ id: cityEntity.id }}>
             Are you sure you want to delete this City?
           </Translate>
         </ModalBody>
@@ -54,7 +54,7 @@ export class CityDeleteDialog extends React.Component<ICityDeleteDialogProps> {
 }
 
 const mapStateToProps = ({ city }: IRootState) => ({
-  city: city.entity
+  cityEntity: city.entity
 });
 
 const mapDispatchToProps = { getEntity, deleteEntity };

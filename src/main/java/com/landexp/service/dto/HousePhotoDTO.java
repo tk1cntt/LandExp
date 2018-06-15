@@ -16,6 +16,8 @@ public class HousePhotoDTO implements Serializable {
     private byte[] image;
     private String imageContentType;
 
+    private Boolean enabled;
+
     private LocalDate createAt;
 
     private Long houseId;
@@ -50,6 +52,14 @@ public class HousePhotoDTO implements Serializable {
 
     public void setImageContentType(String imageContentType) {
         this.imageContentType = imageContentType;
+    }
+
+    public Boolean isEnabled() {
+        return enabled;
+    }
+
+    public void setEnabled(Boolean enabled) {
+        this.enabled = enabled;
     }
 
     public LocalDate getCreateAt() {
@@ -126,6 +136,7 @@ public class HousePhotoDTO implements Serializable {
         return "HousePhotoDTO{" +
             "id=" + getId() +
             ", image='" + getImage() + "'" +
+            ", enabled='" + isEnabled() + "'" +
             ", createAt='" + getCreateAt() + "'" +
             ", house=" + getHouseId() +
             ", createBy=" + getCreateById() +

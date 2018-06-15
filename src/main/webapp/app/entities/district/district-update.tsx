@@ -12,6 +12,8 @@ import { IRegion } from 'app/shared/model/region.model';
 import { getEntities as getRegions } from 'app/entities/region/region.reducer';
 import { ICity } from 'app/shared/model/city.model';
 import { getEntities as getCities } from 'app/entities/city/city.reducer';
+import { IWard } from 'app/shared/model/ward.model';
+import { getEntities as getWards } from 'app/entities/ward/ward.reducer';
 import { getEntity, updateEntity, createEntity, reset } from './district.reducer';
 import { IDistrict } from 'app/shared/model/district.model';
 // tslint:disable-next-line:no-unused-variable
@@ -23,7 +25,9 @@ export interface IDistrictUpdateProps extends StateProps, DispatchProps, RouteCo
 export interface IDistrictUpdateState {
   isNew: boolean;
   regionId: number;
+  citiesId: number;
   cityId: number;
+  wardId: number;
 }
 
 export class DistrictUpdate extends React.Component<IDistrictUpdateProps, IDistrictUpdateState> {
@@ -31,7 +35,9 @@ export class DistrictUpdate extends React.Component<IDistrictUpdateProps, IDistr
     super(props);
     this.state = {
       regionId: 0,
+      citiesId: 0,
       cityId: 0,
+      wardId: 0,
       isNew: !this.props.match.params || !this.props.match.params.id
     };
   }
@@ -45,13 +51,14 @@ export class DistrictUpdate extends React.Component<IDistrictUpdateProps, IDistr
 
     this.props.getRegions();
     this.props.getCities();
+    this.props.getWards();
   }
 
   saveEntity = (event, errors, values) => {
     if (errors.length === 0) {
-      const { district } = this.props;
+      const { districtEntity } = this.props;
       const entity = {
-        ...district,
+        ...districtEntity,
         ...values
       };
 
@@ -102,9 +109,26 @@ export class DistrictUpdate extends React.Component<IDistrictUpdateProps, IDistr
     }
   };
 
+  wardUpdate = element => {
+    const id = element.target.value.toString();
+    if (id === '') {
+      this.setState({
+        wardId: -1
+      });
+    } else {
+      for (const i in this.props.wards) {
+        if (id === this.props.wards[i].id.toString()) {
+          this.setState({
+            wardId: this.props.wards[i].id
+          });
+        }
+      }
+    }
+  };
+
   render() {
     const isInvalid = false;
-    const { district, regions, cities, loading, updating } = this.props;
+    const { districtEntity, regions, cities, wards, loading, updating } = this.props;
     const { isNew } = this.state;
 
     return (
@@ -121,7 +145,7 @@ export class DistrictUpdate extends React.Component<IDistrictUpdateProps, IDistr
             {loading ? (
               <p>Loading...</p>
             ) : (
-              <AvForm model={isNew ? {} : district} onSubmit={this.saveEntity}>
+              <AvForm model={isNew ? {} : districtEntity} onSubmit={this.saveEntity}>
                 {!isNew ? (
                   <AvGroup>
                     <Label for="id">
@@ -184,6 +208,21 @@ export class DistrictUpdate extends React.Component<IDistrictUpdateProps, IDistr
                       : null}
                   </AvInput>
                 </AvGroup>
+                <AvGroup>
+                  <Label for="ward.id">
+                    <Translate contentKey="landexpApp.district.ward">Ward</Translate>
+                  </Label>
+                  <AvInput id="district-ward" type="select" className="form-control" name="wardId" onChange={this.wardUpdate}>
+                    <option value="" key="0" />
+                    {wards
+                      ? wards.map(otherEntity => (
+                          <option value={otherEntity.id} key={otherEntity.id}>
+                            {otherEntity.id}
+                          </option>
+                        ))
+                      : null}
+                  </AvInput>
+                </AvGroup>
                 <Button tag={Link} id="cancel-save" to="/entity/district" replace color="info">
                   <FontAwesomeIcon icon="arrow-left" />&nbsp;
                   <span className="d-none d-md-inline">
@@ -207,7 +246,8 @@ export class DistrictUpdate extends React.Component<IDistrictUpdateProps, IDistr
 const mapStateToProps = (storeState: IRootState) => ({
   regions: storeState.region.entities,
   cities: storeState.city.entities,
-  district: storeState.district.entity,
+  wards: storeState.ward.entities,
+  districtEntity: storeState.district.entity,
   loading: storeState.district.loading,
   updating: storeState.district.updating
 });
@@ -215,6 +255,7 @@ const mapStateToProps = (storeState: IRootState) => ({
 const mapDispatchToProps = {
   getRegions,
   getCities,
+  getWards,
   getEntity,
   updateEntity,
   createEntity,

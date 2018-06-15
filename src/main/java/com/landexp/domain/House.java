@@ -137,6 +137,15 @@ public class House implements Serializable {
     @Column(name = "status_type")
     private StatusType statusType;
 
+    @Column(name = "google_id")
+    private String googleId;
+
+    @Column(name = "latitude")
+    private Float latitude;
+
+    @Column(name = "longitude")
+    private Float longitude;
+
     @CreationTimestamp
     @Column(name = "create_at")
     private LocalDate createAt;
@@ -558,6 +567,45 @@ public class House implements Serializable {
         this.statusType = statusType;
     }
 
+    public String getGoogleId() {
+        return googleId;
+    }
+
+    public House googleId(String googleId) {
+        this.googleId = googleId;
+        return this;
+    }
+
+    public void setGoogleId(String googleId) {
+        this.googleId = googleId;
+    }
+
+    public Float getLatitude() {
+        return latitude;
+    }
+
+    public House latitude(Float latitude) {
+        this.latitude = latitude;
+        return this;
+    }
+
+    public void setLatitude(Float latitude) {
+        this.latitude = latitude;
+    }
+
+    public Float getLongitude() {
+        return longitude;
+    }
+
+    public House longitude(Float longitude) {
+        this.longitude = longitude;
+        return this;
+    }
+
+    public void setLongitude(Float longitude) {
+        this.longitude = longitude;
+    }
+
     public LocalDate getCreateAt() {
         return createAt;
     }
@@ -741,6 +789,9 @@ public class House implements Serializable {
             ", facebook='" + getFacebook() + "'" +
             ", zalo='" + getZalo() + "'" +
             ", statusType='" + getStatusType() + "'" +
+            ", googleId='" + getGoogleId() + "'" +
+            ", latitude=" + getLatitude() +
+            ", longitude=" + getLongitude() +
             ", createAt='" + getCreateAt() + "'" +
             ", updateAt='" + getUpdateAt() + "'" +
             "}";

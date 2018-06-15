@@ -136,6 +136,12 @@ public class HouseCriteria implements Serializable {
 
     private StatusTypeFilter statusType;
 
+    private StringFilter googleId;
+
+    private FloatFilter latitude;
+
+    private FloatFilter longitude;
+
     private LocalDateFilter createAt;
 
     private LocalDateFilter updateAt;
@@ -397,6 +403,30 @@ public class HouseCriteria implements Serializable {
         this.statusType = statusType;
     }
 
+    public StringFilter getGoogleId() {
+        return googleId;
+    }
+
+    public void setGoogleId(StringFilter googleId) {
+        this.googleId = googleId;
+    }
+
+    public FloatFilter getLatitude() {
+        return latitude;
+    }
+
+    public void setLatitude(FloatFilter latitude) {
+        this.latitude = latitude;
+    }
+
+    public FloatFilter getLongitude() {
+        return longitude;
+    }
+
+    public void setLongitude(FloatFilter longitude) {
+        this.longitude = longitude;
+    }
+
     public LocalDateFilter getCreateAt() {
         return createAt;
     }
@@ -502,6 +532,9 @@ public class HouseCriteria implements Serializable {
                 (facebook != null ? "facebook=" + facebook + ", " : "") +
                 (zalo != null ? "zalo=" + zalo + ", " : "") +
                 (statusType != null ? "statusType=" + statusType + ", " : "") +
+                (googleId != null ? "googleId=" + googleId + ", " : "") +
+                (latitude != null ? "latitude=" + latitude + ", " : "") +
+                (longitude != null ? "longitude=" + longitude + ", " : "") +
                 (createAt != null ? "createAt=" + createAt + ", " : "") +
                 (updateAt != null ? "updateAt=" + updateAt + ", " : "") +
                 (districtId != null ? "districtId=" + districtId + ", " : "") +

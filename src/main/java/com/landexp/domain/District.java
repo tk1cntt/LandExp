@@ -47,11 +47,18 @@ public class District implements Serializable {
     private Region region;
 
     @OneToMany(mappedBy = "district")
+    private Set<City> cities = new HashSet<>();
+
+    @OneToMany(mappedBy = "district")
     private Set<House> houses = new HashSet<>();
 
     @ManyToOne
     @JsonIgnoreProperties("")
     private City city;
+
+    @ManyToOne
+    @JsonIgnoreProperties("districts")
+    private Ward ward;
 
     // jhipster-needle-entity-add-field - JHipster will add fields here, do not remove
     public Long getId() {
@@ -127,6 +134,31 @@ public class District implements Serializable {
         this.region = region;
     }
 
+    public Set<City> getCities() {
+        return cities;
+    }
+
+    public District cities(Set<City> cities) {
+        this.cities = cities;
+        return this;
+    }
+
+    public District addCities(City city) {
+        this.cities.add(city);
+        city.setDistrict(this);
+        return this;
+    }
+
+    public District removeCities(City city) {
+        this.cities.remove(city);
+        city.setDistrict(null);
+        return this;
+    }
+
+    public void setCities(Set<City> cities) {
+        this.cities = cities;
+    }
+
     public Set<House> getHouses() {
         return houses;
     }
@@ -163,6 +195,19 @@ public class District implements Serializable {
 
     public void setCity(City city) {
         this.city = city;
+    }
+
+    public Ward getWard() {
+        return ward;
+    }
+
+    public District ward(Ward ward) {
+        this.ward = ward;
+        return this;
+    }
+
+    public void setWard(Ward ward) {
+        this.ward = ward;
     }
     // jhipster-needle-entity-add-getters-setters - JHipster will add getters and setters here, do not remove
 

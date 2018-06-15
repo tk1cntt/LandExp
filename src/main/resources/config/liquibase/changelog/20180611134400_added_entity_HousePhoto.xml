@@ -29,6 +29,10 @@
                 <constraints nullable="true" />
             </column>
 
+            <column name="enabled" type="bit">
+                <constraints nullable="true" />
+            </column>
+
             <column name="create_at" type="date">
                 <constraints nullable="true" />
             </column>
