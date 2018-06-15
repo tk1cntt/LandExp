@@ -48,7 +48,9 @@ relationship ManyToMany {
 }
 
 relationship OneToMany {
+   District{cities} to City,
    Region{districts} to District,
+   Ward{districts} to District,
    District{houses} to House
 }
 
