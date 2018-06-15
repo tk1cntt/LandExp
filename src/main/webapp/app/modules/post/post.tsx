@@ -12,7 +12,8 @@ const Step = Steps.Step;
 import { IRootState } from 'app/shared/reducers';
 import { getSession } from 'app/shared/reducers/authentication';
 
-import { getEntity, updateEntity } from '../../entities/house/house.reducer';
+import { getEntity as getHouse, updateEntity as updateHouse } from '../../entities/house/house.reducer';
+import { getEntities as getCities } from '../../entities/city/city.reducer';
 import { createEntity as createPhoto, updateEntity as updatePhoto } from '../../entities/house-photo/house-photo.reducer';
 
 import StepOne from './stepOne';
@@ -38,7 +39,8 @@ export class PostPage extends React.Component<IPostProp, IPostState> {
 
   componentDidMount() {
     this.props.getSession();
-    this.props.getEntity('init');
+    this.props.getHouse('init');
+    this.props.getCities();
   }
 
   next = () => {
@@ -79,7 +81,7 @@ export class PostPage extends React.Component<IPostProp, IPostState> {
       ...house,
       ...this.state.house
     };
-    this.props.updateEntity(entity);
+    this.props.updateHouse(entity);
     if (entity.fileList) {
       entity.fileList.map(file => {
         const imageURL = file.thumbUrl;
@@ -218,7 +220,7 @@ const mapStateToProps = storeState => ({
   updating: storeState.house.updating
 });
 
-const mapDispatchToProps = { getSession, getEntity, updateEntity, createPhoto, updatePhoto };
+const mapDispatchToProps = { getSession, getHouse, updateHouse, createPhoto, updatePhoto, getCities };
 
 type StateProps = ReturnType<typeof mapStateToProps>;
 type DispatchProps = typeof mapDispatchToProps;

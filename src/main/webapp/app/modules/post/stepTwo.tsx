@@ -81,18 +81,49 @@ export interface IStepTwoProp extends StateProps, DispatchProps {
 export interface IStepOneState {
   city: any;
   address: any;
+  locations: any;
 }
 
 export class StepTwo extends React.Component<IStepTwoProp, IStepOneState> {
   state: IStepOneState = {
     city: null,
-    address: null
+    address: null,
+    locations: []
   };
 
   componentDidMount() {
     this.props.getSession();
     this.props.getPaymentOfHouse(this.props.house.id);
     this.props.getImageOfHouse(this.props.house.id);
+    const locations = this.state.locations;
+    const cities = this.props.cities;
+    cities.map(city => {
+      const ctyData = {
+        value: city.id,
+        label: city.name,
+        children: []
+      };
+      city.districts.map(data => {
+        const districtData = {
+          value: data.id,
+          label: data.name,
+          children: []
+        };
+        data.wards.map(ward => {
+          const wardData = {
+            value: ward.id,
+            label: ward.name
+          };
+          districtData.children.push(wardData);
+        });
+        ctyData.children.push(districtData);
+      });
+      locations.push(ctyData);
+    });
+    this.setState({
+      locations
+    });
+    // console.log(locations);
   }
 
   onChangeCascader = value => {
@@ -100,9 +131,9 @@ export class StepTwo extends React.Component<IStepTwoProp, IStepOneState> {
       city: value
     });
     this.props.updateHouse({
-      city: value[0],
-      district: value[1],
-      ward: value[2]
+      cityId: value[0],
+      districtId: value[1],
+      wardId: value[2]
     });
   }
 
@@ -126,7 +157,7 @@ export class StepTwo extends React.Component<IStepTwoProp, IStepOneState> {
       }
     };
 
-    const defaultValue = [this.props.house.city, this.props.house.district, this.props.house.ward];
+    const defaultValue = [this.props.house.cityId, this.props.house.districtId, this.props.house.wardId];
 
     return (
       <Row>
@@ -136,7 +167,7 @@ export class StepTwo extends React.Component<IStepTwoProp, IStepOneState> {
               {...formItemLayout}
               label="Thành phố"
             >
-              <Cascader defaultValue={this.state.city || defaultValue} options={options} onChange={this.onChangeCascader} placeholder="Chọn thành phố" />
+              <Cascader defaultValue={this.state.city || defaultValue} options={this.state.locations} onChange={this.onChangeCascader} placeholder="Chọn thành phố" />
             </FormItem>
             <FormItem
               {...formItemLayout}
@@ -154,7 +185,8 @@ export class StepTwo extends React.Component<IStepTwoProp, IStepOneState> {
 const mapStateToProps = storeState => ({
   account: storeState.authentication.account,
   isAuthenticated: storeState.authentication.isAuthenticated,
-  house: storeState.house.entity
+  house: storeState.house.entity,
+  cities: storeState.city.entities
 });
 
 const mapDispatchToProps = { getSession, getPaymentOfHouse, getImageOfHouse };
