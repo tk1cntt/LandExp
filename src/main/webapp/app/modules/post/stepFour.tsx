@@ -5,7 +5,7 @@ import { Link } from 'react-router-dom';
 import { Translate } from 'react-jhipster';
 import { connect } from 'react-redux';
 import { Row, Col, Alert } from 'reactstrap';
-import { Upload, Icon, Modal } from 'antd';
+import { Upload, Icon, Modal, Carousel } from 'antd';
 
 import { IRootState } from 'app/shared/reducers';
 import { getSession } from 'app/shared/reducers/authentication';
@@ -73,6 +73,14 @@ export class StepFour extends React.Component<IStepFourProp, IStepFourState> {
         <div className="ant-upload-text">Chọn hình ảnh giới thiệu nhà của bạn</div>
       </div>
     );
+    const slides = [];
+    if (fileList) {
+      fileList.map(file => {
+        slides.push(
+          <img style={{ width: '600px', height: '400px' }} src={file.thumbUrl} />
+        );
+      });
+    }
     return (
       <div className="clearfix" style={{ padding: 20 }}>
         <Upload
@@ -87,6 +95,13 @@ export class StepFour extends React.Component<IStepFourProp, IStepFourState> {
         <Modal visible={previewVisible} footer={null} onCancel={this.handleCancel}>
           <img alt="example" style={{ width: '100%' }} src={previewImage} />
         </Modal>
+        <Col md="12">
+          <div style={{ marginTop: 30 }}>
+            <Carousel autoplay>
+              {slides}
+            </Carousel>
+          </div>
+        </Col>
       </div>
     );
   }
