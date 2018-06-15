@@ -114,6 +114,9 @@ entity House {
    facebook String,
    zalo String,
    statusType StatusType,
+   googleId String,
+   latitude Float,
+   longitude Float,
    createAt LocalDate,
    updateAt LocalDate
 }
