@@ -1,5 +1,5 @@
 import { Moment } from 'moment';
-import { IDistrict } from './district.model';
+import { IStreet } from './street.model';
 
 export interface IWard {
   id?: number;
@@ -7,9 +7,8 @@ export interface IWard {
   enabled?: boolean;
   createAt?: Moment;
   updateAt?: Moment;
-  districts?: IDistrict[];
-  districtName?: string;
   districtId?: number;
+  streets?: IStreet[];
 }
 
 export const defaultValue: Readonly<IWard> = {

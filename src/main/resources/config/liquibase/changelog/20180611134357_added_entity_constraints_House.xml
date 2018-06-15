@@ -8,17 +8,23 @@
     -->
     <changeSet id="20180611134357-2" author="jhipster">
         
+        <addForeignKeyConstraint baseColumnNames="city_id"
+                                 baseTableName="house"
+                                 constraintName="fk_house_city_id"
+                                 referencedColumnNames="id"
+                                 referencedTableName="city"/>
+
         <addForeignKeyConstraint baseColumnNames="district_id"
                                  baseTableName="house"
                                  constraintName="fk_house_district_id"
                                  referencedColumnNames="id"
                                  referencedTableName="district"/>
 
-        <addForeignKeyConstraint baseColumnNames="city_id"
+        <addForeignKeyConstraint baseColumnNames="ward_id"
                                  baseTableName="house"
-                                 constraintName="fk_house_city_id"
+                                 constraintName="fk_house_ward_id"
                                  referencedColumnNames="id"
-                                 referencedTableName="city"/>
+                                 referencedTableName="ward"/>
 
         <addForeignKeyConstraint baseColumnNames="street_id"
                                  baseTableName="house"

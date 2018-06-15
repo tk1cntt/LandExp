@@ -96,9 +96,6 @@ export class City extends React.Component<ICityProps, ICityState> {
                 <th>
                   <Translate contentKey="landexpApp.city.updateAt">Update At</Translate>
                 </th>
-                <th>
-                  <Translate contentKey="landexpApp.city.district">District</Translate>
-                </th>
                 <th />
               </tr>
             </thead>
@@ -118,7 +115,6 @@ export class City extends React.Component<ICityProps, ICityState> {
                   <td>
                     <TextFormat type="date" value={city.updateAt} format={APP_LOCAL_DATE_FORMAT} />
                   </td>
-                  <td>{city.districtId ? <Link to={`district/${city.districtId}`}>{city.districtId}</Link> : ''}</td>
                   <td className="text-right">
                     <div className="btn-group flex-btn-group-container">
                       <Button tag={Link} to={`${match.url}/${city.id}`} color="info" size="sm">

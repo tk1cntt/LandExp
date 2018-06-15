@@ -137,7 +137,7 @@ export class Street extends React.Component<IStreetProps, IStreetState> {
                   <Translate contentKey="landexpApp.street.updateAt">Update At</Translate> <FontAwesomeIcon icon="sort" />
                 </th>
                 <th>
-                  <Translate contentKey="landexpApp.street.district">District</Translate> <FontAwesomeIcon icon="sort" />
+                  <Translate contentKey="landexpApp.street.ward">Ward</Translate> <FontAwesomeIcon icon="sort" />
                 </th>
                 <th />
               </tr>
@@ -160,7 +160,7 @@ export class Street extends React.Component<IStreetProps, IStreetState> {
                   <td>
                     <TextFormat type="date" value={street.updateAt} format={APP_LOCAL_DATE_FORMAT} />
                   </td>
-                  <td>{street.districtName ? <Link to={`ward/${street.districtId}`}>{street.districtName}</Link> : ''}</td>
+                  <td>{street.wardId ? <Link to={`ward/${street.wardId}`}>{street.wardId}</Link> : ''}</td>
                   <td className="text-right">
                     <div className="btn-group flex-btn-group-container">
                       <Button tag={Link} to={`${match.url}/${street.id}`} color="info" size="sm">

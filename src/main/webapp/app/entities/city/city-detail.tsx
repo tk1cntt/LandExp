@@ -56,10 +56,6 @@ export class CityDetail extends React.Component<ICityDetailProps> {
             <dd>
               <TextFormat value={cityEntity.updateAt} type="date" format={APP_LOCAL_DATE_FORMAT} />
             </dd>
-            <dt>
-              <Translate contentKey="landexpApp.city.district">District</Translate>
-            </dt>
-            <dd>{cityEntity.districtId ? cityEntity.districtId : ''}</dd>
           </dl>
           <Button tag={Link} to="/entity/city" replace color="info">
             <FontAwesomeIcon icon="arrow-left" />{' '}

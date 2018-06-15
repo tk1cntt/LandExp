@@ -182,14 +182,17 @@ public class HouseQueryService extends QueryService<House> {
             if (criteria.getUpdateAt() != null) {
                 specification = specification.and(buildRangeSpecification(criteria.getUpdateAt(), House_.updateAt));
             }
-            if (criteria.getDistrictId() != null) {
-                specification = specification.and(buildReferringEntitySpecification(criteria.getDistrictId(), House_.district, District_.id));
-            }
             if (criteria.getPhotosId() != null) {
                 specification = specification.and(buildReferringEntitySpecification(criteria.getPhotosId(), House_.photos, HousePhoto_.id));
             }
             if (criteria.getCityId() != null) {
                 specification = specification.and(buildReferringEntitySpecification(criteria.getCityId(), House_.city, City_.id));
+            }
+            if (criteria.getDistrictId() != null) {
+                specification = specification.and(buildReferringEntitySpecification(criteria.getDistrictId(), House_.district, District_.id));
+            }
+            if (criteria.getWardId() != null) {
+                specification = specification.and(buildReferringEntitySpecification(criteria.getWardId(), House_.ward, Ward_.id));
             }
             if (criteria.getStreetId() != null) {
                 specification = specification.and(buildReferringEntitySpecification(criteria.getStreetId(), House_.street, Street_.id));

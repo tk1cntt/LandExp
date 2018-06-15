@@ -154,16 +154,20 @@ public class House implements Serializable {
     @Column(name = "update_at")
     private LocalDate updateAt;
 
-    @ManyToOne
-    @JsonIgnoreProperties("houses")
-    private District district;
-
     @OneToMany(mappedBy = "house")
     private Set<HousePhoto> photos = new HashSet<>();
 
     @ManyToOne
     @JsonIgnoreProperties("")
     private City city;
+
+    @ManyToOne
+    @JsonIgnoreProperties("")
+    private District district;
+
+    @ManyToOne
+    @JsonIgnoreProperties("")
+    private Ward ward;
 
     @ManyToOne
     @JsonIgnoreProperties("")
@@ -632,19 +636,6 @@ public class House implements Serializable {
         this.updateAt = updateAt;
     }
 
-    public District getDistrict() {
-        return district;
-    }
-
-    public House district(District district) {
-        this.district = district;
-        return this;
-    }
-
-    public void setDistrict(District district) {
-        this.district = district;
-    }
-
     public Set<HousePhoto> getPhotos() {
         return photos;
     }
@@ -681,6 +672,32 @@ public class House implements Serializable {
 
     public void setCity(City city) {
         this.city = city;
+    }
+
+    public District getDistrict() {
+        return district;
+    }
+
+    public House district(District district) {
+        this.district = district;
+        return this;
+    }
+
+    public void setDistrict(District district) {
+        this.district = district;
+    }
+
+    public Ward getWard() {
+        return ward;
+    }
+
+    public House ward(Ward ward) {
+        this.ward = ward;
+        return this;
+    }
+
+    public void setWard(Ward ward) {
+        this.ward = ward;
     }
 
     public Street getStreet() {

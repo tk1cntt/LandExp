@@ -3,9 +3,10 @@ package com.landexp.web.rest;
 import com.landexp.LandexpApp;
 
 import com.landexp.domain.House;
-import com.landexp.domain.District;
 import com.landexp.domain.HousePhoto;
 import com.landexp.domain.City;
+import com.landexp.domain.District;
+import com.landexp.domain.Ward;
 import com.landexp.domain.Street;
 import com.landexp.domain.LandProject;
 import com.landexp.domain.User;
@@ -1908,25 +1909,6 @@ public class HouseResourceIntTest {
 
     @Test
     @Transactional
-    public void getAllHousesByDistrictIsEqualToSomething() throws Exception {
-        // Initialize the database
-        District district = DistrictResourceIntTest.createEntity(em);
-        em.persist(district);
-        em.flush();
-        house.setDistrict(district);
-        houseRepository.saveAndFlush(house);
-        Long districtId = district.getId();
-
-        // Get all the houseList where district equals to districtId
-        defaultHouseShouldBeFound("districtId.equals=" + districtId);
-
-        // Get all the houseList where district equals to districtId + 1
-        defaultHouseShouldNotBeFound("districtId.equals=" + (districtId + 1));
-    }
-
-
-    @Test
-    @Transactional
     public void getAllHousesByPhotosIsEqualToSomething() throws Exception {
         // Initialize the database
         HousePhoto photos = HousePhotoResourceIntTest.createEntity(em);
@@ -1960,6 +1942,44 @@ public class HouseResourceIntTest {
 
         // Get all the houseList where city equals to cityId + 1
         defaultHouseShouldNotBeFound("cityId.equals=" + (cityId + 1));
+    }
+
+
+    @Test
+    @Transactional
+    public void getAllHousesByDistrictIsEqualToSomething() throws Exception {
+        // Initialize the database
+        District district = DistrictResourceIntTest.createEntity(em);
+        em.persist(district);
+        em.flush();
+        house.setDistrict(district);
+        houseRepository.saveAndFlush(house);
+        Long districtId = district.getId();
+
+        // Get all the houseList where district equals to districtId
+        defaultHouseShouldBeFound("districtId.equals=" + districtId);
+
+        // Get all the houseList where district equals to districtId + 1
+        defaultHouseShouldNotBeFound("districtId.equals=" + (districtId + 1));
+    }
+
+
+    @Test
+    @Transactional
+    public void getAllHousesByWardIsEqualToSomething() throws Exception {
+        // Initialize the database
+        Ward ward = WardResourceIntTest.createEntity(em);
+        em.persist(ward);
+        em.flush();
+        house.setWard(ward);
+        houseRepository.saveAndFlush(house);
+        Long wardId = ward.getId();
+
+        // Get all the houseList where ward equals to wardId
+        defaultHouseShouldBeFound("wardId.equals=" + wardId);
+
+        // Get all the houseList where ward equals to wardId + 1
+        defaultHouseShouldNotBeFound("wardId.equals=" + (wardId + 1));
     }
 
 

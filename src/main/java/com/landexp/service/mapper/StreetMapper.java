@@ -11,11 +11,10 @@ import org.mapstruct.*;
 @Mapper(componentModel = "spring", uses = {WardMapper.class})
 public interface StreetMapper extends EntityMapper<StreetDTO, Street> {
 
-    @Mapping(source = "district.id", target = "districtId")
-    @Mapping(source = "district.name", target = "districtName")
+    @Mapping(source = "ward.id", target = "wardId")
     StreetDTO toDto(Street street);
 
-    @Mapping(source = "districtId", target = "district")
+    @Mapping(source = "wardId", target = "ward")
     Street toEntity(StreetDTO streetDTO);
 
     default Street fromId(Long id) {

@@ -8,10 +8,12 @@ import { Translate, translate, ICrudGetAction, ICrudGetAllAction, ICrudPutAction
 import FontAwesomeIcon from '@fortawesome/react-fontawesome';
 import { IRootState } from 'app/shared/reducers';
 
-import { IDistrict } from 'app/shared/model/district.model';
-import { getEntities as getDistricts } from 'app/entities/district/district.reducer';
 import { ICity } from 'app/shared/model/city.model';
 import { getEntities as getCities } from 'app/entities/city/city.reducer';
+import { IDistrict } from 'app/shared/model/district.model';
+import { getEntities as getDistricts } from 'app/entities/district/district.reducer';
+import { IWard } from 'app/shared/model/ward.model';
+import { getEntities as getWards } from 'app/entities/ward/ward.reducer';
 import { IStreet } from 'app/shared/model/street.model';
 import { getEntities as getStreets } from 'app/entities/street/street.reducer';
 import { ILandProject } from 'app/shared/model/land-project.model';
@@ -28,8 +30,9 @@ export interface IHouseUpdateProps extends StateProps, DispatchProps, RouteCompo
 
 export interface IHouseUpdateState {
   isNew: boolean;
-  districtId: number;
   cityId: number;
+  districtId: number;
+  wardId: number;
   streetId: number;
   projectId: number;
   createById: number;
@@ -40,8 +43,9 @@ export class HouseUpdate extends React.Component<IHouseUpdateProps, IHouseUpdate
   constructor(props) {
     super(props);
     this.state = {
-      districtId: 0,
       cityId: 0,
+      districtId: 0,
+      wardId: 0,
       streetId: 0,
       projectId: 0,
       createById: 0,
@@ -57,8 +61,9 @@ export class HouseUpdate extends React.Component<IHouseUpdateProps, IHouseUpdate
       this.props.getEntity(this.props.match.params.id);
     }
 
-    this.props.getDistricts();
     this.props.getCities();
+    this.props.getDistricts();
+    this.props.getWards();
     this.props.getStreets();
     this.props.getLandProjects();
     this.props.getUsers();
@@ -85,23 +90,6 @@ export class HouseUpdate extends React.Component<IHouseUpdateProps, IHouseUpdate
     this.props.history.push('/entity/house');
   };
 
-  districtUpdate = element => {
-    const id = element.target.value.toString();
-    if (id === '') {
-      this.setState({
-        districtId: -1
-      });
-    } else {
-      for (const i in this.props.districts) {
-        if (id === this.props.districts[i].id.toString()) {
-          this.setState({
-            districtId: this.props.districts[i].id
-          });
-        }
-      }
-    }
-  };
-
   cityUpdate = element => {
     const name = element.target.value.toString();
     if (name === '') {
@@ -113,6 +101,40 @@ export class HouseUpdate extends React.Component<IHouseUpdateProps, IHouseUpdate
         if (name === this.props.cities[i].name.toString()) {
           this.setState({
             cityId: this.props.cities[i].id
+          });
+        }
+      }
+    }
+  };
+
+  districtUpdate = element => {
+    const name = element.target.value.toString();
+    if (name === '') {
+      this.setState({
+        districtId: -1
+      });
+    } else {
+      for (const i in this.props.districts) {
+        if (name === this.props.districts[i].name.toString()) {
+          this.setState({
+            districtId: this.props.districts[i].id
+          });
+        }
+      }
+    }
+  };
+
+  wardUpdate = element => {
+    const name = element.target.value.toString();
+    if (name === '') {
+      this.setState({
+        wardId: -1
+      });
+    } else {
+      for (const i in this.props.wards) {
+        if (name === this.props.wards[i].name.toString()) {
+          this.setState({
+            wardId: this.props.wards[i].id
           });
         }
       }
@@ -189,7 +211,7 @@ export class HouseUpdate extends React.Component<IHouseUpdateProps, IHouseUpdate
 
   render() {
     const isInvalid = false;
-    const { houseEntity, districts, cities, streets, landProjects, users, loading, updating } = this.props;
+    const { houseEntity, cities, districts, wards, streets, landProjects, users, loading, updating } = this.props;
     const { isNew } = this.state;
 
     return (
@@ -529,21 +551,6 @@ export class HouseUpdate extends React.Component<IHouseUpdateProps, IHouseUpdate
                   <AvField id="house-updateAt" type="date" className="form-control" name="updateAt" />
                 </AvGroup>
                 <AvGroup>
-                  <Label for="district.id">
-                    <Translate contentKey="landexpApp.house.district">District</Translate>
-                  </Label>
-                  <AvInput id="house-district" type="select" className="form-control" name="districtId" onChange={this.districtUpdate}>
-                    <option value="" key="0" />
-                    {districts
-                      ? districts.map(otherEntity => (
-                          <option value={otherEntity.id} key={otherEntity.id}>
-                            {otherEntity.id}
-                          </option>
-                        ))
-                      : null}
-                  </AvInput>
-                </AvGroup>
-                <AvGroup>
                   <Label for="city.name">
                     <Translate contentKey="landexpApp.house.city">City</Translate>
                   </Label>
@@ -551,6 +558,36 @@ export class HouseUpdate extends React.Component<IHouseUpdateProps, IHouseUpdate
                     <option value="" key="0" />
                     {cities
                       ? cities.map(otherEntity => (
+                          <option value={otherEntity.id} key={otherEntity.id}>
+                            {otherEntity.name}
+                          </option>
+                        ))
+                      : null}
+                  </AvInput>
+                </AvGroup>
+                <AvGroup>
+                  <Label for="district.name">
+                    <Translate contentKey="landexpApp.house.district">District</Translate>
+                  </Label>
+                  <AvInput id="house-district" type="select" className="form-control" name="districtId" onChange={this.districtUpdate}>
+                    <option value="" key="0" />
+                    {districts
+                      ? districts.map(otherEntity => (
+                          <option value={otherEntity.id} key={otherEntity.id}>
+                            {otherEntity.name}
+                          </option>
+                        ))
+                      : null}
+                  </AvInput>
+                </AvGroup>
+                <AvGroup>
+                  <Label for="ward.name">
+                    <Translate contentKey="landexpApp.house.ward">Ward</Translate>
+                  </Label>
+                  <AvInput id="house-ward" type="select" className="form-control" name="wardId" onChange={this.wardUpdate}>
+                    <option value="" key="0" />
+                    {wards
+                      ? wards.map(otherEntity => (
                           <option value={otherEntity.id} key={otherEntity.id}>
                             {otherEntity.name}
                           </option>
@@ -639,8 +676,9 @@ export class HouseUpdate extends React.Component<IHouseUpdateProps, IHouseUpdate
 }
 
 const mapStateToProps = (storeState: IRootState) => ({
-  districts: storeState.district.entities,
   cities: storeState.city.entities,
+  districts: storeState.district.entities,
+  wards: storeState.ward.entities,
   streets: storeState.street.entities,
   landProjects: storeState.landProject.entities,
   users: storeState.userManagement.users,
@@ -650,8 +688,9 @@ const mapStateToProps = (storeState: IRootState) => ({
 });
 
 const mapDispatchToProps = {
-  getDistricts,
   getCities,
+  getDistricts,
+  getWards,
   getStreets,
   getLandProjects,
   getUsers,

@@ -26,28 +26,16 @@
             "otherEntityField": "id"
         },
         {
-            "relationshipType": "one-to-many",
-            "relationshipName": "cities",
-            "otherEntityName": "city",
-            "otherEntityRelationshipName": "district"
-        },
-        {
-            "relationshipType": "one-to-many",
-            "relationshipName": "houses",
-            "otherEntityName": "house",
-            "otherEntityRelationshipName": "district"
-        },
-        {
-            "relationshipType": "many-to-one",
             "relationshipName": "city",
             "otherEntityName": "city",
-            "otherEntityField": "name"
-        },
-        {
-            "relationshipName": "ward",
-            "otherEntityName": "ward",
             "relationshipType": "many-to-one",
             "otherEntityField": "id"
+        },
+        {
+            "relationshipType": "one-to-many",
+            "relationshipName": "wards",
+            "otherEntityName": "ward",
+            "otherEntityRelationshipName": "district"
         }
     ],
     "changelogDate": "20180611134355",

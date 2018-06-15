@@ -36,12 +36,6 @@ entity Street {
    updateAt LocalDate
 }
 
-relationship ManyToOne {
-   District{city(name)} to City,
-   Ward{district(name)} to District,
-   Street{district(name)} to Ward
-}
-
 relationship ManyToMany {
    Region{user(login)} to User
 }
@@ -129,6 +123,8 @@ entity ServiceFee {
 
 relationship ManyToOne {
    House{city(name)} to City,
+   House{district(name)} to District,
+   House{ward(name)} to Ward,
    House{street(name)} to Street,
    House{project(name)} to LandProject,
    House{createBy(login)} to User,

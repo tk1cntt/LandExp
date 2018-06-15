@@ -20,11 +20,5 @@
                                  referencedColumnNames="id"
                                  referencedTableName="city"/>
 
-        <addForeignKeyConstraint baseColumnNames="ward_id"
-                                 baseTableName="district"
-                                 constraintName="fk_district_ward_id"
-                                 referencedColumnNames="id"
-                                 referencedTableName="ward"/>
-
     </changeSet>
 </databaseChangeLog>

@@ -23,9 +23,7 @@ public class StreetDTO implements Serializable {
 
     private LocalDate updateAt;
 
-    private Long districtId;
-
-    private String districtName;
+    private Long wardId;
 
     public Long getId() {
         return id;
@@ -83,20 +81,12 @@ public class StreetDTO implements Serializable {
         this.updateAt = updateAt;
     }
 
-    public Long getDistrictId() {
-        return districtId;
+    public Long getWardId() {
+        return wardId;
     }
 
-    public void setDistrictId(Long wardId) {
-        this.districtId = wardId;
-    }
-
-    public String getDistrictName() {
-        return districtName;
-    }
-
-    public void setDistrictName(String wardName) {
-        this.districtName = wardName;
+    public void setWardId(Long wardId) {
+        this.wardId = wardId;
     }
 
     @Override
@@ -130,8 +120,7 @@ public class StreetDTO implements Serializable {
             ", enabled='" + isEnabled() + "'" +
             ", createAt='" + getCreateAt() + "'" +
             ", updateAt='" + getUpdateAt() + "'" +
-            ", district=" + getDistrictId() +
-            ", district='" + getDistrictName() + "'" +
+            ", ward=" + getWardId() +
             "}";
     }
 }

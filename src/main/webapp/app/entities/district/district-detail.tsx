@@ -63,11 +63,7 @@ export class DistrictDetail extends React.Component<IDistrictDetailProps> {
             <dt>
               <Translate contentKey="landexpApp.district.city">City</Translate>
             </dt>
-            <dd>{districtEntity.cityName ? districtEntity.cityName : ''}</dd>
-            <dt>
-              <Translate contentKey="landexpApp.district.ward">Ward</Translate>
-            </dt>
-            <dd>{districtEntity.wardId ? districtEntity.wardId : ''}</dd>
+            <dd>{districtEntity.cityId ? districtEntity.cityId : ''}</dd>
           </dl>
           <Button tag={Link} to="/entity/district" replace color="info">
             <FontAwesomeIcon icon="arrow-left" />{' '}

@@ -3,13 +3,15 @@ package com.landexp.domain;
 
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import javax.persistence.*;
 
 import org.springframework.data.elasticsearch.annotations.Document;
 import java.io.Serializable;
 import java.time.LocalDate;
+import java.util.HashSet;
+import java.util.Set;
 import java.util.Objects;
 
 /**
@@ -40,9 +42,8 @@ public class City implements Serializable {
     @Column(name = "update_at")
     private LocalDate updateAt;
 
-    @ManyToOne
-    @JsonIgnoreProperties("cities")
-    private District district;
+    @OneToMany(mappedBy = "city")
+    private Set<District> districts = new HashSet<>();
 
     // jhipster-needle-entity-add-field - JHipster will add fields here, do not remove
     public Long getId() {
@@ -105,17 +106,29 @@ public class City implements Serializable {
         this.updateAt = updateAt;
     }
 
-    public District getDistrict() {
-        return district;
+    public Set<District> getDistricts() {
+        return districts;
     }
 
-    public City district(District district) {
-        this.district = district;
+    public City districts(Set<District> districts) {
+        this.districts = districts;
         return this;
     }
 
-    public void setDistrict(District district) {
-        this.district = district;
+    public City addDistricts(District district) {
+        this.districts.add(district);
+        district.setCity(this);
+        return this;
+    }
+
+    public City removeDistricts(District district) {
+        this.districts.remove(district);
+        district.setCity(null);
+        return this;
+    }
+
+    public void setDistricts(Set<District> districts) {
+        this.districts = districts;
     }
     // jhipster-needle-entity-add-getters-setters - JHipster will add getters and setters here, do not remove
 

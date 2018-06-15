@@ -20,7 +20,6 @@ export interface IWardUpdateProps extends StateProps, DispatchProps, RouteCompon
 
 export interface IWardUpdateState {
   isNew: boolean;
-  districtsId: number;
   districtId: number;
 }
 
@@ -28,7 +27,6 @@ export class WardUpdate extends React.Component<IWardUpdateProps, IWardUpdateSta
   constructor(props) {
     super(props);
     this.state = {
-      districtsId: 0,
       districtId: 0,
       isNew: !this.props.match.params || !this.props.match.params.id
     };
@@ -66,14 +64,14 @@ export class WardUpdate extends React.Component<IWardUpdateProps, IWardUpdateSta
   };
 
   districtUpdate = element => {
-    const name = element.target.value.toString();
-    if (name === '') {
+    const id = element.target.value.toString();
+    if (id === '') {
       this.setState({
         districtId: -1
       });
     } else {
       for (const i in this.props.districts) {
-        if (name === this.props.districts[i].name.toString()) {
+        if (id === this.props.districts[i].id.toString()) {
           this.setState({
             districtId: this.props.districts[i].id
           });
@@ -135,7 +133,7 @@ export class WardUpdate extends React.Component<IWardUpdateProps, IWardUpdateSta
                   <AvField id="ward-updateAt" type="date" className="form-control" name="updateAt" />
                 </AvGroup>
                 <AvGroup>
-                  <Label for="district.name">
+                  <Label for="district.id">
                     <Translate contentKey="landexpApp.ward.district">District</Translate>
                   </Label>
                   <AvInput id="ward-district" type="select" className="form-control" name="districtId" onChange={this.districtUpdate}>
@@ -143,7 +141,7 @@ export class WardUpdate extends React.Component<IWardUpdateProps, IWardUpdateSta
                     {districts
                       ? districts.map(otherEntity => (
                           <option value={otherEntity.id} key={otherEntity.id}>
-                            {otherEntity.name}
+                            {otherEntity.id}
                           </option>
                         ))
                       : null}

@@ -46,8 +46,8 @@ public class Street implements Serializable {
     private LocalDate updateAt;
 
     @ManyToOne
-    @JsonIgnoreProperties("")
-    private Ward district;
+    @JsonIgnoreProperties("streets")
+    private Ward ward;
 
     // jhipster-needle-entity-add-field - JHipster will add fields here, do not remove
     public Long getId() {
@@ -136,17 +136,17 @@ public class Street implements Serializable {
         this.updateAt = updateAt;
     }
 
-    public Ward getDistrict() {
-        return district;
+    public Ward getWard() {
+        return ward;
     }
 
-    public Street district(Ward ward) {
-        this.district = ward;
+    public Street ward(Ward ward) {
+        this.ward = ward;
         return this;
     }
 
-    public void setDistrict(Ward ward) {
-        this.district = ward;
+    public void setWard(Ward ward) {
+        this.ward = ward;
     }
     // jhipster-needle-entity-add-getters-setters - JHipster will add getters and setters here, do not remove
 

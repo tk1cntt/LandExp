@@ -118,7 +118,7 @@ export class Ward extends React.Component<IWardProps, IWardState> {
                   <td>
                     <TextFormat type="date" value={ward.updateAt} format={APP_LOCAL_DATE_FORMAT} />
                   </td>
-                  <td>{ward.districtName ? <Link to={`district/${ward.districtId}`}>{ward.districtName}</Link> : ''}</td>
+                  <td>{ward.districtId ? <Link to={`district/${ward.districtId}`}>{ward.districtId}</Link> : ''}</td>
                   <td className="text-right">
                     <div className="btn-group flex-btn-group-container">
                       <Button tag={Link} to={`${match.url}/${ward.id}`} color="info" size="sm">

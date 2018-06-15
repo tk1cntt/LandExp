@@ -20,14 +20,14 @@ export interface IStreetUpdateProps extends StateProps, DispatchProps, RouteComp
 
 export interface IStreetUpdateState {
   isNew: boolean;
-  districtId: number;
+  wardId: number;
 }
 
 export class StreetUpdate extends React.Component<IStreetUpdateProps, IStreetUpdateState> {
   constructor(props) {
     super(props);
     this.state = {
-      districtId: 0,
+      wardId: 0,
       isNew: !this.props.match.params || !this.props.match.params.id
     };
   }
@@ -44,9 +44,9 @@ export class StreetUpdate extends React.Component<IStreetUpdateProps, IStreetUpd
 
   saveEntity = (event, errors, values) => {
     if (errors.length === 0) {
-      const { street } = this.props;
+      const { streetEntity } = this.props;
       const entity = {
-        ...street,
+        ...streetEntity,
         ...values
       };
 
@@ -63,17 +63,17 @@ export class StreetUpdate extends React.Component<IStreetUpdateProps, IStreetUpd
     this.props.history.push('/entity/street');
   };
 
-  districtUpdate = element => {
-    const name = element.target.value.toString();
-    if (name === '') {
+  wardUpdate = element => {
+    const id = element.target.value.toString();
+    if (id === '') {
       this.setState({
-        districtId: -1
+        wardId: -1
       });
     } else {
       for (const i in this.props.wards) {
-        if (name === this.props.wards[i].name.toString()) {
+        if (id === this.props.wards[i].id.toString()) {
           this.setState({
-            districtId: this.props.wards[i].id
+            wardId: this.props.wards[i].id
           });
         }
       }
@@ -82,7 +82,7 @@ export class StreetUpdate extends React.Component<IStreetUpdateProps, IStreetUpd
 
   render() {
     const isInvalid = false;
-    const { street, wards, loading, updating } = this.props;
+    const { streetEntity, wards, loading, updating } = this.props;
     const { isNew } = this.state;
 
     return (
@@ -99,7 +99,7 @@ export class StreetUpdate extends React.Component<IStreetUpdateProps, IStreetUpd
             {loading ? (
               <p>Loading...</p>
             ) : (
-              <AvForm model={isNew ? {} : street} onSubmit={this.saveEntity}>
+              <AvForm model={isNew ? {} : streetEntity} onSubmit={this.saveEntity}>
                 {!isNew ? (
                   <AvGroup>
                     <Label for="id">
@@ -145,15 +145,15 @@ export class StreetUpdate extends React.Component<IStreetUpdateProps, IStreetUpd
                   <AvField id="street-updateAt" type="date" className="form-control" name="updateAt" />
                 </AvGroup>
                 <AvGroup>
-                  <Label for="district.name">
-                    <Translate contentKey="landexpApp.street.district">District</Translate>
+                  <Label for="ward.id">
+                    <Translate contentKey="landexpApp.street.ward">Ward</Translate>
                   </Label>
-                  <AvInput id="street-district" type="select" className="form-control" name="districtId" onChange={this.districtUpdate}>
+                  <AvInput id="street-ward" type="select" className="form-control" name="wardId" onChange={this.wardUpdate}>
                     <option value="" key="0" />
                     {wards
                       ? wards.map(otherEntity => (
                           <option value={otherEntity.id} key={otherEntity.id}>
-                            {otherEntity.name}
+                            {otherEntity.id}
                           </option>
                         ))
                       : null}
@@ -181,7 +181,7 @@ export class StreetUpdate extends React.Component<IStreetUpdateProps, IStreetUpd
 
 const mapStateToProps = (storeState: IRootState) => ({
   wards: storeState.ward.entities,
-  street: storeState.street.entity,
+  streetEntity: storeState.street.entity,
   loading: storeState.street.loading,
   updating: storeState.street.updating
 });

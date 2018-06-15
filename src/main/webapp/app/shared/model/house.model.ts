@@ -103,10 +103,13 @@ export interface IHouse {
   longitude?: number;
   createAt?: Moment;
   updateAt?: Moment;
-  districtId?: number;
   photos?: IHousePhoto[];
   cityName?: string;
   cityId?: number;
+  districtName?: string;
+  districtId?: number;
+  wardName?: string;
+  wardId?: number;
   streetName?: string;
   streetId?: number;
   projectName?: string;

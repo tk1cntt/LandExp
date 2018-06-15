@@ -19,8 +19,6 @@ public class CityDTO implements Serializable {
 
     private LocalDate updateAt;
 
-    private Long districtId;
-
     public Long getId() {
         return id;
     }
@@ -61,14 +59,6 @@ public class CityDTO implements Serializable {
         this.updateAt = updateAt;
     }
 
-    public Long getDistrictId() {
-        return districtId;
-    }
-
-    public void setDistrictId(Long districtId) {
-        this.districtId = districtId;
-    }
-
     @Override
     public boolean equals(Object o) {
         if (this == o) {
@@ -98,7 +88,6 @@ public class CityDTO implements Serializable {
             ", enabled='" + isEnabled() + "'" +
             ", createAt='" + getCreateAt() + "'" +
             ", updateAt='" + getUpdateAt() + "'" +
-            ", district=" + getDistrictId() +
             "}";
     }
 }

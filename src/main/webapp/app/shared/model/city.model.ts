@@ -1,4 +1,5 @@
 import { Moment } from 'moment';
+import { IDistrict } from './district.model';
 
 export interface ICity {
   id?: number;
@@ -6,7 +7,7 @@ export interface ICity {
   enabled?: boolean;
   createAt?: Moment;
   updateAt?: Moment;
-  districtId?: number;
+  districts?: IDistrict[];
 }
 
 export const defaultValue: Readonly<ICity> = {

@@ -1,6 +1,5 @@
 import { Moment } from 'moment';
-import { ICity } from './city.model';
-import { IHouse } from './house.model';
+import { IWard } from './ward.model';
 
 export interface IDistrict {
   id?: number;
@@ -9,11 +8,8 @@ export interface IDistrict {
   createAt?: Moment;
   updateAt?: Moment;
   regionId?: number;
-  cities?: ICity[];
-  houses?: IHouse[];
-  cityName?: string;
   cityId?: number;
-  wardId?: number;
+  wards?: IWard[];
 }
 
 export const defaultValue: Readonly<IDistrict> = {

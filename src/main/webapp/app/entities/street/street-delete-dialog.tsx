@@ -17,7 +17,7 @@ export class StreetDeleteDialog extends React.Component<IStreetDeleteDialogProps
   }
 
   confirmDelete = event => {
-    this.props.deleteEntity(this.props.street.id);
+    this.props.deleteEntity(this.props.streetEntity.id);
     this.handleClose(event);
   };
 
@@ -27,14 +27,14 @@ export class StreetDeleteDialog extends React.Component<IStreetDeleteDialogProps
   };
 
   render() {
-    const { street } = this.props;
+    const { streetEntity } = this.props;
     return (
       <Modal isOpen toggle={this.handleClose}>
         <ModalHeader toggle={this.handleClose}>
           <Translate contentKey="entity.delete.title">Confirm delete operation</Translate>
         </ModalHeader>
         <ModalBody>
-          <Translate contentKey="landexpApp.street.delete.question" interpolate={{ id: street.id }}>
+          <Translate contentKey="landexpApp.street.delete.question" interpolate={{ id: streetEntity.id }}>
             Are you sure you want to delete this Street?
           </Translate>
         </ModalBody>
@@ -54,7 +54,7 @@ export class StreetDeleteDialog extends React.Component<IStreetDeleteDialogProps
 }
 
 const mapStateToProps = ({ street }: IRootState) => ({
-  street: street.entity
+  streetEntity: street.entity
 });
 
 const mapDispatchToProps = { getEntity, deleteEntity };

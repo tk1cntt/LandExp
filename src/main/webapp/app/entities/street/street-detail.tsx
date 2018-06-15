@@ -20,12 +20,12 @@ export class StreetDetail extends React.Component<IStreetDetailProps> {
   }
 
   render() {
-    const { street } = this.props;
+    const { streetEntity } = this.props;
     return (
       <Row>
         <Col md="8">
           <h2>
-            <Translate contentKey="landexpApp.street.detail.title">Street</Translate> [<b>{street.id}</b>]
+            <Translate contentKey="landexpApp.street.detail.title">Street</Translate> [<b>{streetEntity.id}</b>]
           </h2>
           <dl className="jh-entity-details">
             <dt>
@@ -33,32 +33,32 @@ export class StreetDetail extends React.Component<IStreetDetailProps> {
                 <Translate contentKey="landexpApp.street.name">Name</Translate>
               </span>
             </dt>
-            <dd>{street.name}</dd>
+            <dd>{streetEntity.name}</dd>
             <dt>
               <span id="postalCode">
                 <Translate contentKey="landexpApp.street.postalCode">Postal Code</Translate>
               </span>
             </dt>
-            <dd>{street.postalCode}</dd>
+            <dd>{streetEntity.postalCode}</dd>
             <dt>
               <span id="stateProvince">
                 <Translate contentKey="landexpApp.street.stateProvince">State Province</Translate>
               </span>
             </dt>
-            <dd>{street.stateProvince}</dd>
+            <dd>{streetEntity.stateProvince}</dd>
             <dt>
               <span id="enabled">
                 <Translate contentKey="landexpApp.street.enabled">Enabled</Translate>
               </span>
             </dt>
-            <dd>{street.enabled ? 'true' : 'false'}</dd>
+            <dd>{streetEntity.enabled ? 'true' : 'false'}</dd>
             <dt>
               <span id="createAt">
                 <Translate contentKey="landexpApp.street.createAt">Create At</Translate>
               </span>
             </dt>
             <dd>
-              <TextFormat value={street.createAt} type="date" format={APP_LOCAL_DATE_FORMAT} />
+              <TextFormat value={streetEntity.createAt} type="date" format={APP_LOCAL_DATE_FORMAT} />
             </dd>
             <dt>
               <span id="updateAt">
@@ -66,12 +66,12 @@ export class StreetDetail extends React.Component<IStreetDetailProps> {
               </span>
             </dt>
             <dd>
-              <TextFormat value={street.updateAt} type="date" format={APP_LOCAL_DATE_FORMAT} />
+              <TextFormat value={streetEntity.updateAt} type="date" format={APP_LOCAL_DATE_FORMAT} />
             </dd>
             <dt>
-              <Translate contentKey="landexpApp.street.district">District</Translate>
+              <Translate contentKey="landexpApp.street.ward">Ward</Translate>
             </dt>
-            <dd>{street.districtName ? street.districtName : ''}</dd>
+            <dd>{streetEntity.wardId ? streetEntity.wardId : ''}</dd>
           </dl>
           <Button tag={Link} to="/entity/street" replace color="info">
             <FontAwesomeIcon icon="arrow-left" />{' '}
@@ -79,7 +79,7 @@ export class StreetDetail extends React.Component<IStreetDetailProps> {
               <Translate contentKey="entity.action.back">Back</Translate>
             </span>
           </Button>&nbsp;
-          <Button tag={Link} to={`/entity/street/${street.id}/edit`} replace color="primary">
+          <Button tag={Link} to={`/entity/street/${streetEntity.id}/edit`} replace color="primary">
             <FontAwesomeIcon icon="pencil-alt" />{' '}
             <span className="d-none d-md-inline">
               <Translate contentKey="entity.action.edit">Edit</Translate>
@@ -92,7 +92,7 @@ export class StreetDetail extends React.Component<IStreetDetailProps> {
 }
 
 const mapStateToProps = ({ street }: IRootState) => ({
-  street: street.entity
+  streetEntity: street.entity
 });
 
 const mapDispatchToProps = { getEntity };

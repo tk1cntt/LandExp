@@ -21,8 +21,8 @@
             "enabled": "Enabled",
             "createAt": "Create At",
             "updateAt": "Update At",
-            "districts": "Districts",
-            "district": "District"
+            "district": "District",
+            "streets": "Streets"
         }
     }
 }

@@ -20,16 +20,16 @@
     ],
     "relationships": [
         {
-            "relationshipType": "one-to-many",
-            "relationshipName": "districts",
-            "otherEntityName": "district",
-            "otherEntityRelationshipName": "ward"
-        },
-        {
-            "relationshipType": "many-to-one",
             "relationshipName": "district",
             "otherEntityName": "district",
-            "otherEntityField": "name"
+            "relationshipType": "many-to-one",
+            "otherEntityField": "id"
+        },
+        {
+            "relationshipType": "one-to-many",
+            "relationshipName": "streets",
+            "otherEntityName": "street",
+            "otherEntityRelationshipName": "ward"
         }
     ],
     "changelogDate": "20180614133329",

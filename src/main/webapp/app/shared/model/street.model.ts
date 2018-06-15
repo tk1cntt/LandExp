@@ -8,8 +8,7 @@ export interface IStreet {
   enabled?: boolean;
   createAt?: Moment;
   updateAt?: Moment;
-  districtName?: string;
-  districtId?: number;
+  wardId?: number;
 }
 
 export const defaultValue: Readonly<IStreet> = {

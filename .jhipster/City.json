@@ -20,10 +20,10 @@
     ],
     "relationships": [
         {
-            "relationshipName": "district",
+            "relationshipType": "one-to-many",
+            "relationshipName": "districts",
             "otherEntityName": "district",
-            "relationshipType": "many-to-one",
-            "otherEntityField": "id"
+            "otherEntityRelationshipName": "city"
         }
     ],
     "changelogDate": "20180611134354",

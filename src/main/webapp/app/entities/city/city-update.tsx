@@ -8,8 +8,6 @@ import { Translate, translate, ICrudGetAction, ICrudGetAllAction, ICrudPutAction
 import FontAwesomeIcon from '@fortawesome/react-fontawesome';
 import { IRootState } from 'app/shared/reducers';
 
-import { IDistrict } from 'app/shared/model/district.model';
-import { getEntities as getDistricts } from 'app/entities/district/district.reducer';
 import { getEntity, updateEntity, createEntity, reset } from './city.reducer';
 import { ICity } from 'app/shared/model/city.model';
 // tslint:disable-next-line:no-unused-variable
@@ -20,14 +18,12 @@ export interface ICityUpdateProps extends StateProps, DispatchProps, RouteCompon
 
 export interface ICityUpdateState {
   isNew: boolean;
-  districtId: number;
 }
 
 export class CityUpdate extends React.Component<ICityUpdateProps, ICityUpdateState> {
   constructor(props) {
     super(props);
     this.state = {
-      districtId: 0,
       isNew: !this.props.match.params || !this.props.match.params.id
     };
   }
@@ -38,8 +34,6 @@ export class CityUpdate extends React.Component<ICityUpdateProps, ICityUpdateSta
     } else {
       this.props.getEntity(this.props.match.params.id);
     }
-
-    this.props.getDistricts();
   }
 
   saveEntity = (event, errors, values) => {
@@ -63,26 +57,9 @@ export class CityUpdate extends React.Component<ICityUpdateProps, ICityUpdateSta
     this.props.history.push('/entity/city');
   };
 
-  districtUpdate = element => {
-    const id = element.target.value.toString();
-    if (id === '') {
-      this.setState({
-        districtId: -1
-      });
-    } else {
-      for (const i in this.props.districts) {
-        if (id === this.props.districts[i].id.toString()) {
-          this.setState({
-            districtId: this.props.districts[i].id
-          });
-        }
-      }
-    }
-  };
-
   render() {
     const isInvalid = false;
-    const { cityEntity, districts, loading, updating } = this.props;
+    const { cityEntity, loading, updating } = this.props;
     const { isNew } = this.state;
 
     return (
@@ -132,21 +109,6 @@ export class CityUpdate extends React.Component<ICityUpdateProps, ICityUpdateSta
                   </Label>
                   <AvField id="city-updateAt" type="date" className="form-control" name="updateAt" />
                 </AvGroup>
-                <AvGroup>
-                  <Label for="district.id">
-                    <Translate contentKey="landexpApp.city.district">District</Translate>
-                  </Label>
-                  <AvInput id="city-district" type="select" className="form-control" name="districtId" onChange={this.districtUpdate}>
-                    <option value="" key="0" />
-                    {districts
-                      ? districts.map(otherEntity => (
-                          <option value={otherEntity.id} key={otherEntity.id}>
-                            {otherEntity.id}
-                          </option>
-                        ))
-                      : null}
-                  </AvInput>
-                </AvGroup>
                 <Button tag={Link} id="cancel-save" to="/entity/city" replace color="info">
                   <FontAwesomeIcon icon="arrow-left" />&nbsp;
                   <span className="d-none d-md-inline">
@@ -168,14 +130,12 @@ export class CityUpdate extends React.Component<ICityUpdateProps, ICityUpdateSta
 }
 
 const mapStateToProps = (storeState: IRootState) => ({
-  districts: storeState.district.entities,
   cityEntity: storeState.city.entity,
   loading: storeState.city.loading,
   updating: storeState.city.updating
 });
 
 const mapDispatchToProps = {
-  getDistricts,
   getEntity,
   updateEntity,
   createEntity,

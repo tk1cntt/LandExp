@@ -38,12 +38,12 @@ public class Ward implements Serializable {
     @Column(name = "update_at")
     private LocalDate updateAt;
 
-    @OneToMany(mappedBy = "ward")
-    private Set<District> districts = new HashSet<>();
-
     @ManyToOne
-    @JsonIgnoreProperties("")
+    @JsonIgnoreProperties("wards")
     private District district;
+
+    @OneToMany(mappedBy = "ward")
+    private Set<Street> streets = new HashSet<>();
 
     // jhipster-needle-entity-add-field - JHipster will add fields here, do not remove
     public Long getId() {
@@ -106,31 +106,6 @@ public class Ward implements Serializable {
         this.updateAt = updateAt;
     }
 
-    public Set<District> getDistricts() {
-        return districts;
-    }
-
-    public Ward districts(Set<District> districts) {
-        this.districts = districts;
-        return this;
-    }
-
-    public Ward addDistricts(District district) {
-        this.districts.add(district);
-        district.setWard(this);
-        return this;
-    }
-
-    public Ward removeDistricts(District district) {
-        this.districts.remove(district);
-        district.setWard(null);
-        return this;
-    }
-
-    public void setDistricts(Set<District> districts) {
-        this.districts = districts;
-    }
-
     public District getDistrict() {
         return district;
     }
@@ -142,6 +117,31 @@ public class Ward implements Serializable {
 
     public void setDistrict(District district) {
         this.district = district;
+    }
+
+    public Set<Street> getStreets() {
+        return streets;
+    }
+
+    public Ward streets(Set<Street> streets) {
+        this.streets = streets;
+        return this;
+    }
+
+    public Ward addStreets(Street street) {
+        this.streets.add(street);
+        street.setWard(this);
+        return this;
+    }
+
+    public Ward removeStreets(Street street) {
+        this.streets.remove(street);
+        street.setWard(null);
+        return this;
+    }
+
+    public void setStreets(Set<Street> streets) {
+        this.streets = streets;
     }
     // jhipster-needle-entity-add-getters-setters - JHipster will add getters and setters here, do not remove
 

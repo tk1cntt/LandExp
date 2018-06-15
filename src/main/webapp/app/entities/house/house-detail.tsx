@@ -237,13 +237,17 @@ export class HouseDetail extends React.Component<IHouseDetailProps> {
               <TextFormat value={houseEntity.updateAt} type="date" format={APP_LOCAL_DATE_FORMAT} />
             </dd>
             <dt>
-              <Translate contentKey="landexpApp.house.district">District</Translate>
-            </dt>
-            <dd>{houseEntity.districtId ? houseEntity.districtId : ''}</dd>
-            <dt>
               <Translate contentKey="landexpApp.house.city">City</Translate>
             </dt>
             <dd>{houseEntity.cityName ? houseEntity.cityName : ''}</dd>
+            <dt>
+              <Translate contentKey="landexpApp.house.district">District</Translate>
+            </dt>
+            <dd>{houseEntity.districtName ? houseEntity.districtName : ''}</dd>
+            <dt>
+              <Translate contentKey="landexpApp.house.ward">Ward</Translate>
+            </dt>
+            <dd>{houseEntity.wardName ? houseEntity.wardName : ''}</dd>
             <dt>
               <Translate contentKey="landexpApp.house.street">Street</Translate>
             </dt>

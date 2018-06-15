@@ -46,19 +46,12 @@ public class District implements Serializable {
     @JsonIgnoreProperties("districts")
     private Region region;
 
-    @OneToMany(mappedBy = "district")
-    private Set<City> cities = new HashSet<>();
-
-    @OneToMany(mappedBy = "district")
-    private Set<House> houses = new HashSet<>();
-
-    @ManyToOne
-    @JsonIgnoreProperties("")
-    private City city;
-
     @ManyToOne
     @JsonIgnoreProperties("districts")
-    private Ward ward;
+    private City city;
+
+    @OneToMany(mappedBy = "district")
+    private Set<Ward> wards = new HashSet<>();
 
     // jhipster-needle-entity-add-field - JHipster will add fields here, do not remove
     public Long getId() {
@@ -134,56 +127,6 @@ public class District implements Serializable {
         this.region = region;
     }
 
-    public Set<City> getCities() {
-        return cities;
-    }
-
-    public District cities(Set<City> cities) {
-        this.cities = cities;
-        return this;
-    }
-
-    public District addCities(City city) {
-        this.cities.add(city);
-        city.setDistrict(this);
-        return this;
-    }
-
-    public District removeCities(City city) {
-        this.cities.remove(city);
-        city.setDistrict(null);
-        return this;
-    }
-
-    public void setCities(Set<City> cities) {
-        this.cities = cities;
-    }
-
-    public Set<House> getHouses() {
-        return houses;
-    }
-
-    public District houses(Set<House> houses) {
-        this.houses = houses;
-        return this;
-    }
-
-    public District addHouses(House house) {
-        this.houses.add(house);
-        house.setDistrict(this);
-        return this;
-    }
-
-    public District removeHouses(House house) {
-        this.houses.remove(house);
-        house.setDistrict(null);
-        return this;
-    }
-
-    public void setHouses(Set<House> houses) {
-        this.houses = houses;
-    }
-
     public City getCity() {
         return city;
     }
@@ -197,17 +140,29 @@ public class District implements Serializable {
         this.city = city;
     }
 
-    public Ward getWard() {
-        return ward;
+    public Set<Ward> getWards() {
+        return wards;
     }
 
-    public District ward(Ward ward) {
-        this.ward = ward;
+    public District wards(Set<Ward> wards) {
+        this.wards = wards;
         return this;
     }
 
-    public void setWard(Ward ward) {
-        this.ward = ward;
+    public District addWards(Ward ward) {
+        this.wards.add(ward);
+        ward.setDistrict(this);
+        return this;
+    }
+
+    public District removeWards(Ward ward) {
+        this.wards.remove(ward);
+        ward.setDistrict(null);
+        return this;
+    }
+
+    public void setWards(Set<Ward> wards) {
+        this.wards = wards;
     }
     // jhipster-needle-entity-add-getters-setters - JHipster will add getters and setters here, do not remove
 

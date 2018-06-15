@@ -88,11 +88,17 @@ public class HouseDTO implements Serializable {
 
     private LocalDate updateAt;
 
-    private Long districtId;
-
     private Long cityId;
 
     private String cityName;
+
+    private Long districtId;
+
+    private String districtName;
+
+    private Long wardId;
+
+    private String wardName;
 
     private Long streetId;
 
@@ -392,14 +398,6 @@ public class HouseDTO implements Serializable {
         this.updateAt = updateAt;
     }
 
-    public Long getDistrictId() {
-        return districtId;
-    }
-
-    public void setDistrictId(Long districtId) {
-        this.districtId = districtId;
-    }
-
     public Long getCityId() {
         return cityId;
     }
@@ -414,6 +412,38 @@ public class HouseDTO implements Serializable {
 
     public void setCityName(String cityName) {
         this.cityName = cityName;
+    }
+
+    public Long getDistrictId() {
+        return districtId;
+    }
+
+    public void setDistrictId(Long districtId) {
+        this.districtId = districtId;
+    }
+
+    public String getDistrictName() {
+        return districtName;
+    }
+
+    public void setDistrictName(String districtName) {
+        this.districtName = districtName;
+    }
+
+    public Long getWardId() {
+        return wardId;
+    }
+
+    public void setWardId(Long wardId) {
+        this.wardId = wardId;
+    }
+
+    public String getWardName() {
+        return wardName;
+    }
+
+    public void setWardName(String wardName) {
+        this.wardName = wardName;
     }
 
     public Long getStreetId() {
@@ -547,9 +577,12 @@ public class HouseDTO implements Serializable {
             ", longitude=" + getLongitude() +
             ", createAt='" + getCreateAt() + "'" +
             ", updateAt='" + getUpdateAt() + "'" +
-            ", district=" + getDistrictId() +
             ", city=" + getCityId() +
             ", city='" + getCityName() + "'" +
+            ", district=" + getDistrictId() +
+            ", district='" + getDistrictName() + "'" +
+            ", ward=" + getWardId() +
+            ", ward='" + getWardName() + "'" +
             ", street=" + getStreetId() +
             ", street='" + getStreetName() + "'" +
             ", project=" + getProjectId() +
