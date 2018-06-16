@@ -30,17 +30,17 @@
                 <constraints nullable="true" />
             </column>
 
-            <column name="create_at" type="date">
+            <column name="create_at" type="date" defaultValueDate="${now}">
                 <constraints nullable="true" />
             </column>
 
-            <column name="update_at" type="date">
+            <column name="update_at" type="date" defaultValueDate="${now}">
                 <constraints nullable="true" />
             </column>
 
             <!-- jhipster-needle-liquibase-add-column - JHipster will add columns here, do not remove-->
         </createTable>
-        
+
         <createTable tableName="region_user">
             <column name="users_id" type="bigint">
                 <constraints nullable="false"/>
@@ -51,7 +51,11 @@
         </createTable>
 
         <addPrimaryKey columnNames="regions_id, users_id" tableName="region_user"/>
-        
+
+        <loadData encoding="UTF-8"
+                  file="config/liquibase/region.csv"
+                  separator=";"
+                  tableName="region"/>
     </changeSet>
     <!-- jhipster-needle-liquibase-add-changeset - JHipster will add changesets here, do not remove-->
 </databaseChangeLog>
