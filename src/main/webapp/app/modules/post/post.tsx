@@ -14,6 +14,7 @@ import { getSession } from 'app/shared/reducers/authentication';
 
 import { getEntity as getHouse, updateEntity as updateHouse } from '../../entities/house/house.reducer';
 import { getEntities as getCities } from '../../entities/city/city.reducer';
+import { getEntities as getServiceFees } from '../../entities/service-fee/service-fee.reducer';
 import { createEntity as createPhoto, updateEntity as updatePhoto } from '../../entities/house-photo/house-photo.reducer';
 
 import StepOne from './stepOne';
@@ -41,6 +42,7 @@ export class PostPage extends React.Component<IPostProp, IPostState> {
     this.props.getSession();
     this.props.getHouse('init');
     this.props.getCities();
+    this.props.getServiceFees();
   }
 
   next = () => {
@@ -220,7 +222,7 @@ const mapStateToProps = storeState => ({
   updating: storeState.house.updating
 });
 
-const mapDispatchToProps = { getSession, getHouse, updateHouse, createPhoto, updatePhoto, getCities };
+const mapDispatchToProps = { getSession, getHouse, updateHouse, createPhoto, updatePhoto, getCities, getServiceFees };
 
 type StateProps = ReturnType<typeof mapStateToProps>;
 type DispatchProps = typeof mapDispatchToProps;

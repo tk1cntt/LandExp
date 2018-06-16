@@ -15,6 +15,7 @@ import com.landexp.repository.HouseRepository;
 import com.landexp.repository.search.HouseSearchRepository;
 import com.landexp.service.HouseService;
 import com.landexp.service.PaymentService;
+import com.landexp.service.ServiceFeeService;
 import com.landexp.service.dto.HouseDTO;
 import com.landexp.service.mapper.HouseMapper;
 import com.landexp.web.rest.errors.ExceptionTranslator;
@@ -177,13 +178,16 @@ public class HouseResourceIntTest {
 
     @Autowired
     private HouseMapper houseMapper;
-    
+
 
     @Autowired
     private HouseService houseService;
 
     @Autowired
     private PaymentService paymentService;
+
+    @Autowired
+    private ServiceFeeService serviceFeeService;
 
     /**
      * This repository is mocked in the com.landexp.repository.search test package.
@@ -215,7 +219,7 @@ public class HouseResourceIntTest {
     @Before
     public void setup() {
         MockitoAnnotations.initMocks(this);
-        final HouseResource houseResource = new HouseResource(houseService, houseQueryService, paymentService);
+        final HouseResource houseResource = new HouseResource(houseService, houseQueryService, paymentService, serviceFeeService);
         this.restHouseMockMvc = MockMvcBuilders.standaloneSetup(houseResource)
             .setCustomArgumentResolvers(pageableArgumentResolver)
             .setControllerAdvice(exceptionTranslator)
@@ -397,7 +401,7 @@ public class HouseResourceIntTest {
             .andExpect(jsonPath("$.[*].createAt").value(hasItem(DEFAULT_CREATE_AT.toString())))
             .andExpect(jsonPath("$.[*].updateAt").value(hasItem(DEFAULT_UPDATE_AT.toString())));
     }
-    
+
 
     @Test
     @Transactional

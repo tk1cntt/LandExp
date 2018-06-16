@@ -8,7 +8,9 @@ import com.landexp.security.AuthoritiesConstants;
 import com.landexp.security.SecurityUtils;
 import com.landexp.service.HouseService;
 import com.landexp.service.PaymentService;
+import com.landexp.service.ServiceFeeService;
 import com.landexp.service.dto.PaymentDTO;
+import com.landexp.service.dto.ServiceFeeDTO;
 import com.landexp.web.rest.errors.BadRequestAlertException;
 import com.landexp.web.rest.util.HeaderUtil;
 import com.landexp.web.rest.util.PaginationUtil;
@@ -56,10 +58,13 @@ public class HouseResource {
 
     private final PaymentService paymentService;
 
-    public HouseResource(HouseService houseService, HouseQueryService houseQueryService, PaymentService paymentService) {
+    private final ServiceFeeService serviceFeeService;
+
+    public HouseResource(HouseService houseService, HouseQueryService houseQueryService, PaymentService paymentService, ServiceFeeService serviceFeeService) {
         this.houseService = houseService;
         this.houseQueryService = houseQueryService;
         this.paymentService = paymentService;
+        this.serviceFeeService = serviceFeeService;
     }
 
     /**
@@ -85,11 +90,10 @@ public class HouseResource {
             paymentDTO.setCode(Utils.generatePaymentCode(houseDTO.getId()));
             paymentDTO.setCreateAt(LocalDate.now());
             paymentDTO.setPaymentStatus(PaymentStatusType.OPEN);
-            paymentDTO.setMoney(200000f);
-            paymentDTO.setCustomerId(houseDTO.getId());
-            paymentDTO.setCustomerLogin(username);
-            paymentDTO.setCreateById(houseDTO.getId());
-            paymentDTO.setCustomerLogin(username);
+            paymentDTO.setCustomerId(houseDTO.getCreateById());
+            paymentDTO.setCustomerLogin(houseDTO.getCreateByLogin());
+            paymentDTO.setCreateById(houseDTO.getCreateById());
+            paymentDTO.setCreateByLogin(houseDTO.getCreateByLogin());
             paymentService.save(paymentDTO);
         }
         return ResponseUtil.wrapOrNotFound(Optional.of(houseDTO));
@@ -133,7 +137,16 @@ public class HouseResource {
         if (houseDTO.getId() == null) {
             throw new BadRequestAlertException("Invalid id", ENTITY_NAME, "idnull");
         }
-        HouseDTO result = houseService.save(houseDTO);
+        String username = SecurityUtils.getCurrentUserLogin().get();
+        ServiceFeeDTO serviceFee = serviceFeeService.findBySaleType(houseDTO.getSaleType()).get();
+        if (!ObjectUtils.isEmpty(serviceFee)) {
+            PaymentDTO paymentDTO = paymentService.findByHouse(houseDTO.getId()).get();
+            if (!ObjectUtils.isEmpty(paymentDTO)) {
+                paymentDTO.setMoney(serviceFee.getFee());
+                paymentService.save(paymentDTO);
+            }
+        }
+        HouseDTO result = houseService.updateByUsername(houseDTO, username);
         return ResponseEntity.ok()
             .headers(HeaderUtil.createEntityUpdateAlert(ENTITY_NAME, houseDTO.getId().toString()))
             .body(result);

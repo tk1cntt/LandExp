@@ -80,6 +80,23 @@ public class HouseService {
     }
 
     /**
+     * Save a house.
+     *
+     * @param houseDTO the entity to save
+     * @return the persisted entity
+     */
+    public HouseDTO updateByUsername(HouseDTO houseDTO, String username) {
+        log.debug("Request to save House : {}", houseDTO);
+        House house = houseMapper.toEntity(houseDTO);
+        Optional<User> existingUser = userRepository.findOneByLogin(username);
+        house.setUpdateBy(existingUser.get());
+        house = houseRepository.save(house);
+        HouseDTO result = houseMapper.toDto(house);
+        houseSearchRepository.save(house);
+        return result;
+    }
+
+    /**
      * Get all the houses.
      *
      * @param pageable the pagination information
