@@ -77,7 +77,7 @@ export class StepFour extends React.Component<IStepFourProp, IStepFourState> {
     if (fileList) {
       fileList.map(file => {
         slides.push(
-          <img style={{ width: '600px', height: '400px' }} src={file.thumbUrl} />
+          <img key={file.uid} style={{ width: '400px', height: '200px' }} src={file.thumbUrl} />
         );
       });
     }
