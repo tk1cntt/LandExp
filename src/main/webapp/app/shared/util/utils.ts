@@ -1,0 +1,62 @@
+export const getActionType = type => {
+  if (type === 'FOR_SELL') {
+    return 'Bán bất động sản';
+  } else {
+    return 'Cho thuê bất động sản';
+  }
+};
+
+export const getLandType = type => {
+  switch (type) {
+    case 'APARTMENT':
+      return 'Chung cư';
+    case 'PEN_HOUSE':
+      return 'Penhouse';
+    case 'HOME':
+      return 'Nhà riêng';
+    case 'HOME_VILLA':
+      return 'Biệt thự';
+    case 'HOME_STREET_SIDE':
+      return 'Nhà mặt phố';
+    case 'MOTEL_ROOM':
+      return 'Phòng trọ';
+    case 'OFFICE':
+      return 'Văn phòng';
+    case 'LAND_SCAPE':
+      return 'Đất ở';
+    case 'LAND_OF_PROJECT':
+      return 'Đất dự án';
+    case 'LAND_FARM':
+      return 'Đất nông nghiệp';
+    case 'LAND_RESORT':
+      return 'Resort';
+    case 'WAREHOUSES':
+      return 'Kho, nhà xưởng';
+    case 'KIOSKS':
+      return 'Cửa hàng, Ki ốt';
+    default:
+      return 'Loại bất động sản khác';
+  }
+};
+
+export const getCityType = value => {
+  let address = '';
+  if (value.cities) {
+    value.cities.map(city => {
+      if (city.id === value.cityId) {
+        city.districts.map(district => {
+          if (district.id === value.districtId) {
+            district.wards.map(ward => {
+                if (ward.id === value.wardId) {
+                  address += ward.name + ' - ';
+                }
+            });
+            address += district.name + ' - ';
+          }
+        });
+        address += city.name;
+      }
+    });
+  }
+  return address;
+};

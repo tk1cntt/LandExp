@@ -11,6 +11,7 @@ const Step = Steps.Step;
 
 import { IRootState } from 'app/shared/reducers';
 import { getSession } from 'app/shared/reducers/authentication';
+import { getActionType, getLandType, getCityType } from 'app/shared/util/utils';
 
 import { getEntity as getHouse, updateEntity as updateHouse } from '../../entities/house/house.reducer';
 import { getEntities as getCities } from '../../entities/city/city.reducer';
@@ -142,26 +143,45 @@ export class PostPage extends React.Component<IPostProp, IPostState> {
       }
     ];
 
+    console.log(this.state.house);
+    console.log(this.props.house);
+
     const actionTypeForm = this.state.house.actionType || this.props.house.actionType ? (
       <Row>
-        <Col md="6">Hình thức bán</Col>
-        <Col md="6">{this.state.house.actionType || this.props.house.actionType}</Col>
+        <Col md="6">Hình thức bán:</Col>
+        <Col md="6">{getActionType(this.state.house.actionType || this.props.house.actionType)}</Col>
       </Row>
     ) : null;
 
-    const landTypeForm = this.state.house.landType ? (
+    const landTypeForm = this.state.house.landType || this.props.house.landType ? (
       <Row>
-        <Col md="6">Loại bất động sản</Col>
-        <Col md="6">{this.state.house.landType || this.props.house.landType}</Col>
+        <Col md="6">Loại bất động sản:</Col>
+        <Col md="6">{getLandType(this.state.house.landType || this.props.house.landType)}</Col>
       </Row>
     ) : null;
 
-    const locationForm = (
+    const locationForm = this.state.house.address || this.props.house.address ? (
       <Row>
-        <Col md="12">Vị trí</Col>
-        <Col md="12">So 11 Ngo 12 Duong 13 - Cau Giay - Ha noi</Col>
+        <Col md="12">Địa chỉ:</Col>
+        <Col md="12">{this.state.house.address || this.props.house.address}</Col>
       </Row>
-    );
+    ) : null;
+
+    const cityForm = this.state.house.cityId || this.props.house.cityId ? (
+      <Row>
+        <Col md="12">Tỉnh thành:</Col>
+        <Col md="12">
+          {
+            getCityType({
+              cities: this.props.cities,
+              cityId: this.state.house.cityId || this.props.house.cityId,
+              districtId: this.state.house.districtId || this.props.house.districtId,
+              wardId: this.state.house.wardId || this.props.house.wardId
+            })
+          }
+        </Col>
+      </Row>
+    ) : null;
 
     return (
       <Row>
@@ -206,6 +226,7 @@ export class PostPage extends React.Component<IPostProp, IPostState> {
               {actionTypeForm}
               {landTypeForm}
               {locationForm}
+              {cityForm}
             </Card>
           </div>
         </Col>
@@ -218,6 +239,7 @@ const mapStateToProps = storeState => ({
   account: storeState.authentication.account,
   isAuthenticated: storeState.authentication.isAuthenticated,
   house: storeState.house.entity,
+  cities: storeState.city.entities,
   loading: storeState.house.loading,
   updating: storeState.house.updating
 });

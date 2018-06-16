@@ -98,7 +98,7 @@ export class StepTwo extends React.Component<IStepTwoProp, IStepOneState> {
     const locations = this.state.locations;
     const cities = this.props.cities;
     cities.map(city => {
-      const ctyData = {
+      const cityData = {
         value: city.id,
         label: city.name,
         children: []
@@ -116,9 +116,9 @@ export class StepTwo extends React.Component<IStepTwoProp, IStepOneState> {
           };
           districtData.children.push(wardData);
         });
-        ctyData.children.push(districtData);
+        cityData.children.push(districtData);
       });
-      locations.push(ctyData);
+      locations.push(cityData);
     });
     this.setState({
       locations

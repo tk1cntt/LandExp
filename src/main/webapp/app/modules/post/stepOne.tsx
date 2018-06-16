@@ -11,6 +11,7 @@ const RadioGroup = Radio.Group;
 
 import { IRootState } from 'app/shared/reducers';
 import { getSession } from 'app/shared/reducers/authentication';
+import { getActionType, getLandType } from 'app/shared/util/utils';
 
 export interface IStepOneProp extends StateProps, DispatchProps {
   updateHouse: any;
@@ -59,8 +60,8 @@ export class StepOne extends React.Component<IStepOneProp, IStepOneState> {
         <Col md="12">
           <div style={{ marginTop: 16 }}>
             <RadioGroup onChange={this.onChangeActionType} value={this.state.actionType || this.props.house.actionType} defaultValue="FOR_SELL">
-              <RadioButton value={'FOR_SELL'}>Bán bất động sản</RadioButton>
-              <RadioButton value={'FOR_RENT'}>Cho thuê bất động sản</RadioButton>
+              <RadioButton value={'FOR_SELL'}>{getActionType('FOR_SELL')}</RadioButton>
+              <RadioButton value={'FOR_RENT'}>{getActionType('FOR_RENT')}</RadioButton>
             </RadioGroup>
           </div>
         </Col>
@@ -70,37 +71,37 @@ export class StepOne extends React.Component<IStepOneProp, IStepOneState> {
         <Col md="12">
           <div style={{ marginTop: 16 }}>
             <RadioGroup onChange={this.onChangeLandType} value={this.state.landType || this.props.house.landType}>
-              <RadioButton value="APARTMENT">Chung cư</RadioButton>
-              <RadioButton value="HOME">Nhà riêng</RadioButton>
-              <RadioButton value="HOME_VILLA">Biệt thự</RadioButton>
-              <RadioButton value="HOME_STREET_SIDE">Nhà mặt phố</RadioButton>
+              <RadioButton value="APARTMENT">{getLandType('APARTMENT')}</RadioButton>
+              <RadioButton value="HOME">{getLandType('HOME')}</RadioButton>
+              <RadioButton value="HOME_VILLA">{getLandType('HOME_VILLA')}</RadioButton>
+              <RadioButton value="HOME_STREET_SIDE">{getLandType('HOME_STREET_SIDE')}</RadioButton>
             </RadioGroup>
           </div>
         </Col>
         <Col md="12">
           <div style={{ marginTop: 16 }}>
             <RadioGroup onChange={this.onChangeLandType} value={this.state.landType || this.props.house.landType}>
-              <RadioButton value="LAND_SCAPE">Đất ở</RadioButton>
-              <RadioButton value="LAND_OF_PROJECT">Đất dự án</RadioButton>
-              <RadioButton value="LAND_FARM">Đất nông nghiệp</RadioButton>
-              <RadioButton value="LAND_RESORT">Resort</RadioButton>
+              <RadioButton value="LAND_SCAPE">{getLandType('LAND_SCAPE')}</RadioButton>
+              <RadioButton value="LAND_OF_PROJECT">{getLandType('LAND_OF_PROJECT')}</RadioButton>
+              <RadioButton value="LAND_FARM">{getLandType('LAND_FARM')}</RadioButton>
+              <RadioButton value="LAND_RESORT">{getLandType('LAND_RESORT')}</RadioButton>
             </RadioGroup>
           </div>
         </Col>
         <Col md="12">
           <div style={{ marginTop: 16 }}>
             <RadioGroup onChange={this.onChangeLandType} value={this.state.landType || this.props.house.landType}>
-              <RadioButton value="MOTEL_ROOM">Phòng trọ</RadioButton>
-              <RadioButton value="OFFICE">Văn phòng</RadioButton>
-              <RadioButton value="WAREHOUSES">Kho, nhà xưởng</RadioButton>
-              <RadioButton value="KIOSKS">Cửa hàng, Ki ốt</RadioButton>
+              <RadioButton value="MOTEL_ROOM">{getLandType('MOTEL_ROOM')}</RadioButton>
+              <RadioButton value="OFFICE">{getLandType('OFFICE')}</RadioButton>
+              <RadioButton value="WAREHOUSES">{getLandType('WAREHOUSES')}</RadioButton>
+              <RadioButton value="KIOSKS">{getLandType('KIOSKS')}</RadioButton>
             </RadioGroup>
           </div>
         </Col>
         <Col md="12">
           <div style={{ marginTop: 16 }}>
             <RadioGroup onChange={this.onChangeLandType} value={this.state.landType || this.props.house.landType}>
-              <RadioButton value="OTHER">Loại bất động sản khác</RadioButton>
+              <RadioButton value="OTHER">{getLandType('OTHER')}</RadioButton>
             </RadioGroup>
           </div>
         </Col>
