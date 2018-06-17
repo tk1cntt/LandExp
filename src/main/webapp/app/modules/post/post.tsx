@@ -74,7 +74,6 @@ export class PostPage extends React.Component<IPostProp, IPostState> {
   }
 
   validateStepOne = () => {
-    // console.log('Validate step one');
     const alerts = [];
     const actionTypeValue = this.state.house.actionType || this.props.house.actionType;
     const actionTypeForm = actionTypeValue ? null : (
@@ -85,7 +84,7 @@ export class PostPage extends React.Component<IPostProp, IPostState> {
           </Alert>
         </Col>
       </Row>
-    )
+    );
     alerts.push(actionTypeForm);
     const landTypeValue = this.state.house.landType || this.props.house.landType;
     const landTypeForm = landTypeValue ? null : (
@@ -96,17 +95,44 @@ export class PostPage extends React.Component<IPostProp, IPostState> {
           </Alert>
         </Col>
       </Row>
-    )
+    );
     alerts.push(landTypeForm);
     this.setState({ alerts });
     if (landTypeValue && actionTypeValue) {
       const current = this.state.current + 1;
-      this.setState({ current });
+      this.setState({ current, alerts: [] });
     }
   }
 
   validateStepTwo = () => {
-    // console.log('Validate step two');
+    const alerts = [];
+    const cityValue = this.state.house.cityId || this.props.house.cityId;
+    const cityForm = cityValue ? null : (
+      <Row key={'action-type-value-alert'}>
+        <Col md="12">
+          <Alert color="danger">
+            Bạn phải chọn một tỉnh thành
+          </Alert>
+        </Col>
+      </Row>
+    );
+    alerts.push(cityForm);
+    const addressValue = this.state.house.address || this.props.house.address;
+    const addressForm = addressValue ? null : (
+      <Row key={'land-type-value-alert'}>
+        <Col md="12">
+          <Alert color="danger">
+            Bạn phải nhập địa chỉ
+          </Alert>
+        </Col>
+      </Row>
+    );
+    alerts.push(addressForm);
+    this.setState({ alerts });
+    if (cityValue && addressValue) {
+      const current = this.state.current + 1;
+      this.setState({ current, alerts: [] });
+    }
   }
 
   saveEntity = () => {
@@ -137,43 +163,8 @@ export class PostPage extends React.Component<IPostProp, IPostState> {
       house: nextHouse
     });
   }
-  render() {
-    const { current, house } = this.state;
-    const steps = [
-      {
-        title: 'Hình thức',
-        content: <StepOne house={this.state.house || this.props.house} updateHouse={this.updateHouse} />
-      },
-      {
-        title: 'Vị trí',
-        content: <StepTwo updateHouse={this.updateHouse} />
-      },
-      {
-        title: 'Đặc điểm',
-        content: <StepThree updateHouse={this.updateHouse} />
-      },
-      {
-        title: 'Hình ảnh',
-        content: <StepFour updateHouse={this.updateHouse} />
-      },
-      {
-        title: 'Giá',
-        content: <StepFive updateHouse={this.updateHouse} />
-      },
-      {
-        title: 'Liên hệ',
-        content: <StepSix updateHouse={this.updateHouse} />
-      },
-      {
-        title: 'Xác nhận',
-        content: <StepSeven />
-      },
-      {
-        title: 'Thanh toán',
-        content: <StepSeven />
-      }
-    ];
 
+  updateHouseTypeInfo = () => {
     const actionTypeValue = this.state.house.actionType || this.props.house.actionType;
     const actionTypeForm = actionTypeValue ? (
       <Row>
@@ -190,17 +181,22 @@ export class PostPage extends React.Component<IPostProp, IPostState> {
       </Row>
     ) : null;
 
+    return (<div>{actionTypeForm}{landTypeForm}</div>);
+  }
+
+  updateHouseAdressInfo = () => {
     const locationValue = this.state.house.address || this.props.house.address;
     const locationForm = locationValue ? (
       <Row>
-        <Col md="12">3. Địa chỉ:</Col>
+        <Col md="12">4. Địa chỉ:</Col>
         <Col md="12">{locationValue}</Col>
       </Row>
     ) : null;
 
-    const cityForm = this.state.house.cityId || this.props.house.cityId ? (
+    const cityValue = this.state.house.cityId || this.props.house.cityId;
+    const cityForm = cityValue ? (
       <Row>
-        <Col md="12">4. Tỉnh thành:</Col>
+        <Col md="12">3. Tỉnh thành:</Col>
         <Col md="12">
           {
             getCityType({
@@ -214,6 +210,10 @@ export class PostPage extends React.Component<IPostProp, IPostState> {
       </Row>
     ) : null;
 
+    return (<div>{cityForm}{locationForm}</div>);
+  }
+
+  updateHouseDetailInfo = () => {
     const acreageValue = this.state.house.acreage || this.props.house.acreage;
     const acreageForm = acreageValue ? (
       <Row>
@@ -286,7 +286,7 @@ export class PostPage extends React.Component<IPostProp, IPostState> {
       </Row>
     ) : null;
 
-    const detailForm = acreageValue ? (
+    return acreageValue ? (
       <div>
         <Row>
           <Col md="12">5. Đặc điểm:</Col>
@@ -302,7 +302,9 @@ export class PostPage extends React.Component<IPostProp, IPostState> {
         {parkingForm}
       </div>
     ) : null;
+  }
 
+  updateHousePriceInfo = () => {
     const moneyValue = this.state.house.money || this.props.house.money;
     const discountValue = this.state.house.discount || this.props.house.discount;
 
@@ -339,7 +341,7 @@ export class PostPage extends React.Component<IPostProp, IPostState> {
       </Row>
     ) : null;
 
-    const priceForm = moneyValue ? (
+    return moneyValue ? (
       <div>
         <Row>
           <Col md="12">6. Giá bán:</Col>
@@ -349,7 +351,9 @@ export class PostPage extends React.Component<IPostProp, IPostState> {
         {presentForm}
       </div>
     ) : null;
+  }
 
+  updateHouseContactInfo = () => {
     const customerValue = this.state.house.customer || this.props.house.customer;
     const customerForm = customerValue ? (
       <Row>
@@ -390,7 +394,7 @@ export class PostPage extends React.Component<IPostProp, IPostState> {
       </Row>
     ) : null;
 
-    const contactForm = customerValue ? (
+    return customerValue ? (
       <div>
         <Row>
           <Col md="12">7. Liên hệ:</Col>
@@ -402,6 +406,49 @@ export class PostPage extends React.Component<IPostProp, IPostState> {
         {customerFacebookForm}
       </div>
     ) : null;
+  }
+
+  render() {
+    const { current } = this.state;
+    const { house } = this.props;
+    const entity = {
+      ...house,
+      ...this.state.house
+    };
+    const steps = [
+      {
+        title: 'Hình thức',
+        content: <StepOne house={entity} updateHouse={this.updateHouse} />
+      },
+      {
+        title: 'Vị trí',
+        content: <StepTwo house={entity} updateHouse={this.updateHouse} />
+      },
+      {
+        title: 'Đặc điểm',
+        content: <StepThree updateHouse={this.updateHouse} />
+      },
+      {
+        title: 'Hình ảnh',
+        content: <StepFour updateHouse={this.updateHouse} />
+      },
+      {
+        title: 'Giá',
+        content: <StepFive updateHouse={this.updateHouse} />
+      },
+      {
+        title: 'Liên hệ',
+        content: <StepSix updateHouse={this.updateHouse} />
+      },
+      {
+        title: 'Xác nhận',
+        content: <StepSeven />
+      },
+      {
+        title: 'Thanh toán',
+        content: <StepSeven />
+      }
+    ];
 
     return (
       <Row>
@@ -444,13 +491,11 @@ export class PostPage extends React.Component<IPostProp, IPostState> {
         <Col md="4">
           <div style={{ marginTop: 10, background: '#ECECEC', height: '100%', padding: '5px' }}>
             <Card title="Thông tin về ngôi nhà của bạn" bordered={false} style={{ width: '100%', height: '100%' }}>
-              {actionTypeForm}
-              {landTypeForm}
-              {locationForm}
-              {cityForm}
-              {detailForm}
-              {priceForm}
-              {contactForm}
+              {this.updateHouseTypeInfo()}
+              {this.updateHouseAdressInfo()}
+              {this.updateHouseDetailInfo()}
+              {this.updateHousePriceInfo()}
+              {this.updateHouseContactInfo()}
             </Card>
           </div>
         </Col>

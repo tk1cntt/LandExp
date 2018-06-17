@@ -76,6 +76,7 @@ const options = [{
 
 export interface IStepTwoProp extends StateProps, DispatchProps {
   updateHouse: any;
+  house: any;
 }
 
 export interface IStepOneState {
@@ -123,7 +124,6 @@ export class StepTwo extends React.Component<IStepTwoProp, IStepOneState> {
     this.setState({
       locations
     });
-    // console.log(locations);
   }
 
   onChangeCascader = value => {
@@ -185,7 +185,6 @@ export class StepTwo extends React.Component<IStepTwoProp, IStepOneState> {
 const mapStateToProps = storeState => ({
   account: storeState.authentication.account,
   isAuthenticated: storeState.authentication.isAuthenticated,
-  house: storeState.house.entity,
   cities: storeState.city.entities
 });
 
