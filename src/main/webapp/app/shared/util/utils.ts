@@ -92,9 +92,9 @@ export const getPresent = type => {
     case 'FULL_FURNITURE':
       return 'Hỗ trợ nội thất đầy đủ';
     case 'DISCOUNT_PRICE':
-      return 'Hỗ trợ giảm giá';
+      return 'Hỗ trợ chiết khấu giảm giá';
     case 'SUPPORT_EXHIBIT':
-      return 'Hỗ trợ giấy tờ';
+      return 'Hỗ trợ thủ tục giấy tờ';
     case 'SUPPORT_FEE':
       return 'Hỗ trợ phí giao dịch';
     // case 'HAVE_PRESENT':

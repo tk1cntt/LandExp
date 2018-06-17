@@ -68,6 +68,15 @@ export class PostPage extends React.Component<IPostProp, IPostState> {
       case 1:
         this.validateStepTwo();
         break;
+      case 2:
+        this.validateStepThree();
+        break;
+      case 3:
+        this.validateStepFour();
+        break;
+      case 4:
+        this.validateStepFive();
+        break;
       default:
         break;
     }
@@ -100,7 +109,7 @@ export class PostPage extends React.Component<IPostProp, IPostState> {
     this.setState({ alerts });
     if (landTypeValue && actionTypeValue) {
       const current = this.state.current + 1;
-      this.setState({ current, alerts: [] });
+      this.setState({ current });
     }
   }
 
@@ -108,7 +117,7 @@ export class PostPage extends React.Component<IPostProp, IPostState> {
     const alerts = [];
     const cityValue = this.state.house.cityId || this.props.house.cityId;
     const cityForm = cityValue ? null : (
-      <Row key={'action-type-value-alert'}>
+      <Row key={'city-type-value-alert'}>
         <Col md="12">
           <Alert color="danger">
             Bạn phải chọn một tỉnh thành
@@ -119,7 +128,7 @@ export class PostPage extends React.Component<IPostProp, IPostState> {
     alerts.push(cityForm);
     const addressValue = this.state.house.address || this.props.house.address;
     const addressForm = addressValue ? null : (
-      <Row key={'land-type-value-alert'}>
+      <Row key={'address-type-value-alert'}>
         <Col md="12">
           <Alert color="danger">
             Bạn phải nhập địa chỉ
@@ -131,8 +140,40 @@ export class PostPage extends React.Component<IPostProp, IPostState> {
     this.setState({ alerts });
     if (cityValue && addressValue) {
       const current = this.state.current + 1;
-      this.setState({ current, alerts: [] });
+      this.setState({ current });
     }
+  }
+
+  validateStepThree = () => {
+    const current = this.state.current + 1;
+    this.setState({ current });
+  }
+
+  validateStepFour = () => {
+    const alerts = [];
+    const imageValue = this.state.house.fileList && this.state.house.fileList.length !== 0;
+    console.log(imageValue);
+    const imageForm = imageValue ? null : (
+      <Row key={'image-type-value-alert'}>
+        <Col md="12">
+          <Alert color="danger">
+            Bạn phải thêm hình ảnh giới thiệu về ngôi nhà
+          </Alert>
+        </Col>
+      </Row>
+    );
+    alerts.push(imageForm);
+    this.setState({ alerts });
+
+    if (imageValue) {
+      const current = this.state.current + 1;
+      this.setState({ current });
+    }
+  }
+
+  validateStepFive = () => {
+    const current = this.state.current + 1;
+    this.setState({ current });
   }
 
   saveEntity = () => {
