@@ -16,7 +16,8 @@ import { getSession } from 'app/shared/reducers/authentication';
 import { getPresent, getSaleType } from 'app/shared/util/utils';
 
 export interface IStepFiveProp extends StateProps, DispatchProps {
-  updateHouse;
+  updateHouse: Function;
+  house: any;
 }
 
 export interface IStepFiveState {
@@ -153,7 +154,6 @@ export class StepFive extends React.Component<IStepFiveProp, IStepFiveState> {
 const mapStateToProps = storeState => ({
   account: storeState.authentication.account,
   isAuthenticated: storeState.authentication.isAuthenticated,
-  house: storeState.house.entity,
   serviceFees: storeState.serviceFee.entities
 });
 

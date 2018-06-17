@@ -15,7 +15,8 @@ import { IRootState } from 'app/shared/reducers';
 import { getSession } from 'app/shared/reducers/authentication';
 
 export interface IStepThreeProp extends StateProps, DispatchProps {
-  updateHouse;
+  updateHouse: Function;
+  house: any;
 }
 
 export interface IStepThreeState {
@@ -313,8 +314,7 @@ export class StepThree extends React.Component<IStepThreeProp, IStepThreeState> 
 
 const mapStateToProps = storeState => ({
   account: storeState.authentication.account,
-  isAuthenticated: storeState.authentication.isAuthenticated,
-  house: storeState.house.entity
+  isAuthenticated: storeState.authentication.isAuthenticated
 });
 
 const mapDispatchToProps = { getSession };

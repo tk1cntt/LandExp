@@ -15,7 +15,8 @@ import { IRootState } from 'app/shared/reducers';
 import { getSession } from 'app/shared/reducers/authentication';
 
 export interface IStepSixProp extends StateProps, DispatchProps {
-  updateHouse;
+  updateHouse: Function;
+  house: any;
 }
 
 export interface IStepSixState {
@@ -90,27 +91,42 @@ export class StepSix extends React.Component<IStepSixProp, IStepSixState> {
       <Row>
         <Col md="12">
           <div>
-            <Input onChange={this.onChangeCustomer} addonBefore="Họ và tên " placeholder="Họ và tên người liên hệ" />
+            <Input
+              onChange={this.onChangeCustomer}
+              value={this.state.customer || this.props.house.customer}
+              addonBefore="Họ và tên " placeholder="Họ và tên người liên hệ" />
           </div>
         </Col>
         <Col md="12">
           <div style={{ marginTop: 16 }}>
-            <Input onChange={this.onChangeMobile} addonBefore="Điện thoại" placeholder="Số điện thoại liên hệ" />
+            <Input
+              onChange={this.onChangeMobile}
+              value={this.state.mobile || this.props.house.mobile}
+              addonBefore="Điện thoại" placeholder="Số điện thoại liên hệ" />
           </div>
         </Col>
         <Col md="12">
           <div style={{ marginTop: 16 }}>
-            <Input onChange={this.onChangeEmail} addonBefore="Email" placeholder="Địa chỉ email" />
+            <Input
+              onChange={this.onChangeEmail}
+              value={this.state.email || this.props.house.email}
+              addonBefore="Email" placeholder="Địa chỉ email" />
           </div>
         </Col>
         <Col md="12">
           <div style={{ marginTop: 16 }}>
-            <Input onChange={this.onChangeZalo} addonBefore="Zalo" placeholder="Tài khoản Zalo" />
+            <Input
+              onChange={this.onChangeZalo}
+              value={this.state.zalo || this.props.house.zalo}
+              addonBefore="Zalo" placeholder="Tài khoản Zalo" />
           </div>
         </Col>
         <Col md="12">
           <div style={{ marginTop: 16 }}>
-            <Input onChange={this.onChangeFacebook} addonBefore="Facebook" placeholder="Tài khoản Facebook" />
+            <Input
+              onChange={this.onChangeFacebook}
+              value={this.state.facebook || this.props.house.facebook}
+              addonBefore="Facebook" placeholder="Tài khoản Facebook" />
           </div>
         </Col>
       </Row>

@@ -12,7 +12,8 @@ import { getSession } from 'app/shared/reducers/authentication';
 import { deleteEntity } from '../../entities/house-photo/house-photo.reducer';
 
 export interface IStepFourProp extends StateProps, DispatchProps {
-  updateHouse;
+  updateHouse: Function;
+  house: any;
 }
 
 export interface IStepFourState {
@@ -37,6 +38,7 @@ export class StepFour extends React.Component<IStepFourProp, IStepFourState> {
         thumbUrl: 'data:image/jpeg;base64,' + photo.image,
         type: photo.imageContentType
       });
+      this.props.updateHouse({ fileList: this.state.fileList });
     });
   }
 
@@ -112,7 +114,6 @@ export class StepFour extends React.Component<IStepFourProp, IStepFourState> {
 const mapStateToProps = storeState => ({
   account: storeState.authentication.account,
   isAuthenticated: storeState.authentication.isAuthenticated,
-  house: storeState.house.entity,
   housePhotoList: storeState.housePhoto.entities
 });
 

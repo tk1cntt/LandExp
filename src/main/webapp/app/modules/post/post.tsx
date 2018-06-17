@@ -77,6 +77,9 @@ export class PostPage extends React.Component<IPostProp, IPostState> {
       case 4:
         this.validateStepFive();
         break;
+      case 5:
+        this.validateStepSix();
+        break;
       default:
         break;
     }
@@ -200,6 +203,37 @@ export class PostPage extends React.Component<IPostProp, IPostState> {
     }
   }
 
+  validateStepSix = () => {
+    const alerts = [];
+    const customerValue = this.state.house.customer || this.props.house.customer;
+    const customerForm = customerValue ? null : (
+      <Row key={'customer-type-value-alert'}>
+        <Col md="12">
+          <Alert color="danger">
+            Bạn phải nhập tên người bán
+          </Alert>
+        </Col>
+      </Row>
+    );
+    alerts.push(customerForm);
+    const mobileValue = this.state.house.mobile || this.props.house.mobile;
+    const mobileForm = mobileValue ? null : (
+      <Row key={'mobile-type-value-alert'}>
+        <Col md="12">
+          <Alert color="danger">
+            Bạn phải nhập số điện thoại liên lạc
+          </Alert>
+        </Col>
+      </Row>
+    );
+    alerts.push(mobileForm);
+    this.setState({ alerts });
+    if (customerValue && mobileValue) {
+      const current = this.state.current + 1;
+      this.setState({ current });
+    }
+  }
+
   saveEntity = () => {
     const { house } = this.props;
     const entity = {
@@ -208,12 +242,13 @@ export class PostPage extends React.Component<IPostProp, IPostState> {
     };
     this.props.updateHouse(entity);
     if (entity.fileList) {
+      console.log(entity.fileList);
       entity.fileList.map(file => {
         const imageURL = file.thumbUrl;
         const block = imageURL.split(';');
         const realData = block[1].split(',')[1];
         if (file.photoId) {
-          this.props.updatePhoto({ id: file.photoId, image: realData, imageContentType: file.type, houseId: this.props.house.id });
+          // this.props.updatePhoto({ id: file.photoId, image: realData, imageContentType: file.type, houseId: this.props.house.id });
         } else {
           this.props.createPhoto({ image: realData, imageContentType: file.type, houseId: this.props.house.id });
         }
@@ -500,19 +535,19 @@ export class PostPage extends React.Component<IPostProp, IPostState> {
       },
       {
         title: 'Đặc điểm',
-        content: <StepThree updateHouse={this.updateHouse} />
+        content: <StepThree house={entity} updateHouse={this.updateHouse} />
       },
       {
         title: 'Hình ảnh',
-        content: <StepFour updateHouse={this.updateHouse} />
+        content: <StepFour house={entity} updateHouse={this.updateHouse} />
       },
       {
         title: 'Giá',
-        content: <StepFive updateHouse={this.updateHouse} />
+        content: <StepFive house={entity} updateHouse={this.updateHouse} />
       },
       {
         title: 'Liên hệ',
-        content: <StepSix updateHouse={this.updateHouse} />
+        content: <StepSix house={entity} updateHouse={this.updateHouse} />
       },
       {
         title: 'Xác nhận',

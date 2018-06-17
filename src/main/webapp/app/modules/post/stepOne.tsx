@@ -14,7 +14,7 @@ import { getSession } from 'app/shared/reducers/authentication';
 import { getActionType, getLandType } from 'app/shared/util/utils';
 
 export interface IStepOneProp extends StateProps, DispatchProps {
-  updateHouse: any;
+  updateHouse: Function;
   house: any;
 }
 

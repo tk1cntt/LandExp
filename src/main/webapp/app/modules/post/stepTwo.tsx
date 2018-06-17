@@ -75,7 +75,7 @@ const options = [{
 }];
 
 export interface IStepTwoProp extends StateProps, DispatchProps {
-  updateHouse: any;
+  updateHouse: Function;
   house: any;
 }
 
