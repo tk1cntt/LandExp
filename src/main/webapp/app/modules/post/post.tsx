@@ -31,12 +31,14 @@ export interface IPostProp extends StateProps, DispatchProps {}
 export interface IPostState {
   current: any;
   house: any;
+  alerts: any;
 }
 
 export class PostPage extends React.Component<IPostProp, IPostState> {
   state: IPostState = {
     current: 0,
-    house: {}
+    house: {},
+    alerts: []
   };
 
   componentDidMount() {
@@ -47,9 +49,10 @@ export class PostPage extends React.Component<IPostProp, IPostState> {
   }
 
   next = () => {
+    this.setState({ alerts: [] });
     this.validateStep(this.state.current);
-    const current = this.state.current + 1;
-    this.setState({ current });
+    // const current = this.state.current + 1;
+    // this.setState({ current });
   }
 
   prev = () => {
@@ -72,6 +75,34 @@ export class PostPage extends React.Component<IPostProp, IPostState> {
 
   validateStepOne = () => {
     // console.log('Validate step one');
+    const alerts = [];
+    const actionTypeValue = this.state.house.actionType || this.props.house.actionType;
+    const actionTypeForm = actionTypeValue ? null : (
+      <Row key={'action-type-value-alert'}>
+        <Col md="12">
+          <Alert color="danger">
+            Bạn phải chọn một hình thức bán
+          </Alert>
+        </Col>
+      </Row>
+    )
+    alerts.push(actionTypeForm);
+    const landTypeValue = this.state.house.landType || this.props.house.landType;
+    const landTypeForm = landTypeValue ? null : (
+      <Row key={'land-type-value-alert'}>
+        <Col md="12">
+          <Alert color="danger">
+            Bạn phải chọn loại bất động sản
+          </Alert>
+        </Col>
+      </Row>
+    )
+    alerts.push(landTypeForm);
+    this.setState({ alerts });
+    if (landTypeValue && actionTypeValue) {
+      const current = this.state.current + 1;
+      this.setState({ current });
+    }
   }
 
   validateStepTwo = () => {
@@ -111,7 +142,7 @@ export class PostPage extends React.Component<IPostProp, IPostState> {
     const steps = [
       {
         title: 'Hình thức',
-        content: <StepOne updateHouse={this.updateHouse} />
+        content: <StepOne house={this.state.house || this.props.house} updateHouse={this.updateHouse} />
       },
       {
         title: 'Vị trí',
@@ -255,7 +286,7 @@ export class PostPage extends React.Component<IPostProp, IPostState> {
       </Row>
     ) : null;
 
-    const detailForm = (
+    const detailForm = acreageValue ? (
       <div>
         <Row>
           <Col md="12">5. Đặc điểm:</Col>
@@ -270,7 +301,7 @@ export class PostPage extends React.Component<IPostProp, IPostState> {
         {directionBalconyForm}
         {parkingForm}
       </div>
-    );
+    ) : null;
 
     const moneyValue = this.state.house.money || this.props.house.money;
     const discountValue = this.state.house.discount || this.props.house.discount;
@@ -308,7 +339,7 @@ export class PostPage extends React.Component<IPostProp, IPostState> {
       </Row>
     ) : null;
 
-    const priceForm = (
+    const priceForm = moneyValue ? (
       <div>
         <Row>
           <Col md="12">6. Giá bán:</Col>
@@ -317,7 +348,7 @@ export class PostPage extends React.Component<IPostProp, IPostState> {
         {discountForm}
         {presentForm}
       </div>
-    );
+    ) : null;
 
     const customerValue = this.state.house.customer || this.props.house.customer;
     const customerForm = customerValue ? (
@@ -359,7 +390,7 @@ export class PostPage extends React.Component<IPostProp, IPostState> {
       </Row>
     ) : null;
 
-    const contactForm = (
+    const contactForm = customerValue ? (
       <div>
         <Row>
           <Col md="12">7. Liên hệ:</Col>
@@ -370,7 +401,7 @@ export class PostPage extends React.Component<IPostProp, IPostState> {
         {customerZaloForm}
         {customerFacebookForm}
       </div>
-    );
+    ) : null;
 
     return (
       <Row>
@@ -380,6 +411,7 @@ export class PostPage extends React.Component<IPostProp, IPostState> {
           </Steps>
         </Col>
         <Col md="8">
+          {this.state.alerts}
           <div style={{ marginTop: 10, background: '#ECECEC', height: '100%', padding: '5px' }}>
             <Card title="Thông tin về ngôi nhà của bạn" bordered={false} style={{ width: '100%', height: '100%' }}>
               <div className="steps-content">{steps[this.state.current].content}</div>
