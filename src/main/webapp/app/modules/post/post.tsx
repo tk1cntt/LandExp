@@ -11,7 +11,7 @@ const Step = Steps.Step;
 
 import { IRootState } from 'app/shared/reducers';
 import { getSession } from 'app/shared/reducers/authentication';
-import { getActionType, getLandType, getCityType, getDirection, getPresent } from 'app/shared/util/utils';
+import { getActionType, getLandType, getCityType, getDirection, getPresent, getSaleType } from 'app/shared/util/utils';
 
 import { getEntity as getHouse, updateEntity as updateHouse } from '../../entities/house/house.reducer';
 import { getEntities as getCities } from '../../entities/city/city.reducer';
@@ -152,7 +152,6 @@ export class PostPage extends React.Component<IPostProp, IPostState> {
   validateStepFour = () => {
     const alerts = [];
     const imageValue = this.state.house.fileList && this.state.house.fileList.length !== 0;
-    console.log(imageValue);
     const imageForm = imageValue ? null : (
       <Row key={'image-type-value-alert'}>
         <Col md="12">
@@ -164,7 +163,6 @@ export class PostPage extends React.Component<IPostProp, IPostState> {
     );
     alerts.push(imageForm);
     this.setState({ alerts });
-
     if (imageValue) {
       const current = this.state.current + 1;
       this.setState({ current });
@@ -172,8 +170,34 @@ export class PostPage extends React.Component<IPostProp, IPostState> {
   }
 
   validateStepFive = () => {
-    const current = this.state.current + 1;
-    this.setState({ current });
+    const alerts = [];
+    const moneyValue = this.state.house.money || this.props.house.money;
+    const moneyForm = moneyValue ? null : (
+      <Row key={'money-type-value-alert'}>
+        <Col md="12">
+          <Alert color="danger">
+            Bạn phải nhập giá bán ngôi nhà
+          </Alert>
+        </Col>
+      </Row>
+    );
+    alerts.push(moneyForm);
+    const saleTypeValue = this.state.house.saleType || this.props.house.saleType;
+    const saleTypeForm = saleTypeValue ? null : (
+      <Row key={'sale-type-value-alert'}>
+        <Col md="12">
+          <Alert color="danger">
+            Bạn phải chọn một gói tin đăng
+          </Alert>
+        </Col>
+      </Row>
+    );
+    alerts.push(saleTypeForm);
+    this.setState({ alerts });
+    if (moneyValue && saleTypeValue) {
+      const current = this.state.current + 1;
+      this.setState({ current });
+    }
   }
 
   saveEntity = () => {
@@ -382,6 +406,14 @@ export class PostPage extends React.Component<IPostProp, IPostState> {
       </Row>
     ) : null;
 
+    const saleTypeValue = this.state.house.saleType || this.props.house.saleType;
+    const sateTypeForm = saleTypeValue ? (
+      <Row>
+        <Col md="6">Gói tin đăng:</Col>
+        <Col md="6">{getSaleType(presentValue)}</Col>
+      </Row>
+    ) : null;
+
     return moneyValue ? (
       <div>
         <Row>
@@ -390,6 +422,7 @@ export class PostPage extends React.Component<IPostProp, IPostState> {
         {moneyForm}
         {discountForm}
         {presentForm}
+        {sateTypeForm}
       </div>
     ) : null;
   }

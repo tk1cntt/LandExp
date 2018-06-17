@@ -102,3 +102,16 @@ export const getPresent = type => {
       return 'Có quà tặng';
   }
 };
+
+export const getSaleType = type => {
+  switch (type) {
+    case 'SALE_BY_MYSELF_VIP':
+      return 'Tin VIP';
+    case 'SALE_SUPPORT':
+      return 'Ký gửi thường';
+    case 'SALE_SUPPORT_VIP':
+      return 'Ký gửi VIP';
+    default:
+      return 'Tin thường';
+  }
+};

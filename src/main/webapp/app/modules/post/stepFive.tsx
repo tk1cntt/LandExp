@@ -13,7 +13,7 @@ const RadioGroup = Radio.Group;
 
 import { IRootState } from 'app/shared/reducers';
 import { getSession } from 'app/shared/reducers/authentication';
-import { getPresent } from 'app/shared/util/utils';
+import { getPresent, getSaleType } from 'app/shared/util/utils';
 
 export interface IStepFiveProp extends StateProps, DispatchProps {
   updateHouse;
@@ -130,15 +130,15 @@ export class StepFive extends React.Component<IStepFiveProp, IStepFiveState> {
           <div>
             <RadioGroup onChange={this.onChangeSaleType} value={this.state.saleType || this.props.house.saleType}>
               1. Thông thường (Người mua quan tâm sẽ liên hệ trực tiếp với bạn)
-              <Radio style={radioStyle} value={'SALE_BY_MYSELF'}>Tin thường</Radio>
+              <Radio style={radioStyle} value={'SALE_BY_MYSELF'}>{getSaleType('SALE_BY_MYSELF')}</Radio>
               Được đăng tin vô thời giạn trên trang web
-              <Radio style={radioStyle} value={'SALE_BY_MYSELF_VIP'}>Tin VIP</Radio>
+              <Radio style={radioStyle} value={'SALE_BY_MYSELF_VIP'}>{getSaleType('SALE_BY_MYSELF_VIP')}</Radio>
               Sẽ xuất hiện ưu tiên trên trang chủ và các trang tìm kiếm
               <br />
               2. Ký gửi (Chúng tôi hỗ trợ bán tận răng)
-              <Radio style={radioStyle} value={'SALE_SUPPORT'}>Ký gửi thường</Radio>
+              <Radio style={radioStyle} value={'SALE_SUPPORT'}>{getSaleType('SALE_SUPPORT')}</Radio>
               Chúng tôi sẽ tìm kiếm khách hàng giúp bạn
-              <Radio style={radioStyle} value={'SALE_SUPPORT_VIP'}>Ký gửi VIP</Radio>
+              <Radio style={radioStyle} value={'SALE_SUPPORT_VIP'}>{getSaleType('SALE_SUPPORT_VIP')}</Radio>
               Sử dụng các nghiệp vụ marketing để bán được nhà của bạn hiệu quả nhất
               <br />
               Hoa hồng ký gửi: 0.5%/giá bán (Không quá 10 triệu VNĐ)
