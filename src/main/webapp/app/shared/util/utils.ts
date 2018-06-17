@@ -9,7 +9,7 @@ export const getActionType = type => {
 export const getLandType = type => {
   switch (type) {
     case 'APARTMENT':
-      return 'Chung cư';
+      return 'Căn hộ chung cư';
     case 'PEN_HOUSE':
       return 'Penhouse';
     case 'HOME':
@@ -59,4 +59,46 @@ export const getCityType = value => {
     });
   }
   return address;
+};
+
+export const getDirection = type => {
+  switch (type) {
+    case 'NORTH':
+      return 'Bắc';
+    case 'SOUTH':
+      return 'Nam';
+    case 'EAST':
+      return 'Đông';
+    case 'WEST':
+      return 'Tây';
+    case 'EAST_NORTH':
+      return 'Đông Bắc';
+    case 'WEST_NORTH':
+      return 'Tây Bắc';
+    case 'EAST_SOUTH':
+      return 'Đông Nam';
+    // case 'WEST_SOUTH':
+    default:
+      return 'Tây Nam';
+  }
+};
+
+export const getPresent = type => {
+  switch (type) {
+    case 'NONE':
+      return 'Không hỗ trợ';
+    case 'BASIC_FURNITURE':
+      return 'Hỗ trợ nội thất cơ bản';
+    case 'FULL_FURNITURE':
+      return 'Hỗ trợ nội thất đầy đủ';
+    case 'DISCOUNT_PRICE':
+      return 'Hỗ trợ giảm giá';
+    case 'SUPPORT_EXHIBIT':
+      return 'Hỗ trợ giấy tờ';
+    case 'SUPPORT_FEE':
+      return 'Hỗ trợ phí giao dịch';
+    // case 'HAVE_PRESENT':
+    default:
+      return 'Có quà tặng';
+  }
 };

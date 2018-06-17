@@ -13,6 +13,7 @@ const RadioGroup = Radio.Group;
 
 import { IRootState } from 'app/shared/reducers';
 import { getSession } from 'app/shared/reducers/authentication';
+import { getPresent } from 'app/shared/util/utils';
 
 export interface IStepFiveProp extends StateProps, DispatchProps {
   updateHouse;
@@ -110,13 +111,13 @@ export class StepFive extends React.Component<IStepFiveProp, IStepFiveState> {
         <Col md="12">
           <div>
             <RadioGroup onChange={this.onChangePresent} value={this.state.present || this.props.house.present}>
-              <Radio style={radioStyle} value={'NONE'}>Không hỗ trợ</Radio>
-              <Radio style={radioStyle} value={'BASIC_FURNITURE'}>Hỗ trợ nội thất cơ bản</Radio>
-              <Radio style={radioStyle} value={'FULL_FURNITURE'}>Hỗ trợ nội thất đầy đủ</Radio>
-              <Radio style={radioStyle} value={'DISCOUNT_PRICE'}>Hỗ trợ giảm giá</Radio>
-              <Radio style={radioStyle} value={'SUPPORT_EXHIBIT'}>Hỗ trợ giấy tờ</Radio>
-              <Radio style={radioStyle} value={'SUPPORT_FEE'}>Hỗ trợ phí giao dịch</Radio>
-              <Radio style={radioStyle} value={'HAVE_PRESENT'}>Có quà tặng</Radio>
+              <Radio style={radioStyle} value={'NONE'}>{getPresent('NONE')}</Radio>
+              <Radio style={radioStyle} value={'BASIC_FURNITURE'}>{getPresent('BASIC_FURNITURE')}</Radio>
+              <Radio style={radioStyle} value={'FULL_FURNITURE'}>{getPresent('FULL_FURNITURE')}</Radio>
+              <Radio style={radioStyle} value={'DISCOUNT_PRICE'}>{getPresent('DISCOUNT_PRICE')}</Radio>
+              <Radio style={radioStyle} value={'SUPPORT_EXHIBIT'}>{getPresent('SUPPORT_EXHIBIT')}</Radio>
+              <Radio style={radioStyle} value={'SUPPORT_FEE'}>{getPresent('SUPPORT_FEE')}</Radio>
+              <Radio style={radioStyle} value={'HAVE_PRESENT'}>{getPresent('HAVE_PRESENT')}</Radio>
             </RadioGroup>
           </div>
         </Col>

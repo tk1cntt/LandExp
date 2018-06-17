@@ -95,6 +95,7 @@ export class StepFour extends React.Component<IStepFourProp, IStepFourState> {
         <Modal visible={previewVisible} footer={null} onCancel={this.handleCancel}>
           <img alt="example" style={{ width: '100%' }} src={previewImage} />
         </Modal>
+        {/*
         <Col md="12">
           <div style={{ marginTop: 30 }}>
             <Carousel autoplay>
@@ -102,6 +103,7 @@ export class StepFour extends React.Component<IStepFourProp, IStepFourState> {
             </Carousel>
           </div>
         </Col>
+        */}
       </div>
     );
   }

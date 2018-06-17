@@ -11,7 +11,7 @@ const Step = Steps.Step;
 
 import { IRootState } from 'app/shared/reducers';
 import { getSession } from 'app/shared/reducers/authentication';
-import { getActionType, getLandType, getCityType } from 'app/shared/util/utils';
+import { getActionType, getLandType, getCityType, getDirection, getPresent } from 'app/shared/util/utils';
 
 import { getEntity as getHouse, updateEntity as updateHouse } from '../../entities/house/house.reducer';
 import { getEntities as getCities } from '../../entities/city/city.reducer';
@@ -143,33 +143,33 @@ export class PostPage extends React.Component<IPostProp, IPostState> {
       }
     ];
 
-    console.log(this.state.house);
-    console.log(this.props.house);
-
-    const actionTypeForm = this.state.house.actionType || this.props.house.actionType ? (
+    const actionTypeValue = this.state.house.actionType || this.props.house.actionType;
+    const actionTypeForm = actionTypeValue ? (
       <Row>
-        <Col md="6">Hình thức bán:</Col>
-        <Col md="6">{getActionType(this.state.house.actionType || this.props.house.actionType)}</Col>
+        <Col md="6">1. Hình thức bán:</Col>
+        <Col md="6">{getActionType(actionTypeValue)}</Col>
       </Row>
     ) : null;
 
-    const landTypeForm = this.state.house.landType || this.props.house.landType ? (
+    const landTypeValue = this.state.house.landType || this.props.house.landType;
+    const landTypeForm = landTypeValue ? (
       <Row>
-        <Col md="6">Loại bất động sản:</Col>
-        <Col md="6">{getLandType(this.state.house.landType || this.props.house.landType)}</Col>
+        <Col md="6">2. Loại bất động sản:</Col>
+        <Col md="6">{getLandType(landTypeValue)}</Col>
       </Row>
     ) : null;
 
-    const locationForm = this.state.house.address || this.props.house.address ? (
+    const locationValue = this.state.house.address || this.props.house.address;
+    const locationForm = locationValue ? (
       <Row>
-        <Col md="12">Địa chỉ:</Col>
-        <Col md="12">{this.state.house.address || this.props.house.address}</Col>
+        <Col md="12">3. Địa chỉ:</Col>
+        <Col md="12">{locationValue}</Col>
       </Row>
     ) : null;
 
     const cityForm = this.state.house.cityId || this.props.house.cityId ? (
       <Row>
-        <Col md="12">Tỉnh thành:</Col>
+        <Col md="12">4. Tỉnh thành:</Col>
         <Col md="12">
           {
             getCityType({
@@ -182,6 +182,195 @@ export class PostPage extends React.Component<IPostProp, IPostState> {
         </Col>
       </Row>
     ) : null;
+
+    const acreageValue = this.state.house.acreage || this.props.house.acreage;
+    const acreageForm = acreageValue ? (
+      <Row>
+        <Col md="6">Diện tích:</Col>
+        <Col md="6">{acreageValue} m2</Col>
+      </Row>
+    ) : null;
+
+    const acreageStreetSideValue = this.state.house.acreageStreetSide || this.props.house.acreageStreetSide;
+    const acreageStreetSideForm = acreageStreetSideValue ? (
+      <Row>
+        <Col md="6">Mặt tiền:</Col>
+        <Col md="6">{acreageStreetSideValue} m</Col>
+      </Row>
+    ) : null;
+
+    const bedRoomValue = this.state.house.bedRoom || this.props.house.bedRoom;
+    const bedRoomForm = bedRoomValue ? (
+      <Row>
+        <Col md="6">Phòng ngủ:</Col>
+        <Col md="6">{bedRoomValue}</Col>
+      </Row>
+    ) : null;
+
+    const bathRoomValue = this.state.house.bathRoom || this.props.house.bathRoom;
+    const bathRoomForm = bathRoomValue ? (
+      <Row>
+        <Col md="6">Phòng tắm:</Col>
+        <Col md="6">{bathRoomValue}</Col>
+      </Row>
+    ) : null;
+
+    const floorValue = this.state.house.floor || this.props.house.floor;
+    const floorForm = floorValue ? (
+      <Row>
+        <Col md="6">Tầng:</Col>
+        <Col md="6">{floorValue}</Col>
+      </Row>
+    ) : null;
+
+    const numberOfFloorValue = this.state.house.numberOfFloor || this.props.house.numberOfFloor;
+    const numberOfFloorForm = numberOfFloorValue ? (
+      <Row>
+        <Col md="6">Số tầng:</Col>
+        <Col md="6">{numberOfFloorValue}</Col>
+      </Row>
+    ) : null;
+
+    const directionValue = this.state.house.direction || this.props.house.direction;
+    const directionForm = directionValue ? (
+      <Row>
+        <Col md="6">Hướng nhà:</Col>
+        <Col md="6">{getDirection(directionValue)}</Col>
+      </Row>
+    ) : null;
+
+    const directionBalconyValue = this.state.house.directionBalcony || this.props.house.directionBalcony;
+    const directionBalconyForm = directionBalconyValue ? (
+      <Row>
+        <Col md="6">Hướng ban công:</Col>
+        <Col md="6">{getDirection(directionBalconyValue)}</Col>
+      </Row>
+    ) : null;
+
+    const parkingValue = this.state.house.parking || this.props.house.parking;
+    const parkingForm = parkingValue ? (
+      <Row>
+        <Col md="6">Chỗ để xe:</Col>
+        <Col md="6">{parkingValue ? 'Có' : 'Không'}</Col>
+      </Row>
+    ) : null;
+
+    const detailForm = (
+      <div>
+        <Row>
+          <Col md="12">5. Đặc điểm:</Col>
+        </Row>
+        {acreageForm}
+        {acreageStreetSideForm}
+        {bedRoomForm}
+        {bathRoomForm}
+        {floorForm}
+        {numberOfFloorForm}
+        {directionForm}
+        {directionBalconyForm}
+        {parkingForm}
+      </div>
+    );
+
+    const moneyValue = this.state.house.money || this.props.house.money;
+    const discountValue = this.state.house.discount || this.props.house.discount;
+
+    const moneyForm = moneyValue && discountValue ? (
+      <Row>
+        <Col md="6">Giá đề xuất:</Col>
+        <Col md="6">
+          <div style={{ textDecoration: 'line-through', color: 'red' }}>
+            {new Intl.NumberFormat().format(moneyValue)} VNĐ
+          </div>
+        </Col>
+      </Row>
+    ) : (
+      <Row>
+        <Col md="6">Giá đề xuất:</Col>
+        <Col md="6">
+          {new Intl.NumberFormat().format(moneyValue)} VNĐ
+        </Col>
+      </Row>
+    );
+
+    const discountForm = discountValue ? (
+      <Row>
+        <Col md="6">Giá bán mong muốn:</Col>
+        <Col md="6">{new Intl.NumberFormat().format(discountValue)} VNĐ</Col>
+      </Row>
+    ) : null;
+
+    const presentValue = this.state.house.present || this.props.house.present;
+    const presentForm = presentValue ? (
+      <Row>
+        <Col md="6">Hỗ trợ sau khi bán:</Col>
+        <Col md="6">{getPresent(presentValue)}</Col>
+      </Row>
+    ) : null;
+
+    const priceForm = (
+      <div>
+        <Row>
+          <Col md="12">6. Giá bán:</Col>
+        </Row>
+        {moneyForm}
+        {discountForm}
+        {presentForm}
+      </div>
+    );
+
+    const customerValue = this.state.house.customer || this.props.house.customer;
+    const customerForm = customerValue ? (
+      <Row>
+        <Col md="6">Người liên hệ:</Col>
+        <Col md="6">{customerValue}</Col>
+      </Row>
+    ) : null;
+
+    const customerMobileValue = this.state.house.mobile || this.props.house.mobile;
+    const customerMobileForm = customerMobileValue ? (
+      <Row>
+        <Col md="6">Số điện thoại:</Col>
+        <Col md="6">{customerMobileValue}</Col>
+      </Row>
+    ) : null;
+
+    const customerEmailValue = this.state.house.email || this.props.house.email;
+    const customerEmailForm = customerValue ? (
+      <Row>
+        <Col md="6">Địa chỉ emai:</Col>
+        <Col md="6">{customerEmailValue}</Col>
+      </Row>
+    ) : null;
+
+    const customerZaloValue = this.state.house.zalo || this.props.house.zalo;
+    const customerZaloForm = customerValue ? (
+      <Row>
+        <Col md="6">Tài khoản Facebook:</Col>
+        <Col md="6">{customerZaloValue}</Col>
+      </Row>
+    ) : null;
+
+    const customerFacebookValue = this.state.house.facebook || this.props.house.facebook;
+    const customerFacebookForm = customerValue ? (
+      <Row>
+        <Col md="6">Tài khoản Facebook:</Col>
+        <Col md="6">{customerFacebookValue}</Col>
+      </Row>
+    ) : null;
+
+    const contactForm = (
+      <div>
+        <Row>
+          <Col md="12">7. Liên hệ:</Col>
+        </Row>
+        {customerForm}
+        {customerMobileForm}
+        {customerEmailForm}
+        {customerZaloForm}
+        {customerFacebookForm}
+      </div>
+    );
 
     return (
       <Row>
@@ -227,6 +416,9 @@ export class PostPage extends React.Component<IPostProp, IPostState> {
               {landTypeForm}
               {locationForm}
               {cityForm}
+              {detailForm}
+              {priceForm}
+              {contactForm}
             </Card>
           </div>
         </Col>

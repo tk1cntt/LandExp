@@ -294,11 +294,13 @@ export class StepThree extends React.Component<IStepThreeProp, IStepThreeState> 
             <Checkbox onChange={this.onChangeParking} checked={this.state.parking || this.props.house.parking}>Có chỗ để ôtô</Checkbox>
           </div>
         </Col>
+        {/*
         <Col md="12">
           <div style={{ marginTop: 16 }}>
             <Checkbox onChange={this.onChangeFurniture} checked={this.state.furniture || this.props.house.furniture}>Nội thất đầy đủ</Checkbox>
           </div>
         </Col>
+        */}
         <Col md="12">
           <div style={{ marginTop: 16 }}>
             <TextArea onChange={this.onChangeSummary} placeholder="Mô tả thêm về ngôi nhà của bạn" autosize={{ minRows: 2, maxRows: 6 }} />
