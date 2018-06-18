@@ -8,11 +8,6 @@ export const enum UserActionType {
   FOR_HIRE = 'FOR_HIRE'
 }
 
-export const enum MoneyType {
-  MILLION = 'MILLION',
-  BILLION = 'BILLION'
-}
-
 export const enum DirectionType {
   NORTH = 'NORTH',
   SOUTH = 'SOUTH',
@@ -69,11 +64,11 @@ export const enum StatusType {
 
 export interface IHouse {
   id?: number;
-  avatar?: string;
+  avatarContentType?: string;
+  avatar?: any;
   actionType?: UserActionType;
   address?: string;
   money?: number;
-  moneyType?: MoneyType;
   acreage?: number;
   acreageStreetSide?: number;
   discount?: number;
@@ -84,7 +79,6 @@ export interface IHouse {
   bathRoom?: number;
   bedRoom?: number;
   parking?: boolean;
-  furniture?: boolean;
   summary?: string;
   landType?: LandType;
   saleType?: SaleType;
@@ -121,6 +115,5 @@ export interface IHouse {
 }
 
 export const defaultValue: Readonly<IHouse> = {
-  parking: false,
-  furniture: false
+  parking: false
 };

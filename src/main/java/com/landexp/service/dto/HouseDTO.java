@@ -4,8 +4,8 @@ import java.time.LocalDate;
 import java.io.Serializable;
 import java.util.List;
 import java.util.Objects;
+import javax.persistence.Lob;
 import com.landexp.domain.enumeration.UserActionType;
-import com.landexp.domain.enumeration.MoneyType;
 import com.landexp.domain.enumeration.DirectionType;
 import com.landexp.domain.enumeration.DirectionType;
 import com.landexp.domain.enumeration.LandType;
@@ -20,15 +20,15 @@ public class HouseDTO implements Serializable {
 
     private Long id;
 
-    private String avatar;
+    @Lob
+    private byte[] avatar;
+    private String avatarContentType;
 
     private UserActionType actionType;
 
     private String address;
 
     private Float money;
-
-    private MoneyType moneyType;
 
     private Float acreage;
 
@@ -49,8 +49,6 @@ public class HouseDTO implements Serializable {
     private Integer bedRoom;
 
     private Boolean parking;
-
-    private Boolean furniture;
 
     private String summary;
 
@@ -126,12 +124,20 @@ public class HouseDTO implements Serializable {
         this.id = id;
     }
 
-    public String getAvatar() {
+    public byte[] getAvatar() {
         return avatar;
     }
 
-    public void setAvatar(String avatar) {
+    public void setAvatar(byte[] avatar) {
         this.avatar = avatar;
+    }
+
+    public String getAvatarContentType() {
+        return avatarContentType;
+    }
+
+    public void setAvatarContentType(String avatarContentType) {
+        this.avatarContentType = avatarContentType;
     }
 
     public UserActionType getActionType() {
@@ -156,14 +162,6 @@ public class HouseDTO implements Serializable {
 
     public void setMoney(Float money) {
         this.money = money;
-    }
-
-    public MoneyType getMoneyType() {
-        return moneyType;
-    }
-
-    public void setMoneyType(MoneyType moneyType) {
-        this.moneyType = moneyType;
     }
 
     public Float getAcreage() {
@@ -244,14 +242,6 @@ public class HouseDTO implements Serializable {
 
     public void setParking(Boolean parking) {
         this.parking = parking;
-    }
-
-    public Boolean isFurniture() {
-        return furniture;
-    }
-
-    public void setFurniture(Boolean furniture) {
-        this.furniture = furniture;
     }
 
     public String getSummary() {
@@ -547,7 +537,6 @@ public class HouseDTO implements Serializable {
             ", actionType='" + getActionType() + "'" +
             ", address='" + getAddress() + "'" +
             ", money=" + getMoney() +
-            ", moneyType='" + getMoneyType() + "'" +
             ", acreage=" + getAcreage() +
             ", acreageStreetSide=" + getAcreageStreetSide() +
             ", discount=" + getDiscount() +
@@ -558,7 +547,6 @@ public class HouseDTO implements Serializable {
             ", bathRoom=" + getBathRoom() +
             ", bedRoom=" + getBedRoom() +
             ", parking='" + isParking() + "'" +
-            ", furniture='" + isFurniture() + "'" +
             ", summary='" + getSummary() + "'" +
             ", landType='" + getLandType() + "'" +
             ", saleType='" + getSaleType() + "'" +
