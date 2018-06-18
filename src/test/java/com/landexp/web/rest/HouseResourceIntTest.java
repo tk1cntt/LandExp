@@ -37,6 +37,7 @@ import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.util.Base64Utils;
 
 import javax.persistence.EntityManager;
 import java.time.LocalDate;
@@ -54,7 +55,6 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
 import com.landexp.domain.enumeration.UserActionType;
-import com.landexp.domain.enumeration.MoneyType;
 import com.landexp.domain.enumeration.DirectionType;
 import com.landexp.domain.enumeration.DirectionType;
 import com.landexp.domain.enumeration.LandType;
@@ -70,8 +70,10 @@ import com.landexp.domain.enumeration.StatusType;
 @SpringBootTest(classes = LandexpApp.class)
 public class HouseResourceIntTest {
 
-    private static final String DEFAULT_AVATAR = "AAAAAAAAAA";
-    private static final String UPDATED_AVATAR = "BBBBBBBBBB";
+    private static final byte[] DEFAULT_AVATAR = TestUtil.createByteArray(1, "0");
+    private static final byte[] UPDATED_AVATAR = TestUtil.createByteArray(2, "1");
+    private static final String DEFAULT_AVATAR_CONTENT_TYPE = "image/jpg";
+    private static final String UPDATED_AVATAR_CONTENT_TYPE = "image/png";
 
     private static final UserActionType DEFAULT_ACTION_TYPE = UserActionType.FOR_BUY;
     private static final UserActionType UPDATED_ACTION_TYPE = UserActionType.FOR_SELL;
@@ -81,9 +83,6 @@ public class HouseResourceIntTest {
 
     private static final Float DEFAULT_MONEY = 1F;
     private static final Float UPDATED_MONEY = 2F;
-
-    private static final MoneyType DEFAULT_MONEY_TYPE = MoneyType.MILLION;
-    private static final MoneyType UPDATED_MONEY_TYPE = MoneyType.BILLION;
 
     private static final Float DEFAULT_ACREAGE = 1F;
     private static final Float UPDATED_ACREAGE = 2F;
@@ -114,9 +113,6 @@ public class HouseResourceIntTest {
 
     private static final Boolean DEFAULT_PARKING = false;
     private static final Boolean UPDATED_PARKING = true;
-
-    private static final Boolean DEFAULT_FURNITURE = false;
-    private static final Boolean UPDATED_FURNITURE = true;
 
     private static final String DEFAULT_SUMMARY = "AAAAAAAAAA";
     private static final String UPDATED_SUMMARY = "BBBBBBBBBB";
@@ -236,10 +232,10 @@ public class HouseResourceIntTest {
     public static House createEntity(EntityManager em) {
         House house = new House()
             .avatar(DEFAULT_AVATAR)
+            .avatarContentType(DEFAULT_AVATAR_CONTENT_TYPE)
             .actionType(DEFAULT_ACTION_TYPE)
             .address(DEFAULT_ADDRESS)
             .money(DEFAULT_MONEY)
-            .moneyType(DEFAULT_MONEY_TYPE)
             .acreage(DEFAULT_ACREAGE)
             .acreageStreetSide(DEFAULT_ACREAGE_STREET_SIDE)
             .discount(DEFAULT_DISCOUNT)
@@ -250,7 +246,6 @@ public class HouseResourceIntTest {
             .bathRoom(DEFAULT_BATH_ROOM)
             .bedRoom(DEFAULT_BED_ROOM)
             .parking(DEFAULT_PARKING)
-            .furniture(DEFAULT_FURNITURE)
             .summary(DEFAULT_SUMMARY)
             .landType(DEFAULT_LAND_TYPE)
             .saleType(DEFAULT_SALE_TYPE)
@@ -294,10 +289,10 @@ public class HouseResourceIntTest {
         assertThat(houseList).hasSize(databaseSizeBeforeCreate + 1);
         House testHouse = houseList.get(houseList.size() - 1);
         assertThat(testHouse.getAvatar()).isEqualTo(DEFAULT_AVATAR);
+        assertThat(testHouse.getAvatarContentType()).isEqualTo(DEFAULT_AVATAR_CONTENT_TYPE);
         assertThat(testHouse.getActionType()).isEqualTo(DEFAULT_ACTION_TYPE);
         assertThat(testHouse.getAddress()).isEqualTo(DEFAULT_ADDRESS);
         assertThat(testHouse.getMoney()).isEqualTo(DEFAULT_MONEY);
-        assertThat(testHouse.getMoneyType()).isEqualTo(DEFAULT_MONEY_TYPE);
         assertThat(testHouse.getAcreage()).isEqualTo(DEFAULT_ACREAGE);
         assertThat(testHouse.getAcreageStreetSide()).isEqualTo(DEFAULT_ACREAGE_STREET_SIDE);
         assertThat(testHouse.getDiscount()).isEqualTo(DEFAULT_DISCOUNT);
@@ -308,7 +303,6 @@ public class HouseResourceIntTest {
         assertThat(testHouse.getBathRoom()).isEqualTo(DEFAULT_BATH_ROOM);
         assertThat(testHouse.getBedRoom()).isEqualTo(DEFAULT_BED_ROOM);
         assertThat(testHouse.isParking()).isEqualTo(DEFAULT_PARKING);
-        assertThat(testHouse.isFurniture()).isEqualTo(DEFAULT_FURNITURE);
         assertThat(testHouse.getSummary()).isEqualTo(DEFAULT_SUMMARY);
         assertThat(testHouse.getLandType()).isEqualTo(DEFAULT_LAND_TYPE);
         assertThat(testHouse.getSaleType()).isEqualTo(DEFAULT_SALE_TYPE);
@@ -366,11 +360,11 @@ public class HouseResourceIntTest {
             .andExpect(status().isOk())
             .andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8_VALUE))
             .andExpect(jsonPath("$.[*].id").value(hasItem(house.getId().intValue())))
-            .andExpect(jsonPath("$.[*].avatar").value(hasItem(DEFAULT_AVATAR.toString())))
+            .andExpect(jsonPath("$.[*].avatarContentType").value(hasItem(DEFAULT_AVATAR_CONTENT_TYPE)))
+            .andExpect(jsonPath("$.[*].avatar").value(hasItem(Base64Utils.encodeToString(DEFAULT_AVATAR))))
             .andExpect(jsonPath("$.[*].actionType").value(hasItem(DEFAULT_ACTION_TYPE.toString())))
             .andExpect(jsonPath("$.[*].address").value(hasItem(DEFAULT_ADDRESS.toString())))
             .andExpect(jsonPath("$.[*].money").value(hasItem(DEFAULT_MONEY.doubleValue())))
-            .andExpect(jsonPath("$.[*].moneyType").value(hasItem(DEFAULT_MONEY_TYPE.toString())))
             .andExpect(jsonPath("$.[*].acreage").value(hasItem(DEFAULT_ACREAGE.doubleValue())))
             .andExpect(jsonPath("$.[*].acreageStreetSide").value(hasItem(DEFAULT_ACREAGE_STREET_SIDE.doubleValue())))
             .andExpect(jsonPath("$.[*].discount").value(hasItem(DEFAULT_DISCOUNT.doubleValue())))
@@ -381,7 +375,6 @@ public class HouseResourceIntTest {
             .andExpect(jsonPath("$.[*].bathRoom").value(hasItem(DEFAULT_BATH_ROOM)))
             .andExpect(jsonPath("$.[*].bedRoom").value(hasItem(DEFAULT_BED_ROOM)))
             .andExpect(jsonPath("$.[*].parking").value(hasItem(DEFAULT_PARKING.booleanValue())))
-            .andExpect(jsonPath("$.[*].furniture").value(hasItem(DEFAULT_FURNITURE.booleanValue())))
             .andExpect(jsonPath("$.[*].summary").value(hasItem(DEFAULT_SUMMARY.toString())))
             .andExpect(jsonPath("$.[*].landType").value(hasItem(DEFAULT_LAND_TYPE.toString())))
             .andExpect(jsonPath("$.[*].saleType").value(hasItem(DEFAULT_SALE_TYPE.toString())))
@@ -401,7 +394,7 @@ public class HouseResourceIntTest {
             .andExpect(jsonPath("$.[*].createAt").value(hasItem(DEFAULT_CREATE_AT.toString())))
             .andExpect(jsonPath("$.[*].updateAt").value(hasItem(DEFAULT_UPDATE_AT.toString())));
     }
-
+    
 
     @Test
     @Transactional
@@ -414,11 +407,11 @@ public class HouseResourceIntTest {
             .andExpect(status().isOk())
             .andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8_VALUE))
             .andExpect(jsonPath("$.id").value(house.getId().intValue()))
-            .andExpect(jsonPath("$.avatar").value(DEFAULT_AVATAR.toString()))
+            .andExpect(jsonPath("$.avatarContentType").value(DEFAULT_AVATAR_CONTENT_TYPE))
+            .andExpect(jsonPath("$.avatar").value(Base64Utils.encodeToString(DEFAULT_AVATAR)))
             .andExpect(jsonPath("$.actionType").value(DEFAULT_ACTION_TYPE.toString()))
             .andExpect(jsonPath("$.address").value(DEFAULT_ADDRESS.toString()))
             .andExpect(jsonPath("$.money").value(DEFAULT_MONEY.doubleValue()))
-            .andExpect(jsonPath("$.moneyType").value(DEFAULT_MONEY_TYPE.toString()))
             .andExpect(jsonPath("$.acreage").value(DEFAULT_ACREAGE.doubleValue()))
             .andExpect(jsonPath("$.acreageStreetSide").value(DEFAULT_ACREAGE_STREET_SIDE.doubleValue()))
             .andExpect(jsonPath("$.discount").value(DEFAULT_DISCOUNT.doubleValue()))
@@ -429,7 +422,6 @@ public class HouseResourceIntTest {
             .andExpect(jsonPath("$.bathRoom").value(DEFAULT_BATH_ROOM))
             .andExpect(jsonPath("$.bedRoom").value(DEFAULT_BED_ROOM))
             .andExpect(jsonPath("$.parking").value(DEFAULT_PARKING.booleanValue()))
-            .andExpect(jsonPath("$.furniture").value(DEFAULT_FURNITURE.booleanValue()))
             .andExpect(jsonPath("$.summary").value(DEFAULT_SUMMARY.toString()))
             .andExpect(jsonPath("$.landType").value(DEFAULT_LAND_TYPE.toString()))
             .andExpect(jsonPath("$.saleType").value(DEFAULT_SALE_TYPE.toString()))
@@ -448,45 +440,6 @@ public class HouseResourceIntTest {
             .andExpect(jsonPath("$.longitude").value(DEFAULT_LONGITUDE.doubleValue()))
             .andExpect(jsonPath("$.createAt").value(DEFAULT_CREATE_AT.toString()))
             .andExpect(jsonPath("$.updateAt").value(DEFAULT_UPDATE_AT.toString()));
-    }
-
-    @Test
-    @Transactional
-    public void getAllHousesByAvatarIsEqualToSomething() throws Exception {
-        // Initialize the database
-        houseRepository.saveAndFlush(house);
-
-        // Get all the houseList where avatar equals to DEFAULT_AVATAR
-        defaultHouseShouldBeFound("avatar.equals=" + DEFAULT_AVATAR);
-
-        // Get all the houseList where avatar equals to UPDATED_AVATAR
-        defaultHouseShouldNotBeFound("avatar.equals=" + UPDATED_AVATAR);
-    }
-
-    @Test
-    @Transactional
-    public void getAllHousesByAvatarIsInShouldWork() throws Exception {
-        // Initialize the database
-        houseRepository.saveAndFlush(house);
-
-        // Get all the houseList where avatar in DEFAULT_AVATAR or UPDATED_AVATAR
-        defaultHouseShouldBeFound("avatar.in=" + DEFAULT_AVATAR + "," + UPDATED_AVATAR);
-
-        // Get all the houseList where avatar equals to UPDATED_AVATAR
-        defaultHouseShouldNotBeFound("avatar.in=" + UPDATED_AVATAR);
-    }
-
-    @Test
-    @Transactional
-    public void getAllHousesByAvatarIsNullOrNotNull() throws Exception {
-        // Initialize the database
-        houseRepository.saveAndFlush(house);
-
-        // Get all the houseList where avatar is not null
-        defaultHouseShouldBeFound("avatar.specified=true");
-
-        // Get all the houseList where avatar is null
-        defaultHouseShouldNotBeFound("avatar.specified=false");
     }
 
     @Test
@@ -604,45 +557,6 @@ public class HouseResourceIntTest {
 
         // Get all the houseList where money is null
         defaultHouseShouldNotBeFound("money.specified=false");
-    }
-
-    @Test
-    @Transactional
-    public void getAllHousesByMoneyTypeIsEqualToSomething() throws Exception {
-        // Initialize the database
-        houseRepository.saveAndFlush(house);
-
-        // Get all the houseList where moneyType equals to DEFAULT_MONEY_TYPE
-        defaultHouseShouldBeFound("moneyType.equals=" + DEFAULT_MONEY_TYPE);
-
-        // Get all the houseList where moneyType equals to UPDATED_MONEY_TYPE
-        defaultHouseShouldNotBeFound("moneyType.equals=" + UPDATED_MONEY_TYPE);
-    }
-
-    @Test
-    @Transactional
-    public void getAllHousesByMoneyTypeIsInShouldWork() throws Exception {
-        // Initialize the database
-        houseRepository.saveAndFlush(house);
-
-        // Get all the houseList where moneyType in DEFAULT_MONEY_TYPE or UPDATED_MONEY_TYPE
-        defaultHouseShouldBeFound("moneyType.in=" + DEFAULT_MONEY_TYPE + "," + UPDATED_MONEY_TYPE);
-
-        // Get all the houseList where moneyType equals to UPDATED_MONEY_TYPE
-        defaultHouseShouldNotBeFound("moneyType.in=" + UPDATED_MONEY_TYPE);
-    }
-
-    @Test
-    @Transactional
-    public void getAllHousesByMoneyTypeIsNullOrNotNull() throws Exception {
-        // Initialize the database
-        houseRepository.saveAndFlush(house);
-
-        // Get all the houseList where moneyType is not null
-        defaultHouseShouldBeFound("moneyType.specified=true");
-
-        // Get all the houseList where moneyType is null
-        defaultHouseShouldNotBeFound("moneyType.specified=false");
     }
 
     @Test
@@ -1087,45 +1001,6 @@ public class HouseResourceIntTest {
 
         // Get all the houseList where parking is null
         defaultHouseShouldNotBeFound("parking.specified=false");
-    }
-
-    @Test
-    @Transactional
-    public void getAllHousesByFurnitureIsEqualToSomething() throws Exception {
-        // Initialize the database
-        houseRepository.saveAndFlush(house);
-
-        // Get all the houseList where furniture equals to DEFAULT_FURNITURE
-        defaultHouseShouldBeFound("furniture.equals=" + DEFAULT_FURNITURE);
-
-        // Get all the houseList where furniture equals to UPDATED_FURNITURE
-        defaultHouseShouldNotBeFound("furniture.equals=" + UPDATED_FURNITURE);
-    }
-
-    @Test
-    @Transactional
-    public void getAllHousesByFurnitureIsInShouldWork() throws Exception {
-        // Initialize the database
-        houseRepository.saveAndFlush(house);
-
-        // Get all the houseList where furniture in DEFAULT_FURNITURE or UPDATED_FURNITURE
-        defaultHouseShouldBeFound("furniture.in=" + DEFAULT_FURNITURE + "," + UPDATED_FURNITURE);
-
-        // Get all the houseList where furniture equals to UPDATED_FURNITURE
-        defaultHouseShouldNotBeFound("furniture.in=" + UPDATED_FURNITURE);
-    }
-
-    @Test
-    @Transactional
-    public void getAllHousesByFurnitureIsNullOrNotNull() throws Exception {
-        // Initialize the database
-        houseRepository.saveAndFlush(house);
-
-        // Get all the houseList where furniture is not null
-        defaultHouseShouldBeFound("furniture.specified=true");
-
-        // Get all the houseList where furniture is null
-        defaultHouseShouldNotBeFound("furniture.specified=false");
     }
 
     @Test
@@ -2070,11 +1945,11 @@ public class HouseResourceIntTest {
             .andExpect(status().isOk())
             .andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8_VALUE))
             .andExpect(jsonPath("$.[*].id").value(hasItem(house.getId().intValue())))
-            .andExpect(jsonPath("$.[*].avatar").value(hasItem(DEFAULT_AVATAR.toString())))
+            .andExpect(jsonPath("$.[*].avatarContentType").value(hasItem(DEFAULT_AVATAR_CONTENT_TYPE)))
+            .andExpect(jsonPath("$.[*].avatar").value(hasItem(Base64Utils.encodeToString(DEFAULT_AVATAR))))
             .andExpect(jsonPath("$.[*].actionType").value(hasItem(DEFAULT_ACTION_TYPE.toString())))
             .andExpect(jsonPath("$.[*].address").value(hasItem(DEFAULT_ADDRESS.toString())))
             .andExpect(jsonPath("$.[*].money").value(hasItem(DEFAULT_MONEY.doubleValue())))
-            .andExpect(jsonPath("$.[*].moneyType").value(hasItem(DEFAULT_MONEY_TYPE.toString())))
             .andExpect(jsonPath("$.[*].acreage").value(hasItem(DEFAULT_ACREAGE.doubleValue())))
             .andExpect(jsonPath("$.[*].acreageStreetSide").value(hasItem(DEFAULT_ACREAGE_STREET_SIDE.doubleValue())))
             .andExpect(jsonPath("$.[*].discount").value(hasItem(DEFAULT_DISCOUNT.doubleValue())))
@@ -2085,7 +1960,6 @@ public class HouseResourceIntTest {
             .andExpect(jsonPath("$.[*].bathRoom").value(hasItem(DEFAULT_BATH_ROOM)))
             .andExpect(jsonPath("$.[*].bedRoom").value(hasItem(DEFAULT_BED_ROOM)))
             .andExpect(jsonPath("$.[*].parking").value(hasItem(DEFAULT_PARKING.booleanValue())))
-            .andExpect(jsonPath("$.[*].furniture").value(hasItem(DEFAULT_FURNITURE.booleanValue())))
             .andExpect(jsonPath("$.[*].summary").value(hasItem(DEFAULT_SUMMARY.toString())))
             .andExpect(jsonPath("$.[*].landType").value(hasItem(DEFAULT_LAND_TYPE.toString())))
             .andExpect(jsonPath("$.[*].saleType").value(hasItem(DEFAULT_SALE_TYPE.toString())))
@@ -2139,10 +2013,10 @@ public class HouseResourceIntTest {
         em.detach(updatedHouse);
         updatedHouse
             .avatar(UPDATED_AVATAR)
+            .avatarContentType(UPDATED_AVATAR_CONTENT_TYPE)
             .actionType(UPDATED_ACTION_TYPE)
             .address(UPDATED_ADDRESS)
             .money(UPDATED_MONEY)
-            .moneyType(UPDATED_MONEY_TYPE)
             .acreage(UPDATED_ACREAGE)
             .acreageStreetSide(UPDATED_ACREAGE_STREET_SIDE)
             .discount(UPDATED_DISCOUNT)
@@ -2153,7 +2027,6 @@ public class HouseResourceIntTest {
             .bathRoom(UPDATED_BATH_ROOM)
             .bedRoom(UPDATED_BED_ROOM)
             .parking(UPDATED_PARKING)
-            .furniture(UPDATED_FURNITURE)
             .summary(UPDATED_SUMMARY)
             .landType(UPDATED_LAND_TYPE)
             .saleType(UPDATED_SALE_TYPE)
@@ -2184,10 +2057,10 @@ public class HouseResourceIntTest {
         assertThat(houseList).hasSize(databaseSizeBeforeUpdate);
         House testHouse = houseList.get(houseList.size() - 1);
         assertThat(testHouse.getAvatar()).isEqualTo(UPDATED_AVATAR);
+        assertThat(testHouse.getAvatarContentType()).isEqualTo(UPDATED_AVATAR_CONTENT_TYPE);
         assertThat(testHouse.getActionType()).isEqualTo(UPDATED_ACTION_TYPE);
         assertThat(testHouse.getAddress()).isEqualTo(UPDATED_ADDRESS);
         assertThat(testHouse.getMoney()).isEqualTo(UPDATED_MONEY);
-        assertThat(testHouse.getMoneyType()).isEqualTo(UPDATED_MONEY_TYPE);
         assertThat(testHouse.getAcreage()).isEqualTo(UPDATED_ACREAGE);
         assertThat(testHouse.getAcreageStreetSide()).isEqualTo(UPDATED_ACREAGE_STREET_SIDE);
         assertThat(testHouse.getDiscount()).isEqualTo(UPDATED_DISCOUNT);
@@ -2198,7 +2071,6 @@ public class HouseResourceIntTest {
         assertThat(testHouse.getBathRoom()).isEqualTo(UPDATED_BATH_ROOM);
         assertThat(testHouse.getBedRoom()).isEqualTo(UPDATED_BED_ROOM);
         assertThat(testHouse.isParking()).isEqualTo(UPDATED_PARKING);
-        assertThat(testHouse.isFurniture()).isEqualTo(UPDATED_FURNITURE);
         assertThat(testHouse.getSummary()).isEqualTo(UPDATED_SUMMARY);
         assertThat(testHouse.getLandType()).isEqualTo(UPDATED_LAND_TYPE);
         assertThat(testHouse.getSaleType()).isEqualTo(UPDATED_SALE_TYPE);
@@ -2277,11 +2149,11 @@ public class HouseResourceIntTest {
             .andExpect(status().isOk())
             .andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8_VALUE))
             .andExpect(jsonPath("$.[*].id").value(hasItem(house.getId().intValue())))
-            .andExpect(jsonPath("$.[*].avatar").value(hasItem(DEFAULT_AVATAR.toString())))
+            .andExpect(jsonPath("$.[*].avatarContentType").value(hasItem(DEFAULT_AVATAR_CONTENT_TYPE)))
+            .andExpect(jsonPath("$.[*].avatar").value(hasItem(Base64Utils.encodeToString(DEFAULT_AVATAR))))
             .andExpect(jsonPath("$.[*].actionType").value(hasItem(DEFAULT_ACTION_TYPE.toString())))
             .andExpect(jsonPath("$.[*].address").value(hasItem(DEFAULT_ADDRESS.toString())))
             .andExpect(jsonPath("$.[*].money").value(hasItem(DEFAULT_MONEY.doubleValue())))
-            .andExpect(jsonPath("$.[*].moneyType").value(hasItem(DEFAULT_MONEY_TYPE.toString())))
             .andExpect(jsonPath("$.[*].acreage").value(hasItem(DEFAULT_ACREAGE.doubleValue())))
             .andExpect(jsonPath("$.[*].acreageStreetSide").value(hasItem(DEFAULT_ACREAGE_STREET_SIDE.doubleValue())))
             .andExpect(jsonPath("$.[*].discount").value(hasItem(DEFAULT_DISCOUNT.doubleValue())))
@@ -2292,7 +2164,6 @@ public class HouseResourceIntTest {
             .andExpect(jsonPath("$.[*].bathRoom").value(hasItem(DEFAULT_BATH_ROOM)))
             .andExpect(jsonPath("$.[*].bedRoom").value(hasItem(DEFAULT_BED_ROOM)))
             .andExpect(jsonPath("$.[*].parking").value(hasItem(DEFAULT_PARKING.booleanValue())))
-            .andExpect(jsonPath("$.[*].furniture").value(hasItem(DEFAULT_FURNITURE.booleanValue())))
             .andExpect(jsonPath("$.[*].summary").value(hasItem(DEFAULT_SUMMARY.toString())))
             .andExpect(jsonPath("$.[*].landType").value(hasItem(DEFAULT_LAND_TYPE.toString())))
             .andExpect(jsonPath("$.[*].saleType").value(hasItem(DEFAULT_SALE_TYPE.toString())))

@@ -5,6 +5,8 @@ import { Button, InputGroup, Col, Row, Table } from 'reactstrap';
 import { AvForm, AvGroup, AvInput } from 'availity-reactstrap-validation';
 // tslint:disable-next-line:no-unused-variable
 import {
+  openFile,
+  byteSize,
   Translate,
   translate,
   ICrudSearchAction,
@@ -130,9 +132,6 @@ export class House extends React.Component<IHouseProps, IHouseState> {
                 <th className="hand" onClick={this.sort('money')}>
                   <Translate contentKey="landexpApp.house.money">Money</Translate> <FontAwesomeIcon icon="sort" />
                 </th>
-                <th className="hand" onClick={this.sort('moneyType')}>
-                  <Translate contentKey="landexpApp.house.moneyType">Money Type</Translate> <FontAwesomeIcon icon="sort" />
-                </th>
                 <th className="hand" onClick={this.sort('acreage')}>
                   <Translate contentKey="landexpApp.house.acreage">Acreage</Translate> <FontAwesomeIcon icon="sort" />
                 </th>
@@ -162,9 +161,6 @@ export class House extends React.Component<IHouseProps, IHouseState> {
                 </th>
                 <th className="hand" onClick={this.sort('parking')}>
                   <Translate contentKey="landexpApp.house.parking">Parking</Translate> <FontAwesomeIcon icon="sort" />
-                </th>
-                <th className="hand" onClick={this.sort('furniture')}>
-                  <Translate contentKey="landexpApp.house.furniture">Furniture</Translate> <FontAwesomeIcon icon="sort" />
                 </th>
                 <th className="hand" onClick={this.sort('summary')}>
                   <Translate contentKey="landexpApp.house.summary">Summary</Translate> <FontAwesomeIcon icon="sort" />
@@ -252,11 +248,22 @@ export class House extends React.Component<IHouseProps, IHouseState> {
                       {house.id}
                     </Button>
                   </td>
-                  <td>{house.avatar}</td>
+                  <td>
+                    {house.avatar ? (
+                      <div>
+                        <a onClick={openFile(house.avatarContentType, house.avatar)}>
+                          <img src={`data:${house.avatarContentType};base64,${house.avatar}`} style={{ maxHeight: '30px' }} />
+                          &nbsp;
+                        </a>
+                        <span>
+                          {house.avatarContentType}, {byteSize(house.avatar)}
+                        </span>
+                      </div>
+                    ) : null}
+                  </td>
                   <td>{house.actionType}</td>
                   <td>{house.address}</td>
                   <td>{house.money}</td>
-                  <td>{house.moneyType}</td>
                   <td>{house.acreage}</td>
                   <td>{house.acreageStreetSide}</td>
                   <td>{house.discount}</td>
@@ -267,7 +274,6 @@ export class House extends React.Component<IHouseProps, IHouseState> {
                   <td>{house.bathRoom}</td>
                   <td>{house.bedRoom}</td>
                   <td>{house.parking ? 'true' : 'false'}</td>
-                  <td>{house.furniture ? 'true' : 'false'}</td>
                   <td>{house.summary}</td>
                   <td>{house.landType}</td>
                   <td>{house.saleType}</td>

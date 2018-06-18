@@ -2,7 +2,6 @@ package com.landexp.service.dto;
 
 import java.io.Serializable;
 import com.landexp.domain.enumeration.UserActionType;
-import com.landexp.domain.enumeration.MoneyType;
 import com.landexp.domain.enumeration.DirectionType;
 import com.landexp.domain.enumeration.DirectionType;
 import com.landexp.domain.enumeration.LandType;
@@ -35,12 +34,6 @@ public class HouseCriteria implements Serializable {
      * Class for filtering UserActionType
      */
     public static class UserActionTypeFilter extends Filter<UserActionType> {
-    }
-
-    /**
-     * Class for filtering MoneyType
-     */
-    public static class MoneyTypeFilter extends Filter<MoneyType> {
     }
 
     /**
@@ -78,15 +71,11 @@ public class HouseCriteria implements Serializable {
 
     private LongFilter id;
 
-    private StringFilter avatar;
-
     private UserActionTypeFilter actionType;
 
     private StringFilter address;
 
     private FloatFilter money;
-
-    private MoneyTypeFilter moneyType;
 
     private FloatFilter acreage;
 
@@ -107,8 +96,6 @@ public class HouseCriteria implements Serializable {
     private IntegerFilter bedRoom;
 
     private BooleanFilter parking;
-
-    private BooleanFilter furniture;
 
     private StringFilter summary;
 
@@ -173,14 +160,6 @@ public class HouseCriteria implements Serializable {
         this.id = id;
     }
 
-    public StringFilter getAvatar() {
-        return avatar;
-    }
-
-    public void setAvatar(StringFilter avatar) {
-        this.avatar = avatar;
-    }
-
     public UserActionTypeFilter getActionType() {
         return actionType;
     }
@@ -203,14 +182,6 @@ public class HouseCriteria implements Serializable {
 
     public void setMoney(FloatFilter money) {
         this.money = money;
-    }
-
-    public MoneyTypeFilter getMoneyType() {
-        return moneyType;
-    }
-
-    public void setMoneyType(MoneyTypeFilter moneyType) {
-        this.moneyType = moneyType;
     }
 
     public FloatFilter getAcreage() {
@@ -291,14 +262,6 @@ public class HouseCriteria implements Serializable {
 
     public void setParking(BooleanFilter parking) {
         this.parking = parking;
-    }
-
-    public BooleanFilter getFurniture() {
-        return furniture;
-    }
-
-    public void setFurniture(BooleanFilter furniture) {
-        this.furniture = furniture;
     }
 
     public StringFilter getSummary() {
@@ -513,11 +476,9 @@ public class HouseCriteria implements Serializable {
     public String toString() {
         return "HouseCriteria{" +
                 (id != null ? "id=" + id + ", " : "") +
-                (avatar != null ? "avatar=" + avatar + ", " : "") +
                 (actionType != null ? "actionType=" + actionType + ", " : "") +
                 (address != null ? "address=" + address + ", " : "") +
                 (money != null ? "money=" + money + ", " : "") +
-                (moneyType != null ? "moneyType=" + moneyType + ", " : "") +
                 (acreage != null ? "acreage=" + acreage + ", " : "") +
                 (acreageStreetSide != null ? "acreageStreetSide=" + acreageStreetSide + ", " : "") +
                 (discount != null ? "discount=" + discount + ", " : "") +
@@ -528,7 +489,6 @@ public class HouseCriteria implements Serializable {
                 (bathRoom != null ? "bathRoom=" + bathRoom + ", " : "") +
                 (bedRoom != null ? "bedRoom=" + bedRoom + ", " : "") +
                 (parking != null ? "parking=" + parking + ", " : "") +
-                (furniture != null ? "furniture=" + furniture + ", " : "") +
                 (summary != null ? "summary=" + summary + ", " : "") +
                 (landType != null ? "landType=" + landType + ", " : "") +
                 (saleType != null ? "saleType=" + saleType + ", " : "") +

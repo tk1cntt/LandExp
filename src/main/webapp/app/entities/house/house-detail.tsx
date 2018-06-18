@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import { Link, RouteComponentProps } from 'react-router-dom';
 import { Button, Row, Col } from 'reactstrap';
 // tslint:disable-next-line:no-unused-variable
-import { Translate, ICrudGetAction, TextFormat } from 'react-jhipster';
+import { Translate, ICrudGetAction, openFile, byteSize, TextFormat } from 'react-jhipster';
 import FontAwesomeIcon from '@fortawesome/react-fontawesome';
 
 import { IRootState } from 'app/shared/reducers';
@@ -33,7 +33,18 @@ export class HouseDetail extends React.Component<IHouseDetailProps> {
                 <Translate contentKey="landexpApp.house.avatar">Avatar</Translate>
               </span>
             </dt>
-            <dd>{houseEntity.avatar}</dd>
+            <dd>
+              {houseEntity.avatar ? (
+                <div>
+                  <a onClick={openFile(houseEntity.avatarContentType, houseEntity.avatar)}>
+                    <img src={`data:${houseEntity.avatarContentType};base64,${houseEntity.avatar}`} style={{ maxHeight: '30px' }} />
+                  </a>
+                  <span>
+                    {houseEntity.avatarContentType}, {byteSize(houseEntity.avatar)}
+                  </span>
+                </div>
+              ) : null}
+            </dd>
             <dt>
               <span id="actionType">
                 <Translate contentKey="landexpApp.house.actionType">Action Type</Translate>
@@ -52,12 +63,6 @@ export class HouseDetail extends React.Component<IHouseDetailProps> {
               </span>
             </dt>
             <dd>{houseEntity.money}</dd>
-            <dt>
-              <span id="moneyType">
-                <Translate contentKey="landexpApp.house.moneyType">Money Type</Translate>
-              </span>
-            </dt>
-            <dd>{houseEntity.moneyType}</dd>
             <dt>
               <span id="acreage">
                 <Translate contentKey="landexpApp.house.acreage">Acreage</Translate>
@@ -118,12 +123,6 @@ export class HouseDetail extends React.Component<IHouseDetailProps> {
               </span>
             </dt>
             <dd>{houseEntity.parking ? 'true' : 'false'}</dd>
-            <dt>
-              <span id="furniture">
-                <Translate contentKey="landexpApp.house.furniture">Furniture</Translate>
-              </span>
-            </dt>
-            <dd>{houseEntity.furniture ? 'true' : 'false'}</dd>
             <dt>
               <span id="summary">
                 <Translate contentKey="landexpApp.house.summary">Summary</Translate>

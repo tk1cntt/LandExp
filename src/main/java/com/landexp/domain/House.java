@@ -16,8 +16,6 @@ import java.util.Objects;
 
 import com.landexp.domain.enumeration.UserActionType;
 
-import com.landexp.domain.enumeration.MoneyType;
-
 import com.landexp.domain.enumeration.DirectionType;
 
 import com.landexp.domain.enumeration.LandType;
@@ -42,8 +40,12 @@ public class House implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @Lob
     @Column(name = "avatar")
-    private String avatar;
+    private byte[] avatar;
+
+    @Column(name = "avatar_content_type")
+    private String avatarContentType;
 
     @Enumerated(EnumType.STRING)
     @Column(name = "action_type")
@@ -54,10 +56,6 @@ public class House implements Serializable {
 
     @Column(name = "money")
     private Float money;
-
-    @Enumerated(EnumType.STRING)
-    @Column(name = "money_type")
-    private MoneyType moneyType;
 
     @Column(name = "acreage")
     private Float acreage;
@@ -90,9 +88,6 @@ public class House implements Serializable {
 
     @Column(name = "parking")
     private Boolean parking;
-
-    @Column(name = "furniture")
-    private Boolean furniture;
 
     @Column(name = "summary")
     private String summary;
@@ -194,17 +189,30 @@ public class House implements Serializable {
         this.id = id;
     }
 
-    public String getAvatar() {
+    public byte[] getAvatar() {
         return avatar;
     }
 
-    public House avatar(String avatar) {
+    public House avatar(byte[] avatar) {
         this.avatar = avatar;
         return this;
     }
 
-    public void setAvatar(String avatar) {
+    public void setAvatar(byte[] avatar) {
         this.avatar = avatar;
+    }
+
+    public String getAvatarContentType() {
+        return avatarContentType;
+    }
+
+    public House avatarContentType(String avatarContentType) {
+        this.avatarContentType = avatarContentType;
+        return this;
+    }
+
+    public void setAvatarContentType(String avatarContentType) {
+        this.avatarContentType = avatarContentType;
     }
 
     public UserActionType getActionType() {
@@ -244,19 +252,6 @@ public class House implements Serializable {
 
     public void setMoney(Float money) {
         this.money = money;
-    }
-
-    public MoneyType getMoneyType() {
-        return moneyType;
-    }
-
-    public House moneyType(MoneyType moneyType) {
-        this.moneyType = moneyType;
-        return this;
-    }
-
-    public void setMoneyType(MoneyType moneyType) {
-        this.moneyType = moneyType;
     }
 
     public Float getAcreage() {
@@ -387,19 +382,6 @@ public class House implements Serializable {
 
     public void setParking(Boolean parking) {
         this.parking = parking;
-    }
-
-    public Boolean isFurniture() {
-        return furniture;
-    }
-
-    public House furniture(Boolean furniture) {
-        this.furniture = furniture;
-        return this;
-    }
-
-    public void setFurniture(Boolean furniture) {
-        this.furniture = furniture;
     }
 
     public String getSummary() {
@@ -778,10 +760,10 @@ public class House implements Serializable {
         return "House{" +
             "id=" + getId() +
             ", avatar='" + getAvatar() + "'" +
+            ", avatarContentType='" + getAvatarContentType() + "'" +
             ", actionType='" + getActionType() + "'" +
             ", address='" + getAddress() + "'" +
             ", money=" + getMoney() +
-            ", moneyType='" + getMoneyType() + "'" +
             ", acreage=" + getAcreage() +
             ", acreageStreetSide=" + getAcreageStreetSide() +
             ", discount=" + getDiscount() +
@@ -792,7 +774,6 @@ public class House implements Serializable {
             ", bathRoom=" + getBathRoom() +
             ", bedRoom=" + getBedRoom() +
             ", parking='" + isParking() + "'" +
-            ", furniture='" + isFurniture() + "'" +
             ", summary='" + getSummary() + "'" +
             ", landType='" + getLandType() + "'" +
             ", saleType='" + getSaleType() + "'" +

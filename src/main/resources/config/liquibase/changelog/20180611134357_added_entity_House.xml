@@ -22,7 +22,10 @@
             <column name="id" type="bigint" autoIncrement="${autoIncrement}">
                 <constraints primaryKey="true" nullable="false"/>
             </column>
-            <column name="avatar" type="varchar(255)">
+            <column name="avatar" type="longblob">
+                <constraints nullable="true" />
+            </column>
+            <column name="avatar_content_type" type="varchar(255)">
                 <constraints nullable="true" />
             </column>
 
@@ -35,10 +38,6 @@
             </column>
 
             <column name="money" type="${floatType}">
-                <constraints nullable="true" />
-            </column>
-
-            <column name="money_type" type="varchar(255)">
                 <constraints nullable="true" />
             </column>
 
@@ -79,10 +78,6 @@
             </column>
 
             <column name="parking" type="bit">
-                <constraints nullable="true" />
-            </column>
-
-            <column name="furniture" type="bit">
                 <constraints nullable="true" />
             </column>
 

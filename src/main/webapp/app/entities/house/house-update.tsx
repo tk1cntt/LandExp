@@ -4,7 +4,7 @@ import { Link, RouteComponentProps } from 'react-router-dom';
 import { Button, Row, Col, Label } from 'reactstrap';
 import { AvForm, AvGroup, AvInput, AvField } from 'availity-reactstrap-validation';
 // tslint:disable-next-line:no-unused-variable
-import { Translate, translate, ICrudGetAction, ICrudGetAllAction, ICrudPutAction } from 'react-jhipster';
+import { Translate, translate, ICrudGetAction, ICrudGetAllAction, setFileData, openFile, byteSize, ICrudPutAction } from 'react-jhipster';
 import FontAwesomeIcon from '@fortawesome/react-fontawesome';
 import { IRootState } from 'app/shared/reducers';
 
@@ -20,7 +20,7 @@ import { ILandProject } from 'app/shared/model/land-project.model';
 import { getEntities as getLandProjects } from 'app/entities/land-project/land-project.reducer';
 import { IUser } from 'app/shared/model/user.model';
 import { getUsers } from 'app/modules/administration/user-management/user-management.reducer';
-import { getEntity, updateEntity, createEntity, reset } from './house.reducer';
+import { getEntity, updateEntity, createEntity, setBlob, reset } from './house.reducer';
 import { IHouse } from 'app/shared/model/house.model';
 // tslint:disable-next-line:no-unused-variable
 import { convertDateTimeFromServer } from 'app/shared/util/date-utils';
@@ -68,6 +68,14 @@ export class HouseUpdate extends React.Component<IHouseUpdateProps, IHouseUpdate
     this.props.getLandProjects();
     this.props.getUsers();
   }
+
+  onBlobChange = (isAnImage, name) => event => {
+    setFileData(event, (contentType, data) => this.props.setBlob(name, data, contentType), isAnImage);
+  };
+
+  clearBlob = name => () => {
+    this.props.setBlob(name, undefined, undefined);
+  };
 
   saveEntity = (event, errors, values) => {
     if (errors.length === 0) {
@@ -214,6 +222,8 @@ export class HouseUpdate extends React.Component<IHouseUpdateProps, IHouseUpdate
     const { houseEntity, cities, districts, wards, streets, landProjects, users, loading, updating } = this.props;
     const { isNew } = this.state;
 
+    const { avatar, avatarContentType } = houseEntity;
+
     return (
       <div>
         <Row className="justify-content-center">
@@ -238,10 +248,33 @@ export class HouseUpdate extends React.Component<IHouseUpdateProps, IHouseUpdate
                   </AvGroup>
                 ) : null}
                 <AvGroup>
-                  <Label id="avatarLabel" for="avatar">
-                    <Translate contentKey="landexpApp.house.avatar">Avatar</Translate>
-                  </Label>
-                  <AvField id="house-avatar" type="text" name="avatar" />
+                  <AvGroup>
+                    <Label id="avatarLabel" for="avatar">
+                      <Translate contentKey="landexpApp.house.avatar">Avatar</Translate>
+                    </Label>
+                    <br />
+                    {avatar ? (
+                      <div>
+                        <a onClick={openFile(avatarContentType, avatar)}>
+                          <img src={`data:${avatarContentType};base64,${avatar}`} style={{ maxHeight: '100px' }} />
+                        </a>
+                        <br />
+                        <Row>
+                          <Col md="11">
+                            <span>
+                              {avatarContentType}, {byteSize(avatar)}
+                            </span>
+                          </Col>
+                          <Col md="1">
+                            <Button color="danger" onClick={this.clearBlob('avatar')}>
+                              <FontAwesomeIcon icon="times-circle" />
+                            </Button>
+                          </Col>
+                        </Row>
+                      </div>
+                    ) : null}
+                    <input id="file_avatar" type="file" onChange={this.onBlobChange(true, 'avatar')} accept="image/*" />
+                  </AvGroup>
                 </AvGroup>
                 <AvGroup>
                   <Label id="actionTypeLabel">
@@ -271,21 +304,6 @@ export class HouseUpdate extends React.Component<IHouseUpdateProps, IHouseUpdate
                     <Translate contentKey="landexpApp.house.money">Money</Translate>
                   </Label>
                   <AvField id="house-money" type="number" className="form-control" name="money" />
-                </AvGroup>
-                <AvGroup>
-                  <Label id="moneyTypeLabel">
-                    <Translate contentKey="landexpApp.house.moneyType">Money Type</Translate>
-                  </Label>
-                  <AvInput
-                    id="house-moneyType"
-                    type="select"
-                    className="form-control"
-                    name="moneyType"
-                    value={(!isNew && houseEntity.moneyType) || 'MILLION'}
-                  >
-                    <option value="MILLION">MILLION</option>
-                    <option value="BILLION">BILLION</option>
-                  </AvInput>
                 </AvGroup>
                 <AvGroup>
                   <Label id="acreageLabel" for="acreage">
@@ -375,12 +393,6 @@ export class HouseUpdate extends React.Component<IHouseUpdateProps, IHouseUpdate
                   <Label id="parkingLabel" check>
                     <AvInput id="house-parking" type="checkbox" className="form-control" name="parking" />
                     <Translate contentKey="landexpApp.house.parking">Parking</Translate>
-                  </Label>
-                </AvGroup>
-                <AvGroup>
-                  <Label id="furnitureLabel" check>
-                    <AvInput id="house-furniture" type="checkbox" className="form-control" name="furniture" />
-                    <Translate contentKey="landexpApp.house.furniture">Furniture</Translate>
                   </Label>
                 </AvGroup>
                 <AvGroup>
@@ -696,6 +708,7 @@ const mapDispatchToProps = {
   getUsers,
   getEntity,
   updateEntity,
+  setBlob,
   createEntity,
   reset
 };
