@@ -21,8 +21,10 @@ import { IRootState } from 'app/shared/reducers';
 import { getSearchEntities, getEntities } from './payment.reducer';
 import { IPayment } from 'app/shared/model/payment.model';
 // tslint:disable-next-line:no-unused-variable
-import { APP_DATE_FORMAT, APP_LOCAL_DATE_FORMAT } from 'app/config/constants';
+import { hasAnyAuthority } from 'app/shared/auth/private-route';
+import { APP_DATE_FORMAT, APP_LOCAL_DATE_FORMAT, AUTHORITIES } from 'app/config/constants';
 import { ITEMS_PER_PAGE } from 'app/shared/util/pagination.constants';
+import { getPaymentStatus } from 'app/shared/util/utils';
 
 export interface IPaymentProps extends StateProps, DispatchProps, RouteComponentProps<{ url: string }> {}
 
@@ -83,10 +85,6 @@ export class Payment extends React.Component<IPaymentProps, IPaymentState> {
       <div>
         <h2 id="payment-heading">
           <Translate contentKey="landexpApp.payment.home.title">Payments</Translate>
-          <Link to={`${match.url}/new`} className="btn btn-primary float-right jh-create-entity" id="jh-create-entity">
-            <FontAwesomeIcon icon="plus" />&nbsp;
-            <Translate contentKey="landexpApp.payment.home.createLabel">Create new Payment</Translate>
-          </Link>
         </h2>
         <Row>
           <Col sm="12">
@@ -115,9 +113,6 @@ export class Payment extends React.Component<IPaymentProps, IPaymentState> {
           <Table responsive>
             <thead>
               <tr>
-                <th className="hand" onClick={this.sort('id')}>
-                  <Translate contentKey="global.field.id">ID</Translate> <FontAwesomeIcon icon="sort" />
-                </th>
                 <th className="hand" onClick={this.sort('code')}>
                   <Translate contentKey="landexpApp.payment.code">Code</Translate> <FontAwesomeIcon icon="sort" />
                 </th>
@@ -142,59 +137,52 @@ export class Payment extends React.Component<IPaymentProps, IPaymentState> {
                 <th>
                   <Translate contentKey="landexpApp.payment.customer">Customer</Translate> <FontAwesomeIcon icon="sort" />
                 </th>
-                <th>
-                  <Translate contentKey="landexpApp.payment.createBy">Create By</Translate> <FontAwesomeIcon icon="sort" />
-                </th>
-                <th>
-                  <Translate contentKey="landexpApp.payment.updateBy">Update By</Translate> <FontAwesomeIcon icon="sort" />
-                </th>
                 <th />
               </tr>
             </thead>
             <tbody>
               {paymentList.map((payment, i) => (
                 <tr key={`entity-${i}`}>
+                  <td style={{ color: 'red' }}>{payment.code}</td>
+                  <td>{new Intl.NumberFormat().format(payment.money)} VNĐ</td>
                   <td>
-                    <Button tag={Link} to={`${match.url}/${payment.id}`} color="link" size="sm">
-                      {payment.id}
-                    </Button>
+                    {payment.paidTime ?
+                      (
+                          <TextFormat type="date" value={payment.paidTime} format={APP_LOCAL_DATE_FORMAT} />
+                      ) : 'Chưa thanh toán'
+                    }
                   </td>
-                  <td>{payment.code}</td>
-                  <td>{payment.money}</td>
-                  <td>
-                    <TextFormat type="date" value={payment.paidTime} format={APP_LOCAL_DATE_FORMAT} />
-                  </td>
-                  <td>{payment.paymentStatus}</td>
+                  <td>{getPaymentStatus(payment.paymentStatus)}</td>
                   <td>
                     <TextFormat type="date" value={payment.createAt} format={APP_LOCAL_DATE_FORMAT} />
                   </td>
                   <td>
                     <TextFormat type="date" value={payment.updateAt} format={APP_LOCAL_DATE_FORMAT} />
                   </td>
-                  <td>{payment.houseId ? <Link to={`house/${payment.houseId}`}>{payment.houseId}</Link> : ''}</td>
+                  <td>{payment.houseId ? <Link to={`house/${payment.houseId}`}>Xem tin</Link> : ''}</td>
                   <td>{payment.customerLogin ? payment.customerLogin : ''}</td>
-                  <td>{payment.createByLogin ? payment.createByLogin : ''}</td>
-                  <td>{payment.updateByLogin ? payment.updateByLogin : ''}</td>
                   <td className="text-right">
                     <div className="btn-group flex-btn-group-container">
-                      <Button tag={Link} to={`${match.url}/${payment.id}`} color="info" size="sm">
-                        <FontAwesomeIcon icon="eye" />{' '}
-                        <span className="d-none d-md-inline">
-                          <Translate contentKey="entity.action.view">View</Translate>
-                        </span>
-                      </Button>
-                      <Button tag={Link} to={`${match.url}/${payment.id}/edit`} color="primary" size="sm">
-                        <FontAwesomeIcon icon="pencil-alt" />{' '}
-                        <span className="d-none d-md-inline">
-                          <Translate contentKey="entity.action.edit">Edit</Translate>
-                        </span>
-                      </Button>
-                      <Button tag={Link} to={`${match.url}/${payment.id}/delete`} color="danger" size="sm">
-                        <FontAwesomeIcon icon="trash" />{' '}
-                        <span className="d-none d-md-inline">
-                          <Translate contentKey="entity.action.delete">Delete</Translate>
-                        </span>
-                      </Button>
+                      {payment.paymentStatus === 'PENDING' || payment.paymentStatus === 'OPEN' ?
+                        (
+                          <Button tag={Link} to={`${match.url}/${payment.id}/approve`} color="warning" size="sm">
+                            <FontAwesomeIcon icon="info" />{' '}
+                            <span className="d-none d-md-inline">
+                              <Translate contentKey="entity.action.approve">Approve</Translate>
+                            </span>
+                          </Button>
+                        ) : ''
+                      }
+                      {this.props.isManager ?
+                        (
+                          <Button tag={Link} to={`${match.url}/${payment.id}/edit`} color="info" size="sm">
+                            <FontAwesomeIcon icon="edit" />{' '}
+                            <span className="d-none d-md-inline">
+                              <Translate contentKey="entity.action.edit">Edit</Translate>
+                            </span>
+                          </Button>
+                        ) : ''
+                      }
                     </div>
                   </td>
                 </tr>
@@ -215,7 +203,9 @@ export class Payment extends React.Component<IPaymentProps, IPaymentState> {
   }
 }
 
-const mapStateToProps = ({ payment }: IRootState) => ({
+const mapStateToProps = ({ payment, authentication }: IRootState) => ({
+  isAuthenticated: authentication.isAuthenticated,
+  isManager: hasAnyAuthority(authentication.account.authorities, [AUTHORITIES.MANAGER]),
   paymentList: payment.entities,
   totalItems: payment.totalItems
 });

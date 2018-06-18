@@ -115,3 +115,14 @@ export const getSaleType = type => {
       return 'Tin thường';
   }
 };
+
+export const getPaymentStatus = type => {
+  switch (type) {
+    case 'FAILED':
+      return 'Thanh toán thất bại';
+    case 'SUCCESS':
+      return 'Đã thanh toán';
+    default:
+      return 'Chờ thanh toán';
+  }
+};

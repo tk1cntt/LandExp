@@ -115,6 +115,7 @@
             "back": "Quay lại",
             "cancel": "Hủy",
             "delete": "Xóa",
+            "approve": "Xác nhận",
             "edit": "Sửa",
             "open": "Mở",
             "save": "Lưu",
@@ -126,6 +127,9 @@
         },
         "delete": {
             "title": "Xác nhận hành động xóa"
+        },
+        "approve": {
+            "title": "Xác nhận giao dịch thành công"
         },
         "validation": {
             "required": "Trường này bắt buộc phải nhập.",
