@@ -126,3 +126,22 @@ export const getPaymentStatus = type => {
       return 'Chờ thanh toán';
   }
 };
+
+export const getStatusType = type => {
+  switch (type) {
+    case 'FAILED':
+      return 'Thanh toán thất bại';
+    case 'APPROVED':
+      return 'Đã thanh toán';
+    case 'CANCELED':
+      return 'Đã huỷ';
+    case 'EXPIRED':
+      return 'Đã hết hạn';
+    case 'PAID':
+      return 'Đã thanh toán';
+    case 'SOLD':
+      return 'Đã bán';
+    default:
+      return 'Chờ thanh toán';
+  }
+};

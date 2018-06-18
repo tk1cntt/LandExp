@@ -17,7 +17,7 @@
             "detail": {
                 "title": "House"
             },
-            "avatar": "Avatar",
+            "avatar": "Ảnh đại diện",
             "actionType": "Hình thức",
             "address": "Address",
             "money": "Giá đề xuất",
@@ -43,7 +43,7 @@
             "email": "Email",
             "facebook": "Facebook",
             "zalo": "Zalo",
-            "statusType": "Status Type",
+            "statusType": "Trạng thái",
             "googleId": "Google Id",
             "latitude": "Latitude",
             "longitude": "Longitude",
