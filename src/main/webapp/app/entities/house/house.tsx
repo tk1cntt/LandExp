@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 import { Link, RouteComponentProps } from 'react-router-dom';
 import { Button, InputGroup, Col, Row, Table } from 'reactstrap';
 import { AvForm, AvGroup, AvInput } from 'availity-reactstrap-validation';
+import { getActionType, getLandType, getCityType, getDirection, getPresent, getSaleType } from 'app/shared/util/utils';
 // tslint:disable-next-line:no-unused-variable
 import {
   Translate,
@@ -115,110 +116,17 @@ export class House extends React.Component<IHouseProps, IHouseState> {
           <Table responsive>
             <thead>
               <tr>
-                <th className="hand" onClick={this.sort('id')}>
-                  <Translate contentKey="global.field.id">ID</Translate> <FontAwesomeIcon icon="sort" />
-                </th>
-                <th className="hand" onClick={this.sort('avatar')}>
-                  <Translate contentKey="landexpApp.house.avatar">Avatar</Translate> <FontAwesomeIcon icon="sort" />
-                </th>
                 <th className="hand" onClick={this.sort('actionType')}>
                   <Translate contentKey="landexpApp.house.actionType">Action Type</Translate> <FontAwesomeIcon icon="sort" />
-                </th>
-                <th className="hand" onClick={this.sort('address')}>
-                  <Translate contentKey="landexpApp.house.address">Address</Translate> <FontAwesomeIcon icon="sort" />
-                </th>
-                <th className="hand" onClick={this.sort('money')}>
-                  <Translate contentKey="landexpApp.house.money">Money</Translate> <FontAwesomeIcon icon="sort" />
-                </th>
-                <th className="hand" onClick={this.sort('moneyType')}>
-                  <Translate contentKey="landexpApp.house.moneyType">Money Type</Translate> <FontAwesomeIcon icon="sort" />
-                </th>
-                <th className="hand" onClick={this.sort('acreage')}>
-                  <Translate contentKey="landexpApp.house.acreage">Acreage</Translate> <FontAwesomeIcon icon="sort" />
-                </th>
-                <th className="hand" onClick={this.sort('acreageStreetSide')}>
-                  <Translate contentKey="landexpApp.house.acreageStreetSide">Acreage Street Side</Translate> <FontAwesomeIcon icon="sort" />
-                </th>
-                <th className="hand" onClick={this.sort('discount')}>
-                  <Translate contentKey="landexpApp.house.discount">Discount</Translate> <FontAwesomeIcon icon="sort" />
-                </th>
-                <th className="hand" onClick={this.sort('direction')}>
-                  <Translate contentKey="landexpApp.house.direction">Direction</Translate> <FontAwesomeIcon icon="sort" />
-                </th>
-                <th className="hand" onClick={this.sort('directionBalcony')}>
-                  <Translate contentKey="landexpApp.house.directionBalcony">Direction Balcony</Translate> <FontAwesomeIcon icon="sort" />
-                </th>
-                <th className="hand" onClick={this.sort('floor')}>
-                  <Translate contentKey="landexpApp.house.floor">Floor</Translate> <FontAwesomeIcon icon="sort" />
-                </th>
-                <th className="hand" onClick={this.sort('numberOfFloor')}>
-                  <Translate contentKey="landexpApp.house.numberOfFloor">Number Of Floor</Translate> <FontAwesomeIcon icon="sort" />
-                </th>
-                <th className="hand" onClick={this.sort('bathRoom')}>
-                  <Translate contentKey="landexpApp.house.bathRoom">Bath Room</Translate> <FontAwesomeIcon icon="sort" />
-                </th>
-                <th className="hand" onClick={this.sort('bedRoom')}>
-                  <Translate contentKey="landexpApp.house.bedRoom">Bed Room</Translate> <FontAwesomeIcon icon="sort" />
-                </th>
-                <th className="hand" onClick={this.sort('parking')}>
-                  <Translate contentKey="landexpApp.house.parking">Parking</Translate> <FontAwesomeIcon icon="sort" />
-                </th>
-                <th className="hand" onClick={this.sort('furniture')}>
-                  <Translate contentKey="landexpApp.house.furniture">Furniture</Translate> <FontAwesomeIcon icon="sort" />
-                </th>
-                <th className="hand" onClick={this.sort('summary')}>
-                  <Translate contentKey="landexpApp.house.summary">Summary</Translate> <FontAwesomeIcon icon="sort" />
                 </th>
                 <th className="hand" onClick={this.sort('landType')}>
                   <Translate contentKey="landexpApp.house.landType">Land Type</Translate> <FontAwesomeIcon icon="sort" />
                 </th>
-                <th className="hand" onClick={this.sort('saleType')}>
-                  <Translate contentKey="landexpApp.house.saleType">Sale Type</Translate> <FontAwesomeIcon icon="sort" />
+                <th className="hand" onClick={this.sort('money')}>
+                  <Translate contentKey="landexpApp.house.money">Money</Translate> <FontAwesomeIcon icon="sort" />
                 </th>
-                <th className="hand" onClick={this.sort('fee')}>
-                  <Translate contentKey="landexpApp.house.fee">Fee</Translate> <FontAwesomeIcon icon="sort" />
-                </th>
-                <th className="hand" onClick={this.sort('feeMax')}>
-                  <Translate contentKey="landexpApp.house.feeMax">Fee Max</Translate> <FontAwesomeIcon icon="sort" />
-                </th>
-                <th className="hand" onClick={this.sort('present')}>
-                  <Translate contentKey="landexpApp.house.present">Present</Translate> <FontAwesomeIcon icon="sort" />
-                </th>
-                <th className="hand" onClick={this.sort('hits')}>
-                  <Translate contentKey="landexpApp.house.hits">Hits</Translate> <FontAwesomeIcon icon="sort" />
-                </th>
-                <th className="hand" onClick={this.sort('customer')}>
-                  <Translate contentKey="landexpApp.house.customer">Customer</Translate> <FontAwesomeIcon icon="sort" />
-                </th>
-                <th className="hand" onClick={this.sort('mobile')}>
-                  <Translate contentKey="landexpApp.house.mobile">Mobile</Translate> <FontAwesomeIcon icon="sort" />
-                </th>
-                <th className="hand" onClick={this.sort('email')}>
-                  <Translate contentKey="landexpApp.house.email">Email</Translate> <FontAwesomeIcon icon="sort" />
-                </th>
-                <th className="hand" onClick={this.sort('facebook')}>
-                  <Translate contentKey="landexpApp.house.facebook">Facebook</Translate> <FontAwesomeIcon icon="sort" />
-                </th>
-                <th className="hand" onClick={this.sort('zalo')}>
-                  <Translate contentKey="landexpApp.house.zalo">Zalo</Translate> <FontAwesomeIcon icon="sort" />
-                </th>
-                <th className="hand" onClick={this.sort('statusType')}>
-                  <Translate contentKey="landexpApp.house.statusType">Status Type</Translate> <FontAwesomeIcon icon="sort" />
-                </th>
-                <th className="hand" onClick={this.sort('googleId')}>
-                  <Translate contentKey="landexpApp.house.googleId">Google Id</Translate> <FontAwesomeIcon icon="sort" />
-                </th>
-                <th className="hand" onClick={this.sort('latitude')}>
-                  <Translate contentKey="landexpApp.house.latitude">Latitude</Translate> <FontAwesomeIcon icon="sort" />
-                </th>
-                <th className="hand" onClick={this.sort('longitude')}>
-                  <Translate contentKey="landexpApp.house.longitude">Longitude</Translate> <FontAwesomeIcon icon="sort" />
-                </th>
-                <th className="hand" onClick={this.sort('createAt')}>
-                  <Translate contentKey="landexpApp.house.createAt">Create At</Translate> <FontAwesomeIcon icon="sort" />
-                </th>
-                <th className="hand" onClick={this.sort('updateAt')}>
-                  <Translate contentKey="landexpApp.house.updateAt">Update At</Translate> <FontAwesomeIcon icon="sort" />
+                <th className="hand" onClick={this.sort('discount')}>
+                  <Translate contentKey="landexpApp.house.discount">Discount</Translate> <FontAwesomeIcon icon="sort" />
                 </th>
                 <th>
                   <Translate contentKey="landexpApp.house.city">City</Translate> <FontAwesomeIcon icon="sort" />
@@ -229,17 +137,14 @@ export class House extends React.Component<IHouseProps, IHouseState> {
                 <th>
                   <Translate contentKey="landexpApp.house.ward">Ward</Translate> <FontAwesomeIcon icon="sort" />
                 </th>
-                <th>
-                  <Translate contentKey="landexpApp.house.street">Street</Translate> <FontAwesomeIcon icon="sort" />
+                <th className="hand" onClick={this.sort('saleType')}>
+                  <Translate contentKey="landexpApp.house.saleType">Sale Type</Translate> <FontAwesomeIcon icon="sort" />
                 </th>
-                <th>
-                  <Translate contentKey="landexpApp.house.project">Project</Translate> <FontAwesomeIcon icon="sort" />
+                <th className="hand" onClick={this.sort('fee')}>
+                  <Translate contentKey="landexpApp.house.fee">Fee</Translate> <FontAwesomeIcon icon="sort" />
                 </th>
-                <th>
-                  <Translate contentKey="landexpApp.house.createBy">Create By</Translate> <FontAwesomeIcon icon="sort" />
-                </th>
-                <th>
-                  <Translate contentKey="landexpApp.house.updateBy">Update By</Translate> <FontAwesomeIcon icon="sort" />
+                <th className="hand" onClick={this.sort('statusType')}>
+                  <Translate contentKey="landexpApp.house.statusType">Status Type</Translate> <FontAwesomeIcon icon="sort" />
                 </th>
                 <th />
               </tr>
@@ -247,56 +152,16 @@ export class House extends React.Component<IHouseProps, IHouseState> {
             <tbody>
               {houseList.map((house, i) => (
                 <tr key={`entity-${i}`}>
-                  <td>
-                    <Button tag={Link} to={`${match.url}/${house.id}`} color="link" size="sm">
-                      {house.id}
-                    </Button>
-                  </td>
-                  <td>{house.avatar}</td>
-                  <td>{house.actionType}</td>
-                  <td>{house.address}</td>
-                  <td>{house.money}</td>
-                  <td>{house.moneyType}</td>
-                  <td>{house.acreage}</td>
-                  <td>{house.acreageStreetSide}</td>
-                  <td>{house.discount}</td>
-                  <td>{house.direction}</td>
-                  <td>{house.directionBalcony}</td>
-                  <td>{house.floor}</td>
-                  <td>{house.numberOfFloor}</td>
-                  <td>{house.bathRoom}</td>
-                  <td>{house.bedRoom}</td>
-                  <td>{house.parking ? 'true' : 'false'}</td>
-                  <td>{house.furniture ? 'true' : 'false'}</td>
-                  <td>{house.summary}</td>
-                  <td>{house.landType}</td>
-                  <td>{house.saleType}</td>
-                  <td>{house.fee}</td>
-                  <td>{house.feeMax}</td>
-                  <td>{house.present}</td>
-                  <td>{house.hits}</td>
-                  <td>{house.customer}</td>
-                  <td>{house.mobile}</td>
-                  <td>{house.email}</td>
-                  <td>{house.facebook}</td>
-                  <td>{house.zalo}</td>
-                  <td>{house.statusType}</td>
-                  <td>{house.googleId}</td>
-                  <td>{house.latitude}</td>
-                  <td>{house.longitude}</td>
-                  <td>
-                    <TextFormat type="date" value={house.createAt} format={APP_LOCAL_DATE_FORMAT} />
-                  </td>
-                  <td>
-                    <TextFormat type="date" value={house.updateAt} format={APP_LOCAL_DATE_FORMAT} />
-                  </td>
+                  <td>{getActionType(house.actionType)}</td>
+                  <td>{getLandType(house.landType)}</td>
+                  <td>{new Intl.NumberFormat().format(house.money)} VNĐ</td>
+                  <td>{new Intl.NumberFormat().format(house.discount)} VNĐ</td>
                   <td>{house.cityName ? <Link to={`city/${house.cityId}`}>{house.cityName}</Link> : ''}</td>
                   <td>{house.districtName ? <Link to={`district/${house.districtId}`}>{house.districtName}</Link> : ''}</td>
                   <td>{house.wardName ? <Link to={`ward/${house.wardId}`}>{house.wardName}</Link> : ''}</td>
-                  <td>{house.streetName ? <Link to={`street/${house.streetId}`}>{house.streetName}</Link> : ''}</td>
-                  <td>{house.projectName ? <Link to={`landProject/${house.projectId}`}>{house.projectName}</Link> : ''}</td>
-                  <td>{house.createByLogin ? house.createByLogin : ''}</td>
-                  <td>{house.updateByLogin ? house.updateByLogin : ''}</td>
+                  <td>{getSaleType(house.saleType)}</td>
+                  <td>{house.fee}</td>
+                  <td>{house.statusType}</td>
                   <td className="text-right">
                     <div className="btn-group flex-btn-group-container">
                       <Button tag={Link} to={`${match.url}/${house.id}`} color="info" size="sm">

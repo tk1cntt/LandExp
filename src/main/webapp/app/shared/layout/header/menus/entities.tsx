@@ -20,7 +20,7 @@ export const EntitiesMenu = props => (
       <FontAwesomeIcon icon="asterisk" />&nbsp; Street
     </DropdownItem>
     <DropdownItem tag={Link} to="/entity/house">
-      <FontAwesomeIcon icon="asterisk" />&nbsp; House
+      <FontAwesomeIcon icon="asterisk" />&nbsp; Danh sách tin đăng
     </DropdownItem>
     <DropdownItem tag={Link} to="/entity/service-fee">
       <FontAwesomeIcon icon="asterisk" />&nbsp; Service Fee
