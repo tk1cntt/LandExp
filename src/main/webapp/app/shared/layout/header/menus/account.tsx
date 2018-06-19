@@ -6,14 +6,17 @@ import { NavDropdown } from '../header-components';
 
 const accountMenuItemsAuthenticated = (
   <>
+    <DropdownItem tag={Link} to="/account/house">
+      <FontAwesomeIcon icon="wrench" /> Quản lý tin đăng
+    </DropdownItem>
     <DropdownItem tag={Link} to="/account/settings">
-      <FontAwesomeIcon icon="wrench" /> Settings
+      <FontAwesomeIcon icon="wrench" /> Thông tin người dùng
     </DropdownItem>
     <DropdownItem tag={Link} to="/account/password">
-      <FontAwesomeIcon icon="clock" /> Password
+      <FontAwesomeIcon icon="clock" /> Thay đổi mật khẩu
     </DropdownItem>
     <DropdownItem tag={Link} to="/logout">
-      <FontAwesomeIcon icon="sign-out-alt" /> Logout
+      <FontAwesomeIcon icon="sign-out-alt" /> Thoát
     </DropdownItem>
   </>
 );
@@ -30,7 +33,7 @@ const accountMenuItems = (
 );
 
 export const AccountMenu = ({ isAuthenticated = false }) => (
-  <NavDropdown icon="user" name="Account" id="account-menu">
+  <NavDropdown icon="user" name="Tài khoản người dùng" id="account-menu">
     {isAuthenticated ? accountMenuItemsAuthenticated : accountMenuItems}
   </NavDropdown>
 );

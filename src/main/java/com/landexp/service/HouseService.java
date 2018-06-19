@@ -105,7 +105,7 @@ public class HouseService {
     @Transactional(readOnly = true)
     public Page<HouseDTO> findAll(Pageable pageable) {
         log.debug("Request to get all Houses");
-        return houseRepository.findAllByOrderByCreateAtDesc(pageable)
+        return houseRepository.findByStatusTypeNotOrderByCreateAtDesc(StatusType.OPEN, pageable)
             .map(houseMapper::toDto);
     }
 
@@ -117,7 +117,7 @@ public class HouseService {
     @Transactional(readOnly = true)
     public HouseDTO initHouse(String username) {
         log.debug("Request to get init House {}", username);
-        House house = houseRepository.findFirstByStatusTypeAndCreateByLogin(StatusType.PENDING, username);
+        House house = houseRepository.findFirstByStatusTypeAndCreateByLogin(StatusType.OPEN, username);
         if (!ObjectUtils.isEmpty(house)) {
             return houseMapper.toDto(house);
         } else {
@@ -145,9 +145,22 @@ public class HouseService {
      * @return the list of entities
      */
     @Transactional(readOnly = true)
-    public Page<HouseDTO> findByUser(String username, Pageable pageable) {
+    public Page<HouseDTO> findByStaff(String username, Pageable pageable) {
         log.debug("Request to get all House of staff [{}]", username);
-        return houseRepository.findByDistrictRegionUsersLoginOrderByCreateAtDesc(username, pageable)
+        return houseRepository.findByStatusTypeNotAndDistrictRegionUsersLoginOrderByCreateAtDesc(StatusType.OPEN, username, pageable)
+            .map(houseMapper::toDto);
+    }
+
+    /**
+     * Get all the house of staff.
+     *
+     * @param pageable the pagination information
+     * @return the list of entities
+     */
+    @Transactional(readOnly = true)
+    public Page<HouseDTO> findByOwner(String username, Pageable pageable) {
+        log.debug("Request to get all House of staff [{}]", username);
+        return houseRepository.findByStatusTypeNotAndCreateByLoginOrderByCreateAtDesc(StatusType.OPEN, username, pageable)
             .map(houseMapper::toDto);
     }
 

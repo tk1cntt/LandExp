@@ -25,9 +25,11 @@ public interface HouseRepository extends JpaRepository<House, Long>, JpaSpecific
 
     Page<House> findByStatusTypeAndDistrictRegionUsersLoginOrderByCreateAtDesc(StatusType status, String username, Pageable pageable);
 
-    Page<House> findByDistrictRegionUsersLoginOrderByCreateAtDesc(String username, Pageable pageable);
+    Page<House> findByStatusTypeNotAndDistrictRegionUsersLoginOrderByCreateAtDesc(StatusType statusType, String username, Pageable pageable);
 
-    Page<House> findAllByOrderByCreateAtDesc(Pageable pageable);
+    Page<House> findByStatusTypeNotOrderByCreateAtDesc(StatusType statusType, Pageable pageable);
+
+    Page<House> findByStatusTypeNotAndCreateByLoginOrderByCreateAtDesc(StatusType statusType, String username, Pageable pageable);
 
     House findFirstByStatusTypeAndCreateByLogin(StatusType statusType, String username);
 }

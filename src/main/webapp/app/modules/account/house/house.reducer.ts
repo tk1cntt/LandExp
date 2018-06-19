@@ -129,7 +129,7 @@ export const getSearchEntities: ICrudSearchAction<IHouse> = query => ({
 });
 
 export const getEntities: ICrudGetAllAction<IHouse> = (page, size, sort) => {
-  const requestUrl = `${apiUrl}/users${sort ? `?page=${page}&size=${size}&sort=${sort}` : ''}`;
+  const requestUrl = `${apiUrl}/owner${sort ? `?page=${page}&size=${size}&sort=${sort}` : ''}`;
   return {
     type: ACTION_TYPES.FETCH_HOUSE_LIST,
     payload: axios.get<IHouse>(`${requestUrl}${sort ? '&' : '?'}cacheBuster=${new Date().getTime()}`)

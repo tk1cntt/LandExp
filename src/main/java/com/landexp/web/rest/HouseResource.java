@@ -6,17 +6,18 @@ import com.landexp.domain.enumeration.PaymentStatusType;
 import com.landexp.domain.enumeration.StatusType;
 import com.landexp.security.AuthoritiesConstants;
 import com.landexp.security.SecurityUtils;
+import com.landexp.service.HouseQueryService;
 import com.landexp.service.HouseService;
 import com.landexp.service.PaymentService;
 import com.landexp.service.ServiceFeeService;
+import com.landexp.service.dto.HouseCriteria;
+import com.landexp.service.dto.HouseDTO;
 import com.landexp.service.dto.PaymentDTO;
 import com.landexp.service.dto.ServiceFeeDTO;
 import com.landexp.web.rest.errors.BadRequestAlertException;
+import com.landexp.web.rest.errors.ExecuteRuntimeException;
 import com.landexp.web.rest.util.HeaderUtil;
 import com.landexp.web.rest.util.PaginationUtil;
-import com.landexp.service.dto.HouseDTO;
-import com.landexp.service.dto.HouseCriteria;
-import com.landexp.service.HouseQueryService;
 import io.github.jhipster.web.util.ResponseUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -32,14 +33,9 @@ import org.springframework.web.bind.annotation.*;
 
 import java.net.URI;
 import java.net.URISyntaxException;
-
 import java.time.LocalDate;
-import java.util.Date;
 import java.util.List;
 import java.util.Optional;
-import java.util.stream.StreamSupport;
-
-import static org.elasticsearch.index.query.QueryBuilders.*;
 
 /**
  * REST controller for managing House.
@@ -79,10 +75,10 @@ public class HouseResource {
     public ResponseEntity<HouseDTO> initHouse() throws URISyntaxException {
         log.debug("REST request to init House");
         String username = SecurityUtils.getCurrentUserLogin().get();
-        HouseDTO houseDTO =  houseService.initHouse(username);
+        HouseDTO houseDTO = houseService.initHouse(username);
         if (ObjectUtils.isEmpty(houseDTO)) {
             houseDTO = new HouseDTO();
-            houseDTO.setStatusType(StatusType.PENDING);
+            houseDTO.setStatusType(StatusType.OPEN);
             log.debug("Save init House {}", houseDTO);
             houseDTO = houseService.saveByUsername(houseDTO, username);
             PaymentDTO paymentDTO = new PaymentDTO();
@@ -137,15 +133,29 @@ public class HouseResource {
         if (houseDTO.getId() == null) {
             throw new BadRequestAlertException("Invalid id", ENTITY_NAME, "idnull");
         }
-        String username = SecurityUtils.getCurrentUserLogin().get();
-        ServiceFeeDTO serviceFee = serviceFeeService.findBySaleType(houseDTO.getSaleType()).get();
-        if (!ObjectUtils.isEmpty(serviceFee)) {
-            PaymentDTO paymentDTO = paymentService.findByHouse(houseDTO.getId()).get();
-            if (!ObjectUtils.isEmpty(paymentDTO)) {
-                paymentDTO.setMoney(serviceFee.getFee());
-                paymentService.save(paymentDTO);
-            }
+        HouseDTO currentDTO = houseService.findOne(houseDTO.getId()).get();
+        if (ObjectUtils.isEmpty(currentDTO)) {
+            throw new ExecuteRuntimeException("Invalid id");
         }
+        String username = SecurityUtils.getCurrentUserLogin().get();
+        if (!username.equalsIgnoreCase(currentDTO.getCreateByLogin())
+            && !SecurityUtils.isCurrentUserInRole(AuthoritiesConstants.STAFF)) {
+            throw new ExecuteRuntimeException("No permission");
+        }
+        if (currentDTO.getStatusType().equals(StatusType.OPEN)) {
+            houseDTO.setStatusType(StatusType.PENDING);
+            ServiceFeeDTO serviceFee = serviceFeeService.findBySaleType(houseDTO.getSaleType()).get();
+            if (!ObjectUtils.isEmpty(serviceFee)) {
+                PaymentDTO paymentDTO = paymentService.findByHouse(houseDTO.getId()).get();
+                if (!ObjectUtils.isEmpty(paymentDTO)) {
+                    paymentDTO.setMoney(serviceFee.getFee());
+                    paymentService.save(paymentDTO);
+                }
+            }
+        } else {
+            houseDTO.setStatusType(currentDTO.getStatusType());
+        }
+        houseDTO.setUpdateAt(LocalDate.now());
         HouseDTO result = houseService.updateByUsername(houseDTO, username);
         return ResponseEntity.ok()
             .headers(HeaderUtil.createEntityUpdateAlert(ENTITY_NAME, houseDTO.getId().toString()))
@@ -161,6 +171,7 @@ public class HouseResource {
      */
     @GetMapping("/houses")
     @Timed
+    @Secured(AuthoritiesConstants.MANAGER)
     public ResponseEntity<List<HouseDTO>> getAllHouses(HouseCriteria criteria, Pageable pageable) {
         log.debug("REST request to get Houses by criteria: {}", criteria);
         Page<HouseDTO> page = houseQueryService.findByCriteria(criteria, pageable);
@@ -187,12 +198,29 @@ public class HouseResource {
             page = houseService.findAll(pageable);
         } else {
             if (StringUtils.isEmpty(status)) {
-                page = houseService.findByUser(username, pageable);
+                page = houseService.findByStaff(username, pageable);
             } else {
                 page = houseService.findByStatusAndUser(StatusType.valueOf(status), username, pageable);
             }
         }
         HttpHeaders headers = PaginationUtil.generatePaginationHttpHeaders(page, "/api/houses/users");
+        return new ResponseEntity<>(page.getContent(), headers, HttpStatus.OK);
+    }
+
+    /**
+     * GET  /houses/users : get all the house of staff
+     *
+     * @param pageable the pagination information
+     * @return the ResponseEntity with status 200 (OK) and the list of houses in body
+     */
+    @GetMapping("/houses/owner")
+    @Timed
+    @Secured(AuthoritiesConstants.STAFF)
+    public ResponseEntity<List<HouseDTO>> getAllHouseOwner(Pageable pageable) {
+        log.debug("REST request to get House of owner");
+        String username = SecurityUtils.getCurrentUserLogin().get();
+        Page<HouseDTO> page = houseService.findByOwner(username, pageable);
+        HttpHeaders headers = PaginationUtil.generatePaginationHttpHeaders(page, "/api/houses/owner");
         return new ResponseEntity<>(page.getContent(), headers, HttpStatus.OK);
     }
 
@@ -207,6 +235,18 @@ public class HouseResource {
     public ResponseEntity<HouseDTO> getHouse(@PathVariable Long id) {
         log.debug("REST request to get House : {}", id);
         Optional<HouseDTO> houseDTO = houseService.findOne(id);
+        if (ObjectUtils.isEmpty(houseDTO.get())) {
+            throw new ExecuteRuntimeException("Invalid id");
+        }
+        if (houseDTO.get().getStatusType().equals(StatusType.PENDING)
+            && (!SecurityUtils.getCurrentUserLogin().get().equalsIgnoreCase(houseDTO.get().getCreateByLogin()))
+            || !SecurityUtils.isCurrentUserInRole(AuthoritiesConstants.MANAGER)) {
+            throw new ExecuteRuntimeException("No permission");
+        }
+        if (!houseDTO.get().getStatusType().equals(StatusType.PAID)
+            && !SecurityUtils.isCurrentUserInRole(AuthoritiesConstants.MANAGER)) {
+            throw new ExecuteRuntimeException("No permission");
+        }
         return ResponseUtil.wrapOrNotFound(houseDTO);
     }
 
@@ -221,6 +261,14 @@ public class HouseResource {
     @Secured(AuthoritiesConstants.USER)
     public ResponseEntity<Void> deleteHouse(@PathVariable Long id) {
         log.debug("REST request to delete House : {}", id);
+        Optional<HouseDTO> houseDTO = houseService.findOne(id);
+        if (ObjectUtils.isEmpty(houseDTO.get())) {
+            throw new ExecuteRuntimeException("Invalid id");
+        }
+        if (!SecurityUtils.getCurrentUserLogin().get().equalsIgnoreCase(houseDTO.get().getCreateByLogin())
+            && !SecurityUtils.isCurrentUserInRole(AuthoritiesConstants.MANAGER)) {
+            throw new ExecuteRuntimeException("No permission");
+        }
         houseService.delete(id);
         return ResponseEntity.ok().headers(HeaderUtil.createEntityDeletionAlert(ENTITY_NAME, id.toString())).build();
     }
@@ -229,7 +277,7 @@ public class HouseResource {
      * SEARCH  /_search/houses?query=:query : search for the house corresponding
      * to the query.
      *
-     * @param query the query of the house search
+     * @param query    the query of the house search
      * @param pageable the pagination information
      * @return the result of the search
      */

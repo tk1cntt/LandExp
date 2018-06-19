@@ -7,7 +7,7 @@ import FontAwesomeIcon from '@fortawesome/react-fontawesome';
 
 import { IPayment } from 'app/shared/model/payment.model';
 import { IRootState } from 'app/shared/reducers';
-import { getEntity, deleteEntity } from './payment.reducer';
+import { getEntity, approveEntity } from './payment.reducer';
 
 export interface IPaymentDeleteDialogProps extends StateProps, DispatchProps, RouteComponentProps<{ id: number }> {}
 
@@ -16,8 +16,8 @@ export class PaymentDeleteDialog extends React.Component<IPaymentDeleteDialogPro
     this.props.getEntity(this.props.match.params.id);
   }
 
-  confirmDelete = event => {
-    this.props.deleteEntity(this.props.paymentEntity.id);
+  confirmApprove = event => {
+    this.props.approveEntity(this.props.paymentEntity.id);
     this.handleClose(event);
   };
 
@@ -43,7 +43,7 @@ export class PaymentDeleteDialog extends React.Component<IPaymentDeleteDialogPro
             <FontAwesomeIcon icon="ban" />&nbsp;
             <Translate contentKey="entity.action.cancel">Cancel</Translate>
           </Button>
-          <Button color="danger" onClick={this.confirmDelete}>
+          <Button color="warning" onClick={this.confirmApprove}>
             <FontAwesomeIcon icon="trash" />&nbsp;
             <Translate contentKey="entity.action.approve">Delete</Translate>
           </Button>
@@ -57,7 +57,7 @@ const mapStateToProps = ({ payment }: IRootState) => ({
   paymentEntity: payment.entity
 });
 
-const mapDispatchToProps = { getEntity, deleteEntity };
+const mapDispatchToProps = { getEntity, approveEntity };
 
 type StateProps = ReturnType<typeof mapStateToProps>;
 type DispatchProps = typeof mapDispatchToProps;

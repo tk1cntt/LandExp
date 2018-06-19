@@ -9,6 +9,7 @@ import com.landexp.domain.User;
 import com.landexp.domain.User;
 import com.landexp.repository.PaymentRepository;
 import com.landexp.repository.search.PaymentSearchRepository;
+import com.landexp.service.HouseService;
 import com.landexp.service.PaymentService;
 import com.landexp.service.dto.PaymentDTO;
 import com.landexp.service.mapper.PaymentMapper;
@@ -81,10 +82,13 @@ public class PaymentResourceIntTest {
 
     @Autowired
     private PaymentMapper paymentMapper;
-    
+
 
     @Autowired
     private PaymentService paymentService;
+
+    @Autowired
+    private HouseService houseService;
 
     /**
      * This repository is mocked in the com.landexp.repository.search test package.
@@ -116,7 +120,7 @@ public class PaymentResourceIntTest {
     @Before
     public void setup() {
         MockitoAnnotations.initMocks(this);
-        final PaymentResource paymentResource = new PaymentResource(paymentService, paymentQueryService);
+        final PaymentResource paymentResource = new PaymentResource(paymentService, paymentQueryService, houseService);
         this.restPaymentMockMvc = MockMvcBuilders.standaloneSetup(paymentResource)
             .setCustomArgumentResolvers(pageableArgumentResolver)
             .setControllerAdvice(exceptionTranslator)
@@ -214,7 +218,7 @@ public class PaymentResourceIntTest {
             .andExpect(jsonPath("$.[*].createAt").value(hasItem(DEFAULT_CREATE_AT.toString())))
             .andExpect(jsonPath("$.[*].updateAt").value(hasItem(DEFAULT_UPDATE_AT.toString())));
     }
-    
+
 
     @Test
     @Transactional

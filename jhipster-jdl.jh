@@ -52,7 +52,7 @@ enum UserActionType {
 }
 
 enum StatusType {
-   PENDING, PAID, APPROVED, CANCELED, EXPIRED, SOLD
+   OPEN, PENDING, PAID, CANCELED, EXPIRED, SOLD
 }
 
 enum LandType {
@@ -344,7 +344,7 @@ enum PaymentType {
 }
 
 enum PaymentStatusType {
-   OPEN, PENDING, SUCCESS, FAILED
+   PENDING, PAID, CANCELED
 }
 
 entity Payment {
