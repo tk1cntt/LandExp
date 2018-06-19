@@ -34,7 +34,7 @@ export class PaymentDeleteDialog extends React.Component<IPaymentDeleteDialogPro
           <Translate contentKey="entity.delete.title">Confirm delete operation</Translate>
         </ModalHeader>
         <ModalBody>
-          <Translate contentKey="landexpApp.payment.delete.question" interpolate={{ id: paymentEntity.id }}>
+          <Translate contentKey="landexpApp.payment.delete.question" interpolate={{ id: paymentEntity.code }}>
             Are you sure you want to delete this Payment?
           </Translate>
         </ModalBody>

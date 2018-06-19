@@ -3,6 +3,8 @@ import { connect } from 'react-redux';
 import { Link, RouteComponentProps } from 'react-router-dom';
 import { Button, InputGroup, Col, Row, Table } from 'reactstrap';
 import { AvForm, AvGroup, AvInput } from 'availity-reactstrap-validation';
+import { Icon } from 'antd';
+
 // tslint:disable-next-line:no-unused-variable
 import {
   Translate,
@@ -115,11 +117,14 @@ export class District extends React.Component<IDistrictProps, IDistrictState> {
           <Table responsive>
             <thead>
               <tr>
-                <th className="hand" onClick={this.sort('id')}>
-                  <Translate contentKey="global.field.id">ID</Translate> <FontAwesomeIcon icon="sort" />
-                </th>
                 <th className="hand" onClick={this.sort('name')}>
                   <Translate contentKey="landexpApp.district.name">Name</Translate> <FontAwesomeIcon icon="sort" />
+                </th>
+                <th>
+                  <Translate contentKey="landexpApp.district.region">Region</Translate> <FontAwesomeIcon icon="sort" />
+                </th>
+                <th>
+                  <Translate contentKey="landexpApp.district.city">City</Translate> <FontAwesomeIcon icon="sort" />
                 </th>
                 <th className="hand" onClick={this.sort('enabled')}>
                   <Translate contentKey="landexpApp.district.enabled">Enabled</Translate> <FontAwesomeIcon icon="sort" />
@@ -130,41 +135,24 @@ export class District extends React.Component<IDistrictProps, IDistrictState> {
                 <th className="hand" onClick={this.sort('updateAt')}>
                   <Translate contentKey="landexpApp.district.updateAt">Update At</Translate> <FontAwesomeIcon icon="sort" />
                 </th>
-                <th>
-                  <Translate contentKey="landexpApp.district.region">Region</Translate> <FontAwesomeIcon icon="sort" />
-                </th>
-                <th>
-                  <Translate contentKey="landexpApp.district.city">City</Translate> <FontAwesomeIcon icon="sort" />
-                </th>
                 <th />
               </tr>
             </thead>
             <tbody>
               {districtList.map((district, i) => (
                 <tr key={`entity-${i}`}>
-                  <td>
-                    <Button tag={Link} to={`${match.url}/${district.id}`} color="link" size="sm">
-                      {district.id}
-                    </Button>
-                  </td>
                   <td>{district.name}</td>
-                  <td>{district.enabled ? 'true' : 'false'}</td>
+                  <td>{district.enabled ? <Icon type="check-square" style={{ color: 'green' }} /> : <Icon type="close-square" style={{ color: 'red' }} />}</td>
+                  <td>{district.regionId ? <Link to={`region/${district.regionId}`}>{district.regionId}</Link> : ''}</td>
+                  <td>{district.cityId ? <Link to={`city/${district.cityId}`}>{district.cityId}</Link> : ''}</td>
                   <td>
                     <TextFormat type="date" value={district.createAt} format={APP_LOCAL_DATE_FORMAT} />
                   </td>
                   <td>
                     <TextFormat type="date" value={district.updateAt} format={APP_LOCAL_DATE_FORMAT} />
                   </td>
-                  <td>{district.regionId ? <Link to={`region/${district.regionId}`}>{district.regionId}</Link> : ''}</td>
-                  <td>{district.cityId ? <Link to={`city/${district.cityId}`}>{district.cityId}</Link> : ''}</td>
                   <td className="text-right">
                     <div className="btn-group flex-btn-group-container">
-                      <Button tag={Link} to={`${match.url}/${district.id}`} color="info" size="sm">
-                        <FontAwesomeIcon icon="eye" />{' '}
-                        <span className="d-none d-md-inline">
-                          <Translate contentKey="entity.action.view">View</Translate>
-                        </span>
-                      </Button>
                       <Button tag={Link} to={`${match.url}/${district.id}/edit`} color="primary" size="sm">
                         <FontAwesomeIcon icon="pencil-alt" />{' '}
                         <span className="d-none d-md-inline">

@@ -3,6 +3,8 @@ import { connect } from 'react-redux';
 import { Link, RouteComponentProps } from 'react-router-dom';
 import { Button, InputGroup, Col, Row, Table } from 'reactstrap';
 import { AvForm, AvGroup, AvInput } from 'availity-reactstrap-validation';
+import { Icon } from 'antd';
+
 // tslint:disable-next-line:no-unused-variable
 import { Translate, translate, ICrudSearchAction, ICrudGetAllAction, TextFormat } from 'react-jhipster';
 import FontAwesomeIcon from '@fortawesome/react-fontawesome';
@@ -82,9 +84,6 @@ export class City extends React.Component<ICityProps, ICityState> {
             <thead>
               <tr>
                 <th>
-                  <Translate contentKey="global.field.id">ID</Translate>
-                </th>
-                <th>
                   <Translate contentKey="landexpApp.city.name">Name</Translate>
                 </th>
                 <th>
@@ -102,13 +101,8 @@ export class City extends React.Component<ICityProps, ICityState> {
             <tbody>
               {cityList.map((city, i) => (
                 <tr key={`entity-${i}`}>
-                  <td>
-                    <Button tag={Link} to={`${match.url}/${city.id}`} color="link" size="sm">
-                      {city.id}
-                    </Button>
-                  </td>
                   <td>{city.name}</td>
-                  <td>{city.enabled ? 'true' : 'false'}</td>
+                  <td>{city.enabled ? <Icon type="check-square" style={{ color: 'green' }} /> : <Icon type="close-square" style={{ color: 'red' }} />}</td>
                   <td>
                     <TextFormat type="date" value={city.createAt} format={APP_LOCAL_DATE_FORMAT} />
                   </td>
@@ -117,12 +111,6 @@ export class City extends React.Component<ICityProps, ICityState> {
                   </td>
                   <td className="text-right">
                     <div className="btn-group flex-btn-group-container">
-                      <Button tag={Link} to={`${match.url}/${city.id}`} color="info" size="sm">
-                        <FontAwesomeIcon icon="eye" />{' '}
-                        <span className="d-none d-md-inline">
-                          <Translate contentKey="entity.action.view">View</Translate>
-                        </span>
-                      </Button>
                       <Button tag={Link} to={`${match.url}/${city.id}/edit`} color="primary" size="sm">
                         <FontAwesomeIcon icon="pencil-alt" />{' '}
                         <span className="d-none d-md-inline">

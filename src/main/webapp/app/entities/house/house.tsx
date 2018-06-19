@@ -24,7 +24,8 @@ import { IRootState } from 'app/shared/reducers';
 import { getSearchEntities, getEntities } from './house.reducer';
 import { IHouse } from 'app/shared/model/house.model';
 // tslint:disable-next-line:no-unused-variable
-import { APP_DATE_FORMAT, APP_LOCAL_DATE_FORMAT } from 'app/config/constants';
+import { hasAnyAuthority } from 'app/shared/auth/private-route';
+import { APP_DATE_FORMAT, APP_LOCAL_DATE_FORMAT, AUTHORITIES } from 'app/config/constants';
 import { ITEMS_PER_PAGE } from 'app/shared/util/pagination.constants';
 
 export interface IHouseProps extends StateProps, DispatchProps, RouteComponentProps<{ url: string }> {}
@@ -148,6 +149,9 @@ export class House extends React.Component<IHouseProps, IHouseState> {
                 <th>
                   <Translate contentKey="landexpApp.house.statusType">Status Type</Translate> <FontAwesomeIcon icon="sort" />
                 </th>
+                <th>
+                  <Translate contentKey="landexpApp.house.createBy">Create By</Translate> <FontAwesomeIcon icon="sort" />
+                </th>
                 <th />
               </tr>
             </thead>
@@ -167,7 +171,7 @@ export class House extends React.Component<IHouseProps, IHouseState> {
                       </div>
                     ) : null}
                   </td>
-                  <td>{getActionType(house.actionType)}</td>
+                  <td>{house.actionType === 'FOR_SELL' ? 'Bán' : 'Cho thuê' }</td>
                   <td>{getLandType(house.landType)}</td>
                   <td>{new Intl.NumberFormat().format(house.money)} VNĐ</td>
                   <td>{new Intl.NumberFormat().format(house.discount)} VNĐ</td>
@@ -176,6 +180,7 @@ export class House extends React.Component<IHouseProps, IHouseState> {
                   <td>{house.wardName ? <Link to={`ward/${house.wardId}`}>{house.wardName}</Link> : ''}</td>
                   <td>{getSaleType(house.saleType)}</td>
                   <td>{getStatusType(house.statusType)}</td>
+                  <td>{house.createByLogin}</td>
                   <td className="text-right">
                     <div className="btn-group flex-btn-group-container">
                       <Button tag={Link} to={`${match.url}/${house.id}`} color="info" size="sm">
@@ -190,12 +195,16 @@ export class House extends React.Component<IHouseProps, IHouseState> {
                           <Translate contentKey="entity.action.edit">Edit</Translate>
                         </span>
                       </Button>
-                      <Button tag={Link} to={`${match.url}/${house.id}/delete`} color="danger" size="sm">
-                        <FontAwesomeIcon icon="trash" />{' '}
-                        <span className="d-none d-md-inline">
-                          <Translate contentKey="entity.action.delete">Delete</Translate>
-                        </span>
-                      </Button>
+                      {this.props.isManager ?
+                        (
+                          <Button tag={Link} to={`${match.url}/${house.id}/delete`} color="danger" size="sm">
+                            <FontAwesomeIcon icon="trash" />{' '}
+                            <span className="d-none d-md-inline">
+                              <Translate contentKey="entity.action.delete">Delete</Translate>
+                            </span>
+                          </Button>
+                        ) : ''
+                      }
                     </div>
                   </td>
                 </tr>
@@ -216,7 +225,8 @@ export class House extends React.Component<IHouseProps, IHouseState> {
   }
 }
 
-const mapStateToProps = ({ house }: IRootState) => ({
+const mapStateToProps = ({ house, authentication }: IRootState) => ({
+  isManager: hasAnyAuthority(authentication.account.authorities, [AUTHORITIES.MANAGER]),
   houseList: house.entities,
   totalItems: house.totalItems
 });

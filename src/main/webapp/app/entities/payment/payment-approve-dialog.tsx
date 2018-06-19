@@ -31,10 +31,10 @@ export class PaymentDeleteDialog extends React.Component<IPaymentDeleteDialogPro
     return (
       <Modal isOpen toggle={this.handleClose}>
         <ModalHeader toggle={this.handleClose}>
-          <Translate contentKey="entity.delete.title">Confirm approve operation</Translate>
+          <Translate contentKey="entity.approve.title">Confirm approve operation</Translate>
         </ModalHeader>
         <ModalBody>
-          <Translate contentKey="landexpApp.payment.delete.question" interpolate={{ id: paymentEntity.id }}>
+          <Translate contentKey="landexpApp.payment.approve.question" interpolate={{ id: paymentEntity.code }}>
             Are you sure you want to approve this Payment?
           </Translate>
         </ModalBody>
@@ -45,7 +45,7 @@ export class PaymentDeleteDialog extends React.Component<IPaymentDeleteDialogPro
           </Button>
           <Button color="danger" onClick={this.confirmDelete}>
             <FontAwesomeIcon icon="trash" />&nbsp;
-            <Translate contentKey="entity.action.delete">Delete</Translate>
+            <Translate contentKey="entity.action.approve">Delete</Translate>
           </Button>
         </ModalFooter>
       </Modal>

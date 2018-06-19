@@ -12,10 +12,10 @@
             "updated": "Một Payment cập nhật với định danh {{ param }}",
             "deleted": "Một Payment đã xóa với định danh {{ param }}",
             "delete": {
-                "question": "Bạn có chắc là muốn xóa thông tin thanh toán {{ id }}?"
+                "question": "Bạn có chắc là muốn xóa thông tin giao dịch với mã {{ id }}?"
             },
-            "delete": {
-                "question": "Bạn có chắc xác nhận đã thanh toán cho giao dịch {{ id }}?"
+            "approve": {
+                "question": "Bạn có chắc xác nhận đã thanh toán cho giao dịch mã {{ id }}?"
             },
             "detail": {
                 "title": "Thông tin thanh toán"

@@ -16,7 +16,7 @@ const Routes = ({ match }) => (
       <PrivateRoute exact path={`${match.url}/:id`} component={HouseDetail} hasAnyAuthorities={[AUTHORITIES.STAFF]} />
       <PrivateRoute path={match.url} component={House} hasAnyAuthorities={[AUTHORITIES.STAFF]} />
     </Switch>
-    <PrivateRoute path={`${match.url}/:id/delete`} component={HouseDeleteDialog} hasAnyAuthorities={[AUTHORITIES.STAFF]} />
+    <PrivateRoute path={`${match.url}/:id/delete`} component={HouseDeleteDialog} hasAnyAuthorities={[AUTHORITIES.MANAGER]} />
   </>
 );
 

@@ -3,6 +3,8 @@ import { connect } from 'react-redux';
 import { Link, RouteComponentProps } from 'react-router-dom';
 import { Button, InputGroup, Col, Row, Table } from 'reactstrap';
 import { AvForm, AvGroup, AvInput } from 'availity-reactstrap-validation';
+import { Icon } from 'antd';
+
 // tslint:disable-next-line:no-unused-variable
 import { Translate, translate, ICrudSearchAction, ICrudGetAllAction, TextFormat } from 'react-jhipster';
 import FontAwesomeIcon from '@fortawesome/react-fontawesome';
@@ -82,9 +84,6 @@ export class Ward extends React.Component<IWardProps, IWardState> {
             <thead>
               <tr>
                 <th>
-                  <Translate contentKey="global.field.id">ID</Translate>
-                </th>
-                <th>
                   <Translate contentKey="landexpApp.ward.name">Name</Translate>
                 </th>
                 <th>
@@ -105,13 +104,8 @@ export class Ward extends React.Component<IWardProps, IWardState> {
             <tbody>
               {wardList.map((ward, i) => (
                 <tr key={`entity-${i}`}>
-                  <td>
-                    <Button tag={Link} to={`${match.url}/${ward.id}`} color="link" size="sm">
-                      {ward.id}
-                    </Button>
-                  </td>
                   <td>{ward.name}</td>
-                  <td>{ward.enabled ? 'true' : 'false'}</td>
+                  <td>{ward.enabled ? <Icon type="check-square" style={{ color: 'green' }} /> : <Icon type="close-square" style={{ color: 'red' }} />}</td>
                   <td>
                     <TextFormat type="date" value={ward.createAt} format={APP_LOCAL_DATE_FORMAT} />
                   </td>
@@ -121,12 +115,6 @@ export class Ward extends React.Component<IWardProps, IWardState> {
                   <td>{ward.districtId ? <Link to={`district/${ward.districtId}`}>{ward.districtId}</Link> : ''}</td>
                   <td className="text-right">
                     <div className="btn-group flex-btn-group-container">
-                      <Button tag={Link} to={`${match.url}/${ward.id}`} color="info" size="sm">
-                        <FontAwesomeIcon icon="eye" />{' '}
-                        <span className="d-none d-md-inline">
-                          <Translate contentKey="entity.action.view">View</Translate>
-                        </span>
-                      </Button>
                       <Button tag={Link} to={`${match.url}/${ward.id}/edit`} color="primary" size="sm">
                         <FontAwesomeIcon icon="pencil-alt" />{' '}
                         <span className="d-none d-md-inline">

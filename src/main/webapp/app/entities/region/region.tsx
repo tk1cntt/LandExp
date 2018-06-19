@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 import { Link, RouteComponentProps } from 'react-router-dom';
 import { Button, InputGroup, Col, Row, Table } from 'reactstrap';
 import { AvForm, AvGroup, AvInput } from 'availity-reactstrap-validation';
+import { Icon } from 'antd';
 // tslint:disable-next-line:no-unused-variable
 import {
   Translate,
@@ -115,9 +116,6 @@ export class Region extends React.Component<IRegionProps, IRegionState> {
           <Table responsive>
             <thead>
               <tr>
-                <th className="hand" onClick={this.sort('id')}>
-                  <Translate contentKey="global.field.id">ID</Translate> <FontAwesomeIcon icon="sort" />
-                </th>
                 <th className="hand" onClick={this.sort('name')}>
                   <Translate contentKey="landexpApp.region.name">Name</Translate> <FontAwesomeIcon icon="sort" />
                 </th>
@@ -136,13 +134,8 @@ export class Region extends React.Component<IRegionProps, IRegionState> {
             <tbody>
               {regionList.map((region, i) => (
                 <tr key={`entity-${i}`}>
-                  <td>
-                    <Button tag={Link} to={`${match.url}/${region.id}`} color="link" size="sm">
-                      {region.id}
-                    </Button>
-                  </td>
                   <td>{region.name}</td>
-                  <td>{region.enabled ? 'true' : 'false'}</td>
+                  <td>{region.enabled ? <Icon type="check-square" style={{ color: 'green' }} /> : <Icon type="close-square" style={{ color: 'red' }} />}</td>
                   <td>
                     <TextFormat type="date" value={region.createAt} format={APP_LOCAL_DATE_FORMAT} />
                   </td>
@@ -151,12 +144,6 @@ export class Region extends React.Component<IRegionProps, IRegionState> {
                   </td>
                   <td className="text-right">
                     <div className="btn-group flex-btn-group-container">
-                      <Button tag={Link} to={`${match.url}/${region.id}`} color="info" size="sm">
-                        <FontAwesomeIcon icon="eye" />{' '}
-                        <span className="d-none d-md-inline">
-                          <Translate contentKey="entity.action.view">View</Translate>
-                        </span>
-                      </Button>
                       <Button tag={Link} to={`${match.url}/${region.id}/edit`} color="primary" size="sm">
                         <FontAwesomeIcon icon="pencil-alt" />{' '}
                         <span className="d-none d-md-inline">

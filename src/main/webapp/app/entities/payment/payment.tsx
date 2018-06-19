@@ -204,7 +204,6 @@ export class Payment extends React.Component<IPaymentProps, IPaymentState> {
 }
 
 const mapStateToProps = ({ payment, authentication }: IRootState) => ({
-  isAuthenticated: authentication.isAuthenticated,
   isManager: hasAnyAuthority(authentication.account.authorities, [AUTHORITIES.MANAGER]),
   paymentList: payment.entities,
   totalItems: payment.totalItems

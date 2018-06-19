@@ -34,7 +34,7 @@ export class HouseDeleteDialog extends React.Component<IHouseDeleteDialogProps> 
           <Translate contentKey="entity.delete.title">Confirm delete operation</Translate>
         </ModalHeader>
         <ModalBody>
-          <Translate contentKey="landexpApp.house.delete.question" interpolate={{ id: houseEntity.id }}>
+          <Translate contentKey="landexpApp.house.delete.question" interpolate={{ id: houseEntity.createByLogin }}>
             Are you sure you want to delete this House?
           </Translate>
         </ModalBody>
