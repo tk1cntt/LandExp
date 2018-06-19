@@ -23,7 +23,9 @@
             "updateAt": "Update At",
             "region": "Region",
             "city": "City",
-            "wards": "Wards"
+            "wards": "Wards",
+            "city": "City",
+            "region": "Region"
         }
     }
 }

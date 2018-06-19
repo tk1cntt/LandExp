@@ -8,7 +8,9 @@ export interface IDistrict {
   createAt?: Moment;
   updateAt?: Moment;
   regionId?: number;
+  regionName?: string;
   cityId?: number;
+  cityName?: string;
   wards?: IWard[];
 }
 

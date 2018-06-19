@@ -64,6 +64,14 @@ export class DistrictDetail extends React.Component<IDistrictDetailProps> {
               <Translate contentKey="landexpApp.district.city">City</Translate>
             </dt>
             <dd>{districtEntity.cityId ? districtEntity.cityId : ''}</dd>
+            <dt>
+              <Translate contentKey="landexpApp.district.city">City</Translate>
+            </dt>
+            <dd>{districtEntity.cityName ? districtEntity.cityName : ''}</dd>
+            <dt>
+              <Translate contentKey="landexpApp.district.region">Region</Translate>
+            </dt>
+            <dd>{districtEntity.regionName ? districtEntity.regionName : ''}</dd>
           </dl>
           <Button tag={Link} to="/entity/district" replace color="info">
             <FontAwesomeIcon icon="arrow-left" />{' '}

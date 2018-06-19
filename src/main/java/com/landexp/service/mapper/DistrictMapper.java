@@ -12,7 +12,9 @@ import org.mapstruct.*;
 public interface DistrictMapper extends EntityMapper<DistrictDTO, District> {
 
     @Mapping(source = "region.id", target = "regionId")
+    @Mapping(source = "region.name", target = "regionName")
     @Mapping(source = "city.id", target = "cityId")
+    @Mapping(source = "city.name", target = "cityName")
     @Mapping(source = "wards", target = "wards")
     DistrictDTO toDto(District district);
 

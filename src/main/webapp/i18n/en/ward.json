@@ -22,7 +22,8 @@
             "createAt": "Create At",
             "updateAt": "Update At",
             "district": "District",
-            "streets": "Streets"
+            "streets": "Streets",
+            "district": "District"
         }
     }
 }

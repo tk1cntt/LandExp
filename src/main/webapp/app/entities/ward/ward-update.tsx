@@ -21,12 +21,14 @@ export interface IWardUpdateProps extends StateProps, DispatchProps, RouteCompon
 export interface IWardUpdateState {
   isNew: boolean;
   districtId: number;
+  districtId: number;
 }
 
 export class WardUpdate extends React.Component<IWardUpdateProps, IWardUpdateState> {
   constructor(props) {
     super(props);
     this.state = {
+      districtId: 0,
       districtId: 0,
       isNew: !this.props.match.params || !this.props.match.params.id
     };
@@ -72,6 +74,23 @@ export class WardUpdate extends React.Component<IWardUpdateProps, IWardUpdateSta
     } else {
       for (const i in this.props.districts) {
         if (id === this.props.districts[i].id.toString()) {
+          this.setState({
+            districtId: this.props.districts[i].id
+          });
+        }
+      }
+    }
+  };
+
+  districtUpdate = element => {
+    const name = element.target.value.toString();
+    if (name === '') {
+      this.setState({
+        districtId: -1
+      });
+    } else {
+      for (const i in this.props.districts) {
+        if (name === this.props.districts[i].name.toString()) {
           this.setState({
             districtId: this.props.districts[i].id
           });
@@ -142,6 +161,21 @@ export class WardUpdate extends React.Component<IWardUpdateProps, IWardUpdateSta
                       ? districts.map(otherEntity => (
                           <option value={otherEntity.id} key={otherEntity.id}>
                             {otherEntity.id}
+                          </option>
+                        ))
+                      : null}
+                  </AvInput>
+                </AvGroup>
+                <AvGroup>
+                  <Label for="district.name">
+                    <Translate contentKey="landexpApp.ward.district">District</Translate>
+                  </Label>
+                  <AvInput id="ward-district" type="select" className="form-control" name="districtId" onChange={this.districtUpdate}>
+                    <option value="" key="0" />
+                    {districts
+                      ? districts.map(otherEntity => (
+                          <option value={otherEntity.id} key={otherEntity.id}>
+                            {otherEntity.name}
                           </option>
                         ))
                       : null}

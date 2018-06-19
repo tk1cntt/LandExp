@@ -40,6 +40,12 @@ relationship ManyToMany {
    Region{user(login)} to User
 }
 
+relationship ManyToOne {
+   District{city(name)} to City,
+   District{region(name)} to Region,
+   Ward{district(name)} to District
+}
+
 relationship OneToMany {
    City{districts} to District,
    Region{districts} to District,

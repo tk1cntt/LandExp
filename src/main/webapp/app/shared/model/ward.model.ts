@@ -9,6 +9,7 @@ export interface IWard {
   updateAt?: Moment;
   districtId?: number;
   streets?: IStreet[];
+  districtName?: string;
 }
 
 export const defaultValue: Readonly<IWard> = {

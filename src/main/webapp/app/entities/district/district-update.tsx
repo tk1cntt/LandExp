@@ -23,6 +23,8 @@ export interface IDistrictUpdateProps extends StateProps, DispatchProps, RouteCo
 export interface IDistrictUpdateState {
   isNew: boolean;
   regionId: number;
+  regionId: number;
+  cityId: number;
   cityId: number;
 }
 
@@ -31,6 +33,8 @@ export class DistrictUpdate extends React.Component<IDistrictUpdateProps, IDistr
     super(props);
     this.state = {
       regionId: 0,
+      regionId: 0,
+      cityId: 0,
       cityId: 0,
       isNew: !this.props.match.params || !this.props.match.params.id
     };
@@ -96,6 +100,40 @@ export class DistrictUpdate extends React.Component<IDistrictUpdateProps, IDistr
         if (id === this.props.cities[i].id.toString()) {
           this.setState({
             cityId: this.props.cities[i].id
+          });
+        }
+      }
+    }
+  };
+
+  cityUpdate = element => {
+    const name = element.target.value.toString();
+    if (name === '') {
+      this.setState({
+        cityId: -1
+      });
+    } else {
+      for (const i in this.props.cities) {
+        if (name === this.props.cities[i].name.toString()) {
+          this.setState({
+            cityId: this.props.cities[i].id
+          });
+        }
+      }
+    }
+  };
+
+  regionUpdate = element => {
+    const name = element.target.value.toString();
+    if (name === '') {
+      this.setState({
+        regionId: -1
+      });
+    } else {
+      for (const i in this.props.regions) {
+        if (name === this.props.regions[i].name.toString()) {
+          this.setState({
+            regionId: this.props.regions[i].id
           });
         }
       }
@@ -179,6 +217,36 @@ export class DistrictUpdate extends React.Component<IDistrictUpdateProps, IDistr
                       ? cities.map(otherEntity => (
                           <option value={otherEntity.id} key={otherEntity.id}>
                             {otherEntity.id}
+                          </option>
+                        ))
+                      : null}
+                  </AvInput>
+                </AvGroup>
+                <AvGroup>
+                  <Label for="city.name">
+                    <Translate contentKey="landexpApp.district.city">City</Translate>
+                  </Label>
+                  <AvInput id="district-city" type="select" className="form-control" name="cityId" onChange={this.cityUpdate}>
+                    <option value="" key="0" />
+                    {cities
+                      ? cities.map(otherEntity => (
+                          <option value={otherEntity.id} key={otherEntity.id}>
+                            {otherEntity.name}
+                          </option>
+                        ))
+                      : null}
+                  </AvInput>
+                </AvGroup>
+                <AvGroup>
+                  <Label for="region.name">
+                    <Translate contentKey="landexpApp.district.region">Region</Translate>
+                  </Label>
+                  <AvInput id="district-region" type="select" className="form-control" name="regionId" onChange={this.regionUpdate}>
+                    <option value="" key="0" />
+                    {regions
+                      ? regions.map(otherEntity => (
+                          <option value={otherEntity.id} key={otherEntity.id}>
+                            {otherEntity.name}
                           </option>
                         ))
                       : null}

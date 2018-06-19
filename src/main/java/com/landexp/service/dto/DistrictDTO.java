@@ -24,7 +24,11 @@ public class DistrictDTO implements Serializable {
 
     private Long regionId;
 
+    private String regionName;
+
     private Long cityId;
+
+    private String cityName;
 
     private List<WardDTO> wards;
 
@@ -76,6 +80,14 @@ public class DistrictDTO implements Serializable {
         this.regionId = regionId;
     }
 
+    public String getRegionName() {
+        return regionName;
+    }
+
+    public void setRegionName(String regionName) {
+        this.regionName = regionName;
+    }
+
     public Long getCityId() {
         return cityId;
     }
@@ -84,6 +96,13 @@ public class DistrictDTO implements Serializable {
         this.cityId = cityId;
     }
 
+    public String getCityName() {
+        return cityName;
+    }
+
+    public void setCityName(String cityName) {
+        this.cityName = cityName;
+    }
 
     public List<WardDTO> getWards() {
         return wards;
@@ -123,7 +142,9 @@ public class DistrictDTO implements Serializable {
             ", createAt='" + getCreateAt() + "'" +
             ", updateAt='" + getUpdateAt() + "'" +
             ", region=" + getRegionId() +
+            ", region='" + getRegionName() + "'" +
             ", city=" + getCityId() +
+            ", city='" + getCityName() + "'" +
             "}";
     }
 }

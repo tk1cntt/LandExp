@@ -23,13 +23,13 @@
             "relationshipName": "region",
             "otherEntityName": "region",
             "relationshipType": "many-to-one",
-            "otherEntityField": "id"
+            "otherEntityField": "name"
         },
         {
             "relationshipName": "city",
             "otherEntityName": "city",
             "relationshipType": "many-to-one",
-            "otherEntityField": "id"
+            "otherEntityField": "name"
         },
         {
             "relationshipType": "one-to-many",
