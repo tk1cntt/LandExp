@@ -21,7 +21,7 @@ import {
 import FontAwesomeIcon from '@fortawesome/react-fontawesome';
 
 import { IRootState } from 'app/shared/reducers';
-import { getSearchEntities, getEntities } from './house.reducer';
+import { getSearchEntities, getOwnerEntities } from 'app/entities/house/house.reducer';
 import { IHouse } from 'app/shared/model/house.model';
 // tslint:disable-next-line:no-unused-variable
 import { hasAnyAuthority } from 'app/shared/auth/private-route';
@@ -41,7 +41,7 @@ export class House extends React.Component<IHouseProps, IHouseState> {
   };
 
   componentDidMount() {
-    this.getEntities();
+    this.getOwnerEntities();
   }
 
   search = () => {
@@ -51,7 +51,7 @@ export class House extends React.Component<IHouseProps, IHouseState> {
   };
 
   clear = () => {
-    this.props.getEntities();
+    this.props.getOwnerEntities();
     this.setState({
       search: ''
     });
@@ -70,15 +70,15 @@ export class House extends React.Component<IHouseProps, IHouseState> {
   };
 
   sortEntities() {
-    this.getEntities();
+    this.getOwnerEntities();
     this.props.history.push(`${this.props.location.pathname}?page=${this.state.activePage}&sort=${this.state.sort},${this.state.order}`);
   }
 
   handlePagination = activePage => this.setState({ activePage }, () => this.sortEntities());
 
-  getEntities = () => {
+  getOwnerEntities = () => {
     const { activePage, itemsPerPage, sort, order } = this.state;
-    this.props.getEntities(activePage - 1, itemsPerPage, `${sort},${order}`);
+    this.props.getOwnerEntities(activePage - 1, itemsPerPage, `${sort},${order}`);
   };
 
   render() {
@@ -189,7 +189,7 @@ export class House extends React.Component<IHouseProps, IHouseState> {
                           <Translate contentKey="entity.action.view">View</Translate>
                         </span>
                       </Button>
-                      <Button tag={Link} to={`${match.url}/${house.id}/edit`} color="primary" size="sm">
+                      <Button tag={Link} to={`/tai-khoan/sua-tin-dang/${house.id}`} color="primary" size="sm">
                         <FontAwesomeIcon icon="pencil-alt" />{' '}
                         <span className="d-none d-md-inline">
                           <Translate contentKey="entity.action.edit">Edit</Translate>
@@ -233,7 +233,7 @@ const mapStateToProps = ({ house, authentication }: IRootState) => ({
 
 const mapDispatchToProps = {
   getSearchEntities,
-  getEntities
+  getOwnerEntities
 };
 
 type StateProps = ReturnType<typeof mapStateToProps>;

@@ -136,6 +136,14 @@ export const getEntities: ICrudGetAllAction<IHouse> = (page, size, sort) => {
   };
 };
 
+export const getOwnerEntities: ICrudGetAllAction<IHouse> = (page, size, sort) => {
+  const requestUrl = `${apiUrl}/owner${sort ? `?page=${page}&size=${size}&sort=${sort}` : ''}`;
+  return {
+    type: ACTION_TYPES.FETCH_HOUSE_LIST,
+    payload: axios.get<IHouse>(`${requestUrl}${sort ? '&' : '?'}cacheBuster=${new Date().getTime()}`)
+  };
+};
+
 export const getEntity: ICrudGetAction<IHouse> = id => {
   const requestUrl = `${apiUrl}/${id}`;
   return {

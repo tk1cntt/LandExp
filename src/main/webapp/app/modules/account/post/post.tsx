@@ -1,7 +1,5 @@
-import './post.css';
-
 import * as React from 'react';
-import { Link } from 'react-router-dom';
+import { Link, RouteComponentProps } from 'react-router-dom';
 import { Translate } from 'react-jhipster';
 import { connect } from 'react-redux';
 import { Row, Col, Alert } from 'reactstrap';
@@ -13,10 +11,10 @@ import { IRootState } from 'app/shared/reducers';
 import { getSession } from 'app/shared/reducers/authentication';
 import { getActionType, getLandType, getCityType, getDirection, getPresent, getSaleType } from 'app/shared/util/utils';
 
-import { getEntity as getHouse, updateEntity as updateHouse } from '../../entities/house/house.reducer';
-import { getEntities as getCities } from '../../entities/city/city.reducer';
-import { getEntities as getServiceFees } from '../../entities/service-fee/service-fee.reducer';
-import { createEntity as createPhoto, updateEntity as updatePhoto } from '../../entities/house-photo/house-photo.reducer';
+import { getEntity as getHouse, updateEntity as updateHouse } from 'app/entities/house/house.reducer';
+import { getEntities as getCities } from 'app/entities/city/city.reducer';
+import { getEntities as getServiceFees } from 'app/entities/service-fee/service-fee.reducer';
+import { createEntity as createPhoto, updateEntity as updatePhoto } from 'app/entities/house-photo/house-photo.reducer';
 
 import StepOne from './stepOne';
 import StepTwo from './stepTwo';
@@ -26,7 +24,7 @@ import StepFive from './stepFive';
 import StepSix from './stepSix';
 import StepSeven from './stepSeven';
 
-export interface IPostProp extends StateProps, DispatchProps {}
+export interface IPostProp extends StateProps, DispatchProps, RouteComponentProps<{ id: number }> {}
 
 export interface IPostState {
   current: any;
@@ -42,8 +40,13 @@ export class PostPage extends React.Component<IPostProp, IPostState> {
   };
 
   componentDidMount() {
+    if (this.props.match.params.id) {
+      this.props.getHouse(this.props.match.params.id);
+    } else {
+      this.props.getHouse('init');
+    }
     this.props.getSession();
-    this.props.getHouse('init');
+
     this.props.getCities();
     this.props.getServiceFees();
   }
@@ -242,7 +245,6 @@ export class PostPage extends React.Component<IPostProp, IPostState> {
     };
     this.props.updateHouse(entity);
     if (entity.fileList) {
-      console.log(entity.fileList);
       entity.fileList.map(file => {
         const imageURL = file.thumbUrl;
         const block = imageURL.split(';');

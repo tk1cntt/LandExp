@@ -1,5 +1,3 @@
-import './stepTwo.css';
-
 import * as React from 'react';
 import { Link } from 'react-router-dom';
 import { Translate } from 'react-jhipster';
@@ -13,8 +11,8 @@ const AutoCompleteOption = AutoComplete.Option;
 import { IRootState } from 'app/shared/reducers';
 import { getSession } from 'app/shared/reducers/authentication';
 
-import { getPaymentOfHouse } from '../../entities/payment/payment.reducer';
-import { getImageOfHouse } from '../../entities/house-photo/house-photo.reducer';
+import { getPaymentOfHouse } from 'app/entities/payment/payment.reducer';
+import { getImageOfHouse } from 'app/entities/house-photo/house-photo.reducer';
 
 import district from 'app/entities/district/district';
 

@@ -238,13 +238,13 @@ public class HouseResource {
         if (ObjectUtils.isEmpty(houseDTO.get())) {
             throw new ExecuteRuntimeException("Invalid id");
         }
-        if (houseDTO.get().getStatusType().equals(StatusType.PENDING)
-            && (!SecurityUtils.getCurrentUserLogin().get().equalsIgnoreCase(houseDTO.get().getCreateByLogin()))
-            || !SecurityUtils.isCurrentUserInRole(AuthoritiesConstants.MANAGER)) {
-            throw new ExecuteRuntimeException("No permission");
-        }
-        if (!houseDTO.get().getStatusType().equals(StatusType.PAID)
-            && !SecurityUtils.isCurrentUserInRole(AuthoritiesConstants.MANAGER)) {
+        if (SecurityUtils.getCurrentUserLogin().get().equalsIgnoreCase(houseDTO.get().getCreateByLogin())) {
+            if (!houseDTO.get().getStatusType().equals(StatusType.OPEN)
+                && !houseDTO.get().getStatusType().equals(StatusType.PENDING)
+                && houseDTO.get().getStatusType().equals(StatusType.PAID)) {
+                throw new ExecuteRuntimeException("No permission");
+            }
+        } else if (!houseDTO.get().getStatusType().equals(StatusType.PAID) && !SecurityUtils.isCurrentUserInRole(AuthoritiesConstants.MANAGER)) {
             throw new ExecuteRuntimeException("No permission");
         }
         return ResponseUtil.wrapOrNotFound(houseDTO);

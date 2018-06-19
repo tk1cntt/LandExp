@@ -1,5 +1,3 @@
-import './stepTwo.css';
-
 import * as React from 'react';
 import { Link } from 'react-router-dom';
 import { Translate } from 'react-jhipster';
@@ -9,7 +7,7 @@ import { Upload, Icon, Modal, Carousel } from 'antd';
 
 import { IRootState } from 'app/shared/reducers';
 import { getSession } from 'app/shared/reducers/authentication';
-import { deleteEntity } from '../../entities/house-photo/house-photo.reducer';
+import { deleteEntity } from 'app/entities/house-photo/house-photo.reducer';
 
 export interface IStepFourProp extends StateProps, DispatchProps {
   updateHouse: Function;
