@@ -35,6 +35,7 @@ export class App extends React.Component<IAppProps> {
           <Header
             isAuthenticated={this.props.isAuthenticated}
             isAdmin={this.props.isAdmin}
+            isManager={this.props.isManager}
             isStaff={this.props.isStaff}
             currentLocale={this.props.currentLocale}
             onLocaleChange={this.props.setLocale}
@@ -58,6 +59,7 @@ const mapStateToProps = ({ authentication, applicationProfile, locale }: IRootSt
   currentLocale: locale.currentLocale,
   isAuthenticated: authentication.isAuthenticated,
   isAdmin: hasAnyAuthority(authentication.account.authorities, [AUTHORITIES.ADMIN]),
+  isManager: hasAnyAuthority(authentication.account.authorities, [AUTHORITIES.MANAGER]),
   isStaff: hasAnyAuthority(authentication.account.authorities, [AUTHORITIES.STAFF]),
   ribbonEnv: applicationProfile.ribbonEnv,
   isInProduction: applicationProfile.inProduction,
