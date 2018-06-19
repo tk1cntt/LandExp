@@ -36,7 +36,7 @@ const accountMenuItems = (
 );
 
 export const AccountMenu = ({ isAuthenticated = false }) => (
-  <NavDropdown icon="user" name="Tài khoản người dùng" id="account-menu">
+  <NavDropdown icon="user" name="Tài khoản" id="account-menu">
     {isAuthenticated ? accountMenuItemsAuthenticated : accountMenuItems}
   </NavDropdown>
 );

@@ -10,6 +10,9 @@ export const ManagerMenu = props => (
     <DropdownItem tag={Link} to="/entity/service-fee">
       <FontAwesomeIcon icon="asterisk" />&nbsp; Bảng phí dịch vụ
     </DropdownItem>
+    <DropdownItem tag={Link} to="/entity/region">
+      <FontAwesomeIcon icon="asterisk" />&nbsp; Quản lý khu vực
+    </DropdownItem>
     <DropdownItem tag={Link} to="/entity/banner">
       <FontAwesomeIcon icon="asterisk" />&nbsp; Banner
     </DropdownItem>

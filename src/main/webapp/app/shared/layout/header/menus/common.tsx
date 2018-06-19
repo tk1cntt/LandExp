@@ -7,9 +7,6 @@ import { NavDropdown } from '../header-components';
 export const CommonMenu = props => (
   // tslint:disable-next-line:jsx-self-close
   <NavDropdown icon="th-list" name="Commons" id="entity-menu">
-    <DropdownItem tag={Link} to="/entity/region">
-      <FontAwesomeIcon icon="asterisk" />&nbsp; Quản lý khu vực
-    </DropdownItem>
     <DropdownItem tag={Link} to="/entity/city">
       <FontAwesomeIcon icon="asterisk" />&nbsp; Quản lý tỉnh thành
     </DropdownItem>
