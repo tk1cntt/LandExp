@@ -1,10 +1,9 @@
 import { Moment } from 'moment';
 
 export const enum PaymentStatusType {
-  OPEN = 'OPEN',
   PENDING = 'PENDING',
-  SUCCESS = 'SUCCESS',
-  FAILED = 'FAILED'
+  PAID = 'PAID',
+  CANCELED = 'CANCELED'
 }
 
 export interface IPayment {

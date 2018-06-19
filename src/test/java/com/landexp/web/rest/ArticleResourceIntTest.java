@@ -69,8 +69,8 @@ public class ArticleResourceIntTest {
     private static final String DEFAULT_CONTENT = "AAAAAAAAAA";
     private static final String UPDATED_CONTENT = "BBBBBBBBBB";
 
-    private static final StatusType DEFAULT_STATUS_TYPE = StatusType.PENDING;
-    private static final StatusType UPDATED_STATUS_TYPE = StatusType.PAID;
+    private static final StatusType DEFAULT_STATUS_TYPE = StatusType.OPEN;
+    private static final StatusType UPDATED_STATUS_TYPE = StatusType.PENDING;
 
     private static final Integer DEFAULT_HITS = 1;
     private static final Integer UPDATED_HITS = 2;

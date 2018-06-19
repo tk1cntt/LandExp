@@ -25,7 +25,7 @@
         {
             "fieldName": "statusType",
             "fieldType": "StatusType",
-            "fieldValues": "PENDING,PAID,APPROVED,CANCELED,EXPIRED,SOLD"
+            "fieldValues": "OPEN,PENDING,PAID,CANCELED,EXPIRED,SOLD"
         },
         {
             "fieldName": "hits",

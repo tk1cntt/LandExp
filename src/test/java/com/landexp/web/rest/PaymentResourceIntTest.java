@@ -67,8 +67,8 @@ public class PaymentResourceIntTest {
     private static final LocalDate DEFAULT_PAID_TIME = LocalDate.ofEpochDay(0L);
     private static final LocalDate UPDATED_PAID_TIME = LocalDate.now(ZoneId.systemDefault());
 
-    private static final PaymentStatusType DEFAULT_PAYMENT_STATUS = PaymentStatusType.OPEN;
-    private static final PaymentStatusType UPDATED_PAYMENT_STATUS = PaymentStatusType.PENDING;
+    private static final PaymentStatusType DEFAULT_PAYMENT_STATUS = PaymentStatusType.PENDING;
+    private static final PaymentStatusType UPDATED_PAYMENT_STATUS = PaymentStatusType.PAID;
 
     private static final LocalDate DEFAULT_CREATE_AT = LocalDate.ofEpochDay(0L);
     private static final LocalDate UPDATED_CREATE_AT = LocalDate.now(ZoneId.systemDefault());
@@ -82,7 +82,7 @@ public class PaymentResourceIntTest {
 
     @Autowired
     private PaymentMapper paymentMapper;
-
+    
 
     @Autowired
     private PaymentService paymentService;
@@ -218,7 +218,7 @@ public class PaymentResourceIntTest {
             .andExpect(jsonPath("$.[*].createAt").value(hasItem(DEFAULT_CREATE_AT.toString())))
             .andExpect(jsonPath("$.[*].updateAt").value(hasItem(DEFAULT_UPDATE_AT.toString())));
     }
-
+    
 
     @Test
     @Transactional

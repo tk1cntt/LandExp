@@ -195,12 +195,11 @@ export class PaymentUpdate extends React.Component<IPaymentUpdateProps, IPayment
                     type="select"
                     className="form-control"
                     name="paymentStatus"
-                    value={(!isNew && paymentEntity.paymentStatus) || 'OPEN'}
+                    value={(!isNew && paymentEntity.paymentStatus) || 'PENDING'}
                   >
-                    <option value="OPEN">OPEN</option>
                     <option value="PENDING">PENDING</option>
-                    <option value="SUCCESS">SUCCESS</option>
-                    <option value="FAILED">FAILED</option>
+                    <option value="PAID">PAID</option>
+                    <option value="CANCELED">CANCELED</option>
                   </AvInput>
                 </AvGroup>
                 <AvGroup>

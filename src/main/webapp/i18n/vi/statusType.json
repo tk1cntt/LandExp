@@ -2,9 +2,9 @@
     "landexpApp": {
         "StatusType" : {
             "null": "",
+            "OPEN": "OPEN",
             "PENDING": "PENDING",
             "PAID": "PAID",
-            "APPROVED": "APPROVED",
             "CANCELED": "CANCELED",
             "EXPIRED": "EXPIRED",
             "SOLD": "SOLD"

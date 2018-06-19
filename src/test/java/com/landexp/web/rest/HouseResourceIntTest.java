@@ -150,8 +150,8 @@ public class HouseResourceIntTest {
     private static final String DEFAULT_ZALO = "AAAAAAAAAA";
     private static final String UPDATED_ZALO = "BBBBBBBBBB";
 
-    private static final StatusType DEFAULT_STATUS_TYPE = StatusType.PENDING;
-    private static final StatusType UPDATED_STATUS_TYPE = StatusType.PAID;
+    private static final StatusType DEFAULT_STATUS_TYPE = StatusType.OPEN;
+    private static final StatusType UPDATED_STATUS_TYPE = StatusType.PENDING;
 
     private static final String DEFAULT_GOOGLE_ID = "AAAAAAAAAA";
     private static final String UPDATED_GOOGLE_ID = "BBBBBBBBBB";
@@ -174,7 +174,7 @@ public class HouseResourceIntTest {
 
     @Autowired
     private HouseMapper houseMapper;
-
+    
 
     @Autowired
     private HouseService houseService;

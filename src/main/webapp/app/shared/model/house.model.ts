@@ -54,9 +54,9 @@ export const enum PresentType {
 }
 
 export const enum StatusType {
+  OPEN = 'OPEN',
   PENDING = 'PENDING',
   PAID = 'PAID',
-  APPROVED = 'APPROVED',
   CANCELED = 'CANCELED',
   EXPIRED = 'EXPIRED',
   SOLD = 'SOLD'

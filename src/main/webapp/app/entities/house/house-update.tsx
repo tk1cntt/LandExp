@@ -522,11 +522,11 @@ export class HouseUpdate extends React.Component<IHouseUpdateProps, IHouseUpdate
                     type="select"
                     className="form-control"
                     name="statusType"
-                    value={(!isNew && houseEntity.statusType) || 'PENDING'}
+                    value={(!isNew && houseEntity.statusType) || 'OPEN'}
                   >
+                    <option value="OPEN">OPEN</option>
                     <option value="PENDING">PENDING</option>
                     <option value="PAID">PAID</option>
-                    <option value="APPROVED">APPROVED</option>
                     <option value="CANCELED">CANCELED</option>
                     <option value="EXPIRED">EXPIRED</option>
                     <option value="SOLD">SOLD</option>

@@ -16,7 +16,7 @@
         {
             "fieldName": "paymentStatus",
             "fieldType": "PaymentStatusType",
-            "fieldValues": "OPEN,PENDING,SUCCESS,FAILED"
+            "fieldValues": "PENDING,PAID,CANCELED"
         },
         {
             "fieldName": "createAt",

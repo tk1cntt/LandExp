@@ -1,9 +1,9 @@
 import { Moment } from 'moment';
 
 export const enum StatusType {
+  OPEN = 'OPEN',
   PENDING = 'PENDING',
   PAID = 'PAID',
-  APPROVED = 'APPROVED',
   CANCELED = 'CANCELED',
   EXPIRED = 'EXPIRED',
   SOLD = 'SOLD'
