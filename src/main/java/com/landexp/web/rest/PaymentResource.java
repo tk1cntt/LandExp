@@ -122,7 +122,7 @@ public class PaymentResource {
         if (ObjectUtils.isEmpty(houseDTO)) {
             throw new ExecuteRuntimeException("Invalid id");
         }
-        paymentDTO.setPaymentStatus(PaymentStatusType.SUCCESS);
+        paymentDTO.setPaymentStatus(PaymentStatusType.PAID);
         PaymentDTO result = paymentService.save(paymentDTO);
         houseDTO.setStatusType(StatusType.PAID);
         return ResponseEntity.ok()
@@ -148,7 +148,7 @@ public class PaymentResource {
         if (ObjectUtils.isEmpty(paymentDTO)) {
             throw new ExecuteRuntimeException("Invalid id");
         }
-        paymentDTO.setPaymentStatus(PaymentStatusType.FAILED);
+        paymentDTO.setPaymentStatus(PaymentStatusType.CANCELED);
         PaymentDTO result = paymentService.save(paymentDTO);
         return ResponseEntity.ok()
             .headers(HeaderUtil.createEntityUpdateAlert(ENTITY_NAME, paymentDTO.getId().toString()))

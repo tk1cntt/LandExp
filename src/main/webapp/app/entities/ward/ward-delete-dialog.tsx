@@ -34,7 +34,7 @@ export class WardDeleteDialog extends React.Component<IWardDeleteDialogProps> {
           <Translate contentKey="entity.delete.title">Confirm delete operation</Translate>
         </ModalHeader>
         <ModalBody>
-          <Translate contentKey="landexpApp.ward.delete.question" interpolate={{ id: wardEntity.id }}>
+          <Translate contentKey="landexpApp.ward.delete.question" interpolate={{ id: wardEntity.name }}>
             Are you sure you want to delete this Ward?
           </Translate>
         </ModalBody>

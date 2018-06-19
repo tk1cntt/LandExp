@@ -87,6 +87,9 @@ export class Ward extends React.Component<IWardProps, IWardState> {
                   <Translate contentKey="landexpApp.ward.name">Name</Translate>
                 </th>
                 <th>
+                  <Translate contentKey="landexpApp.ward.district">District</Translate>
+                </th>
+                <th>
                   <Translate contentKey="landexpApp.ward.enabled">Enabled</Translate>
                 </th>
                 <th>
@@ -95,9 +98,6 @@ export class Ward extends React.Component<IWardProps, IWardState> {
                 <th>
                   <Translate contentKey="landexpApp.ward.updateAt">Update At</Translate>
                 </th>
-                <th>
-                  <Translate contentKey="landexpApp.ward.district">District</Translate>
-                </th>
                 <th />
               </tr>
             </thead>
@@ -105,6 +105,7 @@ export class Ward extends React.Component<IWardProps, IWardState> {
               {wardList.map((ward, i) => (
                 <tr key={`entity-${i}`}>
                   <td>{ward.name}</td>
+                  <td>{ward.districtId ? <Link to={`district/${ward.districtId}`}>{ward.districtName}</Link> : ''}</td>
                   <td>{ward.enabled ? <Icon type="check-square" style={{ color: 'green' }} /> : <Icon type="close-square" style={{ color: 'red' }} />}</td>
                   <td>
                     <TextFormat type="date" value={ward.createAt} format={APP_LOCAL_DATE_FORMAT} />
@@ -112,7 +113,6 @@ export class Ward extends React.Component<IWardProps, IWardState> {
                   <td>
                     <TextFormat type="date" value={ward.updateAt} format={APP_LOCAL_DATE_FORMAT} />
                   </td>
-                  <td>{ward.districtId ? <Link to={`district/${ward.districtId}`}>{ward.districtId}</Link> : ''}</td>
                   <td className="text-right">
                     <div className="btn-group flex-btn-group-container">
                       <Button tag={Link} to={`${match.url}/${ward.id}/edit`} color="primary" size="sm">

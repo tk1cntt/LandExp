@@ -142,9 +142,9 @@ export class District extends React.Component<IDistrictProps, IDistrictState> {
               {districtList.map((district, i) => (
                 <tr key={`entity-${i}`}>
                   <td>{district.name}</td>
+                  <td>{district.regionId ? <Link to={`region/${district.regionId}`}>{district.regionName}</Link> : ''}</td>
+                  <td>{district.cityId ? <Link to={`city/${district.cityId}`}>{district.cityName}</Link> : ''}</td>
                   <td>{district.enabled ? <Icon type="check-square" style={{ color: 'green' }} /> : <Icon type="close-square" style={{ color: 'red' }} />}</td>
-                  <td>{district.regionId ? <Link to={`region/${district.regionId}`}>{district.regionId}</Link> : ''}</td>
-                  <td>{district.cityId ? <Link to={`city/${district.cityId}`}>{district.cityId}</Link> : ''}</td>
                   <td>
                     <TextFormat type="date" value={district.createAt} format={APP_LOCAL_DATE_FORMAT} />
                   </td>
