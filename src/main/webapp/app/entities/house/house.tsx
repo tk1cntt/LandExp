@@ -87,7 +87,7 @@ export class House extends React.Component<IHouseProps, IHouseState> {
       <div>
         <h2 id="house-heading">
           <Translate contentKey="landexpApp.house.home.title">Houses</Translate>
-          <Link to={`${match.url}/new`} className="btn btn-primary float-right jh-create-entity" id="jh-create-entity">
+          <Link to={'/tai-khoan/dang-tin'} className="btn btn-primary float-right jh-create-entity" id="jh-create-entity">
             <FontAwesomeIcon icon="plus" />&nbsp;
             <Translate contentKey="landexpApp.house.home.createLabel">Create new House</Translate>
           </Link>

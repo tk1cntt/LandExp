@@ -8,7 +8,7 @@ export const StaffMenu = props => (
   // tslint:disable-next-line:jsx-self-close
   <NavDropdown icon="th-list" name="Staff" id="entity-menu">
     <DropdownItem tag={Link} to="/quan-ly/tin-dang">
-      <FontAwesomeIcon icon="asterisk" />&nbsp; Tin đăng
+      <FontAwesomeIcon icon="asterisk" />&nbsp; Quản lý tin đăng
     </DropdownItem>
     <DropdownItem tag={Link} to="/quan-ly/house-photo">
       <FontAwesomeIcon icon="asterisk" />&nbsp; Ảnh tin đăng

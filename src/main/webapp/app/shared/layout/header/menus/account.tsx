@@ -10,10 +10,10 @@ const accountMenuItemsAuthenticated = (
       <FontAwesomeIcon icon="wrench" /> Đăng tin
     </DropdownItem>
     <DropdownItem tag={Link} to="/tai-khoan/danh-sach-tin-dang">
-      <FontAwesomeIcon icon="wrench" /> Quản lý tin đăng
+      <FontAwesomeIcon icon="wrench" /> Tin đã đăng của bạn
     </DropdownItem>
     <DropdownItem tag={Link} to="/tai-khoan/thong-tin-tai-khoan">
-      <FontAwesomeIcon icon="wrench" /> Thông tin người dùng
+      <FontAwesomeIcon icon="wrench" /> Thông tin tài khoản
     </DropdownItem>
     <DropdownItem tag={Link} to="/tai-khoan/thay-doi-mat-khau">
       <FontAwesomeIcon icon="clock" /> Thay đổi mật khẩu
