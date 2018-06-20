@@ -54,7 +54,7 @@ export class CityUpdate extends React.Component<ICityUpdateProps, ICityUpdateSta
   };
 
   handleClose = () => {
-    this.props.history.push('/entity/city');
+    this.props.history.push('/quan-ly/tinh-thanh');
   };
 
   render() {
@@ -109,7 +109,7 @@ export class CityUpdate extends React.Component<ICityUpdateProps, ICityUpdateSta
                   </Label>
                   <AvField id="city-updateAt" type="date" className="form-control" name="updateAt" />
                 </AvGroup>
-                <Button tag={Link} id="cancel-save" to="/entity/city" replace color="info">
+                <Button tag={Link} id="cancel-save" to="/quan-ly/tinh-thanh" replace color="info">
                   <FontAwesomeIcon icon="arrow-left" />&nbsp;
                   <span className="d-none d-md-inline">
                     <Translate contentKey="entity.action.back">Back</Translate>

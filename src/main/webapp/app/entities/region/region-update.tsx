@@ -60,7 +60,7 @@ export class RegionUpdate extends React.Component<IRegionUpdateProps, IRegionUpd
   };
 
   handleClose = () => {
-    this.props.history.push('/entity/region');
+    this.props.history.push('/quan-ly/khu-vuc');
   };
 
   userUpdate = element => {
@@ -171,7 +171,7 @@ export class RegionUpdate extends React.Component<IRegionUpdateProps, IRegionUpd
                   </AvInput>
                   <AvInput id="region-user" type="hidden" name="users" value={this.state.idsuser} />
                 </AvGroup>
-                <Button tag={Link} id="cancel-save" to="/entity/region" replace color="info">
+                <Button tag={Link} id="cancel-save" to="/quan-ly/khu-vuc" replace color="info">
                   <FontAwesomeIcon icon="arrow-left" />&nbsp;
                   <span className="d-none d-md-inline">
                     <Translate contentKey="entity.action.back">Back</Translate>

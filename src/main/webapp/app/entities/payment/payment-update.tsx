@@ -69,7 +69,7 @@ export class PaymentUpdate extends React.Component<IPaymentUpdateProps, IPayment
   };
 
   handleClose = () => {
-    this.props.history.push('/entity/payment');
+    this.props.history.push('/quan-ly/thanh-toan');
   };
 
   houseUpdate = element => {
@@ -274,7 +274,7 @@ export class PaymentUpdate extends React.Component<IPaymentUpdateProps, IPayment
                       : null}
                   </AvInput>
                 </AvGroup>
-                <Button tag={Link} id="cancel-save" to="/entity/payment" replace color="info">
+                <Button tag={Link} id="cancel-save" to="/quan-ly/thanh-toan" replace color="info">
                   <FontAwesomeIcon icon="arrow-left" />&nbsp;
                   <span className="d-none d-md-inline">
                     <Translate contentKey="entity.action.back">Back</Translate>
