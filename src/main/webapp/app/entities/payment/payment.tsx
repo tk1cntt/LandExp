@@ -163,7 +163,7 @@ export class Payment extends React.Component<IPaymentProps, IPaymentState> {
                   <td>{payment.customerLogin ? payment.customerLogin : ''}</td>
                   <td className="text-right">
                     <div className="btn-group flex-btn-group-container">
-                      {payment.paymentStatus === 'PENDING' || payment.paymentStatus === 'OPEN' ?
+                      {payment.paymentStatus === 'PENDING' ?
                         (
                           <Button tag={Link} to={`${match.url}/${payment.id}/approve`} color="warning" size="sm">
                             <FontAwesomeIcon icon="info" />{' '}
