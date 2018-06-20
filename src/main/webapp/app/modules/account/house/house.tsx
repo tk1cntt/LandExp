@@ -119,9 +119,6 @@ export class House extends React.Component<IHouseProps, IHouseState> {
           <Table responsive>
             <thead>
               <tr>
-                <th className="hand" onClick={this.sort('avatar')}>
-                  <Translate contentKey="landexpApp.house.avatar">Avatar</Translate> <FontAwesomeIcon icon="sort" />
-                </th>
                 <th className="hand" onClick={this.sort('actionType')}>
                   <Translate contentKey="landexpApp.house.actionType">Action Type</Translate> <FontAwesomeIcon icon="sort" />
                 </th>
@@ -158,19 +155,6 @@ export class House extends React.Component<IHouseProps, IHouseState> {
             <tbody>
               {houseList.map((house, i) => (
                 <tr key={`entity-${i}`}>
-                  <td>
-                    {house.avatar ? (
-                      <div>
-                        <a onClick={openFile(house.avatarContentType, house.avatar)}>
-                          <img src={`data:${house.avatarContentType};base64,${house.avatar}`} style={{ maxHeight: '30px' }} />
-                          &nbsp;
-                        </a>
-                        <span>
-                          {house.avatarContentType}, {byteSize(house.avatar)}
-                        </span>
-                      </div>
-                    ) : null}
-                  </td>
                   <td>{house.actionType === 'FOR_SELL' ? 'Bán' : 'Cho thuê' }</td>
                   <td>{getLandType(house.landType)}</td>
                   <td>{new Intl.NumberFormat().format(house.money)} VNĐ</td>
@@ -183,7 +167,7 @@ export class House extends React.Component<IHouseProps, IHouseState> {
                   <td>{house.createByLogin}</td>
                   <td className="text-right">
                     <div className="btn-group flex-btn-group-container">
-                      <Button tag={Link} to={`${match.url}/${house.id}`} color="info" size="sm">
+                      <Button tag={Link} to={`/tai-khoan/xem-truoc-tin-dang/${house.id}`} color="info" size="sm">
                         <FontAwesomeIcon icon="eye" />{' '}
                         <span className="d-none d-md-inline">
                           <Translate contentKey="entity.action.view">View</Translate>
@@ -195,6 +179,16 @@ export class House extends React.Component<IHouseProps, IHouseState> {
                           <Translate contentKey="entity.action.edit">Edit</Translate>
                         </span>
                       </Button>
+                      {house.statusType === 'PENDING' ?
+                        (
+                          <Button tag={Link} to={`/tai-khoan/thanh-toan/${house.id}`} color="warning" size="sm">
+                            <FontAwesomeIcon icon="coffee" />{' '}
+                            <span className="d-none d-md-inline">
+                              <Translate contentKey="entity.action.pay">Pay</Translate>
+                            </span>
+                          </Button>
+                        ) : ''
+                      }
                       {this.props.isManager ?
                         (
                           <Button tag={Link} to={`${match.url}/${house.id}/delete`} color="danger" size="sm">

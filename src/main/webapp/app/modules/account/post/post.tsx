@@ -23,6 +23,7 @@ import StepFour from './stepFour';
 import StepFive from './stepFive';
 import StepSix from './stepSix';
 import StepSeven from './stepSeven';
+import StepEight from './stepEight';
 
 export interface IPostProp extends StateProps, DispatchProps, RouteComponentProps<{ id: number }> {}
 
@@ -49,6 +50,16 @@ export class PostPage extends React.Component<IPostProp, IPostState> {
   next = () => {
     this.setState({ alerts: [] });
     this.validateStep(this.state.current);
+  }
+
+  gotoPayment = () => {
+    const current = this.state.current + 1;
+    this.setState({ current });
+  }
+
+  gotoPreview = () => {
+    // Go to preview page
+    this.props.history.push(`/tai-khoan/xem-truoc-tin-dang/${this.props.house.id}`);
   }
 
   prev = () => {
@@ -144,8 +155,23 @@ export class PostPage extends React.Component<IPostProp, IPostState> {
   }
 
   validateStepThree = () => {
-    const current = this.state.current + 1;
-    this.setState({ current });
+    const alerts = [];
+    const acreageValue = this.state.house.acreage || this.props.house.acreage;
+    const acreageForm = acreageValue ? null : (
+      <Row key={'city-type-value-alert'}>
+        <Col md="12">
+          <Alert color="danger">
+            Bạn phải nhập diện tích nhà
+          </Alert>
+        </Col>
+      </Row>
+    );
+    alerts.push(acreageForm);
+    this.setState({ alerts });
+    if (acreageValue) {
+      const current = this.state.current + 1;
+      this.setState({ current });
+    }
   }
 
   validateStepFour = () => {
@@ -547,10 +573,6 @@ export class PostPage extends React.Component<IPostProp, IPostState> {
       {
         title: 'Xác nhận',
         content: <StepSeven />
-      },
-      {
-        title: 'Thanh toán',
-        content: <StepSeven />
       }
     ];
 
@@ -568,24 +590,24 @@ export class PostPage extends React.Component<IPostProp, IPostState> {
               <div className="steps-content">{steps[this.state.current].content}</div>
               <div className="steps-action" style={{ marginTop: 16 }}>
                 {this.state.current > 0 && <Button style={{ marginRight: 8 }} onClick={this.prev}>Quay lại</Button>}
-                {this.state.current < steps.length - 3 && (
+                {this.state.current < steps.length - 2 && (
                   <Button type="primary" onClick={this.next}>
                     Tiếp tục
                   </Button>
                 )}
-                {this.state.current === steps.length - 3 && (
+                {this.state.current === steps.length - 2 && (
                   <Button type="primary" onClick={this.saveEntity}>
                     Hoàn tất
                   </Button>
                 )}
-                {this.state.current === steps.length - 2 && (
-                  <Button type="primary" onClick={this.next}>
-                    Thanh toán
+                {this.state.current === steps.length - 1 && (
+                  <Button type="primary" style={{ marginRight: 8 }} onClick={this.gotoPreview}>
+                    Xem trước tin đăng
                   </Button>
                 )}
                 {this.state.current === steps.length - 1 && (
-                  <Button type="primary" onClick={this.saveEntity}>
-                    Done
+                  <Button type="primary" onClick={this.gotoPayment}>
+                    Thanh toán
                   </Button>
                 )}
               </div>
