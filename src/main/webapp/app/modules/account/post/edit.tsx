@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { Link, RouteComponentProps } from 'react-router-dom';
+import { Redirect, Link, RouteComponentProps } from 'react-router-dom';
 import { Translate } from 'react-jhipster';
 import { connect } from 'react-redux';
 import { Row, Col, Alert } from 'reactstrap';
@@ -24,23 +24,23 @@ import StepFive from './stepFive';
 import StepSix from './stepSix';
 import StepSeven from './stepSeven';
 
-export interface IPostProp extends StateProps, DispatchProps, RouteComponentProps<{ id: number }> {}
+export interface IEditProp extends StateProps, DispatchProps, RouteComponentProps<{ id: number }> {}
 
-export interface IPostState {
+export interface IEditState {
   current: any;
   house: any;
   alerts: any;
 }
 
-export class PostPage extends React.Component<IPostProp, IPostState> {
-  state: IPostState = {
+export class EditPage extends React.Component<IEditProp, IEditState> {
+  state: IEditState = {
     current: 0,
     house: {},
     alerts: []
   };
 
   componentDidMount() {
-    this.props.getHouse('init');
+    this.props.getHouse(this.props.match.params.id);
     this.props.getSession();
     this.props.getCities();
     this.props.getServiceFees();
@@ -249,7 +249,7 @@ export class PostPage extends React.Component<IPostProp, IPostState> {
         }
       });
     }
-    this.next();
+    this.props.history.push(`/tai-khoan/xem-truoc-tin-dang/${this.props.match.params.id}`)
   };
 
   updateHouse = house => {
@@ -543,14 +543,6 @@ export class PostPage extends React.Component<IPostProp, IPostState> {
       {
         title: 'Liên hệ',
         content: <StepSix house={entity} updateHouse={this.updateHouse} />
-      },
-      {
-        title: 'Xác nhận',
-        content: <StepSeven />
-      },
-      {
-        title: 'Thanh toán',
-        content: <StepSeven />
       }
     ];
 
@@ -568,24 +560,14 @@ export class PostPage extends React.Component<IPostProp, IPostState> {
               <div className="steps-content">{steps[this.state.current].content}</div>
               <div className="steps-action" style={{ marginTop: 16 }}>
                 {this.state.current > 0 && <Button style={{ marginRight: 8 }} onClick={this.prev}>Quay lại</Button>}
-                {this.state.current < steps.length - 3 && (
+                {this.state.current < steps.length - 1 && (
                   <Button type="primary" onClick={this.next}>
                     Tiếp tục
                   </Button>
                 )}
-                {this.state.current === steps.length - 3 && (
-                  <Button type="primary" onClick={this.saveEntity}>
-                    Hoàn tất
-                  </Button>
-                )}
-                {this.state.current === steps.length - 2 && (
-                  <Button type="primary" onClick={this.next}>
-                    Thanh toán
-                  </Button>
-                )}
                 {this.state.current === steps.length - 1 && (
                   <Button type="primary" onClick={this.saveEntity}>
-                    Done
+                    Hoàn tất
                   </Button>
                 )}
               </div>
@@ -622,4 +604,4 @@ const mapDispatchToProps = { getSession, getHouse, updateHouse, createPhoto, upd
 type StateProps = ReturnType<typeof mapStateToProps>;
 type DispatchProps = typeof mapDispatchToProps;
 
-export default connect(mapStateToProps, mapDispatchToProps)(PostPage);
+export default connect(mapStateToProps, mapDispatchToProps)(EditPage);
