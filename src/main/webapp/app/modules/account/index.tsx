@@ -5,6 +5,7 @@ import House from './house/house';
 import Post from './post/post';
 import Edit from './post/edit';
 import Preview from './preview/preview';
+import Payment from './payment/payment';
 import Settings from './settings/settings';
 import Password from './password/password';
 
@@ -14,6 +15,7 @@ const Routes = ({ match }) => (
     <Route path={`${match.url}/dang-tin`} component={Post} />
     <Route path={`${match.url}/sua-tin-dang/:id`} component={Edit} />
     <Route path={`${match.url}/xem-truoc-tin-dang/:id`} component={Preview} />
+    <Route path={`${match.url}/thanh-toan/:id`} component={Payment} />
     <Route path={`${match.url}/thong-tin-tai-khoan`} component={Settings} />
     <Route path={`${match.url}/thay-doi-mat-khau`} component={Password} />
   </div>

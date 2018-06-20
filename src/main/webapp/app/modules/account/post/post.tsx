@@ -53,8 +53,7 @@ export class PostPage extends React.Component<IPostProp, IPostState> {
   }
 
   gotoPayment = () => {
-    const current = this.state.current + 1;
-    this.setState({ current });
+    this.props.history.push(`/tai-khoan/thanh-toan/${this.props.payment.id}`);
   }
 
   gotoPreview = () => {
@@ -634,6 +633,7 @@ const mapStateToProps = storeState => ({
   account: storeState.authentication.account,
   isAuthenticated: storeState.authentication.isAuthenticated,
   house: storeState.house.entity,
+  payment: storeState.payment.entity,
   cities: storeState.city.entities,
   loading: storeState.house.loading,
   updating: storeState.house.updating
