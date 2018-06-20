@@ -12,6 +12,7 @@ import { getSearchEntities, getEntities } from './service-fee.reducer';
 import { IServiceFee } from 'app/shared/model/service-fee.model';
 // tslint:disable-next-line:no-unused-variable
 import { APP_DATE_FORMAT, APP_LOCAL_DATE_FORMAT } from 'app/config/constants';
+import { getSaleType } from 'app/shared/util/utils';
 
 export interface IServiceFeeProps extends StateProps, DispatchProps, RouteComponentProps<{ url: string }> {}
 
@@ -82,9 +83,6 @@ export class ServiceFee extends React.Component<IServiceFeeProps, IServiceFeeSta
             <thead>
               <tr>
                 <th>
-                  <Translate contentKey="global.field.id">ID</Translate>
-                </th>
-                <th>
                   <Translate contentKey="landexpApp.serviceFee.saleType">Sale Type</Translate>
                 </th>
                 <th>
@@ -96,31 +94,14 @@ export class ServiceFee extends React.Component<IServiceFeeProps, IServiceFeeSta
             <tbody>
               {serviceFeeList.map((serviceFee, i) => (
                 <tr key={`entity-${i}`}>
-                  <td>
-                    <Button tag={Link} to={`${match.url}/${serviceFee.id}`} color="link" size="sm">
-                      {serviceFee.id}
-                    </Button>
-                  </td>
-                  <td>{serviceFee.saleType}</td>
-                  <td>{serviceFee.fee}</td>
+                  <td>{getSaleType(serviceFee.saleType)}</td>
+                  <td>{new Intl.NumberFormat().format(serviceFee.fee)} VNĐ</td>
                   <td className="text-right">
                     <div className="btn-group flex-btn-group-container">
-                      <Button tag={Link} to={`${match.url}/${serviceFee.id}`} color="info" size="sm">
-                        <FontAwesomeIcon icon="eye" />{' '}
-                        <span className="d-none d-md-inline">
-                          <Translate contentKey="entity.action.view">View</Translate>
-                        </span>
-                      </Button>
                       <Button tag={Link} to={`${match.url}/${serviceFee.id}/edit`} color="primary" size="sm">
                         <FontAwesomeIcon icon="pencil-alt" />{' '}
                         <span className="d-none d-md-inline">
                           <Translate contentKey="entity.action.edit">Edit</Translate>
-                        </span>
-                      </Button>
-                      <Button tag={Link} to={`${match.url}/${serviceFee.id}/delete`} color="danger" size="sm">
-                        <FontAwesomeIcon icon="trash" />{' '}
-                        <span className="d-none d-md-inline">
-                          <Translate contentKey="entity.action.delete">Delete</Translate>
                         </span>
                       </Button>
                     </div>

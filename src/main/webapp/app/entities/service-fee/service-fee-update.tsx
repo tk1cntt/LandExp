@@ -13,6 +13,7 @@ import { IServiceFee } from 'app/shared/model/service-fee.model';
 // tslint:disable-next-line:no-unused-variable
 import { convertDateTimeFromServer } from 'app/shared/util/date-utils';
 import { keysToValues } from 'app/shared/util/entity-utils';
+import { getSaleType } from 'app/shared/util/utils';
 
 export interface IServiceFeeUpdateProps extends StateProps, DispatchProps, RouteComponentProps<{ id: number }> {}
 
@@ -54,7 +55,7 @@ export class ServiceFeeUpdate extends React.Component<IServiceFeeUpdateProps, IS
   };
 
   handleClose = () => {
-    this.props.history.push('/entity/service-fee');
+    this.props.history.push('/quan-ly/bang-phi-dich-vu');
   };
 
   render() {
@@ -96,10 +97,10 @@ export class ServiceFeeUpdate extends React.Component<IServiceFeeUpdateProps, IS
                     name="saleType"
                     value={(!isNew && serviceFeeEntity.saleType) || 'SALE_BY_MYSELF'}
                   >
-                    <option value="SALE_BY_MYSELF">SALE_BY_MYSELF</option>
-                    <option value="SALE_BY_MYSELF_VIP">SALE_BY_MYSELF_VIP</option>
-                    <option value="SALE_SUPPORT">SALE_SUPPORT</option>
-                    <option value="SALE_SUPPORT_VIP">SALE_SUPPORT_VIP</option>
+                    <option value="SALE_BY_MYSELF">{getSaleType('SALE_BY_MYSELF')}</option>
+                    <option value="SALE_BY_MYSELF_VIP">{getSaleType('SALE_BY_MYSELF_VIP')}</option>
+                    <option value="SALE_SUPPORT">{getSaleType('SALE_SUPPORT')}</option>
+                    <option value="SALE_SUPPORT_VIP">{getSaleType('SALE_SUPPORT_VIP')}</option>
                   </AvInput>
                 </AvGroup>
                 <AvGroup>
@@ -108,7 +109,7 @@ export class ServiceFeeUpdate extends React.Component<IServiceFeeUpdateProps, IS
                   </Label>
                   <AvField id="service-fee-fee" type="number" className="form-control" name="fee" />
                 </AvGroup>
-                <Button tag={Link} id="cancel-save" to="/entity/service-fee" replace color="info">
+                <Button tag={Link} id="cancel-save" to="/quan-ly/bang-phi-dich-vu" replace color="info">
                   <FontAwesomeIcon icon="arrow-left" />&nbsp;
                   <span className="d-none d-md-inline">
                     <Translate contentKey="entity.action.back">Back</Translate>
