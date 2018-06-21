@@ -14,6 +14,8 @@ import { getSession } from 'app/shared/reducers/authentication';
 import { getPaymentOfHouse } from 'app/entities/payment/payment.reducer';
 import { getImageOfHouse } from 'app/entities/house-photo/house-photo.reducer';
 
+import MyFancyComponent from 'app/shared/util/google-maps';
+
 import district from 'app/entities/district/district';
 
 const options = [{
@@ -174,6 +176,9 @@ export class StepTwo extends React.Component<IStepTwoProp, IStepOneState> {
               <Input placeholder="Số nhà, ngõ, ngách, phố" value={this.state.address || this.props.house.address} onChange={this.onChangeAddress} />
             </FormItem>
            </Form>
+        </Col>
+        <Col md="12">
+          <MyFancyComponent />
         </Col>
       </Row>
     );
