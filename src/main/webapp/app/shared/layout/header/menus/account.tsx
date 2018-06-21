@@ -6,31 +6,37 @@ import { NavDropdown } from '../header-components';
 
 const accountMenuItemsAuthenticated = (
   <>
-    <DropdownItem tag={Link} to="/account/settings">
-      <FontAwesomeIcon icon="wrench" /> Settings
+    <DropdownItem tag={Link} to="/tai-khoan/dang-tin">
+      <FontAwesomeIcon icon="wrench" /> Đăng tin
     </DropdownItem>
-    <DropdownItem tag={Link} to="/account/password">
-      <FontAwesomeIcon icon="clock" /> Password
+    <DropdownItem tag={Link} to="/tai-khoan/danh-sach-tin-dang">
+      <FontAwesomeIcon icon="wrench" /> Tin đã đăng của bạn
     </DropdownItem>
-    <DropdownItem tag={Link} to="/logout">
-      <FontAwesomeIcon icon="sign-out-alt" /> Logout
+    <DropdownItem tag={Link} to="/tai-khoan/thong-tin-tai-khoan">
+      <FontAwesomeIcon icon="wrench" /> Thông tin tài khoản
+    </DropdownItem>
+    <DropdownItem tag={Link} to="/tai-khoan/thay-doi-mat-khau">
+      <FontAwesomeIcon icon="clock" /> Thay đổi mật khẩu
+    </DropdownItem>
+    <DropdownItem tag={Link} to="/thoat">
+      <FontAwesomeIcon icon="sign-out-alt" /> Thoát
     </DropdownItem>
   </>
 );
 
 const accountMenuItems = (
   <>
-    <DropdownItem id="login-item" tag={Link} to="/login">
-      <FontAwesomeIcon icon="sign-in-alt" /> Login
+    <DropdownItem id="login-item" tag={Link} to="/dang-nhap">
+      <FontAwesomeIcon icon="sign-in-alt" /> Đăng nhập
     </DropdownItem>
-    <DropdownItem tag={Link} to="/register">
-      <FontAwesomeIcon icon="sign-in-alt" /> Register
+    <DropdownItem tag={Link} to="/dang-ky">
+      <FontAwesomeIcon icon="sign-in-alt" /> Đăng ký
     </DropdownItem>
   </>
 );
 
 export const AccountMenu = ({ isAuthenticated = false }) => (
-  <NavDropdown icon="user" name="Account" id="account-menu">
+  <NavDropdown icon="user" name="Tài khoản" id="account-menu">
     {isAuthenticated ? accountMenuItemsAuthenticated : accountMenuItems}
   </NavDropdown>
 );

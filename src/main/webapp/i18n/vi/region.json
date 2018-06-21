@@ -1,0 +1,27 @@
+
+{
+    "landexpApp": {
+        "region": {
+            "home": {
+                "title": "Regions",
+                "createLabel": "Thêm mới một khu vực",
+                "createOrEditLabel": "Thêm mới hoặc cập nhật khu vực",
+                "search": "Tìm Region"
+            },
+            "created": "Một khu vực mới được tạo",
+            "updated": "Một khu vực được cập nhật",
+            "deleted": "Một khu vực đã được xóa",
+            "delete": {
+                "question": "Bạn có chắc là muốn xóa khu vực {{ id }}?"
+            },
+            "detail": {
+                "title": "Khu vực"
+            },
+            "name": "Khu vực",
+            "enabled": "Trạng thái",
+            "createAt": "Ngày tạo",
+            "updateAt": "Ngày cập nhật",
+            "user": "Nhân viên quản lý"
+        }
+    }
+}

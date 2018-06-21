@@ -16,16 +16,16 @@ import { AUTHORITIES } from 'app/config/constants';
 
 const Routes = () => (
   <div className="view-routes">
-    <Route path="/login" component={Login} />
+    <Route path="/dang-nhap" component={Login} />
     <Switch>
-      <Route path="/logout" component={Logout} />
-      <Route path="/register" component={Register} />
+      <Route path="/thoat" component={Logout} />
+      <Route path="/dang-ky" component={Register} />
       <Route path="/activate/:key?" component={Activate} />
       <Route path="/reset/request" component={PasswordResetInit} />
       <Route path="/reset/finish/:key?" component={PasswordResetFinish} />
       <PrivateRoute path="/admin" component={Admin} hasAnyAuthorities={[AUTHORITIES.ADMIN]} />
-      <PrivateRoute path="/account" component={Account} hasAnyAuthorities={[AUTHORITIES.ADMIN, AUTHORITIES.USER]} />
-      <PrivateRoute path="/entity" component={Entities} hasAnyAuthorities={[AUTHORITIES.USER]} />
+      <PrivateRoute path="/tai-khoan" component={Account} hasAnyAuthorities={[AUTHORITIES.USER]} />
+      <PrivateRoute path="/quan-ly" component={Entities} hasAnyAuthorities={[AUTHORITIES.STAFF]} />
       <Route path="/" component={Home} />
     </Switch>
   </div>

@@ -5,6 +5,47 @@
     xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.5.xsd">
 
     <include file="config/liquibase/changelog/00000000000000_initial_schema.xml" relativeToChangelogFile="false"/>
+    <include file="config/liquibase/changelog/20180611134353_added_entity_Region.xml" relativeToChangelogFile="false"/>
+    <include file="config/liquibase/changelog/20180611134354_added_entity_City.xml" relativeToChangelogFile="false"/>
+    <include file="config/liquibase/changelog/20180611134355_added_entity_District.xml" relativeToChangelogFile="false"/>
+    <include file="config/liquibase/changelog/20180611134356_added_entity_Street.xml" relativeToChangelogFile="false"/>
+    <include file="config/liquibase/changelog/20180611134357_added_entity_House.xml" relativeToChangelogFile="false"/>
+    <include file="config/liquibase/changelog/20180611134358_added_entity_ServiceFee.xml" relativeToChangelogFile="false"/>
+    <include file="config/liquibase/changelog/20180611134359_added_entity_HouseTracking.xml" relativeToChangelogFile="false"/>
+    <include file="config/liquibase/changelog/20180611134400_added_entity_HousePhoto.xml" relativeToChangelogFile="false"/>
+    <include file="config/liquibase/changelog/20180611134401_added_entity_LandProject.xml" relativeToChangelogFile="false"/>
+    <include file="config/liquibase/changelog/20180611134402_added_entity_LandProjectPhoto.xml" relativeToChangelogFile="false"/>
+    <include file="config/liquibase/changelog/20180611134403_added_entity_Article.xml" relativeToChangelogFile="false"/>
+    <include file="config/liquibase/changelog/20180611134404_added_entity_Category.xml" relativeToChangelogFile="false"/>
+    <include file="config/liquibase/changelog/20180611134405_added_entity_UserProfile.xml" relativeToChangelogFile="false"/>
+    <include file="config/liquibase/changelog/20180611134406_added_entity_UserSubscription.xml" relativeToChangelogFile="false"/>
+    <include file="config/liquibase/changelog/20180611134407_added_entity_UserTracking.xml" relativeToChangelogFile="false"/>
+    <include file="config/liquibase/changelog/20180611134408_added_entity_UserFeed.xml" relativeToChangelogFile="false"/>
+    <include file="config/liquibase/changelog/20180611134409_added_entity_SearchTracking.xml" relativeToChangelogFile="false"/>
+    <include file="config/liquibase/changelog/20180611134410_added_entity_UserFinancial.xml" relativeToChangelogFile="false"/>
+    <include file="config/liquibase/changelog/20180611134411_added_entity_PotentialCustomer.xml" relativeToChangelogFile="false"/>
+    <include file="config/liquibase/changelog/20180611134412_added_entity_Banner.xml" relativeToChangelogFile="false"/>
+    <include file="config/liquibase/changelog/20180611134413_added_entity_Payment.xml" relativeToChangelogFile="false"/>
+    <include file="config/liquibase/changelog/20180614133329_added_entity_Ward.xml" relativeToChangelogFile="false"/>
     <!-- jhipster-needle-liquibase-add-changelog - JHipster will add liquibase changelogs here -->
+    <include file="config/liquibase/changelog/20180611134353_added_entity_constraints_Region.xml" relativeToChangelogFile="false"/>
+    <include file="config/liquibase/changelog/20180611134355_added_entity_constraints_District.xml" relativeToChangelogFile="false"/>
+    <include file="config/liquibase/changelog/20180611134356_added_entity_constraints_Street.xml" relativeToChangelogFile="false"/>
+    <include file="config/liquibase/changelog/20180611134357_added_entity_constraints_House.xml" relativeToChangelogFile="false"/>
+    <include file="config/liquibase/changelog/20180611134359_added_entity_constraints_HouseTracking.xml" relativeToChangelogFile="false"/>
+    <include file="config/liquibase/changelog/20180611134400_added_entity_constraints_HousePhoto.xml" relativeToChangelogFile="false"/>
+    <include file="config/liquibase/changelog/20180611134401_added_entity_constraints_LandProject.xml" relativeToChangelogFile="false"/>
+    <include file="config/liquibase/changelog/20180611134402_added_entity_constraints_LandProjectPhoto.xml" relativeToChangelogFile="false"/>
+    <include file="config/liquibase/changelog/20180611134403_added_entity_constraints_Article.xml" relativeToChangelogFile="false"/>
+    <include file="config/liquibase/changelog/20180611134405_added_entity_constraints_UserProfile.xml" relativeToChangelogFile="false"/>
+    <include file="config/liquibase/changelog/20180611134406_added_entity_constraints_UserSubscription.xml" relativeToChangelogFile="false"/>
+    <include file="config/liquibase/changelog/20180611134407_added_entity_constraints_UserTracking.xml" relativeToChangelogFile="false"/>
+    <include file="config/liquibase/changelog/20180611134408_added_entity_constraints_UserFeed.xml" relativeToChangelogFile="false"/>
+    <include file="config/liquibase/changelog/20180611134409_added_entity_constraints_SearchTracking.xml" relativeToChangelogFile="false"/>
+    <include file="config/liquibase/changelog/20180611134410_added_entity_constraints_UserFinancial.xml" relativeToChangelogFile="false"/>
+    <include file="config/liquibase/changelog/20180611134411_added_entity_constraints_PotentialCustomer.xml" relativeToChangelogFile="false"/>
+    <include file="config/liquibase/changelog/20180611134412_added_entity_constraints_Banner.xml" relativeToChangelogFile="false"/>
+    <include file="config/liquibase/changelog/20180611134413_added_entity_constraints_Payment.xml" relativeToChangelogFile="false"/>
+    <include file="config/liquibase/changelog/20180614133329_added_entity_constraints_Ward.xml" relativeToChangelogFile="false"/>
     <!-- jhipster-needle-liquibase-add-constraints-changelog - JHipster will add liquibase constraints changelogs here -->
 </databaseChangeLog>

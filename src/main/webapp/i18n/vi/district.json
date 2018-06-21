@@ -1,0 +1,28 @@
+
+{
+    "landexpApp": {
+        "district" : {
+            "home": {
+                "title": "Quận huyện",
+                "createLabel": "Thêm mới một quận huyện",
+                "createOrEditLabel": "Thêm mới hoặc cập nhật quận huyện",
+                "search": "Tìm quận huyện"
+            },
+            "created": "Một quận huyện mới được tạo",
+            "updated": "Một quận huyện được cập nhật",
+            "deleted": "Một quận huyện đã được xóa",
+            "delete": {
+                "question": "Bạn có chắc là muốn xóa quận huyện {{ id }}?"
+            },
+            "detail": {
+                "title": "Quận huyện"
+            },
+            "name": "Quận huyện",
+            "enabled": "Trạng thái",
+            "createAt": "Ngày tạo",
+            "updateAt": "Ngày cập nhật",
+            "region": "Khu vực",
+            "city": "Tỉnh thành"
+        }
+    }
+}

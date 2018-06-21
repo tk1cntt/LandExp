@@ -1,0 +1,33 @@
+
+{
+    "landexpApp": {
+        "article" : {
+            "home": {
+                "title": "Tin tức",
+                "createLabel": "Thêm mới một tin tức",
+                "createOrEditLabel": "Thêm mới hoặc cập nhật tin tức",
+                "search": "Tìm tin tức"
+            },
+            "created": "Một tin tức mới được tạo",
+            "updated": "Một tin tức được cập nhật",
+            "deleted": "Một tin tức đã được xóa",
+            "delete": {
+                "question": "Bạn có chắc là muốn xóa tin tức?"
+            },
+            "detail": {
+                "title": "Tin tức"
+            },
+            "avatar": "Hình đại diện",
+            "title": "Tiêu đề",
+            "summary": "Tóm tắt nội dung",
+            "content": "Nội dung tin",
+            "statusType": "Trạng thái",
+            "hits": "Số lượt xem",
+            "createAt": "Ngày tạo",
+            "updateAt": "Ngày cập nhật",
+            "category": "Danh mục",
+            "createBy": "Người tạo",
+            "updateBy": "Người cập nhật"
+        }
+    }
+}

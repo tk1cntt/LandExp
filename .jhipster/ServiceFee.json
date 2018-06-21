@@ -1,0 +1,24 @@
+{
+    "name": "ServiceFee",
+    "fields": [
+        {
+            "fieldName": "saleType",
+            "fieldType": "SaleType",
+            "fieldValues": "SALE_BY_MYSELF,SALE_BY_MYSELF_VIP,SALE_SUPPORT,SALE_SUPPORT_VIP"
+        },
+        {
+            "fieldName": "fee",
+            "fieldType": "Float"
+        }
+    ],
+    "relationships": [],
+    "changelogDate": "20180611134358",
+    "entityTableName": "service_fee",
+    "dto": "mapstruct",
+    "pagination": "no",
+    "service": "serviceClass",
+    "jpaMetamodelFiltering": false,
+    "fluentMethods": true,
+    "clientRootFolder": "",
+    "applications": "*"
+}

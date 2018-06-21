@@ -1,0 +1,62 @@
+
+{
+    "landexpApp": {
+        "house" : {
+            "home": {
+                "title": "Danh sách tin đã đăng",
+                "createLabel": "Đăng một tin mới",
+                "createOrEditLabel": "Thêm mới hoặc cập nhật House",
+                "search": "Tìm thông tin về tin đã đăng"
+            },
+            "created": "Một tin mới được tạo",
+            "updated": "Một tin được cập nhật",
+            "deleted": "Một tin đã được xóa",
+            "delete": {
+                "question": "Bạn có chắc là muốn xóa tin đăng của {{ id }}?"
+            },
+            "detail": {
+                "title": "Tin đã đăng"
+            },
+            "avatar": "Ảnh đại diện",
+            "actionType": "Hình thức",
+            "address": "Address",
+            "money": "Giá đề xuất",
+            "acreage": "Acreage",
+            "acreageStreetSide": "Acreage Street Side",
+            "discount": "Giá mong muốn",
+            "direction": "Direction",
+            "directionBalcony": "Direction Balcony",
+            "floor": "Floor",
+            "numberOfFloor": "Number Of Floor",
+            "bathRoom": "Bath Room",
+            "bedRoom": "Bed Room",
+            "parking": "Parking",
+            "summary": "Summary",
+            "landType": "Loại bất động sản",
+            "saleType": "Loại tin",
+            "fee": "Phí",
+            "feeMax": "Fee Max",
+            "present": "Present",
+            "hits": "Hits",
+            "customer": "Customer",
+            "mobile": "Mobile",
+            "email": "Email",
+            "facebook": "Facebook",
+            "zalo": "Zalo",
+            "statusType": "Trạng thái",
+            "googleId": "Google Id",
+            "latitude": "Latitude",
+            "longitude": "Longitude",
+            "createAt": "Create At",
+            "updateAt": "Update At",
+            "photos": "Photos",
+            "city": "Tỉnh thành",
+            "district": "Quận/Huyện",
+            "ward": "Xã/Phường",
+            "street": "Street",
+            "project": "Project",
+            "createBy": "Người tạo",
+            "updateBy": "Update By"
+        }
+    }
+}

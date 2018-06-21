@@ -7,6 +7,28 @@
             "jhipster-needle-menu-add-element": "JHipster will add additional menu entries here (do not translate!)",
             "entities": {
                 "main": "Thực thể",
+                "region": "Region",
+                "city": "City",
+                "district": "District",
+                "street": "Street",
+                "house": "House",
+                "serviceFee": "Service Fee",
+                "houseTracking": "House Tracking",
+                "housePhoto": "House Photo",
+                "landProject": "Land Project",
+                "landProjectPhoto": "Land Project Photo",
+                "article": "Article",
+                "category": "Category",
+                "userProfile": "User Profile",
+                "userSubscription": "User Subscription",
+                "userTracking": "User Tracking",
+                "userFeed": "User Feed",
+                "searchTracking": "Search Tracking",
+                "userFinancial": "User Financial",
+                "potentialCustomer": "Potential Customer",
+                "banner": "Banner",
+                "payment": "Payment",
+                "ward": "Ward",
                 "jhipster-needle-menu-add-entry": "JHipster will add additional entities here (do not translate!)"
             },
             "account": {
@@ -36,6 +58,8 @@
         "form": {
             "username": "Tên tài khoản",
             "username.placeholder": "Nhập tên tài khoản của bạn",
+            "currentpassword": "Mật khẩu hiện tại",
+            "currentpassword.placeholder": "Mật khẩu hiện tại",
             "newpassword": "Mật khẩu mới",
             "newpassword.placeholder": "Nhập mật khẩu mới",
             "confirmpassword": "Xác nhận mật khẩu mới",
@@ -93,6 +117,8 @@
             "back": "Quay lại",
             "cancel": "Hủy",
             "delete": "Xóa",
+            "approve": "Xác nhận",
+            "pay": "Thanh toán",
             "edit": "Sửa",
             "open": "Mở",
             "save": "Lưu",
@@ -104,6 +130,9 @@
         },
         "delete": {
             "title": "Xác nhận hành động xóa"
+        },
+        "approve": {
+            "title": "Xác nhận giao dịch thành công"
         },
         "validation": {
             "required": "Trường này bắt buộc phải nhập.",

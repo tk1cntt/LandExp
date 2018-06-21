@@ -6,6 +6,7 @@ import com.landexp.domain.User;
 import com.landexp.repository.UserRepository;
 import com.landexp.repository.search.UserSearchRepository;
 import com.landexp.security.AuthoritiesConstants;
+import com.landexp.security.SecurityUtils;
 import com.landexp.service.MailService;
 import com.landexp.service.UserService;
 import com.landexp.service.dto.UserDTO;
@@ -95,7 +96,7 @@ public class UserResource {
      */
     @PostMapping("/users")
     @Timed
-    @Secured(AuthoritiesConstants.ADMIN)
+    @Secured(AuthoritiesConstants.MANAGER)
     public ResponseEntity<User> createUser(@Valid @RequestBody UserDTO userDTO) throws URISyntaxException {
         log.debug("REST request to save User : {}", userDTO);
 
@@ -108,6 +109,11 @@ public class UserResource {
             throw new EmailAlreadyUsedException();
         } else {
             User newUser = userService.createUser(userDTO);
+            if (!SecurityUtils.isCurrentUserInRole(AuthoritiesConstants.ADMIN)) {
+                if (newUser.getAuthorities().contains(AuthoritiesConstants.ADMIN)) {
+                    throw new BadRequestAlertException("Invalid user's role", "userManagement", "idexists");
+                }
+            }
             mailService.sendCreationEmail(newUser);
             return ResponseEntity.created(new URI("/api/users/" + newUser.getLogin()))
                 .headers(HeaderUtil.createAlert( "userManagement.created", newUser.getLogin()))
@@ -125,9 +131,14 @@ public class UserResource {
      */
     @PutMapping("/users")
     @Timed
-    @Secured(AuthoritiesConstants.ADMIN)
+    @Secured(AuthoritiesConstants.MANAGER)
     public ResponseEntity<UserDTO> updateUser(@Valid @RequestBody UserDTO userDTO) {
         log.debug("REST request to update User : {}", userDTO);
+        if (!SecurityUtils.isCurrentUserInRole(AuthoritiesConstants.ADMIN)) {
+            if (userDTO.getAuthorities().contains(AuthoritiesConstants.ADMIN)) {
+                throw new BadRequestAlertException("Invalid user's role", "userManagement", "idexists");
+            }
+        }
         Optional<User> existingUser = userRepository.findOneByEmailIgnoreCase(userDTO.getEmail());
         if (existingUser.isPresent() && (!existingUser.get().getId().equals(userDTO.getId()))) {
             throw new EmailAlreadyUsedException();
@@ -161,7 +172,7 @@ public class UserResource {
      */
     @GetMapping("/users/authorities")
     @Timed
-    @Secured(AuthoritiesConstants.ADMIN)
+    @Secured(AuthoritiesConstants.MANAGER)
     public List<String> getAuthorities() {
         return userService.getAuthorities();
     }

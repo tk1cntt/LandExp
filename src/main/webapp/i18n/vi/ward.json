@@ -1,0 +1,27 @@
+
+{
+    "landexpApp": {
+        "ward" : {
+            "home": {
+                "title": "Xã phường",
+                "createLabel": "Thêm mới một xã phường",
+                "createOrEditLabel": "Thêm mới hoặc cập nhật xã phường",
+                "search": "Tìm xã phường"
+            },
+            "created": "Một xã phường mới được tạo",
+            "updated": "Một xã phường được cập nhật",
+            "deleted": "Một xã phường đã được xóa",
+            "delete": {
+                "question": "Bạn có chắc là muốn xóa {{ id }}?"
+            },
+            "detail": {
+                "title": "Xã phường"
+            },
+            "name": "Xa phường",
+            "enabled": "Trạng thái",
+            "createAt": "Ngày tạo",
+            "updateAt": "Ngày cập nhật",
+            "district": "Quận huyện"
+        }
+    }
+}

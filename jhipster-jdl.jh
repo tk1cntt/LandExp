@@ -20,6 +20,13 @@ entity District {
    updateAt LocalDate
 }
 
+entity Ward {
+   name String,
+   enabled Boolean,
+   createAt LocalDate,
+   updateAt LocalDate
+}
+
 entity Street {
    name String,
    postalCode String,
@@ -29,19 +36,21 @@ entity Street {
    updateAt LocalDate
 }
 
-relationship ManyToOne {
-   District{city(name)} to City,
-   Street{district(name)} to District
-}
-
-
 relationship ManyToMany {
    Region{user(login)} to User
 }
 
+relationship ManyToOne {
+   District{city(name)} to City,
+   District{region(name)} to Region,
+   Ward{district(name)} to District
+}
+
 relationship OneToMany {
+   City{districts} to District,
    Region{districts} to District,
-   District{houses} to House
+   District{wards} to Ward,
+   Ward{streets} to Street
 }
 
 enum UserActionType {
@@ -49,7 +58,7 @@ enum UserActionType {
 }
 
 enum StatusType {
-   PENDING, PAID, APPROVED, CANCELED, EXPIRED, SOLD
+   OPEN, PENDING, PAID, CANCELED, EXPIRED, SOLD
 }
 
 enum LandType {
@@ -65,7 +74,7 @@ enum AcreageType {
 }
 
 enum SaleType {
-   SALE_BY_MYSELF, SALE_SUPPORT
+   SALE_BY_MYSELF, SALE_BY_MYSELF_VIP, SALE_SUPPORT, SALE_SUPPORT_VIP
 }
 
 enum MoneyType {
@@ -73,16 +82,16 @@ enum MoneyType {
 }
 
 enum PresentType {
-   BASIC_FURNITURE, FULL_FURNITURE, DISCOUNT_PRICE, SUPPORT_EXHIBIT, SUPPORT_FEE, HAVE_PRESENT
+   NONE, BASIC_FURNITURE, FULL_FURNITURE, DISCOUNT_PRICE, SUPPORT_EXHIBIT, SUPPORT_FEE, HAVE_PRESENT
 }
 
 entity House {
-   avatar String,
+   avatar ImageBlob,
    actionType UserActionType,
    address String,
    money Float,
-   moneyType MoneyType,
    acreage Float,
+   acreageStreetSide Float,
    discount Float,
    direction DirectionType,
    directionBalcony DirectionType,
@@ -91,14 +100,22 @@ entity House {
    bathRoom Integer,
    bedRoom Integer,
    parking Boolean,
-   furniture Boolean,
+   summary String,
    landType LandType,
    saleType SaleType,
    fee Float,
    feeMax Float,
    present PresentType,
    hits Integer,
+   customer String,
+   mobile String,
+   email String,
+   facebook String,
+   zalo String,
    statusType StatusType,
+   googleId String,
+   latitude Float,
+   longitude Float,
    createAt LocalDate,
    updateAt LocalDate
 }
@@ -110,6 +127,8 @@ entity ServiceFee {
 
 relationship ManyToOne {
    House{city(name)} to City,
+   House{district(name)} to District,
+   House{ward(name)} to Ward,
    House{street(name)} to Street,
    House{project(name)} to LandProject,
    House{createBy(login)} to User,
@@ -131,6 +150,7 @@ relationship ManyToOne {
 
 entity HousePhoto {
    image ImageBlob,
+   enabled Boolean,
    createAt LocalDate
 }
 
@@ -330,7 +350,7 @@ enum PaymentType {
 }
 
 enum PaymentStatusType {
-   OPEN, PENDING, SUCCESS, FAILED
+   PENDING, PAID, CANCELED
 }
 
 entity Payment {
