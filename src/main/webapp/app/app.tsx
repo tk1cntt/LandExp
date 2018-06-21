@@ -25,10 +25,9 @@ export class App extends React.Component<IAppProps> {
   }
 
   render() {
-    const paddingTop = '60px';
     return (
       <Router>
-        <div className="app-container" style={{ paddingTop }}>
+        <div className="app-container">
           <ToastContainer position={toast.POSITION.TOP_LEFT} className="toastify-container" toastClassName="toastify-toast" />
           <Header
             isAuthenticated={this.props.isAuthenticated}
@@ -39,12 +38,9 @@ export class App extends React.Component<IAppProps> {
             isInProduction={this.props.isInProduction}
             isSwaggerEnabled={this.props.isSwaggerEnabled}
           />
-          <div className="container-fluid view-container" id="app-view-container">
-            <Card className="jh-card">
-              <AppRoutes />
-            </Card>
-            <Footer />
-          </div>
+          <Card id="home-content">
+            <AppRoutes />
+          </Card>
         </div>
       </Router>
     );

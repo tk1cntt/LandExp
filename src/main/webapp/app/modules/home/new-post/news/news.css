@@ -1,0 +1,146 @@
+#news {
+  width: 100%;
+}
+
+.listview-left {
+  overflow: hidden;
+  float: left;
+  border-right: 1px solid #DFDFDF;
+}
+
+.post-item:first-child {
+  padding-top: 0px;
+}
+
+.post-item {
+  padding-bottom: 15px;
+  padding-top: 15px;
+  border-top: 1px solid #fff;
+  border-bottom: 1px solid #F6F6F6;
+  box-sizing: border-box;
+  height: 260px;
+}
+
+.item-thumbnail {
+  width: 250px;
+  height: 216px;
+  float: left;
+  position: relative;
+}
+
+.item-thumbnail .hire {
+  background: url('../../../../../swagger-ui/dist/images/icon/thue_bg.png') no-repeat;
+}
+
+.item-thumbnail .sell {
+  background: url('../../../../../swagger-ui/dist/images/icon/ban_bg.png') no-repeat;
+}
+
+.item-thumbnail .type {
+  position: absolute;
+  top: 13px;
+  left: 0;
+  width: 82px;
+  height: 24px;
+  line-height: 24px;
+  font-size: 10px;
+  padding-right: 10px;
+  color: #fff;
+  text-align: center;
+}
+
+.item-info {
+  float: left;
+  margin: 0px 20px;
+}
+
+.item-info h3 {
+  margin: 0;
+  font-size: 16px;
+  color: #222;
+}
+
+.item-info .subtitle {
+  margin: 0;
+  color: #AAAAAA;
+  font-size: 12px;
+}
+
+.item-info .price {
+  margin: 8px auto;
+}
+
+.item-info .location {
+  color: #888888;
+  margin: 10px auto;
+}
+
+.property {
+  background: #F9F9F9;
+  padding: 12px 0px;
+}
+
+.property span {
+  margin: 13px;
+}
+
+.compact, .bedroom, .bathroom, .garage, .compass, .floor {
+  padding-left: 28px;
+  height: 20px;
+  line-height: 20px;
+}
+
+.button-group {
+  border-top: 1px solid #F6F6F6;
+  text-align: right;
+  box-sizing: border-box;
+}
+
+.button-group span {
+  display: inline-block;
+  border-radius: 3px;
+  font-size: 16px;
+  padding: 10px 13px;
+  margin-top: 7px;
+}
+
+.favorite {
+  border: 1px solid #FE475E;
+}
+
+.contact {
+  border: 1px solid #3A65F9;
+}
+
+.contact-distance {
+  margin-left: 5px;
+}
+
+.post-date {
+  display: block;
+  width: 80px;
+  float: left;
+  color: #3A65F9;
+  margin-top: 20px;
+  text-align: left;
+}
+
+.compact {
+  background: url('../../../../../swagger-ui/dist/images/icon/ic_view_compact.png') no-repeat 0;
+}
+
+.bedroom {
+  background: url('../../../../../swagger-ui/dist/images/icon/ic_hotel.png') no-repeat 0;
+}
+
+.bathroom {
+  background: url('../../../../../swagger-ui/dist/images/icon/bathtub.png') no-repeat 0;
+}
+
+.garage {
+  background: url('../../../../../swagger-ui/dist/images/icon/ic_directions_car.png') no-repeat 0;
+}
+
+item-info {
+  min-width: 255px;
+}
