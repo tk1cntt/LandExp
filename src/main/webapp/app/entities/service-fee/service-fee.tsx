@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { connect } from 'react-redux';
 import { Link, RouteComponentProps } from 'react-router-dom';
-import { Button, InputGroup, Col, Row, Table } from 'reactstrap';
+import { Button, InputGroup, Col, Row, Container, Table } from 'reactstrap';
 import { AvForm, AvGroup, AvInput } from 'availity-reactstrap-validation';
 // tslint:disable-next-line:no-unused-variable
 import { Translate, translate, ICrudSearchAction, ICrudGetAllAction } from 'react-jhipster';
@@ -47,7 +47,7 @@ export class ServiceFee extends React.Component<IServiceFeeProps, IServiceFeeSta
   render() {
     const { serviceFeeList, match } = this.props;
     return (
-      <div>
+      <Container>
         <h2 id="service-fee-heading">
           <Translate contentKey="landexpApp.serviceFee.home.title">Service Fees</Translate>
           <Link to={`${match.url}/new`} className="btn btn-primary float-right jh-create-entity" id="jh-create-entity">
@@ -111,7 +111,7 @@ export class ServiceFee extends React.Component<IServiceFeeProps, IServiceFeeSta
             </tbody>
           </Table>
         </div>
-      </div>
+      </Container>
     );
   }
 }

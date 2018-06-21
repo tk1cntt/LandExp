@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { Button, Col, Alert, Row } from 'reactstrap';
+import { Button, Col, Alert, Row, Container } from 'reactstrap';
 import { connect } from 'react-redux';
 import { Translate, translate } from 'react-jhipster';
 import { AvForm, AvField } from 'availity-reactstrap-validation';
@@ -38,7 +38,7 @@ export class SettingsPage extends React.Component<IUserSettingsProps, IUserSetti
     const { account } = this.props;
 
     return (
-      <div>
+      <Container>
         <Row className="justify-content-center">
           <Col md="8">
             <h2 id="settings-title">
@@ -110,7 +110,7 @@ export class SettingsPage extends React.Component<IUserSettingsProps, IUserSetti
             </AvForm>
           </Col>
         </Row>
-      </div>
+      </Container>
     );
   }
 }

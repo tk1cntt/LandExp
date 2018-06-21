@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { connect } from 'react-redux';
 import { Link, RouteComponentProps } from 'react-router-dom';
-import { Button, Table, Row, Badge } from 'reactstrap';
+import { Button, Table, Row, Container, Badge } from 'reactstrap';
 import {
   Translate,
   ICrudGetAllAction,
@@ -62,7 +62,7 @@ export class UserManagement extends React.Component<IUserManagementProps, IPagin
   render() {
     const { users, account, match, totalItems } = this.props;
     return (
-      <div>
+      <Container>
         <h2 className="userManagement-page-heading">
           <Translate contentKey="userManagement.home.title">Users</Translate>
           <Link to={`${match.url}/new`} className="btn btn-primary float-right jh-create-entity">
@@ -176,7 +176,7 @@ export class UserManagement extends React.Component<IUserManagementProps, IPagin
             maxButtons={5}
           />
         </Row>
-      </div>
+      </Container>
     );
   }
 }

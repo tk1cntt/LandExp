@@ -2,7 +2,7 @@ import * as React from 'react';
 import { Link, RouteComponentProps } from 'react-router-dom';
 import { Translate } from 'react-jhipster';
 import { connect } from 'react-redux';
-import { Row, Col, Alert } from 'reactstrap';
+import { Row, Col, Container, Alert } from 'reactstrap';
 import { Card, Radio, Input, Button } from 'antd';
 const RadioGroup = Radio.Group;
 
@@ -80,7 +80,7 @@ export class Payment extends React.Component<IPaymentProp, IPaymentState> {
       lineHeight: '30px'
     };
     return (
-      <Row>
+      <Container>
         <Col md="8">
           <div style={{ marginTop: 10, background: '#ECECEC', height: '100%', padding: '5px' }}>
             <Card title="Thanh toán phí đăng tin" bordered={false} style={{ width: '100%', height: '100%' }}>
@@ -108,7 +108,7 @@ export class Payment extends React.Component<IPaymentProp, IPaymentState> {
             </Card>
           </div>
         </Col>
-      </Row>
+      </Container>
     );
   }
 }

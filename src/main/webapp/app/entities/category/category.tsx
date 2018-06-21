@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { connect } from 'react-redux';
 import { Link, RouteComponentProps } from 'react-router-dom';
-import { Button, InputGroup, Col, Row, Table } from 'reactstrap';
+import { Button, InputGroup, Col, Row, Container, Table } from 'reactstrap';
 import { AvForm, AvGroup, AvInput } from 'availity-reactstrap-validation';
 // tslint:disable-next-line:no-unused-variable
 import {
@@ -80,7 +80,7 @@ export class Category extends React.Component<ICategoryProps, ICategoryState> {
   render() {
     const { categoryList, match, totalItems } = this.props;
     return (
-      <div>
+      <Container>
         <h2 id="category-heading">
           <Translate contentKey="landexpApp.category.home.title">Categories</Translate>
           <Link to={`${match.url}/new`} className="btn btn-primary float-right jh-create-entity" id="jh-create-entity">
@@ -184,7 +184,7 @@ export class Category extends React.Component<ICategoryProps, ICategoryState> {
             maxButtons={5}
           />
         </Row>
-      </div>
+      </Container>
     );
   }
 }

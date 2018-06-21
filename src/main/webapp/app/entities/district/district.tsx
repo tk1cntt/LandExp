@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { connect } from 'react-redux';
 import { Link, RouteComponentProps } from 'react-router-dom';
-import { Button, InputGroup, Col, Row, Table } from 'reactstrap';
+import { Button, InputGroup, Col, Row, Container, Table } from 'reactstrap';
 import { AvForm, AvGroup, AvInput } from 'availity-reactstrap-validation';
 import { Icon } from 'antd';
 
@@ -82,7 +82,7 @@ export class District extends React.Component<IDistrictProps, IDistrictState> {
   render() {
     const { districtList, match, totalItems } = this.props;
     return (
-      <div>
+      <Container>
         <h2 id="district-heading">
           <Translate contentKey="landexpApp.district.home.title">Districts</Translate>
           <Link to={`${match.url}/new`} className="btn btn-primary float-right jh-create-entity" id="jh-create-entity">
@@ -186,7 +186,7 @@ export class District extends React.Component<IDistrictProps, IDistrictState> {
             maxButtons={5}
           />
         </Row>
-      </div>
+      </Container>
     );
   }
 }

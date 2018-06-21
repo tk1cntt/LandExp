@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { connect } from 'react-redux';
 import { Link, RouteComponentProps } from 'react-router-dom';
-import { Button, InputGroup, Col, Row, Table } from 'reactstrap';
+import { Button, InputGroup, Col, Row, Container, Table } from 'reactstrap';
 import { AvForm, AvGroup, AvInput } from 'availity-reactstrap-validation';
 // tslint:disable-next-line:no-unused-variable
 import {
@@ -82,7 +82,7 @@ export class Payment extends React.Component<IPaymentProps, IPaymentState> {
   render() {
     const { paymentList, match, totalItems } = this.props;
     return (
-      <div>
+      <Container>
         <h2 id="payment-heading">
           <Translate contentKey="landexpApp.payment.home.title">Payments</Translate>
         </h2>
@@ -198,7 +198,7 @@ export class Payment extends React.Component<IPaymentProps, IPaymentState> {
             maxButtons={5}
           />
         </Row>
-      </div>
+      </Container>
     );
   }
 }

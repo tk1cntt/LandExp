@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { connect } from 'react-redux';
 import { Link, RouteComponentProps } from 'react-router-dom';
-import { Button, Row, Col, Label } from 'reactstrap';
+import { Button, Row, Col, Container, Label } from 'reactstrap';
 import { AvForm, AvGroup, AvInput, AvField } from 'availity-reactstrap-validation';
 // tslint:disable-next-line:no-unused-variable
 import { Translate, translate, ICrudGetAction, ICrudGetAllAction, ICrudPutAction } from 'react-jhipster';
@@ -64,16 +64,16 @@ export class ServiceFeeUpdate extends React.Component<IServiceFeeUpdateProps, IS
     const { isNew } = this.state;
 
     return (
-      <div>
+      <Container>
         <Row className="justify-content-center">
-          <Col md="8">
+          <Col md="12">
             <h2 id="landexpApp.serviceFee.home.createOrEditLabel">
               <Translate contentKey="landexpApp.serviceFee.home.createOrEditLabel">Create or edit a ServiceFee</Translate>
             </h2>
           </Col>
         </Row>
         <Row className="justify-content-center">
-          <Col md="8">
+          <Col md="12">
             {loading ? (
               <p>Loading...</p>
             ) : (
@@ -124,7 +124,7 @@ export class ServiceFeeUpdate extends React.Component<IServiceFeeUpdateProps, IS
             )}
           </Col>
         </Row>
-      </div>
+      </Container>
     );
   }
 }

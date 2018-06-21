@@ -2,7 +2,7 @@ import * as React from 'react';
 import { Translate, translate } from 'react-jhipster';
 import { connect } from 'react-redux';
 import { AvForm, AvField } from 'availity-reactstrap-validation';
-import { Row, Col, Alert, Button } from 'reactstrap';
+import { Row, Col, Container, Alert, Button } from 'reactstrap';
 
 import PasswordStrengthBar from 'app/shared/layout/password/password-strength-bar';
 import { IRootState } from 'app/shared/reducers';
@@ -34,7 +34,7 @@ export class RegisterPage extends React.Component<IRegisterProps, IRegisterState
 
   render() {
     return (
-      <div>
+      <Container>
         <Row className="justify-content-center">
           <Col md="8">
             <h1 id="register-title">
@@ -114,7 +114,7 @@ export class RegisterPage extends React.Component<IRegisterProps, IRegisterState
             </Alert>
           </Col>
         </Row>
-      </div>
+      </Container>
     );
   }
 }

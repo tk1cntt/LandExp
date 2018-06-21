@@ -4,7 +4,7 @@ import * as React from 'react';
 import { Link } from 'react-router-dom';
 import { Translate } from 'react-jhipster';
 import { connect } from 'react-redux';
-import { Row, Col, Alert } from 'reactstrap';
+import { Row, Col, Container, Alert } from 'reactstrap';
 
 import { IRootState } from 'app/shared/reducers';
 import { getSession } from 'app/shared/reducers/authentication';
@@ -19,7 +19,7 @@ export class Preview extends React.Component<IPreviewProp> {
   render() {
     const { account } = this.props;
     return (
-      <Row>
+      <Container>
         <Col md="9">
           <h2>Xem truoc tin dang</h2>
           <p className="lead">
@@ -97,7 +97,7 @@ export class Preview extends React.Component<IPreviewProp> {
         <Col md="3" className="pad">
           <span className="hipster rounded" />
         </Col>
-      </Row>
+      </Container>
     );
   }
 }

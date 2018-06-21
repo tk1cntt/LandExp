@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { connect } from 'react-redux';
 import { Link, RouteComponentProps } from 'react-router-dom';
-import { Button, InputGroup, Col, Row, Table } from 'reactstrap';
+import { Button, InputGroup, Col, Row, Container, Table } from 'reactstrap';
 import { AvForm, AvGroup, AvInput } from 'availity-reactstrap-validation';
 // tslint:disable-next-line:no-unused-variable
 import {
@@ -80,7 +80,7 @@ export class Banner extends React.Component<IBannerProps, IBannerState> {
   render() {
     const { bannerList, match, totalItems } = this.props;
     return (
-      <div>
+      <Container>
         <h2 id="banner-heading">
           <Translate contentKey="landexpApp.banner.home.title">Banners</Translate>
           <Link to={`${match.url}/new`} className="btn btn-primary float-right jh-create-entity" id="jh-create-entity">
@@ -212,7 +212,7 @@ export class Banner extends React.Component<IBannerProps, IBannerState> {
             maxButtons={5}
           />
         </Row>
-      </div>
+      </Container>
     );
   }
 }

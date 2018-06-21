@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { connect } from 'react-redux';
 import { Link, RouteComponentProps } from 'react-router-dom';
-import { Button, InputGroup, Col, Row, Table } from 'reactstrap';
+import { Button, InputGroup, Col, Row, Container, Table } from 'reactstrap';
 import { AvForm, AvGroup, AvInput } from 'availity-reactstrap-validation';
 import { getActionType, getLandType, getCityType, getDirection, getPresent, getSaleType, getStatusType } from 'app/shared/util/utils';
 // tslint:disable-next-line:no-unused-variable
@@ -84,7 +84,7 @@ export class House extends React.Component<IHouseProps, IHouseState> {
   render() {
     const { houseList, match, totalItems } = this.props;
     return (
-      <div>
+      <Container>
         <h2 id="house-heading">
           <Translate contentKey="landexpApp.house.home.title">Houses</Translate>
           <Link to={`${match.url}/new`} className="btn btn-primary float-right jh-create-entity" id="jh-create-entity">
@@ -214,7 +214,7 @@ export class House extends React.Component<IHouseProps, IHouseState> {
             maxButtons={5}
           />
         </Row>
-      </div>
+      </Container>
     );
   }
 }

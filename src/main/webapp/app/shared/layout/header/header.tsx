@@ -6,6 +6,7 @@ import { Translate } from 'react-jhipster';
 import FontAwesomeIcon from '@fortawesome/react-fontawesome';
 import { NavLink as Link } from 'react-router-dom';
 import LoadingBar from 'react-redux-loading-bar';
+import { Row, Col } from 'reactstrap';
 
 import Menu from './banner/menu';
 import Search from './search/search';
@@ -13,6 +14,7 @@ import Demand from './demand/demand';
 import Download from './download/download';
 import { Home, Brand, Register, Login, Post } from './header-components';
 import { AdminMenu, ManagerMenu, StaffMenu, CommonMenu, AccountMenu, LocaleMenu } from './menus';
+import SearchPage from 'app/modules/search/search-page';
 
 export interface IHeaderProps {
   isAuthenticated: boolean;
