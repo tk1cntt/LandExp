@@ -7,13 +7,13 @@ import { NavDropdown } from '../header-components';
 const accountMenuItemsAuthenticated = (
   <>
     <DropdownItem tag={Link} to="/tai-khoan/danh-sach-tin-dang">
-      <FontAwesomeIcon icon="wrench" /> Tin đã đăng của bạn
+      <FontAwesomeIcon icon="newspaper" /> Tin đã đăng của bạn
     </DropdownItem>
     <DropdownItem tag={Link} to="/tai-khoan/thong-tin-tai-khoan">
-      <FontAwesomeIcon icon="wrench" /> Thông tin tài khoản
+      <FontAwesomeIcon icon="user-circle" /> Thông tin tài khoản
     </DropdownItem>
     <DropdownItem tag={Link} to="/tai-khoan/thay-doi-mat-khau">
-      <FontAwesomeIcon icon="clock" /> Thay đổi mật khẩu
+      <FontAwesomeIcon icon="key" /> Thay đổi mật khẩu
     </DropdownItem>
     <DropdownItem tag={Link} to="/thoat">
       <FontAwesomeIcon icon="sign-out-alt" /> Thoát

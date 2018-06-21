@@ -60,6 +60,7 @@ export const Home = props => (
 export const Register = props => (
   <NavItem>
     <NavLink tag={Link} to="/dang-ky" className="d-flex align-items-center">
+      <FontAwesomeIcon icon="user-plus" />
       <span>Đăng ký</span>
     </NavLink>
   </NavItem>
@@ -68,6 +69,7 @@ export const Register = props => (
 export const Login = props => (
   <NavItem>
     <NavLink tag={Link} to="/dang-nhap" className="d-flex align-items-center">
+      <FontAwesomeIcon icon="sign-in-alt" />
       <span>Đăng nhập</span>
     </NavLink>
   </NavItem>
