@@ -42,9 +42,9 @@ export class App extends React.Component<IAppProps> {
             isInProduction={this.props.isInProduction}
             isSwaggerEnabled={this.props.isSwaggerEnabled}
           />
-          <Card id="home-content">
+          <div id="home-content">
             <AppRoutes />
-          </Card>
+          </div>
         </div>
       </Router>
     );

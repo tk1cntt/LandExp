@@ -2,7 +2,7 @@ import * as React from 'react';
 import { Link, RouteComponentProps } from 'react-router-dom';
 import { Translate } from 'react-jhipster';
 import { connect } from 'react-redux';
-import { Row, Col, Alert } from 'reactstrap';
+import { Row, Col, Alert, Container } from 'reactstrap';
 
 import { Steps, Button, Card } from 'antd';
 const Step = Steps.Step;
@@ -15,6 +15,8 @@ import { getEntity as getHouse, updateEntity as updateHouse } from 'app/entities
 import { getEntities as getCities } from 'app/entities/city/city.reducer';
 import { getEntities as getServiceFees } from 'app/entities/service-fee/service-fee.reducer';
 import { createEntity as createPhoto, updateEntity as updatePhoto } from 'app/entities/house-photo/house-photo.reducer';
+
+import SearchPage from 'app/modules/search/search-page';
 
 import StepOne from './stepOne';
 import StepTwo from './stepTwo';
@@ -562,57 +564,62 @@ export class PostPage extends React.Component<IPostProp, IPostState> {
 
     return (
       <Row>
-        <Col md="12">
-          <Steps size="small" current={current} style={{ padding: '10px' }}>
-            {steps.map(item => <Step key={item.title} title={item.title} />)}
-          </Steps>
-        </Col>
-        <Col md="8">
-          {this.state.alerts}
-          <div style={{ marginTop: 10, background: '#ECECEC', height: '100%', padding: '5px' }}>
-            <Card title="Thông tin về ngôi nhà của bạn" bordered={false} style={{ width: '100%', height: '100%' }}>
-              <div className="steps-content">{steps[this.state.current].content}</div>
-              <div className="steps-action" style={{ marginTop: 16 }}>
-                {this.state.current > 0 && (
-                  <Button style={{ marginRight: 8 }} onClick={this.prev}>
-                    Quay lại
-                  </Button>
-                )}
-                {this.state.current < steps.length - 2 && (
-                  <Button type="primary" onClick={this.next}>
-                    Tiếp tục
-                  </Button>
-                )}
-                {this.state.current === steps.length - 2 && (
-                  <Button type="primary" onClick={this.saveEntity}>
-                    Hoàn tất
-                  </Button>
-                )}
-                {this.state.current === steps.length - 1 && (
-                  <Button type="primary" style={{ marginRight: 8 }} onClick={this.gotoPreview}>
-                    Xem trước tin đăng
-                  </Button>
-                )}
-                {this.state.current === steps.length - 1 && (
-                  <Button type="primary" onClick={this.gotoPayment}>
-                    Thanh toán
-                  </Button>
-                )}
+        <SearchPage />
+        <Container>
+          <Row style={{ marginTop: 16 }}>
+            <Steps size="small" current={current} style={{ padding: '10px' }}>
+              {steps.map(item => <Step key={item.title} title={item.title} />)}
+            </Steps>
+          </Row>
+          <Row>
+            <Col md="8">
+              {this.state.alerts}
+              <div style={{ marginTop: 10, background: '#ECECEC', height: '100%' }}>
+                <Card title="Thông tin về ngôi nhà của bạn" bordered={false} style={{ width: '100%', height: '100%', padding: '3px' }}>
+                  <div className="steps-content">{steps[this.state.current].content}</div>
+                  <div className="steps-action" style={{ marginTop: 16 }}>
+                    {this.state.current > 0 && (
+                      <Button style={{ marginRight: 8 }} onClick={this.prev}>
+                        Quay lại
+                      </Button>
+                    )}
+                    {this.state.current < steps.length - 2 && (
+                      <Button type="primary" onClick={this.next}>
+                        Tiếp tục
+                      </Button>
+                    )}
+                    {this.state.current === steps.length - 2 && (
+                      <Button type="primary" onClick={this.saveEntity}>
+                        Hoàn tất
+                      </Button>
+                    )}
+                    {this.state.current === steps.length - 1 && (
+                      <Button type="primary" style={{ marginRight: 8 }} onClick={this.gotoPreview}>
+                        Xem trước tin đăng
+                      </Button>
+                    )}
+                    {this.state.current === steps.length - 1 && (
+                      <Button type="primary" onClick={this.gotoPayment}>
+                        Thanh toán
+                      </Button>
+                    )}
+                  </div>
+                </Card>
               </div>
-            </Card>
-          </div>
-        </Col>
-        <Col md="4">
-          <div style={{ marginTop: 10, background: '#ECECEC', height: '100%', padding: '5px' }}>
-            <Card title="Thông tin về ngôi nhà của bạn" bordered={false} style={{ width: '100%', height: '100%' }}>
-              {this.updateHouseTypeInfo()}
-              {this.updateHouseAdressInfo()}
-              {this.updateHouseDetailInfo()}
-              {this.updateHousePriceInfo()}
-              {this.updateHouseContactInfo()}
-            </Card>
-          </div>
-        </Col>
+            </Col>
+            <Col md="4">
+              <div style={{ marginTop: 10, background: '#ECECEC', height: '100%' }}>
+                <Card title="Thông tin về ngôi nhà của bạn" bordered={false} style={{ width: '100%', height: '100%', padding: '3px' }}>
+                  {this.updateHouseTypeInfo()}
+                  {this.updateHouseAdressInfo()}
+                  {this.updateHouseDetailInfo()}
+                  {this.updateHousePriceInfo()}
+                  {this.updateHouseContactInfo()}
+                </Card>
+              </div>
+            </Col>
+          </Row>
+        </Container>
       </Row>
     );
   }

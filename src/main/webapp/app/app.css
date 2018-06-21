@@ -1,8 +1,6 @@
 @import '~bootstrap/dist/css/bootstrap.min.css';
-@import '../swagger-ui/dist/css/bootstrap-theme.min.css';
 
 body {
-  background: url('../swagger-ui/dist/images/home_header_bg.png') no-repeat top center;
   margin: 0px;
   font-family: Helvetica Neue;
   font-weight: 300;
@@ -12,7 +10,7 @@ body {
 }
 
 .container {
-  width: 100%;
+  width: 1170px;
   max-width: 100%!important;
   margin-right: auto;
   margin-left: auto;
