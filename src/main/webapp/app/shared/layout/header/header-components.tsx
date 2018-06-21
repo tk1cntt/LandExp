@@ -21,27 +21,31 @@ export const NavDropdown = props => (
 
 export const BrandIcon = props => (
   <div {...props} className="brand-icon">
-    <img src="static/images/logo-jhipster-react.svg" alt="Logo" />
+    <Link to={'/'}>
+      <img src="static/images/logo.png" alt="Logo" />
+    </Link>
   </div>
 );
 
 export const BreadcrumbComponent = props => (
   <Breadcrumb>
-  { props.layout.map((item) =>
-    (item.active ?
-      (<BreadcrumbItem active>{ item.label }</BreadcrumbItem>)
-      :
-      (<BreadcrumbItem><a href={ item.url }>{ item.label }</a></BreadcrumbItem>)
-    ) )
-  }
+    {props.layout.map(
+      item =>
+        item.active ? (
+          <BreadcrumbItem active>{item.label}</BreadcrumbItem>
+        ) : (
+          <BreadcrumbItem>
+            <a href={item.url}>{item.label}</a>
+          </BreadcrumbItem>
+        )
+    )}
   </Breadcrumb>
 );
 
 export const Brand = props => (
-  <Breadcrumb>
-    <BreadcrumbItem><a href="#">All Page</a></BreadcrumbItem>
-    <BreadcrumbItem active>Library</BreadcrumbItem>
-  </Breadcrumb>
+  <NavbarBrand tag={Link} to="/" className="brand-logo">
+    <BrandIcon />
+  </NavbarBrand>
 );
 
 export const Home = props => (
@@ -49,6 +53,31 @@ export const Home = props => (
     <NavLink tag={Link} to="/" className="d-flex align-items-center">
       <FontAwesomeIcon icon="home" />
       <span>Home</span>
+    </NavLink>
+  </NavItem>
+);
+
+export const Register = props => (
+  <NavItem>
+    <NavLink tag={Link} to="/dang-ky" className="d-flex align-items-center">
+      <span>Đăng ký</span>
+    </NavLink>
+  </NavItem>
+);
+
+export const Login = props => (
+  <NavItem>
+    <NavLink tag={Link} to="/dang-nhap" className="d-flex align-items-center">
+      <span>Đăng nhập</span>
+    </NavLink>
+  </NavItem>
+);
+
+export const Post = props => (
+  <NavItem>
+    <NavLink tag={Link} to="/tai-khoan/dang-tin" className="d-flex align-items-center">
+      <FontAwesomeIcon icon="edit" />
+      <span>Đăng tin</span>
     </NavLink>
   </NavItem>
 );

@@ -1,19 +1,20 @@
 import './menu.css';
 import * as React from 'react';
-
+import { Link } from 'react-router-dom';
 import { Translate } from 'react-jhipster';
-import { Navbar, Nav, NavbarToggler, NavbarBrand, Collapse } from 'reactstrap'
+import { Navbar, Nav, NavbarToggler, NavbarBrand, Collapse } from 'reactstrap';
 
 export default class Menu extends React.Component {
-
-  constructor (props) {
+  constructor(props) {
     super(props);
   }
   render() {
     return (
       <div className="menu-on-header">
         <div className="logo">
-          <a href="/"><img src="static/images/logo.png" alt="LandExp" /></a>
+          <a href="/">
+            <img src="static/images/logo.png" alt="LandExp" />
+          </a>
         </div>
         <ul className="menu">
           <li>
@@ -40,14 +41,14 @@ export default class Menu extends React.Component {
 
         <ul className="menu right-menu">
           <li>
-            <a href="">
+            <Link to={'/dang-ky'}>
               <Translate contentKey="menu.right.register">Register</Translate>
-            </a>
+            </Link>
           </li>
           <li>
-            <a href="">
+            <Link to={'/dang-nhap'}>
               <Translate contentKey="menu.right.login">Login</Translate>
-            </a>
+            </Link>
           </li>
           <li>
             <a className="button" href="">

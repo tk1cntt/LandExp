@@ -6,9 +6,6 @@ import { NavDropdown } from '../header-components';
 
 const accountMenuItemsAuthenticated = (
   <>
-    <DropdownItem tag={Link} to="/tai-khoan/dang-tin">
-      <FontAwesomeIcon icon="wrench" /> Đăng tin
-    </DropdownItem>
     <DropdownItem tag={Link} to="/tai-khoan/danh-sach-tin-dang">
       <FontAwesomeIcon icon="wrench" /> Tin đã đăng của bạn
     </DropdownItem>

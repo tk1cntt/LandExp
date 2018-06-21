@@ -1,4 +1,4 @@
-import '../../../../swagger-ui/dist/css/header.css';
+import './header.css';
 
 import * as React from 'react';
 import { Navbar, Nav, NavbarToggler, NavbarBrand, Collapse } from 'reactstrap';
@@ -11,7 +11,7 @@ import Menu from './banner/menu';
 import Search from './search/search';
 import Demand from './demand/demand';
 import Download from './download/download';
-import { Home, Brand } from './header-components';
+import { Home, Brand, Register, Login, Post } from './header-components';
 import { AdminMenu, ManagerMenu, StaffMenu, CommonMenu, AccountMenu, LocaleMenu } from './menus';
 
 export interface IHeaderProps {
@@ -105,38 +105,26 @@ export default class Header extends React.Component<IHeaderProps, IHeaderState> 
 
     const bedroom = [1, 2, 3, 4];
     const bathroom = [1, 2, 3, 4];
-    if (!isAuthenticated) {
-      return (
-        <div id="app-header" className="header">
-          <div className="container">
-            <Menu />
-            <div className="search">
-              <Demand />
-              <Search land={land} range={range} acreage={acreage} bedroom={bedroom} bathroom={bathroom} />
-              <Download />
-            </div>
-          </div>
-        </div>
-      );
-    }
     return (
       <div id="app-header">
-        {this.renderDevRibbon()}
-        <LoadingBar className="loading-bar" />
-        <Navbar dark expand="sm" fixed="top" className="jh-navbar">
-          <NavbarToggler aria-label="Menu" onClick={this.toggleMenu} />
-          <Brand />
-          <Collapse isOpen={this.state.menuOpen} navbar>
-            <Nav id="header-tabs" className="ml-auto" navbar>
-              <Home />
-              {isAuthenticated && isStaff && <CommonMenu />}
-              {isAuthenticated && isStaff && <StaffMenu />}
-              {isAuthenticated && isManager && <ManagerMenu />}
-              {isAuthenticated && isAdmin && <AdminMenu showSwagger={isSwaggerEnabled} showDatabase={!isInProduction} />}
-              <AccountMenu isAuthenticated={isAuthenticated} />
-            </Nav>
-          </Collapse>
-        </Navbar>
+        <div className="container">
+          <Navbar color="light" light expand="sm" className="jh-navbar">
+            <NavbarToggler aria-label="Menu" onClick={this.toggleMenu} />
+            <Brand />
+            <Collapse isOpen={this.state.menuOpen} navbar>
+              <Nav id="header-tabs" className="ml-auto" navbar>
+                {!isAuthenticated && <Register />}
+                {!isAuthenticated && <Login />}
+                {isAuthenticated && isStaff && <CommonMenu />}
+                {isAuthenticated && isStaff && <StaffMenu />}
+                {isAuthenticated && isManager && <ManagerMenu />}
+                {isAuthenticated && isAdmin && <AdminMenu showSwagger={isSwaggerEnabled} showDatabase={!isInProduction} />}
+                {isAuthenticated && <AccountMenu isAuthenticated={isAuthenticated} />}
+                {isAuthenticated && <Post />}
+              </Nav>
+            </Collapse>
+          </Navbar>
+        </div>
       </div>
     );
   }

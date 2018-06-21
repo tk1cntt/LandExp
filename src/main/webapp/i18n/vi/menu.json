@@ -1,0 +1,34 @@
+{
+  "menu": {
+    "left": {
+      "buy": "Mua",
+      "rent": "Thuê",
+      "help": "Trợ giúp",
+      "news": "Tin tức"
+    },
+    "right": {
+      "register": "Đăng ký",
+      "login": "Đăng nhập",
+      "postNews": "Đăng tin"
+    }
+  },
+  "demand": {
+    "title": "Nhu cầu của bạn là gì?",
+    "buy": "Mua",
+    "rent": "Thuê"
+  },
+  "search": {
+    "title": "Tìm kiếm",
+    "title": "Tìm kiếm",
+    "location": {
+      "title": "Nhập địa điểm, thành phố hoặc dự án"
+    },
+    "range": "Khoảng giá",
+    "acreage": "Diện tích",
+    "bedroom": "Số phòng ngủ",
+    "bathroom": "Số phòng tắm"
+  },
+  "download": {
+    "title": "Tải ứng dụng trên Store"
+  }
+}

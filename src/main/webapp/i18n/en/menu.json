@@ -1,0 +1,33 @@
+{
+  "menu": {
+    "left": {
+      "buy": "Buy",
+      "rent": "Rent",
+      "help": "Help",
+      "news": "News"
+    },
+    "right": {
+      "register": "Register",
+      "login": "Login",
+      "postNews": "Post News"
+    }
+  },
+  "demand": {
+    "title": "What are your demand?",
+    "buy": "Buy",
+    "rent": "Rent"
+  },
+  "search": {
+    "title": "Search",
+    "location": {
+      "title": "Input your location or project"
+    },
+    "range": "Range of price",
+    "acreage": "Acreage",
+    "bedroom": "Number of bedroom",
+    "bathroom": "Number of bathroom"
+  },
+  "download": {
+    "title": "Download App on Store"
+  }
+}
