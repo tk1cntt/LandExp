@@ -86,7 +86,7 @@ export class House extends React.Component<IHouseProps, IHouseState> {
   render() {
     const { houseList, match, totalItems } = this.props;
     return (
-      <div>
+      <Row>
         <SearchPage />
         <Container>
           <h2 id="house-heading">
@@ -219,7 +219,7 @@ export class House extends React.Component<IHouseProps, IHouseState> {
             />
           </Row>
         </Container>
-      </div>
+      </Row>
     );
   }
 }

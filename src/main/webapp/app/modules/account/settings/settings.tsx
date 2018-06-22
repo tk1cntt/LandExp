@@ -40,7 +40,7 @@ export class SettingsPage extends React.Component<IUserSettingsProps, IUserSetti
     const { account } = this.props;
 
     return (
-      <div>
+      <Row>
         <SearchPage />
         <Container>
           <Row className="justify-content-center">
@@ -115,7 +115,7 @@ export class SettingsPage extends React.Component<IUserSettingsProps, IUserSetti
             </Col>
           </Row>
         </Container>
-      </div>
+      </Row>
     );
   }
 }

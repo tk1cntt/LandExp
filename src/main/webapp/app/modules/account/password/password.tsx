@@ -43,7 +43,7 @@ export class PasswordPage extends React.Component<IUserPasswordProps, IUserPassw
     const { account } = this.props;
 
     return (
-      <div>
+      <Row>
         <SearchPage />
         <Container className="justify-content-center">
           <Col md="8">
@@ -105,7 +105,7 @@ export class PasswordPage extends React.Component<IUserPasswordProps, IUserPassw
             </AvForm>
           </Col>
         </Container>
-      </div>
+      </Row>
     );
   }
 }
