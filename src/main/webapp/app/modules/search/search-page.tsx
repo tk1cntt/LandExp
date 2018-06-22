@@ -20,10 +20,10 @@ export class SearchPage extends React.Component<ISearchPageProp> {
   actionTypeForm() {
     return (
       <Select style={{ width: 140, marginRight: 5 }} placeholder="Hình thức" onChange={this.handleChangeActionType}>
-        <Option value='FOR_SELL'>Bán</Option>
-        <Option value='FOR_RENT'>Cho thuê</Option>
+        <Option value="FOR_SELL">Bán</Option>
+        <Option value="FOR_RENT">Cho thuê</Option>
       </Select>
-    )
+    );
   }
 
   landTypeForm() {
@@ -42,13 +42,13 @@ export class SearchPage extends React.Component<ISearchPageProp> {
         <Option value="WAREHOUSES">{getLandType('WAREHOUSES')}</Option>
         <Option value="KIOSKS">{getLandType('KIOSKS')}</Option>
       </Select>
-    )
+    );
   }
 
   keywordForm() {
     return (
       <Input style={{ width: 345, marginRight: 5 }} placeholder="Nhập địa điểm, thành phố hoặc dự án" />
-    )
+    );
   }
 
   priceForm() {
@@ -62,7 +62,7 @@ export class SearchPage extends React.Component<ISearchPageProp> {
         <Option value="">3 - 5 tỷ</Option>
         <Option value="">&gt; 5 tỷ</Option>
       </Select>
-    )
+    );
   }
 
   acreageForm() {
@@ -74,7 +74,7 @@ export class SearchPage extends React.Component<ISearchPageProp> {
         <Option value="">100 - 200 m2</Option>
         <Option value="">&gt; 200 m2</Option>
       </Select>
-    )
+    );
   }
 
   render() {

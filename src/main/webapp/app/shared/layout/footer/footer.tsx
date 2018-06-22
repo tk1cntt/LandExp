@@ -51,7 +51,7 @@ const Footer = props => (
       						<FontAwesomeIcon icon="youtube" />
       					</div>
       				</div>
-      				<div className="clearfix"></div>
+      				<div className="clearfix" />
       			</div>
       			<div className="copyright">
       				<p>Copyright © 2018 LandExp. All rights reserved.</p>
