@@ -14,6 +14,8 @@ import { IServiceFee } from 'app/shared/model/service-fee.model';
 import { APP_DATE_FORMAT, APP_LOCAL_DATE_FORMAT } from 'app/config/constants';
 import { getSaleType } from 'app/shared/util/utils';
 
+import SearchPage from 'app/modules/search/search-page';
+
 export interface IServiceFeeProps extends StateProps, DispatchProps, RouteComponentProps<{ url: string }> {}
 
 export interface IServiceFeeState {
@@ -47,71 +49,74 @@ export class ServiceFee extends React.Component<IServiceFeeProps, IServiceFeeSta
   render() {
     const { serviceFeeList, match } = this.props;
     return (
-      <Container>
-        <h2 id="service-fee-heading">
-          <Translate contentKey="landexpApp.serviceFee.home.title">Service Fees</Translate>
-          <Link to={`${match.url}/new`} className="btn btn-primary float-right jh-create-entity" id="jh-create-entity">
-            <FontAwesomeIcon icon="plus" />&nbsp;
-            <Translate contentKey="landexpApp.serviceFee.home.createLabel">Create new Service Fee</Translate>
-          </Link>
-        </h2>
-        <Row>
-          <Col sm="12">
-            <AvForm onSubmit={this.search}>
-              <AvGroup>
-                <InputGroup>
-                  <AvInput
-                    type="text"
-                    name="search"
-                    value={this.state.search}
-                    onChange={this.handleSearch}
-                    placeholder={translate('landexpApp.serviceFee.home.search')}
-                  />
-                  <Button className="input-group-addon">
-                    <FontAwesomeIcon icon="search" />
-                  </Button>
-                  <Button type="reset" className="input-group-addon" onClick={this.clear}>
-                    <FontAwesomeIcon icon="trash" />
-                  </Button>
-                </InputGroup>
-              </AvGroup>
-            </AvForm>
-          </Col>
-        </Row>
-        <div className="table-responsive">
-          <Table responsive>
-            <thead>
-              <tr>
-                <th>
-                  <Translate contentKey="landexpApp.serviceFee.saleType">Sale Type</Translate>
-                </th>
-                <th>
-                  <Translate contentKey="landexpApp.serviceFee.fee">Fee</Translate>
-                </th>
-                <th />
-              </tr>
-            </thead>
-            <tbody>
-              {serviceFeeList.map((serviceFee, i) => (
-                <tr key={`entity-${i}`}>
-                  <td>{getSaleType(serviceFee.saleType)}</td>
-                  <td>{new Intl.NumberFormat().format(serviceFee.fee)} VNĐ</td>
-                  <td className="text-right">
-                    <div className="btn-group flex-btn-group-container">
-                      <Button tag={Link} to={`${match.url}/${serviceFee.id}/edit`} color="primary" size="sm">
-                        <FontAwesomeIcon icon="pencil-alt" />{' '}
-                        <span className="d-none d-md-inline">
-                          <Translate contentKey="entity.action.edit">Edit</Translate>
-                        </span>
-                      </Button>
-                    </div>
-                  </td>
+      <Row>
+        <SearchPage />
+        <Container>
+          <h2 id="service-fee-heading">
+            <Translate contentKey="landexpApp.serviceFee.home.title">Service Fees</Translate>
+            <Link to={`${match.url}/new`} className="btn btn-primary float-right jh-create-entity" id="jh-create-entity">
+              <FontAwesomeIcon icon="plus" />&nbsp;
+              <Translate contentKey="landexpApp.serviceFee.home.createLabel">Create new Service Fee</Translate>
+            </Link>
+          </h2>
+          <Row>
+            <Col sm="12">
+              <AvForm onSubmit={this.search}>
+                <AvGroup>
+                  <InputGroup>
+                    <AvInput
+                      type="text"
+                      name="search"
+                      value={this.state.search}
+                      onChange={this.handleSearch}
+                      placeholder={translate('landexpApp.serviceFee.home.search')}
+                    />
+                    <Button className="input-group-addon">
+                      <FontAwesomeIcon icon="search" />
+                    </Button>
+                    <Button type="reset" className="input-group-addon" onClick={this.clear}>
+                      <FontAwesomeIcon icon="trash" />
+                    </Button>
+                  </InputGroup>
+                </AvGroup>
+              </AvForm>
+            </Col>
+          </Row>
+          <div className="table-responsive">
+            <Table responsive>
+              <thead>
+                <tr>
+                  <th>
+                    <Translate contentKey="landexpApp.serviceFee.saleType">Sale Type</Translate>
+                  </th>
+                  <th>
+                    <Translate contentKey="landexpApp.serviceFee.fee">Fee</Translate>
+                  </th>
+                  <th />
                 </tr>
-              ))}
-            </tbody>
-          </Table>
-        </div>
-      </Container>
+              </thead>
+              <tbody>
+                {serviceFeeList.map((serviceFee, i) => (
+                  <tr key={`entity-${i}`}>
+                    <td>{getSaleType(serviceFee.saleType)}</td>
+                    <td>{new Intl.NumberFormat().format(serviceFee.fee)} VNĐ</td>
+                    <td className="text-right">
+                      <div className="btn-group flex-btn-group-container">
+                        <Button tag={Link} to={`${match.url}/${serviceFee.id}/edit`} color="primary" size="sm">
+                          <FontAwesomeIcon icon="pencil-alt" />{' '}
+                          <span className="d-none d-md-inline">
+                            <Translate contentKey="entity.action.edit">Edit</Translate>
+                          </span>
+                        </Button>
+                      </div>
+                    </td>
+                  </tr>
+                ))}
+              </tbody>
+            </Table>
+          </div>
+        </Container>
+      </Row>
     );
   }
 }

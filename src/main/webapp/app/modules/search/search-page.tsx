@@ -81,7 +81,7 @@ export class SearchPage extends React.Component<ISearchPageProp> {
     const { account } = this.props;
     return (
       <Col md="12">
-        <div className="nav-search">
+        <div style={{ marginBottom: 30 }}className="nav-search">
           <div className="container">
             <div className="row">
               {this.actionTypeForm()}

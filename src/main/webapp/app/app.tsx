@@ -45,6 +45,7 @@ export class App extends React.Component<IAppProps> {
           <div id="home-content">
             <AppRoutes />
           </div>
+          <Footer />
         </div>
       </Router>
     );

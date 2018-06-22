@@ -4,7 +4,7 @@ import * as React from 'react';
 import { Navbar, Nav, NavbarToggler, NavbarBrand, Collapse } from 'reactstrap';
 import { Translate } from 'react-jhipster';
 import FontAwesomeIcon from '@fortawesome/react-fontawesome';
-import { NavLink as Link } from 'react-router-dom';
+import { NavLink as Link, RouteComponentProps } from 'react-router-dom';
 import LoadingBar from 'react-redux-loading-bar';
 import { Row, Col } from 'reactstrap';
 

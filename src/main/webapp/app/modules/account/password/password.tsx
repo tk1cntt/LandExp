@@ -2,12 +2,14 @@ import * as React from 'react';
 import { Translate, translate } from 'react-jhipster';
 import { connect } from 'react-redux';
 import { AvForm, AvField } from 'availity-reactstrap-validation';
-import { Row, Col, Button } from 'reactstrap';
+import { Row, Col, Container, Button } from 'reactstrap';
 
 import { IRootState } from 'app/shared/reducers';
 import { getSession } from 'app/shared/reducers/authentication';
 import PasswordStrengthBar from 'app/shared/layout/password/password-strength-bar';
 import { savePassword, reset } from './password.reducer';
+
+import SearchPage from 'app/modules/search/search-page';
 
 export interface IUserPasswordProps extends StateProps, DispatchProps {}
 
@@ -42,7 +44,8 @@ export class PasswordPage extends React.Component<IUserPasswordProps, IUserPassw
 
     return (
       <div>
-        <Row className="justify-content-center">
+        <SearchPage />
+        <Container className="justify-content-center">
           <Col md="8">
             <h2 id="password-title">
               <Translate contentKey="password.title" interpolate={{ username: account.login }}>
@@ -101,7 +104,7 @@ export class PasswordPage extends React.Component<IUserPasswordProps, IUserPassw
               </Button>
             </AvForm>
           </Col>
-        </Row>
+        </Container>
       </div>
     );
   }

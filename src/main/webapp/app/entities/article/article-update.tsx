@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { connect } from 'react-redux';
 import { Link, RouteComponentProps } from 'react-router-dom';
-import { Button, Row, Col, Label } from 'reactstrap';
+import { Button, Row, Col, Container, Label } from 'reactstrap';
 import { AvForm, AvGroup, AvInput, AvField } from 'availity-reactstrap-validation';
 // tslint:disable-next-line:no-unused-variable
 import { Translate, translate, ICrudGetAction, ICrudGetAllAction, setFileData, openFile, byteSize, ICrudPutAction } from 'react-jhipster';
@@ -17,6 +17,8 @@ import { IArticle } from 'app/shared/model/article.model';
 // tslint:disable-next-line:no-unused-variable
 import { convertDateTimeFromServer } from 'app/shared/util/date-utils';
 import { keysToValues } from 'app/shared/util/entity-utils';
+
+import SearchPage from 'app/modules/search/search-page';
 
 export interface IArticleUpdateProps extends StateProps, DispatchProps, RouteComponentProps<{ id: number }> {}
 
@@ -137,179 +139,182 @@ export class ArticleUpdate extends React.Component<IArticleUpdateProps, IArticle
     const { avatar, avatarContentType } = articleEntity;
 
     return (
-      <div>
-        <Row className="justify-content-center">
-          <Col md="8">
-            <h2 id="landexpApp.article.home.createOrEditLabel">
-              <Translate contentKey="landexpApp.article.home.createOrEditLabel">Create or edit a Article</Translate>
-            </h2>
-          </Col>
-        </Row>
-        <Row className="justify-content-center">
-          <Col md="8">
-            {loading ? (
-              <p>Loading...</p>
-            ) : (
-              <AvForm model={isNew ? {} : articleEntity} onSubmit={this.saveEntity}>
-                {!isNew ? (
+      <Row>
+        <SearchPage />
+        <Container>
+          <Row className="justify-content-center">
+            <Col md="12">
+              <h2 id="landexpApp.article.home.createOrEditLabel">
+                <Translate contentKey="landexpApp.article.home.createOrEditLabel">Create or edit a Article</Translate>
+              </h2>
+            </Col>
+          </Row>
+          <Row className="justify-content-center">
+            <Col md="12">
+              {loading ? (
+                <p>Loading...</p>
+              ) : (
+                <AvForm model={isNew ? {} : articleEntity} onSubmit={this.saveEntity}>
+                  {!isNew ? (
+                    <AvGroup>
+                      <Label for="id">
+                        <Translate contentKey="global.field.id">ID</Translate>
+                      </Label>
+                      <AvInput id="article-id" type="text" className="form-control" name="id" required readOnly />
+                    </AvGroup>
+                  ) : null}
                   <AvGroup>
-                    <Label for="id">
-                      <Translate contentKey="global.field.id">ID</Translate>
-                    </Label>
-                    <AvInput id="article-id" type="text" className="form-control" name="id" required readOnly />
+                    <AvGroup>
+                      <Label id="avatarLabel" for="avatar">
+                        <Translate contentKey="landexpApp.article.avatar">Avatar</Translate>
+                      </Label>
+                      <br />
+                      {avatar ? (
+                        <div>
+                          <a onClick={openFile(avatarContentType, avatar)}>
+                            <img src={`data:${avatarContentType};base64,${avatar}`} style={{ maxHeight: '100px' }} />
+                          </a>
+                          <br />
+                          <Row>
+                            <Col md="11">
+                              <span>
+                                {avatarContentType}, {byteSize(avatar)}
+                              </span>
+                            </Col>
+                            <Col md="1">
+                              <Button color="danger" onClick={this.clearBlob('avatar')}>
+                                <FontAwesomeIcon icon="times-circle" />
+                              </Button>
+                            </Col>
+                          </Row>
+                        </div>
+                      ) : null}
+                      <input id="file_avatar" type="file" onChange={this.onBlobChange(true, 'avatar')} accept="image/*" />
+                    </AvGroup>
                   </AvGroup>
-                ) : null}
-                <AvGroup>
                   <AvGroup>
-                    <Label id="avatarLabel" for="avatar">
-                      <Translate contentKey="landexpApp.article.avatar">Avatar</Translate>
+                    <Label id="titleLabel" for="title">
+                      <Translate contentKey="landexpApp.article.title">Title</Translate>
                     </Label>
-                    <br />
-                    {avatar ? (
-                      <div>
-                        <a onClick={openFile(avatarContentType, avatar)}>
-                          <img src={`data:${avatarContentType};base64,${avatar}`} style={{ maxHeight: '100px' }} />
-                        </a>
-                        <br />
-                        <Row>
-                          <Col md="11">
-                            <span>
-                              {avatarContentType}, {byteSize(avatar)}
-                            </span>
-                          </Col>
-                          <Col md="1">
-                            <Button color="danger" onClick={this.clearBlob('avatar')}>
-                              <FontAwesomeIcon icon="times-circle" />
-                            </Button>
-                          </Col>
-                        </Row>
-                      </div>
-                    ) : null}
-                    <input id="file_avatar" type="file" onChange={this.onBlobChange(true, 'avatar')} accept="image/*" />
+                    <AvField id="article-title" type="text" name="title" />
                   </AvGroup>
-                </AvGroup>
-                <AvGroup>
-                  <Label id="titleLabel" for="title">
-                    <Translate contentKey="landexpApp.article.title">Title</Translate>
-                  </Label>
-                  <AvField id="article-title" type="text" name="title" />
-                </AvGroup>
-                <AvGroup>
-                  <Label id="titleAliasLabel" for="titleAlias">
-                    <Translate contentKey="landexpApp.article.titleAlias">Title Alias</Translate>
-                  </Label>
-                  <AvField id="article-titleAlias" type="text" name="titleAlias" />
-                </AvGroup>
-                <AvGroup>
-                  <Label id="summaryLabel" for="summary">
-                    <Translate contentKey="landexpApp.article.summary">Summary</Translate>
-                  </Label>
-                  <AvField id="article-summary" type="text" name="summary" />
-                </AvGroup>
-                <AvGroup>
-                  <Label id="contentLabel" for="content">
-                    <Translate contentKey="landexpApp.article.content">Content</Translate>
-                  </Label>
-                  <AvField id="article-content" type="text" name="content" />
-                </AvGroup>
-                <AvGroup>
-                  <Label id="statusTypeLabel">
-                    <Translate contentKey="landexpApp.article.statusType">Status Type</Translate>
-                  </Label>
-                  <AvInput
-                    id="article-statusType"
-                    type="select"
-                    className="form-control"
-                    name="statusType"
-                    value={(!isNew && articleEntity.statusType) || 'OPEN'}
-                  >
-                    <option value="OPEN">OPEN</option>
-                    <option value="PENDING">PENDING</option>
-                    <option value="PAID">PAID</option>
-                    <option value="CANCELED">CANCELED</option>
-                    <option value="EXPIRED">EXPIRED</option>
-                    <option value="SOLD">SOLD</option>
-                  </AvInput>
-                </AvGroup>
-                <AvGroup>
-                  <Label id="hitsLabel" for="hits">
-                    <Translate contentKey="landexpApp.article.hits">Hits</Translate>
-                  </Label>
-                  <AvField id="article-hits" type="number" className="form-control" name="hits" />
-                </AvGroup>
-                <AvGroup>
-                  <Label id="createAtLabel" for="createAt">
-                    <Translate contentKey="landexpApp.article.createAt">Create At</Translate>
-                  </Label>
-                  <AvField id="article-createAt" type="date" className="form-control" name="createAt" />
-                </AvGroup>
-                <AvGroup>
-                  <Label id="updateAtLabel" for="updateAt">
-                    <Translate contentKey="landexpApp.article.updateAt">Update At</Translate>
-                  </Label>
-                  <AvField id="article-updateAt" type="date" className="form-control" name="updateAt" />
-                </AvGroup>
-                <AvGroup>
-                  <Label for="category.name">
-                    <Translate contentKey="landexpApp.article.category">Category</Translate>
-                  </Label>
-                  <AvInput id="article-category" type="select" className="form-control" name="categoryId" onChange={this.categoryUpdate}>
-                    <option value="" key="0" />
-                    {categories
-                      ? categories.map(otherEntity => (
-                          <option value={otherEntity.id} key={otherEntity.id}>
-                            {otherEntity.name}
-                          </option>
-                        ))
-                      : null}
-                  </AvInput>
-                </AvGroup>
-                <AvGroup>
-                  <Label for="createBy.login">
-                    <Translate contentKey="landexpApp.article.createBy">Create By</Translate>
-                  </Label>
-                  <AvInput id="article-createBy" type="select" className="form-control" name="createById" onChange={this.createByUpdate}>
-                    <option value="" key="0" />
-                    {users
-                      ? users.map(otherEntity => (
-                          <option value={otherEntity.id} key={otherEntity.id}>
-                            {otherEntity.login}
-                          </option>
-                        ))
-                      : null}
-                  </AvInput>
-                </AvGroup>
-                <AvGroup>
-                  <Label for="updateBy.login">
-                    <Translate contentKey="landexpApp.article.updateBy">Update By</Translate>
-                  </Label>
-                  <AvInput id="article-updateBy" type="select" className="form-control" name="updateById" onChange={this.updateByUpdate}>
-                    <option value="" key="0" />
-                    {users
-                      ? users.map(otherEntity => (
-                          <option value={otherEntity.id} key={otherEntity.id}>
-                            {otherEntity.login}
-                          </option>
-                        ))
-                      : null}
-                  </AvInput>
-                </AvGroup>
-                <Button tag={Link} id="cancel-save" to="/entity/article" replace color="info">
-                  <FontAwesomeIcon icon="arrow-left" />&nbsp;
-                  <span className="d-none d-md-inline">
-                    <Translate contentKey="entity.action.back">Back</Translate>
-                  </span>
-                </Button>
-                &nbsp;
-                <Button color="primary" id="save-entity" type="submit" disabled={isInvalid || updating}>
-                  <FontAwesomeIcon icon="save" />&nbsp;
-                  <Translate contentKey="entity.action.save">Save</Translate>
-                </Button>
-              </AvForm>
-            )}
-          </Col>
-        </Row>
-      </div>
+                  <AvGroup>
+                    <Label id="titleAliasLabel" for="titleAlias">
+                      <Translate contentKey="landexpApp.article.titleAlias">Title Alias</Translate>
+                    </Label>
+                    <AvField id="article-titleAlias" type="text" name="titleAlias" />
+                  </AvGroup>
+                  <AvGroup>
+                    <Label id="summaryLabel" for="summary">
+                      <Translate contentKey="landexpApp.article.summary">Summary</Translate>
+                    </Label>
+                    <AvField id="article-summary" type="text" name="summary" />
+                  </AvGroup>
+                  <AvGroup>
+                    <Label id="contentLabel" for="content">
+                      <Translate contentKey="landexpApp.article.content">Content</Translate>
+                    </Label>
+                    <AvField id="article-content" type="text" name="content" />
+                  </AvGroup>
+                  <AvGroup>
+                    <Label id="statusTypeLabel">
+                      <Translate contentKey="landexpApp.article.statusType">Status Type</Translate>
+                    </Label>
+                    <AvInput
+                      id="article-statusType"
+                      type="select"
+                      className="form-control"
+                      name="statusType"
+                      value={(!isNew && articleEntity.statusType) || 'OPEN'}
+                    >
+                      <option value="OPEN">OPEN</option>
+                      <option value="PENDING">PENDING</option>
+                      <option value="PAID">PAID</option>
+                      <option value="CANCELED">CANCELED</option>
+                      <option value="EXPIRED">EXPIRED</option>
+                      <option value="SOLD">SOLD</option>
+                    </AvInput>
+                  </AvGroup>
+                  <AvGroup>
+                    <Label id="hitsLabel" for="hits">
+                      <Translate contentKey="landexpApp.article.hits">Hits</Translate>
+                    </Label>
+                    <AvField id="article-hits" type="number" className="form-control" name="hits" />
+                  </AvGroup>
+                  <AvGroup>
+                    <Label id="createAtLabel" for="createAt">
+                      <Translate contentKey="landexpApp.article.createAt">Create At</Translate>
+                    </Label>
+                    <AvField id="article-createAt" type="date" className="form-control" name="createAt" />
+                  </AvGroup>
+                  <AvGroup>
+                    <Label id="updateAtLabel" for="updateAt">
+                      <Translate contentKey="landexpApp.article.updateAt">Update At</Translate>
+                    </Label>
+                    <AvField id="article-updateAt" type="date" className="form-control" name="updateAt" />
+                  </AvGroup>
+                  <AvGroup>
+                    <Label for="category.name">
+                      <Translate contentKey="landexpApp.article.category">Category</Translate>
+                    </Label>
+                    <AvInput id="article-category" type="select" className="form-control" name="categoryId" onChange={this.categoryUpdate}>
+                      <option value="" key="0" />
+                      {categories
+                        ? categories.map(otherEntity => (
+                            <option value={otherEntity.id} key={otherEntity.id}>
+                              {otherEntity.name}
+                            </option>
+                          ))
+                        : null}
+                    </AvInput>
+                  </AvGroup>
+                  <AvGroup>
+                    <Label for="createBy.login">
+                      <Translate contentKey="landexpApp.article.createBy">Create By</Translate>
+                    </Label>
+                    <AvInput id="article-createBy" type="select" className="form-control" name="createById" onChange={this.createByUpdate}>
+                      <option value="" key="0" />
+                      {users
+                        ? users.map(otherEntity => (
+                            <option value={otherEntity.id} key={otherEntity.id}>
+                              {otherEntity.login}
+                            </option>
+                          ))
+                        : null}
+                    </AvInput>
+                  </AvGroup>
+                  <AvGroup>
+                    <Label for="updateBy.login">
+                      <Translate contentKey="landexpApp.article.updateBy">Update By</Translate>
+                    </Label>
+                    <AvInput id="article-updateBy" type="select" className="form-control" name="updateById" onChange={this.updateByUpdate}>
+                      <option value="" key="0" />
+                      {users
+                        ? users.map(otherEntity => (
+                            <option value={otherEntity.id} key={otherEntity.id}>
+                              {otherEntity.login}
+                            </option>
+                          ))
+                        : null}
+                    </AvInput>
+                  </AvGroup>
+                  <Button tag={Link} id="cancel-save" to="/entity/article" replace color="info">
+                    <FontAwesomeIcon icon="arrow-left" />&nbsp;
+                    <span className="d-none d-md-inline">
+                      <Translate contentKey="entity.action.back">Back</Translate>
+                    </span>
+                  </Button>
+                  &nbsp;
+                  <Button color="primary" id="save-entity" type="submit" disabled={isInvalid || updating}>
+                    <FontAwesomeIcon icon="save" />&nbsp;
+                    <Translate contentKey="entity.action.save">Save</Translate>
+                  </Button>
+                </AvForm>
+              )}
+            </Col>
+          </Row>
+        </Container>
+      </Row>
     );
   }
 }

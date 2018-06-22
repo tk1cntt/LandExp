@@ -566,15 +566,15 @@ export class PostPage extends React.Component<IPostProp, IPostState> {
       <Row>
         <SearchPage />
         <Container>
-          <Row style={{ marginTop: 16 }}>
-            <Steps size="small" current={current} style={{ padding: '10px' }}>
+          <Row>
+            <Steps size="small" current={current}>
               {steps.map(item => <Step key={item.title} title={item.title} />)}
             </Steps>
           </Row>
           <Row>
             <Col md="8">
               {this.state.alerts}
-              <div style={{ marginTop: 10, background: '#ECECEC', height: '100%' }}>
+              <div style={{ height: '100%' }}>
                 <Card title="Thông tin về ngôi nhà của bạn" bordered={false} style={{ width: '100%', height: '100%', padding: '3px' }}>
                   <div className="steps-content">{steps[this.state.current].content}</div>
                   <div className="steps-action" style={{ marginTop: 16 }}>
@@ -608,7 +608,7 @@ export class PostPage extends React.Component<IPostProp, IPostState> {
               </div>
             </Col>
             <Col md="4">
-              <div style={{ marginTop: 10, background: '#ECECEC', height: '100%' }}>
+              <div style={{ height: '100%' }}>
                 <Card title="Thông tin về ngôi nhà của bạn" bordered={false} style={{ width: '100%', height: '100%', padding: '3px' }}>
                   {this.updateHouseTypeInfo()}
                   {this.updateHouseAdressInfo()}

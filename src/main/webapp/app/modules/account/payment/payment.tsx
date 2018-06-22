@@ -10,6 +10,8 @@ import { IRootState } from 'app/shared/reducers';
 import { getSession } from 'app/shared/reducers/authentication';
 import { getEntity as getPayment } from 'app/entities/payment/payment.reducer';
 
+import SearchPage from 'app/modules/search/search-page';
+
 export interface IPaymentProp extends StateProps, DispatchProps, RouteComponentProps<{ id: number }> {}
 
 export interface IPaymentState {
@@ -80,35 +82,38 @@ export class Payment extends React.Component<IPaymentProp, IPaymentState> {
       lineHeight: '30px'
     };
     return (
-      <Container>
-        <Col md="8">
-          <div style={{ marginTop: 10, background: '#ECECEC', height: '100%', padding: '5px' }}>
-            <Card title="Thanh toán phí đăng tin" bordered={false} style={{ width: '100%', height: '100%' }}>
-              <div>
-                <h6>Bạn vui lòng chọn hình thức thanh toán phí đăng tin dưới đây.</h6>
-              </div>
-              <div>
-                <RadioGroup onChange={this.onChange} value={this.state.value}>
-                  <Radio style={radioStyle} value={1}>
-                    Thanh toán chuyển khoản
-                  </Radio>
-                  <Radio style={radioStyle} value={2}>
-                    Thanh toán online
-                  </Radio>
-                </RadioGroup>
-              </div>
-              {this.state.value === 1 ? this.updateTransferInfo() : ''}
-            </Card>
-          </div>
-        </Col>
-        <Col md="4">
-          <div style={{ marginTop: 10, background: '#ECECEC', height: '100%', padding: '5px' }}>
-            <Card title="Thông tin thanh toán của bạn" bordered={false} style={{ width: '100%', height: '100%' }}>
-              {this.updatePaymentInfo()}
-            </Card>
-          </div>
-        </Col>
-      </Container>
+      <div>
+        <SearchPage />
+        <Container>
+          <Col md="8">
+            <div style={{ marginTop: 10, background: '#ECECEC', height: '100%', padding: '5px' }}>
+              <Card title="Thanh toán phí đăng tin" bordered={false} style={{ width: '100%', height: '100%' }}>
+                <div>
+                  <h6>Bạn vui lòng chọn hình thức thanh toán phí đăng tin dưới đây.</h6>
+                </div>
+                <div>
+                  <RadioGroup onChange={this.onChange} value={this.state.value}>
+                    <Radio style={radioStyle} value={1}>
+                      Thanh toán chuyển khoản
+                    </Radio>
+                    <Radio style={radioStyle} value={2}>
+                      Thanh toán online
+                    </Radio>
+                  </RadioGroup>
+                </div>
+                {this.state.value === 1 ? this.updateTransferInfo() : ''}
+              </Card>
+            </div>
+          </Col>
+          <Col md="4">
+            <div style={{ marginTop: 10, background: '#ECECEC', height: '100%', padding: '5px' }}>
+              <Card title="Thông tin thanh toán của bạn" bordered={false} style={{ width: '100%', height: '100%' }}>
+                {this.updatePaymentInfo()}
+              </Card>
+            </div>
+          </Col>
+        </Container>
+      </div>
     );
   }
 }

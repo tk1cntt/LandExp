@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { connect } from 'react-redux';
 import { Link, RouteComponentProps } from 'react-router-dom';
-import { Button, Row, Col, Label } from 'reactstrap';
+import { Button, Row, Col, Container, Label } from 'reactstrap';
 import { AvForm, AvGroup, AvInput, AvField } from 'availity-reactstrap-validation';
 // tslint:disable-next-line:no-unused-variable
 import { Translate, translate, ICrudGetAction, ICrudGetAllAction, ICrudPutAction } from 'react-jhipster';
@@ -17,6 +17,8 @@ import { IPayment } from 'app/shared/model/payment.model';
 // tslint:disable-next-line:no-unused-variable
 import { convertDateTimeFromServer } from 'app/shared/util/date-utils';
 import { keysToValues } from 'app/shared/util/entity-utils';
+
+import SearchPage from 'app/modules/search/search-page';
 
 export interface IPaymentUpdateProps extends StateProps, DispatchProps, RouteComponentProps<{ id: number }> {}
 
@@ -146,150 +148,152 @@ export class PaymentUpdate extends React.Component<IPaymentUpdateProps, IPayment
     const { isNew } = this.state;
 
     return (
-      <div>
-        <Row className="justify-content-center">
-          <Col md="8">
-            <h2 id="landexpApp.payment.home.createOrEditLabel">
-              <Translate contentKey="landexpApp.payment.home.createOrEditLabel">Create or edit a Payment</Translate>
-            </h2>
-          </Col>
-        </Row>
-        <Row className="justify-content-center">
-          <Col md="8">
-            {loading ? (
-              <p>Loading...</p>
-            ) : (
-              <AvForm model={isNew ? {} : paymentEntity} onSubmit={this.saveEntity}>
-                {!isNew ? (
+      <Row>
+        <Container>
+          <Row className="justify-content-center">
+            <Col md="8">
+              <h2 id="landexpApp.payment.home.createOrEditLabel">
+                <Translate contentKey="landexpApp.payment.home.createOrEditLabel">Create or edit a Payment</Translate>
+              </h2>
+            </Col>
+          </Row>
+          <Row className="justify-content-center">
+            <Col md="8">
+              {loading ? (
+                <p>Loading...</p>
+              ) : (
+                <AvForm model={isNew ? {} : paymentEntity} onSubmit={this.saveEntity}>
+                  {!isNew ? (
+                    <AvGroup>
+                      <Label for="id">
+                        <Translate contentKey="global.field.id">ID</Translate>
+                      </Label>
+                      <AvInput id="payment-id" type="text" className="form-control" name="id" required readOnly />
+                    </AvGroup>
+                  ) : null}
                   <AvGroup>
-                    <Label for="id">
-                      <Translate contentKey="global.field.id">ID</Translate>
+                    <Label id="codeLabel" for="code">
+                      <Translate contentKey="landexpApp.payment.code">Code</Translate>
                     </Label>
-                    <AvInput id="payment-id" type="text" className="form-control" name="id" required readOnly />
+                    <AvField id="payment-code" type="text" name="code" />
                   </AvGroup>
-                ) : null}
-                <AvGroup>
-                  <Label id="codeLabel" for="code">
-                    <Translate contentKey="landexpApp.payment.code">Code</Translate>
-                  </Label>
-                  <AvField id="payment-code" type="text" name="code" />
-                </AvGroup>
-                <AvGroup>
-                  <Label id="moneyLabel" for="money">
-                    <Translate contentKey="landexpApp.payment.money">Money</Translate>
-                  </Label>
-                  <AvField id="payment-money" type="number" className="form-control" name="money" />
-                </AvGroup>
-                <AvGroup>
-                  <Label id="paidTimeLabel" for="paidTime">
-                    <Translate contentKey="landexpApp.payment.paidTime">Paid Time</Translate>
-                  </Label>
-                  <AvField id="payment-paidTime" type="date" className="form-control" name="paidTime" />
-                </AvGroup>
-                <AvGroup>
-                  <Label id="paymentStatusLabel">
-                    <Translate contentKey="landexpApp.payment.paymentStatus">Payment Status</Translate>
-                  </Label>
-                  <AvInput
-                    id="payment-paymentStatus"
-                    type="select"
-                    className="form-control"
-                    name="paymentStatus"
-                    value={(!isNew && paymentEntity.paymentStatus) || 'PENDING'}
-                  >
-                    <option value="PENDING">PENDING</option>
-                    <option value="PAID">PAID</option>
-                    <option value="CANCELED">CANCELED</option>
-                  </AvInput>
-                </AvGroup>
-                <AvGroup>
-                  <Label id="createAtLabel" for="createAt">
-                    <Translate contentKey="landexpApp.payment.createAt">Create At</Translate>
-                  </Label>
-                  <AvField id="payment-createAt" type="date" className="form-control" name="createAt" />
-                </AvGroup>
-                <AvGroup>
-                  <Label id="updateAtLabel" for="updateAt">
-                    <Translate contentKey="landexpApp.payment.updateAt">Update At</Translate>
-                  </Label>
-                  <AvField id="payment-updateAt" type="date" className="form-control" name="updateAt" />
-                </AvGroup>
-                <AvGroup>
-                  <Label for="house.id">
-                    <Translate contentKey="landexpApp.payment.house">House</Translate>
-                  </Label>
-                  <AvInput id="payment-house" type="select" className="form-control" name="houseId" onChange={this.houseUpdate}>
-                    <option value="" key="0" />
-                    {houses
-                      ? houses.map(otherEntity => (
-                          <option value={otherEntity.id} key={otherEntity.id}>
-                            {otherEntity.id}
-                          </option>
-                        ))
-                      : null}
-                  </AvInput>
-                </AvGroup>
-                <AvGroup>
-                  <Label for="customer.login">
-                    <Translate contentKey="landexpApp.payment.customer">Customer</Translate>
-                  </Label>
-                  <AvInput id="payment-customer" type="select" className="form-control" name="customerId" onChange={this.customerUpdate}>
-                    <option value="" key="0" />
-                    {users
-                      ? users.map(otherEntity => (
-                          <option value={otherEntity.id} key={otherEntity.id}>
-                            {otherEntity.login}
-                          </option>
-                        ))
-                      : null}
-                  </AvInput>
-                </AvGroup>
-                <AvGroup>
-                  <Label for="createBy.login">
-                    <Translate contentKey="landexpApp.payment.createBy">Create By</Translate>
-                  </Label>
-                  <AvInput id="payment-createBy" type="select" className="form-control" name="createById" onChange={this.createByUpdate}>
-                    <option value="" key="0" />
-                    {users
-                      ? users.map(otherEntity => (
-                          <option value={otherEntity.id} key={otherEntity.id}>
-                            {otherEntity.login}
-                          </option>
-                        ))
-                      : null}
-                  </AvInput>
-                </AvGroup>
-                <AvGroup>
-                  <Label for="updateBy.login">
-                    <Translate contentKey="landexpApp.payment.updateBy">Update By</Translate>
-                  </Label>
-                  <AvInput id="payment-updateBy" type="select" className="form-control" name="updateById" onChange={this.updateByUpdate}>
-                    <option value="" key="0" />
-                    {users
-                      ? users.map(otherEntity => (
-                          <option value={otherEntity.id} key={otherEntity.id}>
-                            {otherEntity.login}
-                          </option>
-                        ))
-                      : null}
-                  </AvInput>
-                </AvGroup>
-                <Button tag={Link} id="cancel-save" to="/quan-ly/thanh-toan" replace color="info">
-                  <FontAwesomeIcon icon="arrow-left" />&nbsp;
-                  <span className="d-none d-md-inline">
-                    <Translate contentKey="entity.action.back">Back</Translate>
-                  </span>
-                </Button>
-                &nbsp;
-                <Button color="primary" id="save-entity" type="submit" disabled={isInvalid || updating}>
-                  <FontAwesomeIcon icon="save" />&nbsp;
-                  <Translate contentKey="entity.action.save">Save</Translate>
-                </Button>
-              </AvForm>
-            )}
-          </Col>
-        </Row>
-      </div>
+                  <AvGroup>
+                    <Label id="moneyLabel" for="money">
+                      <Translate contentKey="landexpApp.payment.money">Money</Translate>
+                    </Label>
+                    <AvField id="payment-money" type="number" className="form-control" name="money" />
+                  </AvGroup>
+                  <AvGroup>
+                    <Label id="paidTimeLabel" for="paidTime">
+                      <Translate contentKey="landexpApp.payment.paidTime">Paid Time</Translate>
+                    </Label>
+                    <AvField id="payment-paidTime" type="date" className="form-control" name="paidTime" />
+                  </AvGroup>
+                  <AvGroup>
+                    <Label id="paymentStatusLabel">
+                      <Translate contentKey="landexpApp.payment.paymentStatus">Payment Status</Translate>
+                    </Label>
+                    <AvInput
+                      id="payment-paymentStatus"
+                      type="select"
+                      className="form-control"
+                      name="paymentStatus"
+                      value={(!isNew && paymentEntity.paymentStatus) || 'PENDING'}
+                    >
+                      <option value="PENDING">PENDING</option>
+                      <option value="PAID">PAID</option>
+                      <option value="CANCELED">CANCELED</option>
+                    </AvInput>
+                  </AvGroup>
+                  <AvGroup>
+                    <Label id="createAtLabel" for="createAt">
+                      <Translate contentKey="landexpApp.payment.createAt">Create At</Translate>
+                    </Label>
+                    <AvField id="payment-createAt" type="date" className="form-control" name="createAt" />
+                  </AvGroup>
+                  <AvGroup>
+                    <Label id="updateAtLabel" for="updateAt">
+                      <Translate contentKey="landexpApp.payment.updateAt">Update At</Translate>
+                    </Label>
+                    <AvField id="payment-updateAt" type="date" className="form-control" name="updateAt" />
+                  </AvGroup>
+                  <AvGroup>
+                    <Label for="house.id">
+                      <Translate contentKey="landexpApp.payment.house">House</Translate>
+                    </Label>
+                    <AvInput id="payment-house" type="select" className="form-control" name="houseId" onChange={this.houseUpdate}>
+                      <option value="" key="0" />
+                      {houses
+                        ? houses.map(otherEntity => (
+                            <option value={otherEntity.id} key={otherEntity.id}>
+                              {otherEntity.id}
+                            </option>
+                          ))
+                        : null}
+                    </AvInput>
+                  </AvGroup>
+                  <AvGroup>
+                    <Label for="customer.login">
+                      <Translate contentKey="landexpApp.payment.customer">Customer</Translate>
+                    </Label>
+                    <AvInput id="payment-customer" type="select" className="form-control" name="customerId" onChange={this.customerUpdate}>
+                      <option value="" key="0" />
+                      {users
+                        ? users.map(otherEntity => (
+                            <option value={otherEntity.id} key={otherEntity.id}>
+                              {otherEntity.login}
+                            </option>
+                          ))
+                        : null}
+                    </AvInput>
+                  </AvGroup>
+                  <AvGroup>
+                    <Label for="createBy.login">
+                      <Translate contentKey="landexpApp.payment.createBy">Create By</Translate>
+                    </Label>
+                    <AvInput id="payment-createBy" type="select" className="form-control" name="createById" onChange={this.createByUpdate}>
+                      <option value="" key="0" />
+                      {users
+                        ? users.map(otherEntity => (
+                            <option value={otherEntity.id} key={otherEntity.id}>
+                              {otherEntity.login}
+                            </option>
+                          ))
+                        : null}
+                    </AvInput>
+                  </AvGroup>
+                  <AvGroup>
+                    <Label for="updateBy.login">
+                      <Translate contentKey="landexpApp.payment.updateBy">Update By</Translate>
+                    </Label>
+                    <AvInput id="payment-updateBy" type="select" className="form-control" name="updateById" onChange={this.updateByUpdate}>
+                      <option value="" key="0" />
+                      {users
+                        ? users.map(otherEntity => (
+                            <option value={otherEntity.id} key={otherEntity.id}>
+                              {otherEntity.login}
+                            </option>
+                          ))
+                        : null}
+                    </AvInput>
+                  </AvGroup>
+                  <Button tag={Link} id="cancel-save" to="/quan-ly/thanh-toan" replace color="info">
+                    <FontAwesomeIcon icon="arrow-left" />&nbsp;
+                    <span className="d-none d-md-inline">
+                      <Translate contentKey="entity.action.back">Back</Translate>
+                    </span>
+                  </Button>
+                  &nbsp;
+                  <Button color="primary" id="save-entity" type="submit" disabled={isInvalid || updating}>
+                    <FontAwesomeIcon icon="save" />&nbsp;
+                    <Translate contentKey="entity.action.save">Save</Translate>
+                  </Button>
+                </AvForm>
+              )}
+            </Col>
+          </Row>
+        </Container>
+      </Row>
     );
   }
 }
