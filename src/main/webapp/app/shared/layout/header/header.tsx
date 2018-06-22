@@ -6,7 +6,6 @@ import { Translate } from 'react-jhipster';
 import FontAwesomeIcon from '@fortawesome/react-fontawesome';
 import { NavLink as Link, RouteComponentProps } from 'react-router-dom';
 import LoadingBar from 'react-redux-loading-bar';
-import { Row, Col } from 'reactstrap';
 
 import Menu from './banner/menu';
 import Search from './search/search';
