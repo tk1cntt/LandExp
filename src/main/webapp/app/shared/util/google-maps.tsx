@@ -47,7 +47,7 @@ const MyMapComponent: React.StatelessComponent<{
   </GoogleMap>
 ));
 
-export default class MyFancyComponent extends React.PureComponent {
+export default class GoogleMaps extends React.PureComponent {
   state = {
     isMarkerShown: false
   };

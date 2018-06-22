@@ -1,0 +1,178 @@
+.ant-carousel .center-cropped {
+  object-fit: none; /* Do not scale the image */
+  object-position: center; /* Center the image within the element */
+  width: 565px !important;
+  height: 376px;
+}
+
+.breadcrumb {
+  background-color: #ffffff !important;
+  border-bottom: 1px solid #dfdfdf;
+  width: 100%;
+  margin-top: -20px;
+}
+
+/* Product info */
+
+.product-info {
+  border: 1px solid #dfdfdf;
+  padding-top: 10px;
+  width: 284px;
+}
+
+.product-info .type {
+	margin-bottom: 0px;
+	font-size: 18px;
+}
+
+.product-info .post-date {
+	display: contents;
+	margin: 0;
+	color: #888888;
+}
+
+.product-info .price {
+	font-size: 18px;
+	color: #3A65F9;
+	margin-top: 15px;
+}
+
+.product-info .property {
+	background: transparent;
+}
+
+.product-info .property span {
+	font-weight: bold;
+}
+
+.product-info .location {
+	border-top: 1px solid #F6F6F6;
+  position: relative;
+  padding-top: 17px;
+  margin: 20px 0px;
+}
+
+.product-info .location span.title {
+	position: absolute;
+	top: -12px;
+	display: block;
+	padding-right: 5px;
+	background: #fff;
+	color: #888888;
+}
+
+.product-info .button-group {
+	border: none;
+	text-align: inherit;
+	margin-top: 15px;
+	margin-bottom: 15px;
+}
+
+.product-info a {
+	display: inline-block;
+	height: 30px;
+	line-height: 30px;
+	margin: 10px auto;
+	width: 123px;
+}
+
+.product-info a img {
+	padding: 5px;
+  border-radius: 3px;
+  margin-right: 10px;
+}
+
+.product-info a.like {
+	color: #FE475E;
+}
+
+.product-info a.report {
+	text-align: right;
+	color: #FFA76E;
+}
+
+.product-info a.like img {
+	border: 1px solid #FE475E;
+}
+
+.product-info a.report img {
+	border: 1px solid #FFA76E;
+}
+
+
+/* Contact box */
+
+.contact-box {
+	width: 314px;
+}
+
+.contact {
+	background-color: #F4F7FF;
+	border: none;
+	padding: 20px 15px;
+}
+
+.contact h3 {
+	margin-top: 10px;
+}
+
+.contact i {
+	width: 20px;
+	font-size: 16px;
+	text-align: center;
+}
+
+.contact i.fa-mobile {
+	font-size: 22px;
+}
+
+.contact i.fa-square {
+	font-size: 10px;
+	color: #AAAAAA;
+}
+
+.contact:hover {
+	background: #F4F7FF;
+}
+
+.contact .text-center a {
+	color: #3A65F9;
+	border: 1px solid #3A65F9;
+	background: transparent;
+	margin-top: 20px;
+}
+
+.contact .text-center a:hover {
+	color: #FFFFFF;
+	background: #3A65F9;
+}
+
+.contact:hover a {
+	color: #FFFFFF;
+	background: #3A65F9;
+}
+
+.call-chat {
+	margin: 15px auto;
+	padding: 15px 30px;
+	background: #6B92FF
+}
+
+.call-chat a {
+	display: inline-block;
+	height: 22px;
+	line-height: 22px;
+	padding-left: 33px;
+	color: #fff;
+}
+
+.call-chat a.call {
+	background: url('../../../static/images/icon/ic_call.png') no-repeat left;
+	border-right: 1px solid #fff; 
+	width: 103px;
+}
+
+.call-chat a.chat {
+	background: url('../../../static/images/icon/ic_chat.png') no-repeat left;
+	margin-left: 30px;
+}

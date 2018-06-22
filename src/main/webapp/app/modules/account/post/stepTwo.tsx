@@ -14,7 +14,7 @@ import { getSession } from 'app/shared/reducers/authentication';
 import { getPaymentOfHouse } from 'app/entities/payment/payment.reducer';
 import { getImageOfHouse } from 'app/entities/house-photo/house-photo.reducer';
 
-import MyFancyComponent from 'app/shared/util/google-maps';
+import GoogleMaps from 'app/shared/util/google-maps';
 
 import district from 'app/entities/district/district';
 
@@ -204,7 +204,7 @@ export class StepTwo extends React.Component<IStepTwoProp, IStepOneState> {
           </Form>
         </Col>
         <Col md="12">
-          <MyFancyComponent />
+          <GoogleMaps />
         </Col>
       </Row>
     );

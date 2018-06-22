@@ -11,6 +11,7 @@ import Logout from 'app/modules/login/logout';
 import Home from 'app/modules/home/home';
 import Admin from 'app/modules/administration';
 import Entities from 'app/entities';
+import Detail from 'app/modules/detail/detail';
 import PrivateRoute from 'app/shared/auth/private-route';
 import { AUTHORITIES } from 'app/config/constants';
 
@@ -26,6 +27,7 @@ const Routes = () => (
       <PrivateRoute path="/admin" component={Admin} hasAnyAuthorities={[AUTHORITIES.ADMIN]} />
       <PrivateRoute path="/tai-khoan" component={Account} hasAnyAuthorities={[AUTHORITIES.USER]} />
       <PrivateRoute path="/quan-ly" component={Entities} hasAnyAuthorities={[AUTHORITIES.STAFF]} />
+      <Route path="/tin-dang/:key?" component={Detail} />
       <Route path="/" component={Home} />
     </Switch>
   </div>
