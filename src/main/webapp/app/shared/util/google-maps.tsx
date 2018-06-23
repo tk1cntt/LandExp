@@ -1,4 +1,5 @@
 /*global google*/
+/* tslint:disable */
 import * as React from 'react';
 import axios from 'axios';
 import {} from '@types/googlemaps';

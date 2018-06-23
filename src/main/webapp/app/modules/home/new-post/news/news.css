@@ -5,7 +5,7 @@
 .listview-left {
   overflow: hidden;
   float: left;
-  border-right: 1px solid #DFDFDF;
+  border-right: 1px solid #dfdfdf;
 }
 
 .post-item:first-child {
@@ -16,7 +16,7 @@
   padding-bottom: 15px;
   padding-top: 15px;
   border-top: 1px solid #fff;
-  border-bottom: 1px solid #F6F6F6;
+  border-bottom: 1px solid #f6f6f6;
   box-sizing: border-box;
   height: 260px;
 }
@@ -62,7 +62,7 @@
 
 .item-info .subtitle {
   margin: 0;
-  color: #AAAAAA;
+  color: #aaaaaa;
   font-size: 12px;
 }
 
@@ -76,7 +76,7 @@
 }
 
 .property {
-  background: #F9F9F9;
+  background: #f9f9f9;
   padding: 12px 0px;
 }
 
@@ -84,14 +84,19 @@
   margin: 13px;
 }
 
-.compact, .bedroom, .bathroom, .garage, .compass, .floor {
+.compact,
+.bedroom,
+.bathroom,
+.garage,
+.compass,
+.floor {
   padding-left: 28px;
   height: 20px;
   line-height: 20px;
 }
 
 .button-group {
-  border-top: 1px solid #F6F6F6;
+  border-top: 1px solid #f6f6f6;
   text-align: right;
   box-sizing: border-box;
 }
@@ -105,11 +110,11 @@
 }
 
 .favorite {
-  border: 1px solid #FE475E;
+  border: 1px solid #fe475e;
 }
 
 .contact {
-  border: 1px solid #3A65F9;
+  border: 1px solid #3a65f9;
 }
 
 .contact-distance {
@@ -120,7 +125,7 @@
   display: block;
   width: 80px;
   float: left;
-  color: #3A65F9;
+  color: #3a65f9;
   margin-top: 20px;
   text-align: left;
 }

@@ -18,7 +18,7 @@
 
 .lastest-posts h2 .toolbox select {
   height: 40px;
-  border-color: #EBEBEB;
+  border-color: #ebebeb;
   color: #888888;
   font-size: 14px;
   display: inline-block;
@@ -31,7 +31,7 @@
   font-weight: lighter;
   padding-left: 15px;
   margin-left: 15px;
-  border-left: 1px solid #AAAAAA;
+  border-left: 1px solid #aaaaaa;
 }
 
 .lastest-posts h2 .toolbox {
@@ -48,4 +48,3 @@
 .listview-button.active {
   margin-right: 5px;
 }
-

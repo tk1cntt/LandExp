@@ -2,12 +2,11 @@ import './download.css';
 import * as React from 'react';
 
 import { Translate } from 'react-jhipster';
-import { Navbar, Nav, NavbarToggler, NavbarBrand, Collapse } from 'reactstrap'
+import { Navbar, Nav, NavbarToggler, NavbarBrand, Collapse } from 'reactstrap';
 import FontAwesomeIcon from '@fortawesome/react-fontawesome';
 
 export default class Download extends React.Component {
-
-  constructor (props) {
+  constructor(props) {
     super(props);
   }
   render() {
@@ -19,12 +18,12 @@ export default class Download extends React.Component {
         <div className="app-icon">
           <span>
             <a href="">
-              <FontAwesomeIcon icon="apple"/>
+              <FontAwesomeIcon icon="apple" />
             </a>
           </span>
           <span>
             <a href="">
-              <FontAwesomeIcon icon=""/>
+              <FontAwesomeIcon icon="" />
             </a>
           </span>
         </div>

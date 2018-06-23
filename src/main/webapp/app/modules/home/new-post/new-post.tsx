@@ -1,29 +1,25 @@
 import './new-post.css';
 
 import * as React from 'react';
-import {Translate} from 'react-jhipster';
-import {connect} from 'react-redux';
-import {Row, Col, Alert} from 'reactstrap';
+import { Translate } from 'react-jhipster';
+import { connect } from 'react-redux';
+import { Row, Col, Alert } from 'reactstrap';
 
 import News from './news/news';
 import DetailNews from './detail-news/detail-news';
 
-import {getSession} from 'app/shared/reducers/authentication';
+import { getSession } from 'app/shared/reducers/authentication';
 
 import NewTitle from './new-title/new-title';
 
-export interface IHomeProp extends StateProps, DispatchProps {
-}
+export interface IHomeProp extends StateProps, DispatchProps {}
 
 export class NewPost extends React.Component {
   constructor(props) {
     super(props);
-
   }
 
-  componentDidMount() {
-
-  }
+  componentDidMount() {}
 
   state = {
     distance: 15,
@@ -43,7 +39,8 @@ export class NewPost extends React.Component {
         garage: true,
         location: 'Quận Đống Đa, Hà Nội',
         postDate: '31/05/2017'
-      }, {
+      },
+      {
         img: 'static/images/6.png',
         title: 'Căn hộ chung cư',
         project: 'Dự án Vinhome D’Capital',
@@ -56,7 +53,8 @@ export class NewPost extends React.Component {
         garage: true,
         location: 'Quận Đống Đa, Hà Nội',
         postDate: '31/05/2017'
-      }, {
+      },
+      {
         img: 'static/images/6.png',
         title: 'Căn hộ chung cư',
         project: 'Dự án Vinhome D’Capital',
@@ -70,7 +68,8 @@ export class NewPost extends React.Component {
         garage: false,
         location: 'Quận Đống Đa, Hà Nội',
         postDate: '31/05/2017'
-      }, {
+      },
+      {
         img: 'static/images/6.png',
         title: 'Căn hộ chung cư',
         project: 'Dự án Vinhome D’Capital',
@@ -84,7 +83,8 @@ export class NewPost extends React.Component {
         garage: true,
         location: 'Quận Đống Đa, Hà Nội',
         postDate: '31/05/2017'
-      }, {
+      },
+      {
         img: 'static/images/6.png',
         title: 'Căn hộ chung cư',
         project: 'Dự án Vinhome D’Capital',
@@ -98,7 +98,8 @@ export class NewPost extends React.Component {
         garage: true,
         location: 'Quận Đống Đa, Hà Nội',
         postDate: '31/05/2017'
-      }, {
+      },
+      {
         img: 'static/images/6.png',
         title: 'Căn hộ chung cư',
         project: 'Dự án Vinhome D’Capital',
@@ -112,7 +113,8 @@ export class NewPost extends React.Component {
         garage: true,
         location: 'Quận Đống Đa, Hà Nội',
         postDate: '31/05/2017'
-      }, {
+      },
+      {
         img: 'static/images/6.png',
         title: 'Căn hộ chung cư',
         project: 'Dự án Vinhome D’Capital',
@@ -126,7 +128,8 @@ export class NewPost extends React.Component {
         garage: true,
         location: 'Quận Đống Đa, Hà Nội',
         postDate: '31/05/2017'
-      }, {
+      },
+      {
         img: 'static/images/6.png',
         title: 'Căn hộ chung cư',
         project: 'Dự án Vinhome D’Capital',
@@ -140,7 +143,8 @@ export class NewPost extends React.Component {
         garage: true,
         location: 'Quận Đống Đa, Hà Nội',
         postDate: '31/05/2017'
-      }, {
+      },
+      {
         img: 'static/images/6.png',
         title: 'Biệt thự liền kề',
         project: 'Dự án Vinhome D’Capital',
@@ -162,7 +166,7 @@ export class NewPost extends React.Component {
     widthOfBigElement: 0,
     heightOfBigElement: 0,
     heightBoundary: 0
-  }
+  };
 
   render() {
     return (
@@ -170,7 +174,7 @@ export class NewPost extends React.Component {
         <NewTitle />
         <Row>
           <Col sm="6">
-            <News data={ this.state.data } />
+            <News data={this.state.data} />
           </Col>
           <Col sm="6">
             <DetailNews />
@@ -191,4 +195,7 @@ const mapDispatchToProps = { getSession };
 type StateProps = ReturnType<typeof mapStateToProps>;
 type DispatchProps = typeof mapDispatchToProps;
 
-export default connect(mapStateToProps, mapDispatchToProps)(NewPost);
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(NewPost);

@@ -20,9 +20,9 @@ export class Home extends React.Component<IHomeProp> {
 
   state = {
     title: {
-      time: 'Thu 5, ng�y 31 th�ng 05 nam 2018',
+      time: 'Thứ 5, ngày 31 tháng 05 năm 2018'
     }
-  }
+  };
 
   render() {
     const { account } = this.props;
@@ -51,4 +51,7 @@ const mapDispatchToProps = { getSession };
 type StateProps = ReturnType<typeof mapStateToProps>;
 type DispatchProps = typeof mapDispatchToProps;
 
-export default connect(mapStateToProps, mapDispatchToProps)(Home);
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(Home);
