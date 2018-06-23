@@ -7,7 +7,7 @@ import { connect } from 'react-redux';
 import FontAwesomeIcon from '@fortawesome/react-fontawesome';
 import { Row, Col, Container, Breadcrumb, BreadcrumbItem } from 'reactstrap';
 import { Carousel as Album } from 'react-responsive-carousel';
-import "react-responsive-carousel/lib/styles/carousel.min.css";
+import 'react-responsive-carousel/lib/styles/carousel.min.css';
 
 import { Carousel, Tabs, Input, Button } from 'antd';
 const { TextArea } = Input;
@@ -48,7 +48,9 @@ export class Detail extends React.Component<IDetailProp, IDetailState> {
   houseDetailForm() {
     const moneyForm =
       this.props.houseEntity.money && this.props.houseEntity.discount ? (
-        <div style={{ textDecoration: 'line-through', color: 'red' }}>{new Intl.NumberFormat().format(this.props.houseEntity.money)} VNĐ</div>
+        <div style={{ textDecoration: 'line-through', color: 'red' }}>
+          {new Intl.NumberFormat().format(this.props.houseEntity.money)} VNĐ
+        </div>
       ) : (
         <div>{new Intl.NumberFormat().format(this.props.houseEntity.money)} VNĐ</div>
       );
@@ -58,7 +60,9 @@ export class Detail extends React.Component<IDetailProp, IDetailState> {
     return (
       <Col md="3" className="product-info">
         <div className="type">{getLandType(this.props.houseEntity.landType)}</div>
-        <p className="post-date"><TextFormat type="date" value={this.props.houseEntity.createAt} format={APP_LOCAL_DATE_FORMAT} /></p>
+        <p className="post-date">
+          <TextFormat type="date" value={this.props.houseEntity.createAt} format={APP_LOCAL_DATE_FORMAT} />
+        </p>
         <p className="price">
           {moneyForm}
           {discountForm}
@@ -120,8 +124,12 @@ export class Detail extends React.Component<IDetailProp, IDetailState> {
         </div>
         <div className="call-chat">
           <Row>
-            <Button type="primary" style={{ width: 100, marginRight: 10}}><FontAwesomeIcon icon="phone"/> Gọi điện</Button>
-            <Button type="primary" style={{ width: 100}}><FontAwesomeIcon icon="comments" /> Chat</Button>
+            <Button type="primary" style={{ width: 100, marginRight: 10 }}>
+              <FontAwesomeIcon icon="phone" /> Gọi điện
+            </Button>
+            <Button type="primary" style={{ width: 100 }}>
+              <FontAwesomeIcon icon="comments" /> Chat
+            </Button>
           </Row>
         </div>
         <div className="contact">
@@ -209,9 +217,7 @@ export class Detail extends React.Component<IDetailProp, IDetailState> {
                 {this.houseContactForm()}
               </Row>
               <Row style={{ marginTop: 10, marginBottom: 10 }}>
-                <Col md="6">
-                  {this.houseNearByForm()}
-                </Col>
+                <Col md="6">{this.houseNearByForm()}</Col>
                 <Col md="6" style={{ marginLeft: -15 }}>
                   <GoogleMaps />
                 </Col>
@@ -275,7 +281,10 @@ export class Detail extends React.Component<IDetailProp, IDetailState> {
                     </Col>
                     <Col md="7" style={{ marginLeft: -15 }}>
                       <label>Tư vấn</label>
-                      <TextArea rows={5} placeholder="Bạn cần vay số tiền { } VNĐ trong vòng { } năm với số tiền tích lũy hàng tháng không nhỏ hơn { } VNĐ để có thể mua được ngôi nhà này" />
+                      <TextArea
+                        rows={5}
+                        placeholder="Bạn cần vay số tiền { } VNĐ trong vòng { } năm với số tiền tích lũy hàng tháng không nhỏ hơn { } VNĐ để có thể mua được ngôi nhà này"
+                      />
                     </Col>
                   </Row>
                 </Col>

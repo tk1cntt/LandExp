@@ -49,7 +49,6 @@
   border-top: 1px solid #f6f6f6;
   position: relative;
   padding-top: 17px;
-  margin: 20px 0px;
 }
 
 .product-info .location span.title {
@@ -64,8 +63,6 @@
 .product-info .button-group {
   border: none;
   text-align: inherit;
-  margin-top: 15px;
-  margin-bottom: 15px;
 }
 
 .product-info a {
@@ -151,6 +148,7 @@
 }
 
 .call-chat {
+  margin: 15px auto;
   padding: 15px 30px;
 }
 
@@ -174,25 +172,26 @@
 }
 
 .product-desc {
-	border: 1px solid #dfdfdf;
+  border: 1px solid #dfdfdf;
   padding: 15px;
   text-align: justify;
 }
 
 .cs-content {
-	border: 1px solid #dfdfdf;
+  border: 1px solid #dfdfdf;
   padding-top: 15px;
   padding-bottom: 15px;
   text-align: justify;
 }
 
-.cs-content input[type=text], .cs-content input[type=text]::placeholder {
-  color: #19BF25;
+.cs-content input[type='text'],
+.cs-content input[type='text']::placeholder {
+  color: #19bf25;
   font-weight: bold;
 }
 
 .cs-content .input-addon {
-	position: absolute;
+  position: absolute;
   right: 15px;
   top: 35px;
   color: #888888;
@@ -227,7 +226,8 @@
   margin-top: -20px !important;
 }
 
-.carousel .control-arrow:before, .carousel.carousel-slider .control-arrow:before {
+.carousel .control-arrow:before,
+.carousel.carousel-slider .control-arrow:before {
   margin: 0 !important;
 }
 
