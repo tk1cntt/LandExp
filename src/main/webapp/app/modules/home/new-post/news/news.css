@@ -8,17 +8,23 @@
   border-right: 1px solid #dfdfdf;
 }
 
-.post-item:first-child {
-  padding-top: 0px;
-}
-
 .post-item {
   padding-bottom: 15px;
   padding-top: 15px;
   border-top: 1px solid #fff;
   border-bottom: 1px solid #f6f6f6;
   box-sizing: border-box;
-  height: 260px;
+  height: 250px;
+}
+
+.post-item.active,
+.post-item:hover,
+.gridview .post-item.active,
+.gridview .post-item:hover {
+  border-top: 1px solid #3a65f9;
+  border-bottom: 1px solid #3a65f9;
+  background: #efefef;
+  box-sizing: border-box;
 }
 
 .item-thumbnail {
@@ -51,7 +57,7 @@
 
 .item-info {
   float: left;
-  margin: 0px 20px;
+  margin: 0 0 0 20px;
 }
 
 .item-info h3 {
@@ -81,7 +87,7 @@
 }
 
 .property span {
-  margin: 13px;
+  margin: 15px;
 }
 
 .compact,
@@ -105,22 +111,48 @@
   display: inline-block;
   border-radius: 3px;
   font-size: 16px;
-  padding: 10px 13px;
+  padding: 5px 8px;
   margin-top: 7px;
 }
 
-.favorite {
+.button-group .favorite {
   border: 1px solid #fe475e;
 }
 
-.contact {
+.button-group .favorite a {
+  color: #fe475e;
 }
 
-.contact-distance {
+.button-group .favorite:hover {
+  background-color: #fe475e;
+}
+
+.button-group .favorite:hover a {
+  color: #fff;
+}
+
+.button-group .contact {
+  border: 1px solid #3a65f9;
+}
+
+.button-group .contact a {
+  color: #3a65f9;
+  text-decoration: none;
+}
+
+.button-group .contact:hover {
+  background-color: #3a65f9;
+}
+
+.button-group .contact:hover a {
+  color: #fff;
+}
+
+.button-group .contact-distance {
   margin-left: 5px;
 }
 
-.post-date {
+.button-group .post-date {
   display: block;
   width: 80px;
   float: left;

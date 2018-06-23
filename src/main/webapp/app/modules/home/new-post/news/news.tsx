@@ -9,61 +9,61 @@ import FontAwesomeIcon from '@fortawesome/react-fontawesome';
 
 import { getSession } from 'app/shared/reducers/authentication';
 
-export interface IHomeProp extends StateProps, DispatchProps {}
+export interface INewsProp extends StateProps, DispatchProps {
+  news: any;
+}
 
-export class News extends React.Component {
-  constructor(props) {
-    super(props);
-  }
-
-  componentDidMount() {}
-
-  state = {};
-
+export class News extends React.Component<INewsProp> {
   render() {
     const marginLeft = '30px;';
     return (
-      <div id="news" className="listview-left">
-        {this.props.data.map(item => (
-          <div className="post-item">
-            <div className="item-thumbnail">
-              <a>
-                <img src={item.img} alt={`${item.title}/${item.project}`} />
-              </a>
-              {item.sell ? <div className="type sell">{item.action}</div> : <div className="type hire">{item.action}</div>}
-            </div>
-            <div className="item-info">
-              <a>
-                <h3 className="title">{item.title}</h3>
-              </a>
-              <p className="subtitle">{item.project}</p>
-              <p className="price">
-                <span>{item.price}</span> {item.unit}
-              </p>
-              <div className="property">
-                <span className="compact">{item.acreage}</span>
-                <span className="bedroom">{item.bedroom}</span>
-                <span className="bathroom">{item.bathroom}</span>
-                <span className="garage">
-                  {item.garage ? <FontAwesomeIcon style={{ marginLeft }} icon="check" /> : <FontAwesomeIcon icon="" />}
-                </span>
-              </div>
-              <p className="location">{item.location}</p>
-              <div className="button-group">
-                <p className="post-date">{item.postDate}</p>
-                <span className="favorite">
-                  <a>
-                    <FontAwesomeIcon icon="heart" />
-                  </a>{' '}
-                </span>
-                <span className="contact contact-distance">
-                  <a href="#">Liên hệ</a>
-                </span>
-              </div>
-            </div>
+      <div className="post-item">
+        <div className="item-thumbnail">
+          <a>
+            <img src={this.props.news.img} alt={`${this.props.news.title}/${this.props.news.project}`} />
+          </a>
+          {this.props.news.sell ? (
+            <div className="type sell">{this.props.news.action}</div>
+          ) : (
+            <div className="type hire">{this.props.news.action}</div>
+          )}
+        </div>
+        <div className="item-info">
+          <a>
+            <h3 className="title">{this.props.news.title}</h3>
+          </a>
+          <p className="subtitle">{this.props.news.project}</p>
+          <p className="price">
+            <span>{this.props.news.price}</span> {this.props.news.unit}
+          </p>
+          <div className="property">
+            <span>
+              <FontAwesomeIcon icon="square" style={{ marginRight: '5px' }} /> {this.props.news.acreage}
+            </span>
+            <span>
+              <FontAwesomeIcon icon="bed" style={{ marginRight: '5px' }} /> {this.props.news.bedroom}
+            </span>
+            <span>
+              <FontAwesomeIcon icon="bath" style={{ marginRight: '5px' }} /> {this.props.news.bathroom}
+            </span>
+            <span>
+              <FontAwesomeIcon icon="car" style={{ marginRight: '5px' }} />{' '}
+              {this.props.news.garage ? <FontAwesomeIcon style={{ marginLeft }} icon="check" /> : <FontAwesomeIcon icon="" />}
+            </span>
           </div>
-        ))}
-        }
+          <p className="location">{this.props.news.location}</p>
+          <div className="button-group">
+            <p className="post-date">{this.props.news.postDate}</p>
+            <span className="favorite">
+              <a>
+                <FontAwesomeIcon icon="heart" />
+              </a>{' '}
+            </span>
+            <span className="contact contact-distance">
+              <a href="#">Liên hệ</a>
+            </span>
+          </div>
+        </div>
       </div>
     );
   }

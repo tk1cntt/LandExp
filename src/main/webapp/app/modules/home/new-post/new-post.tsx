@@ -12,7 +12,7 @@ import { getSession } from 'app/shared/reducers/authentication';
 
 import NewTitle from './new-title/new-title';
 
-export interface IHomeProp extends StateProps, DispatchProps {}
+export interface INewPostProp extends StateProps, DispatchProps {}
 
 export class NewPost extends React.Component {
   constructor(props) {
@@ -170,17 +170,19 @@ export class NewPost extends React.Component {
 
   render() {
     return (
-      <div id="new-post" className="lastest-posts">
+      <Row>
         <NewTitle />
-        <Row>
-          <Col sm="6">
-            <News data={this.state.data} />
-          </Col>
-          <Col sm="6">
-            <DetailNews />
-          </Col>
-        </Row>
-      </div>
+        <Col sm="6">
+          <Row>
+            <div id="news" className="listview-left">
+              {this.state.data.map(item => <News news={item} />)}
+            </div>
+          </Row>
+        </Col>
+        <Col sm="6">
+          <DetailNews />
+        </Col>
+      </Row>
     );
   }
 }
