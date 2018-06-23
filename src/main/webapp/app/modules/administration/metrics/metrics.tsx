@@ -105,7 +105,7 @@ export class MetricsPage extends React.Component<any, IMetricsPageState> {
             >
               <span>
                 <TextFormat
-                  value={metrics.gauges['jvm.memory.total.used'].value * 100 / metrics.gauges['jvm.memory.total.max'].value}
+                  value={(metrics.gauges['jvm.memory.total.used'].value * 100) / metrics.gauges['jvm.memory.total.max'].value}
                   type="number"
                   format={APP_WHOLE_NUMBER_FORMAT}
                 />
@@ -128,7 +128,7 @@ export class MetricsPage extends React.Component<any, IMetricsPageState> {
             >
               <span>
                 <TextFormat
-                  value={metrics.gauges['jvm.memory.heap.used'].value * 100 / metrics.gauges['jvm.memory.heap.max'].value}
+                  value={(metrics.gauges['jvm.memory.heap.used'].value * 100) / metrics.gauges['jvm.memory.heap.max'].value}
                   type="number"
                   format={APP_WHOLE_NUMBER_FORMAT}
                 />
@@ -160,7 +160,7 @@ export class MetricsPage extends React.Component<any, IMetricsPageState> {
             >
               <span>
                 <TextFormat
-                  value={metrics.gauges['jvm.memory.non-heap.used'].value * 100 / metrics.gauges['jvm.memory.non-heap.committed'].value}
+                  value={(metrics.gauges['jvm.memory.non-heap.used'].value * 100) / metrics.gauges['jvm.memory.non-heap.committed'].value}
                   type="number"
                   format={APP_WHOLE_NUMBER_FORMAT}
                 />
@@ -183,7 +183,7 @@ export class MetricsPage extends React.Component<any, IMetricsPageState> {
             >
               <span>
                 <TextFormat
-                  value={metrics.gauges['jvm.threads.runnable.count'].value * 100 / metrics.gauges['jvm.threads.count'].value}
+                  value={(metrics.gauges['jvm.threads.runnable.count'].value * 100) / metrics.gauges['jvm.threads.count'].value}
                   type="number"
                   format={APP_WHOLE_NUMBER_FORMAT}
                 />
@@ -202,7 +202,7 @@ export class MetricsPage extends React.Component<any, IMetricsPageState> {
             >
               <span>
                 <TextFormat
-                  value={metrics.gauges['jvm.threads.timed_waiting.count'].value * 100 / metrics.gauges['jvm.threads.count'].value}
+                  value={(metrics.gauges['jvm.threads.timed_waiting.count'].value * 100) / metrics.gauges['jvm.threads.count'].value}
                   type="number"
                   format={APP_WHOLE_NUMBER_FORMAT}
                 />
@@ -221,7 +221,7 @@ export class MetricsPage extends React.Component<any, IMetricsPageState> {
             >
               <span>
                 <TextFormat
-                  value={metrics.gauges['jvm.threads.waiting.count'].value * 100 / metrics.gauges['jvm.threads.count'].value}
+                  value={(metrics.gauges['jvm.threads.waiting.count'].value * 100) / metrics.gauges['jvm.threads.count'].value}
                   type="number"
                   format={APP_WHOLE_NUMBER_FORMAT}
                 />
@@ -240,7 +240,7 @@ export class MetricsPage extends React.Component<any, IMetricsPageState> {
             >
               <span>
                 <TextFormat
-                  value={metrics.gauges['jvm.threads.blocked.count'].value * 100 / metrics.gauges['jvm.threads.count'].value}
+                  value={(metrics.gauges['jvm.threads.blocked.count'].value * 100) / metrics.gauges['jvm.threads.count'].value}
                   type="number"
                   format={APP_WHOLE_NUMBER_FORMAT}
                 />
@@ -581,8 +581,7 @@ export class MetricsPage extends React.Component<any, IMetricsPageState> {
                         <span>
                           <TextFormat
                             value={
-                              metrics.gauges['HikariPool-1.pool.ActiveConnections'].value *
-                              100 /
+                              (metrics.gauges['HikariPool-1.pool.ActiveConnections'].value * 100) /
                               metrics.gauges['HikariPool-1.pool.TotalConnections'].value
                             }
                             type="number"
@@ -668,4 +667,7 @@ const mapDispatchToProps = { systemMetrics, systemThreadDump };
 type StateProps = ReturnType<typeof mapStateToProps>;
 type DispatchProps = typeof mapDispatchToProps;
 
-export default connect(mapStateToProps, mapDispatchToProps)(MetricsPage);
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(MetricsPage);

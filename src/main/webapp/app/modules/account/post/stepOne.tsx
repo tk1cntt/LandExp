@@ -123,4 +123,7 @@ const mapDispatchToProps = { getSession };
 type StateProps = ReturnType<typeof mapStateToProps>;
 type DispatchProps = typeof mapDispatchToProps;
 
-export default connect(mapStateToProps, mapDispatchToProps)(StepOne);
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(StepOne);

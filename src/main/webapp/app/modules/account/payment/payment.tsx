@@ -129,4 +129,7 @@ const mapDispatchToProps = { getSession, getPayment };
 type StateProps = ReturnType<typeof mapStateToProps>;
 type DispatchProps = typeof mapDispatchToProps;
 
-export default connect(mapStateToProps, mapDispatchToProps)(Payment);
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(Payment);

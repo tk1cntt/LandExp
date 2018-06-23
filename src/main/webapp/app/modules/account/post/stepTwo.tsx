@@ -222,4 +222,7 @@ const mapDispatchToProps = { getSession, getPaymentOfHouse, getImageOfHouse };
 type StateProps = ReturnType<typeof mapStateToProps>;
 type DispatchProps = typeof mapDispatchToProps;
 
-export default connect(mapStateToProps, mapDispatchToProps)(StepTwo);
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(StepTwo);

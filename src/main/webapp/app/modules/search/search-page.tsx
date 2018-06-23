@@ -13,9 +13,7 @@ import { getActionType, getLandType, getCityType, getDirection, getPresent, getS
 export interface ISearchPageProp extends StateProps, DispatchProps {}
 
 export class SearchPage extends React.Component<ISearchPageProp> {
-  handleChangeActionType = () => {
-
-  }
+  handleChangeActionType = () => {};
 
   actionTypeForm() {
     return (
@@ -46,9 +44,7 @@ export class SearchPage extends React.Component<ISearchPageProp> {
   }
 
   keywordForm() {
-    return (
-      <Input style={{ width: 340, marginRight: 5 }} placeholder="Nhập địa điểm, thành phố hoặc dự án" />
-    );
+    return <Input style={{ width: 340, marginRight: 5 }} placeholder="Nhập địa điểm, thành phố hoặc dự án" />;
   }
 
   priceForm() {
@@ -81,7 +77,7 @@ export class SearchPage extends React.Component<ISearchPageProp> {
     const { account } = this.props;
     return (
       <Col md="12">
-        <div style={{ marginBottom: 30 }}className="nav-search">
+        <div style={{ marginBottom: 30 }} className="nav-search">
           <div className="container">
             <div className="row justify-content-center">
               {this.actionTypeForm()}
@@ -105,9 +101,12 @@ const mapStateToProps = storeState => ({
   isAuthenticated: storeState.authentication.isAuthenticated
 });
 
-const mapDispatchToProps = { };
+const mapDispatchToProps = {};
 
 type StateProps = ReturnType<typeof mapStateToProps>;
 type DispatchProps = typeof mapDispatchToProps;
 
-export default connect(mapStateToProps, mapDispatchToProps)(SearchPage);
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(SearchPage);

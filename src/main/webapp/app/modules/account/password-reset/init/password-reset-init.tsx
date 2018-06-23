@@ -59,4 +59,7 @@ const mapDispatchToProps = { handlePasswordResetInit, reset };
 
 type DispatchProps = typeof mapDispatchToProps;
 
-export default connect(null, mapDispatchToProps)(PasswordResetInit);
+export default connect(
+  null,
+  mapDispatchToProps
+)(PasswordResetInit);
