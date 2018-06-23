@@ -30,7 +30,7 @@ export class Home extends React.Component<IHomeProp> {
       <div id="home-content">
         <div className="container">
           <div className="featured-posts">
-            <Title title={ this.state.title } />
+            <Title title={this.state.title} />
             <GridPreview />
 
             <NewPost />

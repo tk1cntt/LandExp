@@ -16,7 +16,7 @@ import { IWard } from 'app/shared/model/ward.model';
 import { convertDateTimeFromServer } from 'app/shared/util/date-utils';
 import { keysToValues } from 'app/shared/util/entity-utils';
 
-import SearchPage from 'app/modules/search/search-page';
+import SearchPage from 'app/shared/layout/search/search-menu';
 
 export interface IWardUpdateProps extends StateProps, DispatchProps, RouteComponentProps<{ id: number }> {}
 

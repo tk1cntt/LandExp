@@ -10,7 +10,7 @@ import { IRootState } from 'app/shared/reducers';
 import { getSession } from 'app/shared/reducers/authentication';
 import { getEntity as getPayment } from 'app/entities/payment/payment.reducer';
 
-import SearchPage from 'app/modules/search/search-page';
+import SearchPage from 'app/shared/layout/search/search-menu';
 
 export interface IPaymentProp extends StateProps, DispatchProps, RouteComponentProps<{ id: number }> {}
 

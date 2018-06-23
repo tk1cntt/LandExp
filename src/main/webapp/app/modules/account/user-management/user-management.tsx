@@ -19,7 +19,7 @@ import { ITEMS_PER_PAGE } from 'app/shared/util/pagination.constants';
 import { getUsers, updateUser } from './user-management.reducer';
 import { IRootState } from 'app/shared/reducers';
 
-import SearchPage from 'app/modules/search/search-page';
+import SearchPage from 'app/shared/layout/search/search-menu';
 
 export interface IUserManagementProps extends StateProps, DispatchProps, RouteComponentProps<{}> {}
 

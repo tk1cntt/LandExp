@@ -14,7 +14,7 @@ import { IServiceFee } from 'app/shared/model/service-fee.model';
 import { APP_DATE_FORMAT, APP_LOCAL_DATE_FORMAT } from 'app/config/constants';
 import { getSaleType } from 'app/shared/util/utils';
 
-import SearchPage from 'app/modules/search/search-page';
+import SearchPage from 'app/shared/layout/search/search-menu';
 
 export interface IServiceFeeProps extends StateProps, DispatchProps, RouteComponentProps<{ url: string }> {}
 

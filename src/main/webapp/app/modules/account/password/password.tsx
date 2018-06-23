@@ -9,7 +9,7 @@ import { getSession } from 'app/shared/reducers/authentication';
 import PasswordStrengthBar from 'app/shared/layout/password/password-strength-bar';
 import { savePassword, reset } from './password.reducer';
 
-import SearchPage from 'app/modules/search/search-page';
+import SearchPage from 'app/shared/layout/search/search-menu';
 
 export interface IUserPasswordProps extends StateProps, DispatchProps {}
 

@@ -13,7 +13,7 @@ import Demand from './demand/demand';
 import Download from './download/download';
 import { Home, Brand, Register, Login, Post } from './header-components';
 import { AdminMenu, ManagerMenu, StaffMenu, CommonMenu, AccountMenu, LocaleMenu } from './menus';
-import SearchPage from 'app/modules/search/search-page';
+import SearchPage from 'app/shared/layout/search/search-menu';
 
 export interface IHeaderProps {
   isAuthenticated: boolean;

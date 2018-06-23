@@ -26,7 +26,7 @@ import { APP_DATE_FORMAT, APP_LOCAL_DATE_FORMAT, AUTHORITIES } from 'app/config/
 import { ITEMS_PER_PAGE } from 'app/shared/util/pagination.constants';
 import { getPaymentStatus } from 'app/shared/util/utils';
 
-import SearchPage from 'app/modules/search/search-page';
+import SearchPage from 'app/shared/layout/search/search-menu';
 
 export interface IPaymentProps extends StateProps, DispatchProps, RouteComponentProps<{ url: string }> {}
 

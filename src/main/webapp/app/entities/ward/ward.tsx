@@ -15,7 +15,7 @@ import { IWard } from 'app/shared/model/ward.model';
 // tslint:disable-next-line:no-unused-variable
 import { APP_DATE_FORMAT, APP_LOCAL_DATE_FORMAT } from 'app/config/constants';
 
-import SearchPage from 'app/modules/search/search-page';
+import SearchPage from 'app/shared/layout/search/search-menu';
 
 export interface IWardProps extends StateProps, DispatchProps, RouteComponentProps<{ url: string }> {}
 

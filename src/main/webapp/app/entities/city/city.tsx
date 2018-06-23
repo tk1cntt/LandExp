@@ -15,7 +15,7 @@ import { ICity } from 'app/shared/model/city.model';
 // tslint:disable-next-line:no-unused-variable
 import { APP_DATE_FORMAT, APP_LOCAL_DATE_FORMAT } from 'app/config/constants';
 
-import SearchPage from 'app/modules/search/search-page';
+import SearchPage from 'app/shared/layout/search/search-menu';
 
 export interface ICityProps extends StateProps, DispatchProps, RouteComponentProps<{ url: string }> {}
 

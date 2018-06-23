@@ -24,7 +24,7 @@ import { ICategory } from 'app/shared/model/category.model';
 import { APP_DATE_FORMAT, APP_LOCAL_DATE_FORMAT } from 'app/config/constants';
 import { ITEMS_PER_PAGE } from 'app/shared/util/pagination.constants';
 
-import SearchPage from 'app/modules/search/search-page';
+import SearchPage from 'app/shared/layout/search/search-menu';
 
 export interface ICategoryProps extends StateProps, DispatchProps, RouteComponentProps<{ url: string }> {}
 
