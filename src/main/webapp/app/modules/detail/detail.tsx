@@ -2,15 +2,19 @@ import './detail.css';
 
 import * as React from 'react';
 import { Link, RouteComponentProps } from 'react-router-dom';
-import { Translate } from 'react-jhipster';
+import { Translate, TextFormat } from 'react-jhipster';
 import { connect } from 'react-redux';
 import FontAwesomeIcon from '@fortawesome/react-fontawesome';
 import { Row, Col, Container, Breadcrumb, BreadcrumbItem } from 'reactstrap';
-import { Carousel, Tabs } from 'antd';
+import { Carousel, Tabs, Input } from 'antd';
+const { TextArea } = Input;
 const TabPane = Tabs.TabPane;
 
+import { getActionType, getLandType, getCityType, getDirection, getPresent, getSaleType } from 'app/shared/util/utils';
+import { getEntities as getCities } from 'app/entities/city/city.reducer';
 import { getEntity } from 'app/entities/house/house.reducer';
 import { getImageOfHouse } from 'app/entities/house-photo/house-photo.reducer';
+import { APP_DATE_FORMAT, APP_LOCAL_DATE_FORMAT } from 'app/config/constants';
 
 import SearchPage from 'app/modules/search/search-page';
 import GoogleMaps from 'app/shared/util/google-maps';
@@ -23,6 +27,7 @@ export interface IDetailState {
 
 export class Detail extends React.Component<IDetailProp, IDetailState> {
   componentDidMount() {
+    this.props.getCities();
     this.props.getEntity(this.props.match.params.key);
     this.props.getImageOfHouse(parseInt(this.props.match.params.key));
   }
@@ -38,33 +43,51 @@ export class Detail extends React.Component<IDetailProp, IDetailState> {
   }
 
   houseDetailForm() {
+    const moneyForm =
+      this.props.houseEntity.money && this.props.houseEntity.discount ? (
+        <div style={{ textDecoration: 'line-through', color: 'red' }}>{new Intl.NumberFormat().format(this.props.houseEntity.money)} VNĐ</div>
+      ) : (
+        <div>{new Intl.NumberFormat().format(this.props.houseEntity.money)} VNĐ</div>
+      );
+    const discountForm = this.props.houseEntity.discount ? (
+      <div>{new Intl.NumberFormat().format(this.props.houseEntity.discount)} VNĐ</div>
+    ) : null;
     return (
       <Col md="3" className="product-info">
-        <div className="type">Căn hộ chung cư</div>
-        <p className="post-date">31/05/2018</p>
+        <div className="type">{getLandType(this.props.houseEntity.landType)}</div>
+        <p className="post-date"><TextFormat type="date" value={this.props.houseEntity.createAt} format={APP_LOCAL_DATE_FORMAT} /></p>
         <p className="price">
+          {moneyForm}
+          {discountForm}
           <span>5</span> triệu/tháng
         </p>
         <div className="property">
           <p className="compact">
-            Diện tích:<span>60m2</span>
+            Diện tích: <span>{this.props.houseEntity.acreage}</span>
           </p>
           <p className="compass">
-            Hướng:<span>Tây bắc</span>
+            Hướng: <span>{getDirection(this.props.houseEntity.direction)}</span>
           </p>
           <p className="bedroom">
-            Phòng ngủ:<span>2</span>
+            Phòng ngủ: <span>{this.props.houseEntity.bedRoom}</span>
           </p>
           <p className="bathroom">
-            Phòng tắm:<span>1</span>
+            Phòng tắm: <span>{this.props.houseEntity.bathRoom}</span>
           </p>
           <p className="gara">
-            Chỗ để ô tô:<span>có</span>
+            Chỗ để ô tô: <span>{this.props.houseEntity.parking ? 'Có' : 'Không'}</span>
           </p>
         </div>
         <div className="location">
           <span className="title">Địa chỉ</span>
-          <p>Số 2/232 Trần Kim Xuyến, Trung Hòa, Cầu Giấy, TP Hà Nội</p>
+          <p>
+            {getCityType({
+              cities: this.props.cities,
+              cityId: this.props.houseEntity.cityId,
+              districtId: this.props.houseEntity.districtId,
+              wardId: this.props.houseEntity.wardId
+            })}
+          </p>
         </div>
         <div className="button-group">
           <a href="#" className="like">
@@ -84,13 +107,13 @@ export class Detail extends React.Component<IDetailProp, IDetailState> {
         <div className="contact">
           <div>Liên hệ chủ nhà</div>
           <p>
-            <FontAwesomeIcon icon="user" /> Hoàng Lê Khánh
+            <FontAwesomeIcon icon="user" /> {this.props.houseEntity.customer}
           </p>
           <p>
-            <FontAwesomeIcon icon="mobile" /> 0941 968383
+            <FontAwesomeIcon icon="mobile" /> {this.props.houseEntity.mobile}
           </p>
           <p>
-            <FontAwesomeIcon icon="envelope" /> khanhlh@gmail.com
+            <FontAwesomeIcon icon="envelope" /> {this.props.houseEntity.email}
           </p>
         </div>
         <div className="call-chat">
@@ -116,6 +139,43 @@ export class Detail extends React.Component<IDetailProp, IDetailState> {
           </p>
         </div>
       </Col>
+    );
+  }
+
+  houseNearByForm() {
+    return (
+      <Tabs defaultActiveKey="1" style={{ border: '1px solid #dfdfdf', padding: 10, minHeight: 400, maxHeight: 400 }}>
+        <TabPane
+          tab={
+            <span>
+              <FontAwesomeIcon icon="utensils" /> Nhà hàng
+            </span>
+          }
+          key="1"
+        >
+          Content of Tab Pane 1
+        </TabPane>
+        <TabPane
+          tab={
+            <span>
+              <FontAwesomeIcon icon="shopping-cart" /> Mua sắm
+            </span>
+          }
+          key="2"
+        >
+          Content of Tab Pane 2
+        </TabPane>
+        <TabPane
+          tab={
+            <span>
+              <FontAwesomeIcon icon="graduation-cap" /> Trường học
+            </span>
+          }
+          key="3"
+        >
+          Content of Tab Pane 3
+        </TabPane>
+      </Tabs>
     );
   }
 
@@ -152,38 +212,7 @@ export class Detail extends React.Component<IDetailProp, IDetailState> {
               </Row>
               <Row style={{ marginTop: 10, marginBottom: 10 }}>
                 <Col md="6">
-                  <Tabs defaultActiveKey="1" style={{ border: '1px solid #dfdfdf', padding: 10, minHeight: 400, maxHeight: 400 }}>
-                    <TabPane
-                      tab={
-                        <span>
-                          <FontAwesomeIcon icon="utensils" /> Nhà hàng
-                        </span>
-                      }
-                      key="1"
-                    >
-                      Content of Tab Pane 1
-                    </TabPane>
-                    <TabPane
-                      tab={
-                        <span>
-                          <FontAwesomeIcon icon="shopping-cart" /> Mua sắm
-                        </span>
-                      }
-                      key="2"
-                    >
-                      Content of Tab Pane 2
-                    </TabPane>
-                    <TabPane
-                      tab={
-                        <span>
-                          <FontAwesomeIcon icon="graduation-cap" /> Trường học
-                        </span>
-                      }
-                      key="3"
-                    >
-                      Content of Tab Pane 3
-                    </TabPane>
-                  </Tabs>
+                  {this.houseNearByForm()}
                 </Col>
                 <Col md="6" style={{ marginLeft: -15 }}>
                   <GoogleMaps />
@@ -191,93 +220,64 @@ export class Detail extends React.Component<IDetailProp, IDetailState> {
               </Row>
               <Row style={{ marginTop: 10, marginBottom: 10 }}>
                 <Col md="6">
-                  <Tabs defaultActiveKey="1" style={{ border: '1px solid #dfdfdf', padding: 10, minHeight: 400, maxHeight: 400 }}>
-                    <TabPane
-                      tab={
-                        <span>
-                          <FontAwesomeIcon icon="utensils" /> Nhà hàng
-                        </span>
-                      }
-                      key="1"
-                    >
-                      Content of Tab Pane 1
-                    </TabPane>
-                    <TabPane
-                      tab={
-                        <span>
-                          <FontAwesomeIcon icon="shopping-cart" /> Mua sắm
-                        </span>
-                      }
-                      key="2"
-                    >
-                      Content of Tab Pane 2
-                    </TabPane>
-                    <TabPane
-                      tab={
-                        <span>
-                          <FontAwesomeIcon icon="graduation-cap" /> Trường học
-                        </span>
-                      }
-                      key="3"
-                    >
-                      Content of Tab Pane 3
-                    </TabPane>
-                  </Tabs>
-                </Col>
-                <Col md="6" style={{ marginLeft: -15 }}>
-                  <div className="col-md-8 consultant">
-                    <h3>Tư vấn tài chính</h3>
-                    <div className="cs-content">
-                      <form action="" method="POST" role="form">
-                        <div className="col-xs-5">
-                          <div className="form-group">
-                            <label>Giá trị nhà bạn muốn mua</label>
-                            <input type="text" className="form-control" id="" placeholder="0.0" />
-                            <span className="input-addon">VNĐ</span>
-                          </div>
-                        </div>
-                        <div className="col-xs-5">
-                          <div className="form-group">
-                            <label>Số tiền tích lũy được hàng tháng</label>
-                            <input type="text" className="form-control" id="" placeholder="0.0" />
-                            <span className="input-addon">VNĐ</span>
-                          </div>
-                        </div>
-                        <div className="col-xs-2">
-                          <div className="form-group">
-                            <label>Lãi suất vay</label>
-                            <input type="text" className="form-control" id="" placeholder="0.0" />
-                            <span className="input-addon">%</span>
-                          </div>
-                        </div>
+                  <h6>Mô tả thêm</h6>
+                  <TextArea placeholder="Autosize height with minimum and maximum number of lines" value="Nhà 7 tầng THANG MÁY GARA ÔTÔ KINH DOANH đỉnh 60m2 MT4,8m giá 13.5tỷ
 
-                        <div className="col-xs-5">
-                          <div className="form-group">
-                            <label>Số tiền bạn có</label>
-                            <input type="text" className="form-control" id="" placeholder="0.0" />
-                            <span className="input-addon">VNĐ</span>
-                          </div>
-                          <div className="form-group">
-                            <label>Số tiền bạn có thể vay người thân</label>
-                            <input type="text" className="form-control" id="" placeholder="0.0" />
-                            <span className="input-addon">VNĐ</span>
-                          </div>
-                        </div>
-                        <div className="col-xs-7">
-                          <label>Tư vấn</label>
-                        </div>
-                        <div className="col-xs-7 col-xs-offset-5">
-                          <button type="submit" className="btn btn-info">
-                            Nhận tư vấn
-                          </button>
-                          <a href="#" type="button" className="btn btn-success">
-                            Đăng ký vay
-                          </a>
-                        </div>
-                        <div className="clearfix" />
-                      </form>
-                    </div>
-                  </div>
++ Nhà nằm tại vị trí đắc địa của Quận Cầu Giấy, trong khu phân lô, ÔTÔ chạy VÒNG QUANH, đường trước nhà ÔTÔ TRÁNH nhau thoải mái.
+
++ Nhà xây mới, thiết kế hiện đại, mỗi tầng 2 phòng, giếng trời thông thoáng, THANG MÁY nhập khẩu.
+
++ Nhà dễ chuyển đổi công năng, ở hay KINH DOANH đều tuyệt.
+
++ Sổ đẹp như HOA HẬU, NỞ, chính chủ pháp lý rõ ràng.
+
+Liên hệ Mr Sơn: 0989 65 65 02 – 0919 65 65 02.
+
+Chuyên Bất Động Sản Thổ Cư - Tư vấn tận tâm, chuyên nghiệp, trung thực.
+
+Hỗ trợ thủ tục pháp lý, miễn phí 100% mọi dịch vụ cho khách." autosize={{ minRows: 12, maxRows: 12 }} />
+                </Col>
+                <Col md="6">
+                  <h6>Tư vấn tài chính</h6>
+                  <Row className="cs-content">
+                    <Col md="5">
+                      <div className="form-group">
+                        <label>Giá trị nhà bạn muốn mua</label>
+                        <Input placeholder="0.0" />
+                        <span className="input-addon">VNĐ</span>
+                      </div>
+                    </Col>
+                    <Col md="5" style={{ marginLeft: -15 }}>
+                      <div className="form-group">
+                        <label>Số tiền tích lũy hàng tháng</label>
+                        <Input placeholder="0.0" />
+                        <span className="input-addon">VNĐ</span>
+                      </div>
+                    </Col>
+                    <Col md="2" style={{ marginLeft: -15 }}>
+                      <div className="form-group">
+                        <label>Lãi vay</label>
+                        <Input placeholder="0.0" />
+                        <span className="input-addon">%</span>
+                      </div>
+                    </Col>
+                    <Col md="5">
+                      <div className="form-group">
+                        <label>Số tiền bạn có</label>
+                        <Input placeholder="0.0" />
+                        <span className="input-addon">VNĐ</span>
+                      </div>
+                      <div className="form-group">
+                        <label>Số tiền bạn có thể vay</label>
+                        <Input placeholder="0.0" />
+                        <span className="input-addon">VNĐ</span>
+                      </div>
+                    </Col>
+                    <Col md="7">
+                      <label>Tư vấn</label>
+                      <TextArea rows={5} />
+                    </Col>
+                  </Row>
                 </Col>
               </Row>
             </div>
@@ -292,10 +292,11 @@ const mapStateToProps = storeState => ({
   houseEntity: storeState.house.entity,
   loading: storeState.house.loading,
   updating: storeState.house.updating,
+  cities: storeState.city.entities,
   housePhotoList: storeState.housePhoto.entities
 });
 
-const mapDispatchToProps = { getEntity, getImageOfHouse };
+const mapDispatchToProps = { getEntity, getImageOfHouse, getCities };
 
 type StateProps = ReturnType<typeof mapStateToProps>;
 type DispatchProps = typeof mapDispatchToProps;

@@ -136,7 +136,6 @@
 
 .contact .text-center a {
   color: #3a65f9;
-  border: 1px solid #3a65f9;
   background: transparent;
   margin-top: 20px;
 }
@@ -174,4 +173,33 @@
 .call-chat a.chat {
   background: url('../../../static/images/icon/ic_chat.png') no-repeat left;
   margin-left: 30px;
+}
+
+.product-desc {
+	border: 1px solid #dfdfdf;
+  padding: 15px;
+  text-align: justify;
+}
+
+.cs-content {
+	border: 1px solid #dfdfdf;
+  padding-top: 15px;
+  padding-bottom: 15px;
+  text-align: justify;
+}
+
+.cs-content input[type=text], .cs-content input[type=text]::placeholder {
+  color: #19BF25;
+  font-weight: bold;
+}
+
+.cs-content .input-addon {
+	position: absolute;
+  right: 15px;
+  top: 35px;
+  color: #888888;
+}
+
+.cs-content .form-group {
+    position: relative;
 }
