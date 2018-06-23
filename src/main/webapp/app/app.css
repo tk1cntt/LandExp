@@ -20,6 +20,10 @@ body {
   border: none;
 }
 
+.bg-light {
+  background-color: #ffffff !important;
+}
+
 .compact {
   background: url('../static/images/icon/ic_view_compact.png') no-repeat 0;
 }

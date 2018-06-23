@@ -6,7 +6,10 @@ import { Translate, TextFormat } from 'react-jhipster';
 import { connect } from 'react-redux';
 import FontAwesomeIcon from '@fortawesome/react-fontawesome';
 import { Row, Col, Container, Breadcrumb, BreadcrumbItem } from 'reactstrap';
-import { Carousel, Tabs, Input } from 'antd';
+import { Carousel as Album } from 'react-responsive-carousel';
+import "react-responsive-carousel/lib/styles/carousel.min.css";
+
+import { Carousel, Tabs, Input, Button } from 'antd';
 const { TextArea } = Input;
 const TabPane = Tabs.TabPane;
 
@@ -36,7 +39,7 @@ export class Detail extends React.Component<IDetailProp, IDetailState> {
     return (
       <Col md="6">
         <div className="justify-content-center" style={{ border: '1px solid #dfdfdf' }}>
-          <Carousel autoplay>{slides}</Carousel>
+          <Album showArrows={true}>{slides}</Album>
         </div>
       </Col>
     );
@@ -59,23 +62,22 @@ export class Detail extends React.Component<IDetailProp, IDetailState> {
         <p className="price">
           {moneyForm}
           {discountForm}
-          <span>5</span> triệu/tháng
         </p>
         <div className="property">
-          <p className="compact">
-            Diện tích: <span>{this.props.houseEntity.acreage}</span>
+          <p>
+            <FontAwesomeIcon icon="square" /> Diện tích: <span>{this.props.houseEntity.acreage}</span>
           </p>
-          <p className="compass">
-            Hướng: <span>{getDirection(this.props.houseEntity.direction)}</span>
+          <p>
+            <FontAwesomeIcon icon="compass" /> Hướng: <span>{getDirection(this.props.houseEntity.direction)}</span>
           </p>
-          <p className="bedroom">
-            Phòng ngủ: <span>{this.props.houseEntity.bedRoom}</span>
+          <p>
+            <FontAwesomeIcon icon="bed" /> Phòng ngủ: <span>{this.props.houseEntity.bedRoom}</span>
           </p>
-          <p className="bathroom">
-            Phòng tắm: <span>{this.props.houseEntity.bathRoom}</span>
+          <p>
+            <FontAwesomeIcon icon="bath" /> Phòng tắm: <span>{this.props.houseEntity.bathRoom}</span>
           </p>
-          <p className="gara">
-            Chỗ để ô tô: <span>{this.props.houseEntity.parking ? 'Có' : 'Không'}</span>
+          <p>
+            <FontAwesomeIcon icon="car" /> Chỗ để ô tô: <span>{this.props.houseEntity.parking ? 'Có' : 'Không'}</span>
           </p>
         </div>
         <div className="location">
@@ -91,10 +93,10 @@ export class Detail extends React.Component<IDetailProp, IDetailState> {
         </div>
         <div className="button-group">
           <a href="#" className="like">
-            <img src="static/images/icon/like.png" alt="" />Yêu thích
+            <FontAwesomeIcon icon="heart" /> Yêu thích
           </a>
           <a href="#" className="report">
-            <img src="static/images/icon/warning.png" alt="" />Báo xấu
+            <FontAwesomeIcon icon="exclamation-triangle" /> Báo xấu
           </a>
         </div>
       </Col>
@@ -117,25 +119,21 @@ export class Detail extends React.Component<IDetailProp, IDetailState> {
           </p>
         </div>
         <div className="call-chat">
-          <a href="#" className="call">
-            Gọi điện
-          </a>
-          <a href="#" className="chat">
-            Chat
-          </a>
+          <Row>
+            <Button type="primary" style={{ width: 100, marginRight: 10}}><FontAwesomeIcon icon="phone"/> Gọi điện</Button>
+            <Button type="primary" style={{ width: 100}}><FontAwesomeIcon icon="comments" /> Chat</Button>
+          </Row>
         </div>
         <div className="contact">
           <div>Thời gian xem bất động sản</div>
           <p>
-            <FontAwesomeIcon icon="square" /> 17h - 19h các ngày trong tuần
+            <FontAwesomeIcon icon="clock" /> 17h - 19h các ngày trong tuần
           </p>
           <p>
-            <FontAwesomeIcon icon="square" /> 10h - 12h các ngày thứ 7, chủ nhật
+            <FontAwesomeIcon icon="clock" /> 10h - 12h các ngày thứ 7, chủ nhật
           </p>
           <p className="text-center">
-            <a href="#" type="button" className="btn btn-default">
-              Đặt lịch xem
-            </a>
+            <Button type="primary">Đặt lịch xem</Button>
           </p>
         </div>
       </Col>
@@ -221,21 +219,23 @@ export class Detail extends React.Component<IDetailProp, IDetailState> {
               <Row style={{ marginTop: 10, marginBottom: 10 }}>
                 <Col md="6">
                   <h6>Mô tả thêm</h6>
-                  <TextArea placeholder="Autosize height with minimum and maximum number of lines" value="Nhà 7 tầng THANG MÁY GARA ÔTÔ KINH DOANH đỉnh 60m2 MT4,8m giá 13.5tỷ
+                  <div className="product-desc">
+                    Autosize height with minimum and maximum number of lines" value="Nhà 7 tầng THANG MÁY GARA ÔTÔ KINH DOANH đỉnh 60m2 MT4,8m giá 13.5tỷ
 
-+ Nhà nằm tại vị trí đắc địa của Quận Cầu Giấy, trong khu phân lô, ÔTÔ chạy VÒNG QUANH, đường trước nhà ÔTÔ TRÁNH nhau thoải mái.
+                    + Nhà nằm tại vị trí đắc địa của Quận Cầu Giấy, trong khu phân lô, ÔTÔ chạy VÒNG QUANH, đường trước nhà ÔTÔ TRÁNH nhau thoải mái.
 
-+ Nhà xây mới, thiết kế hiện đại, mỗi tầng 2 phòng, giếng trời thông thoáng, THANG MÁY nhập khẩu.
+                    + Nhà xây mới, thiết kế hiện đại, mỗi tầng 2 phòng, giếng trời thông thoáng, THANG MÁY nhập khẩu.
 
-+ Nhà dễ chuyển đổi công năng, ở hay KINH DOANH đều tuyệt.
+                    + Nhà dễ chuyển đổi công năng, ở hay KINH DOANH đều tuyệt.
 
-+ Sổ đẹp như HOA HẬU, NỞ, chính chủ pháp lý rõ ràng.
+                    + Sổ đẹp như HOA HẬU, NỞ, chính chủ pháp lý rõ ràng.
 
-Liên hệ Mr Sơn: 0989 65 65 02 – 0919 65 65 02.
+                    Liên hệ Mr Sơn: 0989 65 65 02 – 0919 65 65 02.
 
-Chuyên Bất Động Sản Thổ Cư - Tư vấn tận tâm, chuyên nghiệp, trung thực.
+                    Chuyên Bất Động Sản Thổ Cư - Tư vấn tận tâm, chuyên nghiệp, trung thực.
 
-Hỗ trợ thủ tục pháp lý, miễn phí 100% mọi dịch vụ cho khách." autosize={{ minRows: 12, maxRows: 12 }} />
+                    Hỗ trợ thủ tục pháp lý, miễn phí 100% mọi dịch vụ cho khách.
+                  </div>
                 </Col>
                 <Col md="6">
                   <h6>Tư vấn tài chính</h6>
@@ -273,9 +273,9 @@ Hỗ trợ thủ tục pháp lý, miễn phí 100% mọi dịch vụ cho khách.
                         <span className="input-addon">VNĐ</span>
                       </div>
                     </Col>
-                    <Col md="7">
+                    <Col md="7" style={{ marginLeft: -15 }}>
                       <label>Tư vấn</label>
-                      <TextArea rows={5} />
+                      <TextArea rows={5} placeholder="Bạn cần vay số tiền { } VNĐ trong vòng { } năm với số tiền tích lũy hàng tháng không nhỏ hơn { } VNĐ để có thể mua được ngôi nhà này" />
                     </Col>
                   </Row>
                 </Col>

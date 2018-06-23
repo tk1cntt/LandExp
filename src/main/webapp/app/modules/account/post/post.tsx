@@ -566,14 +566,14 @@ export class PostPage extends React.Component<IPostProp, IPostState> {
       <Row>
         <SearchPage />
         <Container>
-          <Row>
+          <Row style={{ marginBottom: 20 }}>
             <Steps size="small" current={current}>
               {steps.map(item => <Step key={item.title} title={item.title} />)}
             </Steps>
           </Row>
+          {this.state.alerts}
           <Row>
             <Col md="8">
-              {this.state.alerts}
               <div style={{ height: '100%' }}>
                 <Card title="Thông tin về ngôi nhà của bạn" bordered={false} style={{ width: '100%', height: '100%', padding: '3px' }}>
                   <div className="steps-content">{steps[this.state.current].content}</div>
