@@ -1,0 +1,63 @@
+#home-content h2 {
+  border-bottom: 1px solid #dfdfdf;
+  padding-bottom: 10px;
+  position: relative;
+  margin-bottom: 20px;
+}
+
+#home-content h2 span {
+  color: #888;
+  font-size: 16px;
+  font-weight: lighter;
+  padding-left: 15px;
+  margin-left: 15px;
+  border-left: 1px solid #aaaaaa;
+}
+
+#home-content h2 .toolbox {
+  position: absolute;
+  right: 0px;
+  top: -2px;
+}
+
+#home-content h2 .toolbox label {
+  font-size: 14px;
+  font-weight: 300;
+}
+
+#home-content h2 .toolbox select {
+  height: 40px;
+  border-color: #ebebeb;
+  color: #888888;
+  font-size: 14px;
+  display: inline-block;
+  margin-right: 50px;
+}
+
+#home-content .listview-button,
+.gridview-button {
+  display: inline-block;
+}
+
+#home-content .listview-button a,
+.gridview-button a {
+  display: block;
+  width: 25px;
+  height: 20px;
+}
+
+#home-content .listview-button a {
+  background: url('../../../../../static/images/icon/listview.png');
+}
+
+#home-content .gridview-button a {
+  background: url('../../../../../static/images/icon/gridview.png');
+}
+
+#home-content .listview-button.active a {
+  background: url('../../../../../static/images/icon/listview-active.png');
+}
+
+#home-content .gridview-button.active a {
+  background: url('../../../../../static/images/icon/gridview-active.png');
+}

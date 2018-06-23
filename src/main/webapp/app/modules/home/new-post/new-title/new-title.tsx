@@ -1,3 +1,5 @@
+import './new-title.css';
+
 import * as React from 'react';
 
 import { Translate } from 'react-jhipster';

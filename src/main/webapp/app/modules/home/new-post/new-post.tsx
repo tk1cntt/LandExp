@@ -171,8 +171,10 @@ export class NewPost extends React.Component {
   render() {
     return (
       <Row>
-        <NewTitle />
-        <Col sm="6">
+        <Col md="12">
+          <NewTitle />
+        </Col>
+        <Col md="6">
           <Row>
             <div id="news" className="listview-left">
               {this.state.data.map(item => <News news={item} />)}
