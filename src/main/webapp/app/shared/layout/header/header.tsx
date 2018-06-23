@@ -109,22 +109,24 @@ export default class Header extends React.Component<IHeaderProps, IHeaderState> 
     return (
       <div id="app-header">
         <div className="container">
-          <Navbar color="light" light expand="sm" className="jh-navbar">
-            <NavbarToggler aria-label="Menu" onClick={this.toggleMenu} />
-            <Brand />
-            <Collapse isOpen={this.state.menuOpen} navbar>
-              <Nav id="header-tabs" className="ml-auto" navbar>
-                {!isAuthenticated && <Register />}
-                {!isAuthenticated && <Login />}
-                {isAuthenticated && isStaff && <CommonMenu />}
-                {isAuthenticated && isStaff && <StaffMenu />}
-                {isAuthenticated && isManager && <ManagerMenu />}
-                {isAuthenticated && isAdmin && <AdminMenu showSwagger={isSwaggerEnabled} showDatabase={!isInProduction} />}
-                {isAuthenticated && <AccountMenu isAuthenticated={isAuthenticated} />}
-                {isAuthenticated && <Post />}
-              </Nav>
-            </Collapse>
-          </Navbar>
+          <div className="jh-navbar">
+            <Navbar color="light" light expand="sm">
+              <NavbarToggler aria-label="Menu" onClick={this.toggleMenu} />
+              <Brand />
+              <Collapse isOpen={this.state.menuOpen} navbar>
+                <Nav id="header-tabs" className="ml-auto" navbar>
+                  {!isAuthenticated && <Register />}
+                  {!isAuthenticated && <Login />}
+                  {isAuthenticated && isStaff && <CommonMenu />}
+                  {isAuthenticated && isStaff && <StaffMenu />}
+                  {isAuthenticated && isManager && <ManagerMenu />}
+                  {isAuthenticated && isAdmin && <AdminMenu showSwagger={isSwaggerEnabled} showDatabase={!isInProduction} />}
+                  {isAuthenticated && <AccountMenu isAuthenticated={isAuthenticated} />}
+                  {isAuthenticated && <Post />}
+                </Nav>
+              </Collapse>
+            </Navbar>
+          </div>
         </div>
       </div>
     );
