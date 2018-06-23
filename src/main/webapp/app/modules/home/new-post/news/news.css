@@ -125,26 +125,6 @@
   text-align: left;
 }
 
-.compact {
-  background: url('../../../../../static/images/icon/ic_view_compact.png') no-repeat 0;
-}
-
-.compass {
-  background: url('../../../../../static/images/icon/compass.png') no-repeat 0;
-}
-
-.bedroom {
-  background: url('../../../../../static/images/icon/ic_hotel.png') no-repeat 0;
-}
-
-.bathroom {
-  background: url('../../../../../static/images/icon/bathtub.png') no-repeat 0;
-}
-
-.garage {
-  background: url('../../../../../static/images/icon/ic_directions_car.png') no-repeat 0;
-}
-
 item-info {
   min-width: 255px;
 }
