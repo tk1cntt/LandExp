@@ -547,7 +547,7 @@ export class EditPage extends React.Component<IEditProp, IEditState> {
           <Row>
             <Col md="8">
               {this.state.alerts}
-              <div style={{ marginTop: 10, background: '#ECECEC', height: '100%', padding: '5px' }}>
+              <div style={{ height: '100%' }}>
                 <Card title="Thông tin về ngôi nhà của bạn" bordered={false} style={{ width: '100%', height: '100%' }}>
                   <div className="steps-content">{steps[this.state.current].content}</div>
                   <div className="steps-action" style={{ marginTop: 16 }}>
@@ -571,7 +571,7 @@ export class EditPage extends React.Component<IEditProp, IEditState> {
               </div>
             </Col>
             <Col md="4">
-              <div style={{ marginTop: 10, background: '#ECECEC', height: '100%', padding: '5px' }}>
+              <div style={{ height: '100%' }}>
                 <Card title="Thông tin về ngôi nhà của bạn" bordered={false} style={{ width: '100%', height: '100%' }}>
                   {this.updateHouseTypeInfo()}
                   {this.updateHouseAdressInfo()}

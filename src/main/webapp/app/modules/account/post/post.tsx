@@ -487,7 +487,7 @@ export class PostPage extends React.Component<IPostProp, IPostState> {
     ) : null;
 
     const customerEmailValue = this.state.house.email || this.props.house.email;
-    const customerEmailForm = customerValue ? (
+    const customerEmailForm = customerEmailValue ? (
       <Row>
         <Col md="6">Địa chỉ emai:</Col>
         <Col md="6">{customerEmailValue}</Col>
@@ -495,7 +495,7 @@ export class PostPage extends React.Component<IPostProp, IPostState> {
     ) : null;
 
     const customerZaloValue = this.state.house.zalo || this.props.house.zalo;
-    const customerZaloForm = customerValue ? (
+    const customerZaloForm = customerZaloValue ? (
       <Row>
         <Col md="6">Tài khoản Facebook:</Col>
         <Col md="6">{customerZaloValue}</Col>
@@ -503,7 +503,7 @@ export class PostPage extends React.Component<IPostProp, IPostState> {
     ) : null;
 
     const customerFacebookValue = this.state.house.facebook || this.props.house.facebook;
-    const customerFacebookForm = customerValue ? (
+    const customerFacebookForm = customerFacebookValue ? (
       <Row>
         <Col md="6">Tài khoản Facebook:</Col>
         <Col md="6">{customerFacebookValue}</Col>
