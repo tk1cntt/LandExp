@@ -97,7 +97,7 @@ export class HouseUpdate extends React.Component<IHouseUpdateProps, IHouseUpdate
   };
 
   handleClose = () => {
-    this.props.history.push('/entity/house');
+    this.props.history.push('/quan-ly/tin-dang');
   };
 
   cityUpdate = element => {

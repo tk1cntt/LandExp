@@ -16,9 +16,11 @@ export const StaffMenu = props => (
     <DropdownItem tag={Link} to="/quan-ly/cac-du-an">
       <FontAwesomeIcon icon="asterisk" />&nbsp; Các dự án
     </DropdownItem>
+    {/*
     <DropdownItem tag={Link} to="/quan-ly/land-project-photo">
       <FontAwesomeIcon icon="asterisk" />&nbsp; Ảnh các dự án
     </DropdownItem>
+    */}
     <DropdownItem tag={Link} to="/quan-ly/tin-tuc">
       <FontAwesomeIcon icon="asterisk" />&nbsp; Tin tức
     </DropdownItem>

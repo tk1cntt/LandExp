@@ -185,6 +185,7 @@ relationship OneToMany {
 relationship ManyToOne {
    LandProject{city(name)} to City,
    LandProject{district(name)} to District,
+   LandProject{ward(name)} to Ward,
    LandProject{street(name)} to Street,
    LandProject{createBy(login)} to User,
    LandProject{updateBy(login)} to User
@@ -300,7 +301,7 @@ relationship ManyToOne {
 
 entity UserFinancial {
    housePrice Float,
-   houseAcreage Float,
+   savingMoney Float,
    loanRate Float,
    loanFromPeople Float,
    customerMoneyHave Float,

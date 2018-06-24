@@ -121,17 +121,11 @@ export class Article extends React.Component<IArticleProps, IArticleState> {
             <Table responsive>
               <thead>
                 <tr>
-                  <th className="hand" onClick={this.sort('id')}>
-                    <Translate contentKey="global.field.id">ID</Translate> <FontAwesomeIcon icon="sort" />
-                  </th>
                   <th className="hand" onClick={this.sort('avatar')}>
                     <Translate contentKey="landexpApp.article.avatar">Avatar</Translate> <FontAwesomeIcon icon="sort" />
                   </th>
                   <th className="hand" onClick={this.sort('title')}>
                     <Translate contentKey="landexpApp.article.title">Title</Translate> <FontAwesomeIcon icon="sort" />
-                  </th>
-                  <th className="hand" onClick={this.sort('titleAlias')}>
-                    <Translate contentKey="landexpApp.article.titleAlias">Title Alias</Translate> <FontAwesomeIcon icon="sort" />
                   </th>
                   <th className="hand" onClick={this.sort('summary')}>
                     <Translate contentKey="landexpApp.article.summary">Summary</Translate> <FontAwesomeIcon icon="sort" />
@@ -148,17 +142,11 @@ export class Article extends React.Component<IArticleProps, IArticleState> {
                   <th className="hand" onClick={this.sort('createAt')}>
                     <Translate contentKey="landexpApp.article.createAt">Create At</Translate> <FontAwesomeIcon icon="sort" />
                   </th>
-                  <th className="hand" onClick={this.sort('updateAt')}>
-                    <Translate contentKey="landexpApp.article.updateAt">Update At</Translate> <FontAwesomeIcon icon="sort" />
-                  </th>
                   <th>
                     <Translate contentKey="landexpApp.article.category">Category</Translate> <FontAwesomeIcon icon="sort" />
                   </th>
                   <th>
                     <Translate contentKey="landexpApp.article.createBy">Create By</Translate> <FontAwesomeIcon icon="sort" />
-                  </th>
-                  <th>
-                    <Translate contentKey="landexpApp.article.updateBy">Update By</Translate> <FontAwesomeIcon icon="sort" />
                   </th>
                   <th />
                 </tr>
@@ -166,11 +154,6 @@ export class Article extends React.Component<IArticleProps, IArticleState> {
               <tbody>
                 {articleList.map((article, i) => (
                   <tr key={`entity-${i}`}>
-                    <td>
-                      <Button tag={Link} to={`${match.url}/${article.id}`} color="link" size="sm">
-                        {article.id}
-                      </Button>
-                    </td>
                     <td>
                       {article.avatar ? (
                         <div>
@@ -185,7 +168,6 @@ export class Article extends React.Component<IArticleProps, IArticleState> {
                       ) : null}
                     </td>
                     <td>{article.title}</td>
-                    <td>{article.titleAlias}</td>
                     <td>{article.summary}</td>
                     <td>{article.content}</td>
                     <td>{article.statusType}</td>
@@ -193,12 +175,8 @@ export class Article extends React.Component<IArticleProps, IArticleState> {
                     <td>
                       <TextFormat type="date" value={article.createAt} format={APP_LOCAL_DATE_FORMAT} />
                     </td>
-                    <td>
-                      <TextFormat type="date" value={article.updateAt} format={APP_LOCAL_DATE_FORMAT} />
-                    </td>
                     <td>{article.categoryName ? <Link to={`category/${article.categoryId}`}>{article.categoryName}</Link> : ''}</td>
                     <td>{article.createByLogin ? article.createByLogin : ''}</td>
-                    <td>{article.updateByLogin ? article.updateByLogin : ''}</td>
                     <td className="text-right">
                       <div className="btn-group flex-btn-group-container">
                         <Button tag={Link} to={`${match.url}/${article.id}`} color="info" size="sm">

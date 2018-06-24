@@ -226,21 +226,12 @@ export class Detail extends React.Component<IDetailProp, IDetailState> {
                 <Col md="6">
                   <h6>Mô tả thêm</h6>
                   <div className="product-desc">
-                    Autosize height with minimum and maximum number of lines" value="Nhà 7 tầng THANG MÁY GARA ÔTÔ KINH DOANH đỉnh 60m2 MT4,8m giá 13.5tỷ
-
-                    + Nhà nằm tại vị trí đắc địa của Quận Cầu Giấy, trong khu phân lô, ÔTÔ chạy VÒNG QUANH, đường trước nhà ÔTÔ TRÁNH nhau thoải mái.
-
-                    + Nhà xây mới, thiết kế hiện đại, mỗi tầng 2 phòng, giếng trời thông thoáng, THANG MÁY nhập khẩu.
-
-                    + Nhà dễ chuyển đổi công năng, ở hay KINH DOANH đều tuyệt.
-
-                    + Sổ đẹp như HOA HẬU, NỞ, chính chủ pháp lý rõ ràng.
-
-                    Liên hệ Mr Sơn: 0989 65 65 02 – 0919 65 65 02.
-
-                    Chuyên Bất Động Sản Thổ Cư - Tư vấn tận tâm, chuyên nghiệp, trung thực.
-
-                    Hỗ trợ thủ tục pháp lý, miễn phí 100% mọi dịch vụ cho khách.
+                    Autosize height with minimum and maximum number of lines" value="Nhà 7 tầng THANG MÁY GARA ÔTÔ KINH DOANH đỉnh 60m2
+                    MT4,8m giá 13.5tỷ + Nhà nằm tại vị trí đắc địa của Quận Cầu Giấy, trong khu phân lô, ÔTÔ chạy VÒNG QUANH, đường trước
+                    nhà ÔTÔ TRÁNH nhau thoải mái. + Nhà xây mới, thiết kế hiện đại, mỗi tầng 2 phòng, giếng trời thông thoáng, THANG MÁY
+                    nhập khẩu. + Nhà dễ chuyển đổi công năng, ở hay KINH DOANH đều tuyệt. + Sổ đẹp như HOA HẬU, NỞ, chính chủ pháp lý rõ
+                    ràng. Liên hệ Mr Sơn: 0989 65 65 02 – 0919 65 65 02. Chuyên Bất Động Sản Thổ Cư - Tư vấn tận tâm, chuyên nghiệp, trung
+                    thực. Hỗ trợ thủ tục pháp lý, miễn phí 100% mọi dịch vụ cho khách.
                   </div>
                 </Col>
                 <Col md="6">

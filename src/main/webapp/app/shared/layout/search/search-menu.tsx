@@ -49,13 +49,13 @@ export class SearchPage extends React.Component<ISearchPageProp> {
 
   priceForm() {
     return (
-      <Select style={{ width: 145, marginRight: 1 }} placeholder="Khoảng giá" onChange={this.handleChangeActionType}>
-        <Option value="">&lt; 500 triệu</Option>
-        <Option value="">500 triệu - 1 tỷ</Option>
-        <Option value="">1 - 1.5 tỷ</Option>
-        <Option value="">1.5 - 2 tỷ</Option>
-        <Option value="">2 - 3 tỷ</Option>
-        <Option value="">3 - 5 tỷ</Option>
+      <Select key="money-range" style={{ width: 145, marginRight: 1 }} placeholder="Khoảng giá" onChange={this.handleChangeActionType}>
+        <Option value="500">&lt; 500 triệu</Option>
+        <Option value="1000">500 triệu - 1 tỷ</Option>
+        <Option value="1500">1 - 1.5 tỷ</Option>
+        <Option value="2000">1.5 - 2 tỷ</Option>
+        <Option value="3000">2 - 3 tỷ</Option>
+        <Option value="5000">3 - 5 tỷ</Option>
         <Option value="">&gt; 5 tỷ</Option>
       </Select>
     );
@@ -63,11 +63,11 @@ export class SearchPage extends React.Component<ISearchPageProp> {
 
   acreageForm() {
     return (
-      <Select style={{ width: 145, marginRight: 1 }} placeholder="Diện tích" onChange={this.handleChangeActionType}>
-        <Option value="">&lt; 50 m2</Option>
-        <Option value="">50 - 80 m2</Option>
-        <Option value="">80 - 100 m2</Option>
-        <Option value="">100 - 200 m2</Option>
+      <Select key="acreage-range" style={{ width: 145, marginRight: 1 }} placeholder="Diện tích" onChange={this.handleChangeActionType}>
+        <Option value="50">&lt; 50 m2</Option>
+        <Option value="80">50 - 80 m2</Option>
+        <Option value="100">80 - 100 m2</Option>
+        <Option value="200">100 - 200 m2</Option>
         <Option value="">&gt; 200 m2</Option>
       </Select>
     );
