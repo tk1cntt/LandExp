@@ -17,6 +17,7 @@ import { AUTHORITIES } from 'app/config/constants';
 import AppRoutes from 'app/routes';
 
 import './antd.min.css';
+import 'react-responsive-carousel/lib/styles/carousel.min.css';
 
 export interface IAppProps extends StateProps, DispatchProps {}
 

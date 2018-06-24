@@ -7,7 +7,6 @@ import { connect } from 'react-redux';
 import FontAwesomeIcon from '@fortawesome/react-fontawesome';
 import { Row, Col, Container, Breadcrumb, BreadcrumbItem } from 'reactstrap';
 import { Carousel as Album } from 'react-responsive-carousel';
-import 'react-responsive-carousel/lib/styles/carousel.min.css';
 
 import { Carousel, Tabs, Input, Button } from 'antd';
 const { TextArea } = Input;
@@ -39,7 +38,7 @@ export class Detail extends React.Component<IDetailProp, IDetailState> {
     return (
       <Col md="6">
         <div className="justify-content-center" style={{ border: '1px solid #dfdfdf' }}>
-          <Album showArrows={true}>{slides}</Album>
+          <Album autoPlay>{slides}</Album>
         </div>
       </Col>
     );
