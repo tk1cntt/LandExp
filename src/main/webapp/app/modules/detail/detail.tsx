@@ -31,6 +31,7 @@ export class Detail extends React.Component<IDetailProp, IDetailState> {
   componentDidMount() {
     this.props.getCities();
     this.props.getEntity(this.props.match.params.key);
+    /* tslint:disable-next-line */
     this.props.getImageOfHouse(parseInt(this.props.match.params.key));
   }
 

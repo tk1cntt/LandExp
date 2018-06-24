@@ -27,15 +27,12 @@ export class Home extends React.Component<IHomeProp> {
   render() {
     const { account } = this.props;
     return (
-      <div id="home-content">
-        <div className="container">
-          <div className="featured-posts">
-            <Title title={this.state.title} />
-            <GridPreview />
+      <div className="container">
+        {/* tslint:disable-next-line */}
+        <Title title={this.state.title} />
+        <GridPreview />
 
-            <NewPost />
-          </div>
-        </div>
+        <NewPost />
       </div>
     );
   }
