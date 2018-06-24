@@ -539,11 +539,11 @@ export class EditPage extends React.Component<IEditProp, IEditState> {
       <Row>
         <SearchPage />
         <Container>
-          <Row>
+          <div>
             <Steps size="small" current={current}>
               {steps.map(item => <Step key={item.title} title={item.title} />)}
             </Steps>
-          </Row>
+          </div>
           <Row>
             <Col md="8">
               {this.state.alerts}

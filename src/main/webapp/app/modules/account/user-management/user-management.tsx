@@ -64,7 +64,7 @@ export class UserManagement extends React.Component<IUserManagementProps, IPagin
   render() {
     const { users, account, match, totalItems } = this.props;
     return (
-      <div>
+      <Row>
         <SearchPage />
         <Container>
           <h2 className="userManagement-page-heading">
@@ -181,7 +181,7 @@ export class UserManagement extends React.Component<IUserManagementProps, IPagin
             />
           </Row>
         </Container>
-      </div>
+      </Row>
     );
   }
 }
