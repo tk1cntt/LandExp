@@ -3,7 +3,6 @@ Navbar styles
 ========================================================================== */
 .jh-navbar {
   background-color: #ffffff !important;
-  padding: 0.2em 1em;
 }
 .jh-navbar .dropdown-menu {
   font-size: 1em;
@@ -42,6 +41,10 @@ Navbar styles
 .jh-navbar .jh-navbar-toggler:hover {
   color: #fff;
 }
+.jh-navbar .brand-menu-item {
+  font-size: 15px;
+  margin-left: 10px;
+}
 .navbar-version {
   font-size: 10px;
   color: #bbb;
@@ -51,12 +54,14 @@ Navbar styles
   text-decoration: none;
 }
 .brand-logo .brand-icon {
-  height: 25px;
+  height: 30px;
   width: auto;
   display: inline-block;
 }
 .brand-logo .brand-icon img {
-  height: 25px;
+  height: 30px;
+  margin-top: -10px;
+  margin-left: -15px;
 }
 .brand-title {
   font-size: 24px;

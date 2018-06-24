@@ -1,7 +1,7 @@
 import './header.css';
 
 import * as React from 'react';
-import { Navbar, Nav, NavbarToggler, NavbarBrand, Collapse } from 'reactstrap';
+import { Navbar, Nav, NavbarToggler, NavbarBrand, Collapse, Container } from 'reactstrap';
 import { Translate } from 'react-jhipster';
 import FontAwesomeIcon from '@fortawesome/react-fontawesome';
 import { NavLink as Link, RouteComponentProps } from 'react-router-dom';
@@ -11,7 +11,7 @@ import Menu from './banner/menu';
 import Search from './search/search';
 import Demand from './demand/demand';
 import Download from './download/download';
-import { Home, Brand, Register, Login, Post } from './header-components';
+import { Home, Brand, Buy, Rent, News, Support, Register, Login, Post } from './header-components';
 import { AdminMenu, ManagerMenu, StaffMenu, CommonMenu, AccountMenu, LocaleMenu } from './menus';
 import SearchPage from 'app/shared/layout/search/search-menu';
 
@@ -108,11 +108,15 @@ export default class Header extends React.Component<IHeaderProps, IHeaderState> 
     const bathroom = [1, 2, 3, 4];
     return (
       <div id="app-header">
-        <div className="container">
+        <Container>
           <div className="jh-navbar">
             <Navbar color="light" light expand="sm">
               <NavbarToggler aria-label="Menu" onClick={this.toggleMenu} />
               <Brand />
+              <Buy />
+              <Rent />
+              <News />
+              <Support />
               <Collapse isOpen={this.state.menuOpen} navbar>
                 <Nav id="header-tabs" className="ml-auto" navbar>
                   {!isAuthenticated && <Register />}
@@ -127,7 +131,7 @@ export default class Header extends React.Component<IHeaderProps, IHeaderState> 
               </Collapse>
             </Navbar>
           </div>
-        </div>
+        </Container>
       </div>
     );
   }

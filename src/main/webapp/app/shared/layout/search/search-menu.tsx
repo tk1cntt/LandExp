@@ -17,7 +17,7 @@ export class SearchPage extends React.Component<ISearchPageProp> {
 
   actionTypeForm() {
     return (
-      <Select style={{ width: 130, marginRight: 5 }} placeholder="Hình thức" onChange={this.handleChangeActionType}>
+      <Select style={{ width: 130, marginRight: 1 }} placeholder="Hình thức" onChange={this.handleChangeActionType}>
         <Option value="FOR_SELL">Bán</Option>
         <Option value="FOR_RENT">Cho thuê</Option>
       </Select>
@@ -26,7 +26,7 @@ export class SearchPage extends React.Component<ISearchPageProp> {
 
   landTypeForm() {
     return (
-      <Select style={{ width: 180, marginRight: 5 }} placeholder="Loại bất động sản" onChange={this.handleChangeActionType}>
+      <Select style={{ width: 180, marginRight: 1 }} placeholder="Loại bất động sản" onChange={this.handleChangeActionType}>
         <Option value="APARTMENT">{getLandType('APARTMENT')}</Option>
         <Option value="HOME">{getLandType('HOME')}</Option>
         <Option value="HOME_VILLA">{getLandType('HOME_VILLA')}</Option>
@@ -44,12 +44,12 @@ export class SearchPage extends React.Component<ISearchPageProp> {
   }
 
   keywordForm() {
-    return <Input style={{ width: 340, marginRight: 5 }} placeholder="Nhập địa điểm, thành phố hoặc dự án" />;
+    return <Input style={{ width: 335, marginRight: 1 }} placeholder="Nhập địa điểm, thành phố hoặc dự án" />;
   }
 
   priceForm() {
     return (
-      <Select style={{ width: 145, marginRight: 5 }} placeholder="Khoảng giá" onChange={this.handleChangeActionType}>
+      <Select style={{ width: 145, marginRight: 1 }} placeholder="Khoảng giá" onChange={this.handleChangeActionType}>
         <Option value="">&lt; 500 triệu</Option>
         <Option value="">500 triệu - 1 tỷ</Option>
         <Option value="">1 - 1.5 tỷ</Option>
@@ -63,7 +63,7 @@ export class SearchPage extends React.Component<ISearchPageProp> {
 
   acreageForm() {
     return (
-      <Select style={{ width: 145, marginRight: 5 }} placeholder="Diện tích" onChange={this.handleChangeActionType}>
+      <Select style={{ width: 145, marginRight: 1 }} placeholder="Diện tích" onChange={this.handleChangeActionType}>
         <Option value="">&lt; 50 m2</Option>
         <Option value="">50 - 80 m2</Option>
         <Option value="">80 - 100 m2</Option>

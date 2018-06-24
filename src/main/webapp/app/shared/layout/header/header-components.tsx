@@ -48,6 +48,30 @@ export const Brand = props => (
   </NavbarBrand>
 );
 
+export const Buy = props => (
+  <NavbarBrand tag={Link} to="/ban-bat-dong-san" alt="Bán bất động sản" className="d-flex align-items-center">
+    <span className="brand-menu-item">Mua</span>
+  </NavbarBrand>
+);
+
+export const Rent = props => (
+  <NavbarBrand tag={Link} to="/cho-thue-bat-dong-san" alt="Cho thuê bất động sản" className="d-flex align-items-center">
+    <span className="brand-menu-item">Thuê</span>
+  </NavbarBrand>
+);
+
+export const News = props => (
+  <NavbarBrand tag={Link} to="/tin-tuc" className="d-flex align-items-center">
+    <span className="brand-menu-item">Tin tức</span>
+  </NavbarBrand>
+);
+
+export const Support = props => (
+  <NavbarBrand tag={Link} to="/ho-tro" className="d-flex align-items-center">
+    <span className="brand-menu-item">Hỗ trợ</span>
+  </NavbarBrand>
+);
+
 export const Home = props => (
   <NavItem>
     <NavLink tag={Link} to="/" className="d-flex align-items-center">
