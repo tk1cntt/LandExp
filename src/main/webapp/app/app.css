@@ -1,12 +1,9 @@
-@import '~bootstrap/dist/css/bootstrap.min.css';
-
 body {
   margin: 0px;
-  font-family: Helvetica Neue;
+  font-family: Helvetica Neue !important;
   font-weight: 300;
   font-size: 14px;
   color: #454545;
-  background-size: 100% 680px;
 }
 
 .container {
@@ -40,6 +37,12 @@ body {
   background: url('../static/images/icon/bathtub.png') no-repeat 0;
 }
 
-.garage {
+.gara {
   background: url('../static/images/icon/ic_directions_car.png') no-repeat 0;
 }
+
+.floor {
+  background: url('../static/images/icon/offices-buildings.png') no-repeat;
+}
+
+@import '~bootstrap/dist/css/bootstrap.min.css';
