@@ -30,11 +30,11 @@
                 <constraints nullable="true" />
             </column>
 
-            <column name="create_at" type="date" defaultValueDate="${now}">
+            <column name="create_at" type="date">
                 <constraints nullable="true" />
             </column>
 
-            <column name="update_at" type="date" defaultValueDate="${now}">
+            <column name="update_at" type="date">
                 <constraints nullable="true" />
             </column>
 
