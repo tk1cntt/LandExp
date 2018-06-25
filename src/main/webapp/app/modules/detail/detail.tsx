@@ -59,41 +59,33 @@ export class Detail extends React.Component<IDetailProp, IDetailState> {
     ) : null;
     return (
       <Col md="3" className="product-info">
-        <div className="type">{getLandType(this.props.houseEntity.landType)}</div>
+        <h1>{getLandType(this.props.houseEntity.landType)}</h1>
         <p className="post-date">
           <TextFormat type="date" value={this.props.houseEntity.createAt} format={APP_LOCAL_DATE_FORMAT} />
         </p>
-        <p className="price">
-          {moneyForm}
-          {discountForm}
+        <p class="price">
+          <span>5</span> triệu/tháng
         </p>
-        <div className="property">
-          <p>
-            <FontAwesomeIcon icon="square" /> Diện tích: <span>{this.props.houseEntity.acreage}</span>
+        <div class="property">
+          <p class="compact">
+            Diện tích:<span>60m2</span>
           </p>
-          <p>
-            <FontAwesomeIcon icon="compass" /> Hướng: <span>{getDirection(this.props.houseEntity.direction)}</span>
+          <p class="compass">
+            Hướng:<span>Tây bắc</span>
           </p>
-          <p>
-            <FontAwesomeIcon icon="bed" /> Phòng ngủ: <span>{this.props.houseEntity.bedRoom}</span>
+          <p class="bedroom">
+            Phòng ngủ:<span>2</span>
           </p>
-          <p>
-            <FontAwesomeIcon icon="bath" /> Phòng tắm: <span>{this.props.houseEntity.bathRoom}</span>
+          <p class="bathroom">
+            Phòng tắm:<span>1</span>
           </p>
-          <p>
-            <FontAwesomeIcon icon="car" /> Chỗ để ô tô: <span>{this.props.houseEntity.parking ? 'Có' : 'Không'}</span>
+          <p class="gara">
+            Chỗ để ô tô:<span>có</span>
           </p>
         </div>
         <div className="location">
           <span className="title">Địa chỉ</span>
-          <p>
-            {getCityType({
-              cities: this.props.cities,
-              cityId: this.props.houseEntity.cityId,
-              districtId: this.props.houseEntity.districtId,
-              wardId: this.props.houseEntity.wardId
-            })}
-          </p>
+          <p>Số 2/232 Trần Kim Xuyến, Trung Hòa, Cầu Giấy, TP Hà Nội</p>
         </div>
         <div className="button-group">
           <a href="#" className="like">
@@ -110,38 +102,36 @@ export class Detail extends React.Component<IDetailProp, IDetailState> {
   houseContactForm() {
     return (
       <Col md="3" className="contact-box">
-        <div className="contact">
-          <div>Liên hệ chủ nhà</div>
+        <div class="contact">
+          <h3>Liên hệ chủ nhà</h3>
           <p>
-            <FontAwesomeIcon icon="user" /> {this.props.houseEntity.customer}
+            <i class="fa fa-user" /> Hoàng Lê Khánh
           </p>
           <p>
-            <FontAwesomeIcon icon="mobile" /> {this.props.houseEntity.mobile}
+            <i class="fa fa-mobile" /> 0941 968383
           </p>
           <p>
-            <FontAwesomeIcon icon="envelope" /> {this.props.houseEntity.email}
+            <i class="fa fa-envelope-o" /> khanhlh@gmail.com
           </p>
         </div>
-        <div className="call-chat">
-          <Row>
-            <Button type="primary" style={{ width: 100, marginRight: 10 }}>
-              <FontAwesomeIcon icon="phone" /> Gọi điện
-            </Button>
-            <Button type="primary" style={{ width: 100 }}>
-              <FontAwesomeIcon icon="comments" /> Chat
-            </Button>
-          </Row>
+        <div class="call-chat">
+          <a href="#" class="call">
+            Gọi điện
+          </a>
+          <a href="#" class="chat">
+            Chat
+          </a>
         </div>
-        <div className="contact">
-          <div>Thời gian xem bất động sản</div>
+        <div class="contact">
+          <h3>Thời gian xem bất động sản</h3>
           <p>
-            <FontAwesomeIcon icon="clock" /> 17h - 19h các ngày trong tuần
+            <i class="fa fa-square" /> 17h - 19h các ngày trong tuần
           </p>
           <p>
-            <FontAwesomeIcon icon="clock" /> 10h - 12h các ngày thứ 7, chủ nhật
+            <i class="fa fa-square" /> 10h - 12h các ngày thứ 7, chủ nhật
           </p>
-          <p className="text-center">
-            <Button type="primary">Đặt lịch xem</Button>
+          <p class="text-center">
+            <Button type="primary">Đặt lịch xem</Button>{' '}
           </p>
         </div>
       </Col>
@@ -301,7 +291,4 @@ const mapDispatchToProps = { getEntity, getImageOfHouse, getCities };
 type StateProps = ReturnType<typeof mapStateToProps>;
 type DispatchProps = typeof mapDispatchToProps;
 
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps
-)(Detail);
+export default connect(mapStateToProps, mapDispatchToProps)(Detail);

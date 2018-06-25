@@ -20,6 +20,12 @@
   width: 284px;
 }
 
+.product-info h1 {
+  margin-bottom: 0px;
+  font-size: 18px;
+  font-weight: bold;
+}
+
 .product-info .type {
   margin-bottom: 0px;
   font-size: 18px;
@@ -32,7 +38,7 @@
 }
 
 .product-info .price {
-  font-size: 18px;
+  font-size: 22px;
   color: #3a65f9;
   margin-top: 15px;
 }
@@ -41,8 +47,24 @@
   background: transparent;
 }
 
+.product-info .property .compact,
+.bedroom,
+.bathroom,
+.gara,
+.compass,
+.floor {
+  padding-left: 28px;
+  height: 20px;
+  line-height: 20px;
+}
+
 .product-info .property span {
   font-weight: bold;
+}
+
+.product-info .property p {
+  height: 20px;
+  line-height: 20px;
 }
 
 .product-info .location {
@@ -96,63 +118,64 @@
   border: 1px solid #ffa76e;
 }
 
-/* Contact box */
-
 .contact-box {
   width: 314px;
 }
 
-.contact {
+.contact-box .contact {
   background-color: #f4f7ff;
   border: none;
-  padding: 20px 15px;
+  padding: 15px 15px;
 }
 
-.contact h3 {
+.contact-box .contact h3 {
   margin-top: 10px;
+  font-size: 16px;
 }
 
-.contact i {
+.contact-box .contact i {
   width: 20px;
   font-size: 16px;
   text-align: center;
 }
 
-.contact i.fa-mobile {
+.contact-box .contact i.fa-mobile {
   font-size: 22px;
 }
 
-.contact i.fa-square {
+.contact-box .contact i.fa-square {
   font-size: 10px;
   color: #aaaaaa;
 }
 
-.contact:hover {
+.contact-box .contact:hover {
   background: #f4f7ff;
 }
 
-.contact .text-center a {
+.contact-box .contact a {
   color: #3a65f9;
+  border: 1px solid #3a65f9;
   background: transparent;
   margin-top: 20px;
 }
 
-.contact .text-center a:hover {
+.contact-box .contact a:hover {
   color: #ffffff;
   background: #3a65f9;
 }
 
-.contact:hover a {
+.contact-box .contact:hover a {
   color: #ffffff;
   background: #3a65f9;
 }
 
-.call-chat {
+.contact-box .call-chat {
   margin: 15px auto;
   padding: 15px 30px;
+  background: #6b92ff;
 }
 
-.call-chat a {
+.contact-box .call-chat a {
   display: inline-block;
   height: 22px;
   line-height: 22px;
@@ -160,13 +183,13 @@
   color: #fff;
 }
 
-.call-chat a.call {
+.contact-box .call-chat a.call {
   background: url('../../../static/images/icon/ic_call.png') no-repeat left;
   border-right: 1px solid #fff;
-  width: 103px;
+  width: 100px;
 }
 
-.call-chat a.chat {
+.contact-box .call-chat a.chat {
   background: url('../../../static/images/icon/ic_chat.png') no-repeat left;
   margin-left: 30px;
 }
