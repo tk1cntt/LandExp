@@ -1,4 +1,4 @@
-id;name;enabled
-1;Hà Nội;true
-2;Hồ Chí Minh;true
-3;Đà Nẵng;true
+id;name
+1;Hà Nội
+2;Hồ Chí Minh
+3;Đà Nẵng
