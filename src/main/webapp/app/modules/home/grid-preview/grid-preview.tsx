@@ -1,13 +1,11 @@
+/* tslint:disable */
+
 import './grid-preview.css';
 
 import * as React from 'react';
 import { Translate } from 'react-jhipster';
 import { connect } from 'react-redux';
 import { Row, Col, Alert } from 'reactstrap';
-
-// import ReactResizeDetector from 'react-resize-detector';
-
-import { getSession } from 'app/shared/reducers/authentication';
 
 export interface IHomeProp extends StateProps, DispatchProps {}
 
@@ -20,12 +18,11 @@ export class GridPreview extends React.Component {
   }
 
   componentDidMount() {
-    this.props.getSession();
     this.splitElementForGridView();
   }
 
   state = {
-    distance: 15,
+    distance: 10,
     roundNumber: 100,
     dataTest: [
       {
@@ -70,14 +67,13 @@ export class GridPreview extends React.Component {
   getWidthBoundary = () => document.getElementById('preview-grid-mode').offsetWidth;
 
   splitElementForGridView = () => {
-    console.log('aaaaaa');
     if (!document.getElementById('preview-grid-mode')) {
       return;
     }
     const widthOfParent = this.getWidthBoundary();
-    const widthOfSmallElement = ((widthOfParent - 4 * this.state.distance - 3) * 3) / 11;
-    const heightOfSmallElement = (widthOfSmallElement * 3) / 5;
-    const widthOfBigElement = ((widthOfParent - 4 * this.state.distance - 3) * 5) / 11;
+    const widthOfSmallElement = (widthOfParent - 4 * this.state.distance - 3) * 3 / 11;
+    const heightOfSmallElement = widthOfSmallElement * 3 / 5;
+    const widthOfBigElement = (widthOfParent - 4 * this.state.distance - 3) * 5 / 11;
     const heightOfBigElement = heightOfSmallElement * 2 + 15;
 
     this.setState({
@@ -139,25 +135,20 @@ export class GridPreview extends React.Component {
   render() {
     const height = this.state.heightBoundary;
     return (
-      <div id="preview-grid-mode" style={{ height }}>
+      <Row id="preview-grid-mode" style={{ height }}>
         {this.drawingElement()}
         {/*<ReactResizeDetector handleWidth handleHeight onResize={ this.splitElementForGridView } />*/}
-      </div>
+      </Row>
     );
   }
 }
 
 const mapStateToProps = storeState => ({
-  account: storeState.authentication.account,
-  isAuthenticated: storeState.authentication.isAuthenticated
 });
 
-const mapDispatchToProps = { getSession };
+const mapDispatchToProps = {};
 
 type StateProps = ReturnType<typeof mapStateToProps>;
 type DispatchProps = typeof mapDispatchToProps;
 
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps
-)(GridPreview);
+export default connect(mapStateToProps, mapDispatchToProps)(GridPreview);

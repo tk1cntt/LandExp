@@ -18,18 +18,11 @@ export class Home extends React.Component<IHomeProp> {
     this.props.getSession();
   }
 
-  state = {
-    title: {
-      time: 'Thứ 5, ngày 31 tháng 05 năm 2018'
-    }
-  };
-
   render() {
     const { account } = this.props;
     return (
       <div className="container">
-        {/* tslint:disable-next-line */}
-        <Title title={this.state.title} />
+        <Title />
         <GridPreview />
 
         <NewPost />
@@ -48,7 +41,4 @@ const mapDispatchToProps = { getSession };
 type StateProps = ReturnType<typeof mapStateToProps>;
 type DispatchProps = typeof mapDispatchToProps;
 
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps
-)(Home);
+export default connect(mapStateToProps, mapDispatchToProps)(Home);

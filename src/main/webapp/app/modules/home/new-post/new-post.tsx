@@ -14,17 +14,9 @@ import NewTitle from './new-title/new-title';
 
 export interface INewPostProp extends StateProps, DispatchProps {}
 
-export class NewPost extends React.Component {
-  constructor(props) {
-    super(props);
-  }
-
-  componentDidMount() {}
-
-  state = {
-    distance: 15,
-    roundNumber: 100,
-    data: [
+export class NewPost extends React.Component<INewPostProp> {
+  render() {
+    const data = [
       {
         img: 'static/images/6.png',
         title: 'Căn hộ chung cư',
@@ -159,16 +151,7 @@ export class NewPost extends React.Component {
         location: 'Quận Đống Đa, Hà Nội',
         postDate: '31/05/2017'
       }
-    ],
-    widthOfParent: 0,
-    widthOfSmallElement: 0,
-    heightOfSmallElement: 0,
-    widthOfBigElement: 0,
-    heightOfBigElement: 0,
-    heightBoundary: 0
-  };
-
-  render() {
+    ];
     return (
       <Row>
         <Col md="12">
@@ -177,7 +160,7 @@ export class NewPost extends React.Component {
         <Col md="6">
           <Row>
             <div id="news" className="listview-left">
-              {this.state.data.map(item => <News news={item} />)}
+              {data.map((item, index) => <News key={`news-id-${index}`} news={item} />)}
             </div>
           </Row>
         </Col>
@@ -199,7 +182,4 @@ const mapDispatchToProps = { getSession };
 type StateProps = ReturnType<typeof mapStateToProps>;
 type DispatchProps = typeof mapDispatchToProps;
 
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps
-)(NewPost);
+export default connect(mapStateToProps, mapDispatchToProps)(NewPost);

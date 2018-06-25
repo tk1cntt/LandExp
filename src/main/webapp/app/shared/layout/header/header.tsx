@@ -7,10 +7,6 @@ import FontAwesomeIcon from '@fortawesome/react-fontawesome';
 import { NavLink as Link, RouteComponentProps } from 'react-router-dom';
 import LoadingBar from 'react-redux-loading-bar';
 
-import Menu from './banner/menu';
-import Search from './search/search';
-import Demand from './demand/demand';
-import Download from './download/download';
 import { Home, Brand, Buy, Rent, News, Support, Register, Login, Post } from './header-components';
 import { AdminMenu, ManagerMenu, StaffMenu, CommonMenu, AccountMenu, LocaleMenu } from './menus';
 import SearchPage from 'app/shared/layout/search/search-menu';
@@ -36,74 +32,12 @@ export default class Header extends React.Component<IHeaderProps, IHeaderState> 
     menuOpen: false
   };
 
-  handleLocaleChange = event => {
-    this.props.onLocaleChange(event.target.value);
-  };
-
-  renderDevRibbon = () =>
-    this.props.isInProduction === false ? (
-      <div className="ribbon dev">
-        <a href="">
-          <Translate contentKey={`global.ribbon.${this.props.ribbonEnv}`} />
-        </a>
-      </div>
-    ) : null;
-
   toggleMenu = () => {
     this.setState({ menuOpen: !this.state.menuOpen });
   };
 
   render() {
-    const land = [
-      {
-        value: -1,
-        key: 'selectLand'
-      },
-      {
-        value: 0,
-        key: 'Chung cu'
-      },
-      {
-        value: 1,
-        key: 'Nhà Riêng'
-      }
-    ];
-
-    const range = [
-      {
-        value: 0,
-        key: 'Dưới 1 tỷ'
-      },
-      {
-        value: 1,
-        key: '1 - 2 tỷ'
-      },
-      {
-        value: 2,
-        key: '2 - 5 tỷ'
-      },
-      {
-        value: 3,
-        key: 'trên 5 tỷ'
-      }
-    ];
-
     const { currentLocale, isAuthenticated, isAdmin, isManager, isStaff, isSwaggerEnabled, isInProduction } = this.props;
-    const acreage = [
-      {
-        value: 0,
-        key: '80 - 100m2'
-      },
-      {
-        value: 1,
-        key: '100 - 150m2'
-      },
-      {
-        value: 2,
-        key: 'trên 150m2'
-      }
-    ];
-
     const bedroom = [1, 2, 3, 4];
     const bathroom = [1, 2, 3, 4];
     return (

@@ -63,23 +63,23 @@ export class Detail extends React.Component<IDetailProp, IDetailState> {
         <p className="post-date">
           <TextFormat type="date" value={this.props.houseEntity.createAt} format={APP_LOCAL_DATE_FORMAT} />
         </p>
-        <p class="price">
+        <p className="price">
           <span>5</span> triệu/tháng
         </p>
-        <div class="property">
-          <p class="compact">
+        <div className="property">
+          <p className="compact">
             Diện tích:<span>60m2</span>
           </p>
-          <p class="compass">
+          <p className="compass">
             Hướng:<span>Tây bắc</span>
           </p>
-          <p class="bedroom">
+          <p className="bedroom">
             Phòng ngủ:<span>2</span>
           </p>
-          <p class="bathroom">
+          <p className="bathroom">
             Phòng tắm:<span>1</span>
           </p>
-          <p class="gara">
+          <p className="gara">
             Chỗ để ô tô:<span>có</span>
           </p>
         </div>
@@ -102,35 +102,35 @@ export class Detail extends React.Component<IDetailProp, IDetailState> {
   houseContactForm() {
     return (
       <Col md="3" className="contact-box">
-        <div class="contact">
+        <div className="contact">
           <h3>Liên hệ chủ nhà</h3>
           <p>
-            <i class="fa fa-user" /> Hoàng Lê Khánh
+            <i className="fa fa-user" /> Hoàng Lê Khánh
           </p>
           <p>
-            <i class="fa fa-mobile" /> 0941 968383
+            <i className="fa fa-mobile" /> 0941 968383
           </p>
           <p>
-            <i class="fa fa-envelope-o" /> khanhlh@gmail.com
+            <i className="fa fa-envelope-o" /> khanhlh@gmail.com
           </p>
         </div>
-        <div class="call-chat">
-          <a href="#" class="call">
+        <div className="call-chat">
+          <a href="#" className="call">
             Gọi điện
           </a>
-          <a href="#" class="chat">
+          <a href="#" className="chat">
             Chat
           </a>
         </div>
-        <div class="contact">
+        <div className="contact">
           <h3>Thời gian xem bất động sản</h3>
           <p>
-            <i class="fa fa-square" /> 17h - 19h các ngày trong tuần
+            <i className="fa fa-square" /> 17h - 19h các ngày trong tuần
           </p>
           <p>
-            <i class="fa fa-square" /> 10h - 12h các ngày thứ 7, chủ nhật
+            <i className="fa fa-square" /> 10h - 12h các ngày thứ 7, chủ nhật
           </p>
-          <p class="text-center">
+          <p className="text-center">
             <Button type="primary">Đặt lịch xem</Button>{' '}
           </p>
         </div>

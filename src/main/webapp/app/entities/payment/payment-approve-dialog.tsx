@@ -17,6 +17,7 @@ export class PaymentDeleteDialog extends React.Component<IPaymentDeleteDialogPro
   }
 
   confirmApprove = event => {
+    /* tslint:disable-next-line */
     this.props.approveEntity(this.props.paymentEntity.id);
     this.handleClose(event);
   };
