@@ -144,7 +144,4 @@ const mapDispatchToProps = { getConfigurations, getEnv };
 type StateProps = ReturnType<typeof mapStateToProps>;
 type DispatchProps = typeof mapDispatchToProps;
 
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps
-)(ConfigurationPage);
+export default connect(mapStateToProps, mapDispatchToProps)(ConfigurationPage);

@@ -143,8 +143,7 @@ export class GridPreview extends React.Component {
   }
 }
 
-const mapStateToProps = storeState => ({
-});
+const mapStateToProps = storeState => ({});
 
 const mapDispatchToProps = {};
 

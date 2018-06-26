@@ -602,7 +602,4 @@ const mapDispatchToProps = { getSession, getHouse, updateHouse, createPhoto, upd
 type StateProps = ReturnType<typeof mapStateToProps>;
 type DispatchProps = typeof mapDispatchToProps;
 
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps
-)(EditPage);
+export default connect(mapStateToProps, mapDispatchToProps)(EditPage);

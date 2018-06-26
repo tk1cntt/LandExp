@@ -13,7 +13,7 @@ export default class Title extends React.Component {
         <h2 className="title">
           <Translate component="div" contentKey="home.grid.title">
             New news
-        </Translate>
+          </Translate>
           <span>'Thứ 5, ngày 31 tháng 05 năm 2018'</span>
         </h2>
       </Row>

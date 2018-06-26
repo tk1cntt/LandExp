@@ -11,6 +11,8 @@ import GridPreview from './grid-preview/grid-preview';
 import { getSession } from 'app/shared/reducers/authentication';
 import Title from './title/title';
 
+import SearchBox from './search/search';
+
 export interface IHomeProp extends StateProps, DispatchProps {}
 
 export class Home extends React.Component<IHomeProp> {
@@ -22,6 +24,7 @@ export class Home extends React.Component<IHomeProp> {
     const { account } = this.props;
     return (
       <div className="container">
+        <SearchBox />
         <Title />
         <GridPreview />
 

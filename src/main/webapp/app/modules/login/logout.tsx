@@ -33,7 +33,4 @@ const mapDispatchToProps = { logout };
 type StateProps = ReturnType<typeof mapStateToProps>;
 type DispatchProps = typeof mapDispatchToProps;
 
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps
-)(Logout);
+export default connect(mapStateToProps, mapDispatchToProps)(Logout);

@@ -7,6 +7,15 @@ import { NavDropdown } from '../header-components';
 export const StaffMenu = props => (
   // tslint:disable-next-line:jsx-self-close
   <NavDropdown icon="th-list" name="Staff" id="entity-menu">
+    <DropdownItem tag={Link} to="/quan-ly/tinh-thanh">
+      <FontAwesomeIcon icon="asterisk" />&nbsp; Quản lý tỉnh thành
+    </DropdownItem>
+    <DropdownItem tag={Link} to="/quan-ly/quan-huyen">
+      <FontAwesomeIcon icon="asterisk" />&nbsp; Quản lý quận huyện
+    </DropdownItem>
+    <DropdownItem tag={Link} to="/quan-ly/xa-phuong">
+      <FontAwesomeIcon icon="asterisk" />&nbsp; Quản lý xã phường
+    </DropdownItem>
     <DropdownItem tag={Link} to="/quan-ly/tin-dang">
       <FontAwesomeIcon icon="asterisk" />&nbsp; Quản lý tin đăng
     </DropdownItem>

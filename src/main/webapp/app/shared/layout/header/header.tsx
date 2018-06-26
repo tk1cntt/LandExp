@@ -55,7 +55,6 @@ export default class Header extends React.Component<IHeaderProps, IHeaderState> 
                 <Nav id="header-tabs" className="ml-auto" navbar>
                   {!isAuthenticated && <Register />}
                   {!isAuthenticated && <Login />}
-                  {isAuthenticated && isStaff && <CommonMenu />}
                   {isAuthenticated && isStaff && <StaffMenu />}
                   {isAuthenticated && isManager && <ManagerMenu />}
                   {isAuthenticated && isAdmin && <AdminMenu showSwagger={isSwaggerEnabled} showDatabase={!isInProduction} />}
