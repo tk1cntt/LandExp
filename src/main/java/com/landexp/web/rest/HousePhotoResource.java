@@ -7,6 +7,7 @@ import com.landexp.web.rest.util.HeaderUtil;
 import com.landexp.web.rest.util.PaginationUtil;
 import com.landexp.service.dto.HousePhotoDTO;
 import io.github.jhipster.web.util.ResponseUtil;
+import net.coobird.thumbnailator.Thumbnails;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.data.domain.Page;
@@ -16,9 +17,15 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import javax.imageio.ImageIO;
+import java.awt.image.BufferedImage;
+import java.io.ByteArrayInputStream;
+import java.io.ByteArrayOutputStream;
+import java.io.IOException;
 import java.net.URI;
 import java.net.URISyntaxException;
 
+import java.nio.file.Files;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.StreamSupport;
@@ -42,6 +49,19 @@ public class HousePhotoResource {
         this.housePhotoService = housePhotoService;
     }
 
+    private BufferedImage createImageFromBytes(byte[] imageData) {
+        ByteArrayInputStream bais = new ByteArrayInputStream(imageData);
+        try {
+            return ImageIO.read(bais);
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    public byte[] convert(ByteArrayOutputStream out) {
+        return out.toByteArray();
+    }
+
     /**
      * POST  /house-photos : Create a new housePhoto.
      *
@@ -51,11 +71,17 @@ public class HousePhotoResource {
      */
     @PostMapping("/house-photos")
     @Timed
-    public ResponseEntity<HousePhotoDTO> createHousePhoto(@RequestBody HousePhotoDTO housePhotoDTO) throws URISyntaxException {
+    public ResponseEntity<HousePhotoDTO> createHousePhoto(@RequestBody HousePhotoDTO housePhotoDTO) throws URISyntaxException, IOException {
         log.debug("REST request to save HousePhoto : {}", housePhotoDTO);
         if (housePhotoDTO.getId() != null) {
             throw new BadRequestAlertException("A new housePhoto cannot already have an ID", ENTITY_NAME, "idexists");
         }
+        ByteArrayOutputStream bao = new ByteArrayOutputStream();
+        Thumbnails.of(createImageFromBytes(housePhotoDTO.getImage()))
+            .size(538, 376)
+            .outputFormat("jpg")
+            .toOutputStream(bao);
+        housePhotoDTO.setImage(convert(bao));
         HousePhotoDTO result = housePhotoService.save(housePhotoDTO);
         return ResponseEntity.created(new URI("/api/house-photos/" + result.getId()))
             .headers(HeaderUtil.createEntityCreationAlert(ENTITY_NAME, result.getId().toString()))

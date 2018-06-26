@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+</head>
+<body class="home">
+<header>
+    <div class="container">
+        <div class="row">
+            <div class="logo">
+                <a href="/"><img src="images/logo.png" alt="LandExp"></a>
+            </div>
+            <ul class="menu">
+                <li><a href="">Mua</a></li>
+                <li><a href="">Thuê</a></li>
+                <li><a href="">Trợ giúp</a></li>
+                <li><a href="">Tin tức</a></li>
+            </ul>
+
+            <ul class="menu right-menu">
+                <li><a href="">Đăng ký</a></li>
+                <li><a href="">Đăng nhập</a></li>
+                <li><a type="button" class="button" href="">Đăng tin</a></li>
+            </ul>
+        </div>
+        <div class="search">
+            <h2>Nhu cầu của bạn là gì?</h2>
+            <div class="select-box">
+                <label class="radio-container">Mua
+                    <input type="radio" name="radio" checked="checked">
+                    <span class="checkmark"></span>
+                </label>
+
+                <label class="radio-container">Thuê
+                    <input type="radio" name="radio">
+                    <span class="checkmark"></span>
+                </label>
+            </div>
+            <div class="search-box">
+                <div class="top-search-box">
+                    <div class="select">
+                        <select>
+                            <option>Chọn loại BĐS:</option>
+                            <option value="1" selected>Chung cư</option>
+                            <option value="2">Nhà riêng</option>
+                        </select>
+                    </div>
+                    <div class="keyword">
+                        <input type="text" placeholder="Nhập địa điểm, thành phố hoặc dự án">
+                    </div>
+                    <div class="clearfix"></div>
+                </div>
+                <div class="bottom-search-box">
+                    <div class="select">
+                        <label>Khoảng giá</label>
+                        <div class="dropdown">
+                            <span id="price" data-toggle="dropdown" role="button" aria-haspopup="true"
+                                  aria-expanded="false">Khoảng giá</span>
+                            <input type="hidden" id="" name="slPrice"/>
+                            <ul class="dropdown-menu" aria-labelledby="price">
+                                <div class="header-box">
+                                    <table class="header-options options">
+                                        <tr class="advance-options">
+                                            <td class="advance-options">
+                                                <input type="text" id="txtPriceMinValue" name="pricemin"
+                                                       placeholder="Từ" class="min-value options" maxlength="6"
+                                                       numbersonly="true" decimal="true" value=""/>
+                                                <div id="lblPriceMin"></div>
+                                            </td>
+                                            <td class="advance-options"><span class="advance-options"></span></td>
+                                            <td class="advance-options">
+                                                <input type="text" id="txtPriceMaxValue" name="pricemax"
+                                                       placeholder="Đến" class="max-value options" maxlength="6"
+                                                       numbersonly="true" decimal="true" value=""/>
+                                                <div id="lblPriceMax"></div>
+                                            </td>
+                                        </tr>
+                                    </table>
+                                </div>
+                                <li class="options" value="">Bất kỳ</li>
+                                <li class="options" value="">< 500 triệu</li>
+                                <li class="options" value="">500 triệu - 1 tỷ</li>
+                                <li class="options" value="">1 - 1.5 tỷ</li>
+                                <li class="options" value="">1.5 - 2 tỷ</li>
+                                <li class="options" value="">2 - 3 tỷ</li>
+                                <li class="options" value="">3 - 5 tỷ</li>
+                                <li class="options" value="">> 5 tỷ</li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="select">
+                        <label>Diện tích</label>
+                        <div class="dropdown">
+                            <span id="square" data-toggle="dropdown" role="button" aria-haspopup="true"
+                                  aria-expanded="false">Diện tích</span>
+                            <input type="hidden" id="" name="slSqrare"/>
+                            <ul class="dropdown-menu" aria-labelledby="square">
+                                <div class="header-box">
+                                    <table class="header-options options">
+                                        <tr class="advance-options">
+                                            <td class="advance-options">
+                                                <input type="text" id="txtSquareMinValue" name="pricemin"
+                                                       placeholder="Từ" class="min-value options" maxlength="6"
+                                                       numbersonly="true" decimal="true" value=""/>
+                                                <div id="lblSquareMin"></div>
+                                            </td>
+                                            <td class="advance-options"><span class="advance-options"></span></td>
+                                            <td class="advance-options">
+                                                <input type="text" id="txtSquareMaxValue" name="pricemax"
+                                                       placeholder="Đến" class="max-value options" maxlength="6"
+                                                       numbersonly="true" decimal="true" value=""/>
+                                                <div id="lblSquareMax"></div>
+                                            </td>
+                                        </tr>
+                                    </table>
+                                </div>
+                                <li class="options" value="">Bất kỳ</li>
+                                <li class="options" value="">< 50 m2</li>
+                                <li class="options" value="">50 - 80 m2</li>
+                                <li class="options" value="">80 - 100 m2</li>
+                                <li class="options" value="">100 - 200 m2</li>
+                                <li class="options" value="">> 200 m2</li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="select">
+                        <label for="">Số phòng ngủ</label>
+                        <div class="dropdown">
+                            <span id="bedroom" data-toggle="dropdown" role="button" aria-haspopup="true"
+                                  aria-expanded="false">Bất kỳ</span>
+                            <input type="hidden" id="" name="slBedroom"/>
+                            <ul class="dropdown-menu" aria-labelledby="bedroom">
+                                <li class="options" value="">Bất kỳ</li>
+                                <li class="options" value="1">1</li>
+                                <li class="options" value="2" selected>2</li>
+                                <li class="options" value="2">3</li>
+                                <li class="options" value="2">4</li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="select">
+                        <label for="">Số phòng tắm</label>
+                        <div class="dropdown">
+                            <span id="bathroom" data-toggle="dropdown" role="button" aria-haspopup="true"
+                                  aria-expanded="false">Bất kỳ</span>
+                            <input type="hidden" id="" name="slBathroom"/>
+                            <ul class="dropdown-menu" aria-labelledby="bathroom">
+                                <li class="options" value="1">1</li>
+                                <li class="options" value="2" selected>2</li>
+                                <li class="options" value="2">3</li>
+                                <li class="options" value="2">4</li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="clearfix"></div>
+                </div>
+                <button type="submit">TÌM KIẾM</button>
+            </div>
+            <div class="download">
+                <p>Tải ứng dụng trên Store</p>
+                <div class="app-icon">
+                    <span><a href=""><i class="fa fa-apple"></i></a></span>
+                    <span><a href=""><i class="fa fa-android"></i></a></span>
+                </div>
+            </div>
+        </div>
+    </div>
+</header>
+</body>
+</html>

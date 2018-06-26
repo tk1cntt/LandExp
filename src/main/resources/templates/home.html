@@ -1,0 +1,400 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.springframework.org/schema/security" lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>LandExp</title>
+    <link rel="stylesheet" href="css/bootstrap.min.css">
+    <link rel="stylesheet" href="css/font-awesome.min.css">
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body class="home">
+<header th:fragment="fragments/header">
+
+</header>
+
+<div id="home-content">
+    <div class="container">
+        <div class="row featured-posts">
+            <h2>Tin mới<span>Thứ 5, ngày 31 tháng 05 năm 2018</span></h2>
+            <ul>
+                <li>
+                    <img src="images/white-living-room.png" alt="">
+                    <div class="caption">
+                        <div class="caption-content">
+                            <p><a href="#" class="post-title">Bí quyết để có một ngôi nhà đẹp</a></p>
+                            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt
+                                ut labore et dolore magna aliqua. Ut enim ad minim …</p>
+                            <p class="border-left-red cat-title"><a href="">GÓC THIẾT KẾ</a></p>
+                        </div>
+                    </div>
+                </li>
+                <li>
+                    <img src="images/nha-mau-can-ho-him-lam-phu-an7-1.png" alt="">
+                    <div class="caption">
+                        <div class="caption-content">
+                            <p><a href="#" class="post-title">Phương pháp đầu tư hiệu quả</a></p>
+                            <p class="cat-title border-left-cyan"><a href="">KINH TẾ ĐẦU TƯ</a></p>
+                        </div>
+                    </div>
+                </li>
+                <li>
+                    <img
+                        src="images/simple-wall-paint-ideas-with-a-sienna-color-decorated-excellent-white-for-livingroom-decor-spot-lights-also-down-light-plus-concealed_interior-design-.png"
+                        alt="">
+                    <div class="caption">
+                        <div class="caption-content">
+                            <p><a href="#" class="post-title">Tính tương đối trong giá cả</a></p>
+                            <p class="cat-title border-left-cyan"><a href="">KINH TẾ ĐẦU TƯ</a></p>
+                        </div>
+                    </div>
+                </li>
+                <li>
+                    <img src="images/Homey-Apartment-by-Fertility-Design-3.png" alt="">
+                    <div class="caption">
+                        <div class="caption-content">
+                            <p><a href="#" class="post-title">Hợp tác để thành công</a></p>
+                            <p class="cat-title border-left-green"><a href="">KINH NGHIỆM & CUỘC SỐNG</a></p>
+                        </div>
+                    </div>
+                </li>
+                <li>
+                    <img
+                        src="images/ideas-for-pendant-lights-in-the-dining-room-20-eye-catcher-in-the-living-area-0-1870580370.png"
+                        alt="">
+                    <div class="caption">
+                        <div class="caption-content">
+                            <p><a href="#" class="post-title">Đâu là hướng đi cho nhà đầu tư thông minh</a></p>
+                            <p class="cat-title border-left-green"><a href="">KINH NGHIỆM & CUỘC SỐNG</a></p>
+                        </div>
+                    </div>
+                </li>
+            </ul>
+        </div>
+
+        <div class="row lastest-posts">
+            <h2>Tin mới đăng<span>Hiển thị 1 - 20 trong 100 Bất động sản</span>
+                <div class="toolbox">
+                    <label for="sortby">Sắp xếp:</label>
+                    <select name="sortby" id="sortby">
+                        <option value="">Ngày đăng mới nhất</option>
+                        <option value="">Giá từ thấp đến cao</option>
+                        <option value="">Giá từ cao đến thấp</option>
+                    </select>
+                    <div class="listview-button"><a href="index.html"></a></div>
+                    <div class="gridview-button active"><a href="home.html"></a></div>
+                </div>
+            </h2>
+            <div class="row">
+                <div class="gridview">
+                    <div class="col-md-3 post-item">
+                        <div class="item-thumbnail">
+                            <a href="#">
+                                <img src="upload/products/item-1.png" alt="">
+                            </a>
+                            <div class="type chothue">CHO THUÊ</div>
+                            <a href="#" class="like-button"><i class="fa fa-heart-o"></i>
+                        </div>
+                        <div class="item-info">
+                            <a href="#"><h3 class="title">Căn hộ chung cư</h3></a>
+                            <p class="subtitle">Dự án Vinhome D’Capital</p>
+                            <p class="price"><span>5</span> triệu/tháng</p>
+                            <div class="post-date">Ngày đăng <span>31/5/2018</span></div>
+                            <div class="property">
+                                <span class="compact">60m2</span>
+                                <span class="bedroom">2</span>
+                                <span class="bathroom">1</span>
+                                <span class="gara"><i class="fa fa-check"></i></span>
+                            </div>
+                            <p class="location">Quận Đống Đa, Hà Nội</p>
+                        </div>
+                        <div class="clearfix"></div>
+                    </div>
+                    <div class="col-md-3 post-item">
+                        <div class="item-thumbnail">
+                            <a href="#">
+                                <img src="upload/products/item-1.png" alt="">
+                            </a>
+                            <div class="type ban">BÁN</div>
+                            <a href="#" class="like-button"><i class="fa fa-heart-o"></i>
+                        </div>
+                        <div class="item-info">
+                            <a href="#"><h3 class="title">Căn hộ chung cư</h3></a>
+                            <p class="subtitle">Dự án Vinhome D’Capital</p>
+                            <p class="price"><span>4,5</span> tỷ</p>
+                            <div class="post-date">Ngày đăng <span>31/5/2018</span></div>
+                            <div class="property">
+                                <span class="compact">60m2</span>
+                                <span class="bedroom">2</span>
+                                <span class="bathroom">1</span>
+                                <span class="gara"><i class="fa fa-check"></i></span>
+                            </div>
+                            <p class="location">Quận Đống Đa, Hà Nội</p>
+                        </div>
+                        <div class="clearfix"></div>
+                    </div>
+                    <div class="col-md-3 post-item">
+                        <div class="item-thumbnail">
+                            <a href="#">
+                                <img src="upload/products/item-1.png" alt="">
+                            </a>
+                            <div class="type chothue">CHO THUÊ</div>
+                            <a href="#" class="like-button"><i class="fa fa-heart-o"></i>
+                        </div>
+                        <div class="item-info">
+                            <a href="#"><h3 class="title">Căn hộ chung cư</h3></a>
+                            <p class="subtitle">Dự án Vinhome D’Capital</p>
+                            <p class="price"><span>5</span> triệu/tháng</p>
+                            <div class="post-date">Ngày đăng <span>31/5/2018</span></div>
+                            <div class="property">
+                                <span class="compact">60m2</span>
+                                <span class="bedroom">2</span>
+                                <span class="bathroom">1</span>
+                                <span class="gara"><i class="fa fa-check"></i></span>
+                            </div>
+                            <p class="location">Quận Đống Đa, Hà Nội</p>
+                        </div>
+                        <div class="clearfix"></div>
+                    </div>
+                    <div class="col-md-3 post-item">
+                        <div class="item-thumbnail">
+                            <a href="#">
+                                <img src="upload/products/item-1.png" alt="">
+                            </a>
+                            <div class="type ban">BÁN</div>
+                            <a href="#" class="like-button"><i class="fa fa-heart-o"></i>
+                        </div>
+                        <div class="item-info">
+                            <a href="#"><h3 class="title">Căn hộ chung cư</h3></a>
+                            <p class="subtitle">Dự án Vinhome D’Capital</p>
+                            <p class="price"><span>4,5</span> tỷ</p>
+                            <div class="post-date">Ngày đăng <span>31/5/2018</span></div>
+                            <div class="property">
+                                <span class="compact">60m2</span>
+                                <span class="bedroom">2</span>
+                                <span class="bathroom">1</span>
+                                <span class="gara"><i class="fa fa-check"></i></span>
+                            </div>
+                            <p class="location">Quận Đống Đa, Hà Nội</p>
+                        </div>
+                        <div class="clearfix"></div>
+                    </div>
+                    <div class="col-md-3 post-item">
+                        <div class="item-thumbnail">
+                            <a href="#">
+                                <img src="upload/products/item-1.png" alt="">
+                            </a>
+                            <div class="type chothue">CHO THUÊ</div>
+                            <a href="#" class="like-button"><i class="fa fa-heart-o"></i>
+                        </div>
+                        <div class="item-info">
+                            <a href="#"><h3 class="title">Căn hộ chung cư</h3></a>
+                            <p class="subtitle">Dự án Vinhome D’Capital</p>
+                            <p class="price"><span>5</span> triệu/tháng</p>
+                            <div class="post-date">Ngày đăng <span>31/5/2018</span></div>
+                            <div class="property">
+                                <span class="compact">60m2</span>
+                                <span class="bedroom">2</span>
+                                <span class="bathroom">1</span>
+                                <span class="gara"><i class="fa fa-check"></i></span>
+                            </div>
+                            <p class="location">Quận Đống Đa, Hà Nội</p>
+                        </div>
+                        <div class="clearfix"></div>
+                    </div>
+                    <div class="col-md-3 post-item">
+                        <div class="item-thumbnail">
+                            <a href="#">
+                                <img src="upload/products/item-1.png" alt="">
+                            </a>
+                            <div class="type ban">BÁN</div>
+                            <a href="#" class="like-button"><i class="fa fa-heart-o"></i>
+                        </div>
+                        <div class="item-info">
+                            <a href="#"><h3 class="title">Căn hộ chung cư</h3></a>
+                            <p class="subtitle">Dự án Vinhome D’Capital</p>
+                            <p class="price"><span>4,5</span> tỷ</p>
+                            <div class="post-date">Ngày đăng <span>31/5/2018</span></div>
+                            <div class="property">
+                                <span class="compact">60m2</span>
+                                <span class="bedroom">2</span>
+                                <span class="bathroom">1</span>
+                                <span class="gara"><i class="fa fa-check"></i></span>
+                            </div>
+                            <p class="location">Quận Đống Đa, Hà Nội</p>
+                        </div>
+                        <div class="clearfix"></div>
+                    </div>
+                    <div class="col-md-3 post-item">
+                        <div class="item-thumbnail">
+                            <a href="#">
+                                <img src="upload/products/item-1.png" alt="">
+                            </a>
+                            <div class="type chothue">CHO THUÊ</div>
+                            <a href="#" class="like-button"><i class="fa fa-heart-o"></i>
+                        </div>
+                        <div class="item-info">
+                            <a href="#"><h3 class="title">Căn hộ chung cư</h3></a>
+                            <p class="subtitle">Dự án Vinhome D’Capital</p>
+                            <p class="price"><span>5</span> triệu/tháng</p>
+                            <div class="post-date">Ngày đăng <span>31/5/2018</span></div>
+                            <div class="property">
+                                <span class="compact">60m2</span>
+                                <span class="bedroom">2</span>
+                                <span class="bathroom">1</span>
+                                <span class="gara"><i class="fa fa-check"></i></span>
+                            </div>
+                            <p class="location">Quận Đống Đa, Hà Nội</p>
+                        </div>
+                        <div class="clearfix"></div>
+                    </div>
+                    <div class="col-md-3 post-item">
+                        <div class="item-thumbnail">
+                            <a href="#">
+                                <img src="upload/products/item-1.png" alt="">
+                            </a>
+                            <div class="type ban">BÁN</div>
+                            <a href="#" class="like-button"><i class="fa fa-heart-o"></i>
+                        </div>
+                        <div class="item-info">
+                            <a href="#"><h3 class="title">Căn hộ chung cư</h3></a>
+                            <p class="subtitle">Dự án Vinhome D’Capital</p>
+                            <p class="price"><span>4,5</span> tỷ</p>
+                            <div class="post-date">Ngày đăng <span>31/5/2018</span></div>
+                            <div class="property">
+                                <span class="compact">60m2</span>
+                                <span class="bedroom">2</span>
+                                <span class="bathroom">1</span>
+                                <span class="gara"><i class="fa fa-check"></i></span>
+                            </div>
+                            <p class="location">Quận Đống Đa, Hà Nội</p>
+                        </div>
+                        <div class="clearfix"></div>
+                    </div>
+                    <div class="col-md-3 post-item">
+                        <div class="item-thumbnail">
+                            <a href="#">
+                                <img src="upload/products/item-1.png" alt="">
+                            </a>
+                            <div class="type chothue">CHO THUÊ</div>
+                            <a href="#" class="like-button"><i class="fa fa-heart-o"></i>
+                        </div>
+                        <div class="item-info">
+                            <a href="#"><h3 class="title">Căn hộ chung cư</h3></a>
+                            <p class="subtitle">Dự án Vinhome D’Capital</p>
+                            <p class="price"><span>5</span> triệu/tháng</p>
+                            <div class="post-date">Ngày đăng <span>31/5/2018</span></div>
+                            <div class="property">
+                                <span class="compact">60m2</span>
+                                <span class="bedroom">2</span>
+                                <span class="bathroom">1</span>
+                                <span class="gara"><i class="fa fa-check"></i></span>
+                            </div>
+                            <p class="location">Quận Đống Đa, Hà Nội</p>
+                        </div>
+                        <div class="clearfix"></div>
+                    </div>
+                    <div class="col-md-3 post-item">
+                        <div class="item-thumbnail">
+                            <a href="#">
+                                <img src="upload/products/item-1.png" alt="">
+                            </a>
+                            <div class="type ban">BÁN</div>
+                            <a href="#" class="like-button"><i class="fa fa-heart-o"></i>
+                        </div>
+                        <div class="item-info">
+                            <a href="#"><h3 class="title">Căn hộ chung cư</h3></a>
+                            <p class="subtitle">Dự án Vinhome D’Capital</p>
+                            <p class="price"><span>4,5</span> tỷ</p>
+                            <div class="post-date">Ngày đăng <span>31/5/2018</span></div>
+                            <div class="property">
+                                <span class="compact">60m2</span>
+                                <span class="bedroom">2</span>
+                                <span class="bathroom">1</span>
+                                <span class="gara"><i class="fa fa-check"></i></span>
+                            </div>
+                            <p class="location">Quận Đống Đa, Hà Nội</p>
+                        </div>
+                        <div class="clearfix"></div>
+                    </div>
+                    <div class="col-md-3 post-item">
+                        <div class="item-thumbnail">
+                            <a href="#">
+                                <img src="upload/products/item-1.png" alt="">
+                            </a>
+                            <div class="type chothue">CHO THUÊ</div>
+                            <a href="#" class="like-button"><i class="fa fa-heart-o"></i>
+                        </div>
+                        <div class="item-info">
+                            <a href="#"><h3 class="title">Căn hộ chung cư</h3></a>
+                            <p class="subtitle">Dự án Vinhome D’Capital</p>
+                            <p class="price"><span>5</span> triệu/tháng</p>
+                            <div class="post-date">Ngày đăng <span>31/5/2018</span></div>
+                            <div class="property">
+                                <span class="compact">60m2</span>
+                                <span class="bedroom">2</span>
+                                <span class="bathroom">1</span>
+                                <span class="gara"><i class="fa fa-check"></i></span>
+                            </div>
+                            <p class="location">Quận Đống Đa, Hà Nội</p>
+                        </div>
+                        <div class="clearfix"></div>
+                    </div>
+                    <div class="col-md-3 post-item">
+                        <div class="item-thumbnail">
+                            <a href="#">
+                                <img src="upload/products/item-1.png" alt="">
+                            </a>
+                            <div class="type ban">BÁN</div>
+                            <a href="#" class="like-button"><i class="fa fa-heart-o"></i>
+                        </div>
+                        <div class="item-info">
+                            <a href="#"><h3 class="title">Căn hộ chung cư</h3></a>
+                            <p class="subtitle">Dự án Vinhome D’Capital</p>
+                            <p class="price"><span>4,5</span> tỷ</p>
+                            <div class="post-date">Ngày đăng <span>31/5/2018</span></div>
+                            <div class="property">
+                                <span class="compact">60m2</span>
+                                <span class="bedroom">2</span>
+                                <span class="bathroom">1</span>
+                                <span class="gara"><i class="fa fa-check"></i></span>
+                            </div>
+                            <p class="location">Quận Đống Đa, Hà Nội</p>
+                        </div>
+                        <div class="clearfix"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="see-more">
+            <a href="#">XEM THÊM</a>
+        </div>
+
+        <div class="why-us">
+            <h2>Tại sao chọn chúng tôi</h2>
+            <div class="col-md-4">
+                <img src="images/banner/1.png" alt="">
+                <p class="text-center">Trải nghiệm cách đăng tin hoàn toàn mới</p>
+            </div>
+            <div class="col-md-4">
+                <img src="images/banner/2.png" alt="">
+                <p class="text-center">Thay đổi cách bạn Mua, Bán Thuê, Cho thuê<br>Bất động sản</p>
+            </div>
+            <div class="col-md-4">
+                <img src="images/banner/3.png" alt="">
+                <p class="text-center">Giá trị trong từng tin đăng</p>
+            </div>
+            <div class="clearfix"></div>
+        </div>
+    </div>
+</div>
+
+<footer th:fragment="fragments/footer">
+
+</footer>
+
+<script type="text/javascript" src="js/jquery-3.3.1.min.js"></script>
+<script type="text/javascript" src="js/bootstrap.min.js"></script>
+<script type="text/javascript" src="js/custom.js"></script>
+</body>
+</html>
