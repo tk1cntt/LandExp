@@ -1,0 +1,548 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+	<meta charset="UTF-8">
+	<title>LandExp</title>
+	<link rel="stylesheet" href="/css/bootstrap.min.css">
+	<link rel="stylesheet" href="/css/font-awesome.min.css">
+	<link rel="stylesheet" href="/css/bootstrap-datepicker3.min.css">
+	<link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
+	<header>
+		<div class="container">
+			<div class="row">
+				<div class="logo">
+					<a href="/"><img src="/images/logo.png" alt="LandExp"></a>
+				</div>
+				<ul class="menu">
+					<li><a href="">Mua</a></li>
+					<li><a href="">Thuê</a></li>
+					<li><a href="">Trợ giúp</a></li>
+					<li><a href="">Tin tức</a></li>
+				</ul>
+
+				<ul class="menu right-menu">
+					<li class="right-info">
+						<span class="ring-icon">
+							<span class="badge">2</span>
+						</span>
+						<span class="chat-icon">
+							<span class="badge">5</span>
+						</span>
+					</li>
+					<li><a href="#"><img class="avatar" src="/images/user.jpg" alt=""></a></li>
+					<li><a type="button" class="button" href="">Đăng tin</a></li>
+				</ul>
+			</div>
+		</div>
+	</header>
+	<div class="nav-search">
+		<div class="container">
+			<form action="">
+				<div class="row">
+					<div class="select-box">
+						<div class="select dropdown">
+							<span id="type" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Hình thức</span>
+							<input type="hidden" id="slType" name="slType" />
+							<ul class="dropdown-menu js-type" aria-labelledby="type">
+								<li class="options active" data-value="mua">Mua</li>
+								<li class="options" data-value="thue">Thuê</li>
+							</ul>
+						</div>
+					</div><!--
+	  			 --><div class="select-box">
+						<div class="select dropdown">
+							<span id="category" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Loại bất động sản</span>
+							<input type="hidden" id="slCategory" name="slCategory" />
+							<ul class="dropdown-menu js-category" aria-labelledby="category">
+								<li class="options" data-value="can-ho-chung-cu">Căn hộ chung cư</li>
+								<li class="options" data-value="penthouse">Penthouse</li>
+								<li class="options" data-value="nha-rieng">Nhà riêng</li>
+								<li class="options" data-value="biet-thu-lien-ke">Biệt thự, liền kề</li>
+								<li class="options" data-value="nha-mat-pho">Nhà mặt phố</li>
+								<li class="options" data-value="dat-o">Đất ở</li>
+								<li class="options" data-value="dat-nen-du-an">Đất nền dự án</li>
+								<li class="options" data-value="kho-nha-xuong">Kho, nhà xưởng</li>
+								<li class="options" data-value="cua-hang-ki-ot">Cửa hàng, ki-ốt</li>
+							</ul>
+						</div>
+					</div><!--
+	  			 --><div class="select-box">
+						<input type="text" name="txLocation" placeholder="Nhập địa điểm, thành phố hoặc dự án">
+					</div><!--
+	  			 --><div class="select-box">
+						<div class="select dropdown">
+							<span id="price" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Khoảng giá</span>
+							<input type="hidden" id="slPrice" name="slPrice" />
+							<ul class="dropdown-menu js-price" aria-labelledby="price">
+								<div class="header-box">
+									<table class="header-options options">
+										<tr class="advance-options">
+											<td class="advance-options">
+												<input type="text" id="txtPriceMinValue" name="pricemin" placeholder="Từ" class="min-value options" maxlength="6" numbersonly="true" decimal="true" value=""/><div id="lblPriceMin"></div>
+											</td>
+											<td class="advance-options"><span class="advance-options"></span></td>
+											<td class="advance-options">
+												<input type="text" id="txtPriceMaxValue" name="pricemax" placeholder="Đến" class="max-value options" maxlength="6" numbersonly="true" decimal="true" value=""/><div id="lblPriceMax"></div>
+											</td>
+										</tr>
+									</table>
+								</div>
+								<li class="options" data-value="">Bất kỳ</li>
+								<li class="options" data-value="">< 500 triệu</li>
+								<li class="options" data-value="">500 triệu - 1 tỷ</li>
+								<li class="options" data-value="">1 - 1.5 tỷ</li>
+								<li class="options" data-value="">1.5 - 2 tỷ</li>
+								<li class="options" data-value="">2 - 3 tỷ</li>
+								<li class="options" data-value="">3 - 5 tỷ</li>
+								<li class="options" data-value="">> 5 tỷ</li>
+							</ul>
+						</div>
+					</div><!--
+	  			 --><div class="select-box">
+						<div class="select dropdown">
+							<span id="square" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Diện tích</span>
+							<input type="hidden" id="slSqrare" name="slSqrare" />
+							<ul class="dropdown-menu js-square" aria-labelledby="square">
+								<div class="header-box">
+									<table class="header-options options">
+										<tr class="advance-options">
+											<td class="advance-options">
+												<input type="text" id="txtSquareMinValue" name="pricemin" placeholder="Từ" class="min-value options" maxlength="6" numbersonly="true" decimal="true" value=""/><div id="lblSquareMin"></div>
+											</td>
+											<td class="advance-options"><span class="advance-options"></span></td>
+											<td class="advance-options">
+												<input type="text" id="txtSquareMaxValue" name="pricemax" placeholder="Đến" class="max-value options" maxlength="6" numbersonly="true" decimal="true" value=""/><div id="lblSquareMax"></div>
+											</td>
+										</tr>
+									</table>
+								</div>
+								<li class="options" data-value="">Bất kỳ</li>
+								<li class="options" data-value="">< 50 m2</li>
+								<li class="options" data-value="">50 - 80 m2</li>
+								<li class="options" data-value="">80 - 100 m2</li>
+								<li class="options" data-value="">100 - 200 m2</li>
+								<li class="options" data-value="">> 200 m2</li>
+							</ul>
+						</div>
+					</div><!--
+	  			 --><div class="select-box">
+						<div class="select dropdown mega-dropdown">
+							<span id="filter-more" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Lọc thêm</span>
+							<ul class="dropdown-menu has-sub" aria-labelledby="filter-more">
+								<li class="options dropdown-submenu">
+									<input type="hidden" id="slBathroom" name="slBathroom" />
+									<div id="bathroom" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Số phòng tắm<span>Bất kỳ</span></div>
+									<ul class="dropdown-menu js-bathroom" aria-labelledby="bathroom">
+										<li data-value="">Bất kỳ</li>
+										<li data-value="1">+1</li>
+										<li data-value="2">+2</li>
+										<li data-value="3">+3</li>
+										<li data-value="4">+4</li>
+										<li data-value="5">+5</li>
+									</ul>
+								</li>
+								<li class="options dropdown-submenu">
+									<input type="hidden" id="slBedroom" name="slBedroom" />
+									<div id="bedroom" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Số phòng ngủ<span>Bất kỳ</span></div>
+									<ul class="dropdown-menu js-bedroom" aria-labelledby="bedroom">
+										<li data-value="">Bất kỳ</li>
+										<li data-value="1">+1</li>
+										<li data-value="2">+2</li>
+										<li data-value="3">+3</li>
+										<li data-value="4">+4</li>
+										<li data-value="5">+5</li>
+									</ul>
+								</li>
+								<li class="options dropdown-submenu">
+									<input type="hidden" id="slGara" name="slGara" />
+									<div id="gara" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Chỗ để ô tô<span>Bất kỳ</span></div>
+									<ul class="dropdown-menu js-gara" aria-labelledby="gara">
+										<li data-value="">Bất kỳ</li>
+										<li data-value="1">Có</li>
+										<li data-value="0">Không</li>
+									</ul>
+								</li>
+								<li class="options dropdown-submenu">
+									<input type="hidden" id="slDirection" name="slDirection" />
+									<div id="direction" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Hướng<span>Bất kỳ</span></div>
+									<ul class="dropdown-menu js-direction" aria-labelledby="direction">
+										<li data-value="">Bất kỳ</li>
+										<li data-value="1">Đông</li>
+										<li data-value="2">Tây</li>
+										<li data-value="3">Nam</li>
+										<li data-value="4">Bắc</li>
+										<li data-value="5">Đông Bắc</li>
+										<li data-value="6">Đông Nam</li>
+										<li data-value="7">Tây Bắc</li>
+										<li data-value="8">Tây Nam</li>
+									</ul>
+								</li>
+								<li class="options dropdown-submenu">
+									<input type="hidden" id="slPostdate" name="slPostdate" />
+									<div id="postdate" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Ngày đăng<span>Bất kỳ</span></div>
+									<ul class="dropdown-menu js-postdate" aria-labelledby="postdate">
+										<li data-value="">Bất kỳ</li>
+										<li data-value="1">Cách đây 1 ngày</li>
+										<li data-value="3">Cách đây 3 ngày</li>
+										<li data-value="7">Cách đây 7 ngày</li>
+										<li data-value="15">Cách đây 15 ngày</li>
+										<li data-value="30">Cách đây 30 ngày</li>
+									</ul>
+								</li>
+								<li class="dropdown-button">
+									<div class="btn-row">
+										<div><button type="button" id="clear-menu" class="btn btn-sub btn-default">Xóa</button></div>
+										<div><button type="button" id="close-menu" class="btn btn-sub btn-primary">Hoàn tất</button></div>
+									</div>
+								</li>
+							</ul>
+						</div>
+					</div><!--
+	  			 --><div class="select-box">
+						<button type="submit">Tim kiếm</button>
+					</div><!--
+	  		--></div>
+	  		</form>
+		</div>
+	</div>
+
+	<div id="product-content">
+		<div class="container">
+			<div class="row">
+				<ol class="breadcrumb">
+					<li><a href="#"><i class="fa fa-home"></i> Home</a></li>
+				  	<li class="active">[[${house.landType}]]</li>
+				</ol>
+				<div class="row">
+					<div class="col-md-6">
+						<div id="carousel-product" class="carousel slide" data-ride="carousel">
+						  	<!-- Wrapper for slides -->
+						  	<div class="carousel-inner" role="listbox">
+						    	<div class="item active">
+						      		<img src="/upload/products/47.png" alt="...">
+						    	</div>
+						    	<div class="item">
+						      		<img src="/upload/products/47.png" alt="...">
+						    	</div>
+						  	</div>
+
+						  	<!-- Controls -->
+						  	<a class="left carousel-control" href="#carousel-example-generic" role="button" data-slide="prev">
+						    	<span class="fa fa-chevron-left" aria-hidden="true"></span>
+						    	<span class="sr-only">Previous</span>
+						  	</a>
+						  	<a class="right carousel-control" href="#carousel-example-generic" role="button" data-slide="next">
+						    	<span class="fa fa-chevron-right" aria-hidden="true"></span>
+						    	<span class="sr-only">Next</span>
+						  	</a>
+						  	<div class="indicator">
+						  		<a class="prev"><span class="icon chevron-left"></span></a>
+								<a class="next"><span class="icon chevron-right"></span></a>
+
+							  	<div class="thumbnail-slider">
+								  	<ul class="carousel-indicators">
+								        <li class="active" data-slide-to="0" data-target="#carousel-product">
+								          	<img alt="" title="" src="/upload/products/1.png">
+								        </li>
+								        <li class="" data-slide-to="1" data-target="#carousel-product">
+								          	<img alt="" title="" src="/upload/products/2.png">
+								        </li>
+								        <li class="" data-slide-to="2" data-target="#carousel-product">
+								          	<img alt="" title="" src="/upload/products/3.png">
+								        </li>
+								        <li class="" data-slide-to="3" data-target="#carousel-product">
+								          	<img alt="" title="" src="/upload/products/4.png">
+								        </li>
+								        <li class="" data-slide-to="4" data-target="#carousel-product">
+								          	<img alt="" title="" src="/upload/products/1.png">
+								        </li>
+								        <li class="" data-slide-to="5" data-target="#carousel-product">
+								          	<img alt="" title="" src="/upload/products/2.png">
+								        </li>
+								    </ul>
+							    </div>
+							</div>
+						</div>
+					</div>
+					<div class="col-md-3 product-info">
+						<h1 class="title">[[${house.landType}]]</h1>
+						<p class="post-date">[[${house.updateAt}]]</p>
+						<p class="price" th:utext="${house.money}"></p>
+						<div class="property">
+									<p class="compact">Diện tích:<span>[[${house.acreage}]]m2</span></p>
+									<p class="compass">Hướng:<span>Tây bắc</span></p>
+									<p class="bedroom">Phòng ngủ:<span>[[${house.bedRoom}]]</span></p>
+									<p class="bathroom">Phòng tắm:<span>[[${house.bathRoom}]]</span></p>
+									<p class="gara">Chỗ để ô tô:<span th:utext="${house.parking}"></span></p>
+								</div>
+						<div class="location">
+							<span class="title">Địa chỉ</span>
+							<p>[[${house.fullAddress}]]</p>
+						</div>
+						<div class="button-group">
+							<a href="#" class="like"><img src="/images/icon/like.png" alt="">Yêu thích</a>
+							<a href="#" class="report"><img src="/images/icon/warning.png" alt="">Báo xấu</a>
+						</div>
+					</div>
+					<div class="col-md-3 contact-box">
+						<div class="contact">
+							<h3>Liên hệ chủ nhà</h3>
+							<p><i class="fa fa-user"></i> [[${house.customer}]]</p>
+							<p><i class="fa fa-mobile"></i> [[${house.mobile}]]</p>
+							<p><i class="fa fa-envelope-o"></i> [[${house.email}]]</p>
+						</div>
+						<div class="call-chat">
+							<a href="#" class="call">Gọi điện</a>
+							<a href="#" class="chat">Chat</a>
+						</div>
+						<div class="contact">
+							<h3>Thời gian xem bất động sản</h3>
+							<p><i class="fa fa-square"></i> 17h - 19h các ngày trong tuần</p>
+							<p><i class="fa fa-square"></i> 10h - 12h các ngày thứ 7, chủ nhật</p>
+							<p class="text-center"><a href="#" type="button" class="btn btn-default">Đặt lịch xem</a></p>
+						</div>
+					</div>
+				</div>
+
+				<div class="">
+					<h3 class="lo-title">Bản đồ vị trí và tiện ích trong khu vực<span>22 Láng Hạ, Đống Đa, Hà Nội</span></h3>
+					<div class="location-search">
+						<div class="heading">
+							<a class="prev"><span class="icon chevron-left"></span></a>
+							<a class="next"><span class="icon chevron-right"></span></a>
+
+							<div class="property-carousel">
+							    <ul>
+							        <li><a href="" class="near-me">Vị trí BDS</a></li>
+							        <li><a href="" class="restaurant active">Nhà hàng</a></li>
+							        <li><a href="" class="shopping">Mua sắm</a></li>
+							        <li><a href="" class="sport">Thể thao Giải trí</a></li>
+							        <li><a href="" class="education">Trường học</a></li>
+							        <li><a href="" class="near-me">Vị trí BDS</a></li>
+							        <li><a href="" class="restaurant">Nhà hàng</a></li>
+							        <li><a href="" class="shopping">Mua sắm</a></li>
+							    </ul>
+							</div>
+						</div>
+						<div class="result-title">
+							<span class="color-gray">Tìm thấy:</span> 10 kết quả
+							<div class="toolbox">
+								<form action="#" class="form-inline">
+									<label for="distance">Bán kính</label>
+									<select name="" id="distance" class="form-control" required="required">
+										<option value="1">1 km</option>
+										<option value="2">2 km</option>
+									</select>
+								</form>
+							</div>
+						</div>
+						<div class="result">
+							<div>
+								<h3><a href="#">Nhà hàng Thành Nam</a><span>1.995km</span></h3>
+								<p>11 Nguyễn Xiển, Q. Thanh Xuân, Hà Nội</p>
+							</div>
+							<div>
+								<h3><a href="#">Nhà hàng Thành Nam</a><span>1.995km</span></h3>
+								<p>11 Nguyễn Xiển, Q. Thanh Xuân, Hà Nội</p>
+							</div>
+							<div>
+								<h3><a href="#">Nhà hàng Thành Nam</a><span>1.995km</span></h3>
+								<p>11 Nguyễn Xiển, Q. Thanh Xuân, Hà Nội</p>
+							</div>
+							<div>
+								<h3><a href="#">Nhà hàng Thành Nam</a><span>1.995km</span></h3>
+								<p>11 Nguyễn Xiển, Q. Thanh Xuân, Hà Nội</p>
+							</div>
+							<div>
+								<h3><a href="#">Nhà hàng Thành Nam</a><span>1.995km</span></h3>
+								<p>11 Nguyễn Xiển, Q. Thanh Xuân, Hà Nội</p>
+							</div>
+							<div>
+								<h3><a href="#">Nhà hàng Thành Nam</a><span>1.995km</span></h3>
+								<p>11 Nguyễn Xiển, Q. Thanh Xuân, Hà Nội</p>
+							</div>
+							<div>
+								<h3><a href="#">Nhà hàng Thành Nam</a><span>1.995km</span></h3>
+								<p>11 Nguyễn Xiển, Q. Thanh Xuân, Hà Nội</p>
+							</div>
+							<div>
+								<h3><a href="#">Nhà hàng Thành Nam</a><span>1.995km</span></h3>
+								<p>11 Nguyễn Xiển, Q. Thanh Xuân, Hà Nội</p>
+							</div>
+							<div>
+								<h3><a href="#">Nhà hàng Thành Nam</a><span>1.995km</span></h3>
+								<p>11 Nguyễn Xiển, Q. Thanh Xuân, Hà Nội</p>
+							</div>
+							<div>
+								<h3><a href="#">Nhà hàng Thành Nam</a><span>1.995km</span></h3>
+								<p>11 Nguyễn Xiển, Q. Thanh Xuân, Hà Nội</p>
+							</div>
+							<div>
+								<h3><a href="#">Nhà hàng Thành Nam</a><span>1.995km</span></h3>
+								<p>11 Nguyễn Xiển, Q. Thanh Xuân, Hà Nội</p>
+							</div>
+
+
+						</div>
+					</div>
+					<div id="map">
+						<iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3724.41202483104!2d105.81141691430787!3d21.01619369358445!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3135ab638f812f11%3A0x2154f1353ced5dd6!2zQjEwIDIyIExhbmcgSGEsIEtodSB04bqtcCB0aOG7gyBOYW0gVGjDoG5oIEPDtG5nLCBMw6FuZyBI4bqhLCDEkOG7kW5nIMSQYSwgSMOgIE7hu5lpLCBWaeG7h3QgTmFt!5e0!3m2!1svi!2s!4v1528534025293" width="710" height="428" frameborder="0" style="border:0" allowfullscreen></iframe>
+					</div>
+				</div>
+
+				<div class="row">
+					<div class="col-md-4 desc">
+						<h3>Mô tả thêm</h3>
+						<div class="product-desc">
+							<p>Nhà 7 tầng THANG MÁY GARA ÔTÔ KINH DOANH đỉnh 60m2 MT4,8m giá 13.5tỷ</p>
+							<p>+ Nhà nằm tại vị trí đắc địa của Quận Cầu Giấy, trong khu phân lô, ÔTÔ chạy VÒNG QUANH, đường trước nhà ÔTÔ TRÁNH nhau thoải mái.</p>
+							<p>+ Nhà xây mới, thiết kế hiện đại, mỗi tầng 2 phòng, giếng trời thông thoáng, THANG MÁY nhập khẩu.</p>
+							<p>+ Nhà dễ chuyển đổi công năng, ở hay KINH DOANH đều tuyệt.</p>
+							<p>+ Sổ đẹp như HOA HẬU, NỞ, chính chủ pháp lý rõ ràng.</p>
+							<p>Liên hệ Mr Sơn: 0989 65 65 02 – 0919 65 65 02.</p>
+							<p>Chuyên Bất Động Sản Thổ Cư - Tư vấn tận tâm, chuyên nghiệp, trung thực. </p>
+							<p>Hỗ trợ thủ tục pháp lý, miễn phí 100% mọi dịch vụ cho khách.</p>
+						</div>
+					</div>
+					<div class="col-md-8 consultant">
+						<h3>Tư vấn tài chính</h3>
+						<div class="cs-content">
+							<form action="" method="POST" role="form">
+								<div class="col-xs-5">
+									<div class="form-group">
+										<label for="">Giá trị nhà bạn muốn mua</label>
+										<input type="text" class="form-control" id="" placeholder="0.0">
+										<span class="input-addon">VNĐ</span>
+									</div>
+								</div>
+								<div class="col-xs-5">
+									<div class="form-group">
+										<label for="">Số tiền tích lũy được hàng tháng</label>
+										<input type="text" class="form-control" id="" placeholder="0.0">
+										<span class="input-addon">VNĐ</span>
+									</div>
+								</div>
+								<div class="col-xs-2">
+									<div class="form-group">
+										<label for="">Lãi suất vay</label>
+										<input type="text" class="form-control" id="" placeholder="0.0">
+										<span class="input-addon">%</span>
+									</div>
+								</div>
+
+								<div class="col-xs-5">
+									<div class="form-group">
+										<label for="">Số tiền bạn có</label>
+										<input type="text" class="form-control" id="" placeholder="0.0">
+										<span class="input-addon">VNĐ</span>
+									</div>
+									<div class="form-group">
+										<label for="">Số tiền bạn có thể vay người thân</label>
+										<input type="text" class="form-control" id="" placeholder="0.0">
+										<span class="input-addon">VNĐ</span>
+									</div>
+								</div>
+								<div class="col-xs-7">
+									<label for="">Tư vấn</label>
+									<textarea class="form-control" rows="3" placeholder="Bạn cần vay số tiền { } VNĐ trong vòng { } năm với số tiền tích lũy hàng tháng không nhỏ hơn { } VNĐ để có thể mua được ngôi nhà này"></textarea>
+								</div>
+								<div class="col-xs-7 col-xs-offset-5">
+									<button type="submit" class="btn btn-info">Nhận tư vấn</button>
+									<a href="#" type="button" class="btn btn-success">Đăng ký vay</a>
+								</div>
+								<div class="clearfix"></div>
+							</form>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<footer>
+		<div class="container">
+			<div class="row">
+				<div class="col-md-4">
+					<h2>LandExp.com.vn</h2>
+					<p>Hotline office: 0909333333</p>
+					<p>Email: office@landexp.com.vn</p>
+					<p>Phone: 0220 383 9999</p>
+					<p>Địa chỉ: Số 02, ngách 158/51 Nguyễn Khánh Toàn,<br> P.Quan Hoa, Q.Cầu Giấy, TP.Hà Nội</p>
+					<img src="/images/dadangky.png" alt="LandExp">
+				</div>
+				<div class="col-md-2">
+					<h2>Về chúng tôi</h2>
+					<ul>
+						<li><a href="#">Giới thiệu</a></li>
+						<li><a href="#">Giải pháp</a></li>
+						<li><a href="#">Đội ngũ nhân sự</a></li>
+						<li><a href="#">Liên hệ</a></li>
+					</ul>
+				</div>
+				<div class="col-md-2">
+					<h2>Hỗ trợ</h2>
+					<ul>
+						<li><a href="#">Dành cho người bán</a></li>
+						<li><a href="#">Dành cho người mua</a></li>
+						<li><a href="#">Chính sách hợp tác</a></li>
+					</ul>
+				</div>
+				<div class="col-md-4">
+					<h2>Tải ứng dụng</h2>
+					<p>Tải ứng dụng Bất động sản của LandExp để mua bán cho thuê nhanh chóng nhất.</p>
+					<p class="link-app">
+						<a href="#"><img src="/images/icon/IOS.png" alt=""></a>
+						<a href="#"><img src="/images/icon/ANDROID.png" alt=""></a>
+					</p>
+					<div class="social-icon">
+						<a href="#"><i class="fa fa-facebook"></i></a>
+						<a href="#"><i class="fa fa-twitter"></i></a>
+						<a href="#"><i class="fa fa-linkedin"></i></a>
+						<a href="#"><i class="fa fa-youtube"></i></a>
+						<a href="#"><i class="fa fa-google-plus"></i></a>
+					</div>
+				</div>
+				<div class="clearfix"></div>
+			</div>
+			<div class="copyright">
+				<p>Copyright © 2018 LandExp. All rights reserved.</p>
+			</div>
+		</div>
+	</footer>
+
+	<script type="text/javascript" src="/js/jquery-3.3.1.min.js"></script>
+	<script type="text/javascript" src="/js/bootstrap.min.js"></script>
+	<script type="text/javascript" src="/js/jquery.jcarousel.min.js"></script>
+	<script type="text/javascript" src="/js/bootstrap-datepicker.min.js"></script>
+	<script type="text/javascript" src="/js/custom.js"></script>
+	<script>
+
+		$(function() {
+		    $('.property-carousel').jcarousel();
+
+		    $('.location-search .prev').click(function() {
+			    $('.property-carousel').jcarousel('scroll', '-=1');
+			});
+
+			$('.location-search .next').click(function() {
+			    $('.property-carousel').jcarousel('scroll', '+=1');
+			});
+
+			$('.thumbnail-slider').jcarousel();
+
+		    $('.indicator .prev').click(function() {
+			    $('.thumbnail-slider').jcarousel('scroll', '-=1');
+			});
+
+			$('.indicator .next').click(function() {
+			    $('.thumbnail-slider').jcarousel('scroll', '+=1');
+			});
+		});
+
+
+	</script>
+</body>
+</html>
+

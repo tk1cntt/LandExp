@@ -83,7 +83,7 @@ public class HouseResource {
             houseDTO = houseService.saveByUsername(houseDTO, username);
             PaymentDTO paymentDTO = new PaymentDTO();
             paymentDTO.setHouseId(houseDTO.getId());
-            paymentDTO.setCode(Utils.generatePaymentCode(houseDTO.getId()).toUpperCase());
+            paymentDTO.setCode(Utils.encodePayment(houseDTO.getId()).toUpperCase());
             paymentDTO.setCreateAt(LocalDate.now());
             paymentDTO.setPaymentStatus(PaymentStatusType.PENDING);
             paymentDTO.setCustomerId(houseDTO.getCreateById());

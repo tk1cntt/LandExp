@@ -1,19 +1,13 @@
 package com.landexp.frontend.responses;
 
-import com.landexp.domain.enumeration.*;
-
-import javax.persistence.Lob;
-import java.time.LocalDate;
-
-public class HouseResponse {
-    private String id;
+public class HouseDetailResponse {
+    private Long id;
     private String link;
     private String actionType;
     private String landType;
     private String projectName;
     private String money;
     private String address;
-    private String fullAddress;
     private String image;
     private String imageContentType;
     private String acreage;
@@ -27,18 +21,15 @@ public class HouseResponse {
     private Integer bedRoom;
     private String parking;
     private String summary;
-    private String customer;
-    private String mobile;
-    private String email;
     private Float latitude;
     private Float longitude;
     private String updateAt;
 
-    public String getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(String id) {
+    public void setId(Long id) {
         this.id = id;
     }
 
@@ -216,37 +207,5 @@ public class HouseResponse {
 
     public void setUpdateAt(String updateAt) {
         this.updateAt = updateAt;
-    }
-
-    public String getFullAddress() {
-        return fullAddress;
-    }
-
-    public void setFullAddress(String fullAddress) {
-        this.fullAddress = fullAddress;
-    }
-
-    public String getCustomer() {
-        return customer;
-    }
-
-    public void setCustomer(String customer) {
-        this.customer = customer;
-    }
-
-    public String getMobile() {
-        return mobile;
-    }
-
-    public void setMobile(String mobile) {
-        this.mobile = mobile;
-    }
-
-    public String getEmail() {
-        return email;
-    }
-
-    public void setEmail(String email) {
-        this.email = email;
     }
 }

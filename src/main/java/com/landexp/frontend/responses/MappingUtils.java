@@ -1,15 +1,18 @@
 package com.landexp.frontend.responses;
 
+import com.landexp.config.Utils;
 import com.landexp.domain.enumeration.DirectionType;
 import com.landexp.domain.enumeration.LandType;
 import com.landexp.domain.enumeration.UserActionType;
 import com.landexp.service.dto.HouseDTO;
 
+import java.text.Normalizer;
 import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.time.ZoneId;
 import java.util.Base64;
 import java.util.Date;
+import java.util.regex.Pattern;
 
 public class MappingUtils {
 
@@ -112,18 +115,56 @@ public class MappingUtils {
         HouseResponse response = new HouseResponse();
         response.setActionType(formatActionType(dto.getActionType()));
         response.setLandType(formatLandType(dto.getLandType()));
-        response.setAcreage(dto.getAcreage());
+        response.setAddress(dto.getDistrictName() + ", " + dto.getCityName());
+        response.setFullAddress(dto.getAddress() + ", " + dto.getWardName() + ", " + dto.getDistrictName() + ", " + dto.getCityName());
+        response.setAcreage(new java.text.DecimalFormat("#").format(dto.getAcreage()));
         response.setMoney(formatMoney(dto.getMoney(), dto.getActionType()));
-        response.setAcreageStreetSide(dto.getAcreageStreetSide());
+        response.setAcreageStreetSide(new java.text.DecimalFormat("#").format(dto.getAcreageStreetSide()));
         response.setBathRoom(dto.getBathRoom());
         response.setBedRoom(dto.getBedRoom());
         response.setDirection(formatDirection(dto.getDirection()));
         response.setDirectionBalcony(formatDirection(dto.getDirectionBalcony()));
         response.setFloor(dto.getFloor());
-        response.setNumberOfFloor(dto.getNumberOfFloor());
+        response.setNumberOfFloor(new java.text.DecimalFormat("#").format(dto.getNumberOfFloor()));
         response.setImage(formatByte(dto.getAvatar()));
         response.setImageContentType(dto.getAvatarContentType());
         response.setUpdateAt(formatDate(dto.getUpdateAt()));
+        response.setParking(formatParking(dto.isParking()));
+        response.setLink(formatLink(dto));
+        response.setId(Utils.encodeId(dto.getId()));
+        response.setCustomer(dto.getCustomer());
+        response.setMobile(dto.getMobile());
+        response.setEmail(dto.getEmail());
         return response;
+    }
+
+    private static String formatLink(HouseDTO dto) {
+        StringBuilder sb = new StringBuilder();
+        sb.append(removeAccent(formatActionType(dto.getActionType())));
+        sb.append(" ");
+        sb.append(removeAccent(formatLandType(dto.getLandType())));
+        sb.append(" ");
+        sb.append(removeAccent(formatMoney(dto.getMoney(), dto.getActionType())
+            .replaceAll("<span>", "")
+            .replaceAll("</span>", "")));
+        sb.append(" ");
+        sb.append(removeAccent(dto.getDistrictName()));
+        sb.append(" ");
+        sb.append(removeAccent(dto.getCityName()));
+        return sb.toString().toLowerCase().replaceAll(" ", "-").replaceAll("\\/", "-");
+    }
+
+    public static String formatParking(Boolean parking) {
+        if (parking) {
+            return "<i class=\"fa fa-check\"></i>";
+        } else {
+            return "<i class=\"fa fa-uncheck\"></i>";
+        }
+    }
+
+    public static String removeAccent(String s) {
+        String temp = Normalizer.normalize(s, Normalizer.Form.NFD);
+        Pattern pattern = Pattern.compile("\\p{InCombiningDiacriticalMarks}+");
+        return pattern.matcher(temp).replaceAll("");
     }
 }
