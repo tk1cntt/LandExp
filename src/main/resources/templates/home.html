@@ -85,39 +85,315 @@
                         <option value="">Giá từ cao đến thấp</option>
                     </select>
                     <ul role="tablist">
-                        <li role="presentation" class="listview-button active"><a href="#list" aria-controls="list"
-                                                                                  role="tab" data-toggle="tab"></a></li>
-                        <li role="presentation" class="gridview-button"><a href="#grid" aria-controls="grid" role="tab"
-                                                                           data-toggle="tab" aria-selected="true"></a>
+                        <li role="presentation" class="listview-button active">
+                            <a href="#list" aria-controls="list" role="tab" data-toggle="tab"></a></li>
+                        <li role="presentation" class="gridview-button">
+                            <a href="#grid" aria-controls="grid" role="tab" data-toggle="tab" aria-selected="true"></a>
                         </li>
                     </ul>
                 </div>
             </h2>
             <div class="row">
-                <div class="gridview" th:each="house : ${houses}">
-                    <div class="col-md-3 post-item">
-                        <div class="item-thumbnail">
-                            <a th:with="baseUrl=('/bat-dong-san/' + ${house.id} + '/' + ${house.link})" th:href="@{${baseUrl}}">
-                                <img src="/upload/products/item-1.png" alt="">
-                            </a>
-                            <div class="type" th:classappend="${house.actionType == 'CHO THUÊ'} ? chothue : ban">[[${house.actionType}]]</div>
-                            <a href="#" class="like-button">
-                                <i class="fa fa-heart-o"></i>
-                        </div>
-                        <div class="item-info">
-                            <a href="#"><h3 class="title">[[${house.landType}]]</h3></a>
-                            <p class="subtitle">Dự án Vinhome D’Capital</p>
-                            <p class="price" th:utext="${house.money}"></p>
-                            <div class="post-date">Ngày đăng <span>[[${house.updateAt}]]</span></div>
-                            <div class="property">
-                                <span class="compact"><span>[[${house.acreage}]]</span>m2</span>
-                                <span class="bedroom">[[${house.bedRoom}]]</span>
-                                <span class="bathroom">[[${house.bathRoom}]]</span>
-                                <span class="gara" th:utext="${house.parking}"></span>
+                <div class="tab-content">
+                    <div id="list" class="tab-pane fade active in" role="tabpanel">
+                        <div class="listview-left" th:each="house : ${houses}">
+                            <div class="post-item">
+                                <div class="item-thumbnail">
+                                    <a th:with="baseUrl=('/bat-dong-san/' + ${house.id} + '/' + ${house.link})" th:href="@{${baseUrl}}">
+                                        <img src="/upload/products/item-1.png" alt="">
+                                    </a>
+                                    <div class="type" th:classappend="${house.actionType == 'CHO THUÊ'} ? chothue : ban">[[${house.actionType}]]</div>
+                                    <a href="#" class="like-button">
+                                        <i class="fa fa-heart-o"></i>
+                                    </a>
+                                </div>
+                                <div class="item-info">
+                                    <a href="#"><h3 class="title">[[${house.landType}]]</h3></a>
+                                    <p class="subtitle">Dự án Vinhome D’Capital</p>
+                                    <p class="price" th:utext="${house.money}"></p>
+                                    <div class="post-date">Ngày đăng <span>[[${house.updateAt}]]</span></div>
+                                    <div class="property">
+                                        <span class="compact"><span>[[${house.acreage}]]</span>m2</span>
+                                        <span class="bedroom">[[${house.bedRoom}]]</span>
+                                        <span class="bathroom">[[${house.bathRoom}]]</span>
+                                        <span class="gara" th:utext="${house.parking}"></span>
+                                    </div>
+                                    <p class="location">[[${house.address}]]</p>
+                                </div>
+                                <div class="clearfix"></div>
                             </div>
-                            <p class="location">[[${house.address}]]</p>
                         </div>
-                        <div class="clearfix"></div>
+                        <div class="listview-right">
+                            <div id="carousel-example-generic" class="carousel slide" data-ride="carousel">
+                                <!-- Wrapper for slides -->
+                                <div class="carousel-inner" role="listbox">
+                                    <div class="item active">
+                                        <img src="/upload/products/47.png" alt="...">
+                                    </div>
+                                    <div class="item">
+                                        <img src="/upload/products/47.png" alt="...">
+                                    </div>
+                                </div>
+                                <!-- Controls -->
+                                <a class="left carousel-control" href="#carousel-example-generic" role="button"
+                                   data-slide="prev">
+                                    <span class="fa fa-chevron-left" aria-hidden="true"></span>
+                                    <span class="sr-only">Previous</span>
+                                </a>
+                                <a class="right carousel-control" href="#carousel-example-generic" role="button"
+                                   data-slide="next">
+                                    <span class="fa fa-chevron-right" aria-hidden="true"></span>
+                                    <span class="sr-only">Next</span>
+                                </a>
+                            </div>
+                            <h3>Bán căn hộ chung cư</h3>
+                            <ul class="tab">
+                                <li class="active"><a href="#">MÔ TẢ CƠ BẢN</a></li>
+                                <li><a href="#">VỊ TRÍ & TIỆN ÍCH</a></li>
+                                <li><a href="#">LIÊN HỆ</a></li>
+                                <li><a href="#">THÔNG TIN KHÁC</a></li>
+                            </ul>
+                            <div class="description" id="description">
+                                <p><span>Hình thức</span>Bán</p>
+                                <p><span>Loại hình</span>Căn hộ chung cư</p>
+                                <p><span>Dự án</span>Dự án Vinhomes D’Capitale</p>
+                                <div class="property-label">Mô tả</div>
+                                <div class="property">
+                                    <span class="compact">60m2</span>
+                                    <span class="bedroom">2</span>
+                                    <span class="bathroom">1</span>
+                                    <span class="compass">Đông</span>
+                                    <span class="floor">Tầng 10</span>
+                                    <span class="gara"><i class="fa fa-check"></i></span>
+                                </div>
+                                <div class="content">
+                                    <p>The crafting and the designing of the project is built with exceptional and well
+                                        planned amenities to showcase a world within the four walls. The quality work
+                                        and dedication in intending this concrete chic is an idea of lavish living. The
+                                        well planned structures …</p>
+                                </div>
+                                <p><a class="more" href="#">Xem thêm</a></p>
+                            </div>
+                            <div class="location">
+                                <h3>Bản đồ vị trí Bất động sản <span class="address">22 Láng Hạ, Đống Đa, Hà Nội</span>
+                                </h3>
+                                <div class="heading">
+                                    <ul>
+                                        <li><a href="">Vị trí BDS</a></li>
+                                        <li><a href="">Nhà hàng</a></li>
+                                        <li><a href="">Mua sắm</a></li>
+                                        <li><a href="">Thể thao Giải trí</a></li>
+                                        <li><a href="">Trường học</a></li>
+                                    </ul>
+                                </div>
+                                <div class="location-search">
+                                    <p>
+                                        <span class="color-gray">Tìm thấy:</span> 10 kết quả
+                                    <div class="toolbox">
+                                        <form action="#" class="form-inline">
+                                            <label for="distance">Bán kính</label>
+                                            <select name="" id="distance" class="form-control" required="required">
+                                                <option value="1">1 km</option>
+                                                <option value="2">2 km</option>
+                                            </select>
+                                        </form>
+                                    </div>
+                                    </p>
+                                    <div class="result">
+                                        <div>
+                                            <h3><a href="#">Nhà hàng Thành Nam</a><span>1.995km</span></h3>
+                                            <p>11 Nguyễn Xiển, Q. Thanh Xuân, Hà Nội</p>
+                                        </div>
+                                        <div>
+                                            <h3><a href="#">Nhà hàng Thành Nam</a><span>1.995km</span></h3>
+                                            <p>11 Nguyễn Xiển, Q. Thanh Xuân, Hà Nội</p>
+                                        </div>
+                                        <div>
+                                            <h3><a href="#">Nhà hàng Thành Nam</a><span>1.995km</span></h3>
+                                            <p>11 Nguyễn Xiển, Q. Thanh Xuân, Hà Nội</p>
+                                        </div>
+                                        <div>
+                                            <h3><a href="#">Nhà hàng Thành Nam</a><span>1.995km</span></h3>
+                                            <p>11 Nguyễn Xiển, Q. Thanh Xuân, Hà Nội</p>
+                                        </div>
+                                        <div>
+                                            <h3><a href="#">Nhà hàng Thành Nam</a><span>1.995km</span></h3>
+                                            <p>11 Nguyễn Xiển, Q. Thanh Xuân, Hà Nội</p>
+                                        </div>
+                                        <div>
+                                            <h3><a href="#">Nhà hàng Thành Nam</a><span>1.995km</span></h3>
+                                            <p>11 Nguyễn Xiển, Q. Thanh Xuân, Hà Nội</p>
+                                        </div>
+                                        <div>
+                                            <h3><a href="#">Nhà hàng Thành Nam</a><span>1.995km</span></h3>
+                                            <p>11 Nguyễn Xiển, Q. Thanh Xuân, Hà Nội</p>
+                                        </div>
+                                        <div>
+                                            <h3><a href="#">Nhà hàng Thành Nam</a><span>1.995km</span></h3>
+                                            <p>11 Nguyễn Xiển, Q. Thanh Xuân, Hà Nội</p>
+                                        </div>
+                                        <div>
+                                            <h3><a href="#">Nhà hàng Thành Nam</a><span>1.995km</span></h3>
+                                            <p>11 Nguyễn Xiển, Q. Thanh Xuân, Hà Nội</p>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div id="map">
+                                    <iframe
+                                        src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3724.41202483104!2d105.81141691430787!3d21.01619369358445!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3135ab638f812f11%3A0x2154f1353ced5dd6!2zQjEwIDIyIExhbmcgSGEsIEtodSB04bqtcCB0aOG7gyBOYW0gVGjDoG5oIEPDtG5nLCBMw6FuZyBI4bqhLCDEkOG7kW5nIMSQYSwgSMOgIE7hu5lpLCBWaeG7h3QgTmFt!5e0!3m2!1svi!2s!4v1528534025293"
+                                        width="565" height="290" frameborder="0" style="border:0"
+                                        allowfullscreen></iframe>
+                                </div>
+                            </div>
+                            <div class="contact-info">
+                                <div class="row">
+                                    <div class="col-sm-6 personal description">
+                                        <h3>Liên hệ</h3>
+                                        <p><span>Họ tên</span>Lâm Nhật Long</p>
+                                        <p><span>Số điện thoại</span>0963 768333</p>
+                                        <p><span>Email</span>lamnhatlong@gmail.com</p>
+                                        <p><span>Zalo</span>0963 768333</p>
+                                        <p><span>Messenger</span>0963 768333</p>
+                                    </div>
+                                    <div class="col-sm-6 time-to-view">
+                                        <h3>Thời gian xem bất động sản</h3>
+                                        <p>17h - 19h các ngày trong tuần 10h - 12h các ngày thứ 7, chủ nhật</p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="other-info">
+                                <h3>Thông tin khác</h3>
+                                <div class="row">
+                                    <div class="col-sm-4 text-center">
+                                        <div class="circle orange-bd">200</div>
+                                        <p>Lượt tìm kiếm</p>
+                                    </div>
+                                    <div class="col-sm-4 text-center">
+                                        <div class="circle green-bd">210</div>
+                                        <p>Lượt xem</p>
+                                    </div>
+                                    <div class="col-sm-4 text-center">
+                                        <div class="circle red-bd">10</div>
+                                        <p>Lượt yêu thích</p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="related">
+                                <h3>
+                                    Có thể bạn quan tâm
+                                    <span class="tool-box">
+                                        <a class="prev"><span class="fa fa-chevron-left"></span></a>
+                                        <a class="next"><span class="fa fa-chevron-right"></span></a>
+                                    </span>
+                                </h3>
+                                <div class="row">
+                                    <div class="post-container">
+                                        <div class="related-carousel">
+                                            <ul>
+                                                <li class="post-item">
+                                                    <div class="item-thumbnail">
+                                                        <a href="#">
+                                                            <img src="/upload/products/item-1.png" alt="">
+                                                        </a>
+                                                        <div class="type ban">BÁN</div>
+                                                        <a href="#" class="like-button"><i class="fa fa-heart-o"></i></a>
+                                                    </div>
+                                                    <div class="item-info">
+                                                        <a href="#"><h3 class="title">Căn hộ chung cư</h3></a>
+                                                        <p class="subtitle">Dự án Vinhome D’Capital</p>
+                                                        <p class="price"><span>4,5</span> tỷ</p>
+                                                        <div class="post-date">Ngày đăng <span>31/5/2018</span></div>
+                                                        <div class="property">
+                                                            <span class="compact">60m2</span>
+                                                            <span class="bedroom">2</span>
+                                                            <span class="bathroom">1</span>
+                                                            <span class="gara"><i class="fa fa-check"></i></span>
+                                                        </div>
+                                                        <p class="location">Quận Đống Đa, Hà Nội</p>
+                                                    </div>
+                                                    <div class="clearfix"></div>
+                                                </li>
+                                                <li class="post-item">
+                                                    <div class="item-thumbnail">
+                                                        <a href="#">
+                                                            <img src="/upload/products/item-1.png" alt="">
+                                                        </a>
+                                                        <div class="type ban">BÁN</div>
+                                                        <a href="#" class="like-button"><i class="fa fa-heart-o"></i></a>
+                                                    </div>
+                                                    <div class="item-info">
+                                                        <a href="#"><h3 class="title">Căn hộ chung cư</h3></a>
+                                                        <p class="subtitle">Dự án Vinhome D’Capital</p>
+                                                        <p class="price"><span>4,5</span> tỷ</p>
+                                                        <div class="post-date">Ngày đăng <span>31/5/2018</span></div>
+                                                        <div class="property">
+                                                            <span class="compact">60m2</span>
+                                                            <span class="bedroom">2</span>
+                                                            <span class="bathroom">1</span>
+                                                            <span class="gara"><i class="fa fa-check"></i></span>
+                                                        </div>
+                                                        <p class="location">Quận Đống Đa, Hà Nội</p>
+                                                    </div>
+                                                    <div class="clearfix"></div>
+                                                </li>
+
+                                                <li class="post-item">
+                                                    <div class="item-thumbnail">
+                                                        <a href="#">
+                                                            <img src="/upload/products/item-1.png" alt="">
+                                                        </a>
+                                                        <div class="type ban">BÁN</div>
+                                                        <a href="#" class="like-button"><i class="fa fa-heart-o"></i></a>
+                                                    </div>
+                                                    <div class="item-info">
+                                                        <a href="#"><h3 class="title">Căn hộ chung cư</h3></a>
+                                                        <p class="subtitle">Dự án Vinhome D’Capital</p>
+                                                        <p class="price"><span>4,5</span> tỷ</p>
+                                                        <div class="post-date">Ngày đăng <span>31/5/2018</span></div>
+                                                        <div class="property">
+                                                            <span class="compact">60m2</span>
+                                                            <span class="bedroom">2</span>
+                                                            <span class="bathroom">1</span>
+                                                            <span class="gara"><i class="fa fa-check"></i></span>
+                                                        </div>
+                                                        <p class="location">Quận Đống Đa, Hà Nội</p>
+                                                    </div>
+                                                    <div class="clearfix"></div>
+                                                </li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div id="grid" class="tab-pane fade" role="tabpanel">
+                        <div class="gridview" th:each="house : ${houses}">
+                            <div class="col-md-3 post-item">
+                                <div class="item-thumbnail">
+                                    <a th:with="baseUrl=('/bat-dong-san/' + ${house.id} + '/' + ${house.link})" th:href="@{${baseUrl}}">
+                                        <img src="/upload/products/item-1.png" alt="">
+                                    </a>
+                                    <div class="type" th:classappend="${house.actionType == 'CHO THUÊ'} ? chothue : ban">[[${house.actionType}]]</div>
+                                    <a href="#" class="like-button">
+                                        <i class="fa fa-heart-o"></i>
+                                </div>
+                                <div class="item-info">
+                                    <a href="#"><h3 class="title">[[${house.landType}]]</h3></a>
+                                    <p class="subtitle">Dự án Vinhome D’Capital</p>
+                                    <p class="price" th:utext="${house.money}"></p>
+                                    <div class="post-date">Ngày đăng <span>[[${house.updateAt}]]</span></div>
+                                    <div class="property">
+                                        <span class="compact"><span>[[${house.acreage}]]</span>m2</span>
+                                        <span class="bedroom">[[${house.bedRoom}]]</span>
+                                        <span class="bathroom">[[${house.bathRoom}]]</span>
+                                        <span class="gara" th:utext="${house.parking}"></span>
+                                    </div>
+                                    <p class="location">[[${house.address}]]</p>
+                                </div>
+                                <div class="clearfix"></div>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -162,7 +438,7 @@
                 $('.related-carousel').jcarousel('scroll', '+=1');
             });
         });
-    
+
 </script>
 </body>
 </html>
