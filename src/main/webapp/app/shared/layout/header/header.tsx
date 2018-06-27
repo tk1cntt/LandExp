@@ -41,31 +41,44 @@ export default class Header extends React.Component<IHeaderProps, IHeaderState> 
     const bedroom = [1, 2, 3, 4];
     const bathroom = [1, 2, 3, 4];
     return (
-      <div id="app-header">
-        <Container>
-          <div className="jh-navbar">
-            <Navbar color="light" light expand="sm">
-              <NavbarToggler aria-label="Menu" onClick={this.toggleMenu} />
-              <Brand />
-              <Buy />
-              <Rent />
-              <News />
-              <Support />
-              <Collapse isOpen={this.state.menuOpen} navbar>
-                <Nav id="header-tabs" className="ml-auto" navbar>
-                  {!isAuthenticated && <Register />}
-                  {!isAuthenticated && <Login />}
-                  {isAuthenticated && isStaff && <StaffMenu />}
-                  {isAuthenticated && isManager && <ManagerMenu />}
-                  {isAuthenticated && isAdmin && <AdminMenu showSwagger={isSwaggerEnabled} showDatabase={!isInProduction} />}
-                  {isAuthenticated && <AccountMenu isAuthenticated={isAuthenticated} />}
-                  {isAuthenticated && <Post />}
-                </Nav>
-              </Collapse>
-            </Navbar>
+      <header>
+        <div className="container">
+          <div className="row">
+            <div className="logo">
+              <a href="/index.html">
+                <img src="/static/images/logo.png" alt="LandExp" />
+              </a>
+            </div>
+            <ul className="menu left-menu">
+              <li>
+                <a href>Mua</a>
+              </li>
+              <li>
+                <a href>Thuê</a>
+              </li>
+              <li>
+                <a href>Trợ giúp</a>
+              </li>
+              <li>
+                <a href>Tin tức</a>
+              </li>
+            </ul>
+            <ul className="menu right-menu">
+              <li>
+                <a href>Đăng ký</a>
+              </li>
+              <li>
+                <a href>Đăng nhập</a>
+              </li>
+              <li>
+                <a type="button" className="button" href="dang-tin.html">
+                  Đăng tin
+                </a>
+              </li>
+            </ul>
           </div>
-        </Container>
-      </div>
+        </div>
+      </header>
     );
   }
 }

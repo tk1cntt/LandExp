@@ -1,48 +1,5 @@
-body {
-  margin: 0px;
-  font-family: Helvetica Neue !important;
-  font-weight: 300;
-  font-size: 14px;
-  color: #454545;
-}
-
 .container {
-  width: 1140px;
-  max-width: 100% !important;
+	width: 1170px;
   margin-right: auto;
   margin-left: auto;
 }
-
-#home-content {
-  border: none;
-}
-
-.bg-light {
-  background-color: #ffffff !important;
-}
-
-.compact {
-  background: url('../static/images/icon/ic_view_compact.png') no-repeat 0;
-}
-
-.compass {
-  background: url('../static/images/icon/compass.png') no-repeat 0;
-}
-
-.bedroom {
-  background: url('../static/images/icon/ic_hotel.png') no-repeat 0;
-}
-
-.bathroom {
-  background: url('../static/images/icon/bathtub.png') no-repeat 0;
-}
-
-.gara {
-  background: url('../static/images/icon/ic_directions_car.png') no-repeat 0;
-}
-
-.floor {
-  background: url('../static/images/icon/offices-buildings.png') no-repeat;
-}
-
-@import '~bootstrap/dist/css/bootstrap.min.css';

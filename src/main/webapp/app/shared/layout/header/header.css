@@ -1,80 +1,109 @@
-/* ==========================================================================
-Navbar styles
-========================================================================== */
-.jh-navbar {
-  background-color: #ffffff !important;
-}
-.jh-navbar .dropdown-menu {
-  font-size: 1em;
-}
-.jh-navbar .profile-image {
-  margin: -10px 0px;
-  height: 40px;
-  width: 40px;
-  border-radius: 50%;
-}
-.jh-navbar .dropdown-item.active,
-.jh-navbar .dropdown-item.active:focus,
-.jh-navbar .dropdown-item.active:hover {
-  background-color: #353d47;
-}
-.jh-navbar .dropdown-toggle::after {
-  margin-left: 0.15em;
-}
-.jh-navbar ul.navbar-nav {
-  padding: 0.5em;
-}
-.jh-navbar ul.navbar-nav .nav-item {
-  margin-left: 1.5rem;
-}
-.jh-navbar a.nav-link {
-  font-weight: 400;
-}
-.jh-navbar a.nav-link > span {
-  margin-left: 5px;
-}
-.jh-navbar .jh-navbar-toggler {
-  color: #ccc;
-  font-size: 1.5em;
-  padding: 10px;
-}
-.jh-navbar .jh-navbar-toggler:hover {
-  color: #fff;
-}
-.jh-navbar .brand-menu-item {
-  font-size: 15px;
-  margin-left: 10px;
-}
-.navbar-version {
-  font-size: 10px;
-  color: #bbb;
-  padding: 0 0 0 10px;
-}
-.brand-logo:hover {
+ul.left-menu a {
+  color: #454545;
   text-decoration: none;
 }
-.brand-logo .brand-icon {
-  height: 30px;
-  width: auto;
+
+ul.left-menu a:hover {
+  color: #4a8dff;
+}
+
+h2 {
+  font-size: 30px;
+  font-weight: normal;
+  color: #454545;
+}
+
+h3 {
+  font-size: 16px;
+}
+
+ul {
+  list-style: none;
+  padding-left: 0px;
+}
+
+.home header {
+  background-color: rgb(255, 255, 255, 0.88);
+  height: 734px;
+  min-width: 1170px;
+}
+
+.logo {
+  padding-top: 23px;
+  padding-bottom: 23px;
+  float: left;
+}
+
+ul.menu {
+  padding-left: 35px;
+  list-style: none;
+  padding-top: 23px;
+  margin: 0 auto;
+  float: left;
+  height: 36px;
+  line-height: 36px;
+}
+
+ul.menu li {
   display: inline-block;
+  padding-right: 31px;
+  /*font-family: Helvetica Neue;*/
+  font-size: 16px;
 }
-.brand-logo .brand-icon img {
-  height: 30px;
-  margin-top: -10px;
-  margin-left: -15px;
-}
-.brand-title {
-  font-size: 24px;
-  color: #fff;
-}
-.brand-title:hover {
-  color: #ccc;
+
+ul.menu li a {
   text-decoration: none;
+  /*color: #454545;*/
 }
-.loading-bar {
-  height: 3px;
-  background-color: #009cd8;
-  position: absolute;
-  top: 0px;
-  z-index: 1031;
+
+ul.right-menu {
+  float: right;
+  padding-top: 16px;
+}
+
+ul.right-menu li {
+  padding: 0px;
+}
+
+ul.right-menu li:first-child:after {
+  content: '|';
+  padding: 0 10px;
+}
+
+ul.right-menu li.right-info {
+  position: relative;
+  margin-right: 25px;
+  top: 10px;
+}
+
+ul.right-menu li.right-info:after {
+  content: none;
+}
+
+.right-menu .right-info span.chat-icon {
+  background: url('../../../../static/images/icon/chat-blue.png');
+}
+
+.right-menu .right-info span.ring-icon {
+  background: url('../../../../static/images/icon/ring-blue.png');
+  margin-right: 15px;
+}
+
+ul.right-menu li img.avatar {
+  height: 50px;
+  width: 50px;
+  border-radius: 25px;
+  border: 1px solid #3a65f9;
+}
+
+ul.right-menu .button {
+  display: block;
+  padding: 6px 46px;
+  margin-left: 18px;
+  border: 1px solid #fda705;
+  border-radius: 25px;
+  background: linear-gradient(#ffca19, #ffba00);
+  color: #ffffff;
+  text-transform: uppercase;
+  font-size: 12px;
 }
