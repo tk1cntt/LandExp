@@ -8,8 +8,167 @@
     <link rel="stylesheet" href="css/style.css">
 </head>
 <body class="home">
-<header th:fragment="fragments/header">
+<header>
+    <div class="container">
+        <div class="row">
+            <div class="logo">
+                <a href="/"><img src="images/logo.png" alt="LandExp"></a>
+            </div>
+            <ul class="menu">
+                <li><a href="">Mua</a></li>
+                <li><a href="">Thuê</a></li>
+                <li><a href="">Trợ giúp</a></li>
+                <li><a href="">Tin tức</a></li>
+            </ul>
 
+            <ul class="menu right-menu">
+                <li><a href="">Đăng ký</a></li>
+                <li><a href="">Đăng nhập</a></li>
+                <li><a type="button" class="button" href="">Đăng tin</a></li>
+            </ul>
+        </div>
+        <div class="search">
+            <h2>Nhu cầu của bạn là gì?</h2>
+            <div class="select-box">
+                <label class="radio-container">Mua
+                    <input type="radio" name="radio" checked="checked">
+                    <span class="checkmark"></span>
+                </label>
+
+                <label class="radio-container">Thuê
+                    <input type="radio" name="radio">
+                    <span class="checkmark"></span>
+                </label>
+            </div>
+            <div class="search-box">
+                <div class="top-search-box">
+                    <div class="select">
+                        <select>
+                            <option>Chọn loại BĐS:</option>
+                            <option value="1" selected>Chung cư</option>
+                            <option value="2">Nhà riêng</option>
+                        </select>
+                    </div>
+                    <div class="keyword">
+                        <input type="text" placeholder="Nhập địa điểm, thành phố hoặc dự án">
+                    </div>
+                    <div class="clearfix"></div>
+                </div>
+                <div class="bottom-search-box">
+                    <div class="select">
+                        <label>Khoảng giá</label>
+                        <div class="dropdown">
+                            <span id="price" data-toggle="dropdown" role="button" aria-haspopup="true"
+                                  aria-expanded="false">Khoảng giá</span>
+                            <input type="hidden" id="" name="slPrice"/>
+                            <ul class="dropdown-menu" aria-labelledby="price">
+                                <div class="header-box">
+                                    <table class="header-options options">
+                                        <tr class="advance-options">
+                                            <td class="advance-options">
+                                                <input type="text" id="txtPriceMinValue" name="pricemin"
+                                                       placeholder="Từ" class="min-value options" maxlength="6"
+                                                       numbersonly="true" decimal="true" value=""/>
+                                                <div id="lblPriceMin"></div>
+                                            </td>
+                                            <td class="advance-options"><span class="advance-options"></span></td>
+                                            <td class="advance-options">
+                                                <input type="text" id="txtPriceMaxValue" name="pricemax"
+                                                       placeholder="Đến" class="max-value options" maxlength="6"
+                                                       numbersonly="true" decimal="true" value=""/>
+                                                <div id="lblPriceMax"></div>
+                                            </td>
+                                        </tr>
+                                    </table>
+                                </div>
+                                <li class="options" value="">Bất kỳ</li>
+                                <li class="options" value="">< 500 triệu</li>
+                                <li class="options" value="">500 triệu - 1 tỷ</li>
+                                <li class="options" value="">1 - 1.5 tỷ</li>
+                                <li class="options" value="">1.5 - 2 tỷ</li>
+                                <li class="options" value="">2 - 3 tỷ</li>
+                                <li class="options" value="">3 - 5 tỷ</li>
+                                <li class="options" value="">> 5 tỷ</li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="select">
+                        <label>Diện tích</label>
+                        <div class="dropdown">
+                            <span id="square" data-toggle="dropdown" role="button" aria-haspopup="true"
+                                  aria-expanded="false">Diện tích</span>
+                            <input type="hidden" id="" name="slSqrare"/>
+                            <ul class="dropdown-menu" aria-labelledby="square">
+                                <div class="header-box">
+                                    <table class="header-options options">
+                                        <tr class="advance-options">
+                                            <td class="advance-options">
+                                                <input type="text" id="txtSquareMinValue" name="pricemin"
+                                                       placeholder="Từ" class="min-value options" maxlength="6"
+                                                       numbersonly="true" decimal="true" value=""/>
+                                                <div id="lblSquareMin"></div>
+                                            </td>
+                                            <td class="advance-options"><span class="advance-options"></span></td>
+                                            <td class="advance-options">
+                                                <input type="text" id="txtSquareMaxValue" name="pricemax"
+                                                       placeholder="Đến" class="max-value options" maxlength="6"
+                                                       numbersonly="true" decimal="true" value=""/>
+                                                <div id="lblSquareMax"></div>
+                                            </td>
+                                        </tr>
+                                    </table>
+                                </div>
+                                <li class="options" value="">Bất kỳ</li>
+                                <li class="options" value="">< 50 m2</li>
+                                <li class="options" value="">50 - 80 m2</li>
+                                <li class="options" value="">80 - 100 m2</li>
+                                <li class="options" value="">100 - 200 m2</li>
+                                <li class="options" value="">> 200 m2</li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="select">
+                        <label for="">Số phòng ngủ</label>
+                        <div class="dropdown">
+                            <span id="bedroom" data-toggle="dropdown" role="button" aria-haspopup="true"
+                                  aria-expanded="false">Bất kỳ</span>
+                            <input type="hidden" id="" name="slBedroom"/>
+                            <ul class="dropdown-menu" aria-labelledby="bedroom">
+                                <li class="options" value="">Bất kỳ</li>
+                                <li class="options" value="1">1</li>
+                                <li class="options" value="2" selected>2</li>
+                                <li class="options" value="2">3</li>
+                                <li class="options" value="2">4</li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="select">
+                        <label for="">Số phòng tắm</label>
+                        <div class="dropdown">
+                            <span id="bathroom" data-toggle="dropdown" role="button" aria-haspopup="true"
+                                  aria-expanded="false">Bất kỳ</span>
+                            <input type="hidden" id="" name="slBathroom"/>
+                            <ul class="dropdown-menu" aria-labelledby="bathroom">
+                                <li class="options" value="1">1</li>
+                                <li class="options" value="2" selected>2</li>
+                                <li class="options" value="2">3</li>
+                                <li class="options" value="2">4</li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="clearfix"></div>
+                </div>
+                <button type="submit">TÌM KIẾM</button>
+            </div>
+            <div class="download">
+                <p>Tải ứng dụng trên Store</p>
+                <div class="app-icon">
+                    <span><a href=""><i class="fa fa-apple"></i></a></span>
+                    <span><a href=""><i class="fa fa-android"></i></a></span>
+                </div>
+            </div>
+        </div>
+    </div>
 </header>
 
 <div id="home-content">
@@ -85,277 +244,24 @@
                 </div>
             </h2>
             <div class="row">
-                <div class="gridview">
+                <div class="gridview" th:each="house : ${houses}">
                     <div class="col-md-3 post-item">
                         <div class="item-thumbnail">
                             <a href="#">
                                 <img src="upload/products/item-1.png" alt="">
                             </a>
-                            <div class="type chothue">CHO THUÊ</div>
+                            <div class="type" th:classappend="${house.actionType == 'CHO THUÊ'} ? chothue : ban" th:text="${house.actionType}">CHO THUÊ</div>
                             <a href="#" class="like-button"><i class="fa fa-heart-o"></i>
                         </div>
                         <div class="item-info">
-                            <a href="#"><h3 class="title">Căn hộ chung cư</h3></a>
+                            <a href="#"><h3 class="title" th:text="${house.landType}">Căn hộ chung cư</h3></a>
                             <p class="subtitle">Dự án Vinhome D’Capital</p>
-                            <p class="price"><span>5</span> triệu/tháng</p>
-                            <div class="post-date">Ngày đăng <span>31/5/2018</span></div>
+                            <p class="price" th:utext="${house.money}"><span >5</span>triệu/tháng</p>
+                            <div class="post-date">Ngày đăng <span>[[${house.updateAt}]]</span></div>
                             <div class="property">
-                                <span class="compact">60m2</span>
-                                <span class="bedroom">2</span>
-                                <span class="bathroom">1</span>
-                                <span class="gara"><i class="fa fa-check"></i></span>
-                            </div>
-                            <p class="location">Quận Đống Đa, Hà Nội</p>
-                        </div>
-                        <div class="clearfix"></div>
-                    </div>
-                    <div class="col-md-3 post-item">
-                        <div class="item-thumbnail">
-                            <a href="#">
-                                <img src="upload/products/item-1.png" alt="">
-                            </a>
-                            <div class="type ban">BÁN</div>
-                            <a href="#" class="like-button"><i class="fa fa-heart-o"></i>
-                        </div>
-                        <div class="item-info">
-                            <a href="#"><h3 class="title">Căn hộ chung cư</h3></a>
-                            <p class="subtitle">Dự án Vinhome D’Capital</p>
-                            <p class="price"><span>4,5</span> tỷ</p>
-                            <div class="post-date">Ngày đăng <span>31/5/2018</span></div>
-                            <div class="property">
-                                <span class="compact">60m2</span>
-                                <span class="bedroom">2</span>
-                                <span class="bathroom">1</span>
-                                <span class="gara"><i class="fa fa-check"></i></span>
-                            </div>
-                            <p class="location">Quận Đống Đa, Hà Nội</p>
-                        </div>
-                        <div class="clearfix"></div>
-                    </div>
-                    <div class="col-md-3 post-item">
-                        <div class="item-thumbnail">
-                            <a href="#">
-                                <img src="upload/products/item-1.png" alt="">
-                            </a>
-                            <div class="type chothue">CHO THUÊ</div>
-                            <a href="#" class="like-button"><i class="fa fa-heart-o"></i>
-                        </div>
-                        <div class="item-info">
-                            <a href="#"><h3 class="title">Căn hộ chung cư</h3></a>
-                            <p class="subtitle">Dự án Vinhome D’Capital</p>
-                            <p class="price"><span>5</span> triệu/tháng</p>
-                            <div class="post-date">Ngày đăng <span>31/5/2018</span></div>
-                            <div class="property">
-                                <span class="compact">60m2</span>
-                                <span class="bedroom">2</span>
-                                <span class="bathroom">1</span>
-                                <span class="gara"><i class="fa fa-check"></i></span>
-                            </div>
-                            <p class="location">Quận Đống Đa, Hà Nội</p>
-                        </div>
-                        <div class="clearfix"></div>
-                    </div>
-                    <div class="col-md-3 post-item">
-                        <div class="item-thumbnail">
-                            <a href="#">
-                                <img src="upload/products/item-1.png" alt="">
-                            </a>
-                            <div class="type ban">BÁN</div>
-                            <a href="#" class="like-button"><i class="fa fa-heart-o"></i>
-                        </div>
-                        <div class="item-info">
-                            <a href="#"><h3 class="title">Căn hộ chung cư</h3></a>
-                            <p class="subtitle">Dự án Vinhome D’Capital</p>
-                            <p class="price"><span>4,5</span> tỷ</p>
-                            <div class="post-date">Ngày đăng <span>31/5/2018</span></div>
-                            <div class="property">
-                                <span class="compact">60m2</span>
-                                <span class="bedroom">2</span>
-                                <span class="bathroom">1</span>
-                                <span class="gara"><i class="fa fa-check"></i></span>
-                            </div>
-                            <p class="location">Quận Đống Đa, Hà Nội</p>
-                        </div>
-                        <div class="clearfix"></div>
-                    </div>
-                    <div class="col-md-3 post-item">
-                        <div class="item-thumbnail">
-                            <a href="#">
-                                <img src="upload/products/item-1.png" alt="">
-                            </a>
-                            <div class="type chothue">CHO THUÊ</div>
-                            <a href="#" class="like-button"><i class="fa fa-heart-o"></i>
-                        </div>
-                        <div class="item-info">
-                            <a href="#"><h3 class="title">Căn hộ chung cư</h3></a>
-                            <p class="subtitle">Dự án Vinhome D’Capital</p>
-                            <p class="price"><span>5</span> triệu/tháng</p>
-                            <div class="post-date">Ngày đăng <span>31/5/2018</span></div>
-                            <div class="property">
-                                <span class="compact">60m2</span>
-                                <span class="bedroom">2</span>
-                                <span class="bathroom">1</span>
-                                <span class="gara"><i class="fa fa-check"></i></span>
-                            </div>
-                            <p class="location">Quận Đống Đa, Hà Nội</p>
-                        </div>
-                        <div class="clearfix"></div>
-                    </div>
-                    <div class="col-md-3 post-item">
-                        <div class="item-thumbnail">
-                            <a href="#">
-                                <img src="upload/products/item-1.png" alt="">
-                            </a>
-                            <div class="type ban">BÁN</div>
-                            <a href="#" class="like-button"><i class="fa fa-heart-o"></i>
-                        </div>
-                        <div class="item-info">
-                            <a href="#"><h3 class="title">Căn hộ chung cư</h3></a>
-                            <p class="subtitle">Dự án Vinhome D’Capital</p>
-                            <p class="price"><span>4,5</span> tỷ</p>
-                            <div class="post-date">Ngày đăng <span>31/5/2018</span></div>
-                            <div class="property">
-                                <span class="compact">60m2</span>
-                                <span class="bedroom">2</span>
-                                <span class="bathroom">1</span>
-                                <span class="gara"><i class="fa fa-check"></i></span>
-                            </div>
-                            <p class="location">Quận Đống Đa, Hà Nội</p>
-                        </div>
-                        <div class="clearfix"></div>
-                    </div>
-                    <div class="col-md-3 post-item">
-                        <div class="item-thumbnail">
-                            <a href="#">
-                                <img src="upload/products/item-1.png" alt="">
-                            </a>
-                            <div class="type chothue">CHO THUÊ</div>
-                            <a href="#" class="like-button"><i class="fa fa-heart-o"></i>
-                        </div>
-                        <div class="item-info">
-                            <a href="#"><h3 class="title">Căn hộ chung cư</h3></a>
-                            <p class="subtitle">Dự án Vinhome D’Capital</p>
-                            <p class="price"><span>5</span> triệu/tháng</p>
-                            <div class="post-date">Ngày đăng <span>31/5/2018</span></div>
-                            <div class="property">
-                                <span class="compact">60m2</span>
-                                <span class="bedroom">2</span>
-                                <span class="bathroom">1</span>
-                                <span class="gara"><i class="fa fa-check"></i></span>
-                            </div>
-                            <p class="location">Quận Đống Đa, Hà Nội</p>
-                        </div>
-                        <div class="clearfix"></div>
-                    </div>
-                    <div class="col-md-3 post-item">
-                        <div class="item-thumbnail">
-                            <a href="#">
-                                <img src="upload/products/item-1.png" alt="">
-                            </a>
-                            <div class="type ban">BÁN</div>
-                            <a href="#" class="like-button"><i class="fa fa-heart-o"></i>
-                        </div>
-                        <div class="item-info">
-                            <a href="#"><h3 class="title">Căn hộ chung cư</h3></a>
-                            <p class="subtitle">Dự án Vinhome D’Capital</p>
-                            <p class="price"><span>4,5</span> tỷ</p>
-                            <div class="post-date">Ngày đăng <span>31/5/2018</span></div>
-                            <div class="property">
-                                <span class="compact">60m2</span>
-                                <span class="bedroom">2</span>
-                                <span class="bathroom">1</span>
-                                <span class="gara"><i class="fa fa-check"></i></span>
-                            </div>
-                            <p class="location">Quận Đống Đa, Hà Nội</p>
-                        </div>
-                        <div class="clearfix"></div>
-                    </div>
-                    <div class="col-md-3 post-item">
-                        <div class="item-thumbnail">
-                            <a href="#">
-                                <img src="upload/products/item-1.png" alt="">
-                            </a>
-                            <div class="type chothue">CHO THUÊ</div>
-                            <a href="#" class="like-button"><i class="fa fa-heart-o"></i>
-                        </div>
-                        <div class="item-info">
-                            <a href="#"><h3 class="title">Căn hộ chung cư</h3></a>
-                            <p class="subtitle">Dự án Vinhome D’Capital</p>
-                            <p class="price"><span>5</span> triệu/tháng</p>
-                            <div class="post-date">Ngày đăng <span>31/5/2018</span></div>
-                            <div class="property">
-                                <span class="compact">60m2</span>
-                                <span class="bedroom">2</span>
-                                <span class="bathroom">1</span>
-                                <span class="gara"><i class="fa fa-check"></i></span>
-                            </div>
-                            <p class="location">Quận Đống Đa, Hà Nội</p>
-                        </div>
-                        <div class="clearfix"></div>
-                    </div>
-                    <div class="col-md-3 post-item">
-                        <div class="item-thumbnail">
-                            <a href="#">
-                                <img src="upload/products/item-1.png" alt="">
-                            </a>
-                            <div class="type ban">BÁN</div>
-                            <a href="#" class="like-button"><i class="fa fa-heart-o"></i>
-                        </div>
-                        <div class="item-info">
-                            <a href="#"><h3 class="title">Căn hộ chung cư</h3></a>
-                            <p class="subtitle">Dự án Vinhome D’Capital</p>
-                            <p class="price"><span>4,5</span> tỷ</p>
-                            <div class="post-date">Ngày đăng <span>31/5/2018</span></div>
-                            <div class="property">
-                                <span class="compact">60m2</span>
-                                <span class="bedroom">2</span>
-                                <span class="bathroom">1</span>
-                                <span class="gara"><i class="fa fa-check"></i></span>
-                            </div>
-                            <p class="location">Quận Đống Đa, Hà Nội</p>
-                        </div>
-                        <div class="clearfix"></div>
-                    </div>
-                    <div class="col-md-3 post-item">
-                        <div class="item-thumbnail">
-                            <a href="#">
-                                <img src="upload/products/item-1.png" alt="">
-                            </a>
-                            <div class="type chothue">CHO THUÊ</div>
-                            <a href="#" class="like-button"><i class="fa fa-heart-o"></i>
-                        </div>
-                        <div class="item-info">
-                            <a href="#"><h3 class="title">Căn hộ chung cư</h3></a>
-                            <p class="subtitle">Dự án Vinhome D’Capital</p>
-                            <p class="price"><span>5</span> triệu/tháng</p>
-                            <div class="post-date">Ngày đăng <span>31/5/2018</span></div>
-                            <div class="property">
-                                <span class="compact">60m2</span>
-                                <span class="bedroom">2</span>
-                                <span class="bathroom">1</span>
-                                <span class="gara"><i class="fa fa-check"></i></span>
-                            </div>
-                            <p class="location">Quận Đống Đa, Hà Nội</p>
-                        </div>
-                        <div class="clearfix"></div>
-                    </div>
-                    <div class="col-md-3 post-item">
-                        <div class="item-thumbnail">
-                            <a href="#">
-                                <img src="upload/products/item-1.png" alt="">
-                            </a>
-                            <div class="type ban">BÁN</div>
-                            <a href="#" class="like-button"><i class="fa fa-heart-o"></i>
-                        </div>
-                        <div class="item-info">
-                            <a href="#"><h3 class="title">Căn hộ chung cư</h3></a>
-                            <p class="subtitle">Dự án Vinhome D’Capital</p>
-                            <p class="price"><span>4,5</span> tỷ</p>
-                            <div class="post-date">Ngày đăng <span>31/5/2018</span></div>
-                            <div class="property">
-                                <span class="compact">60m2</span>
-                                <span class="bedroom">2</span>
-                                <span class="bathroom">1</span>
+                                <span class="compact"><span th:text="${house.acreage}">60</span>m2</span>
+                                <span class="bedroom" th:text="${house.bedRoom}">2</span>
+                                <span class="bathroom" th:text="${house.bathRoom}">1</span>
                                 <span class="gara"><i class="fa fa-check"></i></span>
                             </div>
                             <p class="location">Quận Đống Đa, Hà Nội</p>
@@ -389,9 +295,57 @@
     </div>
 </div>
 
-<footer th:fragment="fragments/footer">
-
+<footer>
+    <div class="container">
+        <div class="row">
+            <div class="col-md-4">
+                <h2>LandExp.com.vn</h2>
+                <p>Hotline office: 0909333333</p>
+                <p>Email: office@landexp.com.vn</p>
+                <p>Phone: 0220 383 9999</p>
+                <p>Địa chỉ: Số 02, ngách 158/51 Nguyễn Khánh Toàn,<br> P.Quan Hoa, Q.Cầu Giấy, TP.Hà Nội</p>
+                <img src="images/dathongbao.png" alt="LandExp">
+            </div>
+            <div class="col-md-2">
+                <h2>Về chúng tôi</h2>
+                <ul>
+                    <li><a href="#">Giới thiệu</a></li>
+                    <li><a href="#">Giải pháp</a></li>
+                    <li><a href="#">Đội ngũ nhân sự</a></li>
+                    <li><a href="#">Liên hệ</a></li>
+                </ul>
+            </div>
+            <div class="col-md-2">
+                <h2>Hỗ trợ</h2>
+                <ul>
+                    <li><a href="#">Dành cho người bán</a></li>
+                    <li><a href="#">Dành cho người mua</a></li>
+                    <li><a href="#">Chính sách hợp tác</a></li>
+                </ul>
+            </div>
+            <div class="col-md-4">
+                <h2>Tải ứng dụng</h2>
+                <p>Tải ứng dụng Bất động sản của LandExp để mua bán cho thuê nhanh chóng nhất.</p>
+                <p class="link-app">
+                    <a href="#"><img src="images/icon/IOS.png" alt=""></a>
+                    <a href="#"><img src="images/icon/ANDROID.png" alt=""></a>
+                </p>
+                <div class="social-icon">
+                    <a href="#"><i class="fa fa-facebook"></i></a>
+                    <a href="#"><i class="fa fa-twitter"></i></a>
+                    <a href="#"><i class="fa fa-linkedin"></i></a>
+                    <a href="#"><i class="fa fa-youtube"></i></a>
+                    <a href="#"><i class="fa fa-google-plus"></i></a>
+                </div>
+            </div>
+            <div class="clearfix"></div>
+        </div>
+        <div class="copyright">
+            <p>Copyright © 2018 LandExp. All rights reserved.</p>
+        </div>
+    </div>
 </footer>
+
 
 <script type="text/javascript" src="js/jquery-3.3.1.min.js"></script>
 <script type="text/javascript" src="js/bootstrap.min.js"></script>

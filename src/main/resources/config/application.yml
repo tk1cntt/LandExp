@@ -54,6 +54,7 @@ spring:
             enabled: false
     thymeleaf:
         mode: HTML
+        cache: false
 
 server:
     servlet:

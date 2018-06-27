@@ -102,10 +102,6 @@
         <sonar.sources>${project.basedir}/src/main/</sonar.sources>
         <sonar.surefire.reportsPath>${project.testresult.directory}/surefire-reports</sonar.surefire.reportsPath>
         <sonar.tests>${project.basedir}/src/test/</sonar.tests>
-
-        <springsecurity.version>4.2.0.RELEASE</springsecurity.version>
-        <thymeleaf.version>3.0.9.RELEASE</thymeleaf.version>
-        <thymeleafspringsecurity4.version>3.0.2.RELEASE</thymeleafspringsecurity4.version>
         <!-- jhipster-needle-maven-property -->
     </properties>
 
@@ -136,8 +132,8 @@
         <!-- https://mvnrepository.com/artifact/com.google.maps/google-maps-services -->
         <dependency>
             <groupId>com.google.maps</groupId>
-            <artifactId>google-maps-services</artifactId>`
-            <version>0.2.7</version>
+            <artifactId>google-maps-services</artifactId>
+            <version>0.2.8</version>
         </dependency>
         <dependency>
             <groupId>javax.interceptor</groupId>
@@ -148,22 +144,6 @@
             <groupId>net.coobird</groupId>
             <artifactId>thumbnailator</artifactId>
             <version>0.4.8</version>
-        </dependency>
-        <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-thymeleaf</artifactId>
-        </dependency>
-        <!-- https://mvnrepository.com/artifact/org.thymeleaf/thymeleaf-spring5 -->
-        <dependency>
-            <groupId>org.thymeleaf</groupId>
-            <artifactId>thymeleaf-spring5</artifactId>
-            <version>3.0.9.RELEASE</version>
-        </dependency>
-        <!-- https://mvnrepository.com/artifact/org.thymeleaf.extras/thymeleaf-extras-springsecurity4 -->
-        <dependency>
-            <groupId>org.thymeleaf.extras</groupId>
-            <artifactId>thymeleaf-extras-springsecurity4</artifactId>
-            <version>3.0.2.RELEASE</version>
         </dependency>
         <!-- https://mvnrepository.com/artifact/net.sourceforge.nekohtml/nekohtml -->
         <dependency>
