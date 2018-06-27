@@ -20,7 +20,6 @@
                 <li><a href="">Trợ giúp</a></li>
                 <li><a href="">Tin tức</a></li>
             </ul>
-
             <ul class="menu right-menu">
                 <li><a href="">Đăng ký</a></li>
                 <li><a href="">Đăng nhập</a></li>
@@ -34,7 +33,6 @@
                     <input type="radio" name="radio" checked="checked">
                     <span class="checkmark"></span>
                 </label>
-
                 <label class="radio-container">Thuê
                     <input type="radio" name="radio">
                     <span class="checkmark"></span>
@@ -58,8 +56,8 @@
                     <div class="select">
                         <label>Khoảng giá</label>
                         <div class="dropdown">
-                            <span id="price" data-toggle="dropdown" role="button" aria-haspopup="true"
-                                  aria-expanded="false">Khoảng giá</span>
+                           <span id="price" data-toggle="dropdown" role="button" aria-haspopup="true"
+                                 aria-expanded="false">Khoảng giá</span>
                             <input type="hidden" id="" name="slPrice"/>
                             <ul class="dropdown-menu" aria-labelledby="price">
                                 <div class="header-box">
@@ -95,8 +93,8 @@
                     <div class="select">
                         <label>Diện tích</label>
                         <div class="dropdown">
-                            <span id="square" data-toggle="dropdown" role="button" aria-haspopup="true"
-                                  aria-expanded="false">Diện tích</span>
+                           <span id="square" data-toggle="dropdown" role="button" aria-haspopup="true"
+                                 aria-expanded="false">Diện tích</span>
                             <input type="hidden" id="" name="slSqrare"/>
                             <ul class="dropdown-menu" aria-labelledby="square">
                                 <div class="header-box">
@@ -130,8 +128,8 @@
                     <div class="select">
                         <label for="">Số phòng ngủ</label>
                         <div class="dropdown">
-                            <span id="bedroom" data-toggle="dropdown" role="button" aria-haspopup="true"
-                                  aria-expanded="false">Bất kỳ</span>
+                           <span id="bedroom" data-toggle="dropdown" role="button" aria-haspopup="true"
+                                 aria-expanded="false">Bất kỳ</span>
                             <input type="hidden" id="" name="slBedroom"/>
                             <ul class="dropdown-menu" aria-labelledby="bedroom">
                                 <li class="options" value="">Bất kỳ</li>
@@ -145,8 +143,8 @@
                     <div class="select">
                         <label for="">Số phòng tắm</label>
                         <div class="dropdown">
-                            <span id="bathroom" data-toggle="dropdown" role="button" aria-haspopup="true"
-                                  aria-expanded="false">Bất kỳ</span>
+                           <span id="bathroom" data-toggle="dropdown" role="button" aria-haspopup="true"
+                                 aria-expanded="false">Bất kỳ</span>
                             <input type="hidden" id="" name="slBathroom"/>
                             <ul class="dropdown-menu" aria-labelledby="bathroom">
                                 <li class="options" value="1">1</li>
@@ -170,7 +168,6 @@
         </div>
     </div>
 </header>
-
 <div id="home-content">
     <div class="container">
         <div class="row featured-posts">
@@ -182,7 +179,8 @@
                         <div class="caption-content">
                             <p><a href="#" class="post-title">Bí quyết để có một ngôi nhà đẹp</a></p>
                             <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt
-                                ut labore et dolore magna aliqua. Ut enim ad minim …</p>
+                                ut labore et dolore magna aliqua. Ut enim ad minim …
+                            </p>
                             <p class="border-left-red cat-title"><a href="">GÓC THIẾT KẾ</a></p>
                         </div>
                     </div>
@@ -229,9 +227,9 @@
                 </li>
             </ul>
         </div>
-
         <div class="row lastest-posts">
-            <h2>Tin mới đăng<span>Hiển thị 1 - 20 trong 100 Bất động sản</span>
+            <h2>
+                Tin mới đăng<span>Hiển thị 1 - 20 trong 100 Bất động sản</span>
                 <div class="toolbox">
                     <label for="sortby">Sắp xếp:</label>
                     <select name="sortby" id="sortby">
@@ -251,7 +249,8 @@
                                 <img src="/upload/products/item-1.png" alt="">
                             </a>
                             <div class="type" th:classappend="${house.actionType == 'CHO THUÊ'} ? chothue : ban">[[${house.actionType}]]</div>
-                            <a href="#" class="like-button"><i class="fa fa-heart-o"></i>
+                            <a href="#" class="like-button">
+                                <i class="fa fa-heart-o"></i>
                         </div>
                         <div class="item-info">
                             <a href="#"><h3 class="title">[[${house.landType}]]</h3></a>
@@ -271,11 +270,9 @@
                 </div>
             </div>
         </div>
-
         <div class="see-more">
             <a href="#">XEM THÊM</a>
         </div>
-
         <div class="why-us">
             <h2>Tại sao chọn chúng tôi</h2>
             <div class="col-md-4">
@@ -294,7 +291,6 @@
         </div>
     </div>
 </div>
-
 <footer>
     <div class="container">
         <div class="row">
@@ -345,10 +341,8 @@
         </div>
     </div>
 </footer>
-
-
-<script type="text/javascript" src="js/jquery-3.3.1.min.js"></script>
-<script type="text/javascript" src="js/bootstrap.min.js"></script>
-<script type="text/javascript" src="js/custom.js"></script>
+<script type="text/javascript" src="/js/jquery-3.3.1.min.js"></script>
+<script type="text/javascript" src="/js/bootstrap.min.js"></script>
+<script type="text/javascript" src="/js/custom.js"></script>
 </body>
 </html>
