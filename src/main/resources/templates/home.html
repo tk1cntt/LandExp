@@ -8,8 +8,7 @@
     <link rel="stylesheet" href="/css/style.css">
 </head>
 <body class="home">
-
-<header th:fragment="header">
+<header>
     <div class="container">
         <div th:replace="fragments/menu :: menu"></div>
         <div th:replace="fragments/searchbox :: searchbox"></div>
@@ -85,8 +84,13 @@
                         <option value="">Giá từ thấp đến cao</option>
                         <option value="">Giá từ cao đến thấp</option>
                     </select>
-                    <div class="listview-button"><a href="index.html"></a></div>
-                    <div class="gridview-button active"><a href="home.html"></a></div>
+                    <ul role="tablist">
+                        <li role="presentation" class="listview-button active"><a href="#list" aria-controls="list"
+                                                                                  role="tab" data-toggle="tab"></a></li>
+                        <li role="presentation" class="gridview-button"><a href="#grid" aria-controls="grid" role="tab"
+                                                                           data-toggle="tab" aria-selected="true"></a>
+                        </li>
+                    </ul>
                 </div>
             </h2>
             <div class="row">
@@ -121,7 +125,8 @@
         <div class="see-more">
             <a href="#">XEM THÊM</a>
         </div>
-        <div class="why-us">
+
+        <div class="row why-us">
             <h2>Tại sao chọn chúng tôi</h2>
             <div class="col-md-4">
                 <img src="/images/banner/1.png" alt="">
@@ -140,8 +145,24 @@
     </div>
 </div>
 <footer th:replace="fragments/footer :: footer"> </footer>
-<script type="text/javascript" src="/js/jquery-3.3.1.min.js"></script>
-<script type="text/javascript" src="/js/bootstrap.min.js"></script>
-<script type="text/javascript" src="/js/custom.js"></script>
+<script type="text/javascript" src="js/jquery-3.3.1.min.js"></script>
+<script type="text/javascript" src="js/bootstrap.min.js"></script>
+<script type="text/javascript" src="js/jquery.jcarousel.min.js"></script>
+<script type="text/javascript" src="js/bootstrap-datepicker.min.js"></script>
+<script type="text/javascript" src="js/custom.js"></script>
+<script>
+        $(function() {
+            $('.related-carousel').jcarousel();
+
+            $('.related .tool-box .prev').click(function() {
+                $('.related-carousel').jcarousel('scroll', '-=1');
+            });
+
+            $('.related .tool-box .next').click(function() {
+                $('.related-carousel').jcarousel('scroll', '+=1');
+            });
+        });
+    
+</script>
 </body>
 </html>
