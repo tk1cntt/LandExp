@@ -1,15 +1,7 @@
 import './header.css';
 
 import * as React from 'react';
-import { Navbar, Nav, NavbarToggler, NavbarBrand, Collapse, Container } from 'reactstrap';
-import { Translate } from 'react-jhipster';
-import FontAwesomeIcon from '@fortawesome/react-fontawesome';
-import { NavLink as Link, RouteComponentProps } from 'react-router-dom';
-import LoadingBar from 'react-redux-loading-bar';
-
-import { Home, Brand, Buy, Rent, News, Support, Register, Login, Post } from './header-components';
-import { AdminMenu, ManagerMenu, StaffMenu, CommonMenu, AccountMenu, LocaleMenu } from './menus';
-import SearchPage from 'app/shared/layout/search/search-menu';
+import { Link } from 'react-router-dom';
 
 export interface IHeaderProps {
   isAuthenticated: boolean;
@@ -38,44 +30,66 @@ export default class Header extends React.Component<IHeaderProps, IHeaderState> 
 
   render() {
     const { currentLocale, isAuthenticated, isAdmin, isManager, isStaff, isSwaggerEnabled, isInProduction } = this.props;
-    const bedroom = [1, 2, 3, 4];
-    const bathroom = [1, 2, 3, 4];
     return (
       <header>
         <div className="container">
           <div className="row">
             <div className="logo">
-              <a href="/index.html">
+              <Link to={'/'}>
                 <img src="/static/images/logo.png" alt="LandExp" />
-              </a>
+              </Link>
             </div>
             <ul className="menu left-menu">
               <li>
-                <a href>Mua</a>
+                <Link to={'/mua'}>Mua</Link>
               </li>
               <li>
-                <a href>Thuê</a>
+                <Link to={'/thue'}>Thuê</Link>
               </li>
               <li>
-                <a href>Trợ giúp</a>
+                <Link to={'/tro-giup'}>Trợ giúp</Link>
               </li>
               <li>
-                <a href>Tin tức</a>
+                <Link to={'/tin-tuc'}>Tin tức</Link>
               </li>
             </ul>
-            <ul className="menu right-menu">
-              <li>
-                <a href>Đăng ký</a>
-              </li>
-              <li>
-                <a href>Đăng nhập</a>
-              </li>
-              <li>
-                <a type="button" className="button" href="dang-tin.html">
-                  Đăng tin
-                </a>
-              </li>
-            </ul>
+            {isAuthenticated ? (
+              <ul className="menu right-menu">
+                <li className="right-info">
+                  <span className="ring-icon">
+                    <span className="badge">2</span>
+                  </span>
+                  <span className="chat-icon">
+                    <span className="badge">5</span>
+                  </span>
+                </li>
+                <li>
+                  <a href="#">
+                    <img className="avatar" src="/static/images/user.jpg" alt="Thong tin tai khoan" />
+                  </a>
+                </li>
+
+                <li>
+                  <Link className="button" to={'/tai-khoan/dang-tin'}>
+                    Đăng tin
+                  </Link>
+                </li>
+              </ul>
+            ) : (
+              <ul className="menu right-menu">
+                <li>
+                  <Link to={'/dang-ky'}>Đăng ký</Link>
+                </li>
+                <li>
+                  <Link to={'/dang-nhap'}>Đăng nhập</Link>
+                </li>
+                <li>
+                  <Link className="button" to={'/tai-khoan/dang-tin'}>
+                    Đăng tin
+                  </Link>
+                </li>
+              </ul>
+            )}
           </div>
         </div>
       </header>

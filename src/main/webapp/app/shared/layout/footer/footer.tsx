@@ -1,5 +1,3 @@
-import './footer.css';
-
 import * as React from 'react';
 import { Translate } from 'react-jhipster';
 import { Col, Row } from 'reactstrap';
@@ -18,7 +16,7 @@ const Footer = props => (
             <p>
               Địa chỉ: Số 02, ngách 158/51 Nguyễn Khánh Toàn,<br /> P.Quan Hoa, Q.Cầu Giấy, TP.Hà Nội
             </p>
-            <img src="/static/images/dadangky.png" alt="LandExp" />
+            <img src="/static/images/dadangky.png" alt="Bat dong san LandExp" />
           </div>
           <div className="col-md-2">
             <h2>Về chúng tôi</h2>
@@ -56,10 +54,10 @@ const Footer = props => (
             <p>Tải ứng dụng Bất động sản của LandExp để mua bán cho thuê nhanh chóng nhất.</p>
             <p className="link-app">
               <a href="#">
-                <img src="/static/images/icon/IOS.png" alt />
+                <img src="/static/images/icon/IOS.png" alt="Ung dung bat dong san cho android" />
               </a>
               <a href="#">
-                <img src="/static/images/icon/ANDROID.png" alt />
+                <img src="/static/images/icon/ANDROID.png" alt="Ung dung bat dong san cho ios" />
               </a>
             </p>
             <div className="social-icon">
