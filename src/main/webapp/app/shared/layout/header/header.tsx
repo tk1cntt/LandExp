@@ -40,9 +40,9 @@ export default class Header extends React.Component<IHeaderProps, IHeaderState> 
                   <img src="/static/images/logo.png" alt="LandExp" />
                 </Link>
               ) : (
-                <Link to={'http://tinvang.com.vn'}>
+                <a href={'http://tinvang.com.vn'}>
                   <img src="/static/images/logo.png" alt="LandExp" />
-                </Link>
+                </a>
               )}
             </div>
             <ul className="menu left-menu">
