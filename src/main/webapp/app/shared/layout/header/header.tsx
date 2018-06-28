@@ -64,9 +64,9 @@ export default class Header extends React.Component<IHeaderProps, IHeaderState> 
                   </span>
                 </li>
                 <li>
-                  <a href="#">
+                  <Link to={'/'}>
                     <img className="avatar" src="/static/images/user.jpg" alt="Thong tin tai khoan" />
-                  </a>
+                  </Link>
                 </li>
 
                 <li>
