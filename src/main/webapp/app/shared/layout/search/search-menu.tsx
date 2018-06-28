@@ -1,6 +1,7 @@
 import './search-menu.css';
 
 import * as React from 'react';
+import * as $ from 'jquery';
 import { Link } from 'react-router-dom';
 import { Translate } from 'react-jhipster';
 import { connect } from 'react-redux';
@@ -191,34 +192,14 @@ export class SearchPage extends React.Component<ISearchPageProp> {
                 <tbody>
                   <tr className="advance-options">
                     <td className="advance-options">
-                      <input
-                        type="text"
-                        id="txtPriceMinValue"
-                        name="pricemin"
-                        placeholder="Từ"
-                        className="min-value options"
-                        maxLength={6}
-                        numbersonly="true"
-                        decimal="true"
-                        defaultValue
-                      />
+                      <input type="text" id="txtPriceMinValue" name="pricemin" placeholder="Từ" className="min-value options" />
                       <div id="lblPriceMin" />
                     </td>
                     <td className="advance-options">
                       <span className="advance-options" />
                     </td>
                     <td className="advance-options">
-                      <input
-                        type="text"
-                        id="txtPriceMaxValue"
-                        name="pricemax"
-                        placeholder="Đến"
-                        className="max-value options"
-                        maxLength={6}
-                        numbersonly="true"
-                        decimal="true"
-                        defaultValue
-                      />
+                      <input type="text" id="txtPriceMaxValue" name="pricemax" placeholder="Đến" className="max-value options" />
                       <div id="lblPriceMax" />
                     </td>
                   </tr>
@@ -283,34 +264,14 @@ export class SearchPage extends React.Component<ISearchPageProp> {
                 <tbody>
                   <tr className="advance-options">
                     <td className="advance-options">
-                      <input
-                        type="text"
-                        id="txtSquareMinValue"
-                        name="pricemin"
-                        placeholder="Từ"
-                        className="min-value options"
-                        maxLength={6}
-                        numbersonly="true"
-                        decimal="true"
-                        defaultValue
-                      />
+                      <input type="text" id="txtSquareMinValue" name="pricemin" placeholder="Từ" className="min-value options" />
                       <div id="lblSquareMin" />
                     </td>
                     <td className="advance-options">
                       <span className="advance-options" />
                     </td>
                     <td className="advance-options">
-                      <input
-                        type="text"
-                        id="txtSquareMaxValue"
-                        name="pricemax"
-                        placeholder="Đến"
-                        className="max-value options"
-                        maxLength={6}
-                        numbersonly="true"
-                        decimal="true"
-                        defaultValue
-                      />
+                      <input type="text" id="txtSquareMaxValue" name="pricemax" placeholder="Đến" className="max-value options" />
                       <div id="lblSquareMax" />
                     </td>
                   </tr>
@@ -341,6 +302,7 @@ export class SearchPage extends React.Component<ISearchPageProp> {
     );
   }
 
+  /*
   menuMoreClick() {
     $(document).ready(function() {
       $('.dropdown-submenu div').on('click', function(e) {
@@ -422,6 +384,7 @@ export class SearchPage extends React.Component<ISearchPageProp> {
       $('input#slPostdate').attr('value', '');
     });
   }
+  */
 
   menuMoreForm() {
     return (
@@ -436,7 +399,7 @@ export class SearchPage extends React.Component<ISearchPageProp> {
               <div id="bathroom" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
                 Số phòng tắm<span>Bất kỳ</span>
               </div>
-              <ul className="dropdown-menu js-bathroom" aria-labelledby="bathroom" onClick={this.menuMoreClick}>
+              <ul className="dropdown-menu js-bathroom" aria-labelledby="bathroom">
                 <li data-value>Bất kỳ</li>
                 <li data-value={1}>+1</li>
                 <li data-value={2}>+2</li>
@@ -450,7 +413,7 @@ export class SearchPage extends React.Component<ISearchPageProp> {
               <div id="bedroom" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
                 Số phòng ngủ<span>Bất kỳ</span>
               </div>
-              <ul className="dropdown-menu js-bedroom" aria-labelledby="bedroom" onClick={this.menuMoreClick}>
+              <ul className="dropdown-menu js-bedroom" aria-labelledby="bedroom">
                 <li data-value>Bất kỳ</li>
                 <li data-value={1}>+1</li>
                 <li data-value={2}>+2</li>
@@ -464,7 +427,7 @@ export class SearchPage extends React.Component<ISearchPageProp> {
               <div id="gara" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
                 Chỗ để ô tô<span>Bất kỳ</span>
               </div>
-              <ul className="dropdown-menu js-gara" aria-labelledby="gara" onClick={this.menuMoreClick}>
+              <ul className="dropdown-menu js-gara" aria-labelledby="gara">
                 <li data-value>Bất kỳ</li>
                 <li data-value={1}>Có</li>
                 <li data-value={0}>Không</li>
@@ -475,7 +438,7 @@ export class SearchPage extends React.Component<ISearchPageProp> {
               <div id="direction" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
                 Hướng<span>Bất kỳ</span>
               </div>
-              <ul className="dropdown-menu js-direction" aria-labelledby="direction" onClick={this.menuMoreClick}>
+              <ul className="dropdown-menu js-direction" aria-labelledby="direction">
                 <li data-value>Bất kỳ</li>
                 <li data-value={1}>Đông</li>
                 <li data-value={2}>Tây</li>
@@ -492,7 +455,7 @@ export class SearchPage extends React.Component<ISearchPageProp> {
               <div id="postdate" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
                 Ngày đăng<span>Bất kỳ</span>
               </div>
-              <ul className="dropdown-menu js-postdate" aria-labelledby="postdate" onClick={this.menuMoreClick}>
+              <ul className="dropdown-menu js-postdate" aria-labelledby="postdate">
                 <li data-value>Bất kỳ</li>
                 <li data-value={1}>Cách đây 1 ngày</li>
                 <li data-value={3}>Cách đây 3 ngày</li>
@@ -527,7 +490,7 @@ export class SearchPage extends React.Component<ISearchPageProp> {
       <Col md="12">
         <div style={{ marginBottom: 30 }} className="nav-search">
           <div className="container">
-            <form action>
+            <form>
               <div className="row">
                 {this.menuTypeForm()}
                 {this.menuLandTypeForm()}

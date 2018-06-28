@@ -78,15 +78,21 @@ export default class Header extends React.Component<IHeaderProps, IHeaderState> 
             ) : (
               <ul className="menu right-menu">
                 <li>
-                  <Link to={'/dang-ky'}>Đăng ký</Link>
-                </li>
-                <li>
-                  <Link to={'/dang-nhap'}>Đăng nhập</Link>
-                </li>
-                <li>
-                  <Link className="button" to={'/tai-khoan/dang-tin'}>
-                    Đăng tin
+                  <Link className="item" to={'/dang-ky'}>
+                    Đăng ký
                   </Link>
+                </li>
+                <li>
+                  <Link className="item" to={'/dang-nhap'}>
+                    Đăng nhập
+                  </Link>
+                </li>
+                <li>
+                  <div>
+                    <Link className="button" to={'/tai-khoan/dang-tin'}>
+                      Đăng tin
+                    </Link>
+                  </div>
                 </li>
               </ul>
             )}

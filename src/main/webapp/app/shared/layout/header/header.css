@@ -7,6 +7,15 @@ ul.left-menu a:hover {
   color: #4a8dff;
 }
 
+ul.right-menu .item {
+  color: #454545;
+  text-decoration: none;
+}
+
+ul.right-menu .item:hover {
+  color: #4a8dff;
+}
+
 ul.right-menu .button {
   display: block;
   padding: 6px 46px;

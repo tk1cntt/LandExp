@@ -12,6 +12,7 @@
     "@fortawesome/fontawesome-free-solid": "5.0.10",
     "@fortawesome/react-fontawesome": "0.0.18",
     "@types/googlemaps": "^3.30.10",
+    "@types/jquery": "^3.3.4",
     "@types/markerclustererplus": "^2.1.33",
     "antd": "^3.6.2",
     "availity-reactstrap-validation": "2.0.2",
