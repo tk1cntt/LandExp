@@ -1,5 +1,7 @@
 import './app.css';
 
+import './loader.js';
+
 import * as React from 'react';
 import { connect } from 'react-redux';
 import { HashRouter as Router } from 'react-router-dom';
