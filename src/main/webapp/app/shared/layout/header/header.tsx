@@ -35,9 +35,15 @@ export default class Header extends React.Component<IHeaderProps, IHeaderState> 
         <div className="container">
           <div className="row">
             <div className="logo">
-              <Link to={'/'}>
-                <img src="/static/images/logo.png" alt="LandExp" />
-              </Link>
+              {isAuthenticated ? (
+                <Link to={'/'}>
+                  <img src="/static/images/logo.png" alt="LandExp" />
+                </Link>
+              ) : (
+                <Link to={'http://tinvang.com.vn'}>
+                  <img src="/static/images/logo.png" alt="LandExp" />
+                </Link>
+              )}
             </div>
             <ul className="menu left-menu">
               <li>
