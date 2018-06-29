@@ -2,6 +2,10 @@ import './header.css';
 
 import * as React from 'react';
 import { Link } from 'react-router-dom';
+import FontAwesomeIcon from '@fortawesome/react-fontawesome';
+import { Menu, Dropdown, Icon } from 'antd';
+const SubMenu = Menu.SubMenu;
+const MenuItemGroup = Menu.ItemGroup;
 
 export interface IHeaderProps {
   isAuthenticated: boolean;
@@ -29,6 +33,34 @@ export default class Header extends React.Component<IHeaderProps, IHeaderState> 
   };
 
   render() {
+    const menu = (
+      <Menu>
+        <SubMenu key="sub1" title={<span><Icon type="appstore" /><span> Quản lý tin đăng </span></span>}>
+          <Menu.Item>
+            <Link to="/tai-khoan/danh-sach-tin-dang">
+              <FontAwesomeIcon icon="newspaper" /> Tin đã đăng của bạn
+              </Link>
+          </Menu.Item>
+        </SubMenu>
+        <SubMenu key="sub2" title={<span><Icon type="setting" /><span> Quản lý tài khoản </span></span>}>
+          <Menu.Item>
+            <Link to="/tai-khoan/thong-tin-tai-khoan">
+              <FontAwesomeIcon icon="user-circle" /> Thông tin tài khoản
+          </Link>
+          </Menu.Item>
+          <Menu.Item>
+            <Link to="/tai-khoan/thay-doi-mat-khau">
+              <FontAwesomeIcon icon="key" /> Thay đổi mật khẩu
+          </Link>
+          </Menu.Item>
+          <Menu.Item>
+            <Link to="/thoat">
+              <FontAwesomeIcon icon="sign-out-alt" /> Thoát
+          </Link>
+          </Menu.Item>
+        </SubMenu>
+      </Menu>
+    );
     const { currentLocale, isAuthenticated, isAdmin, isManager, isStaff, isSwaggerEnabled, isInProduction } = this.props;
     return (
       <header>
@@ -59,7 +91,7 @@ export default class Header extends React.Component<IHeaderProps, IHeaderState> 
                 <Link to={'/tin-tuc'}>Tin tức</Link>
               </li>
             </ul>
-            {isAuthenticated ? (
+            {!isAuthenticated ? (
               <ul className="menu right-menu">
                 <li className="right-info">
                   <span className="ring-icon">
@@ -70,9 +102,11 @@ export default class Header extends React.Component<IHeaderProps, IHeaderState> 
                   </span>
                 </li>
                 <li>
-                  <Link to={'/'}>
-                    <img className="avatar" src="/static/images/user.jpg" alt="Thong tin tai khoan" />
-                  </Link>
+                  <Dropdown overlay={menu}>
+                    <Link to={'/'}>
+                      <img className="avatar" src="/static/images/user.jpg" alt="Thong tin tai khoan" />
+                    </Link>
+                  </Dropdown>,
                 </li>
 
                 <li>
