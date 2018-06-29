@@ -645,13 +645,13 @@ ul.right-menu .button {
   margin: 10px auto;
 }
 
-.property {
+.listview-left .property {
   background: #f9f9f9;
   padding: 12px 0px;
 }
 
-.property span {
-  margin: 13px;
+.listview-left .property span {
+  margin: 10px;
 }
 
 .compact {
@@ -1125,7 +1125,7 @@ ul.right-menu .button {
 
 .related .post-item .property span,
 .gridview .post-item .property span {
-  margin: 0 10px 0 0;
+  margin: 0 5px 0 0;
   width: initial;
 }
 

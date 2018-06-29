@@ -85,9 +85,9 @@
                         <option value="">Giá từ cao đến thấp</option>
                     </select>
                     <ul role="tablist">
-                        <li role="presentation" class="listview-button active">
+                        <li role="presentation" class="listview-button">
                             <a href="#list" aria-controls="list" role="tab" data-toggle="tab"></a></li>
-                        <li role="presentation" class="gridview-button">
+                        <li role="presentation" class="gridview-button active">
                             <a href="#grid" aria-controls="grid" role="tab" data-toggle="tab" aria-selected="true"></a>
                         </li>
                     </ul>
@@ -103,22 +103,23 @@
                                         <img src="/upload/products/item-1.png" alt="">
                                     </a>
                                     <div class="type" th:classappend="${house.actionType == 'CHO THUÊ'} ? chothue : ban">[[${house.actionType}]]</div>
-                                    <a href="#" class="like-button">
-                                        <i class="fa fa-heart-o"></i>
-                                    </a>
                                 </div>
                                 <div class="item-info">
                                     <a href="#"><h3 class="title">[[${house.landType}]]</h3></a>
                                     <p class="subtitle">Dự án Vinhome D’Capital</p>
                                     <p class="price" th:utext="${house.money}"></p>
-                                    <div class="post-date">Ngày đăng <span>[[${house.updateAt}]]</span></div>
                                     <div class="property">
-                                        <span class="compact"><span>[[${house.acreage}]]</span>m2</span>
+                                        <span class="compact">[[${house.acreage}]]m2</span>
                                         <span class="bedroom">[[${house.bedRoom}]]</span>
                                         <span class="bathroom">[[${house.bathRoom}]]</span>
                                         <span class="gara" th:utext="${house.parking}"></span>
                                     </div>
                                     <p class="location">[[${house.address}]]</p>
+                                    <div class="button-group">
+                                        <p class="post-date">[[${house.updateAt}]]</p>
+                                        <span class="favorite"><a href="#"><i class="fa fa-heart-o"></i></a></span>
+                                        <span class="contact"><a href="#">Liên hệ</a></span>
+                                    </div>
                                 </div>
                                 <div class="clearfix"></div>
                             </div>
@@ -377,6 +378,7 @@
                                     <div class="type" th:classappend="${house.actionType == 'CHO THUÊ'} ? chothue : ban">[[${house.actionType}]]</div>
                                     <a href="#" class="like-button">
                                         <i class="fa fa-heart-o"></i>
+                                    </a>
                                 </div>
                                 <div class="item-info">
                                     <a href="#"><h3 class="title">[[${house.landType}]]</h3></a>
@@ -384,7 +386,7 @@
                                     <p class="price" th:utext="${house.money}"></p>
                                     <div class="post-date">Ngày đăng <span>[[${house.updateAt}]]</span></div>
                                     <div class="property">
-                                        <span class="compact"><span>[[${house.acreage}]]</span>m2</span>
+                                        <span class="compact">[[${house.acreage}]]m2</span>
                                         <span class="bedroom">[[${house.bedRoom}]]</span>
                                         <span class="bathroom">[[${house.bathRoom}]]</span>
                                         <span class="gara" th:utext="${house.parking}"></span>

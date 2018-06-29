@@ -5,6 +5,8 @@ import com.landexp.domain.enumeration.DirectionType;
 import com.landexp.domain.enumeration.LandType;
 import com.landexp.domain.enumeration.UserActionType;
 import com.landexp.service.dto.HouseDTO;
+import org.springframework.util.ObjectUtils;
+import org.springframework.util.StringUtils;
 
 import java.text.Normalizer;
 import java.text.SimpleDateFormat;
@@ -17,6 +19,7 @@ import java.util.regex.Pattern;
 public class MappingUtils {
 
     public static String formatMoney(Float money, UserActionType actionType) {
+        if (ObjectUtils.isEmpty(money)) return null;
         StringBuilder sb = new StringBuilder();
         sb.append("<span>");
         if (money >= 1000000000) {
@@ -39,6 +42,7 @@ public class MappingUtils {
     }
 
     public static String formatDate(LocalDate data) {
+        if (ObjectUtils.isEmpty(data)) return null;
         SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");
         Date date = Date.from(data.atStartOfDay(ZoneId.systemDefault()).toInstant());
         return formatter.format(date);
@@ -57,7 +61,7 @@ public class MappingUtils {
     }
 
     public static String formatDirection(DirectionType type) {
-        if (type == null) return "";
+        if (type == null) return null;
         switch (type) {
             case NORTH:
                 return "Bắc";
@@ -116,16 +120,16 @@ public class MappingUtils {
         response.setActionType(formatActionType(dto.getActionType()));
         response.setLandType(formatLandType(dto.getLandType()));
         response.setAddress(dto.getDistrictName() + ", " + dto.getCityName());
-        response.setFullAddress(dto.getAddress() + ", " + dto.getWardName() + ", " + dto.getDistrictName() + ", " + dto.getCityName());
-        response.setAcreage(new java.text.DecimalFormat("#").format(dto.getAcreage()));
+        response.setFullAddress(formatFullAddress(dto));
+        response.setAcreage(formatNumberRemoveDotZero(dto.getAcreage()));
         response.setMoney(formatMoney(dto.getMoney(), dto.getActionType()));
-        response.setAcreageStreetSide(new java.text.DecimalFormat("#").format(dto.getAcreageStreetSide()));
+        response.setAcreageStreetSide(formatNumberRemoveDotZero(dto.getAcreageStreetSide()));
         response.setBathRoom(dto.getBathRoom());
         response.setBedRoom(dto.getBedRoom());
         response.setDirection(formatDirection(dto.getDirection()));
         response.setDirectionBalcony(formatDirection(dto.getDirectionBalcony()));
         response.setFloor(dto.getFloor());
-        response.setNumberOfFloor(new java.text.DecimalFormat("#").format(dto.getNumberOfFloor()));
+        response.setNumberOfFloor(formatNumberRemoveDotZero(dto.getNumberOfFloor()));
         response.setImage(formatByte(dto.getAvatar()));
         response.setImageContentType(dto.getAvatarContentType());
         response.setUpdateAt(formatDate(dto.getUpdateAt()));
@@ -136,6 +140,23 @@ public class MappingUtils {
         response.setMobile(dto.getMobile());
         response.setEmail(dto.getEmail());
         return response;
+    }
+
+    private static String formatFullAddress(HouseDTO dto) {
+        StringBuilder sb = new StringBuilder();
+        sb.append(StringUtils.isEmpty(dto.getAddress()) ? "" : dto.getAddress());
+        sb.append(StringUtils.isEmpty(dto.getWardName()) ? "" : ", " + dto.getWardName());
+        sb.append(StringUtils.isEmpty(dto.getDistrictName()) ? "" : ", " + dto.getDistrictName());
+        sb.append(StringUtils.isEmpty(dto.getCityName()) ? "" : ", " + dto.getCityName());
+        return sb.toString();
+    }
+
+    /**
+     * Format 100.0 => 100
+     */
+    private static String formatNumberRemoveDotZero(Float number) {
+        if (ObjectUtils.isEmpty(number)) return null;
+        return new java.text.DecimalFormat("#").format(number);
     }
 
     private static String formatLink(HouseDTO dto) {
@@ -163,6 +184,7 @@ public class MappingUtils {
     }
 
     public static String removeAccent(String s) {
+        if (StringUtils.isEmpty(s)) return null;
         String temp = Normalizer.normalize(s, Normalizer.Form.NFD);
         Pattern pattern = Pattern.compile("\\p{InCombiningDiacriticalMarks}+");
         return pattern.matcher(temp).replaceAll("");
