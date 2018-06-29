@@ -1,4 +1,3 @@
-
 import * as React from 'react';
 import { Link } from 'react-router-dom';
 import { Translate } from 'react-jhipster';
@@ -37,6 +36,17 @@ export class StepOne extends React.Component<IStepOneProp, IStepOneState> {
     });
   };
 
+  onChangeItemActionType = e => {
+    console.log(e.target.value);
+
+    this.setState({
+      actionType: e.target.value
+    });
+    this.props.updateHouse({
+      actionType: e.target.value
+    });
+  };
+
   onChangeLandType = e => {
     this.setState({
       landType: e.target.value
@@ -53,10 +63,24 @@ export class StepOne extends React.Component<IStepOneProp, IStepOneState> {
         <Col md="12">
           <h6>Bạn muốn bán hay cho thuê bất động sản?</h6>
           <div className="cc-selector">
-            <input id="visa" type="radio" name="credit-card" value="visa" />
-            <label className="drinkcard-cc visa" htmlFor="visa"></label>
-            <input id="mastercard" type="radio" name="credit-card" value="mastercard" />
-            <label className="drinkcard-cc mastercard" htmlFor="mastercard"></label>
+            <input
+              checked={this.state.actionType === 'FOR_SELL' ? true : false}
+              id="mastercard"
+              type="radio"
+              name="credit-card"
+              value="FOR_SELL"
+              onClick={this.onChangeItemActionType}
+            />
+            <label className="drinkcard-cc sale" htmlFor="mastercard" />
+            <input
+              checked={this.state.actionType === 'FOR_RENT' ? true : false}
+              id="visa"
+              type="radio"
+              name="credit-card"
+              value="FOR_RENT"
+              onClick={this.onChangeItemActionType}
+            />
+            <label className="drinkcard-cc rent" htmlFor="visa" />
           </div>
         </Col>
         <Col md="12">

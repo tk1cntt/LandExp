@@ -35,28 +35,44 @@ export default class Header extends React.Component<IHeaderProps, IHeaderState> 
   render() {
     const menu = (
       <Menu>
-        <SubMenu key="sub1" title={<span><Icon type="appstore" /><span> Quản lý tin đăng </span></span>}>
+        <SubMenu
+          key="sub1"
+          title={
+            <span>
+              <Icon type="appstore" />
+              <span> Quản lý tin đăng </span>
+            </span>
+          }
+        >
           <Menu.Item>
             <Link to="/tai-khoan/danh-sach-tin-dang">
               <FontAwesomeIcon icon="newspaper" /> Tin đã đăng của bạn
-              </Link>
+            </Link>
           </Menu.Item>
         </SubMenu>
-        <SubMenu key="sub2" title={<span><Icon type="setting" /><span> Quản lý tài khoản </span></span>}>
+        <SubMenu
+          key="sub2"
+          title={
+            <span>
+              <Icon type="setting" />
+              <span> Quản lý tài khoản </span>
+            </span>
+          }
+        >
           <Menu.Item>
             <Link to="/tai-khoan/thong-tin-tai-khoan">
               <FontAwesomeIcon icon="user-circle" /> Thông tin tài khoản
-          </Link>
+            </Link>
           </Menu.Item>
           <Menu.Item>
             <Link to="/tai-khoan/thay-doi-mat-khau">
               <FontAwesomeIcon icon="key" /> Thay đổi mật khẩu
-          </Link>
+            </Link>
           </Menu.Item>
           <Menu.Item>
             <Link to="/thoat">
               <FontAwesomeIcon icon="sign-out-alt" /> Thoát
-          </Link>
+            </Link>
           </Menu.Item>
         </SubMenu>
       </Menu>
