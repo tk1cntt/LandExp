@@ -96,8 +96,8 @@
             <div class="row">
                 <div class="tab-content">
                     <div id="list" class="tab-pane fade active in" role="tabpanel">
-                        <div class="listview-left" th:each="house : ${houses}">
-                            <div class="post-item">
+                        <div class="listview-left">
+                            <div class="post-item" th:each="house : ${houses}">
                                 <div class="item-thumbnail">
                                     <a th:with="baseUrl=('/bat-dong-san/' + ${house.id} + '/' + ${house.link})" th:href="@{${baseUrl}}">
                                         <img src="/upload/products/item-1.png" alt="">
@@ -368,8 +368,8 @@
                         </div>
                     </div>
                     <div id="grid" class="tab-pane fade" role="tabpanel">
-                        <div class="gridview" th:each="house : ${houses}">
-                            <div class="col-md-3 post-item">
+                        <div class="gridview">
+                            <div class="col-md-3 post-item" th:each="house : ${houses}">
                                 <div class="item-thumbnail">
                                     <a th:with="baseUrl=('/bat-dong-san/' + ${house.id} + '/' + ${house.link})" th:href="@{${baseUrl}}">
                                         <img src="/upload/products/item-1.png" alt="">
