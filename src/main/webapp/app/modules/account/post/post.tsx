@@ -11,7 +11,7 @@ import { IRootState } from 'app/shared/reducers';
 import { getSession } from 'app/shared/reducers/authentication';
 import { getActionType, getLandType, getCityType, getDirection, getPresent, getSaleType } from 'app/shared/util/utils';
 
-import { getEntity as getHouse, updateEntity as updateHouse } from 'app/entities/house/house.reducer';
+import { getEntity as getHouse, updateEntity as updateHouse, reset as clearHouse } from 'app/entities/house/house.reducer';
 import { getEntities as getCities } from 'app/entities/city/city.reducer';
 import { getEntities as getServiceFees } from 'app/entities/service-fee/service-fee.reducer';
 import { createEntity as createPhoto, updateEntity as updatePhoto } from 'app/entities/house-photo/house-photo.reducer';
@@ -43,6 +43,7 @@ export class PostPage extends React.Component<IPostProp, IPostState> {
   };
 
   componentDidMount() {
+    this.props.clearHouse();
     this.props.getHouse('init');
     this.props.getSession();
     this.props.getCities();
@@ -618,7 +619,11 @@ export class PostPage extends React.Component<IPostProp, IPostState> {
               </div>
             </Col>
           </Row>
-          {this.state.alerts.map(item => <div style={{ paddingBottom: 10 }}>{item}</div>)}
+          {this.state.alerts.map((item, index) => (
+            <div key={index} style={{ paddingBottom: 10 }}>
+              {item}
+            </div>
+          ))}
         </Container>
       </Row>
     );
@@ -635,7 +640,7 @@ const mapStateToProps = storeState => ({
   updating: storeState.house.updating
 });
 
-const mapDispatchToProps = { getSession, getHouse, updateHouse, createPhoto, updatePhoto, getCities, getServiceFees };
+const mapDispatchToProps = { getSession, getHouse, updateHouse, clearHouse, createPhoto, updatePhoto, getCities, getServiceFees };
 
 type StateProps = ReturnType<typeof mapStateToProps>;
 type DispatchProps = typeof mapDispatchToProps;

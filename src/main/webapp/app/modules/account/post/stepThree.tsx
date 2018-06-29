@@ -46,10 +46,6 @@ export class StepThree extends React.Component<IStepThreeProp, IStepThreeState> 
     summary: null
   };
 
-  componentDidMount() {
-    this.props.getSession();
-  }
-
   onChangeAcreage = e => {
     const { value } = e.target;
     const reg = /^-?(0|[1-9][0-9]*)(\.[0-9]*)?$/;

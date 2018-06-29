@@ -187,21 +187,17 @@ public class HouseResource {
      */
     @GetMapping("/houses/users")
     @Timed
-    @Secured(AuthoritiesConstants.STAFF)
-    public ResponseEntity<List<HouseDTO>> getAllHouseOfStaff(
-        @RequestParam(value = "status", required = false) String status,
-        Pageable pageable) {
+    @Secured(AuthoritiesConstants.USER)
+    public ResponseEntity<List<HouseDTO>> getAllHouseOfStaff(Pageable pageable) {
         log.debug("REST request to get House of staff");
         Page<HouseDTO> page;
         String username = SecurityUtils.getCurrentUserLogin().get();
         if (SecurityUtils.isCurrentUserInRole(AuthoritiesConstants.MANAGER)) {
             page = houseService.findAll(pageable);
+        } else if (SecurityUtils.isCurrentUserInRole(AuthoritiesConstants.STAFF)) {
+            page = houseService.findByStaff(username, pageable);
         } else {
-            if (StringUtils.isEmpty(status)) {
-                page = houseService.findByStaff(username, pageable);
-            } else {
-                page = houseService.findByStatusAndUser(StatusType.valueOf(status), username, pageable);
-            }
+            page = houseService.findByOwner(username, pageable);
         }
         HttpHeaders headers = PaginationUtil.generatePaginationHttpHeaders(page, "/api/houses/users");
         return new ResponseEntity<>(page.getContent(), headers, HttpStatus.OK);

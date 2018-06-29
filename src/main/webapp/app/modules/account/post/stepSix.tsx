@@ -34,10 +34,6 @@ export class StepSix extends React.Component<IStepSixProp, IStepSixState> {
     facebook: null
   };
 
-  componentDidMount() {
-    this.props.getSession();
-  }
-
   onChangeCustomer = e => {
     this.setState({
       customer: e.target.value

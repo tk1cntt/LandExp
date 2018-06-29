@@ -34,25 +34,23 @@ export class StepFive extends React.Component<IStepFiveProp, IStepFiveState> {
     saleType: null
   };
 
-  componentDidMount() {
-    this.props.getSession();
-  }
-
-  onChangeMoney = e => {
+  onChangeMoney = values => {
+    const { formattedValue, value } = values;
     this.setState({
-      money: e.target.value
+      money: formattedValue
     });
     this.props.updateHouse({
-      money: e.target.value
+      money: value
     });
   };
 
-  onChangeMoneyDiscount = e => {
+  onChangeMoneyDiscount = values => {
+    const { formattedValue, value } = values;
     this.setState({
-      discount: e.target.value
+      discount: formattedValue
     });
     this.props.updateHouse({
-      discount: e.target.value
+      discount: value
     });
   };
 
@@ -98,16 +96,8 @@ export class StepFive extends React.Component<IStepFiveProp, IStepFiveState> {
                 value={this.state.money || this.props.house.money}
                 displayType={'input'}
                 customInput={Input}
-                thousandSeparator={true}
-                onValueChange={values => {
-                  const { formattedValue, value } = values;
-                  this.setState({
-                    money: formattedValue
-                  });
-                  this.props.updateHouse({
-                    money: value
-                  });
-                }}
+                thousandSeparator
+                onValueChange={this.onChangeMoney}
               />
             </FormItem>
             <FormItem {...formItemLayout} label="Giá bán mong muốn">
@@ -115,16 +105,8 @@ export class StepFive extends React.Component<IStepFiveProp, IStepFiveState> {
                 value={this.state.discount || this.props.house.discount}
                 displayType={'input'}
                 customInput={Input}
-                thousandSeparator={true}
-                onValueChange={values => {
-                  const { formattedValue, value } = values;
-                  this.setState({
-                    discount: formattedValue
-                  });
-                  this.props.updateHouse({
-                    discount: value
-                  });
-                }}
+                thousandSeparator
+                onValueChange={this.onChangeMoneyDiscount}
               />
             </FormItem>
           </Form>

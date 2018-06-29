@@ -27,10 +27,6 @@ export class StepOne extends React.Component<IStepOneProp, IStepOneState> {
     actionType: null
   };
 
-  componentDidMount() {
-    this.props.getSession();
-  }
-
   onChangeActionType = e => {
     this.setState({
       actionType: e.target.value

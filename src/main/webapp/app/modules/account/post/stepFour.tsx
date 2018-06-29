@@ -28,7 +28,6 @@ export class StepFour extends React.Component<IStepFourProp, IStepFourState> {
   };
 
   componentDidMount() {
-    this.props.getSession();
     this.props.housePhotoList.map(photo => {
       this.state.fileList.push({
         uid: photo.id,

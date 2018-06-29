@@ -23,10 +23,6 @@ export class StepSeven extends React.Component<IStepSevenProp, IStepSevenState> 
     fileList: []
   };
 
-  componentDidMount() {
-    this.props.getSession();
-  }
-
   handleCancel = () => {
     this.setState({
       previewVisible: false

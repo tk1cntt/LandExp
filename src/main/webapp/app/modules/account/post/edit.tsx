@@ -594,7 +594,11 @@ export class EditPage extends React.Component<IEditProp, IEditState> {
               </div>
             </Col>
           </Row>
-          {this.state.alerts.map(item => <div style={{ paddingBottom: 10 }}>{item}</div>)}
+          {this.state.alerts.map((item, index) => (
+            <div key={index} style={{ paddingBottom: 10 }}>
+              {item}
+            </div>
+          ))}
         </Container>
       </Row>
     );
