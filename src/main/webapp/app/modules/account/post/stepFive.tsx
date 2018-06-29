@@ -3,9 +3,10 @@ import { Link } from 'react-router-dom';
 import { Translate } from 'react-jhipster';
 import { connect } from 'react-redux';
 import { Row, Col, Alert } from 'reactstrap';
-import { Cascader, Input, Select, Radio } from 'antd';
+import * as NumberFormat from 'react-number-format';
+import { Cascader, Input, Form, Radio } from 'antd';
+const FormItem = Form.Item;
 const InputGroup = Input.Group;
-const Option = Select.Option;
 const RadioButton = Radio.Button;
 const RadioGroup = Radio.Group;
 
@@ -80,29 +81,53 @@ export class StepFive extends React.Component<IStepFiveProp, IStepFiveState> {
       height: '30px',
       lineHeight: '30px'
     };
+    const formItemLayout = {
+      labelCol: {
+        span: 6
+      },
+      wrapperCol: {
+        span: 18
+      }
+    };
     return (
       <Row>
         <Col md="12">
-          <div>
-            <Input
-              type="number"
-              onChange={this.onChangeMoney}
-              value={this.state.money || this.props.house.money}
-              addonBefore="Giá bán đề xuất"
-              placeholder="Giá bán đề xuất ngôi nhà của bạn VNĐ?"
-            />
-          </div>
-        </Col>
-        <Col md="12">
-          <div style={{ marginTop: 16 }}>
-            <Input
-              type="number"
-              onChange={this.onChangeMoneyDiscount}
-              value={this.state.discount || this.props.house.discount}
-              addonBefore="Giá bán mong muốn"
-              placeholder="Giá bán thực tế bạn muốn thu về VNĐ?"
-            />
-          </div>
+          <Form>
+            <FormItem {...formItemLayout} label="Giá bán đề xuất">
+              <NumberFormat
+                value={this.state.money || this.props.house.money}
+                displayType={'input'}
+                customInput={Input}
+                thousandSeparator={true}
+                onValueChange={values => {
+                  const { formattedValue, value } = values;
+                  this.setState({
+                    money: formattedValue
+                  });
+                  this.props.updateHouse({
+                    money: value
+                  });
+                }}
+              />
+            </FormItem>
+            <FormItem {...formItemLayout} label="Giá bán mong muốn">
+              <NumberFormat
+                value={this.state.discount || this.props.house.discount}
+                displayType={'input'}
+                customInput={Input}
+                thousandSeparator={true}
+                onValueChange={values => {
+                  const { formattedValue, value } = values;
+                  this.setState({
+                    discount: formattedValue
+                  });
+                  this.props.updateHouse({
+                    discount: value
+                  });
+                }}
+              />
+            </FormItem>
+          </Form>
         </Col>
         <Col md="12">
           <div style={{ marginTop: 16 }}>Hỗ trợ sau mua bán</div>

@@ -177,6 +177,7 @@ export class StepThree extends React.Component<IStepThreeProp, IStepThreeState> 
           <div>
             <Input
               addonBefore="Diện tích sàn"
+              type="number"
               value={this.state.acreage || this.props.house.acreage}
               onChange={this.onChangeAcreage}
               placeholder="Diện tích theo mét vuông?"
@@ -187,6 +188,7 @@ export class StepThree extends React.Component<IStepThreeProp, IStepThreeState> 
           <div>
             <Input
               addonBefore="Mặt tiền"
+              type="number"
               value={this.state.acreageStreetSide || this.props.house.acreageStreetSide}
               onChange={this.onChangeAcreageStreetSide}
               placeholder="Diện tích theo mét?"
@@ -208,6 +210,7 @@ export class StepThree extends React.Component<IStepThreeProp, IStepThreeState> 
           <div style={{ marginTop: 16 }}>
             <Input
               addonBefore="Số phòng tắm"
+              type="number"
               value={this.state.bathRoom || this.props.house.bathRoom}
               onChange={this.onChangeBathRoom}
               placeholder="Có bao nhiêu phòng tắm?"

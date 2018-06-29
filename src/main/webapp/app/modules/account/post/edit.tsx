@@ -89,7 +89,7 @@ export class EditPage extends React.Component<IEditProp, IEditState> {
     const actionTypeForm = actionTypeValue ? null : (
       <Row key={'action-type-value-alert'}>
         <Col md="12">
-          <Alert color="danger">Bạn phải chọn một hình thức bán</Alert>
+          <Alert type="error" message="Bạn phải chọn một hình thức bán" />
         </Col>
       </Row>
     );
@@ -98,7 +98,7 @@ export class EditPage extends React.Component<IEditProp, IEditState> {
     const landTypeForm = landTypeValue ? null : (
       <Row key={'land-type-value-alert'}>
         <Col md="12">
-          <Alert color="danger">Bạn phải chọn loại bất động sản</Alert>
+          <Alert type="error" message="Bạn phải chọn loại bất động sản" />
         </Col>
       </Row>
     );
@@ -116,7 +116,7 @@ export class EditPage extends React.Component<IEditProp, IEditState> {
     const cityForm = cityValue ? null : (
       <Row key={'city-type-value-alert'}>
         <Col md="12">
-          <Alert color="danger">Bạn phải chọn một tỉnh thành</Alert>
+          <Alert type="error" message="Bạn phải chọn một tỉnh thành" />
         </Col>
       </Row>
     );
@@ -125,7 +125,7 @@ export class EditPage extends React.Component<IEditProp, IEditState> {
     const addressForm = addressValue ? null : (
       <Row key={'address-type-value-alert'}>
         <Col md="12">
-          <Alert color="danger">Bạn phải nhập địa chỉ</Alert>
+          <Alert type="error" message="Bạn phải nhập địa chỉ" />
         </Col>
       </Row>
     );
@@ -138,8 +138,21 @@ export class EditPage extends React.Component<IEditProp, IEditState> {
   };
 
   validateStepThree = () => {
-    const current = this.state.current + 1;
-    this.setState({ current });
+    const alerts = [];
+    const acreageValue = this.state.house.acreage || this.props.house.acreage;
+    const acreageForm = acreageValue ? null : (
+      <Row key={'city-type-value-alert'}>
+        <Col md="12">
+          <Alert type="error" message="Bạn phải nhập diện tích nhà" />
+        </Col>
+      </Row>
+    );
+    alerts.push(acreageForm);
+    this.setState({ alerts });
+    if (acreageValue) {
+      const current = this.state.current + 1;
+      this.setState({ current });
+    }
   };
 
   validateStepFour = () => {
@@ -148,7 +161,7 @@ export class EditPage extends React.Component<IEditProp, IEditState> {
     const imageForm = imageValue ? null : (
       <Row key={'image-type-value-alert'}>
         <Col md="12">
-          <Alert color="danger">Bạn phải thêm hình ảnh giới thiệu về ngôi nhà</Alert>
+          <Alert type="error" message="Bạn phải thêm hình ảnh giới thiệu về ngôi nhà" />
         </Col>
       </Row>
     );
@@ -166,7 +179,7 @@ export class EditPage extends React.Component<IEditProp, IEditState> {
     const moneyForm = moneyValue ? null : (
       <Row key={'money-type-value-alert'}>
         <Col md="12">
-          <Alert color="danger">Bạn phải nhập giá bán ngôi nhà</Alert>
+          <Alert type="error" message="Bạn phải nhập giá bán ngôi nhà" />
         </Col>
       </Row>
     );
@@ -175,7 +188,7 @@ export class EditPage extends React.Component<IEditProp, IEditState> {
     const saleTypeForm = saleTypeValue ? null : (
       <Row key={'sale-type-value-alert'}>
         <Col md="12">
-          <Alert color="danger">Bạn phải chọn một gói tin đăng</Alert>
+          <Alert type="error" message="Bạn phải chọn một gói tin đăng" />
         </Col>
       </Row>
     );
@@ -193,7 +206,7 @@ export class EditPage extends React.Component<IEditProp, IEditState> {
     const customerForm = customerValue ? null : (
       <Row key={'customer-type-value-alert'}>
         <Col md="12">
-          <Alert color="danger">Bạn phải nhập tên người bán</Alert>
+          <Alert type="error" message="Bạn phải nhập tên người bán" />
         </Col>
       </Row>
     );
@@ -202,7 +215,7 @@ export class EditPage extends React.Component<IEditProp, IEditState> {
     const mobileForm = mobileValue ? null : (
       <Row key={'mobile-type-value-alert'}>
         <Col md="12">
-          <Alert color="danger">Bạn phải nhập số điện thoại liên lạc</Alert>
+          <Alert type="error" message="Bạn phải nhập số điện thoại liên lạc" />
         </Col>
       </Row>
     );
@@ -546,7 +559,6 @@ export class EditPage extends React.Component<IEditProp, IEditState> {
           </div>
           <Row>
             <Col md="8">
-              {this.state.alerts}
               <div style={{ height: '100%' }}>
                 <Card title="Thông tin về ngôi nhà của bạn" bordered={false} style={{ width: '100%', height: '100%' }}>
                   <div className="steps-content">{steps[this.state.current].content}</div>
@@ -582,6 +594,7 @@ export class EditPage extends React.Component<IEditProp, IEditState> {
               </div>
             </Col>
           </Row>
+          {this.state.alerts.map(item => <div style={{ paddingBottom: 10 }}>{item}</div>)}
         </Container>
       </Row>
     );
