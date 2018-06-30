@@ -91,11 +91,14 @@ export class House extends React.Component<IHouseProps, IHouseState> {
         <Container>
           <h2 id="house-heading">
             <Translate contentKey="landexpApp.house.home.title">Houses</Translate>
+            {/*}
             <Link to={`${match.url}/new`} className="btn btn-primary float-right jh-create-entity" id="jh-create-entity">
               <FontAwesomeIcon icon="plus" />&nbsp;
               <Translate contentKey="landexpApp.house.home.createLabel">Create new House</Translate>
             </Link>
+            {*/}
           </h2>
+          {/*}
           <Row>
             <Col sm="12">
               <AvForm onSubmit={this.search}>
@@ -119,6 +122,7 @@ export class House extends React.Component<IHouseProps, IHouseState> {
               </AvForm>
             </Col>
           </Row>
+          {*/}
           <div className="table-responsive">
             <Table responsive>
               <thead>
