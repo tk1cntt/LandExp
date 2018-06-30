@@ -1,9 +1,13 @@
 import axios from 'axios';
-import { ICrudSearchAction, ICrudGetAction, ICrudGetAllAction, ICrudPutAction, ICrudDeleteAction } from 'react-jhipster';
+import { Storage, ICrudSearchAction, ICrudGetAction, ICrudGetAllAction, ICrudPutAction, ICrudDeleteAction } from 'react-jhipster';
 
 import { cleanEntity } from 'app/shared/util/entity-utils';
 import { REQUEST, SUCCESS, FAILURE } from 'app/shared/reducers/action-type.util';
 import { SERVER_API_URL } from 'app/config/constants';
+
+const client = axios.create({
+  baseURL: SERVER_API_URL
+});
 
 import { IHouseTracking, defaultValue } from 'app/shared/model/house-tracking.model';
 
@@ -114,14 +118,14 @@ const apiSearchUrl = SERVER_API_URL + '/api/_search/house-trackings';
 
 export const getSearchEntities: ICrudSearchAction<IHouseTracking> = query => ({
   type: ACTION_TYPES.SEARCH_HOUSETRACKINGS,
-  payload: axios.get<IHouseTracking>(`${apiSearchUrl}?query=` + query)
+  payload: client.get<IHouseTracking>(`${apiSearchUrl}?query=` + query)
 });
 
 export const getEntities: ICrudGetAllAction<IHouseTracking> = (page, size, sort) => {
   const requestUrl = `${apiUrl}${sort ? `?page=${page}&size=${size}&sort=${sort}` : ''}`;
   return {
     type: ACTION_TYPES.FETCH_HOUSETRACKING_LIST,
-    payload: axios.get<IHouseTracking>(`${requestUrl}${sort ? '&' : '?'}cacheBuster=${new Date().getTime()}`)
+    payload: client.get<IHouseTracking>(`${requestUrl}${sort ? '&' : '?'}cacheBuster=${new Date().getTime()}`)
   };
 };
 
@@ -129,14 +133,14 @@ export const getEntity: ICrudGetAction<IHouseTracking> = id => {
   const requestUrl = `${apiUrl}/${id}`;
   return {
     type: ACTION_TYPES.FETCH_HOUSETRACKING,
-    payload: axios.get<IHouseTracking>(requestUrl)
+    payload: client.get<IHouseTracking>(requestUrl)
   };
 };
 
 export const createEntity: ICrudPutAction<IHouseTracking> = entity => async dispatch => {
   const result = await dispatch({
     type: ACTION_TYPES.CREATE_HOUSETRACKING,
-    payload: axios.post(apiUrl, cleanEntity(entity))
+    payload: client.post(apiUrl, cleanEntity(entity))
   });
   dispatch(getEntities());
   return result;
@@ -145,7 +149,7 @@ export const createEntity: ICrudPutAction<IHouseTracking> = entity => async disp
 export const updateEntity: ICrudPutAction<IHouseTracking> = entity => async dispatch => {
   const result = await dispatch({
     type: ACTION_TYPES.UPDATE_HOUSETRACKING,
-    payload: axios.put(apiUrl, cleanEntity(entity))
+    payload: client.put(apiUrl, cleanEntity(entity))
   });
   dispatch(getEntities());
   return result;
@@ -155,7 +159,7 @@ export const deleteEntity: ICrudDeleteAction<IHouseTracking> = id => async dispa
   const requestUrl = `${apiUrl}/${id}`;
   const result = await dispatch({
     type: ACTION_TYPES.DELETE_HOUSETRACKING,
-    payload: axios.delete(requestUrl)
+    payload: client.delete(requestUrl)
   });
   dispatch(getEntities());
   return result;

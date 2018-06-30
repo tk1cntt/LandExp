@@ -1,9 +1,13 @@
 import axios from 'axios';
-import { ICrudSearchAction, ICrudGetAction, ICrudGetAllAction, ICrudPutAction, ICrudDeleteAction } from 'react-jhipster';
+import { Storage, ICrudSearchAction, ICrudGetAction, ICrudGetAllAction, ICrudPutAction, ICrudDeleteAction } from 'react-jhipster';
 
 import { cleanEntity } from 'app/shared/util/entity-utils';
 import { REQUEST, SUCCESS, FAILURE } from 'app/shared/reducers/action-type.util';
 import { SERVER_API_URL } from 'app/config/constants';
+
+const client = axios.create({
+  baseURL: SERVER_API_URL
+});
 
 import { IPayment, defaultValue } from 'app/shared/model/payment.model';
 
@@ -114,14 +118,14 @@ const apiSearchUrl = SERVER_API_URL + '/api/_search/payments';
 
 export const getSearchEntities: ICrudSearchAction<IPayment> = query => ({
   type: ACTION_TYPES.SEARCH_PAYMENTS,
-  payload: axios.get<IPayment>(`${apiSearchUrl}?query=` + query)
+  payload: client.get<IPayment>(`${apiSearchUrl}?query=` + query)
 });
 
 export const getEntities: ICrudGetAllAction<IPayment> = (page, size, sort) => {
   const requestUrl = `${apiUrl}${sort ? `?page=${page}&size=${size}&sort=${sort}` : ''}`;
   return {
     type: ACTION_TYPES.FETCH_PAYMENT_LIST,
-    payload: axios.get<IPayment>(`${requestUrl}${sort ? '&' : '?'}cacheBuster=${new Date().getTime()}`)
+    payload: client.get<IPayment>(`${requestUrl}${sort ? '&' : '?'}cacheBuster=${new Date().getTime()}`)
   };
 };
 
@@ -129,7 +133,7 @@ export const getEntity: ICrudGetAction<IPayment> = id => {
   const requestUrl = `${apiUrl}/${id}`;
   return {
     type: ACTION_TYPES.FETCH_PAYMENT,
-    payload: axios.get<IPayment>(requestUrl)
+    payload: client.get<IPayment>(requestUrl)
   };
 };
 
@@ -137,14 +141,14 @@ export const getPaymentOfHouse: ICrudGetAction<IPayment> = id => {
   const requestUrl = `${apiUrl}/${id}/houses`;
   return {
     type: ACTION_TYPES.FETCH_PAYMENT,
-    payload: axios.get<IPayment>(requestUrl)
+    payload: client.get<IPayment>(requestUrl)
   };
 };
 
 export const createEntity: ICrudPutAction<IPayment> = entity => async dispatch => {
   const result = await dispatch({
     type: ACTION_TYPES.CREATE_PAYMENT,
-    payload: axios.post(apiUrl, cleanEntity(entity))
+    payload: client.post(apiUrl, cleanEntity(entity))
   });
   dispatch(getEntities());
   return result;
@@ -153,7 +157,7 @@ export const createEntity: ICrudPutAction<IPayment> = entity => async dispatch =
 export const updateEntity: ICrudPutAction<IPayment> = entity => async dispatch => {
   const result = await dispatch({
     type: ACTION_TYPES.UPDATE_PAYMENT,
-    payload: axios.put(apiUrl, cleanEntity(entity))
+    payload: client.put(apiUrl, cleanEntity(entity))
   });
   dispatch(getEntities());
   return result;
@@ -163,7 +167,7 @@ export const approveEntity: ICrudPutAction<IPayment> = id => async dispatch => {
   const requestUrl = `${apiUrl}/${id}/approve`;
   const result = await dispatch({
     type: ACTION_TYPES.UPDATE_PAYMENT,
-    payload: axios.put(requestUrl)
+    payload: client.put(requestUrl)
   });
   dispatch(getEntities());
   return result;
@@ -173,7 +177,7 @@ export const deleteEntity: ICrudDeleteAction<IPayment> = id => async dispatch =>
   const requestUrl = `${apiUrl}/${id}`;
   const result = await dispatch({
     type: ACTION_TYPES.DELETE_PAYMENT,
-    payload: axios.delete(requestUrl)
+    payload: client.delete(requestUrl)
   });
   dispatch(getEntities());
   return result;

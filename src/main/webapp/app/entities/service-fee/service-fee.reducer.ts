@@ -1,9 +1,13 @@
 import axios from 'axios';
-import { ICrudSearchAction, ICrudGetAction, ICrudGetAllAction, ICrudPutAction, ICrudDeleteAction } from 'react-jhipster';
+import { Storage, ICrudSearchAction, ICrudGetAction, ICrudGetAllAction, ICrudPutAction, ICrudDeleteAction } from 'react-jhipster';
 
 import { cleanEntity } from 'app/shared/util/entity-utils';
 import { REQUEST, SUCCESS, FAILURE } from 'app/shared/reducers/action-type.util';
 import { SERVER_API_URL } from 'app/config/constants';
+
+const client = axios.create({
+  baseURL: SERVER_API_URL
+});
 
 import { IServiceFee, defaultValue } from 'app/shared/model/service-fee.model';
 
@@ -112,45 +116,57 @@ const apiSearchUrl = SERVER_API_URL + '/api/_search/service-fees';
 
 export const getSearchEntities: ICrudSearchAction<IServiceFee> = query => ({
   type: ACTION_TYPES.SEARCH_SERVICEFEES,
-  payload: axios.get<IServiceFee>(`${apiSearchUrl}?query=` + query)
+  payload: client.get<IServiceFee>(`${apiSearchUrl}?query=` + query)
 });
 
 export const getEntities: ICrudGetAllAction<IServiceFee> = (page, size, sort) => ({
   type: ACTION_TYPES.FETCH_SERVICEFEE_LIST,
-  payload: axios.get<IServiceFee>(`${apiUrl}?cacheBuster=${new Date().getTime()}`)
+  payload: client.get<IServiceFee>(`${apiUrl}?cacheBuster=${new Date().getTime()}`)
 });
 
 export const getEntity: ICrudGetAction<IServiceFee> = id => {
   const requestUrl = `${apiUrl}/${id}`;
   return {
     type: ACTION_TYPES.FETCH_SERVICEFEE,
-    payload: axios.get<IServiceFee>(requestUrl)
+    payload: client.get<IServiceFee>(requestUrl)
   };
 };
 
 export const createEntity: ICrudPutAction<IServiceFee> = entity => async dispatch => {
+  const jwt = Storage.local.get('jhi-authenticationToken') || Storage.session.get('jhi-authenticationToken');
+  if (jwt) {
+    client.defaults.headers['Authorization'] = `Bearer ${jwt}`;
+  }
   const result = await dispatch({
     type: ACTION_TYPES.CREATE_SERVICEFEE,
-    payload: axios.post(apiUrl, cleanEntity(entity))
+    payload: client.post(apiUrl, cleanEntity(entity))
   });
   dispatch(getEntities());
   return result;
 };
 
 export const updateEntity: ICrudPutAction<IServiceFee> = entity => async dispatch => {
+  const jwt = Storage.local.get('jhi-authenticationToken') || Storage.session.get('jhi-authenticationToken');
+  if (jwt) {
+    client.defaults.headers['Authorization'] = `Bearer ${jwt}`;
+  }
   const result = await dispatch({
     type: ACTION_TYPES.UPDATE_SERVICEFEE,
-    payload: axios.put(apiUrl, cleanEntity(entity))
+    payload: client.put(apiUrl, cleanEntity(entity))
   });
   dispatch(getEntities());
   return result;
 };
 
 export const deleteEntity: ICrudDeleteAction<IServiceFee> = id => async dispatch => {
+  const jwt = Storage.local.get('jhi-authenticationToken') || Storage.session.get('jhi-authenticationToken');
+  if (jwt) {
+    client.defaults.headers['Authorization'] = `Bearer ${jwt}`;
+  }
   const requestUrl = `${apiUrl}/${id}`;
   const result = await dispatch({
     type: ACTION_TYPES.DELETE_SERVICEFEE,
-    payload: axios.delete(requestUrl)
+    payload: client.delete(requestUrl)
   });
   dispatch(getEntities());
   return result;

@@ -1,9 +1,13 @@
 import axios from 'axios';
-import { ICrudSearchAction, ICrudGetAction, ICrudGetAllAction, ICrudPutAction, ICrudDeleteAction } from 'react-jhipster';
+import { Storage, Storage, ICrudSearchAction, ICrudGetAction, ICrudGetAllAction, ICrudPutAction, ICrudDeleteAction } from 'react-jhipster';
 
 import { cleanEntity } from 'app/shared/util/entity-utils';
 import { REQUEST, SUCCESS, FAILURE } from 'app/shared/reducers/action-type.util';
 import { SERVER_API_URL } from 'app/config/constants';
+
+const client = axios.create({
+  baseURL: SERVER_API_URL
+});
 
 import { IPotentialCustomer, defaultValue } from 'app/shared/model/potential-customer.model';
 
@@ -114,14 +118,14 @@ const apiSearchUrl = SERVER_API_URL + '/api/_search/potential-customers';
 
 export const getSearchEntities: ICrudSearchAction<IPotentialCustomer> = query => ({
   type: ACTION_TYPES.SEARCH_POTENTIALCUSTOMERS,
-  payload: axios.get<IPotentialCustomer>(`${apiSearchUrl}?query=` + query)
+  payload: client.get<IPotentialCustomer>(`${apiSearchUrl}?query=` + query)
 });
 
 export const getEntities: ICrudGetAllAction<IPotentialCustomer> = (page, size, sort) => {
   const requestUrl = `${apiUrl}${sort ? `?page=${page}&size=${size}&sort=${sort}` : ''}`;
   return {
     type: ACTION_TYPES.FETCH_POTENTIALCUSTOMER_LIST,
-    payload: axios.get<IPotentialCustomer>(`${requestUrl}${sort ? '&' : '?'}cacheBuster=${new Date().getTime()}`)
+    payload: client.get<IPotentialCustomer>(`${requestUrl}${sort ? '&' : '?'}cacheBuster=${new Date().getTime()}`)
   };
 };
 
@@ -129,14 +133,14 @@ export const getEntity: ICrudGetAction<IPotentialCustomer> = id => {
   const requestUrl = `${apiUrl}/${id}`;
   return {
     type: ACTION_TYPES.FETCH_POTENTIALCUSTOMER,
-    payload: axios.get<IPotentialCustomer>(requestUrl)
+    payload: client.get<IPotentialCustomer>(requestUrl)
   };
 };
 
 export const createEntity: ICrudPutAction<IPotentialCustomer> = entity => async dispatch => {
   const result = await dispatch({
     type: ACTION_TYPES.CREATE_POTENTIALCUSTOMER,
-    payload: axios.post(apiUrl, cleanEntity(entity))
+    payload: client.post(apiUrl, cleanEntity(entity))
   });
   dispatch(getEntities());
   return result;
@@ -145,7 +149,7 @@ export const createEntity: ICrudPutAction<IPotentialCustomer> = entity => async 
 export const updateEntity: ICrudPutAction<IPotentialCustomer> = entity => async dispatch => {
   const result = await dispatch({
     type: ACTION_TYPES.UPDATE_POTENTIALCUSTOMER,
-    payload: axios.put(apiUrl, cleanEntity(entity))
+    payload: client.put(apiUrl, cleanEntity(entity))
   });
   dispatch(getEntities());
   return result;
@@ -155,7 +159,7 @@ export const deleteEntity: ICrudDeleteAction<IPotentialCustomer> = id => async d
   const requestUrl = `${apiUrl}/${id}`;
   const result = await dispatch({
     type: ACTION_TYPES.DELETE_POTENTIALCUSTOMER,
-    payload: axios.delete(requestUrl)
+    payload: client.delete(requestUrl)
   });
   dispatch(getEntities());
   return result;

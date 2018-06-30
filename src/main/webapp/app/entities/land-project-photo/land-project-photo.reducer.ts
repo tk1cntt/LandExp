@@ -1,9 +1,13 @@
 import axios from 'axios';
-import { ICrudSearchAction, ICrudGetAction, ICrudGetAllAction, ICrudPutAction, ICrudDeleteAction } from 'react-jhipster';
+import { Storage, ICrudSearchAction, ICrudGetAction, ICrudGetAllAction, ICrudPutAction, ICrudDeleteAction } from 'react-jhipster';
 
 import { cleanEntity } from 'app/shared/util/entity-utils';
 import { REQUEST, SUCCESS, FAILURE } from 'app/shared/reducers/action-type.util';
 import { SERVER_API_URL } from 'app/config/constants';
+
+const client = axios.create({
+  baseURL: SERVER_API_URL
+});
 
 import { ILandProjectPhoto, defaultValue } from 'app/shared/model/land-project-photo.model';
 
@@ -123,26 +127,26 @@ const apiSearchUrl = SERVER_API_URL + '/api/_search/land-project-photos';
 
 export const getSearchEntities: ICrudSearchAction<ILandProjectPhoto> = query => ({
   type: ACTION_TYPES.SEARCH_LANDPROJECTPHOTOS,
-  payload: axios.get<ILandProjectPhoto>(`${apiSearchUrl}?query=` + query)
+  payload: client.get<ILandProjectPhoto>(`${apiSearchUrl}?query=` + query)
 });
 
 export const getEntities: ICrudGetAllAction<ILandProjectPhoto> = (page, size, sort) => ({
   type: ACTION_TYPES.FETCH_LANDPROJECTPHOTO_LIST,
-  payload: axios.get<ILandProjectPhoto>(`${apiUrl}?cacheBuster=${new Date().getTime()}`)
+  payload: client.get<ILandProjectPhoto>(`${apiUrl}?cacheBuster=${new Date().getTime()}`)
 });
 
 export const getEntity: ICrudGetAction<ILandProjectPhoto> = id => {
   const requestUrl = `${apiUrl}/${id}`;
   return {
     type: ACTION_TYPES.FETCH_LANDPROJECTPHOTO,
-    payload: axios.get<ILandProjectPhoto>(requestUrl)
+    payload: client.get<ILandProjectPhoto>(requestUrl)
   };
 };
 
 export const createEntity: ICrudPutAction<ILandProjectPhoto> = entity => async dispatch => {
   const result = await dispatch({
     type: ACTION_TYPES.CREATE_LANDPROJECTPHOTO,
-    payload: axios.post(apiUrl, cleanEntity(entity))
+    payload: client.post(apiUrl, cleanEntity(entity))
   });
   dispatch(getEntities());
   return result;
@@ -151,7 +155,7 @@ export const createEntity: ICrudPutAction<ILandProjectPhoto> = entity => async d
 export const updateEntity: ICrudPutAction<ILandProjectPhoto> = entity => async dispatch => {
   const result = await dispatch({
     type: ACTION_TYPES.UPDATE_LANDPROJECTPHOTO,
-    payload: axios.put(apiUrl, cleanEntity(entity))
+    payload: client.put(apiUrl, cleanEntity(entity))
   });
   dispatch(getEntities());
   return result;
@@ -161,7 +165,7 @@ export const deleteEntity: ICrudDeleteAction<ILandProjectPhoto> = id => async di
   const requestUrl = `${apiUrl}/${id}`;
   const result = await dispatch({
     type: ACTION_TYPES.DELETE_LANDPROJECTPHOTO,
-    payload: axios.delete(requestUrl)
+    payload: client.delete(requestUrl)
   });
   dispatch(getEntities());
   return result;

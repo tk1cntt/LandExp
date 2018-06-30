@@ -1,9 +1,13 @@
 import axios from 'axios';
-import { ICrudSearchAction, ICrudGetAction, ICrudGetAllAction, ICrudPutAction, ICrudDeleteAction } from 'react-jhipster';
+import { Storage, ICrudSearchAction, ICrudGetAction, ICrudGetAllAction, ICrudPutAction, ICrudDeleteAction } from 'react-jhipster';
 
 import { cleanEntity } from 'app/shared/util/entity-utils';
 import { REQUEST, SUCCESS, FAILURE } from 'app/shared/reducers/action-type.util';
 import { SERVER_API_URL } from 'app/config/constants';
+
+const client = axios.create({
+  baseURL: SERVER_API_URL
+});
 
 import { IUserFeed, defaultValue } from 'app/shared/model/user-feed.model';
 
@@ -114,14 +118,14 @@ const apiSearchUrl = SERVER_API_URL + '/api/_search/user-feeds';
 
 export const getSearchEntities: ICrudSearchAction<IUserFeed> = query => ({
   type: ACTION_TYPES.SEARCH_USERFEEDS,
-  payload: axios.get<IUserFeed>(`${apiSearchUrl}?query=` + query)
+  payload: client.get<IUserFeed>(`${apiSearchUrl}?query=` + query)
 });
 
 export const getEntities: ICrudGetAllAction<IUserFeed> = (page, size, sort) => {
   const requestUrl = `${apiUrl}${sort ? `?page=${page}&size=${size}&sort=${sort}` : ''}`;
   return {
     type: ACTION_TYPES.FETCH_USERFEED_LIST,
-    payload: axios.get<IUserFeed>(`${requestUrl}${sort ? '&' : '?'}cacheBuster=${new Date().getTime()}`)
+    payload: client.get<IUserFeed>(`${requestUrl}${sort ? '&' : '?'}cacheBuster=${new Date().getTime()}`)
   };
 };
 
@@ -129,14 +133,14 @@ export const getEntity: ICrudGetAction<IUserFeed> = id => {
   const requestUrl = `${apiUrl}/${id}`;
   return {
     type: ACTION_TYPES.FETCH_USERFEED,
-    payload: axios.get<IUserFeed>(requestUrl)
+    payload: client.get<IUserFeed>(requestUrl)
   };
 };
 
 export const createEntity: ICrudPutAction<IUserFeed> = entity => async dispatch => {
   const result = await dispatch({
     type: ACTION_TYPES.CREATE_USERFEED,
-    payload: axios.post(apiUrl, cleanEntity(entity))
+    payload: client.post(apiUrl, cleanEntity(entity))
   });
   dispatch(getEntities());
   return result;
@@ -145,7 +149,7 @@ export const createEntity: ICrudPutAction<IUserFeed> = entity => async dispatch 
 export const updateEntity: ICrudPutAction<IUserFeed> = entity => async dispatch => {
   const result = await dispatch({
     type: ACTION_TYPES.UPDATE_USERFEED,
-    payload: axios.put(apiUrl, cleanEntity(entity))
+    payload: client.put(apiUrl, cleanEntity(entity))
   });
   dispatch(getEntities());
   return result;
@@ -155,7 +159,7 @@ export const deleteEntity: ICrudDeleteAction<IUserFeed> = id => async dispatch =
   const requestUrl = `${apiUrl}/${id}`;
   const result = await dispatch({
     type: ACTION_TYPES.DELETE_USERFEED,
-    payload: axios.delete(requestUrl)
+    payload: client.delete(requestUrl)
   });
   dispatch(getEntities());
   return result;

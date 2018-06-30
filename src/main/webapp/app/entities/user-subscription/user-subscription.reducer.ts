@@ -1,9 +1,13 @@
 import axios from 'axios';
-import { ICrudSearchAction, ICrudGetAction, ICrudGetAllAction, ICrudPutAction, ICrudDeleteAction } from 'react-jhipster';
+import { Storage, ICrudSearchAction, ICrudGetAction, ICrudGetAllAction, ICrudPutAction, ICrudDeleteAction } from 'react-jhipster';
 
 import { cleanEntity } from 'app/shared/util/entity-utils';
 import { REQUEST, SUCCESS, FAILURE } from 'app/shared/reducers/action-type.util';
 import { SERVER_API_URL } from 'app/config/constants';
+
+const client = axios.create({
+  baseURL: SERVER_API_URL
+});
 
 import { IUserSubscription, defaultValue } from 'app/shared/model/user-subscription.model';
 
@@ -114,14 +118,14 @@ const apiSearchUrl = SERVER_API_URL + '/api/_search/user-subscriptions';
 
 export const getSearchEntities: ICrudSearchAction<IUserSubscription> = query => ({
   type: ACTION_TYPES.SEARCH_USERSUBSCRIPTIONS,
-  payload: axios.get<IUserSubscription>(`${apiSearchUrl}?query=` + query)
+  payload: client.get<IUserSubscription>(`${apiSearchUrl}?query=` + query)
 });
 
 export const getEntities: ICrudGetAllAction<IUserSubscription> = (page, size, sort) => {
   const requestUrl = `${apiUrl}${sort ? `?page=${page}&size=${size}&sort=${sort}` : ''}`;
   return {
     type: ACTION_TYPES.FETCH_USERSUBSCRIPTION_LIST,
-    payload: axios.get<IUserSubscription>(`${requestUrl}${sort ? '&' : '?'}cacheBuster=${new Date().getTime()}`)
+    payload: client.get<IUserSubscription>(`${requestUrl}${sort ? '&' : '?'}cacheBuster=${new Date().getTime()}`)
   };
 };
 
@@ -129,14 +133,14 @@ export const getEntity: ICrudGetAction<IUserSubscription> = id => {
   const requestUrl = `${apiUrl}/${id}`;
   return {
     type: ACTION_TYPES.FETCH_USERSUBSCRIPTION,
-    payload: axios.get<IUserSubscription>(requestUrl)
+    payload: client.get<IUserSubscription>(requestUrl)
   };
 };
 
 export const createEntity: ICrudPutAction<IUserSubscription> = entity => async dispatch => {
   const result = await dispatch({
     type: ACTION_TYPES.CREATE_USERSUBSCRIPTION,
-    payload: axios.post(apiUrl, cleanEntity(entity))
+    payload: client.post(apiUrl, cleanEntity(entity))
   });
   dispatch(getEntities());
   return result;
@@ -145,7 +149,7 @@ export const createEntity: ICrudPutAction<IUserSubscription> = entity => async d
 export const updateEntity: ICrudPutAction<IUserSubscription> = entity => async dispatch => {
   const result = await dispatch({
     type: ACTION_TYPES.UPDATE_USERSUBSCRIPTION,
-    payload: axios.put(apiUrl, cleanEntity(entity))
+    payload: client.put(apiUrl, cleanEntity(entity))
   });
   dispatch(getEntities());
   return result;
@@ -155,7 +159,7 @@ export const deleteEntity: ICrudDeleteAction<IUserSubscription> = id => async di
   const requestUrl = `${apiUrl}/${id}`;
   const result = await dispatch({
     type: ACTION_TYPES.DELETE_USERSUBSCRIPTION,
-    payload: axios.delete(requestUrl)
+    payload: client.delete(requestUrl)
   });
   dispatch(getEntities());
   return result;

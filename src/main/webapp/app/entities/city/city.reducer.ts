@@ -1,9 +1,13 @@
 import axios from 'axios';
-import { ICrudSearchAction, ICrudGetAction, ICrudGetAllAction, ICrudPutAction, ICrudDeleteAction } from 'react-jhipster';
+import { Storage, ICrudSearchAction, ICrudGetAction, ICrudGetAllAction, ICrudPutAction, ICrudDeleteAction } from 'react-jhipster';
 
 import { cleanEntity } from 'app/shared/util/entity-utils';
 import { REQUEST, SUCCESS, FAILURE } from 'app/shared/reducers/action-type.util';
 import { SERVER_API_URL } from 'app/config/constants';
+
+const client = axios.create({
+  baseURL: SERVER_API_URL
+});
 
 import { ICity, defaultValue } from 'app/shared/model/city.model';
 
@@ -112,26 +116,26 @@ const apiSearchUrl = SERVER_API_URL + '/api/_search/cities';
 
 export const getSearchEntities: ICrudSearchAction<ICity> = query => ({
   type: ACTION_TYPES.SEARCH_CITIES,
-  payload: axios.get<ICity>(`${apiSearchUrl}?query=` + query)
+  payload: client.get<ICity>(`${apiSearchUrl}?query=` + query)
 });
 
 export const getEntities: ICrudGetAllAction<ICity> = (page, size, sort) => ({
   type: ACTION_TYPES.FETCH_CITY_LIST,
-  payload: axios.get<ICity>(`${apiUrl}?cacheBuster=${new Date().getTime()}`)
+  payload: client.get<ICity>(`${apiUrl}?cacheBuster=${new Date().getTime()}`)
 });
 
 export const getEntity: ICrudGetAction<ICity> = id => {
   const requestUrl = `${apiUrl}/${id}`;
   return {
     type: ACTION_TYPES.FETCH_CITY,
-    payload: axios.get<ICity>(requestUrl)
+    payload: client.get<ICity>(requestUrl)
   };
 };
 
 export const createEntity: ICrudPutAction<ICity> = entity => async dispatch => {
   const result = await dispatch({
     type: ACTION_TYPES.CREATE_CITY,
-    payload: axios.post(apiUrl, cleanEntity(entity))
+    payload: client.post(apiUrl, cleanEntity(entity))
   });
   dispatch(getEntities());
   return result;
@@ -140,7 +144,7 @@ export const createEntity: ICrudPutAction<ICity> = entity => async dispatch => {
 export const updateEntity: ICrudPutAction<ICity> = entity => async dispatch => {
   const result = await dispatch({
     type: ACTION_TYPES.UPDATE_CITY,
-    payload: axios.put(apiUrl, cleanEntity(entity))
+    payload: client.put(apiUrl, cleanEntity(entity))
   });
   dispatch(getEntities());
   return result;
@@ -150,7 +154,7 @@ export const deleteEntity: ICrudDeleteAction<ICity> = id => async dispatch => {
   const requestUrl = `${apiUrl}/${id}`;
   const result = await dispatch({
     type: ACTION_TYPES.DELETE_CITY,
-    payload: axios.delete(requestUrl)
+    payload: client.delete(requestUrl)
   });
   dispatch(getEntities());
   return result;
