@@ -132,19 +132,6 @@ public class HouseService {
      * @return the list of entities
      */
     @Transactional(readOnly = true)
-    public Page<HouseDTO> findByStatusAndUser(StatusType status, String username, Pageable pageable) {
-        log.debug("Request to get all House of staff [{}]", username);
-        return houseRepository.findByStatusTypeAndDistrictRegionUsersLoginOrderByCreateAtDesc(status, username, pageable)
-            .map(houseMapper::toDto);
-    }
-
-    /**
-     * Get all the house of staff.
-     *
-     * @param pageable the pagination information
-     * @return the list of entities
-     */
-    @Transactional(readOnly = true)
     public Page<HouseDTO> findByStaff(String username, Pageable pageable) {
         log.debug("Request to get all House of staff [{}]", username);
         return houseRepository.findByStatusTypeNotAndDistrictRegionUsersLoginOrderByCreateAtDesc(StatusType.OPEN, username, pageable)

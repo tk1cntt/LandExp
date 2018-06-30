@@ -20,10 +20,6 @@ export class StepEight extends React.Component<IStepEightProp, IStepEightState> 
     value: null
   };
 
-  componentDidMount() {
-    this.props.getSession();
-  }
-
   onChange = e => {
     this.setState({
       value: e.target.value

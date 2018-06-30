@@ -17,8 +17,8 @@ import { AUTHORITIES } from 'app/config/constants';
 
 const Routes = () => (
   <div className="view-routes">
-    <Route path="/dang-nhap" component={Login} />
     <Switch>
+      <Route path="/dang-nhap" component={Login} />
       <Route path="/thoat" component={Logout} />
       <Route path="/dang-ky" component={Register} />
       <Route path="/activate/:key?" component={Activate} />
@@ -27,8 +27,7 @@ const Routes = () => (
       <PrivateRoute path="/admin" component={Admin} hasAnyAuthorities={[AUTHORITIES.ADMIN]} />
       <PrivateRoute path="/tai-khoan" component={Account} hasAnyAuthorities={[AUTHORITIES.USER]} />
       <PrivateRoute path="/quan-ly" component={Entities} hasAnyAuthorities={[AUTHORITIES.STAFF]} />
-      <Route path="/tin-dang/:key?" component={Detail} />
-      <Route path="/" component={Home} />
+      <PrivateRoute path="/" component={Home} />
     </Switch>
   </div>
 );

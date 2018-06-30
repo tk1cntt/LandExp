@@ -36,7 +36,7 @@ export class RegisterPage extends React.Component<IRegisterProps, IRegisterState
 
   render() {
     return (
-      <div>
+      <Row>
         <SearchPage />
         <Container>
           <Row style={{ marginTop: 20 }} className="justify-content-center">
@@ -119,7 +119,7 @@ export class RegisterPage extends React.Component<IRegisterProps, IRegisterState
             </Col>
           </Row>
         </Container>
-      </div>
+      </Row>
     );
   }
 }

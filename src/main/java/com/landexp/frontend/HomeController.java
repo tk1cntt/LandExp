@@ -36,7 +36,6 @@ public class HomeController {
             responses.add(MappingUtils.mappingHouse(house));
         }
         modelAndView.addObject("houses", responses);
-        modelAndView.addObject("news", houses.getContent());
         return modelAndView;
     }
 }

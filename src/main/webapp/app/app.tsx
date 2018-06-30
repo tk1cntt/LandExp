@@ -2,7 +2,6 @@ import './app.css';
 
 import * as React from 'react';
 import { connect } from 'react-redux';
-import { Card } from 'reactstrap';
 import { HashRouter as Router } from 'react-router-dom';
 import { ToastContainer, toast } from 'react-toastify';
 
@@ -16,9 +15,9 @@ import { hasAnyAuthority } from 'app/shared/auth/private-route';
 import { AUTHORITIES } from 'app/config/constants';
 import AppRoutes from 'app/routes';
 
-import './antd.min.css';
-import './fonts.css';
-import './font-awesome.min.css';
+import './style.css';
+/* tslint:disable-next-line */
+import 'antd/dist/antd.css';
 /* tslint:disable-next-line */
 import 'react-responsive-carousel/lib/styles/carousel.min.css';
 

@@ -6,35 +6,48 @@ import javax.persistence.Lob;
 import java.time.LocalDate;
 
 public class HouseResponse {
-    private Long id;
+    private String id;
+    private String link;
     private String actionType;
     private String landType;
     private String projectName;
     private String money;
     private String address;
+    private String fullAddress;
     private String image;
     private String imageContentType;
-    private Float acreage;
-    private Float acreageStreetSide;
-    private Float discount;
+    private String acreage;
+    private String acreageStreetSide;
+    private String discount;
     private String direction;
     private String directionBalcony;
     private String floor;
-    private Float numberOfFloor;
+    private String numberOfFloor;
     private Integer bathRoom;
     private Integer bedRoom;
     private String parking;
     private String summary;
+    private String customer;
+    private String mobile;
+    private String email;
     private Float latitude;
     private Float longitude;
     private String updateAt;
 
-    public Long getId() {
+    public String getId() {
         return id;
     }
 
-    public void setId(Long id) {
+    public void setId(String id) {
         this.id = id;
+    }
+
+    public String getLink() {
+        return link;
+    }
+
+    public void setLink(String link) {
+        this.link = link;
     }
 
     public String getActionType() {
@@ -93,27 +106,27 @@ public class HouseResponse {
         this.imageContentType = imageContentType;
     }
 
-    public Float getAcreage() {
+    public String getAcreage() {
         return acreage;
     }
 
-    public void setAcreage(Float acreage) {
+    public void setAcreage(String acreage) {
         this.acreage = acreage;
     }
 
-    public Float getAcreageStreetSide() {
+    public String getAcreageStreetSide() {
         return acreageStreetSide;
     }
 
-    public void setAcreageStreetSide(Float acreageStreetSide) {
+    public void setAcreageStreetSide(String acreageStreetSide) {
         this.acreageStreetSide = acreageStreetSide;
     }
 
-    public Float getDiscount() {
+    public String getDiscount() {
         return discount;
     }
 
-    public void setDiscount(Float discount) {
+    public void setDiscount(String discount) {
         this.discount = discount;
     }
 
@@ -141,11 +154,11 @@ public class HouseResponse {
         this.floor = floor;
     }
 
-    public Float getNumberOfFloor() {
+    public String getNumberOfFloor() {
         return numberOfFloor;
     }
 
-    public void setNumberOfFloor(Float numberOfFloor) {
+    public void setNumberOfFloor(String numberOfFloor) {
         this.numberOfFloor = numberOfFloor;
     }
 
@@ -203,5 +216,37 @@ public class HouseResponse {
 
     public void setUpdateAt(String updateAt) {
         this.updateAt = updateAt;
+    }
+
+    public String getFullAddress() {
+        return fullAddress;
+    }
+
+    public void setFullAddress(String fullAddress) {
+        this.fullAddress = fullAddress;
+    }
+
+    public String getCustomer() {
+        return customer;
+    }
+
+    public void setCustomer(String customer) {
+        this.customer = customer;
+    }
+
+    public String getMobile() {
+        return mobile;
+    }
+
+    public void setMobile(String mobile) {
+        this.mobile = mobile;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
     }
 }

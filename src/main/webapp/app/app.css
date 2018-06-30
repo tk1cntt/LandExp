@@ -1,48 +1,138 @@
-body {
-  margin: 0px;
-  font-family: Helvetica Neue !important;
-  font-weight: 300;
-  font-size: 14px;
-  color: #454545;
-}
-
 .container {
-  width: 1140px;
-  max-width: 100% !important;
+  width: 1170px;
   margin-right: auto;
   margin-left: auto;
 }
 
-#home-content {
-  border: none;
+.cc-selector input {
+  margin: 0;
+  padding: 0;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
 }
 
-.bg-light {
-  background-color: #ffffff !important;
+.cc-selector .sale {
+  background-image: url('../static/images/icon/ic_sale.png');
 }
 
-.compact {
-  background: url('../static/images/icon/ic_view_compact.png') no-repeat 0;
+.cc-selector .rent {
+  background-image: url('../static/images/icon/ic_rent.png');
 }
 
-.compass {
-  background: url('../static/images/icon/compass.png') no-repeat 0;
+.cc-selector .aparment {
+  background-image: url('../static/images/icon/aparment.png');
 }
 
-.bedroom {
-  background: url('../static/images/icon/ic_hotel.png') no-repeat 0;
+.cc-selector .home {
+  background-image: url('../static/images/icon/house.png');
 }
 
-.bathroom {
-  background: url('../static/images/icon/bathtub.png') no-repeat 0;
+.cc-selector .home-villa {
+  background-image: url('../static/images/icon/house.png');
 }
 
-.gara {
-  background: url('../static/images/icon/ic_directions_car.png') no-repeat 0;
+.cc-selector .home-street-side {
+  background-image: url('../static/images/icon/house.png');
 }
 
-.floor {
-  background: url('../static/images/icon/offices-buildings.png') no-repeat;
+.cc-selector .land-scape {
+  background-image: url('../static/images/icon/house-plan-scale.png');
 }
 
-@import '~bootstrap/dist/css/bootstrap.min.css';
+.cc-selector .land-of-project {
+  background-image: url('../static/images/icon/house-sketch.png');
+}
+
+.cc-selector .land-farm {
+  background-image: url('../static/images/icon/house-sketch.png');
+}
+
+.cc-selector .land-resort {
+  background-image: url('../static/images/icon/hotel.png');
+}
+
+.cc-selector .office {
+  background-image: url('../static/images/icon/hotel.png');
+}
+
+.cc-selector .warehouses {
+  background-image: url('../static/images/icon/warehouse.png');
+}
+
+.cc-selector .kiosks {
+  background-image: url('../static/images/icon/shop.png');
+}
+
+.cc-selector .motel-room {
+  background-image: url('../static/images/icon/hotel.png');
+}
+
+.cc-selector input:active + .drinkcard-cc {
+  opacity: 0.9;
+}
+
+.cc-selector input:checked + .drinkcard-cc {
+  -webkit-filter: none;
+  -moz-filter: none;
+  filter: none;
+}
+
+.cc-selector .image-block {
+  display: inline-block;
+}
+
+.cc-selector .image-block .image-item {
+  width: 100px;
+  height: 100px;
+  margin: 10px 5px;
+  padding: 25px 15px;
+  border: 1px solid #dfdfdf;
+  border-radius: 3px;
+}
+
+.cc-selector .image-block .image-item:hover {
+  border: 1px solid #4a8dff;
+}
+
+.cc-selector .image-block .image-big-item {
+  width: 140px;
+  height: 140px;
+  margin: 10px 5px;
+  padding: 25px 15px;
+  border: 1px solid #dfdfdf;
+  border-radius: 3px;
+}
+
+.cc-selector .image-block .image-big-item:hover {
+  border: 1px solid #4a8dff;
+}
+
+.cc-selector .image-block .drinkcard-cc {
+  cursor: pointer;
+  background-size: contain;
+  background-repeat: no-repeat;
+  display: inline-block;
+  width: 146px;
+  height: 146px;
+  -webkit-transition: all 100ms ease-in;
+  -moz-transition: all 100ms ease-in;
+  transition: all 100ms ease-in;
+  -webkit-filter: brightness(1.8) grayscale(1) opacity(0.7);
+  -moz-filter: brightness(1.8) grayscale(1) opacity(0.7);
+  filter: brightness(1.8) grayscale(1) opacity(0.7);
+}
+
+.cc-selector .image-block .drinkcard-cc:hover {
+  -webkit-filter: brightness(1.2) grayscale(0.5) opacity(0.9);
+  -moz-filter: brightness(1.2) grayscale(0.5) opacity(0.9);
+  filter: brightness(1.2) grayscale(0.5) opacity(0.9);
+}
+
+.cc-selector .image-block p {
+  text-align: center;
+}
+
+.cc-selector .image-block p:hover {
+  color: #4a8dff;
+}

@@ -2,16 +2,16 @@ import * as React from 'react';
 import { Link, RouteComponentProps } from 'react-router-dom';
 import { Translate } from 'react-jhipster';
 import { connect } from 'react-redux';
-import { Row, Col, Alert, Container } from 'reactstrap';
+import { Row, Col, Container } from 'reactstrap';
 
-import { Steps, Button, Card } from 'antd';
+import { Steps, Button, Card, Alert } from 'antd';
 const Step = Steps.Step;
 
 import { IRootState } from 'app/shared/reducers';
 import { getSession } from 'app/shared/reducers/authentication';
 import { getActionType, getLandType, getCityType, getDirection, getPresent, getSaleType } from 'app/shared/util/utils';
 
-import { getEntity as getHouse, updateEntity as updateHouse } from 'app/entities/house/house.reducer';
+import { getEntity as getHouse, updateEntity as updateHouse, reset as clearHouse } from 'app/entities/house/house.reducer';
 import { getEntities as getCities } from 'app/entities/city/city.reducer';
 import { getEntities as getServiceFees } from 'app/entities/service-fee/service-fee.reducer';
 import { createEntity as createPhoto, updateEntity as updatePhoto } from 'app/entities/house-photo/house-photo.reducer';
@@ -19,6 +19,7 @@ import { createEntity as createPhoto, updateEntity as updatePhoto } from 'app/en
 import SearchPage from 'app/shared/layout/search/search-menu';
 
 import StepOne from './stepOne';
+import StepOneTwo from './stepOneTwo';
 import StepTwo from './stepTwo';
 import StepThree from './stepThree';
 import StepFour from './stepFour';
@@ -43,6 +44,7 @@ export class PostPage extends React.Component<IPostProp, IPostState> {
   };
 
   componentDidMount() {
+    this.props.clearHouse();
     this.props.getHouse('init');
     this.props.getSession();
     this.props.getCities();
@@ -74,18 +76,21 @@ export class PostPage extends React.Component<IPostProp, IPostState> {
         this.validateStepOne();
         break;
       case 1:
-        this.validateStepTwo();
+        this.validateStepOneTwo();
         break;
       case 2:
-        this.validateStepThree();
+        this.validateStepTwo();
         break;
       case 3:
-        this.validateStepFour();
+        this.validateStepThree();
         break;
       case 4:
-        this.validateStepFive();
+        this.validateStepFour();
         break;
       case 5:
+        this.validateStepFive();
+        break;
+      case 6:
         this.validateStepSix();
         break;
       default:
@@ -99,22 +104,31 @@ export class PostPage extends React.Component<IPostProp, IPostState> {
     const actionTypeForm = actionTypeValue ? null : (
       <Row key={'action-type-value-alert'}>
         <Col md="12">
-          <Alert color="danger">Bạn phải chọn một hình thức bán</Alert>
+          <Alert type="error" message="Bạn phải chọn một hình thức bán" />
         </Col>
       </Row>
     );
     alerts.push(actionTypeForm);
+    this.setState({ alerts });
+    if (actionTypeValue) {
+      const current = this.state.current + 1;
+      this.setState({ current });
+    }
+  };
+
+  validateStepOneTwo = () => {
+    const alerts = [];
     const landTypeValue = this.state.house.landType || this.props.house.landType;
     const landTypeForm = landTypeValue ? null : (
       <Row key={'land-type-value-alert'}>
         <Col md="12">
-          <Alert color="danger">Bạn phải chọn loại bất động sản</Alert>
+          <Alert type="error" message="Bạn phải chọn loại bất động sản" />
         </Col>
       </Row>
     );
     alerts.push(landTypeForm);
     this.setState({ alerts });
-    if (landTypeValue && actionTypeValue) {
+    if (landTypeValue) {
       const current = this.state.current + 1;
       this.setState({ current });
     }
@@ -126,7 +140,7 @@ export class PostPage extends React.Component<IPostProp, IPostState> {
     const cityForm = cityValue ? null : (
       <Row key={'city-type-value-alert'}>
         <Col md="12">
-          <Alert color="danger">Bạn phải chọn một tỉnh thành</Alert>
+          <Alert type="error" message="Bạn phải chọn một tỉnh thành" />
         </Col>
       </Row>
     );
@@ -135,7 +149,7 @@ export class PostPage extends React.Component<IPostProp, IPostState> {
     const addressForm = addressValue ? null : (
       <Row key={'address-type-value-alert'}>
         <Col md="12">
-          <Alert color="danger">Bạn phải nhập địa chỉ</Alert>
+          <Alert type="error" message="Bạn phải nhập địa chỉ" />
         </Col>
       </Row>
     );
@@ -153,7 +167,7 @@ export class PostPage extends React.Component<IPostProp, IPostState> {
     const acreageForm = acreageValue ? null : (
       <Row key={'city-type-value-alert'}>
         <Col md="12">
-          <Alert color="danger">Bạn phải nhập diện tích nhà</Alert>
+          <Alert type="error" message="Bạn phải nhập diện tích nhà" />
         </Col>
       </Row>
     );
@@ -171,7 +185,7 @@ export class PostPage extends React.Component<IPostProp, IPostState> {
     const imageForm = imageValue ? null : (
       <Row key={'image-type-value-alert'}>
         <Col md="12">
-          <Alert color="danger">Bạn phải thêm hình ảnh giới thiệu về ngôi nhà</Alert>
+          <Alert type="error" message="Bạn phải thêm hình ảnh giới thiệu về ngôi nhà" />
         </Col>
       </Row>
     );
@@ -189,7 +203,7 @@ export class PostPage extends React.Component<IPostProp, IPostState> {
     const moneyForm = moneyValue ? null : (
       <Row key={'money-type-value-alert'}>
         <Col md="12">
-          <Alert color="danger">Bạn phải nhập giá bán ngôi nhà</Alert>
+          <Alert type="error" message="Bạn phải nhập giá bán ngôi nhà" />
         </Col>
       </Row>
     );
@@ -198,7 +212,7 @@ export class PostPage extends React.Component<IPostProp, IPostState> {
     const saleTypeForm = saleTypeValue ? null : (
       <Row key={'sale-type-value-alert'}>
         <Col md="12">
-          <Alert color="danger">Bạn phải chọn một gói tin đăng</Alert>
+          <Alert type="error" message="Bạn phải chọn một gói tin đăng" />
         </Col>
       </Row>
     );
@@ -216,7 +230,7 @@ export class PostPage extends React.Component<IPostProp, IPostState> {
     const customerForm = customerValue ? null : (
       <Row key={'customer-type-value-alert'}>
         <Col md="12">
-          <Alert color="danger">Bạn phải nhập tên người bán</Alert>
+          <Alert type="error" message="Bạn phải nhập tên người bán" />
         </Col>
       </Row>
     );
@@ -225,7 +239,7 @@ export class PostPage extends React.Component<IPostProp, IPostState> {
     const mobileForm = mobileValue ? null : (
       <Row key={'mobile-type-value-alert'}>
         <Col md="12">
-          <Alert color="danger">Bạn phải nhập số điện thoại liên lạc</Alert>
+          <Alert type="error" message="Bạn phải nhập số điện thoại liên lạc" />
         </Col>
       </Row>
     );
@@ -537,6 +551,10 @@ export class PostPage extends React.Component<IPostProp, IPostState> {
         content: <StepOne house={entity} updateHouse={this.updateHouse} />
       },
       {
+        title: 'Loại đất',
+        content: <StepOneTwo house={entity} updateHouse={this.updateHouse} />
+      },
+      {
         title: 'Vị trí',
         content: <StepTwo house={entity} updateHouse={this.updateHouse} />
       },
@@ -571,7 +589,6 @@ export class PostPage extends React.Component<IPostProp, IPostState> {
               {steps.map(item => <Step key={item.title} title={item.title} />)}
             </Steps>
           </div>
-          {this.state.alerts}
           <Row>
             <Col md="8">
               <div style={{ height: '100%' }}>
@@ -619,6 +636,11 @@ export class PostPage extends React.Component<IPostProp, IPostState> {
               </div>
             </Col>
           </Row>
+          {this.state.alerts.map((item, index) => (
+            <div key={index} style={{ paddingBottom: 10 }}>
+              {item}
+            </div>
+          ))}
         </Container>
       </Row>
     );
@@ -635,7 +657,7 @@ const mapStateToProps = storeState => ({
   updating: storeState.house.updating
 });
 
-const mapDispatchToProps = { getSession, getHouse, updateHouse, createPhoto, updatePhoto, getCities, getServiceFees };
+const mapDispatchToProps = { getSession, getHouse, updateHouse, clearHouse, createPhoto, updatePhoto, getCities, getServiceFees };
 
 type StateProps = ReturnType<typeof mapStateToProps>;
 type DispatchProps = typeof mapDispatchToProps;

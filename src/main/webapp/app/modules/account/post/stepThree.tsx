@@ -46,10 +46,6 @@ export class StepThree extends React.Component<IStepThreeProp, IStepThreeState> 
     summary: null
   };
 
-  componentDidMount() {
-    this.props.getSession();
-  }
-
   onChangeAcreage = e => {
     const { value } = e.target;
     const reg = /^-?(0|[1-9][0-9]*)(\.[0-9]*)?$/;
@@ -173,10 +169,19 @@ export class StepThree extends React.Component<IStepThreeProp, IStepThreeState> 
     const { account } = this.props;
     return (
       <Row>
+        <Col md="12">
+          <p className="text-center subtitle">
+            <i className="fa fa-lightbulb-o" />
+            <em>
+              Cung cấp đầy đủ thông tin đặc điểm bất động sản của bạn để người mua có được nhiều thông tin và cơ hội bán sẽ nhanh hơn!
+            </em>
+          </p>
+        </Col>
         <Col md="6">
           <div>
             <Input
               addonBefore="Diện tích sàn"
+              type="number"
               value={this.state.acreage || this.props.house.acreage}
               onChange={this.onChangeAcreage}
               placeholder="Diện tích theo mét vuông?"
@@ -187,6 +192,7 @@ export class StepThree extends React.Component<IStepThreeProp, IStepThreeState> 
           <div>
             <Input
               addonBefore="Mặt tiền"
+              type="number"
               value={this.state.acreageStreetSide || this.props.house.acreageStreetSide}
               onChange={this.onChangeAcreageStreetSide}
               placeholder="Diện tích theo mét?"
@@ -208,6 +214,7 @@ export class StepThree extends React.Component<IStepThreeProp, IStepThreeState> 
           <div style={{ marginTop: 16 }}>
             <Input
               addonBefore="Số phòng tắm"
+              type="number"
               value={this.state.bathRoom || this.props.house.bathRoom}
               onChange={this.onChangeBathRoom}
               placeholder="Có bao nhiêu phòng tắm?"

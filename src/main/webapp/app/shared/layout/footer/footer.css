@@ -31,6 +31,7 @@
 
 .footer a:hover {
   color: #454545;
+  text-decoration: none;
 }
 
 .link-app {

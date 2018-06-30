@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 import { Translate } from 'react-jhipster';
 import { connect } from 'react-redux';
 import { Row, Col, Alert } from 'reactstrap';
-import { Radio } from 'antd';
+import { Row as AntdRow, Col as AntdCol, Radio } from 'antd';
 const RadioButton = Radio.Button;
 const RadioGroup = Radio.Group;
 
@@ -27,11 +27,16 @@ export class StepOne extends React.Component<IStepOneProp, IStepOneState> {
     actionType: null
   };
 
-  componentDidMount() {
-    this.props.getSession();
-  }
-
   onChangeActionType = e => {
+    this.setState({
+      actionType: e.target.value
+    });
+    this.props.updateHouse({
+      actionType: e.target.value
+    });
+  };
+
+  onChangeItemActionType = e => {
     this.setState({
       actionType: e.target.value
     });
@@ -49,63 +54,62 @@ export class StepOne extends React.Component<IStepOneProp, IStepOneState> {
     });
   };
 
+  onChangeItemLandType = e => {
+    this.setState({
+      landType: e.target.value
+    });
+    this.props.updateHouse({
+      landType: e.target.value
+    });
+  };
+
   render() {
     const { account } = this.props;
     return (
       <Row>
         <Col md="12">
-          <h6>Bạn muốn bán hay cho thuê bất động sản?</h6>
+          <AntdRow type="flex" justify="center" align="middle">
+            <h3 className="text-center">
+              <strong>Bạn muốn bán hay cho thuê Bất động sản?</strong>
+            </h3>
+          </AntdRow>
         </Col>
         <Col md="12">
           <div style={{ marginTop: 16 }}>
-            <RadioGroup
-              onChange={this.onChangeActionType}
-              value={this.state.actionType || (this.props.house && this.props.house.actionType)}
-              defaultValue="FOR_SELL"
-            >
-              <RadioButton value={'FOR_SELL'}>{getActionType('FOR_SELL')}</RadioButton>
-              <RadioButton value={'FOR_RENT'}>{getActionType('FOR_RENT')}</RadioButton>
-            </RadioGroup>
-          </div>
-        </Col>
-        <Col md="12">
-          <h6 style={{ marginTop: 16 }}>Chọn loại bất động sản bạn muốn bán</h6>
-        </Col>
-        <Col md="12">
-          <div style={{ marginTop: 16 }}>
-            <RadioGroup onChange={this.onChangeLandType} value={this.state.landType || (this.props.house && this.props.house.landType)}>
-              <RadioButton value="APARTMENT">{getLandType('APARTMENT')}</RadioButton>
-              <RadioButton value="HOME">{getLandType('HOME')}</RadioButton>
-              <RadioButton value="HOME_VILLA">{getLandType('HOME_VILLA')}</RadioButton>
-              <RadioButton value="HOME_STREET_SIDE">{getLandType('HOME_STREET_SIDE')}</RadioButton>
-            </RadioGroup>
-          </div>
-        </Col>
-        <Col md="12">
-          <div style={{ marginTop: 16 }}>
-            <RadioGroup onChange={this.onChangeLandType} value={this.state.landType || (this.props.house && this.props.house.landType)}>
-              <RadioButton value="LAND_SCAPE">{getLandType('LAND_SCAPE')}</RadioButton>
-              <RadioButton value="LAND_OF_PROJECT">{getLandType('LAND_OF_PROJECT')}</RadioButton>
-              <RadioButton value="LAND_FARM">{getLandType('LAND_FARM')}</RadioButton>
-              <RadioButton value="LAND_RESORT">{getLandType('LAND_RESORT')}</RadioButton>
-            </RadioGroup>
-          </div>
-        </Col>
-        <Col md="12">
-          <div style={{ marginTop: 16 }}>
-            <RadioGroup onChange={this.onChangeLandType} value={this.state.landType || (this.props.house && this.props.house.landType)}>
-              <RadioButton value="MOTEL_ROOM">{getLandType('MOTEL_ROOM')}</RadioButton>
-              <RadioButton value="OFFICE">{getLandType('OFFICE')}</RadioButton>
-              <RadioButton value="WAREHOUSES">{getLandType('WAREHOUSES')}</RadioButton>
-              <RadioButton value="KIOSKS">{getLandType('KIOSKS')}</RadioButton>
-            </RadioGroup>
-          </div>
-        </Col>
-        <Col md="12">
-          <div style={{ marginTop: 16 }}>
-            <RadioGroup onChange={this.onChangeLandType} value={this.state.landType || (this.props.house && this.props.house.landType)}>
-              <RadioButton value="OTHER">{getLandType('OTHER')}</RadioButton>
-            </RadioGroup>
+            <AntdRow className="cc-selector" type="flex" justify="center" align="middle">
+              <AntdCol span={6} style={{ alignItems: 'center' }}>
+                <div className="image-block">
+                  <div className="image-big-item">
+                    <input
+                      checked={(this.state.actionType || this.props.house.actionType) === 'FOR_SELL' ? true : false}
+                      id="sale"
+                      type="radio"
+                      name="action-type"
+                      value="FOR_SELL"
+                      onClick={this.onChangeItemActionType}
+                    />
+                    <label className="drinkcard-cc sale" htmlFor="sale" />
+                  </div>
+                  <p>{getActionType('FOR_SELL')}</p>
+                </div>
+              </AntdCol>
+              <AntdCol span={6} style={{ alignItems: 'center' }}>
+                <div className="image-block">
+                  <div className="image-big-item">
+                    <input
+                      checked={(this.state.actionType || this.props.house.actionType) === 'FOR_RENT' ? true : false}
+                      id="rent"
+                      type="radio"
+                      name="action-type"
+                      value="FOR_RENT"
+                      onClick={this.onChangeItemActionType}
+                    />
+                    <label className="drinkcard-cc sale" htmlFor="rent" />
+                  </div>
+                  <p>{getActionType('FOR_RENT')}</p>
+                </div>
+              </AntdCol>
+            </AntdRow>
           </div>
         </Col>
       </Row>
