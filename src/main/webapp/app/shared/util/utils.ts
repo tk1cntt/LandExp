@@ -23,7 +23,7 @@ export const getLandType = type => {
     case 'OFFICE':
       return 'Văn phòng';
     case 'LAND_SCAPE':
-      return 'Đất ở';
+      return 'Đất thổ cử';
     case 'LAND_OF_PROJECT':
       return 'Đất dự án';
     case 'LAND_FARM':

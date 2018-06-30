@@ -12,28 +12,44 @@
   appearance: none;
 }
 
-.sale {
+.cc-selector .sale {
   background-image: url('../static/images/icon/ic_sale.png');
 }
 
-.rent {
+.cc-selector .rent {
   background-image: url('../static/images/icon/ic_rent.png');
 }
 
-.aparment {
+.cc-selector .aparment {
   background-image: url('../static/images/icon/aparment.png');
 }
 
-.home {
+.cc-selector .home {
   background-image: url('../static/images/icon/house.png');
 }
 
-.home-villa {
+.cc-selector .home-villa {
   background-image: url('../static/images/icon/house.png');
 }
 
-.home-street-side {
+.cc-selector .home-street-side {
   background-image: url('../static/images/icon/house.png');
+}
+
+.cc-selector .land-scape {
+  background-image: url('../static/images/icon/house-plan-scale.png');
+}
+
+.cc-selector .land-of-project {
+  background-image: url('../static/images/icon/house-sketch.png');
+}
+
+.cc-selector .land-farm {
+  background-image: url('../static/images/icon/house-sketch.png');
+}
+
+.cc-selector .land-resort {
+  background-image: url('../static/images/icon/hotel.png');
 }
 
 .cc-selector input:active + .drinkcard-cc {

@@ -3,11 +3,9 @@ import { Link } from 'react-router-dom';
 import { Translate } from 'react-jhipster';
 import { connect } from 'react-redux';
 import { Row, Col, Alert } from 'reactstrap';
-import { Radio } from 'antd';
+import { Row as AntdRow, Col as AntdCol, Radio } from 'antd';
 const RadioButton = Radio.Button;
 const RadioGroup = Radio.Group;
-
-import { Row as AntdRow, Col as AntdCol } from 'antd';
 
 import { IRootState } from 'app/shared/reducers';
 import { getSession } from 'app/shared/reducers/authentication';
@@ -185,6 +183,72 @@ export class StepOne extends React.Component<IStepOneProp, IStepOneState> {
           </AntdRow>
         </Col>
         <Col md="12">
+          <AntdRow style={{ marginTop: 16 }} className="cc-selector" type="flex" justify="space-around" align="middle">
+            <AntdCol span={4} style={{ alignItems: 'center' }}>
+              <div className="image-block">
+                <div className="image-item">
+                  <input
+                    checked={(this.state.actionType || this.props.house.actionType) === 'LAND_SCAPE' ? true : false}
+                    id="land-scape"
+                    type="radio"
+                    name="land-type"
+                    value="LAND_SCAPE"
+                    onClick={this.onChangeItemActionType}
+                  />
+                  <label className="drinkcard-cc land-scape" htmlFor="land-scape" />
+                </div>
+                <p>{getLandType('LAND_SCAPE')}</p>
+              </div>
+            </AntdCol>
+            <AntdCol span={4} style={{ alignItems: 'center' }}>
+              <div className="image-block">
+                <div className="image-item">
+                  <input
+                    checked={(this.state.actionType || this.props.house.actionType) === 'LAND_OF_PROJECT' ? true : false}
+                    id="land-of-project"
+                    type="radio"
+                    name="land-type"
+                    value="LAND_OF_PROJECT"
+                    onClick={this.onChangeItemActionType}
+                  />
+                  <label className="drinkcard-cc land-of-project" htmlFor="land-of-project" />
+                </div>
+                <p>{getLandType('LAND_OF_PROJECT')}</p>
+              </div>
+            </AntdCol>
+            <AntdCol span={4} style={{ alignItems: 'center' }}>
+              <div className="image-block">
+                <div className="image-item">
+                  <input
+                    checked={(this.state.actionType || this.props.house.actionType) === 'LAND_FARM' ? true : false}
+                    id="land-farm"
+                    type="radio"
+                    name="land-type"
+                    value="LAND_FARM"
+                    onClick={this.onChangeItemActionType}
+                  />
+                  <label className="drinkcard-cc land-farm" htmlFor="land-farm" />
+                </div>
+                <p>{getLandType('LAND_FARM')}</p>
+              </div>
+            </AntdCol>
+            <AntdCol span={4} style={{ alignItems: 'center' }}>
+              <div className="image-block">
+                <div className="image-item">
+                  <input
+                    checked={(this.state.actionType || this.props.house.actionType) === 'LAND_RESORT' ? true : false}
+                    id="land-resort"
+                    type="radio"
+                    name="land-type"
+                    value="LAND_RESORT"
+                    onClick={this.onChangeItemActionType}
+                  />
+                  <label className="drinkcard-cc land-resort" htmlFor="land-resort" />
+                </div>
+                <p>{getLandType('LAND_RESORT')}</p>
+              </div>
+            </AntdCol>
+          </AntdRow>
           <AntdRow style={{ marginTop: 16 }} type="flex" justify="center" align="middle">
             <RadioGroup onChange={this.onChangeLandType} value={this.state.landType || (this.props.house && this.props.house.landType)}>
               <RadioButton value="LAND_SCAPE">{getLandType('LAND_SCAPE')}</RadioButton>
