@@ -83,10 +83,10 @@
 }
 
 .cc-selector .image-block .image-item {
-  width: 146px;
-  height: 146px;
+  width: 120px;
+  height: 120px;
   margin: 10px 5px;
-  padding: 40px 33px;
+  padding: 25px 15px;
   border: 1px solid #dfdfdf;
   border-radius: 3px;
 }
