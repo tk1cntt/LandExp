@@ -146,7 +146,7 @@ public class HouseService {
      */
     @Transactional(readOnly = true)
     public Page<HouseDTO> findByOwner(String username, Pageable pageable) {
-        log.debug("Request to get all House of staff [{}]", username);
+        log.debug("Request to get all House of owner [{}]", username);
         return houseRepository.findByStatusTypeNotAndCreateByLoginOrderByCreateAtDesc(StatusType.OPEN, username, pageable)
             .map(houseMapper::toDto);
     }

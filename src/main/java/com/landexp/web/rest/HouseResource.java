@@ -211,7 +211,7 @@ public class HouseResource {
      */
     @GetMapping("/houses/owner")
     @Timed
-    @Secured(AuthoritiesConstants.STAFF)
+    @Secured(AuthoritiesConstants.USER)
     public ResponseEntity<List<HouseDTO>> getAllHouseOwner(Pageable pageable) {
         log.debug("REST request to get House of owner");
         String username = SecurityUtils.getCurrentUserLogin().get();
