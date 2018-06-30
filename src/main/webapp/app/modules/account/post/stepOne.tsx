@@ -73,13 +73,13 @@ export class StepOne extends React.Component<IStepOneProp, IStepOneState> {
                   <div className="image-item">
                     <input
                       checked={(this.state.actionType || this.props.house.actionType) === 'FOR_SELL' ? true : false}
-                      id="visa"
+                      id="sale"
                       type="radio"
-                      name="credit-card"
+                      name="action-type"
                       value="FOR_SELL"
                       onClick={this.onChangeItemActionType}
                     />
-                    <label className="drinkcard-cc sale" htmlFor="visa" />
+                    <label className="drinkcard-cc sale" htmlFor="sale" />
                   </div>
                   <p>{getActionType('FOR_SELL')}</p>
                 </div>
@@ -89,13 +89,13 @@ export class StepOne extends React.Component<IStepOneProp, IStepOneState> {
                   <div className="image-item">
                     <input
                       checked={(this.state.actionType || this.props.house.actionType) === 'FOR_RENT' ? true : false}
-                      id="mastercard"
+                      id="rent"
                       type="radio"
-                      name="credit-card"
+                      name="action-type"
                       value="FOR_RENT"
                       onClick={this.onChangeItemActionType}
                     />
-                    <label className="drinkcard-cc sale" htmlFor="mastercard" />
+                    <label className="drinkcard-cc sale" htmlFor="rent" />
                   </div>
                   <p>{getActionType('FOR_RENT')}</p>
                 </div>
@@ -115,13 +115,13 @@ export class StepOne extends React.Component<IStepOneProp, IStepOneState> {
                 <div className="image-item">
                   <input
                     checked={(this.state.actionType || this.props.house.actionType) === 'APARTMENT' ? true : false}
-                    id="mastercard"
+                    id="aparment"
                     type="radio"
-                    name="credit-card"
+                    name="land-type"
                     value="APARTMENT"
                     onClick={this.onChangeItemActionType}
                   />
-                  <label className="drinkcard-cc sale" htmlFor="mastercard" />
+                  <label className="drinkcard-cc aparment" htmlFor="aparment" />
                 </div>
                 <p>{getLandType('APARTMENT')}</p>
               </div>
@@ -131,38 +131,48 @@ export class StepOne extends React.Component<IStepOneProp, IStepOneState> {
                 <div className="image-item">
                   <input
                     checked={(this.state.actionType || this.props.house.actionType) === 'HOME' ? true : false}
-                    id="visa"
+                    id="home"
                     type="radio"
-                    name="credit-card"
+                    name="land-type"
                     value="HOME"
                     onClick={this.onChangeItemActionType}
                   />
-                  <label className="drinkcard-cc rent" htmlFor="visa" />
+                  <label className="drinkcard-cc home" htmlFor="home" />
                 </div>
-                <p>{getLandType('APARTMENT')}</p>
+                <p>{getLandType('HOME')}</p>
               </div>
             </AntdCol>
             <AntdCol span={4} style={{ alignItems: 'center' }}>
-              <input
-                checked={(this.state.actionType || this.props.house.actionType) === 'HOME_VILLA' ? true : false}
-                id="visa"
-                type="radio"
-                name="credit-card"
-                value="HOME_VILLA"
-                onClick={this.onChangeItemActionType}
-              />
-              <label className="drinkcard-cc rent" htmlFor="visa" />
+              <div className="image-block">
+                <div className="image-item">
+                  <input
+                    checked={(this.state.actionType || this.props.house.actionType) === 'HOME_VILLA' ? true : false}
+                    id="home-villa"
+                    type="radio"
+                    name="land-type"
+                    value="HOME_VILLA"
+                    onClick={this.onChangeItemActionType}
+                  />
+                  <label className="drinkcard-cc home-villa" htmlFor="home-villa" />
+                </div>
+                <p>{getLandType('HOME_VILLA')}</p>
+              </div>
             </AntdCol>
             <AntdCol span={4} style={{ alignItems: 'center' }}>
-              <input
-                checked={(this.state.actionType || this.props.house.actionType) === 'HOME_STREET_SIDE' ? true : false}
-                id="visa"
-                type="radio"
-                name="credit-card"
-                value="HOME_STREET_SIDE"
-                onClick={this.onChangeItemActionType}
-              />
-              <label className="drinkcard-cc rent" htmlFor="visa" />
+              <div className="image-block">
+                <div className="image-item">
+                  <input
+                    checked={(this.state.actionType || this.props.house.actionType) === 'HOME_STREET_SIDE' ? true : false}
+                    id="home-street-side"
+                    type="radio"
+                    name="land-type"
+                    value="HOME_STREET_SIDE"
+                    onClick={this.onChangeItemActionType}
+                  />
+                  <label className="drinkcard-cc home-street-side" htmlFor="home-street-side" />
+                </div>
+                <p>{getLandType('HOME_STREET_SIDE')}</p>
+              </div>
             </AntdCol>
           </AntdRow>
           <AntdRow type="flex" justify="center" align="middle">
