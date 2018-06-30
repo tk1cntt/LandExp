@@ -169,6 +169,14 @@ export class StepThree extends React.Component<IStepThreeProp, IStepThreeState> 
     const { account } = this.props;
     return (
       <Row>
+        <Col md="12">
+          <p className="text-center subtitle">
+            <i className="fa fa-lightbulb-o" />
+            <em>
+              Cung cấp đầy đủ thông tin đặc điểm bất động sản của bạn để người mua có được nhiều thông tin và cơ hội bán sẽ nhanh hơn!
+            </em>
+          </p>
+        </Col>
         <Col md="6">
           <div>
             <Input

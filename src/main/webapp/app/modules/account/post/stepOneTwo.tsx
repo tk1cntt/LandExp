@@ -69,7 +69,9 @@ export class StepOne extends React.Component<IStepOneProp, IStepOneState> {
       <Row>
         <Col md="12">
           <AntdRow type="flex" justify="center" align="middle">
-            <h5 style={{ color: 'red', paddingTop: 20 }}>Chọn loại bất động sản bạn muốn bán</h5>
+            <h3 className="text-center">
+              <strong>Chọn loại bất động sản bạn muốn bán</strong>
+            </h3>
           </AntdRow>
         </Col>
         <Col md="12">

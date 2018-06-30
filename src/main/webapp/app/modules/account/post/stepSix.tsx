@@ -83,6 +83,13 @@ export class StepSix extends React.Component<IStepSixProp, IStepSixState> {
     const { account } = this.props;
     return (
       <Row>
+        <h3 className="text-center">
+          <strong>Thông tin liên hệ của bạn</strong>
+        </h3>
+        <p className="text-center subtitle">
+          <i className="fa fa-lightbulb-o" />
+          <em>Cung cấp thông tin liên hệ của bạn tới người mua để họ liên hệ với bạn theo cách tốt nhất</em>
+        </p>
         <Col md="12">
           <div>
             <Input

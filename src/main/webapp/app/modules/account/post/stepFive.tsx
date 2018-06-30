@@ -90,6 +90,15 @@ export class StepFive extends React.Component<IStepFiveProp, IStepFiveState> {
     return (
       <Row>
         <Col md="12">
+          <h3 className="text-center">
+            <strong>Giá và chính sách bán của bạn là gì ?</strong>
+          </h3>
+          <p className="text-center subtitle">
+            <i className="fa fa-lightbulb-o" />
+            <em>Mức giá và chính sách bán là thông tin rất quan trọng để trao đổi và thỏa thuận với người mua.</em>
+          </p>
+        </Col>
+        <Col md="12">
           <Form>
             <FormItem {...formItemLayout} label="Giá bán đề xuất">
               <NumberFormat

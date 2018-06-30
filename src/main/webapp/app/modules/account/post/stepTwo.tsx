@@ -102,6 +102,9 @@ export class StepTwo extends React.Component<IStepTwoProp, IStepOneState> {
 
     return (
       <Row>
+        <h3 className="text-center">
+          <strong>Vị trí bất động sản của bạn?</strong>
+        </h3>
         <Col md="12">
           <Form>
             <FormItem {...formItemLayout} label="Thành phố">
