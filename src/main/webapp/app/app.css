@@ -52,6 +52,22 @@
   background-image: url('../static/images/icon/hotel.png');
 }
 
+.cc-selector .office {
+  background-image: url('../static/images/icon/hotel.png');
+}
+
+.cc-selector .warehouses {
+  background-image: url('../static/images/icon/warehouse.png');
+}
+
+.cc-selector .kiosks {
+  background-image: url('../static/images/icon/shop.png');
+}
+
+.cc-selector .motel-room {
+  background-image: url('../static/images/icon/hotel.png');
+}
+
 .cc-selector input:active + .drinkcard-cc {
   opacity: 0.9;
 }
