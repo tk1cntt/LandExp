@@ -83,8 +83,8 @@
 }
 
 .cc-selector .image-block .image-item {
-  width: 120px;
-  height: 120px;
+  width: 100px;
+  height: 100px;
   margin: 10px 5px;
   padding: 25px 15px;
   border: 1px solid #dfdfdf;
@@ -92,6 +92,19 @@
 }
 
 .cc-selector .image-block .image-item:hover {
+  border: 1px solid #4a8dff;
+}
+
+.cc-selector .image-block .image-big-item {
+  width: 140px;
+  height: 140px;
+  margin: 10px 5px;
+  padding: 25px 15px;
+  border: 1px solid #dfdfdf;
+  border-radius: 3px;
+}
+
+.cc-selector .image-block .image-big-item:hover {
   border: 1px solid #4a8dff;
 }
 

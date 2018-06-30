@@ -19,6 +19,7 @@ import { createEntity as createPhoto, updateEntity as updatePhoto } from 'app/en
 import SearchPage from 'app/shared/layout/search/search-menu';
 
 import StepOne from './stepOne';
+import StepOneTwo from './stepOneTwo';
 import StepTwo from './stepTwo';
 import StepThree from './stepThree';
 import StepFour from './stepFour';
@@ -75,18 +76,21 @@ export class PostPage extends React.Component<IPostProp, IPostState> {
         this.validateStepOne();
         break;
       case 1:
-        this.validateStepTwo();
+        this.validateStepOneTwo();
         break;
       case 2:
-        this.validateStepThree();
+        this.validateStepTwo();
         break;
       case 3:
-        this.validateStepFour();
+        this.validateStepThree();
         break;
       case 4:
-        this.validateStepFive();
+        this.validateStepFour();
         break;
       case 5:
+        this.validateStepFive();
+        break;
+      case 6:
         this.validateStepSix();
         break;
       default:
@@ -105,6 +109,15 @@ export class PostPage extends React.Component<IPostProp, IPostState> {
       </Row>
     );
     alerts.push(actionTypeForm);
+    this.setState({ alerts });
+    if (actionTypeValue) {
+      const current = this.state.current + 1;
+      this.setState({ current });
+    }
+  };
+
+  validateStepOneTwo = () => {
+    const alerts = [];
     const landTypeValue = this.state.house.landType || this.props.house.landType;
     const landTypeForm = landTypeValue ? null : (
       <Row key={'land-type-value-alert'}>
@@ -115,7 +128,7 @@ export class PostPage extends React.Component<IPostProp, IPostState> {
     );
     alerts.push(landTypeForm);
     this.setState({ alerts });
-    if (landTypeValue && actionTypeValue) {
+    if (landTypeValue) {
       const current = this.state.current + 1;
       this.setState({ current });
     }
@@ -536,6 +549,10 @@ export class PostPage extends React.Component<IPostProp, IPostState> {
       {
         title: 'Hình thức',
         content: <StepOne house={entity} updateHouse={this.updateHouse} />
+      },
+      {
+        title: 'Loại đất',
+        content: <StepOneTwo house={entity} updateHouse={this.updateHouse} />
       },
       {
         title: 'Vị trí',
