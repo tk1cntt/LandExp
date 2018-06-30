@@ -107,7 +107,7 @@ export default class Header extends React.Component<IHeaderProps, IHeaderState> 
                 <Link to={'/tin-tuc'}>Tin tức</Link>
               </li>
             </ul>
-            {!isAuthenticated ? (
+            {isAuthenticated ? (
               <ul className="menu right-menu">
                 <li className="right-info">
                   <span className="ring-icon">
