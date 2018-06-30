@@ -124,9 +124,6 @@ export class StepTwo extends React.Component<IStepTwoProp, IStepOneState> {
             </FormItem>
           </Form>
         </Col>
-        <Col md="12">
-          <GoogleMaps />
-        </Col>
       </Row>
     );
   }

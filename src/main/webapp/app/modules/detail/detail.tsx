@@ -12,7 +12,7 @@ import { Carousel, Tabs, Input, Button } from 'antd';
 const { TextArea } = Input;
 const TabPane = Tabs.TabPane;
 
-import { getActionType, getLandType, getCityType, getDirection, getPresent, getSaleType } from 'app/shared/util/utils';
+import { getActionType, getLandType, getCityType, getDirection, getPresent, getSaleType, getMoney } from 'app/shared/util/utils';
 import { getEntities as getCities } from 'app/entities/city/city.reducer';
 import { getEntity } from 'app/entities/house/house.reducer';
 import { getImageOfHouse } from 'app/entities/house-photo/house-photo.reducer';
@@ -46,46 +46,39 @@ export class Detail extends React.Component<IDetailProp, IDetailState> {
   }
 
   houseDetailForm() {
-    const moneyForm =
-      this.props.houseEntity.money && this.props.houseEntity.discount ? (
-        <div style={{ textDecoration: 'line-through', color: 'red' }}>
-          {new Intl.NumberFormat().format(this.props.houseEntity.money)} VNĐ
-        </div>
-      ) : (
-        <div>{new Intl.NumberFormat().format(this.props.houseEntity.money)} VNĐ</div>
-      );
-    const discountForm = this.props.houseEntity.discount ? (
-      <div>{new Intl.NumberFormat().format(this.props.houseEntity.discount)} VNĐ</div>
-    ) : null;
     return (
       <Col md="3" className="product-info">
         <h1>{getLandType(this.props.houseEntity.landType)}</h1>
         <p className="post-date">
           <TextFormat type="date" value={this.props.houseEntity.createAt} format={APP_LOCAL_DATE_FORMAT} />
         </p>
-        <p className="price">
-          <span>5</span> triệu/tháng
-        </p>
+        <p
+          className="price"
+          dangerouslySetInnerHTML={{ __html: getMoney(this.props.houseEntity.money, this.props.houseEntity.actionType) }}
+        />
         <div className="property">
           <p className="compact">
-            Diện tích:<span>60m2</span>
+            Diện tích:<span>{this.props.houseEntity.acreage}m2</span>
           </p>
           <p className="compass">
             Hướng:<span>Tây bắc</span>
           </p>
           <p className="bedroom">
-            Phòng ngủ:<span>2</span>
+            Phòng ngủ:<span>{this.props.houseEntity.bedRoom}</span>
           </p>
           <p className="bathroom">
-            Phòng tắm:<span>1</span>
+            Phòng tắm:<span>{this.props.houseEntity.bathRoom}</span>
           </p>
           <p className="gara">
-            Chỗ để ô tô:<span>có</span>
+            Chỗ để ô tô:<span>{this.props.houseEntity.parking ? 'Có' : 'Không'}</span>
           </p>
         </div>
         <div className="location">
           <span className="title">Địa chỉ</span>
-          <p>Số 2/232 Trần Kim Xuyến, Trung Hòa, Cầu Giấy, TP Hà Nội</p>
+          <p>
+            {this.props.houseEntity.address}, {this.props.houseEntity.wardName}, {this.props.houseEntity.districtName},{' '}
+            {this.props.houseEntity.cityName}
+          </p>
         </div>
         <div className="button-group">
           <a href="#" className="like">
@@ -105,13 +98,13 @@ export class Detail extends React.Component<IDetailProp, IDetailState> {
         <div className="contact">
           <h3>Liên hệ chủ nhà</h3>
           <p>
-            <i className="fa fa-user" /> Hoàng Lê Khánh
+            <i className="fa fa-user" /> {this.props.houseEntity.customer}
           </p>
           <p>
-            <i className="fa fa-mobile" /> 0941 968383
+            <i className="fa fa-mobile" /> {this.props.houseEntity.mobile}
           </p>
           <p>
-            <i className="fa fa-envelope-o" /> khanhlh@gmail.com
+            <i className="fa fa-envelope-o" /> {this.props.houseEntity.email}
           </p>
         </div>
         <div className="call-chat">
@@ -200,7 +193,7 @@ export class Detail extends React.Component<IDetailProp, IDetailState> {
           {loading ? (
             <p>Loading...</p>
           ) : (
-            <div>
+            <Row>
               <Row id="product-content">
                 {this.houseSliderFrom(slides)}
                 {this.houseDetailForm()}
@@ -270,7 +263,7 @@ export class Detail extends React.Component<IDetailProp, IDetailState> {
                   </Row>
                 </Col>
               </Row>
-            </div>
+            </Row>
           )}
         </Container>
       </Row>

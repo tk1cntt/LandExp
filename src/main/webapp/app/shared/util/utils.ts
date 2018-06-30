@@ -145,3 +145,28 @@ export const getStatusType = type => {
       return 'Chờ thanh toán';
   }
 };
+
+export const getMoney = (money, actionType) => {
+  let moneyFormat = '<span>';
+  if (money >= 1000000000) {
+    moneyFormat += humanize(money / 1000000000);
+    moneyFormat += '</span>';
+    moneyFormat += ' tỷ';
+  } else if (1000000 <= money && money < 1000000000) {
+    moneyFormat += humanize(money / 1000000);
+    moneyFormat += '</span>';
+    moneyFormat += ' triệu';
+  } else {
+    moneyFormat += humanize(money / 1000);
+    moneyFormat += '</span>';
+    moneyFormat += ' ngàn';
+  }
+  if (actionType === 'FOR_RENT') {
+    moneyFormat += '/tháng';
+  }
+  return moneyFormat;
+};
+
+function humanize(x) {
+  return x.toFixed(6).replace(/\.?0*$/, '');
+}
