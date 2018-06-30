@@ -138,6 +138,10 @@ export const getEntity: ICrudGetAction<IUserProfile> = id => {
 };
 
 export const createEntity: ICrudPutAction<IUserProfile> = entity => async dispatch => {
+  const jwt = Storage.local.get('jhi-authenticationToken') || Storage.session.get('jhi-authenticationToken');
+  if (jwt) {
+    client.defaults.headers['Authorization'] = `Bearer ${jwt}`;
+  }
   const result = await dispatch({
     type: ACTION_TYPES.CREATE_USERPROFILE,
     payload: client.post(apiUrl, cleanEntity(entity))
@@ -147,6 +151,10 @@ export const createEntity: ICrudPutAction<IUserProfile> = entity => async dispat
 };
 
 export const updateEntity: ICrudPutAction<IUserProfile> = entity => async dispatch => {
+  const jwt = Storage.local.get('jhi-authenticationToken') || Storage.session.get('jhi-authenticationToken');
+  if (jwt) {
+    client.defaults.headers['Authorization'] = `Bearer ${jwt}`;
+  }
   const result = await dispatch({
     type: ACTION_TYPES.UPDATE_USERPROFILE,
     payload: client.put(apiUrl, cleanEntity(entity))
@@ -156,6 +164,10 @@ export const updateEntity: ICrudPutAction<IUserProfile> = entity => async dispat
 };
 
 export const deleteEntity: ICrudDeleteAction<IUserProfile> = id => async dispatch => {
+  const jwt = Storage.local.get('jhi-authenticationToken') || Storage.session.get('jhi-authenticationToken');
+  if (jwt) {
+    client.defaults.headers['Authorization'] = `Bearer ${jwt}`;
+  }
   const requestUrl = `${apiUrl}/${id}`;
   const result = await dispatch({
     type: ACTION_TYPES.DELETE_USERPROFILE,

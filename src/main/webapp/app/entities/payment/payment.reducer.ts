@@ -146,6 +146,10 @@ export const getPaymentOfHouse: ICrudGetAction<IPayment> = id => {
 };
 
 export const createEntity: ICrudPutAction<IPayment> = entity => async dispatch => {
+  const jwt = Storage.local.get('jhi-authenticationToken') || Storage.session.get('jhi-authenticationToken');
+  if (jwt) {
+    client.defaults.headers['Authorization'] = `Bearer ${jwt}`;
+  }
   const result = await dispatch({
     type: ACTION_TYPES.CREATE_PAYMENT,
     payload: client.post(apiUrl, cleanEntity(entity))
@@ -155,6 +159,10 @@ export const createEntity: ICrudPutAction<IPayment> = entity => async dispatch =
 };
 
 export const updateEntity: ICrudPutAction<IPayment> = entity => async dispatch => {
+  const jwt = Storage.local.get('jhi-authenticationToken') || Storage.session.get('jhi-authenticationToken');
+  if (jwt) {
+    client.defaults.headers['Authorization'] = `Bearer ${jwt}`;
+  }
   const result = await dispatch({
     type: ACTION_TYPES.UPDATE_PAYMENT,
     payload: client.put(apiUrl, cleanEntity(entity))
@@ -164,6 +172,10 @@ export const updateEntity: ICrudPutAction<IPayment> = entity => async dispatch =
 };
 
 export const approveEntity: ICrudPutAction<IPayment> = id => async dispatch => {
+  const jwt = Storage.local.get('jhi-authenticationToken') || Storage.session.get('jhi-authenticationToken');
+  if (jwt) {
+    client.defaults.headers['Authorization'] = `Bearer ${jwt}`;
+  }
   const requestUrl = `${apiUrl}/${id}/approve`;
   const result = await dispatch({
     type: ACTION_TYPES.UPDATE_PAYMENT,

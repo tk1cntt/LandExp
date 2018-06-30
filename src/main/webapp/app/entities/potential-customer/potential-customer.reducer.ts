@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { Storage, Storage, ICrudSearchAction, ICrudGetAction, ICrudGetAllAction, ICrudPutAction, ICrudDeleteAction } from 'react-jhipster';
+import { Storage, ICrudSearchAction, ICrudGetAction, ICrudGetAllAction, ICrudPutAction, ICrudDeleteAction } from 'react-jhipster';
 
 import { cleanEntity } from 'app/shared/util/entity-utils';
 import { REQUEST, SUCCESS, FAILURE } from 'app/shared/reducers/action-type.util';
@@ -138,6 +138,10 @@ export const getEntity: ICrudGetAction<IPotentialCustomer> = id => {
 };
 
 export const createEntity: ICrudPutAction<IPotentialCustomer> = entity => async dispatch => {
+  const jwt = Storage.local.get('jhi-authenticationToken') || Storage.session.get('jhi-authenticationToken');
+  if (jwt) {
+    client.defaults.headers['Authorization'] = `Bearer ${jwt}`;
+  }
   const result = await dispatch({
     type: ACTION_TYPES.CREATE_POTENTIALCUSTOMER,
     payload: client.post(apiUrl, cleanEntity(entity))
@@ -147,6 +151,10 @@ export const createEntity: ICrudPutAction<IPotentialCustomer> = entity => async 
 };
 
 export const updateEntity: ICrudPutAction<IPotentialCustomer> = entity => async dispatch => {
+  const jwt = Storage.local.get('jhi-authenticationToken') || Storage.session.get('jhi-authenticationToken');
+  if (jwt) {
+    client.defaults.headers['Authorization'] = `Bearer ${jwt}`;
+  }
   const result = await dispatch({
     type: ACTION_TYPES.UPDATE_POTENTIALCUSTOMER,
     payload: client.put(apiUrl, cleanEntity(entity))
@@ -156,6 +164,10 @@ export const updateEntity: ICrudPutAction<IPotentialCustomer> = entity => async 
 };
 
 export const deleteEntity: ICrudDeleteAction<IPotentialCustomer> = id => async dispatch => {
+  const jwt = Storage.local.get('jhi-authenticationToken') || Storage.session.get('jhi-authenticationToken');
+  if (jwt) {
+    client.defaults.headers['Authorization'] = `Bearer ${jwt}`;
+  }
   const requestUrl = `${apiUrl}/${id}`;
   const result = await dispatch({
     type: ACTION_TYPES.DELETE_POTENTIALCUSTOMER,

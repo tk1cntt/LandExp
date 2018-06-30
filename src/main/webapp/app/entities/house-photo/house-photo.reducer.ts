@@ -157,6 +157,10 @@ export const getImageOfHouse: ICrudGetAllAction<IHousePhoto> = id => {
 };
 
 export const createEntity: ICrudPutAction<IHousePhoto> = entity => async dispatch => {
+  const jwt = Storage.local.get('jhi-authenticationToken') || Storage.session.get('jhi-authenticationToken');
+  if (jwt) {
+    client.defaults.headers['Authorization'] = `Bearer ${jwt}`;
+  }
   const result = await dispatch({
     type: ACTION_TYPES.CREATE_HOUSEPHOTO,
     payload: client.post(apiUrl, cleanEntity(entity))
@@ -166,6 +170,10 @@ export const createEntity: ICrudPutAction<IHousePhoto> = entity => async dispatc
 };
 
 export const updateEntity: ICrudPutAction<IHousePhoto> = entity => async dispatch => {
+  const jwt = Storage.local.get('jhi-authenticationToken') || Storage.session.get('jhi-authenticationToken');
+  if (jwt) {
+    client.defaults.headers['Authorization'] = `Bearer ${jwt}`;
+  }
   const result = await dispatch({
     type: ACTION_TYPES.UPDATE_HOUSEPHOTO,
     payload: client.put(apiUrl, cleanEntity(entity))
@@ -175,6 +183,10 @@ export const updateEntity: ICrudPutAction<IHousePhoto> = entity => async dispatc
 };
 
 export const deleteEntity: ICrudDeleteAction<IHousePhoto> = id => async dispatch => {
+  const jwt = Storage.local.get('jhi-authenticationToken') || Storage.session.get('jhi-authenticationToken');
+  if (jwt) {
+    client.defaults.headers['Authorization'] = `Bearer ${jwt}`;
+  }
   const requestUrl = `${apiUrl}/${id}`;
   const result = await dispatch({
     type: ACTION_TYPES.DELETE_HOUSEPHOTO,

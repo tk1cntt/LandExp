@@ -149,6 +149,10 @@ export const getEntity: ICrudGetAction<ILandProject> = id => {
 };
 
 export const createEntity: ICrudPutAction<ILandProject> = entity => async dispatch => {
+  const jwt = Storage.local.get('jhi-authenticationToken') || Storage.session.get('jhi-authenticationToken');
+  if (jwt) {
+    client.defaults.headers['Authorization'] = `Bearer ${jwt}`;
+  }
   const result = await dispatch({
     type: ACTION_TYPES.CREATE_LANDPROJECT,
     payload: client.post(apiUrl, cleanEntity(entity))
@@ -158,6 +162,10 @@ export const createEntity: ICrudPutAction<ILandProject> = entity => async dispat
 };
 
 export const updateEntity: ICrudPutAction<ILandProject> = entity => async dispatch => {
+  const jwt = Storage.local.get('jhi-authenticationToken') || Storage.session.get('jhi-authenticationToken');
+  if (jwt) {
+    client.defaults.headers['Authorization'] = `Bearer ${jwt}`;
+  }
   const result = await dispatch({
     type: ACTION_TYPES.UPDATE_LANDPROJECT,
     payload: client.put(apiUrl, cleanEntity(entity))
@@ -167,6 +175,10 @@ export const updateEntity: ICrudPutAction<ILandProject> = entity => async dispat
 };
 
 export const deleteEntity: ICrudDeleteAction<ILandProject> = id => async dispatch => {
+  const jwt = Storage.local.get('jhi-authenticationToken') || Storage.session.get('jhi-authenticationToken');
+  if (jwt) {
+    client.defaults.headers['Authorization'] = `Bearer ${jwt}`;
+  }
   const requestUrl = `${apiUrl}/${id}`;
   const result = await dispatch({
     type: ACTION_TYPES.DELETE_LANDPROJECT,

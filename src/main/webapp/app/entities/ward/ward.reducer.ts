@@ -133,6 +133,10 @@ export const getEntity: ICrudGetAction<IWard> = id => {
 };
 
 export const createEntity: ICrudPutAction<IWard> = entity => async dispatch => {
+  const jwt = Storage.local.get('jhi-authenticationToken') || Storage.session.get('jhi-authenticationToken');
+  if (jwt) {
+    client.defaults.headers['Authorization'] = `Bearer ${jwt}`;
+  }
   const result = await dispatch({
     type: ACTION_TYPES.CREATE_WARD,
     payload: client.post(apiUrl, cleanEntity(entity))
@@ -142,6 +146,10 @@ export const createEntity: ICrudPutAction<IWard> = entity => async dispatch => {
 };
 
 export const updateEntity: ICrudPutAction<IWard> = entity => async dispatch => {
+  const jwt = Storage.local.get('jhi-authenticationToken') || Storage.session.get('jhi-authenticationToken');
+  if (jwt) {
+    client.defaults.headers['Authorization'] = `Bearer ${jwt}`;
+  }
   const result = await dispatch({
     type: ACTION_TYPES.UPDATE_WARD,
     payload: client.put(apiUrl, cleanEntity(entity))
@@ -151,6 +159,10 @@ export const updateEntity: ICrudPutAction<IWard> = entity => async dispatch => {
 };
 
 export const deleteEntity: ICrudDeleteAction<IWard> = id => async dispatch => {
+  const jwt = Storage.local.get('jhi-authenticationToken') || Storage.session.get('jhi-authenticationToken');
+  if (jwt) {
+    client.defaults.headers['Authorization'] = `Bearer ${jwt}`;
+  }
   const requestUrl = `${apiUrl}/${id}`;
   const result = await dispatch({
     type: ACTION_TYPES.DELETE_WARD,

@@ -133,6 +133,10 @@ export const getEntity: ICrudGetAction<ICity> = id => {
 };
 
 export const createEntity: ICrudPutAction<ICity> = entity => async dispatch => {
+  const jwt = Storage.local.get('jhi-authenticationToken') || Storage.session.get('jhi-authenticationToken');
+  if (jwt) {
+    client.defaults.headers['Authorization'] = `Bearer ${jwt}`;
+  }
   const result = await dispatch({
     type: ACTION_TYPES.CREATE_CITY,
     payload: client.post(apiUrl, cleanEntity(entity))
@@ -142,6 +146,10 @@ export const createEntity: ICrudPutAction<ICity> = entity => async dispatch => {
 };
 
 export const updateEntity: ICrudPutAction<ICity> = entity => async dispatch => {
+  const jwt = Storage.local.get('jhi-authenticationToken') || Storage.session.get('jhi-authenticationToken');
+  if (jwt) {
+    client.defaults.headers['Authorization'] = `Bearer ${jwt}`;
+  }
   const result = await dispatch({
     type: ACTION_TYPES.UPDATE_CITY,
     payload: client.put(apiUrl, cleanEntity(entity))
@@ -151,6 +159,10 @@ export const updateEntity: ICrudPutAction<ICity> = entity => async dispatch => {
 };
 
 export const deleteEntity: ICrudDeleteAction<ICity> = id => async dispatch => {
+  const jwt = Storage.local.get('jhi-authenticationToken') || Storage.session.get('jhi-authenticationToken');
+  if (jwt) {
+    client.defaults.headers['Authorization'] = `Bearer ${jwt}`;
+  }
   const requestUrl = `${apiUrl}/${id}`;
   const result = await dispatch({
     type: ACTION_TYPES.DELETE_CITY,

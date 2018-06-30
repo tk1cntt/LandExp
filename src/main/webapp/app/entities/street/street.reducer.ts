@@ -138,6 +138,10 @@ export const getEntity: ICrudGetAction<IStreet> = id => {
 };
 
 export const createEntity: ICrudPutAction<IStreet> = entity => async dispatch => {
+  const jwt = Storage.local.get('jhi-authenticationToken') || Storage.session.get('jhi-authenticationToken');
+  if (jwt) {
+    client.defaults.headers['Authorization'] = `Bearer ${jwt}`;
+  }
   const result = await dispatch({
     type: ACTION_TYPES.CREATE_STREET,
     payload: client.post(apiUrl, cleanEntity(entity))
@@ -147,6 +151,10 @@ export const createEntity: ICrudPutAction<IStreet> = entity => async dispatch =>
 };
 
 export const updateEntity: ICrudPutAction<IStreet> = entity => async dispatch => {
+  const jwt = Storage.local.get('jhi-authenticationToken') || Storage.session.get('jhi-authenticationToken');
+  if (jwt) {
+    client.defaults.headers['Authorization'] = `Bearer ${jwt}`;
+  }
   const result = await dispatch({
     type: ACTION_TYPES.UPDATE_STREET,
     payload: client.put(apiUrl, cleanEntity(entity))
@@ -156,6 +164,10 @@ export const updateEntity: ICrudPutAction<IStreet> = entity => async dispatch =>
 };
 
 export const deleteEntity: ICrudDeleteAction<IStreet> = id => async dispatch => {
+  const jwt = Storage.local.get('jhi-authenticationToken') || Storage.session.get('jhi-authenticationToken');
+  if (jwt) {
+    client.defaults.headers['Authorization'] = `Bearer ${jwt}`;
+  }
   const requestUrl = `${apiUrl}/${id}`;
   const result = await dispatch({
     type: ACTION_TYPES.DELETE_STREET,
