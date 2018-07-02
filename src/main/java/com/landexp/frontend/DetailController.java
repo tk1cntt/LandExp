@@ -32,6 +32,8 @@ public class DetailController {
         modelAndView.setViewName("detail");
         HouseDTO dto = houseService.findOne(Utils.decodeId(id)).get();
         HouseDetailResponse response = MappingUtils.mappingHouseDetailResponse(dto);
+        modelAndView.addObject("title", response.getTitle());
+        modelAndView.addObject("description", response.getDescription());
         modelAndView.addObject("house", response.getHouse());
         modelAndView.addObject("images", response.getImages());
         return modelAndView;

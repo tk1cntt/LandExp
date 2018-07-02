@@ -3,7 +3,7 @@
 
 <head>
     <meta charset="UTF-8">
-    <title>LandExp</title>
+    <title>[[${title}]]</title>
     <link rel="stylesheet" href="/css/bootstrap.min.css">
     <link rel="stylesheet" href="/css/font-awesome.min.css">
     <link rel="stylesheet" href="/css/bootstrap-datepicker3.min.css">
@@ -61,8 +61,8 @@
                                         th:class="${iteration.index == 0} ? 'active' : ''"
                                         th:attr="data-slide-to=${iteration.index}" data-target="#carousel-product">
                                         <img
-                                            th:src="@{'data:'+ ${image.imageContentType}+';base64,'+${image.imageData}}"
-                                            alt="...">
+                                            th:src="@{'/api/house-photos/' + ${image.imageId} + '/contents/' + ${house.link}} + '-' + ${iteration.index} + '.jpeg'"
+                                            th:attr="alt=(${title} + '-' + ${iteration.index})">
                                     </li>
                                 </ul>
                             </div>
@@ -298,6 +298,7 @@
                 $('.thumbnail-slider').jcarousel('scroll', '+=1');
             });
         });
+
 
 </script>
 </body>

@@ -97,7 +97,7 @@
             </h2>
             <div class="row">
                 <div class="tab-content">
-                    <div id="list" class="tab-pane fade active in" role="tabpanel">
+                    <div id="list" class="tab-pane fade" role="tabpanel">
                         <div class="listview-left">
                             <div class="post-item" th:each="house : ${houses}">
                                 <div class="item-thumbnail">
@@ -377,7 +377,7 @@
                             </div>
                         </div>
                     </div>
-                    <div id="grid" class="tab-pane fade" role="tabpanel">
+                    <div id="grid" class="tab-pane fade active in" role="tabpanel">
                         <div class="gridview">
                             <div class="col-md-3 post-item" th:each="house : ${houses}">
                                 <div class="item-thumbnail">
@@ -386,8 +386,8 @@
                                         <img src="/upload/products/item-1.png" alt="">
                                     </a>
                                     <div class="type"
-                                         th:classappend="${house.actionType == 'CHO THUÊ'} ? chothue : ban">
-                                        [[${house.actionType}]]
+                                         th:classappend="${house.actionType == 'Cho thuê'} ? chothue : ban">
+                                        [[${#strings.toUpperCase(house.actionType)}]]
                                     </div>
                                     <a href="#" class="like-button">
                                         <i class="fa fa-heart-o"></i>
@@ -436,11 +436,11 @@
     </div>
 </div>
 <footer th:replace="fragments/footer :: footer"></footer>
-<script type="text/javascript" src="js/jquery-3.3.1.min.js"></script>
-<script type="text/javascript" src="js/bootstrap.min.js"></script>
-<script type="text/javascript" src="js/jquery.jcarousel.min.js"></script>
-<script type="text/javascript" src="js/bootstrap-datepicker.min.js"></script>
-<script type="text/javascript" src="js/custom.js"></script>
+<script type="text/javascript" src="/js/jquery-3.3.1.min.js"></script>
+<script type="text/javascript" src="/js/bootstrap.min.js"></script>
+<script type="text/javascript" src="/js/jquery.jcarousel.min.js"></script>
+<script type="text/javascript" src="/js/bootstrap-datepicker.min.js"></script>
+<script type="text/javascript" src="/js/custom.js"></script>
 <script>
         $(function() {
             $('.related-carousel').jcarousel();

@@ -58,9 +58,9 @@ public class MappingUtils {
 
     public static String formatActionType(UserActionType actionType) {
         if (actionType == UserActionType.FOR_SELL) {
-            return "BÁN";
+            return "Bán";
         }
-        return "CHO THUÊ";
+        return "Cho thuê";
     }
 
     public static String formatDirection(DirectionType type) {
@@ -88,7 +88,7 @@ public class MappingUtils {
     public static String formatLandType(LandType type) {
         switch (type) {
             case APARTMENT:
-                return "Căn hộ chung cư";
+                return "Chung cư";
             case PEN_HOUSE:
                 return "Penhouse";
             case HOME:
@@ -153,6 +153,7 @@ public class MappingUtils {
 
     public static HouseImageResponse mappingHouseImageResponse(HousePhotoDTO dto) {
         HouseImageResponse response = new HouseImageResponse();
+        response.setImageId(Utils.encodeId(dto.getId()));
         response.setImageData(formatImageData(dto.getImage()));
         response.setImageContentType(dto.getImageContentType());
         return response;
@@ -168,6 +169,8 @@ public class MappingUtils {
 
     public static HouseDetailResponse mappingHouseDetailResponse(HouseDTO dto) {
         HouseDetailResponse response = new HouseDetailResponse();
+        response.setTitle(formatTitle(dto));
+        response.setDescription(dto.getSummary());
         response.setHouse(mappingHouseResponse(dto));
         response.setImages(mappingHouseImageResponses(dto.getPhotos()));
         return response;
@@ -179,6 +182,20 @@ public class MappingUtils {
         sb.append(StringUtils.isEmpty(dto.getWardName()) ? "" : ", " + dto.getWardName());
         sb.append(StringUtils.isEmpty(dto.getDistrictName()) ? "" : ", " + dto.getDistrictName());
         sb.append(StringUtils.isEmpty(dto.getCityName()) ? "" : ", " + dto.getCityName());
+        return sb.toString();
+    }
+
+    private static String formatTitle(HouseDTO dto) {
+        StringBuilder sb = new StringBuilder();
+        sb.append(formatActionType(dto.getActionType()));
+        sb.append(" - ");
+        sb.append(formatLandType(dto.getLandType()));
+        sb.append(" - ");
+        sb.append(formatMoney(dto.getMoney(), dto.getActionType())
+            .replaceAll("<span>", "")
+            .replaceAll("</span>", ""));
+        sb.append(StringUtils.isEmpty(dto.getDistrictName()) ? "" : " - " + dto.getDistrictName());
+        sb.append(StringUtils.isEmpty(dto.getCityName()) ? "" : " - " + dto.getCityName());
         return sb.toString();
     }
 
@@ -217,8 +234,6 @@ public class MappingUtils {
 
     public static String removeAccent(String s) {
         if (StringUtils.isEmpty(s)) return null;
-        String temp = Normalizer.normalize(s, Normalizer.Form.NFD);
-        Pattern pattern = Pattern.compile("\\p{InCombiningDiacriticalMarks}+");
-        return pattern.matcher(temp).replaceAll("");
+        return VNCharacterUtils.removeAccent(s);
     }
 }
