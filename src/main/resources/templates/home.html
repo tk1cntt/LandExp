@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<html xmlns:th="http://www.w3.org/1999/xhtml" lang="en">
 <head>
     <meta charset="UTF-8">
     <title>LandExp</title>
@@ -86,9 +86,11 @@
                     </select>
                     <ul role="tablist">
                         <li role="presentation" class="listview-button">
-                            <a href="#list" aria-controls="list" role="tab" data-toggle="tab" aria-expanded="false"></a></li>
+                            <a href="#list" aria-controls="list" role="tab" data-toggle="tab" aria-expanded="false"></a>
+                        </li>
                         <li role="presentation" class="gridview-button active">
-                            <a href="#grid" aria-controls="grid" role="tab" data-toggle="tab" aria-selected="true" aria-expanded="true"></a>
+                            <a href="#grid" aria-controls="grid" role="tab" data-toggle="tab" aria-selected="true"
+                               aria-expanded="true"></a>
                         </li>
                     </ul>
                 </div>
@@ -99,10 +101,14 @@
                         <div class="listview-left">
                             <div class="post-item" th:each="house : ${houses}">
                                 <div class="item-thumbnail">
-                                    <a th:with="baseUrl=('/bat-dong-san/' + ${house.id} + '/' + ${house.link})" th:href="@{${baseUrl}}">
+                                    <a th:with="baseUrl=('/bat-dong-san/' + ${house.id} + '/' + ${house.link})"
+                                       th:href="@{${baseUrl}}">
                                         <img src="/upload/products/item-1.png" alt="">
                                     </a>
-                                    <div class="type" th:classappend="${house.actionType == 'CHO THUÊ'} ? chothue : ban">[[${house.actionType}]]</div>
+                                    <div class="type"
+                                         th:classappend="${house.actionType == 'CHO THUÊ'} ? chothue : ban">
+                                        [[${house.actionType}]]
+                                    </div>
                                 </div>
                                 <div class="item-info">
                                     <a href="#"><h3 class="title">[[${house.landType}]]</h3></a>
@@ -297,7 +303,8 @@
                                                             <img src="/upload/products/item-1.png" alt="">
                                                         </a>
                                                         <div class="type ban">BÁN</div>
-                                                        <a href="#" class="like-button"><i class="fa fa-heart-o"></i></a>
+                                                        <a href="#" class="like-button"><i
+                                                            class="fa fa-heart-o"></i></a>
                                                     </div>
                                                     <div class="item-info">
                                                         <a href="#"><h3 class="title">Căn hộ chung cư</h3></a>
@@ -320,7 +327,8 @@
                                                             <img src="/upload/products/item-1.png" alt="">
                                                         </a>
                                                         <div class="type ban">BÁN</div>
-                                                        <a href="#" class="like-button"><i class="fa fa-heart-o"></i></a>
+                                                        <a href="#" class="like-button"><i
+                                                            class="fa fa-heart-o"></i></a>
                                                     </div>
                                                     <div class="item-info">
                                                         <a href="#"><h3 class="title">Căn hộ chung cư</h3></a>
@@ -344,7 +352,8 @@
                                                             <img src="/upload/products/item-1.png" alt="">
                                                         </a>
                                                         <div class="type ban">BÁN</div>
-                                                        <a href="#" class="like-button"><i class="fa fa-heart-o"></i></a>
+                                                        <a href="#" class="like-button"><i
+                                                            class="fa fa-heart-o"></i></a>
                                                     </div>
                                                     <div class="item-info">
                                                         <a href="#"><h3 class="title">Căn hộ chung cư</h3></a>
@@ -372,10 +381,14 @@
                         <div class="gridview">
                             <div class="col-md-3 post-item" th:each="house : ${houses}">
                                 <div class="item-thumbnail">
-                                    <a th:with="baseUrl=('/bat-dong-san/' + ${house.id} + '/' + ${house.link})" th:href="@{${baseUrl}}">
+                                    <a th:with="baseUrl=('/bat-dong-san/' + ${house.id} + '/' + ${house.link})"
+                                       th:href="@{${baseUrl}}">
                                         <img src="/upload/products/item-1.png" alt="">
                                     </a>
-                                    <div class="type" th:classappend="${house.actionType == 'CHO THUÊ'} ? chothue : ban">[[${house.actionType}]]</div>
+                                    <div class="type"
+                                         th:classappend="${house.actionType == 'CHO THUÊ'} ? chothue : ban">
+                                        [[${house.actionType}]]
+                                    </div>
                                     <a href="#" class="like-button">
                                         <i class="fa fa-heart-o"></i>
                                     </a>
@@ -422,7 +435,7 @@
         </div>
     </div>
 </div>
-<footer th:replace="fragments/footer :: footer"> </footer>
+<footer th:replace="fragments/footer :: footer"></footer>
 <script type="text/javascript" src="js/jquery-3.3.1.min.js"></script>
 <script type="text/javascript" src="js/bootstrap.min.js"></script>
 <script type="text/javascript" src="js/jquery.jcarousel.min.js"></script>
@@ -440,6 +453,7 @@
                 $('.related-carousel').jcarousel('scroll', '+=1');
             });
         });
+
 
 </script>
 </body>

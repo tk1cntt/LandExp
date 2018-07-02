@@ -5,6 +5,7 @@ import com.landexp.domain.enumeration.DirectionType;
 import com.landexp.domain.enumeration.LandType;
 import com.landexp.domain.enumeration.UserActionType;
 import com.landexp.service.dto.HouseDTO;
+import com.landexp.service.dto.HousePhotoDTO;
 import org.springframework.util.ObjectUtils;
 import org.springframework.util.StringUtils;
 
@@ -12,8 +13,10 @@ import java.text.Normalizer;
 import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.time.ZoneId;
+import java.util.ArrayList;
 import java.util.Base64;
 import java.util.Date;
+import java.util.List;
 import java.util.regex.Pattern;
 
 public class MappingUtils {
@@ -115,8 +118,14 @@ public class MappingUtils {
         }
     }
 
-    public static HouseResponse mappingHouse(HouseDTO dto) {
+    private static String formatImageData(byte[] data) {
+        return ObjectUtils.isEmpty(data) ? null : new String(Base64.getEncoder().encode(data));
+    }
+
+    public static HouseResponse mappingHouseResponse(HouseDTO dto) {
         HouseResponse response = new HouseResponse();
+        response.setAvatar(formatImageData(dto.getAvatar()));
+        response.setAvatarContentType(dto.getAvatarContentType());
         response.setActionType(formatActionType(dto.getActionType()));
         response.setLandType(formatLandType(dto.getLandType()));
         response.setAddress(dto.getDistrictName() + ", " + dto.getCityName());
@@ -139,6 +148,28 @@ public class MappingUtils {
         response.setCustomer(dto.getCustomer());
         response.setMobile(dto.getMobile());
         response.setEmail(dto.getEmail());
+        return response;
+    }
+
+    public static HouseImageResponse mappingHouseImageResponse(HousePhotoDTO dto) {
+        HouseImageResponse response = new HouseImageResponse();
+        response.setImageData(formatImageData(dto.getImage()));
+        response.setImageContentType(dto.getImageContentType());
+        return response;
+    }
+
+    public static List<HouseImageResponse> mappingHouseImageResponses(List<HousePhotoDTO> images) {
+        List<HouseImageResponse> responses = new ArrayList<>();
+        for (HousePhotoDTO dto : images) {
+            responses.add(mappingHouseImageResponse(dto));
+        }
+        return responses;
+    }
+
+    public static HouseDetailResponse mappingHouseDetailResponse(HouseDTO dto) {
+        HouseDetailResponse response = new HouseDetailResponse();
+        response.setHouse(mappingHouseResponse(dto));
+        response.setImages(mappingHouseImageResponses(dto.getPhotos()));
         return response;
     }
 

@@ -1,13 +1,10 @@
 package com.landexp.frontend.responses;
 
-import com.landexp.domain.enumeration.*;
-
-import javax.persistence.Lob;
-import java.time.LocalDate;
-
 public class HouseResponse {
     private String id;
     private String link;
+    private String avatar;
+    private String avatarContentType;
     private String actionType;
     private String landType;
     private String projectName;
@@ -48,6 +45,22 @@ public class HouseResponse {
 
     public void setLink(String link) {
         this.link = link;
+    }
+
+    public String getAvatar() {
+        return avatar;
+    }
+
+    public void setAvatar(String avatar) {
+        this.avatar = avatar;
+    }
+
+    public String getAvatarContentType() {
+        return avatarContentType;
+    }
+
+    public void setAvatarContentType(String avatarContentType) {
+        this.avatarContentType = avatarContentType;
     }
 
     public String getActionType() {

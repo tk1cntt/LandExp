@@ -2100,11 +2100,22 @@ label {
 
 .carousel .carousel-indicators img {
   border: 2px solid #ffffff;
-  float: left;
+  object-fit: cover; /* Do not scale the image */
+  object-position: center; /* Center the image within the element */
+  width: 107px !important;
   height: 67px;
+  float: left;
   left: 0;
-  width: 107px;
 }
+
+.carousel-inner > .item > a > img,
+.carousel-inner > .item > img {
+  object-fit: cover; /* Do not scale the image */
+  object-position: center; /* Center the image within the element */
+  width: 565px !important;
+  height: 376px;
+}
+
 .carousel .carousel-indicators .active img {
   border: 2px solid #39b3d7;
 }

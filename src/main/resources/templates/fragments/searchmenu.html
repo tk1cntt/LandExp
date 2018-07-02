@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<html xmlns:th="http://www.w3.org/1999/xhtml" lang="en">
 <body class="home">
 <div th:fragment="searchmenu">
     <div class="nav-search">
@@ -8,8 +8,9 @@
                 <div class="row">
                     <div class="select-box">
                         <div class="select dropdown">
-                            <span id="type" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Hình thức</span>
-                            <input type="hidden" id="slType" name="slType" />
+                            <span id="type" data-toggle="dropdown" role="button" aria-haspopup="true"
+                                  aria-expanded="false">Hình thức</span>
+                            <input type="hidden" id="slType" name="slType"/>
                             <ul class="dropdown-menu js-type" aria-labelledby="type">
                                 <li class="options active" data-value="mua">Mua</li>
                                 <li class="options" data-value="thue">Thuê</li>
@@ -18,8 +19,9 @@
                     </div>
                     <div class="select-box">
                         <div class="select dropdown">
-                            <span id="category" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Loại bất động sản</span>
-                            <input type="hidden" id="slCategory" name="slCategory" />
+                            <span id="category" data-toggle="dropdown" role="button" aria-haspopup="true"
+                                  aria-expanded="false">Loại bất động sản</span>
+                            <input type="hidden" id="slCategory" name="slCategory"/>
                             <ul class="dropdown-menu js-category" aria-labelledby="category">
                                 <li class="options" data-value="can-ho-chung-cu">Căn hộ chung cư</li>
                                 <li class="options" data-value="penthouse">Penthouse</li>
@@ -42,19 +44,24 @@
                    -->
                     <div class="select-box">
                         <div class="select dropdown">
-                            <span id="price" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Khoảng giá</span>
-                            <input type="hidden" id="slPrice" name="slPrice" />
+                            <span id="price" data-toggle="dropdown" role="button" aria-haspopup="true"
+                                  aria-expanded="false">Khoảng giá</span>
+                            <input type="hidden" id="slPrice" name="slPrice"/>
                             <ul class="dropdown-menu js-price" aria-labelledby="price">
                                 <div class="header-box">
                                     <table class="header-options options">
                                         <tr class="advance-options">
                                             <td class="advance-options">
-                                                <input type="text" id="txtPriceMinValue" name="pricemin" placeholder="Từ" class="min-value options" maxlength="6" numbersonly="true" decimal="true" value="" />
+                                                <input type="text" id="txtPriceMinValue" name="pricemin"
+                                                       placeholder="Từ" class="min-value options" maxlength="6"
+                                                       numbersonly="true" decimal="true" value=""/>
                                                 <div id="lblPriceMin"></div>
                                             </td>
                                             <td class="advance-options"><span class="advance-options"></span></td>
                                             <td class="advance-options">
-                                                <input type="text" id="txtPriceMaxValue" name="pricemax" placeholder="Đến" class="max-value options" maxlength="6" numbersonly="true" decimal="true" value="" />
+                                                <input type="text" id="txtPriceMaxValue" name="pricemax"
+                                                       placeholder="Đến" class="max-value options" maxlength="6"
+                                                       numbersonly="true" decimal="true" value=""/>
                                                 <div id="lblPriceMax"></div>
                                             </td>
                                         </tr>
@@ -75,19 +82,24 @@
                    -->
                     <div class="select-box">
                         <div class="select dropdown">
-                            <span id="square" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Diện tích</span>
-                            <input type="hidden" id="slSqrare" name="slSqrare" />
+                            <span id="square" data-toggle="dropdown" role="button" aria-haspopup="true"
+                                  aria-expanded="false">Diện tích</span>
+                            <input type="hidden" id="slSqrare" name="slSqrare"/>
                             <ul class="dropdown-menu js-square" aria-labelledby="square">
                                 <div class="header-box">
                                     <table class="header-options options">
                                         <tr class="advance-options">
                                             <td class="advance-options">
-                                                <input type="text" id="txtSquareMinValue" name="pricemin" placeholder="Từ" class="min-value options" maxlength="6" numbersonly="true" decimal="true" value="" />
+                                                <input type="text" id="txtSquareMinValue" name="pricemin"
+                                                       placeholder="Từ" class="min-value options" maxlength="6"
+                                                       numbersonly="true" decimal="true" value=""/>
                                                 <div id="lblSquareMin"></div>
                                             </td>
                                             <td class="advance-options"><span class="advance-options"></span></td>
                                             <td class="advance-options">
-                                                <input type="text" id="txtSquareMaxValue" name="pricemax" placeholder="Đến" class="max-value options" maxlength="6" numbersonly="true" decimal="true" value="" />
+                                                <input type="text" id="txtSquareMaxValue" name="pricemax"
+                                                       placeholder="Đến" class="max-value options" maxlength="6"
+                                                       numbersonly="true" decimal="true" value=""/>
                                                 <div id="lblSquareMax"></div>
                                             </td>
                                         </tr>
@@ -106,11 +118,13 @@
                    -->
                     <div class="select-box">
                         <div class="select dropdown mega-dropdown">
-                            <span id="filter-more" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Lọc thêm</span>
+                            <span id="filter-more" data-toggle="dropdown" role="button" aria-haspopup="true"
+                                  aria-expanded="false">Lọc thêm</span>
                             <ul class="dropdown-menu has-sub" aria-labelledby="filter-more">
                                 <li class="options dropdown-submenu">
-                                    <input type="hidden" id="slBathroom" name="slBathroom" />
-                                    <div id="bathroom" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Số phòng tắm<span>Bất kỳ</span></div>
+                                    <input type="hidden" id="slBathroom" name="slBathroom"/>
+                                    <div id="bathroom" data-toggle="dropdown" role="button" aria-haspopup="true"
+                                         aria-expanded="false">Số phòng tắm<span>Bất kỳ</span></div>
                                     <ul class="dropdown-menu js-bathroom" aria-labelledby="bathroom">
                                         <li data-value="">Bất kỳ</li>
                                         <li data-value="1">+1</li>
@@ -121,8 +135,9 @@
                                     </ul>
                                 </li>
                                 <li class="options dropdown-submenu">
-                                    <input type="hidden" id="slBedroom" name="slBedroom" />
-                                    <div id="bedroom" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Số phòng ngủ<span>Bất kỳ</span></div>
+                                    <input type="hidden" id="slBedroom" name="slBedroom"/>
+                                    <div id="bedroom" data-toggle="dropdown" role="button" aria-haspopup="true"
+                                         aria-expanded="false">Số phòng ngủ<span>Bất kỳ</span></div>
                                     <ul class="dropdown-menu js-bedroom" aria-labelledby="bedroom">
                                         <li data-value="">Bất kỳ</li>
                                         <li data-value="1">+1</li>
@@ -133,8 +148,9 @@
                                     </ul>
                                 </li>
                                 <li class="options dropdown-submenu">
-                                    <input type="hidden" id="slGara" name="slGara" />
-                                    <div id="gara" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Chỗ để ô tô<span>Bất kỳ</span></div>
+                                    <input type="hidden" id="slGara" name="slGara"/>
+                                    <div id="gara" data-toggle="dropdown" role="button" aria-haspopup="true"
+                                         aria-expanded="false">Chỗ để ô tô<span>Bất kỳ</span></div>
                                     <ul class="dropdown-menu js-gara" aria-labelledby="gara">
                                         <li data-value="">Bất kỳ</li>
                                         <li data-value="1">Có</li>
@@ -142,8 +158,9 @@
                                     </ul>
                                 </li>
                                 <li class="options dropdown-submenu">
-                                    <input type="hidden" id="slDirection" name="slDirection" />
-                                    <div id="direction" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Hướng<span>Bất kỳ</span></div>
+                                    <input type="hidden" id="slDirection" name="slDirection"/>
+                                    <div id="direction" data-toggle="dropdown" role="button" aria-haspopup="true"
+                                         aria-expanded="false">Hướng<span>Bất kỳ</span></div>
                                     <ul class="dropdown-menu js-direction" aria-labelledby="direction">
                                         <li data-value="">Bất kỳ</li>
                                         <li data-value="1">Đông</li>
@@ -157,8 +174,9 @@
                                     </ul>
                                 </li>
                                 <li class="options dropdown-submenu">
-                                    <input type="hidden" id="slPostdate" name="slPostdate" />
-                                    <div id="postdate" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Ngày đăng<span>Bất kỳ</span></div>
+                                    <input type="hidden" id="slPostdate" name="slPostdate"/>
+                                    <div id="postdate" data-toggle="dropdown" role="button" aria-haspopup="true"
+                                         aria-expanded="false">Ngày đăng<span>Bất kỳ</span></div>
                                     <ul class="dropdown-menu js-postdate" aria-labelledby="postdate">
                                         <li data-value="">Bất kỳ</li>
                                         <li data-value="1">Cách đây 1 ngày</li>
@@ -171,10 +189,13 @@
                                 <li class="dropdown-button">
                                     <div class="btn-row">
                                         <div>
-                                            <button type="button" id="clear-menu" class="btn btn-sub btn-default">Xóa</button>
+                                            <button type="button" id="clear-menu" class="btn btn-sub btn-default">Xóa
+                                            </button>
                                         </div>
                                         <div>
-                                            <button type="button" id="close-menu" class="btn btn-sub btn-primary">Hoàn tất</button>
+                                            <button type="button" id="close-menu" class="btn btn-sub btn-primary">Hoàn
+                                                tất
+                                            </button>
                                         </div>
                                     </div>
                                 </li>
