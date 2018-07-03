@@ -95,7 +95,7 @@ export class StepFive extends React.Component<IStepFiveProp, IStepFiveState> {
           </h3>
           <p className="text-center subtitle">
             <i className="fa fa-lightbulb-o" />
-            <em>Mức giá và chính sách bán là thông tin rất quan trọng để trao đổi và thỏa thuận với người mua.</em>
+            <em> Mức giá và chính sách bán là thông tin rất quan trọng để trao đổi và thỏa thuận với người mua.</em>
           </p>
         </Col>
         <Col md="12">
