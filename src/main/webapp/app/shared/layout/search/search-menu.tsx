@@ -16,6 +16,132 @@ export interface ISearchPageProp extends StateProps, DispatchProps {}
 export class SearchPage extends React.Component<ISearchPageProp> {
   handleChangeActionType = () => {};
 
+  componentDidMount() {
+    $('.dropdown-submenu div').on('click', function(e) {
+      $(this)
+        .next('ul')
+        .toggle();
+      e.stopPropagation();
+      e.preventDefault();
+    });
+
+    $('.dropdown-menu.has-sub').on('click', function(event) {
+      event.stopPropagation();
+    });
+
+    $('.select li').click(function() {
+      $(this)
+        .siblings()
+        .removeClass('active');
+      $(this).addClass('active');
+    });
+
+    $('.select .js-type li').click(function() {
+      $('.select span#type').text($(this).html());
+      $('.select input#slType').attr('value', $(this).attr('data-value'));
+    });
+
+    $('.select .js-category li').click(function() {
+      $('.select span#category').text($(this).html());
+      $('.select input#slCategory').attr('value', $(this).attr('data-value'));
+    });
+
+    $('.select .js-price li').click(function() {
+      $('.select span#price').text($(this).text());
+      $('.select input#slPrice').attr('value', $(this).attr('data-value'));
+    });
+
+    $('.select .js-square li').click(function() {
+      $('.select span#square').text($(this).text());
+      $('.select input#slSqrare').attr('value', $(this).attr('data-value'));
+    });
+
+    $('.js-bathroom li').click(function() {
+      $('.js-bathroom').css('display', 'none');
+      $('#bathroom span').text($(this).html());
+      $('input#slBathroom').attr('value', $(this).attr('data-value'));
+    });
+
+    $('.select .js-bathroom li').click(function() {
+      $('.select span#bathroom').text($(this).text());
+      $('.select input#slBathroom').attr('value', $(this).attr('data-value'));
+    });
+
+    $('.js-bedroom li').click(function() {
+      $('.js-bedroom').css('display', 'none');
+      $('#bedroom span').text($(this).html());
+      $('input#slBedroom').attr('value', $(this).attr('data-value'));
+    });
+
+    $('.select .js-bedroom li').click(function() {
+      $('.select span#bedroom').text($(this).text());
+      $('.select input#slBedroom').attr('value', $(this).attr('data-value'));
+    });
+
+    $('.js-gara li').click(function() {
+      $('.js-gara').css('display', 'none');
+      $('#gara span').text($(this).html());
+      $('input#slGara').attr('value', $(this).attr('data-value'));
+    });
+
+    $('.js-direction li').click(function() {
+      $('.js-direction').css('display', 'none');
+      $('#direction span').text($(this).html());
+      $('input#slDirection').attr('value', $(this).attr('data-value'));
+    });
+
+    $('.js-postdate li').click(function() {
+      $('.js-postdate').css('display', 'none');
+      $('#postdate span').text($(this).html());
+      $('input#slPostdate').attr('value', $(this).attr('data-value'));
+    });
+
+    $('#close-menu').click(function() {
+      $('.select.dropdown.mega-dropdown').removeClass('open');
+      $('#filter-more').attr('aria-expanded', 'false');
+      $('.dropdown-backdrop').remove();
+      let filterCount = 0;
+
+      if ($('.dropdown-submenu input#slBathroom').val() !== '') {
+        filterCount++;
+      }
+      if ($('.dropdown-submenu input#slBedroom').val() !== '') {
+        filterCount++;
+      }
+      if ($('.dropdown-submenu input#slGara').val() !== '') {
+        filterCount++;
+      }
+      if ($('.dropdown-submenu input#slDirection').val() !== '') {
+        filterCount++;
+      }
+      if ($('.dropdown-submenu input#slPostdate').val() !== '') {
+        filterCount++;
+      }
+      $('#filter-more').html('Lọc thêm <strong>(' + filterCount + ')</strong>');
+    });
+
+    $('#clear-menu').click(function() {
+      $('#bathroom span').html('Bất kỳ');
+      $('input#slBathroom').attr('value', '');
+      $('#bedroom span').html('Bất kỳ');
+      $('input#slBedroom').attr('value', '');
+      $('#gara span').html('Bất kỳ');
+      $('input#slGara').attr('value', '');
+      $('#direction span').html('Bất kỳ');
+      $('input#slDirection').attr('value', '');
+      $('#postdate span').html('Bất kỳ');
+      $('input#slPostdate').attr('value', '');
+    });
+
+    $('.js-price .advance-options input').change(function() {
+      $('#price').html($('.js-price input.min-value').val() + ' - ' + $('.js-price input.max-value').val() + ' tỷ');
+    });
+
+    $('.js-square .advance-options input').change(function() {
+      $('#square').html($('.js-square input.min-value').val() + ' - ' + $('.js-square input.max-value').val() + ' m2');
+    });
+  }
+
   actionTypeForm() {
     return (
       <Select style={{ width: 130, marginRight: 1 }} placeholder="Hình thức" onChange={this.handleChangeActionType}>
@@ -74,18 +200,7 @@ export class SearchPage extends React.Component<ISearchPageProp> {
     );
   }
 
-  menuTypeClick(e) {
-    $('.select li').click(function() {
-      $(this)
-        .siblings()
-        .removeClass('active');
-      $(this).addClass('active');
-    });
-    $('.select .js-type li').click(function() {
-      $('.select span#type').text($(this).html());
-      $('.select input#slType').attr('value', $(this).attr('data-value'));
-    });
-  }
+  menuTypeClick(e) {}
 
   menuTypeForm() {
     return (
@@ -108,19 +223,7 @@ export class SearchPage extends React.Component<ISearchPageProp> {
     );
   }
 
-  menuLandTypeClick(e) {
-    $('.select li').click(function() {
-      $(this)
-        .siblings()
-        .removeClass('active');
-      $(this).addClass('active');
-    });
-
-    $('.select .js-category li').click(function() {
-      $('.select span#category').text($(this).html());
-      $('.select input#slCategory').attr('value', $(this).attr('data-value'));
-    });
-  }
+  menuLandTypeClick(e) {}
 
   menuLandTypeForm() {
     return (
@@ -164,19 +267,7 @@ export class SearchPage extends React.Component<ISearchPageProp> {
     );
   }
 
-  menuPriceClick(e) {
-    $('.select li').click(function() {
-      $(this)
-        .siblings()
-        .removeClass('active');
-      $(this).addClass('active');
-    });
-
-    $('.select .js-price li').click(function() {
-      $('.select span#price').text($(this).text());
-      $('.select input#slPrice').attr('value', $(this).attr('data-value'));
-    });
-  }
+  menuPriceClick(e) {}
 
   menuPriceForm() {
     return (
@@ -236,19 +327,7 @@ export class SearchPage extends React.Component<ISearchPageProp> {
     );
   }
 
-  menuSpareClick(e) {
-    $('.select li').click(function() {
-      $(this)
-        .siblings()
-        .removeClass('active');
-      $(this).addClass('active');
-    });
-
-    $('.select .js-square li').click(function() {
-      $('.select span#square').text($(this).text());
-      $('.select input#slSqrare').attr('value', $(this).attr('data-value'));
-    });
-  }
+  menuSpareClick(e) {}
 
   menuSpareForm() {
     return (
@@ -304,85 +383,6 @@ export class SearchPage extends React.Component<ISearchPageProp> {
 
   /*
   menuMoreClick() {
-    $(document).ready(function() {
-      $('.dropdown-submenu div').on('click', function(e) {
-        $(this)
-          .next('ul')
-          .toggle();
-        e.stopPropagation();
-        e.preventDefault();
-      });
-    });
-
-    $('.dropdown-menu.has-sub').on('click', function(event) {
-      event.stopPropagation();
-    });
-
-    $('.select li').click(function() {
-      $(this)
-        .siblings()
-        .removeClass('active');
-      $(this).addClass('active');
-    });
-
-    $('.js-bathroom li').click(function() {
-      $('.js-bathroom').css('display', 'none');
-      $('#bathroom span').text($(this).html());
-      $('input#slBathroom').attr('value', $(this).attr('data-value'));
-    });
-
-    $('.select .js-bathroom li').click(function() {
-      $('.select span#bathroom').text($(this).text());
-      $('.select input#slBathroom').attr('value', $(this).attr('data-value'));
-    });
-
-    $('.js-bedroom li').click(function() {
-      $('.js-bedroom').css('display', 'none');
-      $('#bedroom span').text($(this).html());
-      $('input#slBedroom').attr('value', $(this).attr('data-value'));
-    });
-
-    $('.select .js-bedroom li').click(function() {
-      $('.select span#bedroom').text($(this).text());
-      $('.select input#slBedroom').attr('value', $(this).attr('data-value'));
-    });
-
-    $('.js-gara li').click(function() {
-      $('.js-gara').css('display', 'none');
-      $('#gara span').text($(this).html());
-      $('input#slGara').attr('value', $(this).attr('data-value'));
-    });
-
-    $('.js-direction li').click(function() {
-      $('.js-direction').css('display', 'none');
-      $('#direction span').text($(this).html());
-      $('input#slDirection').attr('value', $(this).attr('data-value'));
-    });
-
-    $('.js-postdate li').click(function() {
-      $('.js-postdate').css('display', 'none');
-      $('#postdate span').text($(this).html());
-      $('input#slPostdate').attr('value', $(this).attr('data-value'));
-    });
-
-    $('#close-menu').click(function() {
-      $('.select.dropdown.mega-dropdown').removeClass('open');
-      $('#filter-more').attr('aria-expanded', 'false');
-      $('.dropdown-backdrop').remove();
-    });
-
-    $('#clear-menu').click(function() {
-      $('#bathroom span').html('Bất kỳ');
-      $('input#slBathroom').attr('value', '');
-      $('#bedroom span').html('Bất kỳ');
-      $('input#slBedroom').attr('value', '');
-      $('#gara span').html('Bất kỳ');
-      $('input#slGara').attr('value', '');
-      $('#direction span').html('Bất kỳ');
-      $('input#slDirection').attr('value', '');
-      $('#postdate span').html('Bất kỳ');
-      $('input#slPostdate').attr('value', '');
-    });
   }
   */
 
