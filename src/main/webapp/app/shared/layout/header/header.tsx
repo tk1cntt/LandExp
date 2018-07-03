@@ -119,12 +119,9 @@ export default class Header extends React.Component<IHeaderProps, IHeaderState> 
                 </li>
                 <li>
                   <Dropdown overlay={menu}>
-                    <Link to={'/'}>
-                      <img className="avatar" src="/static/images/user.jpg" alt="Thong tin tai khoan" />
-                    </Link>
+                    <img className="avatar" src="/static/images/user.jpg" alt="Thong tin tai khoan" />
                   </Dropdown>,
                 </li>
-
                 <li>
                   <Link className="button" to={'/tai-khoan/dang-tin'}>
                     Đăng tin

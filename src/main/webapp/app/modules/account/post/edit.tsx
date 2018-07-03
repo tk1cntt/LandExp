@@ -523,14 +523,6 @@ export class EditPage extends React.Component<IEditProp, IEditState> {
     };
     const steps = [
       {
-        title: 'Hình thức',
-        content: <StepOne house={entity} updateHouse={this.updateHouse} />
-      },
-      {
-        title: 'Vị trí',
-        content: <StepTwo house={entity} updateHouse={this.updateHouse} />
-      },
-      {
         title: 'Đặc điểm',
         content: <StepThree house={entity} updateHouse={this.updateHouse} />
       },
@@ -541,10 +533,6 @@ export class EditPage extends React.Component<IEditProp, IEditState> {
       {
         title: 'Giá',
         content: <StepFive house={entity} updateHouse={this.updateHouse} />
-      },
-      {
-        title: 'Liên hệ',
-        content: <StepSix house={entity} updateHouse={this.updateHouse} />
       }
     ];
 
@@ -559,46 +547,42 @@ export class EditPage extends React.Component<IEditProp, IEditState> {
           </div>
           <Row>
             <Col md="8">
-              <div style={{ height: '100%' }}>
-                <Card title="Thông tin về ngôi nhà của bạn" bordered={false} style={{ width: '100%', height: '100%' }}>
-                  <div className="steps-content">{steps[this.state.current].content}</div>
-                  <div className="steps-action" style={{ marginTop: 16 }}>
-                    {this.state.current > 0 && (
-                      <Button style={{ marginRight: 8 }} onClick={this.prev}>
-                        Quay lại
-                      </Button>
-                    )}
-                    {this.state.current < steps.length - 1 && (
-                      <Button type="primary" onClick={this.next}>
-                        Tiếp tục
-                      </Button>
-                    )}
-                    {this.state.current === steps.length - 1 && (
-                      <Button type="primary" onClick={this.saveEntity}>
-                        Hoàn tất
-                      </Button>
-                    )}
+              <Card bordered={false}>
+                <div className="steps-content">{steps[this.state.current].content}</div>
+                <div className="steps-action" style={{ marginTop: 16 }}>
+                  {this.state.current > 0 && (
+                    <Button style={{ marginRight: 8 }} onClick={this.prev}>
+                      Quay lại
+                    </Button>
+                  )}
+                  {this.state.current < steps.length - 1 && (
+                    <Button type="primary" onClick={this.next}>
+                      Tiếp tục
+                    </Button>
+                  )}
+                  {this.state.current === steps.length - 1 && (
+                    <Button type="primary" onClick={this.saveEntity}>
+                      Hoàn tất
+                    </Button>
+                  )}
+                </div>
+                {this.state.alerts.map((item, index) => (
+                  <div className="steps-action" key={index} style={{ marginTop: 10 }}>
+                    {item}
                   </div>
-                </Card>
-              </div>
+                ))}
+              </Card>
             </Col>
             <Col md="4">
-              <div style={{ height: '100%' }}>
-                <Card title="Thông tin về ngôi nhà của bạn" bordered={false} style={{ width: '100%', height: '100%' }}>
-                  {this.updateHouseTypeInfo()}
-                  {this.updateHouseAdressInfo()}
-                  {this.updateHouseDetailInfo()}
-                  {this.updateHousePriceInfo()}
-                  {this.updateHouseContactInfo()}
-                </Card>
-              </div>
+              <Card title="Thông tin về ngôi nhà của bạn" bordered={false}>
+                {this.updateHouseTypeInfo()}
+                {this.updateHouseAdressInfo()}
+                {this.updateHouseDetailInfo()}
+                {this.updateHousePriceInfo()}
+                {this.updateHouseContactInfo()}
+              </Card>
             </Col>
           </Row>
-          {this.state.alerts.map((item, index) => (
-            <div key={index} style={{ paddingBottom: 10 }}>
-              {item}
-            </div>
-          ))}
         </Container>
       </Row>
     );

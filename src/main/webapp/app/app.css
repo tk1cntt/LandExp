@@ -4,6 +4,22 @@
   margin-left: auto;
 }
 
+.ant-card {
+  border: 1px solid #f6f6f6;
+  border-radius: 3px;
+  box-shadow: 0px 3px 6px #00000014;
+  min-height: 400px;
+  margin-bottom: 60px !important;
+}
+
+.ant-card .ant-card-head {
+  background: #63c9ff !important;
+}
+
+.ant-card .ant-card-head .ant-card-head-title {
+  color: #ffffff !important;
+}
+
 .cc-selector input {
   margin: 0;
   padding: 0;
