@@ -3,6 +3,11 @@ import { translate } from 'react-jhipster';
 
 import { REQUEST, SUCCESS, FAILURE } from 'app/shared/reducers/action-type.util';
 import { getSession } from 'app/shared/reducers/authentication';
+import { SERVER_API_URL } from 'app/config/constants';
+
+const client = axios.create({
+  baseURL: SERVER_API_URL
+});
 
 export const ACTION_TYPES = {
   UPDATE_ACCOUNT: 'account/UPDATE_ACCOUNT',
@@ -57,7 +62,7 @@ const apiUrl = '/api/account';
 export const saveAccountSettings = account => async dispatch => {
   await dispatch({
     type: ACTION_TYPES.UPDATE_ACCOUNT,
-    payload: axios.post(apiUrl, account),
+    payload: client.post(apiUrl, account),
     meta: {
       successMessage: translate('settings.messages.success')
     }

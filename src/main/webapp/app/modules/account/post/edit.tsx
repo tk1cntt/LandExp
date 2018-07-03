@@ -14,7 +14,8 @@ import { getActionType, getLandType, getCityType, getDirection, getPresent, getS
 import { getEntity as getHouse, updateEntity as updateHouse } from 'app/entities/house/house.reducer';
 import { getEntities as getCities } from 'app/entities/city/city.reducer';
 import { getEntities as getServiceFees } from 'app/entities/service-fee/service-fee.reducer';
-import { createEntity as createPhoto, updateEntity as updatePhoto } from 'app/entities/house-photo/house-photo.reducer';
+import { createEntity as createPhoto, updateEntity as updatePhoto, getImageOfHouse } from 'app/entities/house-photo/house-photo.reducer';
+import { getPaymentOfHouse } from 'app/entities/payment/payment.reducer';
 
 import SearchPage from 'app/shared/layout/search/search-menu';
 
@@ -43,6 +44,8 @@ export class EditPage extends React.Component<IEditProp, IEditState> {
 
   componentDidMount() {
     this.props.getHouse(this.props.match.params.id);
+    this.props.getPaymentOfHouse(this.props.match.params.id);
+    this.props.getImageOfHouse(this.props.match.params.id);
     this.props.getSession();
     this.props.getCities();
     this.props.getServiceFees();
@@ -477,7 +480,7 @@ export class EditPage extends React.Component<IEditProp, IEditState> {
     ) : null;
 
     const customerEmailValue = this.state.house.email || this.props.house.email;
-    const customerEmailForm = customerValue ? (
+    const customerEmailForm = customerEmailValue ? (
       <Row>
         <Col md="6">Địa chỉ emai:</Col>
         <Col md="6">{customerEmailValue}</Col>
@@ -485,15 +488,15 @@ export class EditPage extends React.Component<IEditProp, IEditState> {
     ) : null;
 
     const customerZaloValue = this.state.house.zalo || this.props.house.zalo;
-    const customerZaloForm = customerValue ? (
+    const customerZaloForm = customerZaloValue ? (
       <Row>
-        <Col md="6">Tài khoản Facebook:</Col>
+        <Col md="6">Tài khoản Zalo:</Col>
         <Col md="6">{customerZaloValue}</Col>
       </Row>
     ) : null;
 
     const customerFacebookValue = this.state.house.facebook || this.props.house.facebook;
-    const customerFacebookForm = customerValue ? (
+    const customerFacebookForm = customerFacebookValue ? (
       <Row>
         <Col md="6">Tài khoản Facebook:</Col>
         <Col md="6">{customerFacebookValue}</Col>
@@ -540,7 +543,7 @@ export class EditPage extends React.Component<IEditProp, IEditState> {
       <Row>
         <SearchPage />
         <Container>
-          <div>
+          <div style={{ marginBottom: 20 }}>
             <Steps size="small" current={current}>
               {steps.map(item => <Step key={item.title} title={item.title} />)}
             </Steps>
@@ -598,7 +601,17 @@ const mapStateToProps = storeState => ({
   updating: storeState.house.updating
 });
 
-const mapDispatchToProps = { getSession, getHouse, updateHouse, createPhoto, updatePhoto, getCities, getServiceFees };
+const mapDispatchToProps = {
+  getSession,
+  getHouse,
+  updateHouse,
+  createPhoto,
+  updatePhoto,
+  getImageOfHouse,
+  getCities,
+  getServiceFees,
+  getPaymentOfHouse
+};
 
 type StateProps = ReturnType<typeof mapStateToProps>;
 type DispatchProps = typeof mapDispatchToProps;

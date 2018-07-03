@@ -1743,17 +1743,19 @@ label {
 }
 
 #product-content .contact-box {
-  width: 314px;
 }
 
 #product-content .contact {
   background-color: #f4f7ff;
   border: none;
-  padding: 20px 15px;
+  padding: 27px 10px;
 }
 
 #product-content .contact h3 {
-  margin-top: 10px;
+  margin-top: 0;
+  margin-bottom: 10px;
+  font-size: 16px;
+  font-weight: bold;
 }
 
 #product-content .contact i {

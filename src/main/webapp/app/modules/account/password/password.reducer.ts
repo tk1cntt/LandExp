@@ -2,6 +2,11 @@ import axios from 'axios';
 import { translate } from 'react-jhipster';
 
 import { REQUEST, SUCCESS, FAILURE } from 'app/shared/reducers/action-type.util';
+import { SERVER_API_URL } from 'app/config/constants';
+
+const client = axios.create({
+  baseURL: SERVER_API_URL
+});
 
 export const ACTION_TYPES = {
   UPDATE_PASSWORD: 'account/UPDATE_PASSWORD',
@@ -55,7 +60,7 @@ const apiUrl = '/api/account';
 
 export const savePassword = (currentPassword, newPassword) => ({
   type: ACTION_TYPES.UPDATE_PASSWORD,
-  payload: axios.post(`${apiUrl}/change-password`, { currentPassword, newPassword }),
+  payload: client.post(`${apiUrl}/change-password`, { currentPassword, newPassword }),
   meta: {
     successMessage: translate('password.messages.success'),
     errorMessage: translate('password.messages.error')

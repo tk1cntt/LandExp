@@ -1,6 +1,12 @@
 import axios from 'axios';
+import { Storage } from 'react-jhipster';
 
 import { REQUEST, SUCCESS, FAILURE } from 'app/shared/reducers/action-type.util';
+import { SERVER_API_URL } from 'app/config/constants';
+
+const client = axios.create({
+  baseURL: SERVER_API_URL
+});
 
 export const ACTION_TYPES = {
   FETCH_GATEWAY_ROUTE: 'administration/FETCH_GATEWAY_ROUTE',
@@ -141,54 +147,100 @@ export default (state: AdministrationState = initialState, action): Administrati
 };
 
 // Actions
-export const gatewayRoutes = () => ({
-  type: ACTION_TYPES.FETCH_GATEWAY_ROUTE,
-  payload: axios.get('/api/gateway/routes')
-});
+export const gatewayRoutes = () => {
+  const jwt = Storage.local.get('jhi-authenticationToken') || Storage.session.get('jhi-authenticationToken');
+  if (jwt) {
+    client.defaults.headers['Authorization'] = `Bearer ${jwt}`;
+  }
+  return {
+    type: ACTION_TYPES.FETCH_GATEWAY_ROUTE,
+    payload: client.get('/api/gateway/routes')
+  };
+};
 
-export const systemHealth = () => ({
-  type: ACTION_TYPES.FETCH_HEALTH,
-  payload: axios.get('/management/health')
-});
+export const systemHealth = () => {
+  const jwt = Storage.local.get('jhi-authenticationToken') || Storage.session.get('jhi-authenticationToken');
+  if (jwt) {
+    client.defaults.headers['Authorization'] = `Bearer ${jwt}`;
+  }
+  return {
+    type: ACTION_TYPES.FETCH_HEALTH,
+    payload: client.get('/management/health')
+  };
+};
 
-export const systemMetrics = () => ({
-  type: ACTION_TYPES.FETCH_METRICS,
-  payload: axios.get('/management/metrics')
-});
+export const systemMetrics = () => {
+  const jwt = Storage.local.get('jhi-authenticationToken') || Storage.session.get('jhi-authenticationToken');
+  if (jwt) {
+    client.defaults.headers['Authorization'] = `Bearer ${jwt}`;
+  }
+  return {
+    type: ACTION_TYPES.FETCH_METRICS,
+    payload: client.get('/management/metrics')
+  };
+};
 
-export const systemThreadDump = () => ({
-  type: ACTION_TYPES.FETCH_THREAD_DUMP,
-  payload: axios.get('/management/threaddump')
-});
+export const systemThreadDump = () => {
+  const jwt = Storage.local.get('jhi-authenticationToken') || Storage.session.get('jhi-authenticationToken');
+  if (jwt) {
+    client.defaults.headers['Authorization'] = `Bearer ${jwt}`;
+  }
+  return {
+    type: ACTION_TYPES.FETCH_THREAD_DUMP,
+    payload: client.get('/management/threaddump')
+  };
+};
 
-export const getLoggers = () => ({
-  type: ACTION_TYPES.FETCH_LOGS,
-  payload: axios.get('/management/logs')
-});
+export const getLoggers = () => {
+  const jwt = Storage.local.get('jhi-authenticationToken') || Storage.session.get('jhi-authenticationToken');
+  if (jwt) {
+    client.defaults.headers['Authorization'] = `Bearer ${jwt}`;
+  }
+  return {
+    type: ACTION_TYPES.FETCH_LOGS,
+    payload: client.get('/management/logs')
+  };
+};
 
 export const changeLogLevel = (name, level) => {
   const body = {
     level,
     name
   };
+  const jwt = Storage.local.get('jhi-authenticationToken') || Storage.session.get('jhi-authenticationToken');
+  if (jwt) {
+    client.defaults.headers['Authorization'] = `Bearer ${jwt}`;
+  }
   return async dispatch => {
     await dispatch({
       type: ACTION_TYPES.FETCH_LOGS_CHANGE_LEVEL,
-      payload: axios.put('/management/logs', body)
+      payload: client.put('/management/logs', body)
     });
     dispatch(getLoggers());
   };
 };
 
-export const getConfigurations = () => ({
-  type: ACTION_TYPES.FETCH_CONFIGURATIONS,
-  payload: axios.get('/management/configprops')
-});
+export const getConfigurations = () => {
+  const jwt = Storage.local.get('jhi-authenticationToken') || Storage.session.get('jhi-authenticationToken');
+  if (jwt) {
+    client.defaults.headers['Authorization'] = `Bearer ${jwt}`;
+  }
+  return {
+    type: ACTION_TYPES.FETCH_CONFIGURATIONS,
+    payload: client.get('/management/configprops')
+  };
+};
 
-export const getEnv = () => ({
-  type: ACTION_TYPES.FETCH_ENV,
-  payload: axios.get('/management/env')
-});
+export const getEnv = () => {
+  const jwt = Storage.local.get('jhi-authenticationToken') || Storage.session.get('jhi-authenticationToken');
+  if (jwt) {
+    client.defaults.headers['Authorization'] = `Bearer ${jwt}`;
+  }
+  return {
+    type: ACTION_TYPES.FETCH_ENV,
+    payload: client.get('/management/env')
+  };
+};
 
 export const getAudits = (page, size, sort, fromDate, toDate) => {
   let requestUrl = `/management/audits${sort ? `?page=${page}&size=${size}&sort=${sort}` : ''}`;
@@ -198,8 +250,12 @@ export const getAudits = (page, size, sort, fromDate, toDate) => {
   if (toDate) {
     requestUrl += `&toDate=${toDate}`;
   }
+  const jwt = Storage.local.get('jhi-authenticationToken') || Storage.session.get('jhi-authenticationToken');
+  if (jwt) {
+    client.defaults.headers['Authorization'] = `Bearer ${jwt}`;
+  }
   return {
     type: ACTION_TYPES.FETCH_AUDITS,
-    payload: axios.get(requestUrl)
+    payload: client.get(requestUrl)
   };
 };
