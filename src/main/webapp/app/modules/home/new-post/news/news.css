@@ -34,14 +34,6 @@
   position: relative;
 }
 
-.item-thumbnail .hire {
-  background: url('../../../../../swagger-ui/dist/images/icon/thue_bg.png') no-repeat;
-}
-
-.item-thumbnail .sell {
-  background: url('../../../../../swagger-ui/dist/images/icon/ban_bg.png') no-repeat;
-}
-
 .item-thumbnail .type {
   position: absolute;
   top: 13px;

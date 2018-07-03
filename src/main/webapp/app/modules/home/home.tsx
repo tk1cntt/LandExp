@@ -6,13 +6,7 @@ import { Translate } from 'react-jhipster';
 import { connect } from 'react-redux';
 import { Row, Col, Alert } from 'reactstrap';
 import NewPost from './new-post/new-post';
-
-import GridPreview from './grid-preview/grid-preview';
 import { getSession } from 'app/shared/reducers/authentication';
-import Title from './title/title';
-
-import SearchBox from './search/search';
-
 import SearchPage from 'app/shared/layout/search/search-menu';
 
 export interface IHomeProp extends StateProps, DispatchProps {}

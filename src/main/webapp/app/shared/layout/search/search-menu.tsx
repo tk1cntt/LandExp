@@ -1,3 +1,4 @@
+/* tslint:disable */
 import './search-menu.css';
 
 import * as React from 'react';
