@@ -1,6 +1,7 @@
 package com.landexp.service;
 
 import com.google.maps.GeoApiContext;
+import com.google.maps.GeocodingApi;
 import com.google.maps.NearbySearchRequest;
 import com.google.maps.PlacesApi;
 import com.google.maps.model.*;
@@ -9,6 +10,7 @@ import com.landexp.web.rest.responses.GooglePlaceResponse;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
+import org.springframework.util.ObjectUtils;
 
 import javax.transaction.Transactional;
 import java.util.HashMap;
@@ -80,5 +82,22 @@ public class GoogleService {
             }
         }
         return googlePlaceResponses;
+    }
+
+    public GooglePlaceResponse searchByAddress(String address) {
+        try {
+            GeocodingResult[] results = GeocodingApi.geocode(context, address).await();
+            if (!ObjectUtils.isEmpty(results) && results.length >= 1) {
+                GooglePlaceResponse googlePlaceResponse = new GooglePlaceResponse();
+                googlePlaceResponse.setGoogleId(results[0].placeId);
+                googlePlaceResponse.setAddress(results[0].formattedAddress);
+                googlePlaceResponse.setLongitude(results[0].geometry.location.lng);
+                googlePlaceResponse.setLatitude(results[0].geometry.location.lat);
+                return googlePlaceResponse;
+            }
+            return null;
+        } catch (Exception e) {
+            throw new ExecuteRuntimeException(e.getMessage());
+        }
     }
 }

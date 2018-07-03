@@ -33,7 +33,13 @@ public class GoogleServiceIntTest {
         places[0] = PlaceType.CAFE;
         places[1] = PlaceType.FOOD;
         places[1] = PlaceType.SCHOOL;
-        Map<String, GooglePlaceResponse> responses = googleService.searchNearby( 21.0286669, 105.8521484,500, places);
+        Map<String, GooglePlaceResponse> responses = googleService.searchNearby(21.0286669, 105.8521484, 500, places);
         System.out.println(mapper.writeValueAsString(responses));
+    }
+
+    @Test
+    public void testGoogleServiceSearchByAddress() throws JsonProcessingException {
+        GooglePlaceResponse response = googleService.searchByAddress("Trung Hòa, Cầu Giấy, Hà Nội");
+        System.out.println(mapper.writeValueAsString(response));
     }
 }

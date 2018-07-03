@@ -23,9 +23,6 @@ public class HomeController {
 
     private final Logger log = LoggerFactory.getLogger(HomeController.class);
 
-    @Value("${default.paging.size}")
-    private int defaultPagingSize;
-
     @Autowired
     private HouseService houseService;
 
@@ -33,7 +30,7 @@ public class HomeController {
     public ModelAndView login() {
         ModelAndView modelAndView = new ModelAndView();
         modelAndView.setViewName("home");
-        Page<HouseDTO> houses = houseService.findAll(new PageRequest(0, defaultPagingSize));
+        Page<HouseDTO> houses = houseService.findAll(PageRequest.of(0, 8));
         List<HouseResponse> responses = new ArrayList<>();
         for (HouseDTO house : houses) {
             responses.add(MappingUtils.mappingHouseResponse(house));
