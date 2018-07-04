@@ -8,7 +8,7 @@ import FontAwesomeIcon from '@fortawesome/react-fontawesome';
 import { Row, Col, Container, Breadcrumb, BreadcrumbItem } from 'reactstrap';
 import { Carousel as Album } from 'react-responsive-carousel';
 
-import { Carousel, Tabs, Input, Button } from 'antd';
+import { Carousel, Tabs, Input, Button, Spin } from 'antd';
 const { TextArea } = Input;
 const TabPane = Tabs.TabPane;
 
@@ -180,19 +180,17 @@ export class Detail extends React.Component<IDetailProp, IDetailState> {
       <Row>
         <SearchPage />
         <Container>
-          <Row>
-            <Col md="12">
-              <Breadcrumb className="breadcrumb">
-                <BreadcrumbItem>
-                  <a href="#">Home</a>
-                </BreadcrumbItem>
-                <BreadcrumbItem active>Library</BreadcrumbItem>
-              </Breadcrumb>
-            </Col>
-          </Row>
-          {loading ? (
-            <p>Loading...</p>
-          ) : (
+          <Spin spinning={this.props.loading} tip="Đang cập nhật dữ liệu...">
+            <Row>
+              <Col md="12">
+                <Breadcrumb className="breadcrumb">
+                  <BreadcrumbItem>
+                    <a href="http://tinvang.com.vn">Mua bán nhà đất</a>
+                  </BreadcrumbItem>
+                  <BreadcrumbItem active>{getLandType(this.props.houseEntity.landType)}</BreadcrumbItem>
+                </Breadcrumb>
+              </Col>
+            </Row>
             <Row>
               <Row id="product-content">
                 {this.houseSliderFrom(slides)}
@@ -263,7 +261,7 @@ export class Detail extends React.Component<IDetailProp, IDetailState> {
                 </Col>
               </Row>
             </Row>
-          )}
+          </Spin>
         </Container>
       </Row>
     );

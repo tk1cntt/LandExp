@@ -2,8 +2,7 @@ import * as React from 'react';
 import { Link } from 'react-router-dom';
 import { Translate } from 'react-jhipster';
 import { connect } from 'react-redux';
-import { Row, Col, Alert } from 'reactstrap';
-import { Upload, Icon, Modal, Carousel } from 'antd';
+import { Upload, Icon, Modal, Carousel, Spin } from 'antd';
 
 import { IRootState } from 'app/shared/reducers';
 import { getSession } from 'app/shared/reducers/authentication';
@@ -80,27 +79,20 @@ export class StepFour extends React.Component<IStepFourProp, IStepFourState> {
     }
     return (
       <div className="clearfix" style={{ padding: 20 }}>
-        <Upload
-          listType="picture-card"
-          fileList={fileList}
-          onPreview={this.handlePreview}
-          onChange={this.handleChange}
-          onRemove={this.handleRemove}
-        >
-          {fileList.length >= 10 ? null : uploadButton}
-        </Upload>
-        <Modal visible={previewVisible} footer={null} onCancel={this.handleCancel}>
-          <img alt="example" style={{ width: '100%' }} src={previewImage} />
-        </Modal>
-        {/*
-        <Col md="12">
-          <div style={{ marginTop: 30 }}>
-            <Carousel autoplay>
-              {slides}
-            </Carousel>
-          </div>
-        </Col>
-        */}
+        <Spin spinning={this.props.loading} tip="Đang cập nhật dữ liệu...">
+          <Upload
+            listType="picture-card"
+            fileList={fileList}
+            onPreview={this.handlePreview}
+            onChange={this.handleChange}
+            onRemove={this.handleRemove}
+          >
+            {fileList.length >= 10 ? null : uploadButton}
+          </Upload>
+          <Modal visible={previewVisible} footer={null} onCancel={this.handleCancel}>
+            <img alt="example" style={{ width: '100%' }} src={previewImage} />
+          </Modal>
+        </Spin>
       </div>
     );
   }
@@ -109,7 +101,8 @@ export class StepFour extends React.Component<IStepFourProp, IStepFourState> {
 const mapStateToProps = storeState => ({
   account: storeState.authentication.account,
   isAuthenticated: storeState.authentication.isAuthenticated,
-  housePhotoList: storeState.housePhoto.entities
+  housePhotoList: storeState.housePhoto.entities,
+  loading: storeState.housePhoto.loading
 });
 
 const mapDispatchToProps = { getSession, deleteEntity };

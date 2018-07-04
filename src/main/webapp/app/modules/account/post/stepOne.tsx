@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 import { Translate } from 'react-jhipster';
 import { connect } from 'react-redux';
 import { Row, Col, Alert } from 'reactstrap';
-import { Row as AntdRow, Col as AntdCol, Radio } from 'antd';
+import { Row as AntdRow, Col as AntdCol, Radio, Spin } from 'antd';
 const RadioButton = Radio.Button;
 const RadioGroup = Radio.Group;
 
@@ -74,44 +74,46 @@ export class StepOne extends React.Component<IStepOneProp, IStepOneState> {
             </h3>
           </AntdRow>
         </Col>
-        <Col md="12">
-          <div style={{ marginTop: 16 }}>
-            <AntdRow className="cc-selector" type="flex" justify="center" align="middle">
-              <AntdCol span={6} style={{ alignItems: 'center' }}>
-                <div className="image-block">
-                  <div className="image-big-item">
-                    <input
-                      checked={(this.state.actionType || this.props.house.actionType) === 'FOR_SELL' ? true : false}
-                      id="sale"
-                      type="radio"
-                      name="action-type"
-                      value="FOR_SELL"
-                      onClick={this.onChangeItemActionType}
-                    />
-                    <label className="drinkcard-cc sale" htmlFor="sale" />
+        <Spin spinning={this.props.loading} tip="Đang cập nhật dữ liệu...">
+          <Col md="12">
+            <div style={{ marginTop: 16 }}>
+              <AntdRow className="cc-selector" type="flex" justify="center" align="middle">
+                <AntdCol span={6} style={{ alignItems: 'center' }}>
+                  <div className="image-block">
+                    <div className="image-big-item">
+                      <input
+                        checked={(this.state.actionType || this.props.house.actionType) === 'FOR_SELL' ? true : false}
+                        id="sale"
+                        type="radio"
+                        name="action-type"
+                        value="FOR_SELL"
+                        onClick={this.onChangeItemActionType}
+                      />
+                      <label className="drinkcard-cc sale" htmlFor="sale" />
+                    </div>
+                    <p>{getActionType('FOR_SELL')}</p>
                   </div>
-                  <p>{getActionType('FOR_SELL')}</p>
-                </div>
-              </AntdCol>
-              <AntdCol span={6} style={{ alignItems: 'center' }}>
-                <div className="image-block">
-                  <div className="image-big-item">
-                    <input
-                      checked={(this.state.actionType || this.props.house.actionType) === 'FOR_RENT' ? true : false}
-                      id="rent"
-                      type="radio"
-                      name="action-type"
-                      value="FOR_RENT"
-                      onClick={this.onChangeItemActionType}
-                    />
-                    <label className="drinkcard-cc sale" htmlFor="rent" />
+                </AntdCol>
+                <AntdCol span={6} style={{ alignItems: 'center' }}>
+                  <div className="image-block">
+                    <div className="image-big-item">
+                      <input
+                        checked={(this.state.actionType || this.props.house.actionType) === 'FOR_RENT' ? true : false}
+                        id="rent"
+                        type="radio"
+                        name="action-type"
+                        value="FOR_RENT"
+                        onClick={this.onChangeItemActionType}
+                      />
+                      <label className="drinkcard-cc sale" htmlFor="rent" />
+                    </div>
+                    <p>{getActionType('FOR_RENT')}</p>
                   </div>
-                  <p>{getActionType('FOR_RENT')}</p>
-                </div>
-              </AntdCol>
-            </AntdRow>
-          </div>
-        </Col>
+                </AntdCol>
+              </AntdRow>
+            </div>
+          </Col>
+        </Spin>
       </Row>
     );
   }
@@ -119,7 +121,8 @@ export class StepOne extends React.Component<IStepOneProp, IStepOneState> {
 
 const mapStateToProps = storeState => ({
   account: storeState.authentication.account,
-  isAuthenticated: storeState.authentication.isAuthenticated
+  isAuthenticated: storeState.authentication.isAuthenticated,
+  loading: storeState.house.loading
 });
 
 const mapDispatchToProps = { getSession };
