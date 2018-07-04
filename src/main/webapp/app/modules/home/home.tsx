@@ -549,10 +549,10 @@ export class Home extends React.Component<IHomeProp> {
                       {/* Wrapper for slides */}
                       <div className="carousel-inner" role="listbox">
                         <div className="item active">
-                          <img src="upload/products/47.png" alt="..." />
+                          <img src="/static/upload/products/47.png" alt="..." />
                         </div>
                         <div className="item">
-                          <img src="upload/products/47.png" alt="..." />
+                          <img src="/static/upload/products/47.png" alt="..." />
                         </div>
                       </div>
                       {/* Controls */}
