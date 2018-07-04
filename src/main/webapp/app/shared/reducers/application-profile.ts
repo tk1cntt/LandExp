@@ -2,6 +2,13 @@ import axios from 'axios';
 
 import { SUCCESS } from 'app/shared/reducers/action-type.util';
 
+import { SERVER_API_URL } from 'app/config/constants';
+
+const client = axios.create({
+  baseURL: SERVER_API_URL
+});
+
+
 export const ACTION_TYPES = {
   GET_PROFILE: 'applicationProfile/GET_PROFILE'
 };
@@ -31,5 +38,5 @@ export default (state: ApplicationProfileState = initialState, action): Applicat
 
 export const getProfile = () => ({
   type: ACTION_TYPES.GET_PROFILE,
-  payload: axios.get('/management/info')
+  payload: client.get('/management/info')
 });
