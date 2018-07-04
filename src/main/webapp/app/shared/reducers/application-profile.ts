@@ -8,7 +8,6 @@ const client = axios.create({
   baseURL: SERVER_API_URL
 });
 
-
 export const ACTION_TYPES = {
   GET_PROFILE: 'applicationProfile/GET_PROFILE'
 };
