@@ -49,7 +49,7 @@ export class HomeGrid extends React.Component<IHomeProp> {
                   <span className="compact">{house.acreage}m2</span>
                   <span className="bedroom">{house.bedRoom}</span>
                   <span className="bathroom">{house.bathRoom}</span>
-                  <span className="gara">{house.parking ? <i className="fa fa-check" /> : <i className="fa fa-uncheck" />}</span>
+                  <span className="gara">{house.parking ? <i className="fa fa-check" /> : <i className="fa fa-times" />}</span>
                 </div>
                 <p className="location">
                   {house.districtName}, {house.cityName}

@@ -695,7 +695,17 @@ ul.right-menu .button {
   box-sizing: border-box;
 }
 
-.post-date {
+.listview-left .post-date {
+  display: block;
+  width: 80px;
+  float: left;
+  color: #3a65f9;
+  /*margin-top: 20px;*/
+  margin-bottom: 0px;
+  text-align: left;
+}
+
+.gridview .post-date {
   display: block;
   width: 80px;
   float: left;
@@ -711,6 +721,7 @@ ul.right-menu .button {
   font-size: 16px;
   padding: 5px 8px;
   margin-top: 7px;
+  margin-left: 5px;
 }
 
 .favorite {
