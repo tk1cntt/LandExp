@@ -32,14 +32,14 @@ export class Login extends React.Component<ILoginProps, ILoginState> {
   };
 
   render() {
-    const { location, isAuthenticated } = this.props;
+    const { location, isAuthenticated, loading } = this.props;
     const { from } = location.state || { from: { pathname: '/', search: location.search } };
     const { showModal } = this.state;
     if (isAuthenticated) {
       return <Redirect to={from} />;
     }
     return (
-      <LoginModal showModal={showModal} handleLogin={this.handleLogin} handleClose={this.handleClose} loginError={this.props.loginError} />
+      <LoginModal showModal={showModal} loading={loading} handleLogin={this.handleLogin} handleClose={this.handleClose} loginError={this.props.loginError} />
     );
   }
 }
@@ -47,6 +47,7 @@ export class Login extends React.Component<ILoginProps, ILoginState> {
 const mapStateToProps = ({ authentication }: IRootState) => ({
   isAuthenticated: authentication.isAuthenticated,
   loginError: authentication.loginError,
+  loading: authentication.loading,
   showModal: authentication.showModalLogin
 });
 
