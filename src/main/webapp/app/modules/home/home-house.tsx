@@ -13,7 +13,7 @@ export interface IHomeProp extends StateProps, DispatchProps {}
 
 export class HomeHouse extends React.Component<IHomeProp> {
   componentDidMount() {
-    this.props.getSession();
+    // this.props.getSession();
   }
 
   render() {
