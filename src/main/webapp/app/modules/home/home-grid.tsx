@@ -6,7 +6,7 @@ import { Translate, TextFormat } from 'react-jhipster';
 import { connect } from 'react-redux';
 import { Row, Col, Alert } from 'reactstrap';
 import { getSession } from 'app/shared/reducers/authentication';
-import { getActionType, getLandType, getCityType, getDirection, getPresent, getSaleType, getMoney } from 'app/shared/util/utils';
+import { getActionType, getLandType, getCityType, getDirection, getPresent, getSaleType, getMoney, encodeId } from 'app/shared/util/utils';
 import { APP_DATE_FORMAT, APP_LOCAL_DATE_FORMAT } from 'app/config/constants';
 
 import SearchPage from 'app/shared/layout/search/search-menu';
@@ -23,9 +23,9 @@ export class HomeGrid extends React.Component<IHomeProp> {
           {this.props.houses.map((house, i) => (
             <div key={`entity-${i}`} className="col-md-3 post-item">
               <div className="item-thumbnail">
-                <a href="#">
+                <Link to={`/bat-dong-san/${encodeId(house.id)}`}>
                   <img src="/static/upload/products/item-1.png" />
-                </a>
+                </Link>
                 {house.actionType === 'FOR_SELL' ? <div className="type ban">BÁN</div> : <div className="type chothue">CHO THUÊ</div>}
                 <a href="#" className="like-button">
                   <i className="fa fa-heart-o" />

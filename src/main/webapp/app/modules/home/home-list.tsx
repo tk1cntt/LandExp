@@ -33,7 +33,7 @@ export class HomeList extends React.Component<IHomeProp, IHouseState> {
     this.setState({
       itemActive: house.id
     });
-  }
+  };
 
   render() {
     const { account } = this.props;
@@ -41,7 +41,11 @@ export class HomeList extends React.Component<IHomeProp, IHouseState> {
       <div role="tabpanel" className="tab-pane" id="list">
         <div className="listview-left">
           {this.props.houses.map((house, i) => (
-            <div key={`entity-${i}`} className={`post-item ${this.state.itemActive === house.id ? 'active' : ''}`} onClick={this.itemInfoClick.bind(this, house)}>
+            <div
+              key={`entity-${i}`}
+              className={`post-item ${this.state.itemActive === house.id ? 'active' : ''}`}
+              onClick={this.itemInfoClick.bind(this, house)}
+            >
               <div className="item-thumbnail">
                 <a href="#">
                   <img src="/static/upload/products/item-1.png" />
@@ -60,7 +64,9 @@ export class HomeList extends React.Component<IHomeProp, IHouseState> {
                   <span className="bathroom">{house.bathRoom}</span>
                   <span className="gara">{house.parking ? <i className="fa fa-check" /> : <i className="fa fa-times" />}</span>
                 </div>
-                <p className="location">{house.districtName}, {house.cityName}</p>
+                <p className="location">
+                  {house.districtName}, {house.cityName}
+                </p>
                 <div className="button-group">
                   <p className="post-date">
                     <TextFormat type="date" value={house.createAt} format={APP_LOCAL_DATE_FORMAT} />

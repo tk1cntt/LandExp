@@ -12,7 +12,7 @@ import { Carousel, Tabs, Input, Button, Spin } from 'antd';
 const { TextArea } = Input;
 const TabPane = Tabs.TabPane;
 
-import { getActionType, getLandType, getCityType, getDirection, getPresent, getSaleType, getMoney } from 'app/shared/util/utils';
+import { getActionType, getLandType, getCityType, getDirection, getPresent, getSaleType, getMoney, decodeId } from 'app/shared/util/utils';
 import { getEntities as getCities } from 'app/entities/city/city.reducer';
 import { getEntity } from 'app/entities/house/house.reducer';
 import { getImageOfHouse } from 'app/entities/house-photo/house-photo.reducer';
@@ -30,9 +30,10 @@ export interface IDetailState {
 export class Detail extends React.Component<IDetailProp, IDetailState> {
   componentDidMount() {
     this.props.getCities();
-    this.props.getEntity(this.props.match.params.key);
+    const houseId = decodeId(this.props.match.params.key);
+    this.props.getEntity(houseId);
     /* tslint:disable-next-line */
-    this.props.getImageOfHouse(parseInt(this.props.match.params.key));
+    this.props.getImageOfHouse(parseInt(houseId));
   }
 
   houseSliderFrom(slides: any) {
@@ -183,12 +184,14 @@ export class Detail extends React.Component<IDetailProp, IDetailState> {
           <Spin spinning={this.props.loading} tip="Đang cập nhật dữ liệu...">
             <Row>
               <Col md="12">
-                <Breadcrumb className="breadcrumb">
-                  <BreadcrumbItem>
-                    <a href="http://tinvang.com.vn">Mua bán nhà đất</a>
-                  </BreadcrumbItem>
-                  <BreadcrumbItem active>{getLandType(this.props.houseEntity.landType)}</BreadcrumbItem>
-                </Breadcrumb>
+                <Row>
+                  <Breadcrumb className="breadcrumb">
+                    <BreadcrumbItem>
+                      <a href="http://tinvang.com.vn">Mua bán nhà đất</a>
+                    </BreadcrumbItem>
+                    <BreadcrumbItem active>{getLandType(this.props.houseEntity.landType)}</BreadcrumbItem>
+                  </Breadcrumb>
+                </Row>
               </Col>
             </Row>
             <Row>

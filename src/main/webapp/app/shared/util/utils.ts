@@ -1,3 +1,6 @@
+const Hashids = require('hashids');
+const hashids = new Hashids('id.landexp.com.vn');
+
 export const getActionType = type => {
   if (type === 'FOR_SELL') {
     return 'Bán bất động sản';
@@ -170,3 +173,7 @@ export const getMoney = (money, actionType) => {
 function humanize(x) {
   return x.toFixed(6).replace(/\.?0*$/, '');
 }
+
+export const encodeId = id => hashids.encode(id, 20190101);
+
+export const decodeId = id => hashids.decode(id)[0];

@@ -12,7 +12,7 @@ import { getSession } from 'app/shared/reducers/authentication';
 import SearchPage from 'app/shared/layout/search/search-menu';
 import GoogleMaps from 'app/shared/util/google-maps';
 
-export interface IHomeProp extends StateProps, DispatchProps { }
+export interface IHomeProp extends StateProps, DispatchProps {}
 
 export class HomeDetail extends React.Component<IHomeProp> {
   componentDidMount() {
@@ -61,13 +61,13 @@ export class HomeDetail extends React.Component<IHomeProp> {
         <div className="description" id="description">
           <p>
             <span>Hình thức</span>Bán
-            </p>
+          </p>
           <p>
             <span>Loại hình</span>Căn hộ chung cư
-            </p>
+          </p>
           <p>
             <span>Dự án</span>Dự án Vinhomes D’Capitale
-            </p>
+          </p>
           <div className="property-label">Mô tả</div>
           <div className="property">
             <span className="compact">60m2</span>
@@ -81,15 +81,15 @@ export class HomeDetail extends React.Component<IHomeProp> {
           </div>
           <div className="content">
             <p>
-              The crafting and the designing of the project is built with exceptional and well planned amenities to showcase a world
-              within the four walls. The quality work and dedication in intending this concrete chic is an idea of lavish living. The well
-              planned structures …
-              </p>
+              The crafting and the designing of the project is built with exceptional and well planned amenities to showcase a world within
+              the four walls. The quality work and dedication in intending this concrete chic is an idea of lavish living. The well planned
+              structures …
+            </p>
           </div>
           <p>
             <a className="more" href="#">
               Xem thêm
-              </a>
+            </a>
           </p>
         </div>
         <div className="location">
@@ -118,7 +118,7 @@ export class HomeDetail extends React.Component<IHomeProp> {
           <div className="location-search">
             <p>
               <span className="color-gray">Tìm thấy:</span> 10 kết quả
-              </p>
+            </p>
             <div className="toolbox">
               <form action="#" className="form-inline">
                 <label htmlFor="distance">Bán kính</label>
@@ -215,19 +215,19 @@ export class HomeDetail extends React.Component<IHomeProp> {
               <h3>Liên hệ</h3>
               <p>
                 <span>Họ tên</span>Lâm Nhật Long
-                </p>
+              </p>
               <p>
                 <span>Số điện thoại</span>0963 768333
-                </p>
+              </p>
               <p>
                 <span>Email</span>lamnhatlong@gmail.com
-                </p>
+              </p>
               <p>
                 <span>Zalo</span>0963 768333
-                </p>
+              </p>
               <p>
                 <span>Messenger</span>0963 768333
-                </p>
+              </p>
             </div>
             <div className="col-sm-6 time-to-view">
               <h3>Thời gian xem bất động sản</h3>
@@ -255,7 +255,7 @@ export class HomeDetail extends React.Component<IHomeProp> {
         <div className="related">
           <h3>
             Có thể bạn quan tâm
-              <span className="tool-box">
+            <span className="tool-box">
               <a className="prev">
                 <span className="fa fa-chevron-left" />
               </a>
@@ -285,7 +285,7 @@ export class HomeDetail extends React.Component<IHomeProp> {
                       <p className="subtitle">Dự án Vinhome D’Capital</p>
                       <p className="price">
                         <span>4,5</span> tỷ
-                        </p>
+                      </p>
                       <div className="post-date">
                         Ngày đăng <span>31/5/2018</span>
                       </div>
@@ -318,7 +318,7 @@ export class HomeDetail extends React.Component<IHomeProp> {
                       <p className="subtitle">Dự án Vinhome D’Capital</p>
                       <p className="price">
                         <span>4,5</span> tỷ
-                        </p>
+                      </p>
                       <div className="post-date">
                         Ngày đăng <span>31/5/2018</span>
                       </div>
@@ -351,7 +351,7 @@ export class HomeDetail extends React.Component<IHomeProp> {
                       <p className="subtitle">Dự án Vinhome D’Capital</p>
                       <p className="price">
                         <span>4,5</span> tỷ
-                        </p>
+                      </p>
                       <div className="post-date">
                         Ngày đăng <span>31/5/2018</span>
                       </div>
