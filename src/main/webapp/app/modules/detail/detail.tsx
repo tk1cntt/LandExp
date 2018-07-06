@@ -181,19 +181,19 @@ export class Detail extends React.Component<IDetailProp, IDetailState> {
       <Row>
         <SearchPage />
         <Container>
+          <Row>
+            <Col md="12">
+              <Row>
+                <Breadcrumb className="breadcrumb">
+                  <BreadcrumbItem>
+                    <a href="http://tinvang.com.vn">Mua bán nhà đất</a>
+                  </BreadcrumbItem>
+                  <BreadcrumbItem active>{getLandType(this.props.houseEntity.landType)}</BreadcrumbItem>
+                </Breadcrumb>
+              </Row>
+            </Col>
+          </Row>
           <Spin spinning={this.props.loading} tip="Đang cập nhật dữ liệu...">
-            <Row>
-              <Col md="12">
-                <Row>
-                  <Breadcrumb className="breadcrumb">
-                    <BreadcrumbItem>
-                      <a href="http://tinvang.com.vn">Mua bán nhà đất</a>
-                    </BreadcrumbItem>
-                    <BreadcrumbItem active>{getLandType(this.props.houseEntity.landType)}</BreadcrumbItem>
-                  </Breadcrumb>
-                </Row>
-              </Col>
-            </Row>
             <Row>
               <Row id="product-content">
                 {this.houseSliderFrom(slides)}
