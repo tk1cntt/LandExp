@@ -425,6 +425,7 @@ ul.right-menu .button {
 .listview-button,
 .gridview-button {
   display: inline-block;
+  padding-right: 10px;
 }
 
 .listview-button a,
@@ -616,7 +617,7 @@ ul.right-menu .button {
 .item-info {
   float: left;
   margin: 0px 20px;
-  width: 279px;
+  width: 290px;
 }
 
 .item-info h3 {
@@ -825,6 +826,11 @@ ul.right-menu .button {
   width: 415px;
   padding: 0px;
   background-color: transparent;
+}
+
+.listview-left .property {
+  width: 300px;
+  background: #f9f9f9;
 }
 
 .listview-right .property span {

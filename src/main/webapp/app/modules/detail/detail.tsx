@@ -124,6 +124,7 @@ export class Detail extends React.Component<IDetailProp, IDetailState> {
           <p>
             <i className="fa fa-square" /> 10h - 12h các ngày thứ 7, chủ nhật
           </p>
+          <p style={{ marginTop: 25 }} />
           <p className="text-center">
             <Button type="primary">Đặt lịch xem</Button>{' '}
           </p>

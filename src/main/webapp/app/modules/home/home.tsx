@@ -53,7 +53,7 @@ export class Home extends React.Component<IHomeProp> {
               <h2>
                 Tin mới đăng<span>Hiển thị 1 - 20 trong 100 Bất động sản</span>
                 <div className="toolbox">
-                  <label htmlFor="sortby">Sắp xếp:</label>
+                  <label htmlFor="sortby">Sắp xếp: </label>
                   <select name="sortby" id="sortby">
                     <option>Ngày đăng mới nhất</option>
                     <option>Giá từ thấp đến cao</option>

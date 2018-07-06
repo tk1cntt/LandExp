@@ -177,3 +177,5 @@ function humanize(x) {
 export const encodeId = id => hashids.encode(id, 20190101);
 
 export const decodeId = id => hashids.decode(id)[0];
+
+export const formatDate = date => date.getDate() + '/' + (date.getMonth() + 1) + '/' + date.getFullYear();

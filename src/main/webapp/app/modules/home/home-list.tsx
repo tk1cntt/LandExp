@@ -6,7 +6,7 @@ import { Translate, TextFormat } from 'react-jhipster';
 import { connect } from 'react-redux';
 import { Row, Col, Alert } from 'reactstrap';
 import { getSession } from 'app/shared/reducers/authentication';
-import { getActionType, getLandType, getCityType, getDirection, getPresent, getSaleType, getMoney } from 'app/shared/util/utils';
+import { getLandType, getMoney, formatDate } from 'app/shared/util/utils';
 import { APP_DATE_FORMAT, APP_LOCAL_DATE_FORMAT } from 'app/config/constants';
 
 import SearchPage from 'app/shared/layout/search/search-menu';
@@ -68,9 +68,7 @@ export class HomeList extends React.Component<IHomeProp, IHouseState> {
                   {house.districtName}, {house.cityName}
                 </p>
                 <div className="button-group">
-                  <p className="post-date">
-                    <TextFormat type="date" value={house.createAt} format={APP_LOCAL_DATE_FORMAT} />
-                  </p>
+                  <p className="post-date">{formatDate(new Date(house.createAt))}</p>
                   <span className="favorite">
                     <a href="#">
                       <i className="fa fa-heart-o" />
