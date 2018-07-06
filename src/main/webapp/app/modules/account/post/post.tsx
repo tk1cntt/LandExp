@@ -9,7 +9,7 @@ const Step = Steps.Step;
 
 import { IRootState } from 'app/shared/reducers';
 import { getSession } from 'app/shared/reducers/authentication';
-import { getActionType, getLandType, getCityType, getDirection, getPresent, getSaleType } from 'app/shared/util/utils';
+import { getActionType, getLandType, getCityType, getDirection, getPresent, getSaleType, encodeId } from 'app/shared/util/utils';
 
 import { getEntity as getHouse, updateEntity as updateHouse, reset as clearHouse } from 'app/entities/house/house.reducer';
 import { getEntities as getCities } from 'app/entities/city/city.reducer';
@@ -57,12 +57,12 @@ export class PostPage extends React.Component<IPostProp, IPostState> {
   };
 
   gotoPayment = () => {
-    this.props.history.push(`/tai-khoan/thanh-toan/${this.props.payment.id}`);
+    this.props.history.push(`/tai-khoan/thanh-toan/${encodeId(this.props.payment.id)}`);
   };
 
   gotoPreview = () => {
     // Go to preview page
-    this.props.history.push(`/tai-khoan/xem-truoc-tin-dang/${this.props.house.id}`);
+    this.props.history.push(`/tai-khoan/xem-truoc-tin-dang/${encodeId(this.props.house.id)}`);
   };
 
   prev = () => {

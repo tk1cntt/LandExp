@@ -1,3 +1,4 @@
+/* tslint:disable-next-line */
 const Hashids = require('hashids');
 const hashids = new Hashids('id.landexp.com.vn');
 

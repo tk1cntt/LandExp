@@ -9,10 +9,11 @@ const RadioGroup = Radio.Group;
 import { IRootState } from 'app/shared/reducers';
 import { getSession } from 'app/shared/reducers/authentication';
 import { getEntity as getPayment } from 'app/entities/payment/payment.reducer';
+import { decodeId } from 'app/shared/util/utils';
 
 import SearchPage from 'app/shared/layout/search/search-menu';
 
-export interface IPaymentProp extends StateProps, DispatchProps, RouteComponentProps<{ id: number }> {}
+export interface IPaymentProp extends StateProps, DispatchProps, RouteComponentProps<{ id: any }> {}
 
 export interface IPaymentState {
   value: any;
@@ -24,7 +25,9 @@ export class Payment extends React.Component<IPaymentProp, IPaymentState> {
   };
 
   componentDidMount() {
-    this.props.getPayment(this.props.match.params.id);
+    const paymentId = decodeId(this.props.match.params.id);
+    /* tslint:disable-next-line */
+    this.props.getPayment(parseInt(paymentId));
     this.props.getSession();
   }
 
