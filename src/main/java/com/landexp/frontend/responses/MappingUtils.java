@@ -9,6 +9,7 @@ import com.landexp.service.dto.HousePhotoDTO;
 import org.springframework.util.ObjectUtils;
 import org.springframework.util.StringUtils;
 
+import java.text.DecimalFormat;
 import java.text.Normalizer;
 import java.text.SimpleDateFormat;
 import java.time.LocalDate;
@@ -21,16 +22,29 @@ import java.util.regex.Pattern;
 
 public class MappingUtils {
 
+    public static void main(String[] args) {
+        System.out.println(1600000000f/1000000000);
+        System.out.println(1400000000f/1000000000);
+        System.out.println(formatMoney(1600000000f, UserActionType.FOR_SELL));
+        System.out.println(formatMoney(1400000000f, UserActionType.FOR_SELL));
+        System.out.println(formatMoney(900000000f, UserActionType.FOR_SELL));
+    }
+
+    public static String numberFormat(double number) {
+        DecimalFormat df = new DecimalFormat("0.0");
+        return df.format(number).replaceAll("\\.0$", "");
+    }
+
     public static String formatMoney(Float money, UserActionType actionType) {
         if (ObjectUtils.isEmpty(money)) return null;
         StringBuilder sb = new StringBuilder();
         sb.append("<span>");
         if (money >= 1000000000) {
-            sb.append(new java.text.DecimalFormat("#").format(money / 1000000000));
+            sb.append(numberFormat(money / 1000000000));
             sb.append("</span>");
             sb.append(" tỷ");
         } else if (1000000 <= money && money < 1000000000) {
-            sb.append(new java.text.DecimalFormat("#").format(money / 1000000));
+            sb.append(numberFormat(money / 1000000));
             sb.append("</span>");
             sb.append(" triệu");
         } else {
