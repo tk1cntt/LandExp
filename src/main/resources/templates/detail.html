@@ -4,6 +4,24 @@
 <head>
     <meta charset="UTF-8">
     <title>[[${title}]]</title>
+    <noscript id="deferred-styles">
+      <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/css/bootstrap.min.css">
+      <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+      <link rel="stylesheet" href="/css/style.css">
+    </noscript>
+    <script>
+      var loadDeferredStyles = function() {
+        var addStylesNode = document.getElementById("deferred-styles");
+        var replacement = document.createElement("div");
+        replacement.innerHTML = addStylesNode.textContent;
+        document.body.appendChild(replacement)
+        addStylesNode.parentElement.removeChild(addStylesNode);
+      };
+      var raf = window.requestAnimationFrame || window.mozRequestAnimationFrame ||
+          window.webkitRequestAnimationFrame || window.msRequestAnimationFrame;
+      if (raf) raf(function() { window.setTimeout(loadDeferredStyles, 0); });
+      else window.addEventListener('load', loadDeferredStyles);
+    </script>
 </head>
 
 <body>
@@ -71,7 +89,7 @@
                     <p class="price" th:utext="${house.money}"></p>
                     <div class="property">
                         <p class="compact">Diện tích: <span>[[${house.acreage}]]m2</span></p>
-                        <p class="compass">Hướng: <span>Tây bắc</span></p>
+                        <p class="compass">Hướng: <span>[[${house.direction}]]</span></p>
                         <p class="bedroom">Phòng ngủ: <span>[[${house.bedRoom}]]</span></p>
                         <p class="bathroom">Phòng tắm: <span>[[${house.bathRoom}]]</span></p>
                         <p class="gara">Chỗ để ô tô: <span th:utext="${house.parking}"></span></p>
@@ -255,24 +273,6 @@
 </div>
 
 <footer th:replace="fragments/footer :: footer"></footer>
-<noscript id="deferred-styles">
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/css/bootstrap.min.css">
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-  <link rel="stylesheet" href="/css/style.css">
-</noscript>
-<script>
-  var loadDeferredStyles = function() {
-    var addStylesNode = document.getElementById("deferred-styles");
-    var replacement = document.createElement("div");
-    replacement.innerHTML = addStylesNode.textContent;
-    document.body.appendChild(replacement)
-    addStylesNode.parentElement.removeChild(addStylesNode);
-  };
-  var raf = window.requestAnimationFrame || window.mozRequestAnimationFrame ||
-      window.webkitRequestAnimationFrame || window.msRequestAnimationFrame;
-  if (raf) raf(function() { window.setTimeout(loadDeferredStyles, 0); });
-  else window.addEventListener('load', loadDeferredStyles);
-</script>
 <script defer type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 <script defer type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/js/bootstrap.min.js"></script>
 <script defer type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jcarousel/0.3.8/jquery.jcarousel.min.js"></script>

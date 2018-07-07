@@ -83,11 +83,12 @@ export class StepFour extends React.Component<IStepFourProp, IStepFourState> {
           <Upload
             listType="picture-card"
             fileList={fileList}
+            multiple
             onPreview={this.handlePreview}
             onChange={this.handleChange}
             onRemove={this.handleRemove}
           >
-            {fileList.length >= 10 ? null : uploadButton}
+            {fileList.length >= 6 ? null : uploadButton}
           </Upload>
           <Modal visible={previewVisible} footer={null} onCancel={this.handleCancel}>
             <img alt="example" style={{ width: '100%' }} src={previewImage} />

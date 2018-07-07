@@ -3,7 +3,16 @@ import { connect } from 'react-redux';
 import { Link, RouteComponentProps } from 'react-router-dom';
 import { Button, InputGroup, Col, Row, Container, Table } from 'reactstrap';
 import { AvForm, AvGroup, AvInput } from 'availity-reactstrap-validation';
-import { getActionType, getLandType, getCityType, getDirection, getPresent, getSaleType, getStatusType } from 'app/shared/util/utils';
+import {
+  getActionType,
+  getLandType,
+  getCityType,
+  getDirection,
+  getPresent,
+  getSaleType,
+  getStatusType,
+  encodeId
+} from 'app/shared/util/utils';
 // tslint:disable-next-line:no-unused-variable
 import {
   openFile,
@@ -147,33 +156,23 @@ export class House extends React.Component<IHouseProps, IHouseState> {
                       <td>{house.createByLogin}</td>
                       <td className="text-right">
                         <div className="btn-group flex-btn-group-container">
-                          <Button tag={Link} to={`/tai-khoan/xem-truoc-tin-dang/${house.id}`} color="info" size="sm">
+                          <Button tag={Link} to={`/tai-khoan/xem-truoc-tin-dang/${encodeId(house.id)}`} color="info" size="sm">
                             <FontAwesomeIcon icon="eye" />{' '}
                             <span className="d-none d-md-inline">
                               <Translate contentKey="entity.action.view">View</Translate>
                             </span>
                           </Button>
-                          <Button tag={Link} to={`/tai-khoan/sua-tin-dang/${house.id}`} color="primary" size="sm">
+                          <Button tag={Link} to={`/tai-khoan/sua-tin-dang/${encodeId(house.id)}`} color="primary" size="sm">
                             <FontAwesomeIcon icon="pencil-alt" />{' '}
                             <span className="d-none d-md-inline">
                               <Translate contentKey="entity.action.edit">Edit</Translate>
                             </span>
                           </Button>
                           {house.statusType === 'PENDING' ? (
-                            <Button tag={Link} to={`/tai-khoan/thanh-toan/${house.id}`} color="warning" size="sm">
+                            <Button tag={Link} to={`/tai-khoan/thanh-toan/${encodeId(house.id)}`} color="warning" size="sm">
                               <FontAwesomeIcon icon="coffee" />{' '}
                               <span className="d-none d-md-inline">
                                 <Translate contentKey="entity.action.pay">Pay</Translate>
-                              </span>
-                            </Button>
-                          ) : (
-                            ''
-                          )}
-                          {this.props.isManager ? (
-                            <Button tag={Link} to={`${match.url}/${house.id}/delete`} color="danger" size="sm">
-                              <FontAwesomeIcon icon="trash" />{' '}
-                              <span className="d-none d-md-inline">
-                                <Translate contentKey="entity.action.delete">Delete</Translate>
                               </span>
                             </Button>
                           ) : (

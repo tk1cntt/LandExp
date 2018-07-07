@@ -14,13 +14,6 @@
     <!-- jhipster-needle-add-resources-to-root - JHipster will add new resources here -->
 </head>
 <body>
-    <!--[if lt IE 9]>
-        <p class="browserupgrade">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
-    <![endif]-->
-    <div id="root"></div>
-    <noscript>
-        <h1>You must enable javascript to view this page.</h1>
-    </noscript>
     <noscript id="deferred-styles">
       <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/css/bootstrap.min.css">
       <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
@@ -38,6 +31,13 @@
       if (raf) raf(function() { window.setTimeout(loadDeferredStyles, 0); });
       else window.addEventListener('load', loadDeferredStyles);
     </script>
+    <!--[if lt IE 9]>
+        <p class="browserupgrade">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
+    <![endif]-->
+    <div id="root"></div>
+    <noscript>
+        <h1>You must enable javascript to view this page.</h1>
+    </noscript>
     <!-- uncomment this for adding service worker
         <script>
             if ('serviceWorker' in navigator) {

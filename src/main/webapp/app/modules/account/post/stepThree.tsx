@@ -316,7 +316,11 @@ export class StepThree extends React.Component<IStepThreeProp, IStepThreeState> 
         */}
         <Col md="12">
           <div style={{ marginTop: 16 }}>
-            <RichTextEditor value={this.state.summary} onChange={this.onChangeSummary} placeholder="Mô tả thêm về ngôi nhà của bạn" />
+            <RichTextEditor
+              value={this.state.summary || this.props.house.summary}
+              onChange={this.onChangeSummary}
+              placeholder="Mô tả thêm về ngôi nhà của bạn"
+            />
           </div>
         </Col>
       </Row>

@@ -60,7 +60,7 @@ export class Detail extends React.Component<IDetailProp, IDetailState> {
             Diện tích:<span>{this.props.houseEntity.acreage}m2</span>
           </p>
           <p className="compass">
-            Hướng:<span>Tây bắc</span>
+            Hướng:<span>{getDirection(this.props.houseEntity.direction)}</span>
           </p>
           <p className="bedroom">
             Phòng ngủ:<span>{this.props.houseEntity.bedRoom}</span>

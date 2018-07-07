@@ -4,12 +4,12 @@ import { Translate } from 'react-jhipster';
 import { connect } from 'react-redux';
 import { Row, Col, Container, Alert } from 'reactstrap';
 
-import { Steps, Button, Card } from 'antd';
+import { Steps, Button, Card, Spin } from 'antd';
 const Step = Steps.Step;
 
 import { IRootState } from 'app/shared/reducers';
 import { getSession } from 'app/shared/reducers/authentication';
-import { getActionType, getLandType, getCityType, getDirection, getPresent, getSaleType } from 'app/shared/util/utils';
+import { getActionType, getLandType, getCityType, getDirection, getPresent, getSaleType, encodeId, decodeId } from 'app/shared/util/utils';
 
 import { getEntity as getHouse, updateEntity as updateHouse } from 'app/entities/house/house.reducer';
 import { getEntities as getCities } from 'app/entities/city/city.reducer';
@@ -27,7 +27,7 @@ import StepFive from './stepFive';
 import StepSix from './stepSix';
 import StepSeven from './stepSeven';
 
-export interface IEditProp extends StateProps, DispatchProps, RouteComponentProps<{ id: number }> {}
+export interface IEditProp extends StateProps, DispatchProps, RouteComponentProps<{ id: any }> {}
 
 export interface IEditState {
   current: any;
@@ -43,11 +43,11 @@ export class EditPage extends React.Component<IEditProp, IEditState> {
   };
 
   componentDidMount() {
-    this.props.getHouse(this.props.match.params.id);
-    this.props.getPaymentOfHouse(this.props.match.params.id);
-    this.props.getImageOfHouse(this.props.match.params.id);
+    const houseId = decodeId(this.props.match.params.id);
+    this.props.getHouse(houseId);
+    this.props.getPaymentOfHouse(houseId);
+    this.props.getImageOfHouse(houseId);
     this.props.getSession();
-    this.props.getCities();
     this.props.getServiceFees();
   }
 
@@ -249,7 +249,7 @@ export class EditPage extends React.Component<IEditProp, IEditState> {
         }
       });
     }
-    this.props.history.push(`/tai-khoan/xem-truoc-tin-dang/${this.props.match.params.id}`);
+    this.props.history.push(`/tai-khoan/xem-truoc-tin-dang/${encodeId(this.props.house.id)}`);
   };
 
   updateHouse = house => {
@@ -549,42 +549,44 @@ export class EditPage extends React.Component<IEditProp, IEditState> {
             </Steps>
           </div>
           <Row>
-            <Col md="8">
-              <Card bordered={false}>
-                <div className="steps-content">{steps[this.state.current].content}</div>
-                <div className="steps-action" style={{ marginTop: 16 }}>
-                  {this.state.current > 0 && (
-                    <Button style={{ marginRight: 8 }} onClick={this.prev}>
-                      Quay lại
-                    </Button>
-                  )}
-                  {this.state.current < steps.length - 1 && (
-                    <Button type="primary" onClick={this.next}>
-                      Tiếp tục
-                    </Button>
-                  )}
-                  {this.state.current === steps.length - 1 && (
-                    <Button type="primary" onClick={this.saveEntity}>
-                      Hoàn tất
-                    </Button>
-                  )}
-                </div>
-                {this.state.alerts.map((item, index) => (
-                  <div className="steps-action" key={index} style={{ marginTop: 10 }}>
-                    {item}
+            <Spin spinning={this.props.loading} tip="Đang cập nhật dữ liệu...">
+              <Col md="8">
+                <Card bordered={false}>
+                  <div className="steps-content">{steps[this.state.current].content}</div>
+                  <div className="steps-action" style={{ marginTop: 16 }}>
+                    {this.state.current > 0 && (
+                      <Button style={{ marginRight: 8 }} onClick={this.prev}>
+                        Quay lại
+                      </Button>
+                    )}
+                    {this.state.current < steps.length - 1 && (
+                      <Button type="primary" onClick={this.next}>
+                        Tiếp tục
+                      </Button>
+                    )}
+                    {this.state.current === steps.length - 1 && (
+                      <Button type="primary" onClick={this.saveEntity}>
+                        Hoàn tất
+                      </Button>
+                    )}
                   </div>
-                ))}
-              </Card>
-            </Col>
-            <Col md="4">
-              <Card title="Thông tin về ngôi nhà của bạn" bordered={false}>
-                {this.updateHouseTypeInfo()}
-                {this.updateHouseAdressInfo()}
-                {this.updateHouseDetailInfo()}
-                {this.updateHousePriceInfo()}
-                {this.updateHouseContactInfo()}
-              </Card>
-            </Col>
+                  {this.state.alerts.map((item, index) => (
+                    <div className="steps-action" key={index} style={{ marginTop: 10 }}>
+                      {item}
+                    </div>
+                  ))}
+                </Card>
+              </Col>
+              <Col md="4">
+                <Card title="Thông tin về ngôi nhà của bạn" bordered={false}>
+                  {this.updateHouseTypeInfo()}
+                  {this.updateHouseAdressInfo()}
+                  {this.updateHouseDetailInfo()}
+                  {this.updateHousePriceInfo()}
+                  {this.updateHouseContactInfo()}
+                </Card>
+              </Col>
+            </Spin>
           </Row>
         </Container>
       </Row>
