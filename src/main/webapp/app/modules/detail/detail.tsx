@@ -81,10 +81,10 @@ export class Detail extends React.Component<IDetailProp, IDetailState> {
         </div>
         <div className="button-group">
           <a href="#" className="like">
-            <FontAwesomeIcon icon="heart" /> Yêu thích
+            <img src="/static/images/icon/like.png" alt="" />Yêu thích
           </a>
           <a href="#" className="report">
-            <FontAwesomeIcon icon="exclamation-triangle" /> Báo xấu
+            <img src="/static/images/icon/warning.png" alt="" />Báo xấu
           </a>
         </div>
       </Col>
@@ -124,7 +124,7 @@ export class Detail extends React.Component<IDetailProp, IDetailState> {
           </p>
           <p style={{ marginTop: 25 }} />
           <p className="text-center">
-            <Button type="primary">Đặt lịch xem</Button>{' '}
+            <a className="btn btn-default">Đặt lịch xem</a>
           </p>
         </div>
       </Col>

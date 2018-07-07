@@ -1799,7 +1799,6 @@ label {
   color: #3a65f9;
   border: 1px solid #3a65f9;
   background: transparent;
-  margin-top: 20px;
 }
 
 #product-content .contact a:hover {
@@ -1824,6 +1823,10 @@ label {
   line-height: 22px;
   padding-left: 33px;
   color: #fff;
+}
+
+.call-chat a:hover {
+  color: #ffffff;
 }
 
 .call-chat a.call {
