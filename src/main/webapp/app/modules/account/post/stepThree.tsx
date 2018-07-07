@@ -8,6 +8,7 @@ const Option = Select.Option;
 const RadioButton = Radio.Button;
 const RadioGroup = Radio.Group;
 const { TextArea } = Input;
+import RichTextEditor from 'react-rte';
 
 import { IRootState } from 'app/shared/reducers';
 import { getSession } from 'app/shared/reducers/authentication';
@@ -43,7 +44,7 @@ export class StepThree extends React.Component<IStepThreeProp, IStepThreeState> 
     floor: null,
     parking: null,
     furniture: null,
-    summary: null
+    summary: RichTextEditor.createEmptyValue()
   };
 
   onChangeAcreage = e => {
@@ -156,12 +157,12 @@ export class StepThree extends React.Component<IStepThreeProp, IStepThreeState> 
     });
   };
 
-  onChangeSummary = e => {
+  onChangeSummary = value => {
     this.setState({
-      summary: e.target.value
+      summary: value
     });
     this.props.updateHouse({
-      summary: e.target.value
+      summary: value.toString('html')
     });
   };
 
@@ -314,7 +315,7 @@ export class StepThree extends React.Component<IStepThreeProp, IStepThreeState> 
         */}
         <Col md="12">
           <div style={{ marginTop: 16 }}>
-            <TextArea onChange={this.onChangeSummary} placeholder="Mô tả thêm về ngôi nhà của bạn" autosize={{ minRows: 2, maxRows: 6 }} />
+            <RichTextEditor value={this.state.summary} onChange={this.onChangeSummary} placeholder="Mô tả thêm về ngôi nhà của bạn" />
           </div>
         </Col>
       </Row>

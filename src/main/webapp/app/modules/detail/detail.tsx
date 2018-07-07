@@ -13,7 +13,6 @@ const { TextArea } = Input;
 const TabPane = Tabs.TabPane;
 
 import { getActionType, getLandType, getCityType, getDirection, getPresent, getSaleType, getMoney, decodeId } from 'app/shared/util/utils';
-import { getEntities as getCities } from 'app/entities/city/city.reducer';
 import { getEntity } from 'app/entities/house/house.reducer';
 import { getImageOfHouse } from 'app/entities/house-photo/house-photo.reducer';
 import { APP_DATE_FORMAT, APP_LOCAL_DATE_FORMAT } from 'app/config/constants';
@@ -29,7 +28,6 @@ export interface IDetailState {
 
 export class Detail extends React.Component<IDetailProp, IDetailState> {
   componentDidMount() {
-    this.props.getCities();
     const houseId = decodeId(this.props.match.params.key);
     this.props.getEntity(houseId);
     /* tslint:disable-next-line */
@@ -210,13 +208,7 @@ export class Detail extends React.Component<IDetailProp, IDetailState> {
               <Row style={{ marginTop: 10, marginBottom: 10 }}>
                 <Col md="5">
                   <h6>Mô tả thêm</h6>
-                  <div className="product-desc">
-                    Nhà 7 tầng THANG MÁY GARA ÔTÔ KINH DOANH đỉnh 60m2 MT4,8m giá 13.5tỷ + Nhà nằm tại vị trí đắc địa của Quận Cầu Giấy,
-                    trong khu phân lô, ÔTÔ chạy VÒNG QUANH, đường trước nhà ÔTÔ TRÁNH nhau thoải mái. + Nhà xây mới, thiết kế hiện đại, mỗi
-                    tầng 2 phòng, giếng trời thông thoáng, THANG MÁY nhập khẩu. + Nhà dễ chuyển đổi công năng, ở hay KINH DOANH đều tuyệt. +
-                    Sổ đẹp như HOA HẬU, NỞ, chính chủ pháp lý rõ ràng. Liên hệ Mr Sơn: 0989 65 65 02 – 0919 65 65 02. Chuyên Bất Động Sản
-                    Thổ Cư - Tư vấn tận tâm, chuyên nghiệp, trung thực. Hỗ trợ thủ tục pháp lý, miễn phí 100% mọi dịch vụ cho khách.
-                  </div>
+                  <div className="product-desc" dangerouslySetInnerHTML={{ __html: this.props.houseEntity.summary }} />
                 </Col>
                 <Col md="7">
                   <h6>Tư vấn tài chính</h6>
@@ -276,11 +268,10 @@ const mapStateToProps = storeState => ({
   houseEntity: storeState.house.entity,
   loading: storeState.house.loading,
   updating: storeState.house.updating,
-  cities: storeState.city.entities,
   housePhotoList: storeState.housePhoto.entities
 });
 
-const mapDispatchToProps = { getEntity, getImageOfHouse, getCities };
+const mapDispatchToProps = { getEntity, getImageOfHouse };
 
 type StateProps = ReturnType<typeof mapStateToProps>;
 type DispatchProps = typeof mapDispatchToProps;
