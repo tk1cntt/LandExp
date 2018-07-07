@@ -157,6 +157,7 @@ public class MappingUtils {
         response.setImageContentType(dto.getAvatarContentType());
         response.setUpdateAt(formatDate(dto.getUpdateAt()));
         response.setParking(formatParking(dto.isParking()));
+        response.setSummary(dto.getSummary());
         response.setLink(formatLink(dto));
         response.setId(Utils.encodeId(dto.getId()));
         response.setCustomer(dto.getCustomer());
