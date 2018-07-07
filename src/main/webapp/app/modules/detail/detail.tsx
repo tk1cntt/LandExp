@@ -200,6 +200,15 @@ export class Detail extends React.Component<IDetailProp, IDetailState> {
                 {this.houseContactForm()}
               </Row>
               <Row style={{ marginTop: 10, marginBottom: 10 }}>
+                <Col md="12">
+                  <h3 className="lo-title">
+                    Bản đồ vị trí và tiện ích trong khu vực
+                    <span>
+                      {this.props.houseEntity.address}, {this.props.houseEntity.wardName}, {this.props.houseEntity.districtName},{' '}
+                      {this.props.houseEntity.cityName}
+                    </span>
+                  </h3>
+                </Col>
                 <Col md="5">{this.houseNearByForm()}</Col>
                 <Col md="7">
                   <GoogleMaps />
@@ -207,11 +216,11 @@ export class Detail extends React.Component<IDetailProp, IDetailState> {
               </Row>
               <Row style={{ marginTop: 10, marginBottom: 10 }}>
                 <Col md="5">
-                  <h6>Mô tả thêm</h6>
+                  <h4>Mô tả thêm</h4>
                   <div className="product-desc" dangerouslySetInnerHTML={{ __html: this.props.houseEntity.summary }} />
                 </Col>
                 <Col md="7">
-                  <h6>Tư vấn tài chính</h6>
+                  <h4>Tư vấn tài chính</h4>
                   <Row className="cs-content">
                     <Col md="5">
                       <div className="form-group">
@@ -253,6 +262,14 @@ export class Detail extends React.Component<IDetailProp, IDetailState> {
                         placeholder="Bạn cần vay số tiền { } VNĐ trong vòng { } năm với số tiền tích lũy hàng tháng không nhỏ hơn { } VNĐ để có thể mua được ngôi nhà này"
                       />
                     </Col>
+                    <div className="col-xs-7 col-xs-offset-5">
+                      <button type="submit" className="btn btn-info">
+                        Nhận tư vấn
+                      </button>
+                      <button type="submit" className="btn btn-success">
+                        Đăng ký vay
+                      </button>
+                    </div>
                   </Row>
                 </Col>
               </Row>

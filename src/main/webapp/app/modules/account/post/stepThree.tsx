@@ -8,6 +8,7 @@ const Option = Select.Option;
 const RadioButton = Radio.Button;
 const RadioGroup = Radio.Group;
 const { TextArea } = Input;
+/* tslint:disable-next-line */
 import RichTextEditor from 'react-rte';
 
 import { IRootState } from 'app/shared/reducers';
