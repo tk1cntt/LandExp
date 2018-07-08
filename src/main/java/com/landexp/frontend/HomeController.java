@@ -2,6 +2,7 @@ package com.landexp.frontend;
 
 import com.landexp.frontend.responses.HouseResponse;
 import com.landexp.frontend.responses.MappingUtils;
+import com.landexp.service.HousePhotoService;
 import com.landexp.service.HouseService;
 import com.landexp.service.dto.HouseDTO;
 import org.slf4j.Logger;

@@ -182,12 +182,12 @@ public class MappingUtils {
         return responses;
     }
 
-    public static HouseDetailResponse mappingHouseDetailResponse(HouseDTO dto) {
+    public static HouseDetailResponse mappingHouseDetailResponse(HouseDTO dto, List<HousePhotoDTO> photos) {
         HouseDetailResponse response = new HouseDetailResponse();
         response.setTitle(formatTitle(dto));
         response.setDescription(dto.getSummary());
         response.setHouse(mappingHouseResponse(dto));
-        response.setImages(mappingHouseImageResponses(dto.getPhotos()));
+        response.setImages(mappingHouseImageResponses(photos));
         return response;
     }
 
