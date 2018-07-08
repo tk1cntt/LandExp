@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 import { Link, RouteComponentProps } from 'react-router-dom';
 import { Button, Row, Col, Container, Label } from 'reactstrap';
 import { AvForm, AvGroup, AvInput, AvField } from 'availity-reactstrap-validation';
+import { Spin } from 'antd';
 // tslint:disable-next-line:no-unused-variable
 import { Translate, translate, ICrudGetAction, ICrudGetAllAction, setFileData, openFile, byteSize, ICrudPutAction } from 'react-jhipster';
 import FontAwesomeIcon from '@fortawesome/react-fontawesome';
@@ -25,6 +26,7 @@ import { IHouse } from 'app/shared/model/house.model';
 // tslint:disable-next-line:no-unused-variable
 import { convertDateTimeFromServer } from 'app/shared/util/date-utils';
 import { keysToValues } from 'app/shared/util/entity-utils';
+import { getActionType, getLandType, getCityType, getDirection, getPresent, getSaleType, getStatusType } from 'app/shared/util/utils';
 
 import SearchPage from 'app/shared/layout/search/search-menu';
 
@@ -240,7 +242,7 @@ export class HouseUpdate extends React.Component<IHouseUpdateProps, IHouseUpdate
           <Row className="justify-content-center">
             <Col md="12">
               {loading ? (
-                <p>Loading...</p>
+                <Spin tip="Đang cập nhật dữ liệu..." />
               ) : (
                 <AvForm model={isNew ? {} : houseEntity} onSubmit={this.saveEntity}>
                   {!isNew ? (
@@ -289,12 +291,10 @@ export class HouseUpdate extends React.Component<IHouseUpdateProps, IHouseUpdate
                       type="select"
                       className="form-control"
                       name="actionType"
-                      value={(!isNew && houseEntity.actionType) || 'FOR_BUY'}
+                      value={(!isNew && houseEntity.actionType) || 'FOR_SELL'}
                     >
-                      <option value="FOR_BUY">FOR_BUY</option>
-                      <option value="FOR_SELL">FOR_SELL</option>
-                      <option value="FOR_RENT">FOR_RENT</option>
-                      <option value="FOR_HIRE">FOR_HIRE</option>
+                      <option value="FOR_SELL">{getActionType('FOR_SELL')}</option>
+                      <option value="FOR_RENT">{getActionType('FOR_RENT')}</option>
                     </AvInput>
                   </AvGroup>
                   <AvGroup>
@@ -338,14 +338,14 @@ export class HouseUpdate extends React.Component<IHouseUpdateProps, IHouseUpdate
                       name="direction"
                       value={(!isNew && houseEntity.direction) || 'NORTH'}
                     >
-                      <option value="NORTH">NORTH</option>
-                      <option value="SOUTH">SOUTH</option>
-                      <option value="EAST">EAST</option>
-                      <option value="WEST">WEST</option>
-                      <option value="EAST_NORTH">EAST_NORTH</option>
-                      <option value="WEST_NORTH">WEST_NORTH</option>
-                      <option value="EAST_SOUTH">EAST_SOUTH</option>
-                      <option value="WEST_SOUTH">WEST_SOUTH</option>
+                      <option value="NORTH">{getDirection('NORTH')}</option>
+                      <option value="SOUTH">{getDirection('SOUTH')}</option>
+                      <option value="EAST">{getDirection('EAST')}</option>
+                      <option value="WEST">{getDirection('WEST')}</option>
+                      <option value="EAST_NORTH">{getDirection('EAST_NORTH')}</option>
+                      <option value="WEST_NORTH">{getDirection('WEST_NORTH')}</option>
+                      <option value="EAST_SOUTH">{getDirection('EAST_SOUTH')}</option>
+                      <option value="WEST_SOUTH">{getDirection('WEST_SOUTH')}</option>
                     </AvInput>
                   </AvGroup>
                   <AvGroup>
@@ -359,14 +359,14 @@ export class HouseUpdate extends React.Component<IHouseUpdateProps, IHouseUpdate
                       name="directionBalcony"
                       value={(!isNew && houseEntity.directionBalcony) || 'NORTH'}
                     >
-                      <option value="NORTH">NORTH</option>
-                      <option value="SOUTH">SOUTH</option>
-                      <option value="EAST">EAST</option>
-                      <option value="WEST">WEST</option>
-                      <option value="EAST_NORTH">EAST_NORTH</option>
-                      <option value="WEST_NORTH">WEST_NORTH</option>
-                      <option value="EAST_SOUTH">EAST_SOUTH</option>
-                      <option value="WEST_SOUTH">WEST_SOUTH</option>
+                      <option value="NORTH">{getDirection('NORTH')}</option>
+                      <option value="SOUTH">{getDirection('SOUTH')}</option>
+                      <option value="EAST">{getDirection('EAST')}</option>
+                      <option value="WEST">{getDirection('WEST')}</option>
+                      <option value="EAST_NORTH">{getDirection('EAST_NORTH')}</option>
+                      <option value="WEST_NORTH">{getDirection('WEST_NORTH')}</option>
+                      <option value="EAST_SOUTH">{getDirection('EAST_SOUTH')}</option>
+                      <option value="WEST_SOUTH">{getDirection('WEST_SOUTH')}</option>
                     </AvInput>
                   </AvGroup>
                   <AvGroup>
@@ -416,20 +416,20 @@ export class HouseUpdate extends React.Component<IHouseUpdateProps, IHouseUpdate
                       name="landType"
                       value={(!isNew && houseEntity.landType) || 'APARTMENT'}
                     >
-                      <option value="APARTMENT">APARTMENT</option>
-                      <option value="PEN_HOUSE">PEN_HOUSE</option>
-                      <option value="HOME">HOME</option>
-                      <option value="HOME_VILLA">HOME_VILLA</option>
-                      <option value="HOME_STREET_SIDE">HOME_STREET_SIDE</option>
-                      <option value="MOTEL_ROOM">MOTEL_ROOM</option>
-                      <option value="OFFICE">OFFICE</option>
-                      <option value="LAND_SCAPE">LAND_SCAPE</option>
-                      <option value="LAND_OF_PROJECT">LAND_OF_PROJECT</option>
-                      <option value="LAND_FARM">LAND_FARM</option>
-                      <option value="LAND_RESORT">LAND_RESORT</option>
-                      <option value="WAREHOUSES">WAREHOUSES</option>
-                      <option value="KIOSKS">KIOSKS</option>
-                      <option value="OTHER">OTHER</option>
+                      <option value="APARTMENT">{getLandType('APARTMENT')}</option>
+                      <option value="PEN_HOUSE">{getLandType('PEN_HOUSE')}</option>
+                      <option value="HOME">{getLandType('HOME')}</option>
+                      <option value="HOME_VILLA">{getLandType('HOME_VILLA')}</option>
+                      <option value="HOME_STREET_SIDE">{getLandType('HOME_STREET_SIDE')}</option>
+                      <option value="MOTEL_ROOM">{getLandType('MOTEL_ROOM')}</option>
+                      <option value="OFFICE">{getLandType('OFFICE')}</option>
+                      <option value="LAND_SCAPE">{getLandType('LAND_SCAPE')}</option>
+                      <option value="LAND_OF_PROJECT">{getLandType('LAND_OF_PROJECT')}</option>
+                      <option value="LAND_FARM">{getLandType('LAND_FARM')}</option>
+                      <option value="LAND_RESORT">{getLandType('LAND_RESORT')}</option>
+                      <option value="WAREHOUSES">{getLandType('WAREHOUSES')}</option>
+                      <option value="KIOSKS">{getLandType('KIOSKS')}</option>
+                      <option value="OTHER">{getLandType('OTHER')}</option>
                     </AvInput>
                   </AvGroup>
                   <AvGroup>
@@ -443,23 +443,11 @@ export class HouseUpdate extends React.Component<IHouseUpdateProps, IHouseUpdate
                       name="saleType"
                       value={(!isNew && houseEntity.saleType) || 'SALE_BY_MYSELF'}
                     >
-                      <option value="SALE_BY_MYSELF">SALE_BY_MYSELF</option>
-                      <option value="SALE_BY_MYSELF_VIP">SALE_BY_MYSELF_VIP</option>
-                      <option value="SALE_SUPPORT">SALE_SUPPORT</option>
-                      <option value="SALE_SUPPORT_VIP">SALE_SUPPORT_VIP</option>
+                      <option value="SALE_BY_MYSELF">{getSaleType('SALE_BY_MYSELF')}</option>
+                      <option value="SALE_BY_MYSELF_VIP">{getSaleType('SALE_BY_MYSELF_VIP')}</option>
+                      <option value="SALE_SUPPORT">{getSaleType('SALE_SUPPORT')}</option>
+                      <option value="SALE_SUPPORT_VIP">{getSaleType('SALE_SUPPORT_VIP')}</option>
                     </AvInput>
-                  </AvGroup>
-                  <AvGroup>
-                    <Label id="feeLabel" for="fee">
-                      <Translate contentKey="landexpApp.house.fee">Fee</Translate>
-                    </Label>
-                    <AvField id="house-fee" type="number" className="form-control" name="fee" />
-                  </AvGroup>
-                  <AvGroup>
-                    <Label id="feeMaxLabel" for="feeMax">
-                      <Translate contentKey="landexpApp.house.feeMax">Fee Max</Translate>
-                    </Label>
-                    <AvField id="house-feeMax" type="number" className="form-control" name="feeMax" />
                   </AvGroup>
                   <AvGroup>
                     <Label id="presentLabel">
@@ -472,20 +460,14 @@ export class HouseUpdate extends React.Component<IHouseUpdateProps, IHouseUpdate
                       name="present"
                       value={(!isNew && houseEntity.present) || 'NONE'}
                     >
-                      <option value="NONE">NONE</option>
-                      <option value="BASIC_FURNITURE">BASIC_FURNITURE</option>
-                      <option value="FULL_FURNITURE">FULL_FURNITURE</option>
-                      <option value="DISCOUNT_PRICE">DISCOUNT_PRICE</option>
-                      <option value="SUPPORT_EXHIBIT">SUPPORT_EXHIBIT</option>
-                      <option value="SUPPORT_FEE">SUPPORT_FEE</option>
-                      <option value="HAVE_PRESENT">HAVE_PRESENT</option>
+                      <option value="NONE">{getPresent('NONE')}</option>
+                      <option value="BASIC_FURNITURE">{getPresent('BASIC_FURNITURE')}</option>
+                      <option value="FULL_FURNITURE">{getPresent('FULL_FURNITURE')}</option>
+                      <option value="DISCOUNT_PRICE">{getPresent('DISCOUNT_PRICE')}</option>
+                      <option value="SUPPORT_EXHIBIT">{getPresent('SUPPORT_EXHIBIT')}</option>
+                      <option value="SUPPORT_FEE">{getPresent('SUPPORT_FEE')}</option>
+                      <option value="HAVE_PRESENT">{getPresent('HAVE_PRESENT')}</option>
                     </AvInput>
-                  </AvGroup>
-                  <AvGroup>
-                    <Label id="hitsLabel" for="hits">
-                      <Translate contentKey="landexpApp.house.hits">Hits</Translate>
-                    </Label>
-                    <AvField id="house-hits" type="number" className="form-control" name="hits" />
                   </AvGroup>
                   <AvGroup>
                     <Label id="customerLabel" for="customer">
@@ -528,43 +510,13 @@ export class HouseUpdate extends React.Component<IHouseUpdateProps, IHouseUpdate
                       name="statusType"
                       value={(!isNew && houseEntity.statusType) || 'OPEN'}
                     >
-                      <option value="OPEN">OPEN</option>
-                      <option value="PENDING">PENDING</option>
-                      <option value="PAID">PAID</option>
-                      <option value="CANCELED">CANCELED</option>
-                      <option value="EXPIRED">EXPIRED</option>
-                      <option value="SOLD">SOLD</option>
+                      <option value="OPEN">{getStatusType('OPEN')}</option>
+                      <option value="PENDING">{getStatusType('PENDING')}</option>
+                      <option value="PAID">{getStatusType('PAID')}</option>
+                      <option value="CANCELED">{getStatusType('CANCELED')}</option>
+                      <option value="EXPIRED">{getStatusType('EXPIRED')}</option>
+                      <option value="SOLD">{getStatusType('SOLD')}</option>
                     </AvInput>
-                  </AvGroup>
-                  <AvGroup>
-                    <Label id="googleIdLabel" for="googleId">
-                      <Translate contentKey="landexpApp.house.googleId">Google Id</Translate>
-                    </Label>
-                    <AvField id="house-googleId" type="text" name="googleId" />
-                  </AvGroup>
-                  <AvGroup>
-                    <Label id="latitudeLabel" for="latitude">
-                      <Translate contentKey="landexpApp.house.latitude">Latitude</Translate>
-                    </Label>
-                    <AvField id="house-latitude" type="number" className="form-control" name="latitude" />
-                  </AvGroup>
-                  <AvGroup>
-                    <Label id="longitudeLabel" for="longitude">
-                      <Translate contentKey="landexpApp.house.longitude">Longitude</Translate>
-                    </Label>
-                    <AvField id="house-longitude" type="number" className="form-control" name="longitude" />
-                  </AvGroup>
-                  <AvGroup>
-                    <Label id="createAtLabel" for="createAt">
-                      <Translate contentKey="landexpApp.house.createAt">Create At</Translate>
-                    </Label>
-                    <AvField id="house-createAt" type="date" className="form-control" name="createAt" />
-                  </AvGroup>
-                  <AvGroup>
-                    <Label id="updateAtLabel" for="updateAt">
-                      <Translate contentKey="landexpApp.house.updateAt">Update At</Translate>
-                    </Label>
-                    <AvField id="house-updateAt" type="date" className="form-control" name="updateAt" />
                   </AvGroup>
                   <AvGroup>
                     <Label for="city.name">
