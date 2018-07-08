@@ -243,7 +243,7 @@ public class MappingUtils {
         if (parking) {
             return "<i class=\"fa fa-check\"></i>";
         } else {
-            return "<i class=\"fa fa-uncheck\"></i>";
+            return "<i class=\"fa fa-times\"></i>";
         }
     }
 
