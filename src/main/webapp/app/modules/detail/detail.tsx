@@ -6,7 +6,11 @@ import { Translate, TextFormat } from 'react-jhipster';
 import { connect } from 'react-redux';
 import FontAwesomeIcon from '@fortawesome/react-fontawesome';
 import { Row, Col, Container, Breadcrumb, BreadcrumbItem } from 'reactstrap';
-import { Carousel as Album } from 'react-responsive-carousel';
+// import { Carousel as Album } from 'react-responsive-carousel';
+
+import ImageGallery from 'react-image-gallery';
+
+// import Lightbox from 'lightbox-react';
 
 import { Carousel, Tabs, Input, Button, Spin } from 'antd';
 const { TextArea } = Input;
@@ -24,9 +28,17 @@ export interface IDetailProp extends StateProps, DispatchProps, RouteComponentPr
 
 export interface IDetailState {
   search: string;
+  isOpen: Boolean;
+  photoIndex: any;
 }
 
 export class Detail extends React.Component<IDetailProp, IDetailState> {
+  state: IDetailState = {
+    search: null,
+    isOpen: false,
+    photoIndex: 0
+  };
+
   componentDidMount() {
     const houseId = decodeId(this.props.match.params.key);
     this.props.getEntity(houseId);
@@ -34,11 +46,23 @@ export class Detail extends React.Component<IDetailProp, IDetailState> {
     this.props.getImageOfHouse(parseInt(houseId));
   }
 
+  /*
   houseSliderFrom(slides: any) {
     return (
       <Col md="6">
         <div className="justify-content-center" style={{ border: '1px solid #dfdfdf' }}>
           <Album autoPlay>{slides}</Album>
+        </div>
+      </Col>
+    );
+  }
+  */
+
+  houseImageGalleryFrom(images: any) {
+    return (
+      <Col md="6">
+        <div className="justify-content-center" style={{ border: '1px solid #dfdfdf' }}>
+          <ImageGallery items={images} showPlayButton={false} showFullscreenButton={false} autoPlay lazyLoad />
         </div>
       </Col>
     );
@@ -170,10 +194,17 @@ export class Detail extends React.Component<IDetailProp, IDetailState> {
 
   render() {
     const { loading, updating } = this.props;
+    // const { photoIndex, isOpen } = this.state;
     const slides = [];
+    const images = [];
     if (this.props.housePhotoList) {
+      /*
       this.props.housePhotoList.map(file => {
         slides.push(<img key={file.id} className="center-cropped" src={`data:image/jpeg;base64,${file.image}`} />);
+      });
+      */
+      this.props.housePhotoList.map(file => {
+        images.push({ original: `data:image/jpeg;base64,${file.image}`, thumbnail: `data:image/jpeg;base64,${file.image}` });
       });
     }
     return (
@@ -192,13 +223,37 @@ export class Detail extends React.Component<IDetailProp, IDetailState> {
               </Row>
             </Col>
           </Row>
-          <Spin spinning={this.props.loading} tip="Đang cập nhật dữ liệu...">
+          {this.props.loading && this.props.photoLoading ? (
+            <Row>
+              <Col className="justify-content-center" md="12">
+                <Spin tip="Đang cập nhật dữ liệu..." />
+              </Col>
+            </Row>
+          ) : (
             <Row>
               <Row id="product-content">
-                {this.houseSliderFrom(slides)}
+                {this.houseImageGalleryFrom(images)}
                 {this.houseDetailForm()}
                 {this.houseContactForm()}
               </Row>
+              {/*isOpen && (
+                <Lightbox
+                  mainSrc={slides[photoIndex]}
+                  nextSrc={slides[(photoIndex + 1) % slides.length]}
+                  prevSrc={slides[(photoIndex + slides.length - 1) % slides.length]}
+                  onCloseRequest={() => this.setState({ isOpen: false })}
+                  onMovePrevRequest={() =>
+                    this.setState({
+                      photoIndex: (photoIndex + slides.length - 1) % slides.length,
+                    })
+                  }
+                  onMoveNextRequest={() =>
+                    this.setState({
+                      photoIndex: (photoIndex + 1) % slides.length,
+                    })
+                  }
+                />
+              )*/}
               <Row style={{ marginTop: 10, marginBottom: 10 }}>
                 <Col md="12">
                   <h3 className="lo-title">
@@ -274,7 +329,7 @@ export class Detail extends React.Component<IDetailProp, IDetailState> {
                 </Col>
               </Row>
             </Row>
-          </Spin>
+          )}
         </Container>
       </Row>
     );
@@ -285,7 +340,8 @@ const mapStateToProps = storeState => ({
   houseEntity: storeState.house.entity,
   loading: storeState.house.loading,
   updating: storeState.house.updating,
-  housePhotoList: storeState.housePhoto.entities
+  housePhotoList: storeState.housePhoto.entities,
+  photoLoading: storeState.housePhoto.loading
 });
 
 const mapDispatchToProps = { getEntity, getImageOfHouse };

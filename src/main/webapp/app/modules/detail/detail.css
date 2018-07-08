@@ -55,3 +55,16 @@
   width: 99px !important;
   height: 67px;
 }
+
+.image-gallery-content .image-gallery-swipe .image-gallery-slides .image-gallery-slide .image-gallery-image img {
+  object-fit: cover; /* Do not scale the image */
+  object-position: center; /* Center the image within the element */
+  width: 565px !important;
+  height: 376px;
+}
+
+.image-gallery-content .image-gallery-thumbnails-wrapper .image-gallery-thumbnails .image-gallery-thumbnails-container img {
+  object-fit: cover; /* Do not scale the image */
+  object-position: center; /* Center the image within the element */
+  height: 67px;
+}
