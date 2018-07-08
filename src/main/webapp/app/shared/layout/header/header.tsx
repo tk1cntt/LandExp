@@ -32,24 +32,143 @@ export default class Header extends React.Component<IHeaderProps, IHeaderState> 
     this.setState({ menuOpen: !this.state.menuOpen });
   };
 
+  menuUser = () => {
+    return (
+      <SubMenu
+        key="sub1"
+        title={
+          <span>
+            <Icon type="appstore" />
+            <span> Quản lý tin đăng </span>
+          </span>
+        }
+      >
+        <Menu.Item>
+          <Link to="/tai-khoan/danh-sach-tin-dang">
+            <FontAwesomeIcon icon="newspaper" /> Tin đã đăng của bạn
+          </Link>
+        </Menu.Item>
+      </SubMenu>
+    );
+  };
+
+  menuStaff = () => {
+    return (
+      <SubMenu
+        key="subStaff"
+        title={
+          <span>
+            <Icon type="star" />
+            <span> Dành cho nhân viên </span>
+          </span>
+        }
+      >
+        <Menu.Item>
+          <Link to="/quan-ly/tinh-thanh">
+            <FontAwesomeIcon icon="asterisk" />&nbsp; Quản lý tỉnh thành
+          </Link>
+        </Menu.Item>
+        <Menu.Item>
+          <Link to="/quan-ly/quan-huyen">
+            <FontAwesomeIcon icon="asterisk" />&nbsp; Quản lý quận huyện
+          </Link>
+        </Menu.Item>
+        <Menu.Item>
+          <Link to="/quan-ly/xa-phuong">
+            <FontAwesomeIcon icon="asterisk" />&nbsp; Quản lý xã phường
+          </Link>
+        </Menu.Item>
+        <Menu.Item>
+          <Link to="/quan-ly/tin-dang">
+            <FontAwesomeIcon icon="asterisk" />&nbsp; Quản lý tin đăng
+          </Link>
+        </Menu.Item>
+        <Menu.Item>
+          <Link to="/quan-ly/house-photo">
+            <FontAwesomeIcon icon="asterisk" />&nbsp; Ảnh tin đăng
+          </Link>
+        </Menu.Item>
+        <Menu.Item>
+          <Link to="/quan-ly/cac-du-an">
+            <FontAwesomeIcon icon="asterisk" />&nbsp; Các dự án
+          </Link>
+        </Menu.Item>
+        {/*
+        <DropdownItem tag={Link} to="/quan-ly/land-project-photo">
+          <FontAwesomeIcon icon="asterisk" />&nbsp; Ảnh các dự án
+        </DropdownItem>
+        */}
+        <Menu.Item>
+          <Link to="/quan-ly/tin-tuc">
+            <FontAwesomeIcon icon="asterisk" />&nbsp; Tin tức
+          </Link>
+        </Menu.Item>
+        <Menu.Item>
+          <Link to="/quan-ly/danh-muc-tin-tuc">
+            <FontAwesomeIcon icon="asterisk" />&nbsp; Danh mục tin tức
+          </Link>
+        </Menu.Item>
+        <Menu.Item>
+          <Link to="/quan-ly/khach-hang-tiem-nang">
+            <FontAwesomeIcon icon="asterisk" />&nbsp; Khách hàng tiềm năng
+          </Link>
+        </Menu.Item>
+        <Menu.Item>
+          <Link to="/quan-ly/tu-van-tai-chinh">
+            <FontAwesomeIcon icon="asterisk" />&nbsp; Tư vấn tài chính
+          </Link>
+        </Menu.Item>
+        <Menu.Item>
+          <Link to="/quan-ly/thanh-toan">
+            <FontAwesomeIcon icon="asterisk" />&nbsp; Thông tin thanh toán
+          </Link>
+        </Menu.Item>
+      </SubMenu>
+    );
+  };
+
+  menuManager = () => {
+    return (
+      <SubMenu
+        key="subManager"
+        title={
+          <span>
+            <Icon type="safety" />
+            <span> Dành cho quản lý </span>
+          </span>
+        }
+      >
+        <Menu.Item>
+          <Link to="/quan-ly/bang-phi-dich-vu">
+            <FontAwesomeIcon icon="asterisk" />&nbsp; Bảng phí dịch vụ
+          </Link>
+        </Menu.Item>
+        <Menu.Item>
+          <Link to="/quan-ly/khu-vuc">
+            <FontAwesomeIcon icon="asterisk" />&nbsp; Quản lý khu vực
+          </Link>
+        </Menu.Item>
+        <Menu.Item>
+          <Link to="/quan-ly/tai-khoan-nguoi-dung">
+            <FontAwesomeIcon icon="user" /> Tài khoản người dùng
+          </Link>
+        </Menu.Item>
+        <Menu.Item>
+          <Link to="/quan-ly/banner">
+            <FontAwesomeIcon icon="asterisk" />&nbsp; Banner
+          </Link>
+        </Menu.Item>
+      </SubMenu>
+    );
+  };
+
   render() {
+    const { currentLocale, isAuthenticated, isAdmin, isManager, isStaff, isSwaggerEnabled, isInProduction } = this.props;
     const menu = (
       <Menu>
-        <SubMenu
-          key="sub1"
-          title={
-            <span>
-              <Icon type="appstore" />
-              <span> Quản lý tin đăng </span>
-            </span>
-          }
-        >
-          <Menu.Item>
-            <Link to="/tai-khoan/danh-sach-tin-dang">
-              <FontAwesomeIcon icon="newspaper" /> Tin đã đăng của bạn
-            </Link>
-          </Menu.Item>
-        </SubMenu>
+        {this.menuUser()}
+        {!isStaff ? null : this.menuStaff()}
+        {!isManager ? null : this.menuManager()}
         <SubMenu
           key="sub2"
           title={
@@ -77,7 +196,6 @@ export default class Header extends React.Component<IHeaderProps, IHeaderState> 
         </SubMenu>
       </Menu>
     );
-    const { currentLocale, isAuthenticated, isAdmin, isManager, isStaff, isSwaggerEnabled, isInProduction } = this.props;
     return (
       <header>
         <div className="container">
