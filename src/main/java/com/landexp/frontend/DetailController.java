@@ -34,7 +34,7 @@ public class DetailController {
         ModelAndView modelAndView = new ModelAndView();
         modelAndView.setViewName("detail");
         HouseDTO dto = houseService.findOne(Utils.decodeId(id)).get();
-        Page<HousePhotoDTO> photos = housePhotoService.findByHouse(Utils.decodeId(id), PageRequest.of(1, 20));
+        Page<HousePhotoDTO> photos = housePhotoService.findByHouse(Utils.decodeId(id), PageRequest.of(0, 20));
         HouseDetailResponse response = MappingUtils.mappingHouseDetailResponse(dto, photos.getContent());
         modelAndView.addObject("title", response.getTitle());
         modelAndView.addObject("description", response.getDescription());
