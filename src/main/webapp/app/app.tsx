@@ -20,6 +20,7 @@ import './style.css';
 import 'antd/dist/antd.css';
 /* tslint:disable-next-line */
 // import 'react-responsive-carousel/lib/styles/carousel.min.css';
+/* tslint:disable-next-line */
 import 'react-image-gallery/styles/css/image-gallery.css';
 
 export interface IAppProps extends StateProps, DispatchProps {}

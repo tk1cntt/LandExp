@@ -2,6 +2,7 @@ package com.landexp.service.dto;
 
 import java.time.LocalDate;
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 import javax.persistence.Lob;
@@ -501,6 +502,9 @@ public class HouseDTO implements Serializable {
     }
 
     public List<HousePhotoDTO> getPhotos() {
+        if (photos == null) {
+            photos = new ArrayList<>();
+        }
         return photos;
     }
 
