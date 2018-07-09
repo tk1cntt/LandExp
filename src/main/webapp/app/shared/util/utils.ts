@@ -172,41 +172,6 @@ export const getMoney = (money, actionType) => {
   return moneyFormat;
 };
 
-export const selectPrice = (price) => {
-  return priceFromValue(price);
-};
-
-function priceFromValue(price) {
-  switch (price) {
-    case 1:
-      return {
-        greaterThan: 0,
-        lessThan: 500000001
-      };
-    case 2:
-      return {
-        greaterThan: 500000000,
-        lessThan: 1000000001
-      };
-    case 3:
-      return {
-        greaterThan: 1000000000,
-        lessThan: 1500000001
-      };
-    case 4:
-      return {
-        greaterThan: 1500000000,
-        lessThan: 2000000001
-      };
-    case 5:
-      return {
-        greaterThan: 2000000000
-      };
-    default:
-      return null;
-  }
-}
-
 function humanize(x) {
   return x.toFixed(2).replace(/\.?0*$/, '');
 }
@@ -222,9 +187,47 @@ export const decodePayment = id => hashpayments.decode(id)[0];
 export const formatDate = date => date.getDate() + '/' + (date.getMonth() + 1) + '/' + date.getFullYear();
 
 export const queryStringMapping = parameters => {
+  console.log('queryStringMapping', parameters);
   let queryString = '';
-  for (var key in parameters) {
-    queryString = queryString + key + '.equals=' + parameters[key] + '&';
+  queryString += parameters.actionType ? 'actionType.equals=' + parameters.actionType + '&' : '';
+  queryString += parameters.landType ? 'landType.equals=' + parameters.landType + '&' : '';
+  switch (parseInt(parameters.money)) {
+    case 1:
+      queryString += 'money.lessThan=500000001&';
+      break;
+    case 2:
+      queryString += 'money.greaterThan=500000000&money.lessThan=1000000001&';
+      break;
+    case 3:
+      queryString += 'money.greaterThan=1000000000&money.lessThan=1500000001&';
+      break;
+    case 4:
+      queryString += 'money.greaterThan=1500000000&money.lessThan=2000000001&';
+      break;
+    case 5:
+      queryString += 'money.greaterThan=2000000000&';
+      break;
+    default:
+      break;
+  }
+  switch (parseInt(parameters.acreage)) {
+    case 1:
+      queryString += 'acreage.lessThan=50&';
+      break;
+    case 2:
+      queryString += 'acreage.greaterThan=50&acreage.lessThan=81&';
+      break;
+    case 3:
+      queryString += 'acreage.greaterThan=80&acreage.lessThan=101&';
+      break;
+    case 4:
+      queryString += 'acreage.greaterThan=100&acreage.lessThan=201&';
+      break;
+    case 5:
+      queryString += 'acreage.greaterThan=200&';
+      break;
+    default:
+      break;
   }
   return queryString.slice(0, -1);
 };

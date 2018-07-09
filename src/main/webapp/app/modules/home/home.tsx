@@ -52,7 +52,7 @@ export class Home extends React.Component<IHomeProp> {
           </div>
         </div>
         <div className="container">
-          <Spin spinning={this.props.loading && this.props.houseList.length === 0} tip="Đang cập nhật dữ liệu...">
+          <Spin spinning={this.props.loading} tip="Đang cập nhật dữ liệu...">
             <div className="row lastest-posts">
               <h2>
                 Tin mới đăng<span>Hiển thị 1 - 20 trong 100 Bất động sản</span>
