@@ -61,11 +61,6 @@ class LoginModal extends React.Component<ILoginModalProps> {
                       required
                       errorMessage="Password cannot be empty!"
                     />
-                    <AvGroup check inline>
-                      <Label className="form-check-label">
-                        <AvInput type="checkbox" name="rememberMe" /> <Translate contentKey="login.form.rememberme">Remember me</Translate>
-                      </Label>
-                    </AvGroup>
                   </Col>
                 </Row>
                 <div className="mt-1">&nbsp;</div>

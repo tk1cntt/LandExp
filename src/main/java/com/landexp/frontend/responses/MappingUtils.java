@@ -239,7 +239,7 @@ public class MappingUtils {
     }
 
     public static String formatParking(Boolean parking) {
-        if (ObjectUtils.isEmpty(parking)) return null;
+        if (ObjectUtils.isEmpty(parking)) return "<i class=\"fa fa-times\"></i>";
         if (parking) {
             return "<i class=\"fa fa-check\"></i>";
         } else {

@@ -1,13 +1,14 @@
 import './home.css';
 
 import * as React from 'react';
-import { Link } from 'react-router-dom';
+import { Link, RouteComponentProps } from 'react-router-dom';
 import { Translate } from 'react-jhipster';
 import { connect } from 'react-redux';
 import { Row, Col, Alert } from 'reactstrap';
 import { getSession } from 'app/shared/reducers/authentication';
-import { getOwnerEntities } from 'app/entities/house/house.reducer';
+import { getEntities, getOwnerEntities } from 'app/entities/house/house.reducer';
 
+import * as qs from 'query-string';
 import { Spin } from 'antd';
 
 import SearchPage from 'app/shared/layout/search/search-menu';
@@ -17,12 +18,14 @@ import HomeLike from './home-like';
 import HomeHouse from './home-house';
 import HomeFollow from './home-follow';
 
-export interface IHomeProp extends StateProps, DispatchProps {}
+export interface IHomeProp extends StateProps, DispatchProps, RouteComponentProps<{}> {}
 
 export class Home extends React.Component<IHomeProp> {
   componentDidMount() {
+    const parsed = qs.parse(this.props.location.search);
+    console.log(parsed);
     this.props.getSession();
-    this.props.getOwnerEntities();
+    this.props.getEntities();
   }
 
   render() {
@@ -89,7 +92,7 @@ const mapStateToProps = storeState => ({
   loading: storeState.house.loading
 });
 
-const mapDispatchToProps = { getSession, getOwnerEntities };
+const mapDispatchToProps = { getSession, getEntities, getOwnerEntities };
 
 type StateProps = ReturnType<typeof mapStateToProps>;
 type DispatchProps = typeof mapDispatchToProps;

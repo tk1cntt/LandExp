@@ -172,7 +172,7 @@ export const getMoney = (money, actionType) => {
 };
 
 function humanize(x) {
-  return x.toFixed(6).replace(/\.?0*$/, '');
+  return x.toFixed(2).replace(/\.?0*$/, '');
 }
 
 export const encodeId = id => hashids.encode(id, 20190101);
