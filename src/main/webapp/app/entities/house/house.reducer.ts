@@ -140,6 +140,11 @@ export const getEntities: ICrudGetAllAction<IHouse> = (page, size, sort) => {
   };
 };
 
+export const getHouses: ICrudSearchAction<IHouse> = query => ({
+  type: ACTION_TYPES.SEARCH_HOUSES,
+  payload: client.get<IHouse>(`${apiUrl}?` + query)
+});
+
 export const getOwnerEntities: ICrudGetAllAction<IHouse> = (page, size, sort) => {
   const jwt = Storage.local.get('jhi-authenticationToken') || Storage.session.get('jhi-authenticationToken');
   if (jwt) {

@@ -10,12 +10,18 @@ import { Row, Col, Alert } from 'reactstrap';
 import { Select, Input } from 'antd';
 const Option = Select.Option;
 
-import { getActionType, getLandType, getCityType, getDirection, getPresent, getSaleType } from 'app/shared/util/utils';
+import { getLandType, selectPrice } from 'app/shared/util/utils';
 
 export interface ISearchPageProp extends StateProps, DispatchProps {}
 
-export class SearchPage extends React.Component<ISearchPageProp> {
-  handleChangeActionType = () => {};
+export interface ISearchPageState {
+  parameters: any;
+}
+
+export class SearchPage extends React.Component<ISearchPageProp, ISearchPageState> {
+  state: ISearchPageState = {
+    parameters: {}
+  };
 
   componentDidMount() {
     $('.dropdown-submenu div').on('click', function(e) {
@@ -143,65 +149,14 @@ export class SearchPage extends React.Component<ISearchPageProp> {
     });
   }
 
-  actionTypeForm() {
-    return (
-      <Select style={{ width: 130, marginRight: 1 }} placeholder="Hình thức" onChange={this.handleChangeActionType}>
-        <Option value="FOR_SELL">Bán</Option>
-        <Option value="FOR_RENT">Cho thuê</Option>
-      </Select>
-    );
-  }
-
-  landTypeForm() {
-    return (
-      <Select style={{ width: 180, marginRight: 1 }} placeholder="Loại bất động sản" onChange={this.handleChangeActionType}>
-        <Option value="APARTMENT">{getLandType('APARTMENT')}</Option>
-        <Option value="HOME">{getLandType('HOME')}</Option>
-        <Option value="HOME_VILLA">{getLandType('HOME_VILLA')}</Option>
-        <Option value="HOME_STREET_SIDE">{getLandType('HOME_STREET_SIDE')}</Option>
-        <Option value="LAND_SCAPE">{getLandType('LAND_SCAPE')}</Option>
-        <Option value="LAND_OF_PROJECT">{getLandType('LAND_OF_PROJECT')}</Option>
-        <Option value="LAND_FARM">{getLandType('LAND_FARM')}</Option>
-        <Option value="LAND_RESORT">{getLandType('LAND_RESORT')}</Option>
-        <Option value="MOTEL_ROOM">{getLandType('MOTEL_ROOM')}</Option>
-        <Option value="OFFICE">{getLandType('OFFICE')}</Option>
-        <Option value="WAREHOUSES">{getLandType('WAREHOUSES')}</Option>
-        <Option value="KIOSKS">{getLandType('KIOSKS')}</Option>
-      </Select>
-    );
-  }
-
-  keywordForm() {
-    return <Input style={{ width: 335, marginRight: 1 }} placeholder="Nhập địa điểm, thành phố hoặc dự án" />;
-  }
-
-  priceForm() {
-    return (
-      <Select key="money-range" style={{ width: 145, marginRight: 1 }} placeholder="Khoảng giá" onChange={this.handleChangeActionType}>
-        <Option value="500">&lt; 500 triệu</Option>
-        <Option value="1000">500 triệu - 1 tỷ</Option>
-        <Option value="1500">1 - 1.5 tỷ</Option>
-        <Option value="2000">1.5 - 2 tỷ</Option>
-        <Option value="3000">2 - 3 tỷ</Option>
-        <Option value="5000">3 - 5 tỷ</Option>
-        <Option value="">&gt; 5 tỷ</Option>
-      </Select>
-    );
-  }
-
-  acreageForm() {
-    return (
-      <Select key="acreage-range" style={{ width: 145, marginRight: 1 }} placeholder="Diện tích" onChange={this.handleChangeActionType}>
-        <Option value="50">&lt; 50 m2</Option>
-        <Option value="80">50 - 80 m2</Option>
-        <Option value="100">80 - 100 m2</Option>
-        <Option value="200">100 - 200 m2</Option>
-        <Option value="">&gt; 200 m2</Option>
-      </Select>
-    );
-  }
-
-  menuTypeClick(e) {}
+  menuTypeClick = e => {
+    const parameters = { actionType: e.target.dataset.value };
+    const nextParameter = { ...this.state.parameters, ...parameters };
+    this.setState({
+      parameters: nextParameter
+    });
+    console.log(this.state.parameters);
+  };
 
   menuTypeForm() {
     return (
@@ -212,10 +167,10 @@ export class SearchPage extends React.Component<ISearchPageProp> {
           </span>
           <input type="hidden" id="slType" name="slType" />
           <ul className="dropdown-menu js-type" aria-labelledby="type" onClick={this.menuTypeClick}>
-            <li className="options active" data-value="mua">
+            <li className="options active" data-value="FOR_SELL">
               Mua
             </li>
-            <li className="options" data-value="thue">
+            <li className="options" data-value="FOR_RENT">
               Thuê
             </li>
           </ul>
@@ -224,7 +179,14 @@ export class SearchPage extends React.Component<ISearchPageProp> {
     );
   }
 
-  menuLandTypeClick(e) {}
+  menuLandTypeClick = e => {
+    const parameters = { landType: e.target.dataset.value };
+    const nextParameter = { ...this.state.parameters, ...parameters };
+    this.setState({
+      parameters: nextParameter
+    });
+    console.log(this.state.parameters);
+  };
 
   menuLandTypeForm() {
     return (
@@ -235,32 +197,44 @@ export class SearchPage extends React.Component<ISearchPageProp> {
           </span>
           <input type="hidden" id="slCategory" name="slCategory" />
           <ul className="dropdown-menu js-category" aria-labelledby="category" onClick={this.menuLandTypeClick}>
-            <li className="options" data-value="can-ho-chung-cu">
-              Căn hộ chung cư
+            <li className="options" data-value="APARTMENT">
+              {getLandType('APARTMENT')}
             </li>
-            <li className="options" data-value="penthouse">
-              Penthouse
+            <li className="options" data-value="PEN_HOUSE">
+              {getLandType('PEN_HOUSE')}
             </li>
-            <li className="options" data-value="nha-rieng">
-              Nhà riêng
+            <li className="options" data-value="HOME">
+              {getLandType('HOME')}
             </li>
-            <li className="options" data-value="biet-thu-lien-ke">
-              Biệt thự, liền kề
+            <li className="options" data-value="HOME_VILLA">
+              {getLandType('HOME_VILLA')}
             </li>
-            <li className="options" data-value="nha-mat-pho">
-              Nhà mặt phố
+            <li className="options" data-value="HOME_STREET_SIDE">
+              {getLandType('HOME_STREET_SIDE')}
             </li>
-            <li className="options" data-value="dat-o">
-              Đất ở
+            <li className="options" data-value="OFFICE">
+              {getLandType('OFFICE')}
             </li>
-            <li className="options" data-value="dat-nen-du-an">
-              Đất nền dự án
+            <li className="options" data-value="LAND_SCAPE">
+              {getLandType('LAND_SCAPE')}
             </li>
-            <li className="options" data-value="kho-nha-xuong">
-              Kho, nhà xưởng
+            <li className="options" data-value="LAND_OF_PROJECT">
+              {getLandType('LAND_OF_PROJECT')}
             </li>
-            <li className="options" data-value="cua-hang-ki-ot">
-              Cửa hàng, ki-ốt
+            <li className="options" data-value="LAND_FARM">
+              {getLandType('LAND_FARM')}
+            </li>
+            <li className="options" data-value="LAND_RESORT">
+              {getLandType('LAND_RESORT')}
+            </li>
+            <li className="options" data-value="WAREHOUSES">
+              {getLandType('WAREHOUSES')}
+            </li>
+            <li className="options" data-value="KIOSKS">
+              {getLandType('KIOSKS')}
+            </li>
+            <li className="options" data-value="MOTEL_ROOM">
+              {getLandType('MOTEL_ROOM')}
             </li>
           </ul>
         </div>
@@ -268,7 +242,16 @@ export class SearchPage extends React.Component<ISearchPageProp> {
     );
   }
 
-  menuPriceClick(e) {}
+  menuPriceClick = e => {
+    let money = selectPrice(e.target.dataset.value);
+    console.log(money);
+    const parameters = { money };
+    const nextParameter = { ...this.state.parameters, ...parameters };
+    this.setState({
+      parameters: nextParameter
+    });
+    console.log(this.state.parameters);
+  };
 
   menuPriceForm() {
     return (
@@ -279,6 +262,7 @@ export class SearchPage extends React.Component<ISearchPageProp> {
           </span>
           <input type="hidden" id="slPrice" name="slPrice" />
           <ul className="dropdown-menu js-price" aria-labelledby="price" onClick={this.menuPriceClick}>
+            {/*}
             <div className="header-box">
               <table className="header-options options">
                 <tbody>
@@ -298,29 +282,24 @@ export class SearchPage extends React.Component<ISearchPageProp> {
                 </tbody>
               </table>
             </div>
-            <li className="options" data-value>
+            {*/}
+            <li className="options" data-value="0">
               Bất kỳ
             </li>
-            <li className="options" data-value>
+            <li className="options" data-value="1">
               &lt; 500 triệu
             </li>
-            <li className="options" data-value>
+            <li className="options" data-value="2">
               500 triệu - 1 tỷ
             </li>
-            <li className="options" data-value>
+            <li className="options" data-value="3">
               1 - 1.5 tỷ
             </li>
-            <li className="options" data-value>
+            <li className="options" data-value="4">
               1.5 - 2 tỷ
             </li>
-            <li className="options" data-value>
-              2 - 3 tỷ
-            </li>
-            <li className="options" data-value>
-              3 - 5 tỷ
-            </li>
-            <li className="options" data-value>
-              &gt; 5 tỷ
+            <li className="options" data-value="5">
+              &gt; 2 tỷ
             </li>
           </ul>
         </div>
@@ -328,7 +307,9 @@ export class SearchPage extends React.Component<ISearchPageProp> {
     );
   }
 
-  menuSpareClick(e) {}
+  menuSpareClick(e) {
+    console.log('menuSpareClick', e.target.dataset.value);
+  }
 
   menuSpareForm() {
     return (
@@ -339,6 +320,7 @@ export class SearchPage extends React.Component<ISearchPageProp> {
           </span>
           <input type="hidden" id="slSqrare" name="slSqrare" />
           <ul className="dropdown-menu js-square" aria-labelledby="square" onClick={this.menuSpareClick}>
+            {/*}
             <div className="header-box">
               <table className="header-options options">
                 <tbody>
@@ -358,22 +340,23 @@ export class SearchPage extends React.Component<ISearchPageProp> {
                 </tbody>
               </table>
             </div>
-            <li className="options" data-value>
+            {*/}
+            <li className="options" data-value="0">
               Bất kỳ
             </li>
-            <li className="options" data-value>
+            <li className="options" data-value="1">
               &lt; 50 m2
             </li>
-            <li className="options" data-value>
+            <li className="options" data-value="2">
               50 - 80 m2
             </li>
-            <li className="options" data-value>
+            <li className="options" data-value="3">
               80 - 100 m2
             </li>
-            <li className="options" data-value>
+            <li className="options" data-value="4">
               100 - 200 m2
             </li>
-            <li className="options" data-value>
+            <li className="options" data-value="5">
               &gt; 200 m2
             </li>
           </ul>
@@ -485,27 +468,29 @@ export class SearchPage extends React.Component<ISearchPageProp> {
     );
   }
 
+  searchClick = () => {
+    console.log('searchClick', this.state.parameters);
+  };
+
   render() {
     const { account } = this.props;
     return (
       <Col md="12">
         <div style={{ marginBottom: 30 }} className="nav-search">
           <div className="container">
-            <form>
-              <div className="row">
-                {this.menuTypeForm()}
-                {this.menuLandTypeForm()}
-                <div className="select-box">
-                  <input type="text" name="txLocation" placeholder="Nhập địa điểm, thành phố hoặc dự án" />
-                </div>
-                {this.menuPriceForm()}
-                {this.menuSpareForm()}
-                {this.menuMoreForm()}
-                <div className="select-box">
-                  <button type="submit">Tìm kiếm</button>
-                </div>
+            <div className="row">
+              {this.menuTypeForm()}
+              {this.menuLandTypeForm()}
+              <div className="select-box">
+                <input type="text" name="txLocation" placeholder="Nhập địa điểm, thành phố hoặc dự án" />
               </div>
-            </form>
+              {this.menuPriceForm()}
+              {this.menuSpareForm()}
+              {this.menuMoreForm()}
+              <div className="select-box">
+                <button onClick={this.searchClick}>Tìm kiếm</button>
+              </div>
+            </div>
           </div>
         </div>
       </Col>

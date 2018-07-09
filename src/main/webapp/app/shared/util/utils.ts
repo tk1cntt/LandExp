@@ -1,6 +1,7 @@
 /* tslint:disable-next-line */
 const Hashids = require('hashids');
 const hashids = new Hashids('id.landexp.com.vn');
+const hashpayments = new Hashids('payment.landexp.com.vn');
 
 export const getActionType = type => {
   if (type === 'FOR_SELL') {
@@ -171,6 +172,41 @@ export const getMoney = (money, actionType) => {
   return moneyFormat;
 };
 
+export const selectPrice = (price) => {
+  return priceFromValue(price);
+};
+
+function priceFromValue(price) {
+  switch (price) {
+    case 1:
+      return {
+        greaterThan: 0,
+        lessThan: 500000001
+      };
+    case 2:
+      return {
+        greaterThan: 500000000,
+        lessThan: 1000000001
+      };
+    case 3:
+      return {
+        greaterThan: 1000000000,
+        lessThan: 1500000001
+      };
+    case 4:
+      return {
+        greaterThan: 1500000000,
+        lessThan: 2000000001
+      };
+    case 5:
+      return {
+        greaterThan: 2000000000
+      };
+    default:
+      return null;
+  }
+}
+
 function humanize(x) {
   return x.toFixed(2).replace(/\.?0*$/, '');
 }
@@ -179,4 +215,16 @@ export const encodeId = id => hashids.encode(id, 20190101);
 
 export const decodeId = id => hashids.decode(id)[0];
 
+export const encodePayment = id => hashpayments.encode(id, 20190101);
+
+export const decodePayment = id => hashpayments.decode(id)[0];
+
 export const formatDate = date => date.getDate() + '/' + (date.getMonth() + 1) + '/' + date.getFullYear();
+
+export const queryStringMapping = parameters => {
+  let queryString = '';
+  for (var key in parameters) {
+    queryString = queryString + key + '.equals=' + parameters[key] + '&';
+  }
+  return queryString.slice(0, -1);
+};

@@ -171,7 +171,7 @@ public class HouseResource {
      */
     @GetMapping("/houses")
     @Timed
-    @Secured(AuthoritiesConstants.MANAGER)
+    // @Secured(AuthoritiesConstants.MANAGER)
     public ResponseEntity<List<HouseDTO>> getAllHouses(HouseCriteria criteria, Pageable pageable) {
         log.debug("REST request to get Houses by criteria: {}", criteria);
         Page<HouseDTO> page = houseQueryService.findByCriteria(criteria, pageable);

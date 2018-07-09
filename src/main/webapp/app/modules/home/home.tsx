@@ -6,11 +6,12 @@ import { Translate } from 'react-jhipster';
 import { connect } from 'react-redux';
 import { Row, Col, Alert } from 'reactstrap';
 import { getSession } from 'app/shared/reducers/authentication';
-import { getEntities, getOwnerEntities } from 'app/entities/house/house.reducer';
+import { getHouses, getEntities, getOwnerEntities } from 'app/entities/house/house.reducer';
 
 import * as qs from 'query-string';
 import { Spin } from 'antd';
 
+import { queryStringMapping } from 'app/shared/util/utils';
 import SearchPage from 'app/shared/layout/search/search-menu';
 import HomeGrid from './home-grid';
 import HomeList from './home-list';
@@ -23,9 +24,9 @@ export interface IHomeProp extends StateProps, DispatchProps, RouteComponentProp
 export class Home extends React.Component<IHomeProp> {
   componentDidMount() {
     const parsed = qs.parse(this.props.location.search);
-    console.log(parsed);
+    // console.log(queryStringMapping(parsed));
     this.props.getSession();
-    this.props.getEntities();
+    this.props.getHouses(queryStringMapping(parsed));
   }
 
   render() {
@@ -92,7 +93,7 @@ const mapStateToProps = storeState => ({
   loading: storeState.house.loading
 });
 
-const mapDispatchToProps = { getSession, getEntities, getOwnerEntities };
+const mapDispatchToProps = { getSession, getHouses, getEntities, getOwnerEntities };
 
 type StateProps = ReturnType<typeof mapStateToProps>;
 type DispatchProps = typeof mapDispatchToProps;
