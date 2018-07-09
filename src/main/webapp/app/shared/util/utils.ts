@@ -1,4 +1,4 @@
-/* tslint:disable-next-line */
+/* tslint:disable */
 const Hashids = require('hashids');
 const hashids = new Hashids('id.landexp.com.vn');
 const hashpayments = new Hashids('payment.landexp.com.vn');
@@ -187,7 +187,6 @@ export const decodePayment = id => hashpayments.decode(id)[0];
 export const formatDate = date => date.getDate() + '/' + (date.getMonth() + 1) + '/' + date.getFullYear();
 
 export const queryStringMapping = parameters => {
-  console.log('queryStringMapping', parameters);
   let queryString = '';
   queryString += parameters.actionType ? 'actionType.equals=' + parameters.actionType + '&' : '';
   queryString += parameters.landType ? 'landType.equals=' + parameters.landType + '&' : '';

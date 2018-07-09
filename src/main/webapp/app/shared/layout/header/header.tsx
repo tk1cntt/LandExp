@@ -32,7 +32,7 @@ export default class Header extends React.Component<IHeaderProps, IHeaderState> 
     this.setState({ menuOpen: !this.state.menuOpen });
   };
 
-  menuUser = () => {
+  menuUser() {
     return (
       <SubMenu
         key="sub1"
@@ -50,9 +50,9 @@ export default class Header extends React.Component<IHeaderProps, IHeaderState> 
         </Menu.Item>
       </SubMenu>
     );
-  };
+  }
 
-  menuStaff = () => {
+  menuStaff() {
     return (
       <SubMenu
         key="subStaff"
@@ -125,9 +125,9 @@ export default class Header extends React.Component<IHeaderProps, IHeaderState> 
         </Menu.Item>
       </SubMenu>
     );
-  };
+  }
 
-  menuManager = () => {
+  menuManager() {
     return (
       <SubMenu
         key="subManager"
@@ -160,7 +160,7 @@ export default class Header extends React.Component<IHeaderProps, IHeaderState> 
         </Menu.Item>
       </SubMenu>
     );
-  };
+  }
 
   render() {
     const { currentLocale, isAuthenticated, isAdmin, isManager, isStaff, isSwaggerEnabled, isInProduction } = this.props;
