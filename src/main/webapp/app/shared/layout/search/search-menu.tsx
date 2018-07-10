@@ -3,7 +3,7 @@ import './search-menu.css';
 
 import * as React from 'react';
 import * as $ from 'jquery';
-import { Link } from 'react-router-dom';
+import { Link, RouteComponentProps } from 'react-router-dom';
 import { Translate } from 'react-jhipster';
 import { connect } from 'react-redux';
 import { Row, Col, Alert } from 'reactstrap';
@@ -13,7 +13,7 @@ const Option = Select.Option;
 import { getLandType, queryStringMapping, getPriceByNumber, getAcreageByNumber } from 'app/shared/util/utils';
 import { getHouses } from 'app/entities/house/house.reducer';
 
-export interface ISearchPageProp extends StateProps, DispatchProps {
+export interface ISearchPageProp extends StateProps, DispatchProps, RouteComponentProps<{}> {
   parameters: any;
 }
 
@@ -180,14 +180,14 @@ export class SearchPage extends React.Component<ISearchPageProp, ISearchPageStat
       <div className="select-box">
         <div className="select dropdown">
           <span id="type" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
-            {this.state.parameters.actionType ? (this.state.parameters.actionType === 'FOR_SELL' ? 'Mua' : 'Thuê') : 'Hình thức'}
+            {this.state.parameters && this.state.parameters.actionType ? (this.state.parameters.actionType === 'FOR_SELL' ? 'Mua' : 'Thuê') : 'Hình thức'}
           </span>
           <input type="hidden" id="slType" name="slType" />
           <ul className="dropdown-menu js-type" aria-labelledby="type" onClick={this.menuTypeClick}>
-            <li className={`options ${this.state.parameters.actionType === 'FOR_SELL' ? 'active' : ''}`} data-value="FOR_SELL">
+            <li className={`options ${this.state.parameters && this.state.parameters.actionType === 'FOR_SELL' ? 'active' : ''}`} data-value="FOR_SELL">
               Mua
             </li>
-            <li className={`options ${this.state.parameters.actionType === 'FOR_RENT' ? 'active' : ''}`} data-value="FOR_RENT">
+            <li className={`options ${this.state.parameters && this.state.parameters.actionType === 'FOR_RENT' ? 'active' : ''}`} data-value="FOR_RENT">
               Thuê
             </li>
           </ul>
@@ -210,7 +210,7 @@ export class SearchPage extends React.Component<ISearchPageProp, ISearchPageStat
       <div className="select-box">
         <div className="select dropdown">
           <span id="category" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
-            {this.state.parameters.landType ? getLandType(this.state.parameters.landType) : 'Loại bất động sản'}
+            {this.state.parameters && this.state.parameters.landType ? getLandType(this.state.parameters.landType) : 'Loại bất động sản'}
           </span>
           <input type="hidden" id="slCategory" name="slCategory" />
           <ul className="dropdown-menu js-category" aria-labelledby="category" onClick={this.menuLandTypeClick}>
@@ -273,7 +273,7 @@ export class SearchPage extends React.Component<ISearchPageProp, ISearchPageStat
     for (let i = 0; i <= 5; i++) {
       items.push(
         <li
-          className={`options ${parseInt(this.state.parameters.money) === i ? 'active' : ''}`}
+          className={`options ${this.state.parameters && parseInt(this.state.parameters.money) === i ? 'active' : ''}`}
           data-value={i}
           dangerouslySetInnerHTML={{ __html: getPriceByNumber(i) }}
         />
@@ -283,7 +283,7 @@ export class SearchPage extends React.Component<ISearchPageProp, ISearchPageStat
       <div className="select-box">
         <div className="select dropdown">
           <span id="price" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
-            {this.state.parameters.money ? getPriceByNumber(this.state.parameters.money) : 'Khoảng giá'}
+            {this.state.parameters && this.state.parameters.money ? getPriceByNumber(this.state.parameters.money) : 'Khoảng giá'}
           </span>
           <input type="hidden" id="slPrice" name="slPrice" />
           <ul className="dropdown-menu js-price" aria-labelledby="price" onClick={this.menuPriceClick}>
@@ -329,7 +329,7 @@ export class SearchPage extends React.Component<ISearchPageProp, ISearchPageStat
     for (let i = 0; i <= 5; i++) {
       items.push(
         <li
-          className={`options ${parseInt(this.state.parameters.acreage) === i ? 'active' : ''}`}
+          className={`options ${this.state.parameters && parseInt(this.state.parameters.acreage) === i ? 'active' : ''}`}
           data-value={i}
           dangerouslySetInnerHTML={{ __html: getAcreageByNumber(i) }}
         />
@@ -339,7 +339,7 @@ export class SearchPage extends React.Component<ISearchPageProp, ISearchPageStat
       <div className="select-box">
         <div className="select dropdown">
           <span id="square" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
-            {this.state.parameters.acreage ? getAcreageByNumber(this.state.parameters.acreage) : 'Diện tích'}
+            {this.state.parameters && this.state.parameters.acreage ? getAcreageByNumber(this.state.parameters.acreage) : 'Diện tích'}
           </span>
           <input type="hidden" id="slSqrare" name="slSqrare" />
           <ul className="dropdown-menu js-square" aria-labelledby="square" onClick={this.menuSpareClick}>
@@ -475,8 +475,7 @@ export class SearchPage extends React.Component<ISearchPageProp, ISearchPageStat
   }
 
   searchClick = () => {
-    console.log('searchClick', this.state.parameters);
-    this.props.getHouses(queryStringMapping(this.state.parameters));
+    this.props.history.push(`/tim-kiem?${queryStringMapping(this.state.parameters)}`);
   };
 
   render() {
