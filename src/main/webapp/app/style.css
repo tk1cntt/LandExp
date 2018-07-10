@@ -7,7 +7,7 @@ body {
   color: #454545;
 }
 
-body.home {
+body.search {
   background: url('../static/images/home_header_bg.png') no-repeat top center;
 }
 
@@ -33,6 +33,11 @@ h3 {
 ul {
   list-style: none;
   padding-left: 0px;
+}
+
+.justify-content-center {
+  display: flex;
+  justify-content: space-around;
 }
 
 .home .app-container {
