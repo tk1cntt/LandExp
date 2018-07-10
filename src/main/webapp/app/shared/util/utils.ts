@@ -230,3 +230,38 @@ export const queryStringMapping = parameters => {
   }
   return queryString.slice(0, -1);
 };
+
+
+export const getPriceByNumber = price => {
+  switch (parseInt(price)) {
+    case 1:
+      return "&lt; 500 triệu";
+    case 2:
+      return "500 triệu - 1 tỷ";
+    case 3:
+      return "1 - 1.5 tỷ";
+    case 4:
+      return "1.5 - 2 tỷ";
+    case 5:
+      return "&gt; 2 tỷ";
+    default:
+      return "Bất kỳ";
+  }
+}
+
+export const getAcreageByNumber = acreage => {
+  switch (parseInt(acreage)) {
+    case 1:
+      return "&lt; 50 m2";
+    case 2:
+      return "50 - 80 m2";
+    case 3:
+      return "80 - 100 m2";
+    case 4:
+      return "100 - 200 m2";
+    case 5:
+      return "&gt; 200 m2";
+    default:
+      return "Bất kỳ";
+  }
+}

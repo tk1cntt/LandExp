@@ -26,12 +26,17 @@ export interface IHomeState {
 }
 
 export class Home extends React.Component<IHomeProp, IHomeState> {
+  state: IHomeState = {
+    parameters: {}
+  };
+
   componentDidMount() {
     const parsed = qs.parse(this.props.location.search);
-    // console.log(queryStringMapping(parsed));
-    this.setState({
-      parameters: parsed
-    })
+    if (parsed) {
+      this.setState({
+        parameters: parsed
+      })
+    }
     this.props.getSession();
     this.props.getHouses(queryStringMapping(parsed));
   }

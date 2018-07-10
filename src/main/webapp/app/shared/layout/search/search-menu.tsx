@@ -10,7 +10,7 @@ import { Row, Col, Alert } from 'reactstrap';
 import { Select, Input } from 'antd';
 const Option = Select.Option;
 
-import { getLandType, queryStringMapping } from 'app/shared/util/utils';
+import { getLandType, queryStringMapping, getPriceByNumber, getAcreageByNumber } from 'app/shared/util/utils';
 import { getHouses } from 'app/entities/house/house.reducer';
 
 export interface ISearchPageProp extends StateProps, DispatchProps {
@@ -156,6 +156,16 @@ export class SearchPage extends React.Component<ISearchPageProp, ISearchPageStat
     });
   }
 
+  componentDidUpdate(prevProps) {
+    // Typical usage (don't forget to compare props):
+    if (this.props.parameters !== prevProps.parameters) {
+      const nextParameter = { ...this.state.parameters, ...this.props.parameters };
+      this.setState({
+        parameters: nextParameter
+      })
+    }
+  }
+
   menuTypeClick = e => {
     const parameters = { actionType: e.target.dataset.value };
     const nextParameter = { ...this.state.parameters, ...parameters };
@@ -174,10 +184,10 @@ export class SearchPage extends React.Component<ISearchPageProp, ISearchPageStat
           </span>
           <input type="hidden" id="slType" name="slType" />
           <ul className="dropdown-menu js-type" aria-labelledby="type" onClick={this.menuTypeClick}>
-            <li className={`options ${this.state.parameters.actionType === FOR_SELL ? 'active' : '' }`} data-value="FOR_SELL">
+            <li className={`options ${this.state.parameters.actionType === 'FOR_SELL' ? 'active' : '' }`} data-value="FOR_SELL">
               Mua
             </li>
-            <li className={`options ${this.state.parameters.actionType === FOR_RENT ? 'active' : '' }`} data-value="FOR_RENT">
+            <li className={`options ${this.state.parameters.actionType === 'FOR_RENT' ? 'active' : '' }`} data-value="FOR_RENT">
               Thuê
             </li>
           </ul>
@@ -259,11 +269,20 @@ export class SearchPage extends React.Component<ISearchPageProp, ISearchPageStat
   };
 
   menuPriceForm() {
+    const items = [];
+    for (let i = 0; i <= 5; i++) {
+      items.push(
+        <li
+          className={`options ${parseInt(this.state.parameters.money) === i ? 'active' : ''}`}
+          data-value={i}
+          dangerouslySetInnerHTML={{ __html: getPriceByNumber(i) }} />
+      );
+    }
     return (
       <div className="select-box">
         <div className="select dropdown">
           <span id="price" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
-            Khoảng giá
+            {this.state.parameters.money ? getPriceByNumber(this.state.parameters.money) : 'Khoảng giá'}
           </span>
           <input type="hidden" id="slPrice" name="slPrice" />
           <ul className="dropdown-menu js-price" aria-labelledby="price" onClick={this.menuPriceClick}>
@@ -288,24 +307,7 @@ export class SearchPage extends React.Component<ISearchPageProp, ISearchPageStat
               </table>
             </div>
             {*/}
-            <li className="options" data-value="0">
-              Bất kỳ
-            </li>
-            <li className="options" data-value="1">
-              &lt; 500 triệu
-            </li>
-            <li className="options" data-value="2">
-              500 triệu - 1 tỷ
-            </li>
-            <li className="options" data-value="3">
-              1 - 1.5 tỷ
-            </li>
-            <li className="options" data-value="4">
-              1.5 - 2 tỷ
-            </li>
-            <li className="options" data-value="5">
-              &gt; 2 tỷ
-            </li>
+            {items}
           </ul>
         </div>
       </div>
@@ -322,11 +324,20 @@ export class SearchPage extends React.Component<ISearchPageProp, ISearchPageStat
   }
 
   menuSpareForm() {
+    const items = [];
+    for (let i = 0; i <= 5; i++) {
+      items.push(
+        <li
+          className={`options ${parseInt(this.state.parameters.acreage) === i ? 'active' : ''}`}
+          data-value={i}
+          dangerouslySetInnerHTML={{ __html: getAcreageByNumber(i) }} />
+      );
+    }
     return (
       <div className="select-box">
         <div className="select dropdown">
           <span id="square" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
-            Diện tích
+            {this.state.parameters.acreage ? getAcreageByNumber(this.state.parameters.acreage) : 'Diện tích'}
           </span>
           <input type="hidden" id="slSqrare" name="slSqrare" />
           <ul className="dropdown-menu js-square" aria-labelledby="square" onClick={this.menuSpareClick}>
@@ -351,24 +362,7 @@ export class SearchPage extends React.Component<ISearchPageProp, ISearchPageStat
               </table>
             </div>
             {*/}
-            <li className="options" data-value="0">
-              Bất kỳ
-            </li>
-            <li className="options" data-value="1">
-              &lt; 50 m2
-            </li>
-            <li className="options" data-value="2">
-              50 - 80 m2
-            </li>
-            <li className="options" data-value="3">
-              80 - 100 m2
-            </li>
-            <li className="options" data-value="4">
-              100 - 200 m2
-            </li>
-            <li className="options" data-value="5">
-              &gt; 200 m2
-            </li>
+            {items}
           </ul>
         </div>
       </div>
