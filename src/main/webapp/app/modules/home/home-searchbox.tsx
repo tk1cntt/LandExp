@@ -1,3 +1,4 @@
+/* tslint:disable */
 import './home.css';
 
 import * as React from 'react';

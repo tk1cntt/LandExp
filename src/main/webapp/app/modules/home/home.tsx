@@ -32,7 +32,6 @@ export class Home extends React.Component<IHomeProp, IHomeState> {
   };
 
   componentDidMount() {
-    console.log('this.props.location', this.props.location);
     if (this.props.location) {
       const parsed = qs.parse(this.props.location.search);
       // this.props.getSession();

@@ -59,7 +59,7 @@ export class HomePanelUser extends React.Component<IHomeProp> {
             </div>
           </li>
           <li>
-            <img src="/static/images/simple-wall-paint-ideas-with-a-sienna-color-decorated-excellent-white-for-livingroom-decor-spot-lights-also-down-light-plus-concealed_interior-design-.png" />
+            <img src="/static/images/simple-wall-paint-ideas.png" />
             <div className="caption">
               <div className="caption-content">
                 <p>
