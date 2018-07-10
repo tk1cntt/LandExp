@@ -29,7 +29,7 @@ export class SearchPage extends React.Component<ISearchPageProp, ISearchPageStat
   componentDidMount() {
     this.setState({
       parameters: this.props.parameters
-    })
+    });
 
     $('.dropdown-submenu div').on('click', function(e) {
       $(this)
@@ -162,7 +162,7 @@ export class SearchPage extends React.Component<ISearchPageProp, ISearchPageStat
       const nextParameter = { ...this.state.parameters, ...this.props.parameters };
       this.setState({
         parameters: nextParameter
-      })
+      });
     }
   }
 
@@ -184,10 +184,10 @@ export class SearchPage extends React.Component<ISearchPageProp, ISearchPageStat
           </span>
           <input type="hidden" id="slType" name="slType" />
           <ul className="dropdown-menu js-type" aria-labelledby="type" onClick={this.menuTypeClick}>
-            <li className={`options ${this.state.parameters.actionType === 'FOR_SELL' ? 'active' : '' }`} data-value="FOR_SELL">
+            <li className={`options ${this.state.parameters.actionType === 'FOR_SELL' ? 'active' : ''}`} data-value="FOR_SELL">
               Mua
             </li>
-            <li className={`options ${this.state.parameters.actionType === 'FOR_RENT' ? 'active' : '' }`} data-value="FOR_RENT">
+            <li className={`options ${this.state.parameters.actionType === 'FOR_RENT' ? 'active' : ''}`} data-value="FOR_RENT">
               Thuê
             </li>
           </ul>
@@ -275,7 +275,8 @@ export class SearchPage extends React.Component<ISearchPageProp, ISearchPageStat
         <li
           className={`options ${parseInt(this.state.parameters.money) === i ? 'active' : ''}`}
           data-value={i}
-          dangerouslySetInnerHTML={{ __html: getPriceByNumber(i) }} />
+          dangerouslySetInnerHTML={{ __html: getPriceByNumber(i) }}
+        />
       );
     }
     return (
@@ -330,7 +331,8 @@ export class SearchPage extends React.Component<ISearchPageProp, ISearchPageStat
         <li
           className={`options ${parseInt(this.state.parameters.acreage) === i ? 'active' : ''}`}
           data-value={i}
-          dangerouslySetInnerHTML={{ __html: getAcreageByNumber(i) }} />
+          dangerouslySetInnerHTML={{ __html: getAcreageByNumber(i) }}
+        />
       );
     }
     return (

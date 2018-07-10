@@ -28,7 +28,7 @@ const Routes = () => (
       <PrivateRoute path="/tai-khoan" component={Account} hasAnyAuthorities={[AUTHORITIES.USER]} />
       <PrivateRoute path="/quan-ly" component={Entities} hasAnyAuthorities={[AUTHORITIES.STAFF]} />
       <PrivateRoute path="/bat-dong-san/:key" component={Detail} />
-      <PrivateRoute path="/" component={Home} />
+      <Route path="/" component={Home} />
     </Switch>
   </div>
 );

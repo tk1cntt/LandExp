@@ -10,7 +10,7 @@ import { getLandType, getMoney, formatDate } from 'app/shared/util/utils';
 import { APP_DATE_FORMAT, APP_LOCAL_DATE_FORMAT } from 'app/config/constants';
 
 import SearchPage from 'app/shared/layout/search/search-menu';
-import HouseDetail from './house-detail';
+import HouseDetail from './home-detail';
 
 export interface IHomeProp extends StateProps, DispatchProps {
   houses: any;

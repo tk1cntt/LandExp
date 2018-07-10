@@ -15,9 +15,8 @@ import { queryStringMapping } from 'app/shared/util/utils';
 import SearchPage from 'app/shared/layout/search/search-menu';
 import HomeGrid from './home-grid';
 import HomeList from './home-list';
-import HomeLike from './home-like';
-import HomeHouse from './home-house';
-import HomeFollow from './home-follow';
+import HomePanelGuest from './home-panel-guest';
+import HomePanelUser from './home-panel-user';
 
 export interface IHomeProp extends StateProps, DispatchProps, RouteComponentProps<{}> {}
 
@@ -35,39 +34,25 @@ export class Home extends React.Component<IHomeProp, IHomeState> {
     if (parsed) {
       this.setState({
         parameters: parsed
-      })
+      });
     }
     this.props.getSession();
     this.props.getHouses(queryStringMapping(parsed));
   }
 
   render() {
-    const { account } = this.props;
+    const { account, isAuthenticated } = this.props;
     return (
       <Row>
         <SearchPage parameters={this.state.parameters} />
-        <div className="acc-panel">
-          <div className="container">
-            <div className="row">
-              <div className="row">
-                <div className="col-md-4">
-                  <HomeFollow />
-                </div>
-                <div className="col-md-4">
-                  <HomeLike />
-                </div>
-                <div className="col-md-4">
-                  <HomeHouse />
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
+        {isAuthenticated ? <HomePanelUser /> : <HomePanelGuest />}
         <div className="container">
           <Spin spinning={this.props.loading} tip="Đang cập nhật dữ liệu...">
             <div className="row lastest-posts">
               <h2>
-                Tin mới đăng<span>Hiển thị 1 - {} trong {this.props.totalItems} Bất động sản</span>
+                Tin mới đăng<span>
+                  Hiển thị 1 - {} trong {this.props.totalItems} Bất động sản
+                </span>
                 <div className="toolbox">
                   <label htmlFor="sortby">Sắp xếp: </label>
                   <select name="sortby" id="sortby">
@@ -100,6 +85,7 @@ export class Home extends React.Component<IHomeProp, IHomeState> {
 }
 
 const mapStateToProps = storeState => ({
+  isAuthenticated: storeState.authentication.isAuthenticated,
   account: storeState.authentication.account,
   houseList: storeState.house.entities,
   totalItems: storeState.house.totalItems,
