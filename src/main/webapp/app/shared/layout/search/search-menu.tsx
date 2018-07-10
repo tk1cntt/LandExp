@@ -12,7 +12,9 @@ const Option = Select.Option;
 
 import { getLandType, selectPrice } from 'app/shared/util/utils';
 
-export interface ISearchPageProp extends StateProps, DispatchProps {}
+export interface ISearchPageProp extends StateProps, DispatchProps {
+  parameters: any;
+}
 
 export interface ISearchPageState {
   parameters: any;
@@ -24,6 +26,10 @@ export class SearchPage extends React.Component<ISearchPageProp, ISearchPageStat
   };
 
   componentDidMount() {
+    this.setState({
+      parameters: this.props.parameters
+    })
+
     $('.dropdown-submenu div').on('click', function(e) {
       $(this)
         .next('ul')
@@ -163,14 +169,14 @@ export class SearchPage extends React.Component<ISearchPageProp, ISearchPageStat
       <div className="select-box">
         <div className="select dropdown">
           <span id="type" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
-            Hình thức
+            {this.state.parameters.actionType ? (this.state.parameters.actionType === 'FOR_SELL' ? 'Mua' : 'Thuê') : 'Hình thức'}
           </span>
           <input type="hidden" id="slType" name="slType" />
           <ul className="dropdown-menu js-type" aria-labelledby="type" onClick={this.menuTypeClick}>
-            <li className="options active" data-value="FOR_SELL">
+            <li className={`options ${this.state.parameters.actionType === FOR_SELL ? 'active' : '' }`} data-value="FOR_SELL">
               Mua
             </li>
-            <li className="options" data-value="FOR_RENT">
+            <li className={`options ${this.state.parameters.actionType === FOR_RENT ? 'active' : '' }`} data-value="FOR_RENT">
               Thuê
             </li>
           </ul>
@@ -193,7 +199,7 @@ export class SearchPage extends React.Component<ISearchPageProp, ISearchPageStat
       <div className="select-box">
         <div className="select dropdown">
           <span id="category" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
-            Loại bất động sản
+            {this.state.parameters.landType ? getLandType(this.state.parameters.landType) : 'Loại bất động sản'}
           </span>
           <input type="hidden" id="slCategory" name="slCategory" />
           <ul className="dropdown-menu js-category" aria-labelledby="category" onClick={this.menuLandTypeClick}>

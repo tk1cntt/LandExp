@@ -21,10 +21,17 @@ import HomeFollow from './home-follow';
 
 export interface IHomeProp extends StateProps, DispatchProps, RouteComponentProps<{}> {}
 
-export class Home extends React.Component<IHomeProp> {
+export interface IHomeState {
+  parameters: any;
+}
+
+export class Home extends React.Component<IHomeProp, IHomeState> {
   componentDidMount() {
     const parsed = qs.parse(this.props.location.search);
     // console.log(queryStringMapping(parsed));
+    this.setState({
+      parameters: parsed
+    })
     this.props.getSession();
     this.props.getHouses(queryStringMapping(parsed));
   }
@@ -33,7 +40,7 @@ export class Home extends React.Component<IHomeProp> {
     const { account } = this.props;
     return (
       <Row>
-        <SearchPage />
+        <SearchPage parameters={this.state.parameters} />
         <div className="acc-panel">
           <div className="container">
             <div className="row">
@@ -55,7 +62,7 @@ export class Home extends React.Component<IHomeProp> {
           <Spin spinning={this.props.loading && this.props.houseList.length === 0} tip="Đang cập nhật dữ liệu...">
             <div className="row lastest-posts">
               <h2>
-                Tin mới đăng<span>Hiển thị 1 - 20 trong 100 Bất động sản</span>
+                Tin mới đăng<span>Hiển thị 1 - {} trong {this.props.totalItems} Bất động sản</span>
                 <div className="toolbox">
                   <label htmlFor="sortby">Sắp xếp: </label>
                   <select name="sortby" id="sortby">
@@ -90,6 +97,7 @@ export class Home extends React.Component<IHomeProp> {
 const mapStateToProps = storeState => ({
   account: storeState.authentication.account,
   houseList: storeState.house.entities,
+  totalItems: storeState.house.totalItems,
   loading: storeState.house.loading
 });
 
