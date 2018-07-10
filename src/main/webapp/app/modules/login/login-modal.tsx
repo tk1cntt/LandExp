@@ -13,6 +13,8 @@ export interface ILoginModalProps {
   handleLogin: Function;
   handleClose: Function;
   loading: any;
+  location: any;
+  history: any;
 }
 
 class LoginModal extends React.Component<ILoginModalProps> {
@@ -26,7 +28,7 @@ class LoginModal extends React.Component<ILoginModalProps> {
 
     return (
       <Row>
-        <SearchPage />
+        <SearchPage location={this.props.location} history={this.props.history} />
         <div className="container" id="login-page">
           <Spin spinning={this.props.loading} tip="Đang cập nhật dữ liệu...">
             <AvForm onSubmit={this.handleSubmit}>

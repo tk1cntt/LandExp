@@ -82,7 +82,7 @@ export class UserFinancial extends React.Component<IUserFinancialProps, IUserFin
     const { userFinancialList, match, totalItems } = this.props;
     return (
       <Row>
-        <SearchPage />
+        <SearchPage location={this.props.location} history={this.props.history} />
         <Container>
           <h2 id="user-financial-heading">
             <Translate contentKey="landexpApp.userFinancial.home.title">User Financials</Translate>
@@ -143,7 +143,8 @@ export class UserFinancial extends React.Component<IUserFinancialProps, IUserFin
                     <FontAwesomeIcon icon="sort" />
                   </th>
                   <th className="hand" onClick={this.sort('customerEmail')}>
-                    <Translate contentKey="landexpApp.userFinancial.customerEmail">Customer Email</Translate> <FontAwesomeIcon icon="sort" />
+                    <Translate contentKey="landexpApp.userFinancial.customerEmail">Customer Email</Translate>{' '}
+                    <FontAwesomeIcon icon="sort" />
                   </th>
                   <th>
                     <Translate contentKey="landexpApp.userFinancial.user">User</Translate> <FontAwesomeIcon icon="sort" />

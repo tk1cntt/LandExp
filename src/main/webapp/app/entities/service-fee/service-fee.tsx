@@ -50,7 +50,7 @@ export class ServiceFee extends React.Component<IServiceFeeProps, IServiceFeeSta
     const { serviceFeeList, match } = this.props;
     return (
       <Row>
-        <SearchPage />
+        <SearchPage location={this.props.location} history={this.props.history} />
         <Container>
           <h2 id="service-fee-heading">
             <Translate contentKey="landexpApp.serviceFee.home.title">Service Fees</Translate>

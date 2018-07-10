@@ -231,6 +231,16 @@ export const queryStringMapping = parameters => {
   return queryString.slice(0, -1);
 };
 
+export const queryString = parameters => {
+  let queryString = '';
+  for (const key in parameters) {
+    if (parameters[key]) {
+      queryString += key + '=' + parameters[key] + '&';
+    }
+  }
+  return queryString.slice(0, -1);
+};
+
 export const getPriceByNumber = price => {
   switch (parseInt(price)) {
     case 1:

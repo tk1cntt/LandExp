@@ -85,7 +85,7 @@ export class HousePhoto extends React.Component<IHousePhotoProps, IHousePhotoSta
     const { housePhotoList, match, totalItems } = this.props;
     return (
       <Row>
-        <SearchPage />
+        <SearchPage location={this.props.location} history={this.props.history} />
         <Container>
           <h2 id="house-photo-heading">
             <Translate contentKey="landexpApp.housePhoto.home.title">House Photos</Translate>
@@ -208,8 +208,8 @@ export class HousePhoto extends React.Component<IHousePhotoProps, IHousePhotoSta
               maxButtons={5}
             />
           </Row>
-      </Container>
-    </Row>
+        </Container>
+      </Row>
     );
   }
 }

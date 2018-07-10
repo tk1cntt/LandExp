@@ -51,7 +51,7 @@ export class Ward extends React.Component<IWardProps, IWardState> {
     const { wardList, match } = this.props;
     return (
       <Row>
-        <SearchPage />
+        <SearchPage location={this.props.location} history={this.props.history} />
         <Container>
           <h2 id="ward-heading">
             <Translate contentKey="landexpApp.ward.home.title">Wards</Translate>

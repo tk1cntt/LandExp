@@ -88,7 +88,7 @@ export class House extends React.Component<IHouseProps, IHouseState> {
     const { houseList, match, totalItems } = this.props;
     return (
       <Row>
-        <SearchPage />
+        <SearchPage location={this.props.location} history={this.props.history} />
         <Container>
           <Spin spinning={this.props.loading} tip="Đang cập nhật dữ liệu...">
             <h2 id="house-heading">

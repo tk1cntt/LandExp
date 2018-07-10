@@ -1,6 +1,7 @@
 import * as React from 'react';
 import { Translate, translate } from 'react-jhipster';
 import { connect } from 'react-redux';
+import { RouteComponentProps } from 'react-router-dom';
 import { AvForm, AvField } from 'availity-reactstrap-validation';
 import { Row, Col, Container, Button } from 'reactstrap';
 
@@ -11,7 +12,7 @@ import { savePassword, reset } from './password.reducer';
 
 import SearchPage from 'app/shared/layout/search/search-menu';
 
-export interface IUserPasswordProps extends StateProps, DispatchProps {}
+export interface IUserPasswordProps extends StateProps, DispatchProps, RouteComponentProps<{ url: string }> {}
 
 export interface IUserPasswordState {
   password: string;
@@ -44,7 +45,7 @@ export class PasswordPage extends React.Component<IUserPasswordProps, IUserPassw
 
     return (
       <Row>
-        <SearchPage />
+        <SearchPage location={this.props.location} history={this.props.history} />
         <Container className="justify-content-center">
           <Col md="8">
             <h2 id="password-title">

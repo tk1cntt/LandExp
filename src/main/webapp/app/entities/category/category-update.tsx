@@ -66,7 +66,7 @@ export class CategoryUpdate extends React.Component<ICategoryUpdateProps, ICateg
 
     return (
       <Row>
-        <SearchPage />
+        <SearchPage location={this.props.location} history={this.props.history} />
         <Container>
           <Row className="justify-content-center">
             <Col md="12">

@@ -51,7 +51,7 @@ export class City extends React.Component<ICityProps, ICityState> {
     const { cityList, match } = this.props;
     return (
       <Row>
-        <SearchPage />
+        <SearchPage location={this.props.location} history={this.props.history} />
         <Container>
           <h2 id="city-heading">
             <Translate contentKey="landexpApp.city.home.title">Cities</Translate>

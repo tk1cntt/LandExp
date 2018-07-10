@@ -228,7 +228,7 @@ export class HouseUpdate extends React.Component<IHouseUpdateProps, IHouseUpdate
 
     return (
       <Row>
-        <SearchPage />
+        <SearchPage location={this.props.location} history={this.props.history} />
         <Container>
           <Row className="justify-content-center">
             <Col md="12">

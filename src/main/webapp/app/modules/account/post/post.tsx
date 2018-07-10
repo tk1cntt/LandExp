@@ -591,7 +591,7 @@ export class PostPage extends React.Component<IPostProp, IPostState> {
 
     return (
       <Row>
-        <SearchPage />
+        <SearchPage location={this.props.location} history={this.props.history} />
         <Container>
           <div style={{ marginBottom: 20 }}>
             <Steps size="small" current={current}>

@@ -10,11 +10,14 @@ import { Row, Col, Alert } from 'reactstrap';
 import { Select, Input } from 'antd';
 const Option = Select.Option;
 
-import { getLandType, queryStringMapping, getPriceByNumber, getAcreageByNumber } from 'app/shared/util/utils';
+import * as qs from 'query-string';
+
+import { getLandType, queryStringMapping, queryString, getPriceByNumber, getAcreageByNumber } from 'app/shared/util/utils';
 import { getHouses } from 'app/entities/house/house.reducer';
 
-export interface ISearchPageProp extends StateProps, DispatchProps, RouteComponentProps<{}> {
-  parameters: any;
+export interface ISearchPageProp extends StateProps, DispatchProps {
+  location: any;
+  history: any;
 }
 
 export interface ISearchPageState {
@@ -27,10 +30,16 @@ export class SearchPage extends React.Component<ISearchPageProp, ISearchPageStat
   };
 
   componentDidMount() {
-    this.setState({
-      parameters: this.props.parameters
-    });
-
+    if (this.props.location) {
+      const parsed = qs.parse(this.props.location.search);
+      if (parsed) {
+        this.setState({
+          parameters: parsed
+        });
+      }
+      // this.props.getSession();
+      this.props.getHouses(queryStringMapping(parsed));
+    }
     $('.dropdown-submenu div').on('click', function(e) {
       $(this)
         .next('ul')
@@ -158,11 +167,15 @@ export class SearchPage extends React.Component<ISearchPageProp, ISearchPageStat
 
   componentDidUpdate(prevProps) {
     // Typical usage (don't forget to compare props):
-    if (this.props.parameters !== prevProps.parameters) {
-      const nextParameter = { ...this.state.parameters, ...this.props.parameters };
-      this.setState({
-        parameters: nextParameter
-      });
+    if (this.props.location !== prevProps.location) {
+      const parsed = qs.parse(this.props.location.search);
+      if (parsed) {
+        this.setState({
+          parameters: parsed
+        });
+      }
+      // this.props.getSession();
+      this.props.getHouses(queryStringMapping(parsed));
     }
   }
 
@@ -180,14 +193,22 @@ export class SearchPage extends React.Component<ISearchPageProp, ISearchPageStat
       <div className="select-box">
         <div className="select dropdown">
           <span id="type" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
-            {this.state.parameters && this.state.parameters.actionType ? (this.state.parameters.actionType === 'FOR_SELL' ? 'Mua' : 'Thuê') : 'Hình thức'}
+            {this.state.parameters && this.state.parameters.actionType
+              ? this.state.parameters.actionType === 'FOR_SELL' ? 'Mua' : 'Thuê'
+              : 'Hình thức'}
           </span>
           <input type="hidden" id="slType" name="slType" />
           <ul className="dropdown-menu js-type" aria-labelledby="type" onClick={this.menuTypeClick}>
-            <li className={`options ${this.state.parameters && this.state.parameters.actionType === 'FOR_SELL' ? 'active' : ''}`} data-value="FOR_SELL">
+            <li
+              className={`options ${this.state.parameters && this.state.parameters.actionType === 'FOR_SELL' ? 'active' : ''}`}
+              data-value="FOR_SELL"
+            >
               Mua
             </li>
-            <li className={`options ${this.state.parameters && this.state.parameters.actionType === 'FOR_RENT' ? 'active' : ''}`} data-value="FOR_RENT">
+            <li
+              className={`options ${this.state.parameters && this.state.parameters.actionType === 'FOR_RENT' ? 'active' : ''}`}
+              data-value="FOR_RENT"
+            >
               Thuê
             </li>
           </ul>
@@ -273,6 +294,7 @@ export class SearchPage extends React.Component<ISearchPageProp, ISearchPageStat
     for (let i = 0; i <= 5; i++) {
       items.push(
         <li
+          key={`price-${i}`}
           className={`options ${this.state.parameters && parseInt(this.state.parameters.money) === i ? 'active' : ''}`}
           data-value={i}
           dangerouslySetInnerHTML={{ __html: getPriceByNumber(i) }}
@@ -329,6 +351,7 @@ export class SearchPage extends React.Component<ISearchPageProp, ISearchPageStat
     for (let i = 0; i <= 5; i++) {
       items.push(
         <li
+          key={`spare-${i}`}
           className={`options ${this.state.parameters && parseInt(this.state.parameters.acreage) === i ? 'active' : ''}`}
           data-value={i}
           dangerouslySetInnerHTML={{ __html: getAcreageByNumber(i) }}
@@ -475,7 +498,7 @@ export class SearchPage extends React.Component<ISearchPageProp, ISearchPageStat
   }
 
   searchClick = () => {
-    this.props.history.push(`/tim-kiem?${queryStringMapping(this.state.parameters)}`);
+    this.props.history.push(`/tim-kiem?${queryString(this.state.parameters)}`);
   };
 
   render() {

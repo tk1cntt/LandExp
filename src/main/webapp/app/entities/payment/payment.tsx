@@ -85,7 +85,7 @@ export class Payment extends React.Component<IPaymentProps, IPaymentState> {
     const { paymentList, match, totalItems } = this.props;
     return (
       <Row>
-        <SearchPage />
+        <SearchPage location={this.props.location} history={this.props.history} />
         <Container>
           <h2 id="payment-heading">
             <Translate contentKey="landexpApp.payment.home.title">Payments</Translate>

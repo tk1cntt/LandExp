@@ -209,7 +209,7 @@ export class Detail extends React.Component<IDetailProp, IDetailState> {
     }
     return (
       <Row>
-        <SearchPage />
+        <SearchPage location={this.props.location} history={this.props.history} />
         <Container>
           <Row>
             <Col md="12">

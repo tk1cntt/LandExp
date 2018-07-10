@@ -89,7 +89,7 @@ export class WardUpdate extends React.Component<IWardUpdateProps, IWardUpdateSta
 
     return (
       <Row>
-        <SearchPage />
+        <SearchPage location={this.props.location} history={this.props.history} />
         <Container className="justify-content-center">
           <Col md="12">
             <h2 id="landexpApp.ward.home.createOrEditLabel">

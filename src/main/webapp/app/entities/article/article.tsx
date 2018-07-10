@@ -85,7 +85,7 @@ export class Article extends React.Component<IArticleProps, IArticleState> {
     const { articleList, match, totalItems } = this.props;
     return (
       <Row>
-        <SearchPage />
+        <SearchPage location={this.props.location} history={this.props.history} />
         <Container>
           <h2 id="article-heading">
             <Translate contentKey="landexpApp.article.home.title">Articles</Translate>

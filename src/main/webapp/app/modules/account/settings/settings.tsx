@@ -1,6 +1,7 @@
 import * as React from 'react';
 import { Button, Col, Alert, Row, Container } from 'reactstrap';
 import { connect } from 'react-redux';
+import { RouteComponentProps } from 'react-router-dom';
 import { Translate, translate } from 'react-jhipster';
 import { AvForm, AvField } from 'availity-reactstrap-validation';
 
@@ -11,7 +12,7 @@ import { saveAccountSettings, reset } from './settings.reducer';
 
 import SearchPage from 'app/shared/layout/search/search-menu';
 
-export interface IUserSettingsProps extends StateProps, DispatchProps {}
+export interface IUserSettingsProps extends StateProps, DispatchProps, RouteComponentProps<{ url: string }> {}
 
 export interface IUserSettingsState {
   account: any;
@@ -41,7 +42,7 @@ export class SettingsPage extends React.Component<IUserSettingsProps, IUserSetti
 
     return (
       <Row>
-        <SearchPage />
+        <SearchPage location={this.props.location} history={this.props.history} />
         <Container>
           <Row className="justify-content-center">
             <Col md="8">

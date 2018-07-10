@@ -83,7 +83,7 @@ export class PotentialCustomer extends React.Component<IPotentialCustomerProps, 
     const { potentialCustomerList, match, totalItems } = this.props;
     return (
       <Row>
-        <SearchPage />
+        <SearchPage location={this.props.location} history={this.props.history} />
         <Container>
           <h2 id="potential-customer-heading">
             <Translate contentKey="landexpApp.potentialCustomer.home.title">Potential Customers</Translate>

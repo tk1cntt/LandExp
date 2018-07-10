@@ -541,7 +541,7 @@ export class EditPage extends React.Component<IEditProp, IEditState> {
 
     return (
       <Row>
-        <SearchPage />
+        <SearchPage location={this.props.location} history={this.props.history} />
         <Container>
           <div style={{ marginBottom: 20 }}>
             <Steps size="small" current={current}>

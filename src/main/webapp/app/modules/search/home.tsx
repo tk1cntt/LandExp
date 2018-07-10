@@ -29,22 +29,11 @@ export class Home extends React.Component<IHomeProp, IHomeState> {
     parameters: {}
   };
 
-  componentDidMount() {
-    const parsed = qs.parse(this.props.location.search);
-    if (parsed) {
-      this.setState({
-        parameters: parsed
-      });
-    }
-    this.props.getSession();
-    this.props.getHouses(queryStringMapping(parsed));
-  }
-
   render() {
     const { account, isAuthenticated } = this.props;
     return (
       <Row>
-        <SearchPage parameters={this.state.parameters} />
+        <SearchPage location={this.props.location} history={this.props.history} />
         {isAuthenticated ? <HomePanelUser /> : <HomePanelGuest />}
         <div className="container">
           <Spin spinning={this.props.loading} tip="Đang cập nhật dữ liệu...">

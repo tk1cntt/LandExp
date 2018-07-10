@@ -84,7 +84,7 @@ export class Region extends React.Component<IRegionProps, IRegionState> {
     const { regionList, match, totalItems } = this.props;
     return (
       <Row>
-        <SearchPage />
+        <SearchPage location={this.props.location} history={this.props.history} />
         <Container>
           <h2 id="region-heading">
             <Translate contentKey="landexpApp.region.home.title">Regions</Translate>

@@ -111,7 +111,7 @@ export class DistrictUpdate extends React.Component<IDistrictUpdateProps, IDistr
 
     return (
       <Row>
-        <SearchPage />
+        <SearchPage location={this.props.location} history={this.props.history} />
         <Container>
           <Row className="justify-content-center">
             <Col md="12">

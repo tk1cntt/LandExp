@@ -66,7 +66,7 @@ export class CityUpdate extends React.Component<ICityUpdateProps, ICityUpdateSta
 
     return (
       <Row>
-        <SearchPage />
+        <SearchPage location={this.props.location} history={this.props.history} />
         <Container>
           <Row className="justify-content-center">
             <Col md="12">

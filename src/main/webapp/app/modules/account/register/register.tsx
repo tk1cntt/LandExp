@@ -1,6 +1,7 @@
 import * as React from 'react';
 import { Translate, translate } from 'react-jhipster';
 import { connect } from 'react-redux';
+import { RouteComponentProps } from 'react-router-dom';
 import { AvForm, AvField } from 'availity-reactstrap-validation';
 import { Row, Col, Container, Alert, Button } from 'reactstrap';
 
@@ -10,7 +11,7 @@ import { handleRegister, reset } from './register.reducer';
 
 import SearchPage from 'app/shared/layout/search/search-menu';
 
-export interface IRegisterProps extends StateProps, DispatchProps {}
+export interface IRegisterProps extends StateProps, DispatchProps, RouteComponentProps<{ url: string }> {}
 
 export interface IRegisterState {
   password: string;
@@ -37,7 +38,7 @@ export class RegisterPage extends React.Component<IRegisterProps, IRegisterState
   render() {
     return (
       <Row>
-        <SearchPage />
+        <SearchPage location={this.props.location} history={this.props.history} />
         <Container>
           <Row style={{ marginTop: 20 }} className="justify-content-center">
             <Col md="12">

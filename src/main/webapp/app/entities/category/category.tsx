@@ -83,7 +83,7 @@ export class Category extends React.Component<ICategoryProps, ICategoryState> {
     const { categoryList, match, totalItems } = this.props;
     return (
       <Row>
-        <SearchPage />
+        <SearchPage location={this.props.location} history={this.props.history} />
         <Container>
           <h2 id="category-heading">
             <Translate contentKey="landexpApp.category.home.title">Categories</Translate>

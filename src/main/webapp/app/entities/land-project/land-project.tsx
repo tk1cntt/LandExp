@@ -84,7 +84,7 @@ export class LandProject extends React.Component<ILandProjectProps, ILandProject
     const { landProjectList, match, totalItems } = this.props;
     return (
       <Row>
-        <SearchPage />
+        <SearchPage location={this.props.location} history={this.props.history} />
         <Container>
           <h2 id="land-project-heading">
             <Translate contentKey="landexpApp.landProject.home.title">Land Projects</Translate>

@@ -2,11 +2,12 @@ import './home.css';
 
 import * as React from 'react';
 import { Link, RouteComponentProps } from 'react-router-dom';
-import { Translate } from 'react-jhipster';
+import { Translate, IPaginationBaseState, getSortState } from 'react-jhipster';
 import { connect } from 'react-redux';
 import { Row, Col, Alert } from 'reactstrap';
 import { getSession } from 'app/shared/reducers/authentication';
 import { getHouses, getEntities, getOwnerEntities } from 'app/entities/house/house.reducer';
+import { ITEMS_PER_PAGE } from 'app/shared/util/pagination.constants';
 
 import * as qs from 'query-string';
 import { Spin } from 'antd';
@@ -20,26 +21,24 @@ import HomeNewsBox from './home-newsbox';
 
 export interface IHomeProp extends StateProps, DispatchProps, RouteComponentProps<{}> {}
 
-export interface IHomeState {
-  parameters: any;
+export interface IHomeState extends IPaginationBaseState {
+  search: string;
 }
 
 export class Home extends React.Component<IHomeProp, IHomeState> {
   state: IHomeState = {
-    parameters: {}
+    search: '',
+    ...getSortState(this.props.location, ITEMS_PER_PAGE)
   };
 
   componentDidMount() {
-    const parsed = qs.parse(this.props.location.search);
-    if (parsed) {
-      this.setState({
-        parameters: parsed
-      });
+    console.log('this.props.location', this.props.location);
+    if (this.props.location) {
+      const parsed = qs.parse(this.props.location.search);
+      // this.props.getSession();
+      this.props.getHouses(queryStringMapping(parsed));
     }
-    this.props.getSession();
-    this.props.getHouses(queryStringMapping(parsed));
   }
-
   render() {
     return (
       <Row>

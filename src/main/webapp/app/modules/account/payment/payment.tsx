@@ -86,7 +86,7 @@ export class Payment extends React.Component<IPaymentProp, IPaymentState> {
     };
     return (
       <div>
-        <SearchPage />
+        <SearchPage location={this.props.location} history={this.props.history} />
         <Container>
           <Row>
             <Col md="8">

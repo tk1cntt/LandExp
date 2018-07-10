@@ -45,6 +45,8 @@ export class Login extends React.Component<ILoginProps, ILoginState> {
         handleLogin={this.handleLogin}
         handleClose={this.handleClose}
         loginError={this.props.loginError}
+        location={this.props.location}
+        history={this.props.history}
       />
     );
   }

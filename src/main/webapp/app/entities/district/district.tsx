@@ -85,7 +85,7 @@ export class District extends React.Component<IDistrictProps, IDistrictState> {
     const { districtList, match, totalItems } = this.props;
     return (
       <Row>
-        <SearchPage />
+        <SearchPage location={this.props.location} history={this.props.history} />
         <Container>
           <h2 id="district-heading">
             <Translate contentKey="landexpApp.district.home.title">Districts</Translate>

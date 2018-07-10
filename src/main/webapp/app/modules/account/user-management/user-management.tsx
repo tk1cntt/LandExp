@@ -65,7 +65,7 @@ export class UserManagement extends React.Component<IUserManagementProps, IPagin
     const { users, account, match, totalItems } = this.props;
     return (
       <Row>
-        <SearchPage />
+        <SearchPage location={this.props.location} history={this.props.history} />
         <Container>
           <h2 className="userManagement-page-heading">
             <Translate contentKey="userManagement.home.title">Users</Translate>
