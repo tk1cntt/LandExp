@@ -10,7 +10,8 @@ import { Row, Col, Alert } from 'reactstrap';
 import { Select, Input } from 'antd';
 const Option = Select.Option;
 
-import { getLandType, selectPrice } from 'app/shared/util/utils';
+import { getLandType, queryStringMapping } from 'app/shared/util/utils';
+import { getHouses } from 'app/entities/house/house.reducer';
 
 export interface ISearchPageProp extends StateProps, DispatchProps {
   parameters: any;
@@ -249,9 +250,7 @@ export class SearchPage extends React.Component<ISearchPageProp, ISearchPageStat
   }
 
   menuPriceClick = e => {
-    let money = selectPrice(e.target.dataset.value);
-    console.log(money);
-    const parameters = { money };
+    const parameters = { money: e.target.dataset.value };
     const nextParameter = { ...this.state.parameters, ...parameters };
     this.setState({
       parameters: nextParameter
@@ -314,7 +313,12 @@ export class SearchPage extends React.Component<ISearchPageProp, ISearchPageStat
   }
 
   menuSpareClick(e) {
-    console.log('menuSpareClick', e.target.dataset.value);
+    const parameters = { acreage: e.target.dataset.value };
+    const nextParameter = { ...this.state.parameters, ...parameters };
+    this.setState({
+      parameters: nextParameter
+    });
+    console.log(this.state.parameters);
   }
 
   menuSpareForm() {
@@ -476,6 +480,7 @@ export class SearchPage extends React.Component<ISearchPageProp, ISearchPageStat
 
   searchClick = () => {
     console.log('searchClick', this.state.parameters);
+    this.props.getHouses(queryStringMapping(this.state.parameters));
   };
 
   render() {
@@ -509,7 +514,7 @@ const mapStateToProps = storeState => ({
   isAuthenticated: storeState.authentication.isAuthenticated
 });
 
-const mapDispatchToProps = {};
+const mapDispatchToProps = { getHouses };
 
 type StateProps = ReturnType<typeof mapStateToProps>;
 type DispatchProps = typeof mapDispatchToProps;
