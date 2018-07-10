@@ -35,7 +35,7 @@ ul {
   padding-left: 0px;
 }
 
-.home header {
+.home .app-container {
   background-color: rgb(255, 255, 255, 0.88);
   height: 734px;
   min-width: 1170px;
@@ -387,7 +387,6 @@ ul.right-menu .button {
 }
 
 #home-content h2 {
-  border-bottom: 1px solid #dfdfdf;
   padding-bottom: 10px;
   position: relative;
   margin-bottom: 20px;

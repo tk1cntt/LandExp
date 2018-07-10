@@ -9,6 +9,7 @@ import PasswordResetInit from 'app/modules/account/password-reset/init/password-
 import PasswordResetFinish from 'app/modules/account/password-reset/finish/password-reset-finish';
 import Logout from 'app/modules/login/logout';
 import Home from 'app/modules/home/home';
+import Search from 'app/modules/search/home';
 import Admin from 'app/modules/administration';
 import Entities from 'app/entities';
 import Detail from 'app/modules/detail/detail';
@@ -28,6 +29,7 @@ const Routes = () => (
       <PrivateRoute path="/tai-khoan" component={Account} hasAnyAuthorities={[AUTHORITIES.USER]} />
       <PrivateRoute path="/quan-ly" component={Entities} hasAnyAuthorities={[AUTHORITIES.STAFF]} />
       <PrivateRoute path="/bat-dong-san/:key" component={Detail} />
+      <Route path="/tim-kiem" component={Search} />
       <Route path="/" component={Home} />
     </Switch>
   </div>

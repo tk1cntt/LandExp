@@ -15,8 +15,8 @@ import { queryStringMapping } from 'app/shared/util/utils';
 import SearchPage from 'app/shared/layout/search/search-menu';
 import HomeGrid from './home-grid';
 import HomeList from './home-list';
-import HomeSearchBox from './home-searchbox';
-import HomeNewsBox from './home-newsbox';
+import HomePanelGuest from './home-panel-guest';
+import HomePanelUser from './home-panel-user';
 
 export interface IHomeProp extends StateProps, DispatchProps, RouteComponentProps<{}> {}
 
@@ -41,11 +41,12 @@ export class Home extends React.Component<IHomeProp, IHomeState> {
   }
 
   render() {
+    const { account, isAuthenticated } = this.props;
     return (
       <Row>
-        <HomeSearchBox />
+        <SearchPage parameters={this.state.parameters} />
+        {isAuthenticated ? <HomePanelUser /> : <HomePanelGuest />}
         <div className="container">
-          <HomeNewsBox />
           <Spin spinning={this.props.loading} tip="Đang cập nhật dữ liệu...">
             <div className="row lastest-posts">
               <h2>
@@ -84,6 +85,8 @@ export class Home extends React.Component<IHomeProp, IHomeState> {
 }
 
 const mapStateToProps = storeState => ({
+  isAuthenticated: storeState.authentication.isAuthenticated,
+  account: storeState.authentication.account,
   houseList: storeState.house.entities,
   totalItems: storeState.house.totalItems,
   loading: storeState.house.loading
