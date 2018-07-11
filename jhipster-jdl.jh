@@ -1,0 +1,331 @@
+entity Region {
+   name String,
+   enabled Boolean,
+   createAt LocalDate,
+   updateAt LocalDate
+
+}
+
+entity City {
+   name String,
+   index Integer,
+   enabled Boolean,
+   createAt LocalDate,
+   updateAt LocalDate
+}
+
+entity District {
+   name String,
+   enabled Boolean,
+   createAt LocalDate,
+   updateAt LocalDate
+}
+
+entity Ward {
+   name String,
+   enabled Boolean,
+   createAt LocalDate,
+   updateAt LocalDate
+}
+
+relationship ManyToMany {
+   Region{user(login)} to User
+}
+
+relationship OneToMany {
+   City{districts} to District,
+   Region{districts} to District,
+   District{wards} to Ward
+}
+
+enum UserActionType {
+   FOR_BUY, FOR_SELL, FOR_RENT, FOR_HIRE
+}
+
+enum StatusType {
+   OPEN, PENDING, PAID, CANCELED, EXPIRED, SOLD
+}
+
+enum LandType {
+   APARTMENT, PEN_HOUSE, HOME, HOME_VILLA, HOME_STREET_SIDE, MOTEL_ROOM, OFFICE, LAND_SCAPE, LAND_OF_PROJECT, LAND_FARM, LAND_RESORT, WAREHOUSES, KIOSKS, OTHER
+}
+
+enum DirectionType {
+   NORTH, SOUTH, EAST, WEST, EAST_NORTH, WEST_NORTH, EAST_SOUTH, WEST_SOUTH
+}
+
+enum AcreageType {
+   M2, HECTARE
+}
+
+enum SaleType {
+   SALE_BY_MYSELF, SALE_BY_MYSELF_VIP, SALE_SUPPORT, SALE_SUPPORT_VIP
+}
+
+enum MoneyType {
+   MILLION, BILLION
+}
+
+enum PresentType {
+   NONE, BASIC_FURNITURE, FULL_FURNITURE, DISCOUNT_PRICE, SUPPORT_EXHIBIT, SUPPORT_FEE, HAVE_PRESENT
+}
+
+entity House {
+   avatar ImageBlob,
+   avatarLink String,
+   actionType UserActionType,
+   address String,
+   money Float,
+   acreage Float,
+   acreageStreetSide Float,
+   discount Float,
+   direction DirectionType,
+   directionBalcony DirectionType,
+   floor String,
+   numberOfFloor Float,
+   bathRoom Integer,
+   bedRoom Integer,
+   parking Boolean,
+   summary String,
+   landType LandType,
+   saleType SaleType,
+   fee Float,
+   feeMax Float,
+   present PresentType,
+   hits Integer,
+   customer String,
+   mobile String,
+   email String,
+   facebook String,
+   zalo String,
+   statusType StatusType,
+   googleId String,
+   latitude Float,
+   longitude Float,
+   createAt LocalDate,
+   updateAt LocalDate
+}
+
+entity ServiceFee {
+   saleType SaleType,
+   fee Float
+}
+
+relationship ManyToOne {
+   House{city(name)} to City,
+   House{district(name)} to District,
+   House{ward(name)} to Ward,
+   House{project(name)} to LandProject,
+   House{createBy(login)} to User,
+   House{updateBy(login)} to User
+}
+
+entity HousePhoto {
+   image ImageBlob,
+   mobileLink String,
+   webLink String,
+   enabled Boolean,
+   createAt LocalDate
+}
+
+relationship ManyToOne {
+   HousePhoto{createBy(login)} to User,
+   HousePhoto{updateBy(login)} to User
+}
+
+relationship OneToMany {
+   House{photos} to HousePhoto
+}
+
+entity LandProject {
+   name String,
+   image ImageBlob
+}
+
+entity LandProjectPhoto {
+   image ImageBlob,
+   createAt LocalDate
+}
+
+relationship ManyToOne {
+   LandProjectPhoto{createBy(login)} to User,
+   LandProjectPhoto{updateBy(login)} to User
+}
+
+relationship OneToMany {
+   LandProject{photos} to LandProjectPhoto
+}
+
+relationship ManyToOne {
+   LandProject{city(name)} to City,
+   LandProject{district(name)} to District,
+   LandProject{ward(name)} to Ward,
+   LandProject{createBy(login)} to User,
+   LandProject{updateBy(login)} to User
+}
+
+entity Article {
+   avatar ImageBlob,
+   title String,
+   titleAlias String,
+   summary String,
+   content String,
+   statusType StatusType,
+   hits Integer,
+   createAt LocalDate,
+   updateAt LocalDate
+}
+
+relationship ManyToOne {
+   Article{category(name)} to Category,
+   Article{createBy(login)} to User,
+   Article{updateBy(login)} to User
+}
+
+entity Category {
+   name String,
+   nameAlias String,
+   createAt LocalDate,
+   updateAt LocalDate
+}
+
+enum UserActivityType {
+   USER_SEARCH_BUY, USER_SEARCH_RENT, USER_VIEW_NEWS, USER_LIKE_NEWS, USER_CREATE_NEWS, USER_UPDATE_NEWS, USER_SUBSCRIPTION, USER_UNSUBSCRIPTION, USER_REGISTERED_CONSULTING, USER_UPDATE_SALE_TYPE, USER_PAID_NEWS, USER_SOLD_HOUSE, USER_BOUGTH_HOUSE, USER_CREATE_BANNER, USER_UPDATE_BANNER
+}
+
+entity UserSubscription {
+   actionType UserActivityType,
+   keyword String,
+   costFrom Float,
+   costTo Float,
+   acreageFrom Float,
+   acreageTo Float,
+   direction DirectionType,
+   floor String,
+   bathRoom Integer,
+   bedRoom Integer,
+   parking Boolean,
+   landType LandType,
+   enabled Boolean,
+   createAt LocalDate,
+   updateAt LocalDate
+}
+
+relationship ManyToOne {
+   UserSubscription{user(login)} to User
+   UserSubscription{city(name)} to City,
+   UserSubscription{district(name)} to District
+}
+
+entity UserTracking {
+   activityType UserActivityType,
+   sourceId String,
+   sourceLink String,
+   description String,
+   createAt LocalDate
+}
+
+relationship ManyToOne {
+   UserTracking{user(login} to User
+}
+
+entity UserFeed {
+   body String,
+   createAt LocalDate,
+   updateAt LocalDate
+}
+
+relationship ManyToOne {
+   UserFeed{user(login} to User
+}
+
+entity SearchTracking {
+   actionType UserActivityType,
+   keyword String,
+   costFrom Float,
+   costTo Float,
+   acreageFrom Float,
+   acreageTo Float,
+   direction DirectionType,
+   floor String,
+   bathRoom Integer,
+   bedRoom Integer,
+   parking Boolean,
+   landType LandType,
+   createAt LocalDate
+}
+
+relationship ManyToOne {
+   SearchTracking{user(login)} to User
+   SearchTracking{city(name)} to City,
+   SearchTracking{district(name)} to District
+}
+
+entity UserFinancial {
+   housePrice Float,
+   savingMoney Float,
+   loanRate Float,
+   loanFromPeople Float,
+   customerMoneyHave Float,
+   customerMobile String,
+   customerEmail String
+}
+
+relationship ManyToOne {
+   UserFinancial{user(login)} to User
+}
+
+enum CustomerLevel {
+   NORMAL, SILVER, GOLD, PLATINUM
+}
+
+entity PotentialCustomer {
+   level CustomerLevel,
+   description String,
+   createAt LocalDate,
+   updateAt LocalDate
+}
+
+relationship ManyToOne {
+   PotentialCustomer{customer(login)} to User,
+   PotentialCustomer{createBy(login)} to User,
+   PotentialCustomer{updateBy(login)} to User
+}
+
+enum PaymentType {
+   CASH, BANK_TRANSFER, ONLINE
+}
+
+enum PaymentStatusType {
+   PENDING, PAID, CANCELED
+}
+
+entity Payment {
+   code String,
+   money Float,
+   paidTime LocalDate,
+   paymentStatus PaymentStatusType,
+   createAt LocalDate,
+   updateAt LocalDate
+}
+
+relationship ManyToOne {
+   Payment{house} to House,
+   Payment{customer(login)} to User,
+   Payment{createBy(login)} to User,
+   Payment{updateBy(login)} to User
+}
+
+// Set pagination options
+paginate Region, City, District, Ward, House, HousePhoto with pagination
+
+paginate LandProject, Article, Category, SearchTracking with pagination
+
+paginate UserSubscription, UserTracking, UserFeed, UserFinancial, PotentialCustomer, Payment with pagination
+
+dto * with mapstruct
+
+// Set service options to all except few
+service all with serviceClass
+
+filter Region, City, District, Ward, House, UserSubscription, UserTracking, SearchTracking, Payment, UserFinancial, PotentialCustomer
