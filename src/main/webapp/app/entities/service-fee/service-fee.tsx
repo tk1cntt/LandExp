@@ -6,6 +6,7 @@ import { AvForm, AvGroup, AvInput } from 'availity-reactstrap-validation';
 // tslint:disable-next-line:no-unused-variable
 import { Translate, translate, ICrudSearchAction, ICrudGetAllAction } from 'react-jhipster';
 import FontAwesomeIcon from '@fortawesome/react-fontawesome';
+import { Spin } from 'antd';
 
 import { IRootState } from 'app/shared/reducers';
 import { getSearchEntities, getEntities } from './service-fee.reducer';
@@ -52,69 +53,52 @@ export class ServiceFee extends React.Component<IServiceFeeProps, IServiceFeeSta
       <Row>
         <SearchPage location={this.props.location} history={this.props.history} />
         <Container>
-          <h2 id="service-fee-heading">
-            <Translate contentKey="landexpApp.serviceFee.home.title">Service Fees</Translate>
-            <Link to={`${match.url}/new`} className="btn btn-primary float-right jh-create-entity" id="jh-create-entity">
-              <FontAwesomeIcon icon="plus" />&nbsp;
-              <Translate contentKey="landexpApp.serviceFee.home.createLabel">Create new Service Fee</Translate>
-            </Link>
-          </h2>
-          <Row>
-            <Col sm="12">
-              <AvForm onSubmit={this.search}>
-                <AvGroup>
-                  <InputGroup>
-                    <AvInput
-                      type="text"
-                      name="search"
-                      value={this.state.search}
-                      onChange={this.handleSearch}
-                      placeholder={translate('landexpApp.serviceFee.home.search')}
-                    />
-                    <Button className="input-group-addon">
-                      <FontAwesomeIcon icon="search" />
-                    </Button>
-                    <Button type="reset" className="input-group-addon" onClick={this.clear}>
-                      <FontAwesomeIcon icon="trash" />
-                    </Button>
-                  </InputGroup>
-                </AvGroup>
-              </AvForm>
-            </Col>
-          </Row>
-          <div className="table-responsive">
-            <Table responsive>
-              <thead>
-                <tr>
-                  <th>
-                    <Translate contentKey="landexpApp.serviceFee.saleType">Sale Type</Translate>
-                  </th>
-                  <th>
-                    <Translate contentKey="landexpApp.serviceFee.fee">Fee</Translate>
-                  </th>
-                  <th />
-                </tr>
-              </thead>
-              <tbody>
-                {serviceFeeList.map((serviceFee, i) => (
-                  <tr key={`entity-${i}`}>
-                    <td>{getSaleType(serviceFee.saleType)}</td>
-                    <td>{new Intl.NumberFormat().format(serviceFee.fee)} VNĐ</td>
-                    <td className="text-right">
-                      <div className="btn-group flex-btn-group-container">
-                        <Button tag={Link} to={`${match.url}/${serviceFee.id}/edit`} color="primary" size="sm">
-                          <FontAwesomeIcon icon="pencil-alt" />{' '}
-                          <span className="d-none d-md-inline">
-                            <Translate contentKey="entity.action.edit">Edit</Translate>
-                          </span>
-                        </Button>
-                      </div>
-                    </td>
-                  </tr>
-                ))}
-              </tbody>
-            </Table>
-          </div>
+          <Col md="12">
+            {this.props.loading ? (
+              <div className="justify-content-center">
+                <Spin tip="Đang cập nhật dữ liệu..." />
+              </div>
+            ) : (
+              <>
+                <h2 id="service-fee-heading">
+                  <Translate contentKey="landexpApp.serviceFee.home.title">Service Fees</Translate>
+                </h2>
+                <div className="table-responsive">
+                  <Table responsive>
+                    <thead>
+                      <tr>
+                        <th>
+                          <Translate contentKey="landexpApp.serviceFee.saleType">Sale Type</Translate>
+                        </th>
+                        <th>
+                          <Translate contentKey="landexpApp.serviceFee.fee">Fee</Translate>
+                        </th>
+                        <th />
+                      </tr>
+                    </thead>
+                    <tbody>
+                      {serviceFeeList.map((serviceFee, i) => (
+                        <tr key={`entity-${i}`}>
+                          <td>{getSaleType(serviceFee.saleType)}</td>
+                          <td>{new Intl.NumberFormat().format(serviceFee.fee)} VNĐ</td>
+                          <td className="text-right">
+                            <div className="btn-group flex-btn-group-container">
+                              <Button tag={Link} to={`${match.url}/${serviceFee.id}/edit`} color="primary" size="sm">
+                                <FontAwesomeIcon icon="pencil-alt" />{' '}
+                                <span className="d-none d-md-inline">
+                                  <Translate contentKey="entity.action.edit">Edit</Translate>
+                                </span>
+                              </Button>
+                            </div>
+                          </td>
+                        </tr>
+                      ))}
+                    </tbody>
+                  </Table>
+                </div>
+              </>
+            )}
+          </Col>
         </Container>
       </Row>
     );
@@ -122,7 +106,8 @@ export class ServiceFee extends React.Component<IServiceFeeProps, IServiceFeeSta
 }
 
 const mapStateToProps = ({ serviceFee }: IRootState) => ({
-  serviceFeeList: serviceFee.entities
+  serviceFeeList: serviceFee.entities,
+  loading: serviceFee.loading
 });
 
 const mapDispatchToProps = {

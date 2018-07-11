@@ -6,6 +6,7 @@ import { AvForm, AvGroup, AvInput } from 'availity-reactstrap-validation';
 // tslint:disable-next-line:no-unused-variable
 import { openFile, byteSize, Translate, translate, ICrudSearchAction, ICrudGetAllAction, TextFormat } from 'react-jhipster';
 import FontAwesomeIcon from '@fortawesome/react-fontawesome';
+import { Spin } from 'antd';
 
 import { IRootState } from 'app/shared/reducers';
 import { getSearchEntities, getEntities } from './land-project-photo.reducer';

@@ -16,6 +16,7 @@ import {
   JhiPagination
 } from 'react-jhipster';
 import FontAwesomeIcon from '@fortawesome/react-fontawesome';
+import { Spin } from 'antd';
 
 import { IRootState } from 'app/shared/reducers';
 import { getSearchEntities, getEntities } from './banner.reducer';
