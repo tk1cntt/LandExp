@@ -1,0 +1,198 @@
+{
+    "name": "House",
+    "fields": [
+        {
+            "fieldName": "avatar",
+            "fieldType": "byte[]",
+            "fieldTypeBlobContent": "image"
+        },
+        {
+            "fieldName": "avatarLink",
+            "fieldType": "String"
+        },
+        {
+            "fieldName": "actionType",
+            "fieldType": "UserActionType",
+            "fieldValues": "FOR_BUY,FOR_SELL,FOR_RENT,FOR_HIRE"
+        },
+        {
+            "fieldName": "address",
+            "fieldType": "String"
+        },
+        {
+            "fieldName": "money",
+            "fieldType": "Float"
+        },
+        {
+            "fieldName": "acreage",
+            "fieldType": "Float"
+        },
+        {
+            "fieldName": "acreageStreetSide",
+            "fieldType": "Float"
+        },
+        {
+            "fieldName": "discount",
+            "fieldType": "Float"
+        },
+        {
+            "fieldName": "direction",
+            "fieldType": "DirectionType",
+            "fieldValues": "NORTH,SOUTH,EAST,WEST,EAST_NORTH,WEST_NORTH,EAST_SOUTH,WEST_SOUTH"
+        },
+        {
+            "fieldName": "directionBalcony",
+            "fieldType": "DirectionType",
+            "fieldValues": "NORTH,SOUTH,EAST,WEST,EAST_NORTH,WEST_NORTH,EAST_SOUTH,WEST_SOUTH"
+        },
+        {
+            "fieldName": "floor",
+            "fieldType": "String"
+        },
+        {
+            "fieldName": "numberOfFloor",
+            "fieldType": "Float"
+        },
+        {
+            "fieldName": "bathRoom",
+            "fieldType": "Integer"
+        },
+        {
+            "fieldName": "bedRoom",
+            "fieldType": "Integer"
+        },
+        {
+            "fieldName": "parking",
+            "fieldType": "Boolean"
+        },
+        {
+            "fieldName": "summary",
+            "fieldType": "String"
+        },
+        {
+            "fieldName": "landType",
+            "fieldType": "LandType",
+            "fieldValues": "APARTMENT,PEN_HOUSE,HOME,HOME_VILLA,HOME_STREET_SIDE,MOTEL_ROOM,OFFICE,LAND_SCAPE,LAND_OF_PROJECT,LAND_FARM,LAND_RESORT,WAREHOUSES,KIOSKS,OTHER"
+        },
+        {
+            "fieldName": "saleType",
+            "fieldType": "SaleType",
+            "fieldValues": "SALE_BY_MYSELF,SALE_BY_MYSELF_VIP,SALE_SUPPORT,SALE_SUPPORT_VIP"
+        },
+        {
+            "fieldName": "fee",
+            "fieldType": "Float"
+        },
+        {
+            "fieldName": "feeMax",
+            "fieldType": "Float"
+        },
+        {
+            "fieldName": "present",
+            "fieldType": "PresentType",
+            "fieldValues": "NONE,BASIC_FURNITURE,FULL_FURNITURE,DISCOUNT_PRICE,SUPPORT_EXHIBIT,SUPPORT_FEE,HAVE_PRESENT"
+        },
+        {
+            "fieldName": "hits",
+            "fieldType": "Integer"
+        },
+        {
+            "fieldName": "customer",
+            "fieldType": "String"
+        },
+        {
+            "fieldName": "mobile",
+            "fieldType": "String"
+        },
+        {
+            "fieldName": "email",
+            "fieldType": "String"
+        },
+        {
+            "fieldName": "facebook",
+            "fieldType": "String"
+        },
+        {
+            "fieldName": "zalo",
+            "fieldType": "String"
+        },
+        {
+            "fieldName": "statusType",
+            "fieldType": "StatusType",
+            "fieldValues": "OPEN,PENDING,PAID,CANCELED,EXPIRED,SOLD"
+        },
+        {
+            "fieldName": "googleId",
+            "fieldType": "String"
+        },
+        {
+            "fieldName": "latitude",
+            "fieldType": "Float"
+        },
+        {
+            "fieldName": "longitude",
+            "fieldType": "Float"
+        },
+        {
+            "fieldName": "createAt",
+            "fieldType": "LocalDate"
+        },
+        {
+            "fieldName": "updateAt",
+            "fieldType": "LocalDate"
+        }
+    ],
+    "relationships": [
+        {
+            "relationshipType": "one-to-many",
+            "relationshipName": "photos",
+            "otherEntityName": "housePhoto",
+            "otherEntityRelationshipName": "house"
+        },
+        {
+            "relationshipType": "many-to-one",
+            "relationshipName": "city",
+            "otherEntityName": "city",
+            "otherEntityField": "name"
+        },
+        {
+            "relationshipType": "many-to-one",
+            "relationshipName": "district",
+            "otherEntityName": "district",
+            "otherEntityField": "name"
+        },
+        {
+            "relationshipType": "many-to-one",
+            "relationshipName": "ward",
+            "otherEntityName": "ward",
+            "otherEntityField": "name"
+        },
+        {
+            "relationshipType": "many-to-one",
+            "relationshipName": "project",
+            "otherEntityName": "landProject",
+            "otherEntityField": "name"
+        },
+        {
+            "relationshipType": "many-to-one",
+            "relationshipName": "createBy",
+            "otherEntityName": "user",
+            "otherEntityField": "login"
+        },
+        {
+            "relationshipType": "many-to-one",
+            "relationshipName": "updateBy",
+            "otherEntityName": "user",
+            "otherEntityField": "login"
+        }
+    ],
+    "changelogDate": "20180711140428",
+    "entityTableName": "house",
+    "dto": "mapstruct",
+    "pagination": "pagination",
+    "service": "serviceClass",
+    "jpaMetamodelFiltering": true,
+    "fluentMethods": true,
+    "clientRootFolder": "",
+    "applications": "*"
+}

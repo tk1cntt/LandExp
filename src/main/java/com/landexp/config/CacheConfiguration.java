@@ -38,6 +38,30 @@ public class CacheConfiguration {
             cm.createCache(com.landexp.domain.User.class.getName(), jcacheConfiguration);
             cm.createCache(com.landexp.domain.Authority.class.getName(), jcacheConfiguration);
             cm.createCache(com.landexp.domain.User.class.getName() + ".authorities", jcacheConfiguration);
+            cm.createCache(com.landexp.domain.Region.class.getName(), jcacheConfiguration);
+            cm.createCache(com.landexp.domain.Region.class.getName() + ".districts", jcacheConfiguration);
+            cm.createCache(com.landexp.domain.Region.class.getName() + ".users", jcacheConfiguration);
+            cm.createCache(com.landexp.domain.City.class.getName(), jcacheConfiguration);
+            cm.createCache(com.landexp.domain.City.class.getName() + ".districts", jcacheConfiguration);
+            cm.createCache(com.landexp.domain.District.class.getName(), jcacheConfiguration);
+            cm.createCache(com.landexp.domain.District.class.getName() + ".wards", jcacheConfiguration);
+            cm.createCache(com.landexp.domain.Ward.class.getName(), jcacheConfiguration);
+            cm.createCache(com.landexp.domain.House.class.getName(), jcacheConfiguration);
+            cm.createCache(com.landexp.domain.House.class.getName() + ".photos", jcacheConfiguration);
+            cm.createCache(com.landexp.domain.ServiceFee.class.getName(), jcacheConfiguration);
+            cm.createCache(com.landexp.domain.HousePhoto.class.getName(), jcacheConfiguration);
+            cm.createCache(com.landexp.domain.LandProject.class.getName(), jcacheConfiguration);
+            cm.createCache(com.landexp.domain.LandProject.class.getName() + ".photos", jcacheConfiguration);
+            cm.createCache(com.landexp.domain.LandProjectPhoto.class.getName(), jcacheConfiguration);
+            cm.createCache(com.landexp.domain.Article.class.getName(), jcacheConfiguration);
+            cm.createCache(com.landexp.domain.Category.class.getName(), jcacheConfiguration);
+            cm.createCache(com.landexp.domain.UserSubscription.class.getName(), jcacheConfiguration);
+            cm.createCache(com.landexp.domain.UserTracking.class.getName(), jcacheConfiguration);
+            cm.createCache(com.landexp.domain.UserFeed.class.getName(), jcacheConfiguration);
+            cm.createCache(com.landexp.domain.SearchTracking.class.getName(), jcacheConfiguration);
+            cm.createCache(com.landexp.domain.UserFinancial.class.getName(), jcacheConfiguration);
+            cm.createCache(com.landexp.domain.PotentialCustomer.class.getName(), jcacheConfiguration);
+            cm.createCache(com.landexp.domain.Payment.class.getName(), jcacheConfiguration);
             // jhipster-needle-ehcache-add-entry
         };
     }
