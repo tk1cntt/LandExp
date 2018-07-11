@@ -3,8 +3,6 @@ import { connect } from 'react-redux';
 import { Link, RouteComponentProps } from 'react-router-dom';
 import { Button, InputGroup, Col, Row, Container, Table } from 'reactstrap';
 import { AvForm, AvGroup, AvInput } from 'availity-reactstrap-validation';
-import { Icon } from 'antd';
-
 // tslint:disable-next-line:no-unused-variable
 import {
   Translate,
@@ -18,7 +16,7 @@ import {
   JhiPagination
 } from 'react-jhipster';
 import FontAwesomeIcon from '@fortawesome/react-fontawesome';
-import { Spin } from 'antd';
+import { Icon, Spin } from 'antd';
 
 import { IRootState } from 'app/shared/reducers';
 import { getSearchEntities, getEntities } from './district.reducer';
