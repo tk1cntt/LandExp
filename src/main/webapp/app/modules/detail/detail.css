@@ -59,7 +59,7 @@
 .image-gallery-content .image-gallery-swipe .image-gallery-slides .image-gallery-slide .image-gallery-image img {
   object-fit: cover; /* Do not scale the image */
   object-position: center; /* Center the image within the element */
-  width: 565px !important;
+  width: 568px !important;
   height: 376px;
 }
 

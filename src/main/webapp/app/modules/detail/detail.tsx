@@ -61,7 +61,7 @@ export class Detail extends React.Component<IDetailProp, IDetailState> {
   houseImageGalleryFrom(images: any) {
     return (
       <Col md="6">
-        <div className="justify-content-center" style={{ border: '1px solid #dfdfdf' }}>
+        <div style={{ border: '1px solid #dfdfdf' }}>
           <ImageGallery items={images} showPlayButton={false} showFullscreenButton={false} autoPlay lazyLoad />
         </div>
       </Col>
