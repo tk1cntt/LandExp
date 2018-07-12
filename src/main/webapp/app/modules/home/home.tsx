@@ -8,6 +8,7 @@ import { Row, Col, Alert } from 'reactstrap';
 
 import { IRootState } from 'app/shared/reducers';
 import { getSession } from 'app/shared/reducers/authentication';
+import GoogleMaps from 'app/shared/util/google-maps';
 
 export interface IHomeProp extends StateProps, DispatchProps {}
 
@@ -60,7 +61,7 @@ export class Home extends React.Component<IHomeProp> {
           <p>
             <Translate contentKey="home.question">If you have any question on JHipster:</Translate>
           </p>
-
+          <GoogleMaps />
           <ul>
             <li>
               <a href="https://www.jhipster.tech/" target="_blank" rel="noopener noreferrer">
