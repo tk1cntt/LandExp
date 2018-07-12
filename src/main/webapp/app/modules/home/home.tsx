@@ -5,6 +5,7 @@ import { Link } from 'react-router-dom';
 import { Translate } from 'react-jhipster';
 import { connect } from 'react-redux';
 import { Row, Col, Alert } from 'reactstrap';
+import { Button } from 'antd';
 
 import { IRootState } from 'app/shared/reducers';
 import { getSession } from 'app/shared/reducers/authentication';
@@ -59,6 +60,7 @@ export class Home extends React.Component<IHomeProp> {
             </div>
           )}
           <p>
+            <Button type="primary">Primary</Button>
             <Translate contentKey="home.question">If you have any question on JHipster:</Translate>
           </p>
           <GoogleMaps />
