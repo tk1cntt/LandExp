@@ -1,12 +1,15 @@
 package com.landexp.web.rest;
 
 import com.codahale.metrics.annotation.Timed;
+import com.landexp.config.Utils;
+import com.landexp.security.AuthoritiesConstants;
 import com.landexp.service.HousePhotoService;
 import com.landexp.web.rest.errors.BadRequestAlertException;
 import com.landexp.web.rest.util.HeaderUtil;
 import com.landexp.web.rest.util.PaginationUtil;
 import com.landexp.service.dto.HousePhotoDTO;
 import io.github.jhipster.web.util.ResponseUtil;
+import net.coobird.thumbnailator.Thumbnails;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.data.domain.Page;
@@ -14,8 +17,14 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.annotation.Secured;
 import org.springframework.web.bind.annotation.*;
 
+import javax.imageio.ImageIO;
+import java.awt.image.BufferedImage;
+import java.io.ByteArrayInputStream;
+import java.io.ByteArrayOutputStream;
+import java.io.IOException;
 import java.net.URI;
 import java.net.URISyntaxException;
 
@@ -39,6 +48,19 @@ public class HousePhotoResource {
         this.housePhotoService = housePhotoService;
     }
 
+    private BufferedImage createImageFromBytes(byte[] imageData) {
+        ByteArrayInputStream bais = new ByteArrayInputStream(imageData);
+        try {
+            return ImageIO.read(bais);
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    public byte[] convert(ByteArrayOutputStream out) {
+        return out.toByteArray();
+    }
+
     /**
      * POST  /house-photos : Create a new housePhoto.
      *
@@ -48,6 +70,7 @@ public class HousePhotoResource {
      */
     @PostMapping("/house-photos")
     @Timed
+    @Secured(AuthoritiesConstants.USER)
     public ResponseEntity<HousePhotoDTO> createHousePhoto(@RequestBody HousePhotoDTO housePhotoDTO) throws URISyntaxException {
         log.debug("REST request to save HousePhoto : {}", housePhotoDTO);
         if (housePhotoDTO.getId() != null) {
@@ -70,6 +93,7 @@ public class HousePhotoResource {
      */
     @PutMapping("/house-photos")
     @Timed
+    @Secured(AuthoritiesConstants.USER)
     public ResponseEntity<HousePhotoDTO> updateHousePhoto(@RequestBody HousePhotoDTO housePhotoDTO) throws URISyntaxException {
         log.debug("REST request to update HousePhoto : {}", housePhotoDTO);
         if (housePhotoDTO.getId() == null) {
@@ -89,11 +113,29 @@ public class HousePhotoResource {
      */
     @GetMapping("/house-photos")
     @Timed
+    @Secured(AuthoritiesConstants.USER)
     public ResponseEntity<List<HousePhotoDTO>> getAllHousePhotos(Pageable pageable) {
         log.debug("REST request to get a page of HousePhotos");
         Page<HousePhotoDTO> page = housePhotoService.findAll(pageable);
         HttpHeaders headers = PaginationUtil.generatePaginationHttpHeaders(page, "/api/house-photos");
         return new ResponseEntity<>(page.getContent(), headers, HttpStatus.OK);
+    }
+
+    /**
+     * GET  /house-photos/{id}/contents : get photo in byte array.
+     */
+    @GetMapping("/house-photos/{id}/contents/{link}")
+    @Timed
+    @ResponseBody
+    public byte[] getHousePhotoById(@PathVariable String id, @PathVariable String link) throws IOException {
+        log.debug("REST request to get a image data in byte array");
+        HousePhotoDTO dto = housePhotoService.findOne(Utils.decodeId(id)).get();
+        ByteArrayOutputStream bao = new ByteArrayOutputStream();
+        Thumbnails.of(createImageFromBytes(dto.getImage()))
+            .size(538, 376)
+            .outputFormat("jpg")
+            .toOutputStream(bao);
+        return bao.toByteArray();
     }
 
     /**
@@ -104,10 +146,26 @@ public class HousePhotoResource {
      */
     @GetMapping("/house-photos/{id}")
     @Timed
+    @Secured(AuthoritiesConstants.USER)
     public ResponseEntity<HousePhotoDTO> getHousePhoto(@PathVariable Long id) {
         log.debug("REST request to get HousePhoto : {}", id);
         Optional<HousePhotoDTO> housePhotoDTO = housePhotoService.findOne(id);
         return ResponseUtil.wrapOrNotFound(housePhotoDTO);
+    }
+
+    /**
+     * GET  /house-photos/:id/houses : get the photo of house.
+     *
+     * @param id the id of the housePhotoDTO to retrieve
+     * @return the ResponseEntity with status 200 (OK) and with body the housePhotoDTO, or with status 404 (Not Found)
+     */
+    @GetMapping("/house-photos/{id}/houses")
+    @Timed
+    public ResponseEntity<List<HousePhotoDTO>> getPhotoOfHouse(@PathVariable Long id, Pageable pageable) {
+        log.debug("REST request to get photo of house : {}", id);
+        Page<HousePhotoDTO> page = housePhotoService.findByHouse(id, pageable);
+        HttpHeaders headers = PaginationUtil.generatePaginationHttpHeaders(page, "/api/house-photos/" + id + "/houses");
+        return new ResponseEntity<>(page.getContent(), headers, HttpStatus.OK);
     }
 
     /**
@@ -118,6 +176,7 @@ public class HousePhotoResource {
      */
     @DeleteMapping("/house-photos/{id}")
     @Timed
+    @Secured(AuthoritiesConstants.USER)
     public ResponseEntity<Void> deleteHousePhoto(@PathVariable Long id) {
         log.debug("REST request to delete HousePhoto : {}", id);
         housePhotoService.delete(id);
