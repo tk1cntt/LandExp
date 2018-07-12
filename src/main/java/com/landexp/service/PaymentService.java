@@ -73,6 +73,19 @@ public class PaymentService {
     }
 
     /**
+     * Get one payment by house.
+     *
+     * @param id the id of the entity
+     * @return the entity
+     */
+    @Transactional(readOnly = true)
+    public Optional<PaymentDTO> findByHouse(Long id) {
+        log.debug("Request to get Payment of House: {}", id);
+        return paymentRepository.findFirstByHouseId(id)
+            .map(paymentMapper::toDto);
+    }
+
+    /**
      * Delete the payment by id.
      *
      * @param id the id of the entity

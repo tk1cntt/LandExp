@@ -15,6 +15,7 @@ import com.landexp.domain.enumeration.UserActivityType;
 import com.landexp.domain.enumeration.DirectionType;
 
 import com.landexp.domain.enumeration.LandType;
+import org.hibernate.annotations.CreationTimestamp;
 
 /**
  * A SearchTracking.
@@ -69,6 +70,7 @@ public class SearchTracking implements Serializable {
     @Column(name = "land_type")
     private LandType landType;
 
+    @CreationTimestamp
     @Column(name = "create_at")
     private LocalDate createAt;
 

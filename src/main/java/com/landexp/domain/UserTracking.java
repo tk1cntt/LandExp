@@ -11,6 +11,7 @@ import java.time.LocalDate;
 import java.util.Objects;
 
 import com.landexp.domain.enumeration.UserActivityType;
+import org.hibernate.annotations.CreationTimestamp;
 
 /**
  * A UserTracking.
@@ -39,6 +40,7 @@ public class UserTracking implements Serializable {
     @Column(name = "description")
     private String description;
 
+    @CreationTimestamp
     @Column(name = "create_at")
     private LocalDate createAt;
 

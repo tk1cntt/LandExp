@@ -58,6 +58,19 @@ public class HousePhotoService {
             .map(housePhotoMapper::toDto);
     }
 
+    /**
+     * Get all the housePhotos.
+     *
+     * @param pageable the pagination information
+     * @return the list of entities
+     */
+    @Transactional(readOnly = true)
+    public Page<HousePhotoDTO> findByHouse(Long id, Pageable pageable) {
+        log.debug("Request to get photo of house {}", id);
+        return housePhotoRepository.findByHouseId(id, pageable)
+            .map(housePhotoMapper::toDto);
+    }
+
 
     /**
      * Get one housePhoto by id.

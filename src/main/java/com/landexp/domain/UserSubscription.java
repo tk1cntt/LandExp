@@ -15,6 +15,8 @@ import com.landexp.domain.enumeration.UserActivityType;
 import com.landexp.domain.enumeration.DirectionType;
 
 import com.landexp.domain.enumeration.LandType;
+import org.hibernate.annotations.CreationTimestamp;
+import org.hibernate.annotations.UpdateTimestamp;
 
 /**
  * A UserSubscription.
@@ -72,9 +74,11 @@ public class UserSubscription implements Serializable {
     @Column(name = "enabled")
     private Boolean enabled;
 
+    @CreationTimestamp
     @Column(name = "create_at")
     private LocalDate createAt;
 
+    @UpdateTimestamp
     @Column(name = "update_at")
     private LocalDate updateAt;
 

@@ -11,6 +11,8 @@ import java.time.LocalDate;
 import java.util.Objects;
 
 import com.landexp.domain.enumeration.PaymentStatusType;
+import org.hibernate.annotations.CreationTimestamp;
+import org.hibernate.annotations.UpdateTimestamp;
 
 /**
  * A Payment.
@@ -39,9 +41,11 @@ public class Payment implements Serializable {
     @Column(name = "payment_status")
     private PaymentStatusType paymentStatus;
 
+    @CreationTimestamp
     @Column(name = "create_at")
     private LocalDate createAt;
 
+    @UpdateTimestamp
     @Column(name = "update_at")
     private LocalDate updateAt;
 

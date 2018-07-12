@@ -11,6 +11,8 @@ import java.time.LocalDate;
 import java.util.Objects;
 
 import com.landexp.domain.enumeration.CustomerLevel;
+import org.hibernate.annotations.CreationTimestamp;
+import org.hibernate.annotations.UpdateTimestamp;
 
 /**
  * A PotentialCustomer.
@@ -33,9 +35,11 @@ public class PotentialCustomer implements Serializable {
     @Column(name = "description")
     private String description;
 
+    @CreationTimestamp
     @Column(name = "create_at")
     private LocalDate createAt;
 
+    @UpdateTimestamp
     @Column(name = "update_at")
     private LocalDate updateAt;
 

@@ -1,7 +1,10 @@
 package com.landexp.service;
 
 import com.landexp.domain.House;
+import com.landexp.domain.User;
+import com.landexp.domain.enumeration.StatusType;
 import com.landexp.repository.HouseRepository;
+import com.landexp.repository.UserRepository;
 import com.landexp.service.dto.HouseDTO;
 import com.landexp.service.mapper.HouseMapper;
 import org.slf4j.Logger;
@@ -11,6 +14,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.util.ObjectUtils;
 
 
 import java.util.Optional;
@@ -27,9 +31,13 @@ public class HouseService {
 
     private final HouseMapper houseMapper;
 
-    public HouseService(HouseRepository houseRepository, HouseMapper houseMapper) {
+
+    private final UserRepository userRepository;
+
+    public HouseService(HouseRepository houseRepository, HouseMapper houseMapper, UserRepository userRepository) {
         this.houseRepository = houseRepository;
         this.houseMapper = houseMapper;
+        this.userRepository = userRepository;
     }
 
     /**
@@ -46,6 +54,37 @@ public class HouseService {
     }
 
     /**
+     * Save a house.
+     *
+     * @param houseDTO the entity to save
+     * @return the persisted entity
+     */
+    public HouseDTO saveByUsername(HouseDTO houseDTO, String username) {
+        log.debug("Request to save House : {}", houseDTO);
+        House house = houseMapper.toEntity(houseDTO);
+        Optional<User> existingUser = userRepository.findOneByLogin(username);
+        house.setCreateBy(existingUser.get());
+        house.setUpdateBy(existingUser.get());
+        house = houseRepository.save(house);
+        return houseMapper.toDto(house);
+    }
+
+    /**
+     * Save a house.
+     *
+     * @param houseDTO the entity to save
+     * @return the persisted entity
+     */
+    public HouseDTO updateByUsername(HouseDTO houseDTO, String username) {
+        log.debug("Request to save House : {}", houseDTO);
+        House house = houseMapper.toEntity(houseDTO);
+        Optional<User> existingUser = userRepository.findOneByLogin(username);
+        house.setUpdateBy(existingUser.get());
+        house = houseRepository.save(house);
+        return houseMapper.toDto(house);
+    }
+
+    /**
      * Get all the houses.
      *
      * @param pageable the pagination information
@@ -54,10 +93,51 @@ public class HouseService {
     @Transactional(readOnly = true)
     public Page<HouseDTO> findAll(Pageable pageable) {
         log.debug("Request to get all Houses");
-        return houseRepository.findAll(pageable)
+        return houseRepository.findByStatusTypeNotOrderByCreateAtDesc(StatusType.OPEN, pageable)
             .map(houseMapper::toDto);
     }
 
+    /**
+     * Get init the houses.
+     *
+     * @return the persisted entity
+     */
+    @Transactional(readOnly = true)
+    public HouseDTO initHouse(String username) {
+        log.debug("Request to get init House {}", username);
+        House house = houseRepository.findFirstByStatusTypeAndCreateByLogin(StatusType.OPEN, username);
+        if (!ObjectUtils.isEmpty(house)) {
+            return houseMapper.toDto(house);
+        } else {
+            return null;
+        }
+    }
+
+    /**
+     * Get all the house of staff.
+     *
+     * @param pageable the pagination information
+     * @return the list of entities
+     */
+    @Transactional(readOnly = true)
+    public Page<HouseDTO> findByStaff(String username, Pageable pageable) {
+        log.debug("Request to get all House of staff [{}]", username);
+        return houseRepository.findByStatusTypeNotAndDistrictRegionUsersLoginOrderByCreateAtDesc(StatusType.OPEN, username, pageable)
+            .map(houseMapper::toDto);
+    }
+
+    /**
+     * Get all the house of staff.
+     *
+     * @param pageable the pagination information
+     * @return the list of entities
+     */
+    @Transactional(readOnly = true)
+    public Page<HouseDTO> findByOwner(String username, Pageable pageable) {
+        log.debug("Request to get all House of owner [{}]", username);
+        return houseRepository.findByStatusTypeNotAndCreateByLoginOrderByCreateAtDesc(StatusType.OPEN, username, pageable)
+            .map(houseMapper::toDto);
+    }
 
     /**
      * Get one house by id.

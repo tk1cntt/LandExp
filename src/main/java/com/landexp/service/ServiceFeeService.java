@@ -1,6 +1,7 @@
 package com.landexp.service;
 
 import com.landexp.domain.ServiceFee;
+import com.landexp.domain.enumeration.SaleType;
 import com.landexp.repository.ServiceFeeRepository;
 import com.landexp.service.dto.ServiceFeeDTO;
 import com.landexp.service.mapper.ServiceFeeMapper;
@@ -69,6 +70,19 @@ public class ServiceFeeService {
     public Optional<ServiceFeeDTO> findOne(Long id) {
         log.debug("Request to get ServiceFee : {}", id);
         return serviceFeeRepository.findById(id)
+            .map(serviceFeeMapper::toDto);
+    }
+
+    /**
+     * Get one serviceFee by saleType.
+     *
+     * @param saleType the saleType of the entity
+     * @return the entity
+     */
+    @Transactional(readOnly = true)
+    public Optional<ServiceFeeDTO> findBySaleType(SaleType saleType) {
+        log.debug("Request to get ServiceFee by sale type : {}", saleType);
+        return serviceFeeRepository.findFirstBySaleType(saleType)
             .map(serviceFeeMapper::toDto);
     }
 

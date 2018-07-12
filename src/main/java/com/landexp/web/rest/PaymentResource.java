@@ -1,13 +1,18 @@
 package com.landexp.web.rest;
 
 import com.codahale.metrics.annotation.Timed;
+import com.landexp.domain.enumeration.PaymentStatusType;
+import com.landexp.domain.enumeration.StatusType;
+import com.landexp.security.AuthoritiesConstants;
+import com.landexp.service.HouseService;
+import com.landexp.service.PaymentQueryService;
 import com.landexp.service.PaymentService;
+import com.landexp.service.dto.HouseDTO;
+import com.landexp.service.dto.PaymentCriteria;
+import com.landexp.service.dto.PaymentDTO;
 import com.landexp.web.rest.errors.BadRequestAlertException;
 import com.landexp.web.rest.util.HeaderUtil;
 import com.landexp.web.rest.util.PaginationUtil;
-import com.landexp.service.dto.PaymentDTO;
-import com.landexp.service.dto.PaymentCriteria;
-import com.landexp.service.PaymentQueryService;
 import io.github.jhipster.web.util.ResponseUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -16,11 +21,12 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.annotation.Secured;
+import org.springframework.util.ObjectUtils;
 import org.springframework.web.bind.annotation.*;
 
 import java.net.URI;
 import java.net.URISyntaxException;
-
 import java.util.List;
 import java.util.Optional;
 
@@ -31,17 +37,18 @@ import java.util.Optional;
 @RequestMapping("/api")
 public class PaymentResource {
 
-    private final Logger log = LoggerFactory.getLogger(PaymentResource.class);
-
     private static final String ENTITY_NAME = "payment";
-
+    private final Logger log = LoggerFactory.getLogger(PaymentResource.class);
     private final PaymentService paymentService;
+
+    private final HouseService houseService;
 
     private final PaymentQueryService paymentQueryService;
 
-    public PaymentResource(PaymentService paymentService, PaymentQueryService paymentQueryService) {
+    public PaymentResource(PaymentService paymentService, PaymentQueryService paymentQueryService, HouseService houseService) {
         this.paymentService = paymentService;
         this.paymentQueryService = paymentQueryService;
+        this.houseService = houseService;
     }
 
     /**
@@ -87,6 +94,61 @@ public class PaymentResource {
     }
 
     /**
+     * PUT  /payments/<id>/approve : Approve an existing payment.
+     *
+     * @param id the id of payment
+     * @return the ResponseEntity with status 200 (OK) and with body the updated paymentDTO,
+     * or with status 400 (Bad Request) if the paymentDTO is not valid,
+     * or with status 500 (Internal Server Error) if the paymentDTO couldn't be updated
+     * @throws URISyntaxException if the Location URI syntax is incorrect
+     */
+    @PutMapping("/payments/{id}/approve")
+    @Timed
+    @Secured(AuthoritiesConstants.STAFF)
+    public ResponseEntity<PaymentDTO> approvePayment(@PathVariable Long id) throws URISyntaxException {
+        log.debug("REST request to approve Payment : {}", id);
+        PaymentDTO paymentDTO = paymentService.findOne(id).get();
+        if (ObjectUtils.isEmpty(paymentDTO)) {
+            throw new BadRequestAlertException("Invalid id", ENTITY_NAME, "idnull");
+        }
+        HouseDTO houseDTO = houseService.findOne(paymentDTO.getHouseId()).get();
+        if (ObjectUtils.isEmpty(houseDTO)) {
+            throw new BadRequestAlertException("Invalid id", ENTITY_NAME, "idnull");
+        }
+        paymentDTO.setPaymentStatus(PaymentStatusType.PAID);
+        PaymentDTO result = paymentService.save(paymentDTO);
+        houseDTO.setStatusType(StatusType.PAID);
+        return ResponseEntity.ok()
+            .headers(HeaderUtil.createEntityUpdateAlert(ENTITY_NAME, paymentDTO.getId().toString()))
+            .body(result);
+    }
+
+    /**
+     * PUT  /payments/<id>/approve : Cancel an existing payment.
+     *
+     * @param id the id of payment
+     * @return the ResponseEntity with status 200 (OK) and with body the updated paymentDTO,
+     * or with status 400 (Bad Request) if the paymentDTO is not valid,
+     * or with status 500 (Internal Server Error) if the paymentDTO couldn't be updated
+     * @throws URISyntaxException if the Location URI syntax is incorrect
+     */
+    @PutMapping("/payments/{id}/cancel")
+    @Timed
+    @Secured(AuthoritiesConstants.STAFF)
+    public ResponseEntity<PaymentDTO> cancelPayment(@PathVariable Long id) throws URISyntaxException {
+        log.debug("REST request to cancel Payment : {}", id);
+        PaymentDTO paymentDTO = paymentService.findOne(id).get();
+        if (ObjectUtils.isEmpty(paymentDTO)) {
+            throw new BadRequestAlertException("Invalid id", ENTITY_NAME, "idnull");
+        }
+        paymentDTO.setPaymentStatus(PaymentStatusType.CANCELED);
+        PaymentDTO result = paymentService.save(paymentDTO);
+        return ResponseEntity.ok()
+            .headers(HeaderUtil.createEntityUpdateAlert(ENTITY_NAME, paymentDTO.getId().toString()))
+            .body(result);
+    }
+
+    /**
      * GET  /payments : get all the payments.
      *
      * @param pageable the pagination information
@@ -100,6 +162,20 @@ public class PaymentResource {
         Page<PaymentDTO> page = paymentQueryService.findByCriteria(criteria, pageable);
         HttpHeaders headers = PaginationUtil.generatePaginationHttpHeaders(page, "/api/payments");
         return new ResponseEntity<>(page.getContent(), headers, HttpStatus.OK);
+    }
+
+    /**
+     * GET  /houses/:id/payments : get payment of house.
+     *
+     * @param id the id of the houseDTO to retrieve
+     * @return the ResponseEntity with status 200 (OK) and with body the paymentDTO, or with status 404 (Not Found)
+     */
+    @GetMapping("/payments/{id}/houses")
+    @Timed
+    public ResponseEntity<PaymentDTO> getPaymentOfHouse(@PathVariable Long id) {
+        log.debug("REST request to get Payment : {}", id);
+        Optional<PaymentDTO> paymentDTO = paymentService.findByHouse(id);
+        return ResponseUtil.wrapOrNotFound(paymentDTO);
     }
 
     /**
