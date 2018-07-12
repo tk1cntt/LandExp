@@ -5,7 +5,8 @@
             "home": {
                 "title": "Potential Customers",
                 "createLabel": "Create a new Potential Customer",
-                "createOrEditLabel": "Create or edit a Potential Customer"
+                "createOrEditLabel": "Create or edit a Potential Customer",
+                "search": "Search for Potential Customer"
             },
             "created": "A new Potential Customer is created with identifier {{ param }}",
             "updated": "A Potential Customer is updated with identifier {{ param }}",

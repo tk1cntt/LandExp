@@ -5,7 +5,8 @@
             "home": {
                 "title": "Land Project Photos",
                 "createLabel": "Create a new Land Project Photo",
-                "createOrEditLabel": "Create or edit a Land Project Photo"
+                "createOrEditLabel": "Create or edit a Land Project Photo",
+                "search": "Search for Land Project Photo"
             },
             "created": "A new Land Project Photo is created with identifier {{ param }}",
             "updated": "A Land Project Photo is updated with identifier {{ param }}",

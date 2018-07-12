@@ -2,6 +2,11 @@ import axios from 'axios';
 import { Storage } from 'react-jhipster';
 
 import { REQUEST, SUCCESS, FAILURE } from 'app/shared/reducers/action-type.util';
+import { SERVER_API_URL } from 'app/config/constants';
+
+const client = axios.create({
+  baseURL: SERVER_API_URL
+});
 
 export const ACTION_TYPES = {
   LOGIN: 'authentication/LOGIN',
@@ -93,16 +98,21 @@ export default (state: AuthenticationState = initialState, action): Authenticati
 
 export const displayAuthError = message => ({ type: ACTION_TYPES.ERROR_MESSAGE, message });
 
-export const getSession = () => dispatch =>
+export const getSession = () => dispatch => {
+  const jwt = Storage.local.get('jhi-authenticationToken') || Storage.session.get('jhi-authenticationToken');
+  if (jwt) {
+    client.defaults.headers['Authorization'] = `Bearer ${jwt}`;
+  }
   dispatch({
     type: ACTION_TYPES.GET_SESSION,
-    payload: axios.get('api/account')
+    payload: client.get('/api/account')
   });
+};
 
 export const login = (username, password, rememberMe = false) => async (dispatch, getState) => {
   const result = await dispatch({
     type: ACTION_TYPES.LOGIN,
-    payload: axios.post('api/authenticate', { username, password, rememberMe })
+    payload: client.post('/api/authenticate', { username, password, rememberMe })
   });
   const bearerToken = result.value.headers.authorization;
   if (bearerToken && bearerToken.slice(0, 7) === 'Bearer ') {

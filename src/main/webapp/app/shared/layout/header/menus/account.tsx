@@ -2,36 +2,38 @@ import React from 'react';
 import { DropdownItem } from 'reactstrap';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { NavLink as Link } from 'react-router-dom';
-import { Translate, translate } from 'react-jhipster';
 import { NavDropdown } from '../header-components';
 
 const accountMenuItemsAuthenticated = (
   <>
-    <DropdownItem tag={Link} to="/account/settings">
-      <FontAwesomeIcon icon="wrench" /> <Translate contentKey="global.menu.account.settings" />
+    <DropdownItem tag={Link} to="/tai-khoan/danh-sach-tin-dang">
+      <FontAwesomeIcon icon="newspaper" /> Tin đã đăng của bạn
     </DropdownItem>
-    <DropdownItem tag={Link} to="/account/password">
-      <FontAwesomeIcon icon="clock" /> <Translate contentKey="global.menu.account.password" />
+    <DropdownItem tag={Link} to="/tai-khoan/thong-tin-tai-khoan">
+      <FontAwesomeIcon icon="user-circle" /> Thông tin tài khoản
     </DropdownItem>
-    <DropdownItem tag={Link} to="/logout">
-      <FontAwesomeIcon icon="sign-out-alt" /> <Translate contentKey="global.menu.account.logout" />
+    <DropdownItem tag={Link} to="/tai-khoan/thay-doi-mat-khau">
+      <FontAwesomeIcon icon="key" /> Thay đổi mật khẩu
+    </DropdownItem>
+    <DropdownItem tag={Link} to="/thoat">
+      <FontAwesomeIcon icon="sign-out-alt" /> Thoát
     </DropdownItem>
   </>
 );
 
 const accountMenuItems = (
   <>
-    <DropdownItem id="login-item" tag={Link} to="/login">
-      <FontAwesomeIcon icon="sign-in-alt" /> <Translate contentKey="global.menu.account.login" />
+    <DropdownItem id="login-item" tag={Link} to="/dang-nhap">
+      <FontAwesomeIcon icon="sign-in-alt" /> Đăng nhập
     </DropdownItem>
-    <DropdownItem tag={Link} to="/register">
-      <FontAwesomeIcon icon="sign-in-alt" /> <Translate contentKey="global.menu.account.register" />
+    <DropdownItem tag={Link} to="/dang-ky">
+      <FontAwesomeIcon icon="sign-in-alt" /> Đăng ký
     </DropdownItem>
   </>
 );
 
 export const AccountMenu = ({ isAuthenticated = false }) => (
-  <NavDropdown icon="user" name={translate('global.menu.account.main')} id="account-menu">
+  <NavDropdown icon="user" name="Tài khoản" id="account-menu">
     {isAuthenticated ? accountMenuItemsAuthenticated : accountMenuItems}
   </NavDropdown>
 );

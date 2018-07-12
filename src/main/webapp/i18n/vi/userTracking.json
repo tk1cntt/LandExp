@@ -5,7 +5,8 @@
             "home": {
                 "title": "User Trackings",
                 "createLabel": "Thêm mới một User Tracking",
-                "createOrEditLabel": "Thêm mới hoặc cập nhật User Tracking"
+                "createOrEditLabel": "Thêm mới hoặc cập nhật User Tracking",
+                "search": "Tìm User Tracking"
             },
             "created": "Một User Tracking mới được tạo với định danh {{ param }}",
             "updated": "Một User Tracking cập nhật với định danh {{ param }}",

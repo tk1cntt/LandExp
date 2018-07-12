@@ -5,7 +5,8 @@
             "home": {
                 "title": "User Trackings",
                 "createLabel": "Create a new User Tracking",
-                "createOrEditLabel": "Create or edit a User Tracking"
+                "createOrEditLabel": "Create or edit a User Tracking",
+                "search": "Search for User Tracking"
             },
             "created": "A new User Tracking is created with identifier {{ param }}",
             "updated": "A User Tracking is updated with identifier {{ param }}",

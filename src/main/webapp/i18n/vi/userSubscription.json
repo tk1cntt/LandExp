@@ -5,7 +5,8 @@
             "home": {
                 "title": "User Subscriptions",
                 "createLabel": "Thêm mới một User Subscription",
-                "createOrEditLabel": "Thêm mới hoặc cập nhật User Subscription"
+                "createOrEditLabel": "Thêm mới hoặc cập nhật User Subscription",
+                "search": "Tìm User Subscription"
             },
             "created": "Một User Subscription mới được tạo với định danh {{ param }}",
             "updated": "Một User Subscription cập nhật với định danh {{ param }}",
@@ -33,7 +34,8 @@
             "updateAt": "Update At",
             "user": "User",
             "city": "City",
-            "district": "District"
+            "district": "District",
+            "street": "Street"
         }
     }
 }

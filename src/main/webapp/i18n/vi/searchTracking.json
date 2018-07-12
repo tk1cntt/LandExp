@@ -5,7 +5,8 @@
             "home": {
                 "title": "Search Trackings",
                 "createLabel": "Thêm mới một Search Tracking",
-                "createOrEditLabel": "Thêm mới hoặc cập nhật Search Tracking"
+                "createOrEditLabel": "Thêm mới hoặc cập nhật Search Tracking",
+                "search": "Tìm Search Tracking"
             },
             "created": "Một Search Tracking mới được tạo với định danh {{ param }}",
             "updated": "Một Search Tracking cập nhật với định danh {{ param }}",
@@ -31,7 +32,8 @@
             "createAt": "Create At",
             "user": "User",
             "city": "City",
-            "district": "District"
+            "district": "District",
+            "street": "Street"
         }
     }
 }

@@ -5,7 +5,8 @@
             "home": {
                 "title": "Land Projects",
                 "createLabel": "Create a new Land Project",
-                "createOrEditLabel": "Create or edit a Land Project"
+                "createOrEditLabel": "Create or edit a Land Project",
+                "search": "Search for Land Project"
             },
             "created": "A new Land Project is created with identifier {{ param }}",
             "updated": "A Land Project is updated with identifier {{ param }}",
@@ -21,7 +22,7 @@
             "photos": "Photos",
             "city": "City",
             "district": "District",
-            "ward": "Ward",
+            "street": "Street",
             "createBy": "Create By",
             "updateBy": "Update By"
         }

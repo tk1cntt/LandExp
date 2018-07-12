@@ -5,7 +5,8 @@
             "home": {
                 "title": "User Financials",
                 "createLabel": "Create a new User Financial",
-                "createOrEditLabel": "Create or edit a User Financial"
+                "createOrEditLabel": "Create or edit a User Financial",
+                "search": "Search for User Financial"
             },
             "created": "A new User Financial is created with identifier {{ param }}",
             "updated": "A User Financial is updated with identifier {{ param }}",
@@ -17,7 +18,7 @@
                 "title": "User Financial"
             },
             "housePrice": "House Price",
-            "savingMoney": "Saving Money",
+            "houseAcreage": "House Acreage",
             "loanRate": "Loan Rate",
             "loanFromPeople": "Loan From People",
             "customerMoneyHave": "Customer Money Have",

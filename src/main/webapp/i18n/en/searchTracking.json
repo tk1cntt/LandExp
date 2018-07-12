@@ -5,7 +5,8 @@
             "home": {
                 "title": "Search Trackings",
                 "createLabel": "Create a new Search Tracking",
-                "createOrEditLabel": "Create or edit a Search Tracking"
+                "createOrEditLabel": "Create or edit a Search Tracking",
+                "search": "Search for Search Tracking"
             },
             "created": "A new Search Tracking is created with identifier {{ param }}",
             "updated": "A Search Tracking is updated with identifier {{ param }}",
@@ -31,7 +32,8 @@
             "createAt": "Create At",
             "user": "User",
             "city": "City",
-            "district": "District"
+            "district": "District",
+            "street": "Street"
         }
     }
 }

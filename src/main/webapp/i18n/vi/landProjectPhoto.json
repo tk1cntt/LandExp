@@ -5,7 +5,8 @@
             "home": {
                 "title": "Land Project Photos",
                 "createLabel": "Thêm mới một Land Project Photo",
-                "createOrEditLabel": "Thêm mới hoặc cập nhật Land Project Photo"
+                "createOrEditLabel": "Thêm mới hoặc cập nhật Land Project Photo",
+                "search": "Tìm Land Project Photo"
             },
             "created": "Một Land Project Photo mới được tạo với định danh {{ param }}",
             "updated": "Một Land Project Photo cập nhật với định danh {{ param }}",

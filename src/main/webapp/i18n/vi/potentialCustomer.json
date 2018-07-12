@@ -5,7 +5,8 @@
             "home": {
                 "title": "Potential Customers",
                 "createLabel": "Thêm mới một Potential Customer",
-                "createOrEditLabel": "Thêm mới hoặc cập nhật Potential Customer"
+                "createOrEditLabel": "Thêm mới hoặc cập nhật Potential Customer",
+                "search": "Tìm Potential Customer"
             },
             "created": "Một Potential Customer mới được tạo với định danh {{ param }}",
             "updated": "Một Potential Customer cập nhật với định danh {{ param }}",

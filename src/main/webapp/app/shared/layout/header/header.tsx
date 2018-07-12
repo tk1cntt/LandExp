@@ -1,19 +1,17 @@
 import './header.css';
 
 import React from 'react';
-import { Translate } from 'react-jhipster';
-import { Navbar, Nav, NavbarToggler, NavbarBrand, Collapse } from 'reactstrap';
+import { Link } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-
-import { NavLink as Link } from 'react-router-dom';
-import LoadingBar from 'react-redux-loading-bar';
-
-import { Home, Brand } from './header-components';
-import { AdminMenu, EntitiesMenu, AccountMenu, LocaleMenu } from './menus';
+import { Menu, Dropdown, Icon } from 'antd';
+const SubMenu = Menu.SubMenu;
+const MenuItemGroup = Menu.ItemGroup;
 
 export interface IHeaderProps {
   isAuthenticated: boolean;
   isAdmin: boolean;
+  isManager: boolean;
+  isStaff: boolean;
   ribbonEnv: string;
   isInProduction: boolean;
   isSwaggerEnabled: boolean;
@@ -30,46 +28,248 @@ export default class Header extends React.Component<IHeaderProps, IHeaderState> 
     menuOpen: false
   };
 
-  handleLocaleChange = event => {
-    this.props.onLocaleChange(event.target.value);
-  };
-
-  renderDevRibbon = () =>
-    this.props.isInProduction === false ? (
-      <div className="ribbon dev">
-        <a href="">
-          <Translate contentKey={`global.ribbon.${this.props.ribbonEnv}`} />
-        </a>
-      </div>
-    ) : null;
-
   toggleMenu = () => {
     this.setState({ menuOpen: !this.state.menuOpen });
   };
 
-  render() {
-    const { currentLocale, isAuthenticated, isAdmin, isSwaggerEnabled, isInProduction } = this.props;
-
-    /* jhipster-needle-add-element-to-menu - JHipster will add new menu items here */
-
+  menuUser() {
     return (
-      <div id="app-header">
-        {this.renderDevRibbon()}
-        <LoadingBar className="loading-bar" />
-        <Navbar dark expand="sm" fixed="top" className="jh-navbar">
-          <NavbarToggler aria-label="Menu" onClick={this.toggleMenu} />
-          <Brand />
-          <Collapse isOpen={this.state.menuOpen} navbar>
-            <Nav id="header-tabs" className="ml-auto" navbar>
-              <Home />
-              {isAuthenticated && <EntitiesMenu />}
-              {isAuthenticated && isAdmin && <AdminMenu showSwagger={isSwaggerEnabled} showDatabase={!isInProduction} />}
-              <LocaleMenu currentLocale={currentLocale} onClick={this.handleLocaleChange} />
-              <AccountMenu isAuthenticated={isAuthenticated} />
-            </Nav>
-          </Collapse>
-        </Navbar>
-      </div>
+      <SubMenu
+        key="sub1"
+        title={
+          <span>
+            <Icon type="appstore" />
+            <span> Quản lý tin đăng </span>
+          </span>
+        }
+      >
+        <Menu.Item>
+          <Link to="/tai-khoan/danh-sach-tin-dang">
+            <FontAwesomeIcon icon="newspaper" /> Tin đã đăng của bạn
+          </Link>
+        </Menu.Item>
+      </SubMenu>
+    );
+  }
+
+  menuStaff() {
+    return (
+      <SubMenu
+        key="subStaff"
+        title={
+          <span>
+            <Icon type="star" />
+            <span> Dành cho nhân viên </span>
+          </span>
+        }
+      >
+        <Menu.Item>
+          <Link to="/quan-ly/tinh-thanh">
+            <FontAwesomeIcon icon="asterisk" />&nbsp; Quản lý tỉnh thành
+          </Link>
+        </Menu.Item>
+        <Menu.Item>
+          <Link to="/quan-ly/quan-huyen">
+            <FontAwesomeIcon icon="asterisk" />&nbsp; Quản lý quận huyện
+          </Link>
+        </Menu.Item>
+        <Menu.Item>
+          <Link to="/quan-ly/xa-phuong">
+            <FontAwesomeIcon icon="asterisk" />&nbsp; Quản lý xã phường
+          </Link>
+        </Menu.Item>
+        <Menu.Item>
+          <Link to="/quan-ly/tin-dang">
+            <FontAwesomeIcon icon="asterisk" />&nbsp; Quản lý tin đăng
+          </Link>
+        </Menu.Item>
+        <Menu.Item>
+          <Link to="/quan-ly/house-photo">
+            <FontAwesomeIcon icon="asterisk" />&nbsp; Ảnh tin đăng
+          </Link>
+        </Menu.Item>
+        <Menu.Item>
+          <Link to="/quan-ly/cac-du-an">
+            <FontAwesomeIcon icon="asterisk" />&nbsp; Các dự án
+          </Link>
+        </Menu.Item>
+        {/*
+        <DropdownItem tag={Link} to="/quan-ly/land-project-photo">
+          <FontAwesomeIcon icon="asterisk" />&nbsp; Ảnh các dự án
+        </DropdownItem>
+        */}
+        <Menu.Item>
+          <Link to="/quan-ly/tin-tuc">
+            <FontAwesomeIcon icon="asterisk" />&nbsp; Tin tức
+          </Link>
+        </Menu.Item>
+        <Menu.Item>
+          <Link to="/quan-ly/danh-muc-tin-tuc">
+            <FontAwesomeIcon icon="asterisk" />&nbsp; Danh mục tin tức
+          </Link>
+        </Menu.Item>
+        <Menu.Item>
+          <Link to="/quan-ly/khach-hang-tiem-nang">
+            <FontAwesomeIcon icon="asterisk" />&nbsp; Khách hàng tiềm năng
+          </Link>
+        </Menu.Item>
+        <Menu.Item>
+          <Link to="/quan-ly/tu-van-tai-chinh">
+            <FontAwesomeIcon icon="asterisk" />&nbsp; Tư vấn tài chính
+          </Link>
+        </Menu.Item>
+        <Menu.Item>
+          <Link to="/quan-ly/thanh-toan">
+            <FontAwesomeIcon icon="asterisk" />&nbsp; Thông tin thanh toán
+          </Link>
+        </Menu.Item>
+      </SubMenu>
+    );
+  }
+
+  menuManager() {
+    return (
+      <SubMenu
+        key="subManager"
+        title={
+          <span>
+            <Icon type="safety" />
+            <span> Dành cho quản lý </span>
+          </span>
+        }
+      >
+        <Menu.Item>
+          <Link to="/quan-ly/bang-phi-dich-vu">
+            <FontAwesomeIcon icon="asterisk" />&nbsp; Bảng phí dịch vụ
+          </Link>
+        </Menu.Item>
+        <Menu.Item>
+          <Link to="/quan-ly/khu-vuc">
+            <FontAwesomeIcon icon="asterisk" />&nbsp; Quản lý khu vực
+          </Link>
+        </Menu.Item>
+        <Menu.Item>
+          <Link to="/quan-ly/tai-khoan-nguoi-dung">
+            <FontAwesomeIcon icon="user" /> Tài khoản người dùng
+          </Link>
+        </Menu.Item>
+        <Menu.Item>
+          <Link to="/quan-ly/banner">
+            <FontAwesomeIcon icon="asterisk" />&nbsp; Banner
+          </Link>
+        </Menu.Item>
+      </SubMenu>
+    );
+  }
+
+  render() {
+    const { currentLocale, isAuthenticated, isAdmin, isManager, isStaff, isSwaggerEnabled, isInProduction } = this.props;
+    const menu = (
+      <Menu>
+        {this.menuUser()}
+        {!isStaff ? null : this.menuStaff()}
+        {!isManager ? null : this.menuManager()}
+        <SubMenu
+          key="sub2"
+          title={
+            <span>
+              <Icon type="setting" />
+              <span> Quản lý tài khoản </span>
+            </span>
+          }
+        >
+          <Menu.Item>
+            <Link to="/tai-khoan/thong-tin-tai-khoan">
+              <FontAwesomeIcon icon="user-circle" /> Thông tin tài khoản
+            </Link>
+          </Menu.Item>
+          <Menu.Item>
+            <Link to="/tai-khoan/thay-doi-mat-khau">
+              <FontAwesomeIcon icon="key" /> Thay đổi mật khẩu
+            </Link>
+          </Menu.Item>
+          <Menu.Item>
+            <Link to="/thoat">
+              <FontAwesomeIcon icon="sign-out-alt" /> Thoát
+            </Link>
+          </Menu.Item>
+        </SubMenu>
+      </Menu>
+    );
+    return (
+      <header>
+        <div className="container">
+          <div className="row">
+            <div className="logo">
+              {isAuthenticated ? (
+                <Link to={'/'}>
+                  <img src="/static/images/logo.png" alt="LandExp" />
+                </Link>
+              ) : (
+                <a href={'http://tinvang.com.vn'}>
+                  <img src="/static/images/logo.png" alt="LandExp" />
+                </a>
+              )}
+            </div>
+            <ul className="menu left-menu">
+              <li>
+                <Link to={'/mua'}>Mua</Link>
+              </li>
+              <li>
+                <Link to={'/thue'}>Thuê</Link>
+              </li>
+              <li>
+                <Link to={'/tro-giup'}>Trợ giúp</Link>
+              </li>
+              <li>
+                <Link to={'/tin-tuc'}>Tin tức</Link>
+              </li>
+            </ul>
+            {isAuthenticated ? (
+              <ul className="menu right-menu">
+                <li className="right-info">
+                  <span className="ring-icon">
+                    <span className="badge">2</span>
+                  </span>
+                  <span className="chat-icon">
+                    <span className="badge">5</span>
+                  </span>
+                </li>
+                <li>
+                  <Dropdown overlay={menu}>
+                    <img className="avatar" src="/static/images/user.jpg" alt="Thong tin tai khoan" />
+                  </Dropdown>,
+                </li>
+                <li>
+                  <Link className="button" to={'/tai-khoan/dang-tin'}>
+                    Đăng tin
+                  </Link>
+                </li>
+              </ul>
+            ) : (
+              <ul className="menu right-menu">
+                <li>
+                  <Link className="item" to={'/dang-ky'}>
+                    Đăng ký
+                  </Link>
+                </li>
+                <li>
+                  <Link className="item" to={'/dang-nhap'}>
+                    Đăng nhập
+                  </Link>
+                </li>
+                <li>
+                  <div>
+                    <Link className="button" to={'/tai-khoan/dang-tin'}>
+                      Đăng tin
+                    </Link>
+                  </div>
+                </li>
+              </ul>
+            )}
+          </div>
+        </div>
+      </header>
     );
   }
 }

@@ -3,27 +3,26 @@
     "landexpApp": {
         "housePhoto" : {
             "home": {
-                "title": "House Photos",
-                "createLabel": "Thêm mới một House Photo",
-                "createOrEditLabel": "Thêm mới hoặc cập nhật House Photo"
+                "title": "Ảnh của tin đăng",
+                "createLabel": "Thêm ảnh cho tin đã đăng",
+                "createOrEditLabel": "Thêm mới hoặc cập nhật ảnh",
+                "search": "Tìm House Photo"
             },
-            "created": "Một House Photo mới được tạo với định danh {{ param }}",
-            "updated": "Một House Photo cập nhật với định danh {{ param }}",
-            "deleted": "Một House Photo đã xóa với định danh {{ param }}",
+            "created": "Ảnh đã được thêm",
+            "updated": "Ảnh mới được cập nhật",
+            "deleted": "Ảnh đã được xóa",
             "delete": {
-                "question": "Bạn có chắc là muốn xóa House Photo {{ id }}?"
+                "question": "Bạn có chắc là muốn xóa ảnh này?"
             },
             "detail": {
-                "title": "House Photo"
+                "title": "Ảnh của tin đăng"
             },
-            "image": "Image",
-            "mobileLink": "Mobile Link",
-            "webLink": "Web Link",
-            "enabled": "Enabled",
-            "createAt": "Create At",
-            "house": "House",
-            "createBy": "Create By",
-            "updateBy": "Update By"
+            "image": "Ảnh",
+            "enabled": "Trạng thái",
+            "createAt": "Người tạo",
+            "house": "Tin đăng",
+            "createBy": "Người tạo",
+            "updateBy": "Người cập nhật"
         }
     }
 }

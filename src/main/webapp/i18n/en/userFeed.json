@@ -5,7 +5,8 @@
             "home": {
                 "title": "User Feeds",
                 "createLabel": "Create a new User Feed",
-                "createOrEditLabel": "Create or edit a User Feed"
+                "createOrEditLabel": "Create or edit a User Feed",
+                "search": "Search for User Feed"
             },
             "created": "A new User Feed is created with identifier {{ param }}",
             "updated": "A User Feed is updated with identifier {{ param }}",

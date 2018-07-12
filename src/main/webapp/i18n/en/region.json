@@ -5,7 +5,8 @@
             "home": {
                 "title": "Regions",
                 "createLabel": "Create a new Region",
-                "createOrEditLabel": "Create or edit a Region"
+                "createOrEditLabel": "Create or edit a Region",
+                "search": "Search for Region"
             },
             "created": "A new Region is created with identifier {{ param }}",
             "updated": "A Region is updated with identifier {{ param }}",

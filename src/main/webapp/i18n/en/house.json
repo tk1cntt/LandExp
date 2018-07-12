@@ -5,7 +5,8 @@
             "home": {
                 "title": "Houses",
                 "createLabel": "Create a new House",
-                "createOrEditLabel": "Create or edit a House"
+                "createOrEditLabel": "Create or edit a House",
+                "search": "Search for House"
             },
             "created": "A new House is created with identifier {{ param }}",
             "updated": "A House is updated with identifier {{ param }}",
@@ -17,7 +18,6 @@
                 "title": "House"
             },
             "avatar": "Avatar",
-            "avatarLink": "Avatar Link",
             "actionType": "Action Type",
             "address": "Address",
             "money": "Money",
@@ -53,6 +53,7 @@
             "city": "City",
             "district": "District",
             "ward": "Ward",
+            "street": "Street",
             "project": "Project",
             "createBy": "Create By",
             "updateBy": "Update By"

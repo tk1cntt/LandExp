@@ -1,0 +1,70 @@
+.ant-carousel .center-cropped {
+  object-fit: none; /* Do not scale the image */
+  object-position: center; /* Center the image within the element */
+  width: 565px !important;
+  height: 376px;
+}
+
+.breadcrumb {
+  background-color: #ffffff !important;
+  border-bottom: 1px solid #dfdfdf;
+  width: 100%;
+  margin-top: -20px;
+}
+
+.carousel .thumb {
+  border: none !important;
+  padding: 0 !important;
+  object-fit: none; /* Do not scale the image */
+  object-position: center; /* Center the image within the element */
+  width: 99px !important;
+  height: 67px !important;
+}
+
+.carousel .thumbs-wrapper {
+  margin: 8px 20px -10px 20px !important;
+}
+
+.carousel .control-prev.control-arrow:before {
+  border-right: 9px solid red !important;
+}
+
+.carousel .control-next.control-arrow:before {
+  border-left: 8px solid red !important;
+}
+
+.carousel .control-arrow {
+  margin-top: -20px !important;
+}
+
+.carousel .control-arrow:before,
+.carousel.carousel-slider .control-arrow:before {
+  margin: 0 !important;
+}
+
+.carousel .slide .center-cropped {
+  object-fit: cover; /* Do not scale the image */
+  object-position: center; /* Center the image within the element */
+  width: 565px !important;
+  height: 376px;
+}
+
+.carousel .thumb .center-cropped {
+  object-fit: cover; /* Do not scale the image */
+  object-position: center; /* Center the image within the element */
+  width: 99px !important;
+  height: 67px;
+}
+
+.image-gallery-content .image-gallery-swipe .image-gallery-slides .image-gallery-slide .image-gallery-image img {
+  object-fit: cover; /* Do not scale the image */
+  object-position: center; /* Center the image within the element */
+  width: 565px !important;
+  height: 376px;
+}
+
+.image-gallery-content .image-gallery-thumbnails-wrapper .image-gallery-thumbnails .image-gallery-thumbnails-container img {
+  object-fit: cover; /* Do not scale the image */
+  object-position: center; /* Center the image within the element */
+  height: 67px;
+}

@@ -5,7 +5,8 @@
             "home": {
                 "title": "Wards",
                 "createLabel": "Create a new Ward",
-                "createOrEditLabel": "Create or edit a Ward"
+                "createOrEditLabel": "Create or edit a Ward",
+                "search": "Search for Ward"
             },
             "created": "A new Ward is created with identifier {{ param }}",
             "updated": "A Ward is updated with identifier {{ param }}",
@@ -20,6 +21,8 @@
             "enabled": "Enabled",
             "createAt": "Create At",
             "updateAt": "Update At",
+            "district": "District",
+            "streets": "Streets",
             "district": "District"
         }
     }

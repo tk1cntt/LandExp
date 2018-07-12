@@ -5,7 +5,8 @@
             "home": {
                 "title": "House Photos",
                 "createLabel": "Create a new House Photo",
-                "createOrEditLabel": "Create or edit a House Photo"
+                "createOrEditLabel": "Create or edit a House Photo",
+                "search": "Search for House Photo"
             },
             "created": "A new House Photo is created with identifier {{ param }}",
             "updated": "A House Photo is updated with identifier {{ param }}",
@@ -17,8 +18,6 @@
                 "title": "House Photo"
             },
             "image": "Image",
-            "mobileLink": "Mobile Link",
-            "webLink": "Web Link",
             "enabled": "Enabled",
             "createAt": "Create At",
             "house": "House",

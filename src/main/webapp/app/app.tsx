@@ -3,7 +3,6 @@ import './app.css';
 
 import React from 'react';
 import { connect } from 'react-redux';
-import { Card } from 'reactstrap';
 import { HashRouter as Router } from 'react-router-dom';
 import { ToastContainer, toast } from 'react-toastify';
 
@@ -18,6 +17,14 @@ import ErrorBoundary from 'app/shared/error/error-boundary';
 import { AUTHORITIES } from 'app/config/constants';
 import AppRoutes from 'app/routes';
 
+import './style.css';
+/* tslint:disable-next-line */
+import 'antd/dist/antd.css';
+/* tslint:disable-next-line */
+// import 'react-responsive-carousel/lib/styles/carousel.min.css';
+/* tslint:disable-next-line */
+import 'react-image-gallery/styles/css/image-gallery.css';
+
 export interface IAppProps extends StateProps, DispatchProps {}
 
 export class App extends React.Component<IAppProps> {
@@ -27,15 +34,16 @@ export class App extends React.Component<IAppProps> {
   }
 
   render() {
-    const paddingTop = '60px';
     return (
       <Router>
-        <div className="app-container" style={{ paddingTop }}>
+        <div className="app-container">
           <ToastContainer position={toast.POSITION.TOP_LEFT} className="toastify-container" toastClassName="toastify-toast" />
           <ErrorBoundary>
             <Header
               isAuthenticated={this.props.isAuthenticated}
               isAdmin={this.props.isAdmin}
+              isManager={this.props.isManager}
+              isStaff={this.props.isStaff}
               currentLocale={this.props.currentLocale}
               onLocaleChange={this.props.setLocale}
               ribbonEnv={this.props.ribbonEnv}
@@ -43,14 +51,12 @@ export class App extends React.Component<IAppProps> {
               isSwaggerEnabled={this.props.isSwaggerEnabled}
             />
           </ErrorBoundary>
-          <div className="container-fluid view-container" id="app-view-container">
-            <Card className="jh-card">
-              <ErrorBoundary>
-                <AppRoutes />
-              </ErrorBoundary>
-            </Card>
-            <Footer />
+          <div id="home-content">
+            <ErrorBoundary>
+              <AppRoutes />
+            </ErrorBoundary>
           </div>
+          <Footer />
         </div>
       </Router>
     );
@@ -61,6 +67,8 @@ const mapStateToProps = ({ authentication, applicationProfile, locale }: IRootSt
   currentLocale: locale.currentLocale,
   isAuthenticated: authentication.isAuthenticated,
   isAdmin: hasAnyAuthority(authentication.account.authorities, [AUTHORITIES.ADMIN]),
+  isManager: hasAnyAuthority(authentication.account.authorities, [AUTHORITIES.MANAGER]),
+  isStaff: hasAnyAuthority(authentication.account.authorities, [AUTHORITIES.STAFF]),
   ribbonEnv: applicationProfile.ribbonEnv,
   isInProduction: applicationProfile.inProduction,
   isSwaggerEnabled: applicationProfile.isSwaggerEnabled

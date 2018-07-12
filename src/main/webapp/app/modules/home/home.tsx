@@ -1,118 +1,93 @@
 import './home.css';
 
 import React from 'react';
-import { Link } from 'react-router-dom';
-import { Translate } from 'react-jhipster';
+import { Link, RouteComponentProps } from 'react-router-dom';
+import { Translate, IPaginationBaseState, getSortState } from 'react-jhipster';
 import { connect } from 'react-redux';
 import { Row, Col, Alert } from 'reactstrap';
-import { Button } from 'antd';
-
-import { IRootState } from 'app/shared/reducers';
 import { getSession } from 'app/shared/reducers/authentication';
-import GoogleMaps from 'app/shared/util/google-maps';
+import { getHouses, getEntities, getOwnerEntities } from 'app/entities/house/house.reducer';
+import { ITEMS_PER_PAGE } from 'app/shared/util/pagination.constants';
 
-export interface IHomeProp extends StateProps, DispatchProps {}
+import * as qs from 'query-string';
+import { Spin } from 'antd';
 
-export class Home extends React.Component<IHomeProp> {
+import { queryStringMapping } from 'app/shared/util/utils';
+import SearchPage from 'app/shared/layout/search/search-menu';
+import HomeGrid from './home-grid';
+import HomeList from './home-list';
+import HomeSearchBox from './home-searchbox';
+import HomeNewsBox from './home-newsbox';
+
+export interface IHomeProp extends StateProps, DispatchProps, RouteComponentProps<{}> {}
+
+export interface IHomeState extends IPaginationBaseState {
+  search: string;
+}
+
+export class Home extends React.Component<IHomeProp, IHomeState> {
+  state: IHomeState = {
+    search: '',
+    ...getSortState(this.props.location, ITEMS_PER_PAGE)
+  };
+
   componentDidMount() {
-    this.props.getSession();
+    if (this.props.location) {
+      const parsed = qs.parse(this.props.location.search);
+      // this.props.getSession();
+      this.props.getHouses(queryStringMapping(parsed));
+    }
   }
-
   render() {
-    const { account } = this.props;
     return (
       <Row>
-        <Col md="9">
-          <h2>
-            <Translate contentKey="home.title">Welcome, Java Hipster!</Translate>
-          </h2>
-          <p className="lead">
-            <Translate contentKey="home.subtitle">This is your homepage</Translate>
-          </p>
-          {account && account.login ? (
-            <div>
-              <Alert color="success">
-                <Translate contentKey="home.logged.message" interpolate={{ username: account.login }}>
-                  You are logged in as user {account.login}.
-                </Translate>
-              </Alert>
+        <HomeSearchBox />
+        <div className="container">
+          <HomeNewsBox />
+          <Spin spinning={this.props.loading} tip="Đang cập nhật dữ liệu...">
+            <div className="row lastest-posts">
+              <h2>
+                Tin mới đăng<span>
+                  Hiển thị 1 - {} trong {this.props.totalItems} Bất động sản
+                </span>
+                <div className="toolbox">
+                  <label htmlFor="sortby">Sắp xếp: </label>
+                  <select name="sortby" id="sortby">
+                    <option>Ngày đăng mới nhất</option>
+                    <option>Giá từ thấp đến cao</option>
+                    <option>Giá từ cao đến thấp</option>
+                  </select>
+                  <ul role="tablist">
+                    <li className="listview-button">
+                      <a href="#list" aria-controls="home" role="tab" data-toggle="tab" />
+                    </li>
+                    <li className="gridview-button active">
+                      <a href="#grid" aria-controls="home" role="tab" data-toggle="tab" />
+                    </li>
+                  </ul>
+                </div>
+              </h2>
+              <div className="row">
+                <div className="tab-content">
+                  <HomeList houses={this.props.houseList} />
+                  <HomeGrid houses={this.props.houseList} />
+                </div>
+              </div>
             </div>
-          ) : (
-            <div>
-              <Alert color="warning">
-                <Translate contentKey="global.messages.info.authenticated.prefix">If you want to </Translate>
-                <Link to="/login" className="alert-link">
-                  <Translate contentKey="global.messages.info.authenticated.link"> sign in</Translate>
-                </Link>
-                <Translate contentKey="global.messages.info.authenticated.suffix">
-                  , you can try the default accounts:
-                  <br />- Administrator (login=&quot;admin&quot; and password=&quot;admin&quot;)
-                  <br />- User (login=&quot;user&quot; and password=&quot;user&quot;).
-                </Translate>
-              </Alert>
-
-              <Alert color="warning">
-                <Translate contentKey="global.messages.info.register.noaccount">You do not have an account yet?</Translate>&nbsp;
-                <Link to="/register" className="alert-link">
-                  <Translate contentKey="global.messages.info.register.link">Register a new account</Translate>
-                </Link>
-              </Alert>
-            </div>
-          )}
-          <p>
-            <Button type="primary">Primary</Button>
-            <Translate contentKey="home.question">If you have any question on JHipster:</Translate>
-          </p>
-          <GoogleMaps />
-          <ul>
-            <li>
-              <a href="https://www.jhipster.tech/" target="_blank" rel="noopener noreferrer">
-                <Translate contentKey="home.link.homepage">JHipster homepage</Translate>
-              </a>
-            </li>
-            <li>
-              <a href="http://stackoverflow.com/tags/jhipster/info" target="_blank" rel="noopener noreferrer">
-                <Translate contentKey="home.link.stackoverflow">JHipster on Stack Overflow</Translate>
-              </a>
-            </li>
-            <li>
-              <a href="https://github.com/jhipster/generator-jhipster/issues?state=open" target="_blank" rel="noopener noreferrer">
-                <Translate contentKey="home.link.bugtracker">JHipster bug tracker</Translate>
-              </a>
-            </li>
-            <li>
-              <a href="https://gitter.im/jhipster/generator-jhipster" target="_blank" rel="noopener noreferrer">
-                <Translate contentKey="home.link.chat">JHipster public chat room</Translate>
-              </a>
-            </li>
-            <li>
-              <a href="https://twitter.com/java_hipster" target="_blank" rel="noopener noreferrer">
-                <Translate contentKey="home.link.follow">follow @java_hipster on Twitter</Translate>
-              </a>
-            </li>
-          </ul>
-
-          <p>
-            <Translate contentKey="home.like">If you like JHipster, do not forget to give us a star on</Translate>{' '}
-            <a href="https://github.com/jhipster/generator-jhipster" target="_blank" rel="noopener noreferrer">
-              Github
-            </a>!
-          </p>
-        </Col>
-        <Col md="3" className="pad">
-          <span className="hipster rounded" />
-        </Col>
+          </Spin>
+        </div>
       </Row>
     );
   }
 }
 
 const mapStateToProps = storeState => ({
-  account: storeState.authentication.account,
-  isAuthenticated: storeState.authentication.isAuthenticated
+  houseList: storeState.house.entities,
+  totalItems: storeState.house.totalItems,
+  loading: storeState.house.loading
 });
 
-const mapDispatchToProps = { getSession };
+const mapDispatchToProps = { getSession, getHouses, getEntities, getOwnerEntities };
 
 type StateProps = ReturnType<typeof mapStateToProps>;
 type DispatchProps = typeof mapDispatchToProps;
