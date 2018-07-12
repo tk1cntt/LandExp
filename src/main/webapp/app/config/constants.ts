@@ -4,11 +4,15 @@ const config = {
 
 export default config;
 
-export const SERVER_API_URL = process.env.SERVER_API_URL;
+// export const SERVER_API_URL = 'http://localhost:8080';
+export const SERVER_API_URL = 'http://tinvang.com.vn/';
+// export const SERVER_API_URL = 'http://192.168.1.35:8080';
 
 export const AUTHORITIES = {
   ADMIN: 'ROLE_ADMIN',
-  USER: 'ROLE_USER'
+  USER: 'ROLE_USER',
+  MANAGER: 'ROLE_MANAGER',
+  STAFF: 'ROLE_STAFF'
 };
 
 export const messages = {

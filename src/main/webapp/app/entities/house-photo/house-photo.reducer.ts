@@ -1,9 +1,13 @@
 import axios from 'axios';
-import { ICrudGetAction, ICrudGetAllAction, ICrudPutAction, ICrudDeleteAction } from 'react-jhipster';
+import { Storage, ICrudSearchAction, ICrudGetAction, ICrudGetAllAction, ICrudPutAction, ICrudDeleteAction } from 'react-jhipster';
 
 import { cleanEntity } from 'app/shared/util/entity-utils';
 import { REQUEST, SUCCESS, FAILURE } from 'app/shared/reducers/action-type.util';
 import { SERVER_API_URL } from 'app/config/constants';
+
+const client = axios.create({
+  baseURL: SERVER_API_URL
+});
 
 import { IHousePhoto, defaultValue } from 'app/shared/model/house-photo.model';
 
@@ -117,7 +121,7 @@ export const getEntities: ICrudGetAllAction<IHousePhoto> = (page, size, sort) =>
   const requestUrl = `${apiUrl}${sort ? `?page=${page}&size=${size}&sort=${sort}` : ''}`;
   return {
     type: ACTION_TYPES.FETCH_HOUSEPHOTO_LIST,
-    payload: axios.get<IHousePhoto>(`${requestUrl}${sort ? '&' : '?'}cacheBuster=${new Date().getTime()}`)
+    payload: client.get<IHousePhoto>(`${requestUrl}${sort ? '&' : '?'}cacheBuster=${new Date().getTime()}`)
   };
 };
 
@@ -125,33 +129,53 @@ export const getEntity: ICrudGetAction<IHousePhoto> = id => {
   const requestUrl = `${apiUrl}/${id}`;
   return {
     type: ACTION_TYPES.FETCH_HOUSEPHOTO,
-    payload: axios.get<IHousePhoto>(requestUrl)
+    payload: client.get<IHousePhoto>(requestUrl)
+  };
+};
+
+export const getImageOfHouse: ICrudGetAllAction<IHousePhoto> = id => {
+  const requestUrl = `${apiUrl}/${id}/houses`;
+  return {
+    type: ACTION_TYPES.FETCH_HOUSEPHOTO_LIST,
+    payload: client.get<IHousePhoto>(requestUrl)
   };
 };
 
 export const createEntity: ICrudPutAction<IHousePhoto> = entity => async dispatch => {
+  const jwt = Storage.local.get('jhi-authenticationToken') || Storage.session.get('jhi-authenticationToken');
+  if (jwt) {
+    client.defaults.headers['Authorization'] = `Bearer ${jwt}`;
+  }
   const result = await dispatch({
     type: ACTION_TYPES.CREATE_HOUSEPHOTO,
-    payload: axios.post(apiUrl, cleanEntity(entity))
+    payload: client.post(apiUrl, cleanEntity(entity))
   });
   dispatch(getEntities());
   return result;
 };
 
 export const updateEntity: ICrudPutAction<IHousePhoto> = entity => async dispatch => {
+  const jwt = Storage.local.get('jhi-authenticationToken') || Storage.session.get('jhi-authenticationToken');
+  if (jwt) {
+    client.defaults.headers['Authorization'] = `Bearer ${jwt}`;
+  }
   const result = await dispatch({
     type: ACTION_TYPES.UPDATE_HOUSEPHOTO,
-    payload: axios.put(apiUrl, cleanEntity(entity))
+    payload: client.put(apiUrl, cleanEntity(entity))
   });
   dispatch(getEntities());
   return result;
 };
 
 export const deleteEntity: ICrudDeleteAction<IHousePhoto> = id => async dispatch => {
+  const jwt = Storage.local.get('jhi-authenticationToken') || Storage.session.get('jhi-authenticationToken');
+  if (jwt) {
+    client.defaults.headers['Authorization'] = `Bearer ${jwt}`;
+  }
   const requestUrl = `${apiUrl}/${id}`;
   const result = await dispatch({
     type: ACTION_TYPES.DELETE_HOUSEPHOTO,
-    payload: axios.delete(requestUrl)
+    payload: client.delete(requestUrl)
   });
   dispatch(getEntities());
   return result;
