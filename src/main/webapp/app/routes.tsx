@@ -1,20 +1,55 @@
 import * as React from 'react';
 import { Route, Switch } from 'react-router-dom';
+import * as Loadable from 'react-loadable';
 
-import Login from 'app/modules/login/login';
-import Register from 'app/modules/account/register/register';
-import Account from 'app/modules/account';
 import Activate from 'app/modules/account/activate/activate';
 import PasswordResetInit from 'app/modules/account/password-reset/init/password-reset-init';
 import PasswordResetFinish from 'app/modules/account/password-reset/finish/password-reset-finish';
 import Logout from 'app/modules/login/logout';
-import Home from 'app/modules/home/home';
-import Search from 'app/modules/search/home';
-import Admin from 'app/modules/administration';
-import Entities from 'app/entities';
-import Detail from 'app/modules/detail/detail';
 import PrivateRoute from 'app/shared/auth/private-route';
 import { AUTHORITIES } from 'app/config/constants';
+
+// tslint:disable:space-in-parens
+const Login = Loadable({
+  loader: () => import(/* webpackChunkName: "home" */ 'app/modules/login/login'),
+  loading: () => <div>loading ...</div>
+});
+
+const Register = Loadable({
+  loader: () => import(/* webpackChunkName: "home" */ 'app/modules/account/register/register'),
+  loading: () => <div>loading ...</div>
+});
+
+const Account = Loadable({
+  loader: () => import(/* webpackChunkName: "account" */ 'app/modules/account'),
+  loading: () => <div>loading ...</div>
+});
+
+const Admin = Loadable({
+  loader: () => import(/* webpackChunkName: "administration" */ 'app/modules/administration'),
+  loading: () => <div>loading ...</div>
+});
+
+const Home = Loadable({
+  loader: () => import(/* webpackChunkName: "home" */ 'app/modules/home/home'),
+  loading: () => <div>loading ...</div>
+});
+
+const Search = Loadable({
+  loader: () => import(/* webpackChunkName: "home" */ 'app/modules/search/home'),
+  loading: () => <div>loading ...</div>
+});
+
+const Entities = Loadable({
+  loader: () => import(/* webpackChunkName: "home" */ 'app/entities'),
+  loading: () => <div>loading ...</div>
+});
+
+const Detail = Loadable({
+  loader: () => import(/* webpackChunkName: "home" */ 'app/modules/detail/detail'),
+  loading: () => <div>loading ...</div>
+});
+// tslint:enable
 
 const Routes = () => (
   <div className="view-routes">

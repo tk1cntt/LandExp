@@ -43,7 +43,7 @@ ul {
 .home .app-container {
   background-color: rgb(255, 255, 255, 0.88);
   height: 734px;
-  min-width: 1170px;
+  min-width: 1170px !important;
 }
 
 .container {
@@ -1296,7 +1296,7 @@ label {
 
 .nav-search .select-box input,
 .bottom-search-box .header-box input {
-  width: 315px;
+  width: 310px;
   height: 44px;
   padding: 12px;
   border: 0px;
