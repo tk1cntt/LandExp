@@ -1,18 +1,19 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { Link, RouteComponentProps } from 'react-router-dom';
-import { Button, Col, Row, Table } from 'reactstrap';
+import { Button, Col, Row, Container, Table } from 'reactstrap';
 // tslint:disable-next-line:no-unused-variable
 import { Translate, ICrudGetAllAction } from 'react-jhipster';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import Loading from 'app/shared/layout/loading/loading';
+import SearchPage from 'app/shared/layout/search/search-menu';
 
 import { IRootState } from 'app/shared/reducers';
 import { getEntities } from './service-fee.reducer';
-import { IServiceFee } from 'app/shared/model/service-fee.model';
 // tslint:disable-next-line:no-unused-variable
-import { APP_DATE_FORMAT, APP_LOCAL_DATE_FORMAT } from 'app/config/constants';
+import { getSaleType } from 'app/shared/util/utils';
 
-export interface IServiceFeeProps extends StateProps, DispatchProps, RouteComponentProps<{ url: string }> {}
+export interface IServiceFeeProps extends StateProps, DispatchProps, RouteComponentProps<{ url: string }> { }
 
 export class ServiceFee extends React.Component<IServiceFeeProps> {
   componentDidMount() {
@@ -22,74 +23,60 @@ export class ServiceFee extends React.Component<IServiceFeeProps> {
   render() {
     const { serviceFeeList, match } = this.props;
     return (
-      <div>
-        <h2 id="service-fee-heading">
-          <Translate contentKey="landexpApp.serviceFee.home.title">Service Fees</Translate>
-          <Link to={`${match.url}/new`} className="btn btn-primary float-right jh-create-entity" id="jh-create-entity">
-            <FontAwesomeIcon icon="plus" />&nbsp;
-            <Translate contentKey="landexpApp.serviceFee.home.createLabel">Create new Service Fee</Translate>
-          </Link>
-        </h2>
-        <div className="table-responsive">
-          <Table responsive>
-            <thead>
-              <tr>
-                <th>
-                  <Translate contentKey="global.field.id">ID</Translate>
-                </th>
-                <th>
-                  <Translate contentKey="landexpApp.serviceFee.saleType">Sale Type</Translate>
-                </th>
-                <th>
-                  <Translate contentKey="landexpApp.serviceFee.fee">Fee</Translate>
-                </th>
-                <th />
-              </tr>
-            </thead>
-            <tbody>
-              {serviceFeeList.map((serviceFee, i) => (
-                <tr key={`entity-${i}`}>
-                  <td>
-                    <Button tag={Link} to={`${match.url}/${serviceFee.id}`} color="link" size="sm">
-                      {serviceFee.id}
-                    </Button>
-                  </td>
-                  <td>{serviceFee.saleType}</td>
-                  <td>{serviceFee.fee}</td>
-                  <td className="text-right">
-                    <div className="btn-group flex-btn-group-container">
-                      <Button tag={Link} to={`${match.url}/${serviceFee.id}`} color="info" size="sm">
-                        <FontAwesomeIcon icon="eye" />{' '}
-                        <span className="d-none d-md-inline">
-                          <Translate contentKey="entity.action.view">View</Translate>
-                        </span>
-                      </Button>
-                      <Button tag={Link} to={`${match.url}/${serviceFee.id}/edit`} color="primary" size="sm">
-                        <FontAwesomeIcon icon="pencil-alt" />{' '}
-                        <span className="d-none d-md-inline">
-                          <Translate contentKey="entity.action.edit">Edit</Translate>
-                        </span>
-                      </Button>
-                      <Button tag={Link} to={`${match.url}/${serviceFee.id}/delete`} color="danger" size="sm">
-                        <FontAwesomeIcon icon="trash" />{' '}
-                        <span className="d-none d-md-inline">
-                          <Translate contentKey="entity.action.delete">Delete</Translate>
-                        </span>
-                      </Button>
-                    </div>
-                  </td>
-                </tr>
-              ))}
-            </tbody>
-          </Table>
-        </div>
-      </div>
+      <Row>
+        <SearchPage location={this.props.location} history={this.props.history} />
+        <Container>
+          <Col md="12">
+            {this.props.loading ? <Loading /> : (
+              <>
+                <h2 id="service-fee-heading">
+                  <Translate contentKey="landexpApp.serviceFee.home.title">Service Fees</Translate>
+                </h2>
+                <div className="table-responsive">
+                  <Table responsive>
+                    <thead>
+                      <tr>
+                        <th>
+                          <Translate contentKey="landexpApp.serviceFee.saleType">Sale Type</Translate>
+                        </th>
+                        <th>
+                          <Translate contentKey="landexpApp.serviceFee.fee">Fee</Translate>
+                        </th>
+                        <th />
+                      </tr>
+                    </thead>
+                    <tbody>
+                      {serviceFeeList.map((serviceFee, i) => (
+                        <tr key={`entity-${i}`}>
+                          <td>{getSaleType(serviceFee.saleType)}</td>
+                          <td>{new Intl.NumberFormat().format(serviceFee.fee)} VNĐ</td>
+                          <td className="text-right">
+                            <div className="btn-group flex-btn-group-container">
+                              <Button tag={Link} to={`${match.url}/${serviceFee.id}/edit`} color="primary" size="sm">
+                                <FontAwesomeIcon icon="pencil-alt" />{' '}
+                                <span className="d-none d-md-inline">
+                                  <Translate contentKey="entity.action.edit">Edit</Translate>
+                                </span>
+                              </Button>
+                            </div>
+                          </td>
+                        </tr>
+                      ))}
+                    </tbody>
+                  </Table>
+                </div>
+              </>
+            )}
+          </Col>
+        </Container>
+      </Row>
     );
   }
 }
 
 const mapStateToProps = ({ serviceFee }: IRootState) => ({
-  serviceFeeList: serviceFee.entities
+  serviceFeeList: serviceFee.entities,
+  loading: serviceFee.loading
 });
 
 const mapDispatchToProps = {

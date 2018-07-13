@@ -2,34 +2,29 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { Link, RouteComponentProps } from 'react-router-dom';
 import { Col, Row, Container, Table } from 'reactstrap';
-import { getActionType, getLandType, getCityType, getDirection, getPresent, getSaleType, getStatusType } from 'app/shared/util/utils';
+import { getLandType, getSaleType, getStatusType } from 'app/shared/util/utils';
 // tslint:disable-next-line:no-unused-variable
 import {
-  openFile,
-  byteSize,
   Translate,
-  ICrudGetAllAction,
-  TextFormat,
   getSortState,
   IPaginationBaseState,
   getPaginationItemsNumber,
   JhiPagination
 } from 'react-jhipster';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { Icon, Modal, Button } from 'antd';
+import { Modal } from 'antd';
 const confirm = Modal.confirm;
 
 import Loading from 'app/shared/layout/loading/loading';
+import SearchPage from 'app/shared/layout/search/search-menu';
 
 import { IRootState } from 'app/shared/reducers';
 import { getEntities } from './house.reducer';
-import { IHouse } from 'app/shared/model/house.model';
 // tslint:disable-next-line:no-unused-variable
 import { hasAnyAuthority } from 'app/shared/auth/private-route';
-import { APP_DATE_FORMAT, APP_LOCAL_DATE_FORMAT, AUTHORITIES } from 'app/config/constants';
+import { AUTHORITIES } from 'app/config/constants';
 import { ITEMS_PER_PAGE } from 'app/shared/util/pagination.constants';
 
-import SearchPage from 'app/shared/layout/search/search-menu';
 
 export interface IHouseProps extends StateProps, DispatchProps, RouteComponentProps<{ url: string }> {}
 
@@ -66,12 +61,12 @@ export class House extends React.Component<IHouseProps, IHouseState> {
     this.props.getEntities(activePage - 1, itemsPerPage, `${sort},${order}`);
   };
 
-  showConfirm = id => {
+  showDeleteConfirm = id => {
     confirm({
       title: 'Do you want to delete these items?',
       content: 'When clicked the OK button, this dialog will be closed after 1 second',
       onOk() {
-        console.log(id);
+        // console.log(id);
         // this.props.deleteEntity(this.props.houseEntity.id);
       },
       onCancel() {}
@@ -85,9 +80,7 @@ export class House extends React.Component<IHouseProps, IHouseState> {
         <SearchPage location={this.props.location} history={this.props.history} />
         <Container>
           <Col md="12">
-            {this.props.loading ? (
-              <Loading />
-            ) : (
+            {this.props.loading ? <Loading /> : (
               <>
                 <h2 id="house-heading">
                   <Translate contentKey="landexpApp.house.home.title">Houses</Translate>
@@ -149,7 +142,7 @@ export class House extends React.Component<IHouseProps, IHouseState> {
                             {!this.props.isManager ? (
                               ''
                             ) : (
-                              <div style={{ float: 'left' }} onClick={this.showConfirm.bind(this, house.id)}>
+                              <div style={{ float: 'left' }} onClick={this.showDeleteConfirm.bind(this, house.id)}>
                                 <FontAwesomeIcon icon="trash" />{' '}
                               </div>
                             )}
