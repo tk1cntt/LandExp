@@ -5,8 +5,6 @@ import { Button, Col, Row, Container, Table } from 'reactstrap';
 // tslint:disable-next-line:no-unused-variable
 import {
   Translate,
-  ICrudGetAllAction,
-  TextFormat,
   getSortState,
   IPaginationBaseState,
   getPaginationItemsNumber,
@@ -18,9 +16,7 @@ import Loading from 'app/shared/layout/loading/loading';
 
 import { IRootState } from 'app/shared/reducers';
 import { getEntities } from './city.reducer';
-import { ICity } from 'app/shared/model/city.model';
 // tslint:disable-next-line:no-unused-variable
-import { APP_DATE_FORMAT, APP_LOCAL_DATE_FORMAT } from 'app/config/constants';
 import { ITEMS_PER_PAGE } from 'app/shared/util/pagination.constants';
 
 import SearchPage from 'app/shared/layout/search/search-menu';
@@ -128,7 +124,7 @@ export class City extends React.Component<ICityProps, ICityState> {
                     items={getPaginationItemsNumber(totalItems, this.state.itemsPerPage)}
                     activePage={this.state.activePage}
                     onSelect={this.handlePagination}
-                    maxButtons={5}
+                    maxButtons={3}
                   />
                 </Row>
               </>

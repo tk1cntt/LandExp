@@ -110,7 +110,7 @@ export const getEntities: ICrudGetAllAction<ICity> = (page, size, sort) => {
   const requestUrl = `${apiUrl}${sort ? `?page=${page}&size=${size}&sort=${sort}` : ''}`;
   return {
     type: ACTION_TYPES.FETCH_CITY_LIST,
-  payload: client.get<ICity>(`${apiUrl}?cacheBuster=${new Date().getTime()}`)
+  payload: client.get<ICity>(`${requestUrl}${sort ? '&' : '?'}cacheBuster=${new Date().getTime()}`)
   };
 };
 
