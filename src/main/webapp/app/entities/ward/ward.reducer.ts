@@ -110,7 +110,7 @@ export const getEntities: ICrudGetAllAction<IWard> = (page, size, sort) => {
   const requestUrl = `${apiUrl}${sort ? `?page=${page}&size=${size}&sort=${sort}` : ''}`;
   return {
     type: ACTION_TYPES.FETCH_WARD_LIST,
-  payload: client.get<IWard>(`${apiUrl}?cacheBuster=${new Date().getTime()}`)
+    payload: client.get<IWard>(`${requestUrl}${sort ? '&' : '?' }cacheBuster=${new Date().getTime()}`)
   };
 };
 

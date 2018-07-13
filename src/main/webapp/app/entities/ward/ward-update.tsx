@@ -4,17 +4,14 @@ import { Link, RouteComponentProps } from 'react-router-dom';
 import { Button, Row, Col, Label } from 'reactstrap';
 import { AvForm, AvGroup, AvInput, AvField } from 'availity-reactstrap-validation';
 // tslint:disable-next-line:no-unused-variable
-import { Translate, translate, ICrudGetAction, ICrudGetAllAction, ICrudPutAction } from 'react-jhipster';
+import { Translate } from 'react-jhipster';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { IRootState } from 'app/shared/reducers';
 
-import { IDistrict } from 'app/shared/model/district.model';
 import { getEntities as getDistricts } from 'app/entities/district/district.reducer';
 import { getEntity, updateEntity, createEntity, reset } from './ward.reducer';
-import { IWard } from 'app/shared/model/ward.model';
 // tslint:disable-next-line:no-unused-variable
-import { convertDateTimeFromServer } from 'app/shared/util/date-utils';
-import { keysToValues } from 'app/shared/util/entity-utils';
+import Loading from 'app/shared/layout/loading/loading';
 
 export interface IWardUpdateProps extends StateProps, DispatchProps, RouteComponentProps<{ id: number }> {}
 
@@ -60,7 +57,7 @@ export class WardUpdate extends React.Component<IWardUpdateProps, IWardUpdateSta
   };
 
   handleClose = () => {
-    this.props.history.push('/entity/ward');
+    this.props.history.push('/quan-ly/xa-phuong');
   };
 
   districtUpdate = element => {
@@ -96,9 +93,7 @@ export class WardUpdate extends React.Component<IWardUpdateProps, IWardUpdateSta
         </Row>
         <Row className="justify-content-center">
           <Col md="8">
-            {loading ? (
-              <p>Loading...</p>
-            ) : (
+            {loading ? <Loading /> : (
               <AvForm model={isNew ? {} : wardEntity} onSubmit={this.saveEntity}>
                 {!isNew ? (
                   <AvGroup>
@@ -121,18 +116,6 @@ export class WardUpdate extends React.Component<IWardUpdateProps, IWardUpdateSta
                   </Label>
                 </AvGroup>
                 <AvGroup>
-                  <Label id="createAtLabel" for="createAt">
-                    <Translate contentKey="landexpApp.ward.createAt">Create At</Translate>
-                  </Label>
-                  <AvField id="ward-createAt" type="date" className="form-control" name="createAt" />
-                </AvGroup>
-                <AvGroup>
-                  <Label id="updateAtLabel" for="updateAt">
-                    <Translate contentKey="landexpApp.ward.updateAt">Update At</Translate>
-                  </Label>
-                  <AvField id="ward-updateAt" type="date" className="form-control" name="updateAt" />
-                </AvGroup>
-                <AvGroup>
                   <Label for="district.id">
                     <Translate contentKey="landexpApp.ward.district">District</Translate>
                   </Label>
@@ -141,13 +124,13 @@ export class WardUpdate extends React.Component<IWardUpdateProps, IWardUpdateSta
                     {districts
                       ? districts.map(otherEntity => (
                           <option value={otherEntity.id} key={otherEntity.id}>
-                            {otherEntity.id}
+                            {otherEntity.name}
                           </option>
                         ))
                       : null}
                   </AvInput>
                 </AvGroup>
-                <Button tag={Link} id="cancel-save" to="/entity/ward" replace color="info">
+                <Button tag={Link} id="cancel-save" to="/quan-ly/xa-phuong" replace color="info">
                   <FontAwesomeIcon icon="arrow-left" />&nbsp;
                   <span className="d-none d-md-inline">
                     <Translate contentKey="entity.action.back">Back</Translate>
