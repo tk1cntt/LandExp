@@ -4,19 +4,14 @@ import { Link, RouteComponentProps } from 'react-router-dom';
 import { Button, Row, Col, Label } from 'reactstrap';
 import { AvForm, AvGroup, AvInput, AvField } from 'availity-reactstrap-validation';
 // tslint:disable-next-line:no-unused-variable
-import { Translate, translate, ICrudGetAction, ICrudGetAllAction, ICrudPutAction } from 'react-jhipster';
+import { Translate } from 'react-jhipster';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { IRootState } from 'app/shared/reducers';
 
-import { IRegion } from 'app/shared/model/region.model';
 import { getEntities as getRegions } from 'app/entities/region/region.reducer';
-import { ICity } from 'app/shared/model/city.model';
 import { getEntities as getCities } from 'app/entities/city/city.reducer';
 import { getEntity, updateEntity, createEntity, reset } from './district.reducer';
-import { IDistrict } from 'app/shared/model/district.model';
 // tslint:disable-next-line:no-unused-variable
-import { convertDateTimeFromServer } from 'app/shared/util/date-utils';
-import { keysToValues } from 'app/shared/util/entity-utils';
 
 export interface IDistrictUpdateProps extends StateProps, DispatchProps, RouteComponentProps<{ id: number }> {}
 
@@ -65,7 +60,7 @@ export class DistrictUpdate extends React.Component<IDistrictUpdateProps, IDistr
   };
 
   handleClose = () => {
-    this.props.history.push('/entity/district');
+    this.props.history.push('/quan-ly/quan-huyen');
   };
 
   regionUpdate = element => {
@@ -143,18 +138,6 @@ export class DistrictUpdate extends React.Component<IDistrictUpdateProps, IDistr
                   </Label>
                 </AvGroup>
                 <AvGroup>
-                  <Label id="createAtLabel" for="createAt">
-                    <Translate contentKey="landexpApp.district.createAt">Create At</Translate>
-                  </Label>
-                  <AvField id="district-createAt" type="date" className="form-control" name="createAt" />
-                </AvGroup>
-                <AvGroup>
-                  <Label id="updateAtLabel" for="updateAt">
-                    <Translate contentKey="landexpApp.district.updateAt">Update At</Translate>
-                  </Label>
-                  <AvField id="district-updateAt" type="date" className="form-control" name="updateAt" />
-                </AvGroup>
-                <AvGroup>
                   <Label for="region.id">
                     <Translate contentKey="landexpApp.district.region">Region</Translate>
                   </Label>
@@ -163,7 +146,7 @@ export class DistrictUpdate extends React.Component<IDistrictUpdateProps, IDistr
                     {regions
                       ? regions.map(otherEntity => (
                           <option value={otherEntity.id} key={otherEntity.id}>
-                            {otherEntity.id}
+                            {otherEntity.name}
                           </option>
                         ))
                       : null}
@@ -178,13 +161,13 @@ export class DistrictUpdate extends React.Component<IDistrictUpdateProps, IDistr
                     {cities
                       ? cities.map(otherEntity => (
                           <option value={otherEntity.id} key={otherEntity.id}>
-                            {otherEntity.id}
+                            {otherEntity.name}
                           </option>
                         ))
                       : null}
                   </AvInput>
                 </AvGroup>
-                <Button tag={Link} id="cancel-save" to="/entity/district" replace color="info">
+                <Button tag={Link} id="cancel-save" to="/quan-ly/quan-huyen" replace color="info">
                   <FontAwesomeIcon icon="arrow-left" />&nbsp;
                   <span className="d-none d-md-inline">
                     <Translate contentKey="entity.action.back">Back</Translate>

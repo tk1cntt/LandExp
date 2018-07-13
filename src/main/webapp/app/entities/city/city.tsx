@@ -106,12 +106,6 @@ export class City extends React.Component<ICityProps, ICityState> {
                                   <Translate contentKey="entity.action.edit">Edit</Translate>
                                 </span>
                               </Button>
-                              <Button tag={Link} to={`${match.url}/${city.id}/delete`} color="danger" size="sm">
-                                <FontAwesomeIcon icon="trash" />{' '}
-                                <span className="d-none d-md-inline">
-                                  <Translate contentKey="entity.action.delete">Delete</Translate>
-                                </span>
-                              </Button>
                             </div>
                           </td>
                         </tr>
