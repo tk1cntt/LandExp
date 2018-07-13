@@ -7,6 +7,7 @@ export interface IWard {
   createAt?: Moment;
   updateAt?: Moment;
   districtId?: number;
+  districtName?: string;
 }
 
 export const defaultValue: Readonly<IWard> = {

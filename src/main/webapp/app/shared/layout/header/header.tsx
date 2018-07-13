@@ -64,21 +64,6 @@ export default class Header extends React.Component<IHeaderProps, IHeaderState> 
         }
       >
         <Menu.Item>
-          <Link to="/quan-ly/tinh-thanh">
-            <FontAwesomeIcon icon="asterisk" />&nbsp; Quản lý tỉnh thành
-          </Link>
-        </Menu.Item>
-        <Menu.Item>
-          <Link to="/quan-ly/quan-huyen">
-            <FontAwesomeIcon icon="asterisk" />&nbsp; Quản lý quận huyện
-          </Link>
-        </Menu.Item>
-        <Menu.Item>
-          <Link to="/quan-ly/xa-phuong">
-            <FontAwesomeIcon icon="asterisk" />&nbsp; Quản lý xã phường
-          </Link>
-        </Menu.Item>
-        <Menu.Item>
           <Link to="/quan-ly/tin-dang">
             <FontAwesomeIcon icon="asterisk" />&nbsp; Quản lý tin đăng
           </Link>
@@ -138,6 +123,21 @@ export default class Header extends React.Component<IHeaderProps, IHeaderState> 
           </span>
         }
       >
+        <Menu.Item>
+          <Link to="/quan-ly/tinh-thanh">
+            <FontAwesomeIcon icon="asterisk" />&nbsp; Quản lý tỉnh thành
+          </Link>
+        </Menu.Item>
+        <Menu.Item>
+          <Link to="/quan-ly/quan-huyen">
+            <FontAwesomeIcon icon="asterisk" />&nbsp; Quản lý quận huyện
+          </Link>
+        </Menu.Item>
+        <Menu.Item>
+          <Link to="/quan-ly/xa-phuong">
+            <FontAwesomeIcon icon="asterisk" />&nbsp; Quản lý xã phường
+          </Link>
+        </Menu.Item>
         <Menu.Item>
           <Link to="/quan-ly/bang-phi-dich-vu">
             <FontAwesomeIcon icon="asterisk" />&nbsp; Bảng phí dịch vụ
