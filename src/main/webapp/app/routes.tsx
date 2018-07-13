@@ -9,79 +9,48 @@ import PasswordResetFinish from 'app/modules/account/password-reset/finish/passw
 import Logout from 'app/modules/login/logout';
 import PrivateRoute from 'app/shared/auth/private-route';
 import ErrorBoundaryRoute from 'app/shared/error/error-boundary-route';
+import Loading from 'app/shared/layout/loading/loading';
 import { AUTHORITIES } from 'app/config/constants';
 
 // tslint:disable:space-in-parens
 const Login = Loadable({
   loader: () => import(/* webpackChunkName: "login" */ 'app/modules/login/login'),
-  loading: () => (
-    <div className="justify-content-center">
-      <Spin tip="Đang cập nhật dữ liệu..." />
-    </div>
-  )
+  loading: () => <Loading />
 });
 
 const Register = Loadable({
   loader: () => import(/* webpackChunkName: "register" */ 'app/modules/account/register/register'),
-  loading: () => (
-    <div className="justify-content-center">
-      <Spin tip="Đang cập nhật dữ liệu..." />
-    </div>
-  )
+  loading: () => <Loading />
 });
 
 const Account = Loadable({
   loader: () => import(/* webpackChunkName: "account" */ 'app/modules/account'),
-  loading: () => (
-    <div className="justify-content-center">
-      <Spin tip="Đang cập nhật dữ liệu..." />
-    </div>
-  )
+  loading: () => <Loading />
 });
 
 const Admin = Loadable({
   loader: () => import(/* webpackChunkName: "administration" */ 'app/modules/administration'),
-  loading: () => (
-    <div className="justify-content-center">
-      <Spin tip="Đang cập nhật dữ liệu..." />
-    </div>
-  )
+  loading: () => <Loading />
 });
 
 const Home = Loadable({
   loader: () => import(/* webpackChunkName: "home" */ 'app/modules/home/home'),
-  loading: () => (
-    <div className="justify-content-center">
-      <Spin tip="Đang cập nhật dữ liệu..." />
-    </div>
-  )
+  loading: () => <Loading />
 });
 
 const Search = Loadable({
   loader: () => import(/* webpackChunkName: "search" */ 'app/modules/search/home'),
-  loading: () => (
-    <div className="justify-content-center">
-      <Spin tip="Đang cập nhật dữ liệu..." />
-    </div>
-  )
+  loading: () => <Loading />
 });
 
 const Entities = Loadable({
   loader: () => import(/* webpackChunkName: "entities" */ 'app/entities'),
-  loading: () => (
-    <div className="justify-content-center">
-      <Spin tip="Đang cập nhật dữ liệu..." />
-    </div>
-  )
+  loading: () => <Loading />
 });
 
 const Detail = Loadable({
   loader: () => import(/* webpackChunkName: "detail" */ 'app/modules/detail/detail'),
-  loading: () => (
-    <div className="justify-content-center">
-      <Spin tip="Đang cập nhật dữ liệu..." />
-    </div>
-  )
+  loading: () => <Loading />
 });
 // tslint:enable
 
