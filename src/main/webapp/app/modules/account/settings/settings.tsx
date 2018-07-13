@@ -1,6 +1,7 @@
 import React from 'react';
-import { Button, Col, Alert, Row } from 'reactstrap';
+import { Button, Col, Alert, Row, Container } from 'reactstrap';
 import { connect } from 'react-redux';
+import { RouteComponentProps } from 'react-router-dom';
 import { Translate, translate } from 'react-jhipster';
 import { AvForm, AvField } from 'availity-reactstrap-validation';
 
@@ -9,7 +10,9 @@ import { IRootState } from 'app/shared/reducers';
 import { getSession } from 'app/shared/reducers/authentication';
 import { saveAccountSettings, reset } from './settings.reducer';
 
-export interface IUserSettingsProps extends StateProps, DispatchProps {}
+import SearchPage from 'app/shared/layout/search/search-menu';
+
+export interface IUserSettingsProps extends StateProps, DispatchProps, RouteComponentProps<{ url: string }> {}
 
 export interface IUserSettingsState {
   account: any;
@@ -38,9 +41,10 @@ export class SettingsPage extends React.Component<IUserSettingsProps, IUserSetti
     const { account } = this.props;
 
     return (
-      <div>
-        <Row className="justify-content-center">
-          <Col md="8">
+      <Row>
+        <SearchPage location={this.props.location} history={this.props.history} />
+        <Container>
+          <Col md="12">
             <h2 id="settings-title">
               <Translate contentKey="settings.title" interpolate={{ username: account.login }}>
                 User settings for {account.login}
@@ -109,8 +113,8 @@ export class SettingsPage extends React.Component<IUserSettingsProps, IUserSetti
               </Button>
             </AvForm>
           </Col>
-        </Row>
-      </div>
+        </Container>
+      </Row>
     );
   }
 }

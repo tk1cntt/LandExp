@@ -127,10 +127,16 @@ export const getUsers: ICrudGetAllAction<IUser> = (page, size, sort) => {
   };
 };
 
-export const getRoles = () => ({
-  type: ACTION_TYPES.FETCH_ROLES,
-  payload: client.get(`${apiUrl}/authorities`)
-});
+export const getRoles = () => {
+  const jwt = Storage.local.get('jhi-authenticationToken') || Storage.session.get('jhi-authenticationToken');
+  if (jwt) {
+    client.defaults.headers['Authorization'] = `Bearer ${jwt}`;
+  }
+  return {
+    type: ACTION_TYPES.FETCH_ROLES,
+    payload: client.get(`${apiUrl}/authorities`)
+  };
+};
 
 export const getUser: ICrudGetAction<IUser> = id => {
   const jwt = Storage.local.get('jhi-authenticationToken') || Storage.session.get('jhi-authenticationToken');

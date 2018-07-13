@@ -45,7 +45,7 @@ export default class Header extends React.Component<IHeaderProps, IHeaderState> 
       >
         <Menu.Item>
           <Link to="/tai-khoan/danh-sach-tin-dang">
-            <FontAwesomeIcon icon="newspaper" /> Tin đã đăng của bạn
+            <Icon type="book" /> Tin đã đăng của bạn
           </Link>
         </Menu.Item>
       </SubMenu>
@@ -180,12 +180,12 @@ export default class Header extends React.Component<IHeaderProps, IHeaderState> 
         >
           <Menu.Item>
             <Link to="/tai-khoan/thong-tin-tai-khoan">
-              <FontAwesomeIcon icon="user-circle" /> Thông tin tài khoản
+              <i className="fa fa-user-circle" /> Thông tin tài khoản
             </Link>
           </Menu.Item>
           <Menu.Item>
             <Link to="/tai-khoan/thay-doi-mat-khau">
-              <FontAwesomeIcon icon="key" /> Thay đổi mật khẩu
+              <FontAwesomeIcon icon="bell" /> Thay đổi mật khẩu
             </Link>
           </Menu.Item>
           <Menu.Item>

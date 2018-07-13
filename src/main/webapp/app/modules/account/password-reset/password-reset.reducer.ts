@@ -2,6 +2,11 @@ import axios from 'axios';
 import { translate } from 'react-jhipster';
 
 import { REQUEST, SUCCESS, FAILURE } from 'app/shared/reducers/action-type.util';
+import { SERVER_API_URL } from 'app/config/constants';
+
+const client = axios.create({
+  baseURL: SERVER_API_URL
+});
 
 export const ACTION_TYPES = {
   RESET_PASSWORD_INIT: 'passwordReset/RESET_PASSWORD_INIT',
@@ -49,13 +54,13 @@ export default (state: PasswordResetState = initialState, action): PasswordReset
   }
 };
 
-const apiUrl = 'api/account/reset-password';
+const apiUrl = '/api/account/reset-password';
 
 // Actions
 export const handlePasswordResetInit = mail => ({
   type: ACTION_TYPES.RESET_PASSWORD_INIT,
   // If the content-type isn't set that way, axios will try to encode the body and thus modify the data sent to the server.
-  payload: axios.post(`${apiUrl}/init`, mail, { headers: { ['Content-Type']: 'text/plain' } }),
+  payload: client.post(`${apiUrl}/init`, mail, { headers: { ['Content-Type']: 'text/plain' } }),
   meta: {
     successMessage: translate('reset.request.messages.success'),
     errorMessage: translate('reset.request.messages.notfound')
@@ -64,7 +69,7 @@ export const handlePasswordResetInit = mail => ({
 
 export const handlePasswordResetFinish = (key, newPassword) => ({
   type: ACTION_TYPES.RESET_PASSWORD_FINISH,
-  payload: axios.post(`${apiUrl}/finish`, { key, newPassword }),
+  payload: client.post(`${apiUrl}/finish`, { key, newPassword }),
   meta: {
     successMessage: translate('reset.finish.messages.success')
   }
