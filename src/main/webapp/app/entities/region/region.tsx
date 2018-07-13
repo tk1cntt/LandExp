@@ -5,8 +5,6 @@ import { Button, Col, Row, Container, Table } from 'reactstrap';
 // tslint:disable-next-line:no-unused-variable
 import {
   Translate,
-  ICrudGetAllAction,
-  TextFormat,
   getSortState,
   IPaginationBaseState,
   getPaginationItemsNumber,
@@ -15,17 +13,14 @@ import {
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { Icon } from 'antd';
 import Loading from 'app/shared/layout/loading/loading';
+import SearchPage from 'app/shared/layout/search/search-menu';
 
 import { IRootState } from 'app/shared/reducers';
 import { getEntities } from './region.reducer';
-import { IRegion } from 'app/shared/model/region.model';
 // tslint:disable-next-line:no-unused-variable
-import { APP_DATE_FORMAT, APP_LOCAL_DATE_FORMAT } from 'app/config/constants';
 import { ITEMS_PER_PAGE } from 'app/shared/util/pagination.constants';
 
-import SearchPage from 'app/shared/layout/search/search-menu';
-
-export interface IRegionProps extends StateProps, DispatchProps, RouteComponentProps<{ url: string }> {}
+export interface IRegionProps extends StateProps, DispatchProps, RouteComponentProps<{ url: string }> { }
 
 export type IRegionState = IPaginationBaseState;
 
@@ -67,9 +62,7 @@ export class Region extends React.Component<IRegionProps, IRegionState> {
         <SearchPage location={this.props.location} history={this.props.history} />
         <Container>
           <Col md="12">
-            {this.props.loading ? (
-              <Loading />
-            ) : (
+            {this.props.loading ? <Loading /> : (
               <>
                 <h2 id="region-heading">
                   <Translate contentKey="landexpApp.region.home.title">Regions</Translate>
@@ -78,20 +71,11 @@ export class Region extends React.Component<IRegionProps, IRegionState> {
                   <Table responsive>
                     <thead>
                       <tr>
-                        <th className="hand" onClick={this.sort('id')}>
-                          <Translate contentKey="global.field.id">ID</Translate> <FontAwesomeIcon icon="sort" />
-                        </th>
                         <th className="hand" onClick={this.sort('name')}>
                           <Translate contentKey="landexpApp.region.name">Name</Translate> <FontAwesomeIcon icon="sort" />
                         </th>
                         <th className="hand" onClick={this.sort('enabled')}>
                           <Translate contentKey="landexpApp.region.enabled">Enabled</Translate> <FontAwesomeIcon icon="sort" />
-                        </th>
-                        <th className="hand" onClick={this.sort('createAt')}>
-                          <Translate contentKey="landexpApp.region.createAt">Create At</Translate> <FontAwesomeIcon icon="sort" />
-                        </th>
-                        <th className="hand" onClick={this.sort('updateAt')}>
-                          <Translate contentKey="landexpApp.region.updateAt">Update At</Translate> <FontAwesomeIcon icon="sort" />
                         </th>
                         <th />
                       </tr>
@@ -104,8 +88,8 @@ export class Region extends React.Component<IRegionProps, IRegionState> {
                             {region.enabled ? (
                               <Icon type="check-square" style={{ color: 'green' }} />
                             ) : (
-                              <Icon type="close-square" style={{ color: 'red' }} />
-                            )}
+                                <Icon type="close-square" style={{ color: 'red' }} />
+                              )}
                           </td>
                           <td className="text-right">
                             <div className="btn-group flex-btn-group-container">
@@ -113,12 +97,6 @@ export class Region extends React.Component<IRegionProps, IRegionState> {
                                 <FontAwesomeIcon icon="pencil-alt" />{' '}
                                 <span className="d-none d-md-inline">
                                   <Translate contentKey="entity.action.edit">Edit</Translate>
-                                </span>
-                              </Button>
-                              <Button tag={Link} to={`${match.url}/${region.id}/delete`} color="danger" size="sm">
-                                <FontAwesomeIcon icon="trash" />{' '}
-                                <span className="d-none d-md-inline">
-                                  <Translate contentKey="entity.action.delete">Delete</Translate>
                                 </span>
                               </Button>
                             </div>

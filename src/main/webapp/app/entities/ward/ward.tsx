@@ -21,7 +21,7 @@ import { ITEMS_PER_PAGE } from 'app/shared/util/pagination.constants';
 
 import SearchPage from 'app/shared/layout/search/search-menu';
 
-export interface IWardProps extends StateProps, DispatchProps, RouteComponentProps<{ url: string }> {}
+export interface IWardProps extends StateProps, DispatchProps, RouteComponentProps<{ url: string }> { }
 
 export type IWardState = IPaginationBaseState;
 
@@ -63,9 +63,7 @@ export class Ward extends React.Component<IWardProps, IWardState> {
         <SearchPage location={this.props.location} history={this.props.history} />
         <Container>
           <Col md="12">
-            {this.props.loading ? (
-              <Loading />
-            ) : (
+            {this.props.loading ? <Loading /> : (
               <>
                 <h2 id="ward-heading">
                   <Translate contentKey="landexpApp.ward.home.title">Wards</Translate>
@@ -95,8 +93,8 @@ export class Ward extends React.Component<IWardProps, IWardState> {
                             {ward.enabled ? (
                               <Icon type="check-square" style={{ color: 'green' }} />
                             ) : (
-                              <Icon type="close-square" style={{ color: 'red' }} />
-                            )}
+                                <Icon type="close-square" style={{ color: 'red' }} />
+                              )}
                           </td>
                           <td className="text-right">
                             <div className="btn-group flex-btn-group-container">
