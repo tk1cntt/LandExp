@@ -1,7 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { Link, RouteComponentProps } from 'react-router-dom';
-import { Button, Col, Row, Container, Table } from 'reactstrap';
+import { Col, Row, Container, Table } from 'reactstrap';
 import { getActionType, getLandType, getCityType, getDirection, getPresent, getSaleType, getStatusType } from 'app/shared/util/utils';
 // tslint:disable-next-line:no-unused-variable
 import {
@@ -16,7 +16,9 @@ import {
   JhiPagination
 } from 'react-jhipster';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { Icon } from 'antd';
+import { Icon, Modal, Button } from 'antd';
+const confirm = Modal.confirm;
+
 import Loading from 'app/shared/layout/loading/loading';
 
 import { IRootState } from 'app/shared/reducers';
@@ -62,6 +64,18 @@ export class House extends React.Component<IHouseProps, IHouseState> {
   getEntities = () => {
     const { activePage, itemsPerPage, sort, order } = this.state;
     this.props.getEntities(activePage - 1, itemsPerPage, `${sort},${order}`);
+  };
+
+  showConfirm = id => {
+    confirm({
+      title: 'Do you want to delete these items?',
+      content: 'When clicked the OK button, this dialog will be closed after 1 second',
+      onOk() {
+        console.log(id);
+        // this.props.deleteEntity(this.props.houseEntity.id);
+      },
+      onCancel() {}
+    });
   };
 
   render() {
@@ -128,25 +142,17 @@ export class House extends React.Component<IHouseProps, IHouseState> {
                           <td>{getSaleType(house.saleType)}</td>
                           <td>{getStatusType(house.statusType)}</td>
                           <td>{house.createByLogin}</td>
-                          <td className="text-right">
-                            <div className="btn-group flex-btn-group-container">
-                              <Button tag={Link} to={`${match.url}/${house.id}/edit`} color="primary" size="sm">
-                                <FontAwesomeIcon icon="pencil-alt" />{' '}
-                                <span className="d-none d-md-inline">
-                                  <Translate contentKey="entity.action.edit">Edit</Translate>
-                                </span>
-                              </Button>
-                              {this.props.isManager ? (
-                                <Button tag={Link} to={`${match.url}/${house.id}/delete`} color="danger" size="sm">
-                                  <FontAwesomeIcon icon="trash" />{' '}
-                                  <span className="d-none d-md-inline">
-                                    <Translate contentKey="entity.action.delete">Delete</Translate>
-                                  </span>
-                                </Button>
-                              ) : (
-                                ''
-                              )}
-                            </div>
+                          <td>
+                            <Link to={`${match.url}/${house.id}/edit`}>
+                              <FontAwesomeIcon icon="pencil-alt" />{' '}
+                            </Link>
+                            {!this.props.isManager ? (
+                              ''
+                            ) : (
+                              <div style={{ float: 'left' }} onClick={this.showConfirm.bind(this, house.id)}>
+                                <FontAwesomeIcon icon="trash" />{' '}
+                              </div>
+                            )}
                           </td>
                         </tr>
                       ))}
