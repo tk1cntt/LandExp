@@ -15,9 +15,9 @@
 
 logging:
     level:
-        ROOT: INFO
-        com.landexp: INFO
-        io.github.jhipster: INFO
+        ROOT: WARN
+        com.landexp: WARN
+        io.github.jhipster: WARN
 
 spring:
     devtools:

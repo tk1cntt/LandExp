@@ -7,6 +7,7 @@ import { connect } from 'react-redux';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { Row, Col, Container, Breadcrumb, BreadcrumbItem } from 'reactstrap';
 // import { Carousel as Album } from 'react-responsive-carousel';
+import { SERVER_API_URL } from 'app/config/constants';
 
 import ImageGallery from 'react-image-gallery';
 
@@ -16,7 +17,7 @@ import { Tabs, Input, Spin } from 'antd';
 const { TextArea } = Input;
 const TabPane = Tabs.TabPane;
 
-import { getLandType, getDirection, getMoney, decodeId } from 'app/shared/util/utils';
+import { getLandType, getDirection, getMoney, encodeId, decodeId } from 'app/shared/util/utils';
 import { getEntity } from 'app/entities/house/house.reducer';
 import { getImageOfHouse } from 'app/entities/house-photo/house-photo.reducer';
 import { APP_LOCAL_DATE_FORMAT } from 'app/config/constants';
@@ -204,7 +205,11 @@ export class Detail extends React.Component<IDetailProp, IDetailState> {
       });
       */
       this.props.housePhotoList.map(file => {
-        images.push({ original: `data:image/jpeg;base64,${file.image}`, thumbnail: `data:image/jpeg;base64,${file.image}` });
+        // images.push({ original: `data:image/jpeg;base64,${file.image}`, thumbnail: `data:image/jpeg;base64,${file.image}` });
+        images.push({
+          original: `${SERVER_API_URL}/api/house-photos/${encodeId(file.id)}/contents/${this.props.houseEntity.link}-${encodeId(file.id)}.jpg`,
+          thumbnail: `${SERVER_API_URL}/api/house-photos/${encodeId(file.id)}/contents/${this.props.houseEntity.link}-${encodeId(file.id)}.jpg`
+        });
       });
     }
     return (

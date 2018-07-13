@@ -111,6 +111,9 @@ export interface IHouse {
   createById?: number;
   updateByLogin?: string;
   updateById?: number;
+  title?: string;
+  fullAddress?: string;
+  link?: string;
 }
 
 export const defaultValue: Readonly<IHouse> = {

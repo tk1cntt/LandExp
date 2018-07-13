@@ -4,6 +4,7 @@ import com.codahale.metrics.annotation.Timed;
 import com.landexp.config.Utils;
 import com.landexp.domain.enumeration.PaymentStatusType;
 import com.landexp.domain.enumeration.StatusType;
+import com.landexp.frontend.responses.MappingUtils;
 import com.landexp.security.AuthoritiesConstants;
 import com.landexp.security.SecurityUtils;
 import com.landexp.service.HouseService;
@@ -231,7 +232,7 @@ public class HouseResource {
         log.debug("REST request to get House : {}", id);
         Optional<HouseDTO> houseDTO = houseService.findOne(id);
         if (ObjectUtils.isEmpty(houseDTO.get())) {
-            throw new BadRequestAlertException("Invalid id", ENTITY_NAME, "idnull");
+            return ResponseUtil.wrapOrNotFound(houseDTO);
         }
         if (SecurityUtils.getCurrentUserLogin().get().equalsIgnoreCase(houseDTO.get().getCreateByLogin())) {
             if (!houseDTO.get().getStatusType().equals(StatusType.OPEN)
@@ -242,7 +243,11 @@ public class HouseResource {
         } else if (!houseDTO.get().getStatusType().equals(StatusType.PAID) && !SecurityUtils.isCurrentUserInRole(AuthoritiesConstants.MANAGER)) {
             throw new ExecuteRuntimeException("No permission");
         }
-        return ResponseUtil.wrapOrNotFound(houseDTO);
+        HouseDTO dto = houseDTO.get();
+        dto.setTitle(MappingUtils.formatTitle(dto));
+        dto.setFullAddress(MappingUtils.formatFullAddress(dto));
+        dto.setLink(MappingUtils.formatLink(dto));
+        return ResponseUtil.wrapOrNotFound(Optional.of(dto));
     }
 
     /**
