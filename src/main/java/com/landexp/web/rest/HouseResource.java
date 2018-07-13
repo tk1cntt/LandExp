@@ -12,6 +12,7 @@ import com.landexp.service.ServiceFeeService;
 import com.landexp.service.dto.PaymentDTO;
 import com.landexp.service.dto.ServiceFeeDTO;
 import com.landexp.web.rest.errors.BadRequestAlertException;
+import com.landexp.web.rest.errors.ExecuteRuntimeException;
 import com.landexp.web.rest.util.HeaderUtil;
 import com.landexp.web.rest.util.PaginationUtil;
 import com.landexp.service.dto.HouseDTO;
@@ -134,12 +135,12 @@ public class HouseResource {
         }
         HouseDTO currentDTO = houseService.findOne(houseDTO.getId()).get();
         if (ObjectUtils.isEmpty(currentDTO)) {
-            throw new BadRequestAlertException("Invalid id", ENTITY_NAME, "idnull");
+            throw new ExecuteRuntimeException("Invalid id");
         }
         String username = SecurityUtils.getCurrentUserLogin().get();
         if (!username.equalsIgnoreCase(currentDTO.getCreateByLogin())
             && !SecurityUtils.isCurrentUserInRole(AuthoritiesConstants.STAFF)) {
-            throw new BadRequestAlertException("Invalid id", ENTITY_NAME, "idnull");
+            throw new ExecuteRuntimeException("No permission");
         }
         if (currentDTO.getStatusType().equals(StatusType.OPEN)) {
             houseDTO.setStatusType(StatusType.PENDING);
@@ -236,10 +237,10 @@ public class HouseResource {
             if (!houseDTO.get().getStatusType().equals(StatusType.OPEN)
                 && !houseDTO.get().getStatusType().equals(StatusType.PENDING)
                 && houseDTO.get().getStatusType().equals(StatusType.PAID)) {
-                throw new BadRequestAlertException("Invalid id", ENTITY_NAME, "idnull");
+                throw new ExecuteRuntimeException("No permission");
             }
         } else if (!houseDTO.get().getStatusType().equals(StatusType.PAID) && !SecurityUtils.isCurrentUserInRole(AuthoritiesConstants.MANAGER)) {
-            throw new BadRequestAlertException("Invalid id", ENTITY_NAME, "idnull");
+            throw new ExecuteRuntimeException("No permission");
         }
         return ResponseUtil.wrapOrNotFound(houseDTO);
     }
@@ -261,7 +262,7 @@ public class HouseResource {
         }
         if (!SecurityUtils.getCurrentUserLogin().get().equalsIgnoreCase(houseDTO.get().getCreateByLogin())
             && !SecurityUtils.isCurrentUserInRole(AuthoritiesConstants.MANAGER)) {
-            throw new BadRequestAlertException("Invalid id", ENTITY_NAME, "idnull");
+            throw new ExecuteRuntimeException("No permission");
         }
         houseService.delete(id);
         return ResponseEntity.ok().headers(HeaderUtil.createEntityDeletionAlert(ENTITY_NAME, id.toString())).build();
