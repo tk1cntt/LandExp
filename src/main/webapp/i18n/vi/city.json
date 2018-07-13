@@ -19,6 +19,7 @@
             },
             "name": "Tỉnh thành",
             "enabled": "Trạng thái",
+            "index": "Thứ tự",
             "createAt": "Ngày tạo",
             "updateAt": "Ngày cập nhật"
         }

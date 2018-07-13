@@ -13,15 +13,14 @@ import {
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { Icon } from 'antd';
 import Loading from 'app/shared/layout/loading/loading';
+import SearchPage from 'app/shared/layout/search/search-menu';
 
 import { IRootState } from 'app/shared/reducers';
 import { getEntities } from './city.reducer';
 // tslint:disable-next-line:no-unused-variable
 import { ITEMS_PER_PAGE } from 'app/shared/util/pagination.constants';
 
-import SearchPage from 'app/shared/layout/search/search-menu';
-
-export interface ICityProps extends StateProps, DispatchProps, RouteComponentProps<{ url: string }> {}
+export interface ICityProps extends StateProps, DispatchProps, RouteComponentProps<{ url: string }> { }
 
 export type ICityState = IPaginationBaseState;
 
@@ -63,9 +62,7 @@ export class City extends React.Component<ICityProps, ICityState> {
         <SearchPage location={this.props.location} history={this.props.history} />
         <Container>
           <Col md="12">
-            {this.props.loading ? (
-              <Loading />
-            ) : (
+            {this.props.loading ? <Loading /> : (
               <>
                 <h2 id="city-heading">
                   <Translate contentKey="landexpApp.city.home.title">Cities</Translate>
@@ -95,8 +92,8 @@ export class City extends React.Component<ICityProps, ICityState> {
                             {city.enabled ? (
                               <Icon type="check-square" style={{ color: 'green' }} />
                             ) : (
-                              <Icon type="close-square" style={{ color: 'red' }} />
-                            )}
+                                <Icon type="close-square" style={{ color: 'red' }} />
+                              )}
                           </td>
                           <td className="text-right">
                             <div className="btn-group flex-btn-group-container">

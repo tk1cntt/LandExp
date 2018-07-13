@@ -19,6 +19,7 @@
             },
             "name": "Name",
             "enabled": "Enabled",
+            "index": "Index",
             "createAt": "Create At",
             "updateAt": "Update At",
             "districts": "Districts"

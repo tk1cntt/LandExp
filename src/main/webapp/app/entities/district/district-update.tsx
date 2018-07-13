@@ -1,19 +1,21 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { Link, RouteComponentProps } from 'react-router-dom';
-import { Button, Row, Col, Label } from 'reactstrap';
+import { Button, Row, Col, Container, Label } from 'reactstrap';
 import { AvForm, AvGroup, AvInput, AvField } from 'availity-reactstrap-validation';
 // tslint:disable-next-line:no-unused-variable
 import { Translate } from 'react-jhipster';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { IRootState } from 'app/shared/reducers';
+import Loading from 'app/shared/layout/loading/loading';
+import SearchPage from 'app/shared/layout/search/search-menu';
 
 import { getEntities as getRegions } from 'app/entities/region/region.reducer';
 import { getEntities as getCities } from 'app/entities/city/city.reducer';
 import { getEntity, updateEntity, createEntity, reset } from './district.reducer';
 // tslint:disable-next-line:no-unused-variable
 
-export interface IDistrictUpdateProps extends StateProps, DispatchProps, RouteComponentProps<{ id: number }> {}
+export interface IDistrictUpdateProps extends StateProps, DispatchProps, RouteComponentProps<{ id: number }> { }
 
 export interface IDistrictUpdateState {
   isNew: boolean;
@@ -103,86 +105,85 @@ export class DistrictUpdate extends React.Component<IDistrictUpdateProps, IDistr
     const { isNew } = this.state;
 
     return (
-      <div>
-        <Row className="justify-content-center">
-          <Col md="8">
-            <h2 id="landexpApp.district.home.createOrEditLabel">
-              <Translate contentKey="landexpApp.district.home.createOrEditLabel">Create or edit a District</Translate>
-            </h2>
-          </Col>
-        </Row>
-        <Row className="justify-content-center">
-          <Col md="8">
-            {loading ? (
-              <p>Loading...</p>
-            ) : (
-              <AvForm model={isNew ? {} : districtEntity} onSubmit={this.saveEntity}>
-                {!isNew ? (
-                  <AvGroup>
-                    <Label for="id">
-                      <Translate contentKey="global.field.id">ID</Translate>
-                    </Label>
-                    <AvInput id="district-id" type="text" className="form-control" name="id" required readOnly />
-                  </AvGroup>
-                ) : null}
-                <AvGroup>
-                  <Label id="nameLabel" for="name">
-                    <Translate contentKey="landexpApp.district.name">Name</Translate>
-                  </Label>
-                  <AvField id="district-name" type="text" name="name" />
-                </AvGroup>
-                <AvGroup>
-                  <Label id="enabledLabel" check>
-                    <AvInput id="district-enabled" type="checkbox" className="form-control" name="enabled" />
-                    <Translate contentKey="landexpApp.district.enabled">Enabled</Translate>
-                  </Label>
-                </AvGroup>
-                <AvGroup>
-                  <Label for="region.id">
-                    <Translate contentKey="landexpApp.district.region">Region</Translate>
-                  </Label>
-                  <AvInput id="district-region" type="select" className="form-control" name="regionId" onChange={this.regionUpdate}>
-                    <option value="" key="0" />
-                    {regions
-                      ? regions.map(otherEntity => (
-                          <option value={otherEntity.id} key={otherEntity.id}>
-                            {otherEntity.name}
-                          </option>
-                        ))
-                      : null}
-                  </AvInput>
-                </AvGroup>
-                <AvGroup>
-                  <Label for="city.id">
-                    <Translate contentKey="landexpApp.district.city">City</Translate>
-                  </Label>
-                  <AvInput id="district-city" type="select" className="form-control" name="cityId" onChange={this.cityUpdate}>
-                    <option value="" key="0" />
-                    {cities
-                      ? cities.map(otherEntity => (
-                          <option value={otherEntity.id} key={otherEntity.id}>
-                            {otherEntity.name}
-                          </option>
-                        ))
-                      : null}
-                  </AvInput>
-                </AvGroup>
-                <Button tag={Link} id="cancel-save" to="/quan-ly/quan-huyen" replace color="info">
-                  <FontAwesomeIcon icon="arrow-left" />&nbsp;
-                  <span className="d-none d-md-inline">
-                    <Translate contentKey="entity.action.back">Back</Translate>
-                  </span>
-                </Button>
-                &nbsp;
-                <Button color="primary" id="save-entity" type="submit" disabled={isInvalid || updating}>
-                  <FontAwesomeIcon icon="save" />&nbsp;
-                  <Translate contentKey="entity.action.save">Save</Translate>
-                </Button>
-              </AvForm>
+      <Row>
+        <SearchPage location={this.props.location} history={this.props.history} />
+        <Container>
+          <Col md="12">
+            {this.props.loading ? <Loading /> : (
+              <>
+                <h2 id="landexpApp.district.home.createOrEditLabel">
+                  <Translate contentKey="landexpApp.district.home.createOrEditLabel">Create or edit a District</Translate>
+                </h2>
+                <Col md="8">
+                  <AvForm model={isNew ? {} : districtEntity} onSubmit={this.saveEntity}>
+                    {!isNew ? (
+                      <AvGroup>
+                        <Label for="id">
+                          <Translate contentKey="global.field.id">ID</Translate>
+                        </Label>
+                        <AvInput id="district-id" type="text" className="form-control" name="id" required readOnly />
+                      </AvGroup>
+                    ) : null}
+                    <AvGroup>
+                      <Label id="nameLabel" for="name">
+                        <Translate contentKey="landexpApp.district.name">Name</Translate>
+                      </Label>
+                      <AvField id="district-name" type="text" name="name" />
+                    </AvGroup>
+                    <AvGroup>
+                      <Label id="enabledLabel" check>
+                        <AvInput id="district-enabled" type="checkbox" className="form-control" name="enabled" />
+                        <Translate contentKey="landexpApp.district.enabled">Enabled</Translate>
+                      </Label>
+                    </AvGroup>
+                    <AvGroup>
+                      <Label for="region.id">
+                        <Translate contentKey="landexpApp.district.region">Region</Translate>
+                      </Label>
+                      <AvInput id="district-region" type="select" className="form-control" name="regionId" onChange={this.regionUpdate}>
+                        <option value="" key="0" />
+                        {regions
+                          ? regions.map(otherEntity => (
+                            <option value={otherEntity.id} key={otherEntity.id}>
+                              {otherEntity.name}
+                            </option>
+                          ))
+                          : null}
+                      </AvInput>
+                    </AvGroup>
+                    <AvGroup>
+                      <Label for="city.id">
+                        <Translate contentKey="landexpApp.district.city">City</Translate>
+                      </Label>
+                      <AvInput id="district-city" type="select" className="form-control" name="cityId" onChange={this.cityUpdate}>
+                        <option value="" key="0" />
+                        {cities
+                          ? cities.map(otherEntity => (
+                            <option value={otherEntity.id} key={otherEntity.id}>
+                              {otherEntity.name}
+                            </option>
+                          ))
+                          : null}
+                      </AvInput>
+                    </AvGroup>
+                    <Button tag={Link} id="cancel-save" to="/quan-ly/quan-huyen" replace color="info">
+                      <FontAwesomeIcon icon="arrow-left" />&nbsp;
+                      <span className="d-none d-md-inline">
+                        <Translate contentKey="entity.action.back">Back</Translate>
+                      </span>
+                    </Button>
+                    &nbsp;
+                    <Button color="primary" id="save-entity" type="submit" disabled={isInvalid || updating}>
+                      <FontAwesomeIcon icon="save" />&nbsp;
+                      <Translate contentKey="entity.action.save">Save</Translate>
+                    </Button>
+                  </AvForm>
+                </Col>
+              </>
             )}
           </Col>
-        </Row>
-      </div>
+        </Container>
+      </Row>
     );
   }
 }
