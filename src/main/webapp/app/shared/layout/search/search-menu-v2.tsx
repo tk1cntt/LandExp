@@ -36,9 +36,11 @@ export class SearchPage extends React.Component<ISearchPageProp> {
     if (this.props.location) {
       const parsed = qs.parse(this.props.location.search);
       if (parsed) {
+        /* tslint:disable-next-line */
+        const city = parsed.cityId ? [parseInt(parsed.cityId), parseInt(parsed.districtId), parseInt(parsed.wardId)] : null;
         this.setState({
           parameters: parsed,
-          city: parsed.cityId ? [parseInt(parsed.cityId), parseInt(parsed.districtId), parseInt(parsed.wardId)] : null
+          city
         });
       }
     }
@@ -219,7 +221,6 @@ export class SearchPage extends React.Component<ISearchPageProp> {
   };
 
   render() {
-    console.log(this.state.parameters);
     return (
       <Col span={24}>
         <div className="nav-search">

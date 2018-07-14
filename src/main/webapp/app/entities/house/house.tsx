@@ -25,7 +25,6 @@ import { hasAnyAuthority } from 'app/shared/auth/private-route';
 import { AUTHORITIES } from 'app/config/constants';
 import { ITEMS_PER_PAGE } from 'app/shared/util/pagination.constants';
 
-
 export interface IHouseProps extends StateProps, DispatchProps, RouteComponentProps<{ url: string }> {}
 
 export type IHouseState = IPaginationBaseState;

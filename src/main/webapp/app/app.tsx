@@ -19,7 +19,7 @@ import AppRoutes from 'app/routes';
 
 import './style.css';
 /* tslint:disable-next-line */
-import 'antd/dist/antd.css';
+// import 'antd/dist/antd.css';
 /* tslint:disable-next-line */
 // import 'react-responsive-carousel/lib/styles/carousel.min.css';
 /* tslint:disable-next-line */
