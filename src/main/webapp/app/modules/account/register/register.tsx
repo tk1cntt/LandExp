@@ -11,7 +11,7 @@ import { handleRegister, reset } from './register.reducer';
 
 import SearchPage from 'app/shared/layout/search/search-menu';
 
-export interface IRegisterProps extends StateProps, DispatchProps, RouteComponentProps<{ url: string }> { }
+export interface IRegisterProps extends StateProps, DispatchProps, RouteComponentProps<{ url: string }> {}
 
 export interface IRegisterState {
   password: string;
@@ -100,9 +100,7 @@ export class RegisterPage extends React.Component<IRegisterProps, IRegisterState
             </AvForm>
             <p>&nbsp;</p>
             <div>
-              <span>
-                Đã có tài khoản? Hãy {' '}
-              </span>
+              <span>Đã có tài khoản? Hãy </span>
               <a className="alert-link">
                 <Translate contentKey="global.messages.info.authenticated.link"> sign in</Translate>
               </a>

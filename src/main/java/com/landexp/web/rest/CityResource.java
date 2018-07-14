@@ -1,6 +1,7 @@
 package com.landexp.web.rest;
 
 import com.codahale.metrics.annotation.Timed;
+import com.landexp.security.AuthoritiesConstants;
 import com.landexp.service.CityService;
 import com.landexp.web.rest.errors.BadRequestAlertException;
 import com.landexp.web.rest.util.HeaderUtil;
@@ -16,6 +17,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.annotation.Secured;
 import org.springframework.web.bind.annotation.*;
 
 import java.net.URI;
@@ -53,6 +55,7 @@ public class CityResource {
      */
     @PostMapping("/cities")
     @Timed
+    @Secured(AuthoritiesConstants.MANAGER)
     public ResponseEntity<CityDTO> createCity(@RequestBody CityDTO cityDTO) throws URISyntaxException {
         log.debug("REST request to save City : {}", cityDTO);
         if (cityDTO.getId() != null) {
@@ -75,6 +78,7 @@ public class CityResource {
      */
     @PutMapping("/cities")
     @Timed
+    @Secured(AuthoritiesConstants.MANAGER)
     public ResponseEntity<CityDTO> updateCity(@RequestBody CityDTO cityDTO) throws URISyntaxException {
         log.debug("REST request to update City : {}", cityDTO);
         if (cityDTO.getId() == null) {
@@ -103,6 +107,18 @@ public class CityResource {
     }
 
     /**
+     * GET  /cities : get all the cities.
+     *
+     * @return the ResponseEntity with status 200 (OK) and the list of cities in body
+     */
+    @GetMapping("/cities/all")
+    @Timed
+    public List<CityDTO> getAllCities() {
+        log.debug("REST request to get all Cities");
+        return cityService.findAll();
+    }
+
+    /**
      * GET  /cities/:id : get the "id" city.
      *
      * @param id the id of the cityDTO to retrieve
@@ -124,6 +140,7 @@ public class CityResource {
      */
     @DeleteMapping("/cities/{id}")
     @Timed
+    @Secured(AuthoritiesConstants.MANAGER)
     public ResponseEntity<Void> deleteCity(@PathVariable Long id) {
         log.debug("REST request to delete City : {}", id);
         cityService.delete(id);

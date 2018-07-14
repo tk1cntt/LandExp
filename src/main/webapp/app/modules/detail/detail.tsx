@@ -207,8 +207,12 @@ export class Detail extends React.Component<IDetailProp, IDetailState> {
       this.props.housePhotoList.map(file => {
         // images.push({ original: `data:image/jpeg;base64,${file.image}`, thumbnail: `data:image/jpeg;base64,${file.image}` });
         images.push({
-          original: `${SERVER_API_URL}/api/house-photos/${encodeId(file.id)}/contents/${this.props.houseEntity.link}-${encodeId(file.id)}.jpg`,
-          thumbnail: `${SERVER_API_URL}/api/house-photos/${encodeId(file.id)}/contents/${this.props.houseEntity.link}-${encodeId(file.id)}.jpg`
+          original: `${SERVER_API_URL}/api/house-photos/${encodeId(file.id)}/contents/${this.props.houseEntity.link}-${encodeId(
+            file.id
+          )}.jpg`,
+          thumbnail: `${SERVER_API_URL}/api/house-photos/${encodeId(file.id)}/contents/${this.props.houseEntity.link}-${encodeId(
+            file.id
+          )}.jpg`
         });
       });
     }

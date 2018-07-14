@@ -13,7 +13,11 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 
+import java.util.LinkedList;
+import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
+
 /**
  * Service Implementation for managing City.
  */
@@ -58,6 +62,18 @@ public class CityService {
             .map(cityMapper::toDto);
     }
 
+    /**
+     * Get all the cities.
+     *
+     * @return the list of entities
+     */
+    @Transactional(readOnly = true)
+    public List<CityDTO> findAll() {
+        log.debug("Request to get all Cities");
+        return cityRepository.findAll().stream()
+            .map(cityMapper::toDto)
+            .collect(Collectors.toCollection(LinkedList::new));
+    }
 
     /**
      * Get one city by id.

@@ -29,7 +29,9 @@ class LoginModal extends React.Component<ILoginModalProps> {
       <Row>
         <SearchPage location={this.props.location} history={this.props.history} />
         <Container>
-          <Col md="12"><Translate contentKey="login.title">Sign in</Translate></Col>
+          <Col md="12">
+            <Translate contentKey="login.title">Sign in</Translate>
+          </Col>
           <Col md="12">
             <AvForm onSubmit={this.handleSubmit}>
               <Row>
@@ -38,7 +40,7 @@ class LoginModal extends React.Component<ILoginModalProps> {
                     <Alert color="danger">
                       <Translate contentKey="login.messages.error.authentication">
                         <strong>Failed to sign in!</strong> Please check your credentials and try again.
-                        </Translate>
+                      </Translate>
                     </Alert>
                   ) : null}
                 </Col>

@@ -56,7 +56,7 @@ export class PostPage extends React.Component<IPostProp, IPostState> {
     this.props.clearHouse();
     this.props.getHouse('init');
     this.props.getSession();
-    this.props.getCities();
+    // this.props.getCities();
     this.props.getServiceFees();
   }
 
