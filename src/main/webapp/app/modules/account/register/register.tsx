@@ -1,7 +1,7 @@
 import React from 'react';
 import { Translate, translate } from 'react-jhipster';
 import { connect } from 'react-redux';
-import { RouteComponentProps } from 'react-router-dom';
+import { Link, RouteComponentProps } from 'react-router-dom';
 import { AvForm, AvField } from 'availity-reactstrap-validation';
 import { Row, Col, Container, Alert, Button } from 'reactstrap';
 
@@ -101,9 +101,9 @@ export class RegisterPage extends React.Component<IRegisterProps, IRegisterState
             <p>&nbsp;</p>
             <div>
               <span>Đã có tài khoản? Hãy </span>
-              <a className="alert-link">
+              <Link className="alert-link" to={'/dang-nhap'}>
                 <Translate contentKey="global.messages.info.authenticated.link"> sign in</Translate>
-              </a>
+              </Link>
             </div>
           </Col>
         </Container>

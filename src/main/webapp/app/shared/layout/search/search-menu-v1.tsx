@@ -323,7 +323,7 @@ export class SearchPage extends React.Component<ISearchPageProp, ISearchPageStat
       parameters: nextParameter
     });
     console.log(this.state.parameters);
-  }
+  };
 
   menuSpareForm() {
     const items = [];

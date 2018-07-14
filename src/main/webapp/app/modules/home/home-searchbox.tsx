@@ -163,7 +163,7 @@ export class HomeSearchBox extends React.Component<IHomeSearchBoxProp, IHomeSear
           placeholder="Chọn thành phố"
         />
       </div>
-    )
+    );
   }
 
   searchClick = () => {
@@ -184,7 +184,7 @@ export class HomeSearchBox extends React.Component<IHomeSearchBoxProp, IHomeSear
         <div className="dropdown">
           <span id="category" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
             Loại bất động sản
-            </span>
+          </span>
           <input type="hidden" id="slCategory" name="slCategory" />
           <ul className="dropdown-menu js-category" aria-labelledby="category" onClick={this.menuLandTypeClick}>
             <li className="options" data-value="APARTMENT">
@@ -256,12 +256,20 @@ export class HomeSearchBox extends React.Component<IHomeSearchBoxProp, IHomeSear
       <div className="select">
         <label>Khoảng giá</label>
         <div className="dropdown">
-          {this.state.parameters && this.state.parameters.money ?
-            <span id="price" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"
+          {this.state.parameters && this.state.parameters.money ? (
+            <span
+              id="price"
+              data-toggle="dropdown"
+              role="button"
+              aria-haspopup="true"
+              aria-expanded="false"
               dangerouslySetInnerHTML={{ __html: getPriceByNumber(this.state.parameters.acreage) }}
-            /> :
-            (<span id="price" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Khoảng giá</span>)
-          }
+            />
+          ) : (
+            <span id="price" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
+              Khoảng giá
+            </span>
+          )}
           <input type="hidden" id="slPrice" name="slPrice" />
           <ul className="dropdown-menu js-price" aria-labelledby="price" onClick={this.menuPriceClick}>
             {items}
@@ -277,7 +285,7 @@ export class HomeSearchBox extends React.Component<IHomeSearchBoxProp, IHomeSear
     this.setState({
       parameters: nextParameter
     });
-  }
+  };
 
   menuSpareForm() {
     const items = [];
@@ -295,12 +303,20 @@ export class HomeSearchBox extends React.Component<IHomeSearchBoxProp, IHomeSear
       <div className="select">
         <label>Diện tích</label>
         <div className="dropdown">
-          {this.state.parameters && this.state.parameters.acreage ?
-            <span id="square" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"
+          {this.state.parameters && this.state.parameters.acreage ? (
+            <span
+              id="square"
+              data-toggle="dropdown"
+              role="button"
+              aria-haspopup="true"
+              aria-expanded="false"
               dangerouslySetInnerHTML={{ __html: getAcreageByNumber(this.state.parameters.acreage) }}
-            /> :
-            (<span id="square" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Diện tích</span>)
-          }
+            />
+          ) : (
+            <span id="square" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
+              Diện tích
+            </span>
+          )}
           <input type="hidden" id="slSqrare" name="slSqrare" />
           <ul className="dropdown-menu js-square" aria-labelledby="square" onClick={this.menuSpareClick}>
             {items}
@@ -316,7 +332,7 @@ export class HomeSearchBox extends React.Component<IHomeSearchBoxProp, IHomeSear
     this.setState({
       parameters: nextParameter
     });
-  }
+  };
 
   menuBathRoomForm() {
     return (
@@ -325,27 +341,27 @@ export class HomeSearchBox extends React.Component<IHomeSearchBoxProp, IHomeSear
         <div className="dropdown">
           <span id="bathroom" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
             Bất kỳ
-            </span>
+          </span>
           <input type="hidden" id="slBathroom" name="slBathroom" />
           <ul className="dropdown-menu js-bathroom" aria-labelledby="bathroom" onClick={this.menuBathRoomClick}>
             <li className="options" data-value={0}>
               Bất kỳ
-              </li>
+            </li>
             <li className="options" data-value={1}>
               +1
-              </li>
+            </li>
             <li className="options" data-value={2}>
               +2
-              </li>
+            </li>
             <li className="options" data-value={3}>
               +3
-              </li>
+            </li>
             <li className="options" data-value={4}>
               +4
-              </li>
+            </li>
             <li className="options" data-value={5}>
               +5
-              </li>
+            </li>
           </ul>
         </div>
       </div>
@@ -358,7 +374,7 @@ export class HomeSearchBox extends React.Component<IHomeSearchBoxProp, IHomeSear
     this.setState({
       parameters: nextParameter
     });
-  }
+  };
 
   menuBedRoomForm() {
     return (
@@ -367,24 +383,24 @@ export class HomeSearchBox extends React.Component<IHomeSearchBoxProp, IHomeSear
         <div className="dropdown">
           <span id="bedroom" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
             Bất kỳ
-            </span>
+          </span>
           <input type="hidden" id="slBedroom" name="slBedroom" />
           <ul className="dropdown-menu js-bedroom" aria-labelledby="bedroom" onClick={this.menuBedRoomClick}>
             <li className="options" data-value={0}>
               Bất kỳ
-              </li>
+            </li>
             <li className="options" data-value={1}>
               1
-              </li>
+            </li>
             <li className="options" data-value={2}>
               2
-              </li>
+            </li>
             <li className="options" data-value={3}>
               3
-              </li>
+            </li>
             <li className="options" data-value={4}>
               4
-              </li>
+            </li>
           </ul>
         </div>
       </div>
@@ -397,7 +413,7 @@ export class HomeSearchBox extends React.Component<IHomeSearchBoxProp, IHomeSear
     this.setState({
       parameters: nextParameter
     });
-  }
+  };
 
   actionTypeForm() {
     if (!this.state.parameters.actionType) {
@@ -414,7 +430,7 @@ export class HomeSearchBox extends React.Component<IHomeSearchBoxProp, IHomeSear
           <Radio value="FOR_RENT">Thuê</Radio>
         </RadioGroup>
       </div>
-    )
+    );
   }
 
   render() {
@@ -435,7 +451,9 @@ export class HomeSearchBox extends React.Component<IHomeSearchBoxProp, IHomeSear
             {this.menuBathRoomForm()}
             <div className="clearfix" />
           </div>
-          <button type="submit" onClick={this.searchClick}>TÌM KIẾM</button>
+          <button type="submit" onClick={this.searchClick}>
+            TÌM KIẾM
+          </button>
         </div>
         <div className="download">
           <p>Tải ứng dụng trên Store</p>

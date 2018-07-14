@@ -18,7 +18,7 @@ import HomeList from './home-list';
 import HomeSearchBox from './home-searchbox';
 import HomeNewsBox from './home-newsbox';
 
-export interface IHomeProp extends StateProps, DispatchProps, RouteComponentProps<{}> { }
+export interface IHomeProp extends StateProps, DispatchProps, RouteComponentProps<{}> {}
 
 export interface IHomeState extends IPaginationBaseState {
   search: string;
@@ -43,13 +43,15 @@ export class Home extends React.Component<IHomeProp, IHomeState> {
         <HomeSearchBox location={this.props.location} history={this.props.history} />
         <div className="container">
           <HomeNewsBox />
-          {this.props.loading ? <Loading /> : (
+          {this.props.loading ? (
+            <Loading />
+          ) : (
             <>
               <div className="row lastest-posts">
                 <h2>
                   Tin mới đăng<span>
-                    Hiển thị 1 - {this.props.totalItems < 20 ? this.props.totalItems : 20 } trong {this.props.totalItems} Bất động sản
-                </span>
+                    Hiển thị 1 - {this.props.totalItems < 20 ? this.props.totalItems : 20} trong {this.props.totalItems} Bất động sản
+                  </span>
                   <div className="toolbox">
                     <label htmlFor="sortby">Sắp xếp: </label>
                     <select name="sortby" id="sortby">

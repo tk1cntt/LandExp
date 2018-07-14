@@ -51,7 +51,6 @@ class LoginModal extends React.Component<ILoginModalProps> {
                     placeholder={translate('global.form.username.placeholder')}
                     required
                     errorMessage="Username cannot be empty!"
-                    autoFocus
                   />
                   <AvField
                     name="password"
@@ -66,21 +65,24 @@ class LoginModal extends React.Component<ILoginModalProps> {
                   </Button>
                 </Col>
               </Row>
-              <div className="mt-1">&nbsp;</div>
-              <div>
-                <Link to="/reset/request">
-                  <Translate contentKey="login.password.forgot">Did you forget your password?</Translate>
-                </Link>
-              </div>
-              <div>
-                <span>
-                  <Translate contentKey="global.messages.info.register.noaccount">You don't have an account yet?</Translate>
-                </span>{' '}
-                <Link to="/dang-ky">
-                  <Translate contentKey="global.messages.info.register.link">Register a new account</Translate>
-                </Link>
-              </div>
             </AvForm>
+            <div className="mt-1">&nbsp;</div>
+            <div>
+              {/*}
+              <Link to="/reset/request">
+                <Translate contentKey="login.password.forgot">Did you forget your password?</Translate>
+              </Link>
+              {*/}
+              Bạn quên mật khẩu? Hãy liên hệ với chăm sóc khách hàng
+            </div>
+            <div>
+              <span>
+                <Translate contentKey="global.messages.info.register.noaccount">You don't have an account yet?</Translate>
+              </span>{' '}
+              <Link to="/dang-ky">
+                <Translate contentKey="global.messages.info.register.link">Register a new account</Translate>
+              </Link>
+            </div>
           </Col>
         </Container>
       </Row>
