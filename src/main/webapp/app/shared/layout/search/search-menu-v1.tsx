@@ -309,27 +309,6 @@ export class SearchPage extends React.Component<ISearchPageProp, ISearchPageStat
           </span>
           <input type="hidden" id="slPrice" name="slPrice" />
           <ul className="dropdown-menu js-price" aria-labelledby="price" onClick={this.menuPriceClick}>
-            {/*}
-            <div className="header-box">
-              <table className="header-options options">
-                <tbody>
-                  <tr className="advance-options">
-                    <td className="advance-options">
-                      <input type="text" id="txtPriceMinValue" name="pricemin" placeholder="Từ" className="min-value options" />
-                      <div id="lblPriceMin" />
-                    </td>
-                    <td className="advance-options">
-                      <span className="advance-options" />
-                    </td>
-                    <td className="advance-options">
-                      <input type="text" id="txtPriceMaxValue" name="pricemax" placeholder="Đến" className="max-value options" />
-                      <div id="lblPriceMax" />
-                    </td>
-                  </tr>
-                </tbody>
-              </table>
-            </div>
-            {*/}
             {items}
           </ul>
         </div>
@@ -337,7 +316,7 @@ export class SearchPage extends React.Component<ISearchPageProp, ISearchPageStat
     );
   }
 
-  menuSpareClick(e) {
+  menuSpareClick = e => {
     const parameters = { acreage: e.target.dataset.value };
     const nextParameter = { ...this.state.parameters, ...parameters };
     this.setState({
@@ -366,27 +345,6 @@ export class SearchPage extends React.Component<ISearchPageProp, ISearchPageStat
           </span>
           <input type="hidden" id="slSqrare" name="slSqrare" />
           <ul className="dropdown-menu js-square" aria-labelledby="square" onClick={this.menuSpareClick}>
-            {/*}
-            <div className="header-box">
-              <table className="header-options options">
-                <tbody>
-                  <tr className="advance-options">
-                    <td className="advance-options">
-                      <input type="text" id="txtSquareMinValue" name="pricemin" placeholder="Từ" className="min-value options" />
-                      <div id="lblSquareMin" />
-                    </td>
-                    <td className="advance-options">
-                      <span className="advance-options" />
-                    </td>
-                    <td className="advance-options">
-                      <input type="text" id="txtSquareMaxValue" name="pricemax" placeholder="Đến" className="max-value options" />
-                      <div id="lblSquareMax" />
-                    </td>
-                  </tr>
-                </tbody>
-              </table>
-            </div>
-            {*/}
             {items}
           </ul>
         </div>
