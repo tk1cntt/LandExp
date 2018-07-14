@@ -25,7 +25,7 @@ export interface IHomeSearchBoxState {
 export class HomeSearchBox extends React.Component<IHomeSearchBoxProp, IHomeSearchBoxState> {
   state: IHomeSearchBoxState = {
     city: null,
-    parameters: {},
+    parameters: { actionType: 'FOR_SELL' },
     locations: []
   };
 
@@ -400,9 +400,16 @@ export class HomeSearchBox extends React.Component<IHomeSearchBoxProp, IHomeSear
   }
 
   actionTypeForm() {
+    if (!this.state.parameters.actionType) {
+      const parameters = { actionType: 'FOR_SELL' };
+      const nextParameter = { ...this.state.parameters, ...parameters };
+      this.setState({
+        parameters: nextParameter
+      });
+    }
     return (
       <div className="select-box">
-        <RadioGroup size="large" onChange={this.handlActionTypeChange} defaultValue={this.state.parameters.actionType || 'FOR_SELL'}>
+        <RadioGroup size="large" onChange={this.handlActionTypeChange} defaultValue={this.state.parameters.actionType}>
           <Radio value="FOR_SELL">Mua</Radio>
           <Radio value="FOR_RENT">Thuê</Radio>
         </RadioGroup>
