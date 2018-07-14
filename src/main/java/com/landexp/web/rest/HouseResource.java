@@ -35,6 +35,7 @@ import java.net.URI;
 import java.net.URISyntaxException;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -174,6 +175,12 @@ public class HouseResource {
     @Timed
     public ResponseEntity<List<HouseDTO>> getAllHouses(HouseCriteria criteria, Pageable pageable) {
         log.debug("REST request to get Houses by criteria: {}", criteria);
+        HouseCriteria.StatusTypeFilter filter = new HouseCriteria.StatusTypeFilter();
+        List<StatusType> statusTypes = new ArrayList<>();
+        statusTypes.add(StatusType.PENDING);
+        statusTypes.add(StatusType.PAID);
+        filter.setIn(statusTypes);
+        criteria.setStatusType(filter);
         Page<HouseDTO> page = houseQueryService.findByCriteria(criteria, pageable);
         HttpHeaders headers = PaginationUtil.generatePaginationHttpHeaders(page, "/api/houses");
         return new ResponseEntity<>(page.getContent(), headers, HttpStatus.OK);
