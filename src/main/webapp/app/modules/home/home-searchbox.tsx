@@ -3,18 +3,46 @@ import './home.css';
 
 import React from 'react';
 import * as $ from 'jquery';
-import { Link } from 'react-router-dom';
-import { Translate } from 'react-jhipster';
 import { connect } from 'react-redux';
-import { Row, Col, Alert } from 'reactstrap';
-import { getSession } from 'app/shared/reducers/authentication';
+import qs from 'query-string';
+import { Cascader } from 'antd';
 
-import SearchPage from 'app/shared/layout/search/search-menu';
+import { getAllEntities as getCities } from 'app/entities/city/city.reducer';
+import { getLandType, queryString } from 'app/shared/util/utils';
 
-export interface IHomeProp extends StateProps, DispatchProps {}
+export interface IHomeSearchBoxProp extends StateProps, DispatchProps {
+  location: any;
+  history: any;
+}
 
-export class HomeSearchBox extends React.Component<IHomeProp> {
+export interface IHomeSearchBoxState {
+  city: any;
+  parameters: any;
+  locations: any;
+}
+
+export class HomeSearchBox extends React.Component<IHomeSearchBoxProp, IHomeSearchBoxState> {
+  state: IHomeSearchBoxState = {
+    city: null,
+    parameters: {},
+    locations: []
+  };
+
   componentDidMount() {
+    if (this.props.cities.length === 0) {
+      this.props.getCities();
+    } else {
+      this.mappingCity();
+    }
+    if (this.props.location) {
+      const parsed = qs.parse(this.props.location.search);
+      if (parsed) {
+        this.setState({
+          parameters: parsed,
+          city: parsed.cityId ? [parseInt(parsed.cityId), parseInt(parsed.districtId), parseInt(parsed.wardId)] : null
+        });
+      }
+    }
     $('.select li').click(function() {
       $(this)
         .siblings()
@@ -73,8 +101,57 @@ export class HomeSearchBox extends React.Component<IHomeProp> {
     });
   }
 
+  componentDidUpdate(prevProps) {
+    // Typical usage (don't forget to compare props):
+    if (this.props.cities !== prevProps.cities) {
+      this.mappingCity();
+    }
+  }
+
+  mappingCity() {
+    const locations = this.state.locations;
+    this.props.cities.map(city => {
+      const cityData = {
+        value: city.id,
+        label: city.name,
+        children: []
+      };
+      city.districts.map(data => {
+        const districtData = {
+          value: data.id,
+          label: data.name,
+          children: []
+        };
+        data.wards.map(ward => {
+          const wardData = {
+            value: ward.id,
+            label: ward.name
+          };
+          districtData.children.push(wardData);
+        });
+        cityData.children.push(districtData);
+      });
+      locations.push(cityData);
+    });
+    this.setState({
+      locations
+    });
+  }
+
+  onChangeCascader = value => {
+    const parameters = {
+      cityId: value[0],
+      districtId: value[1],
+      wardId: value[2]
+    };
+    const nextParameter = { ...this.state.parameters, ...parameters };
+    this.setState({
+      parameters: nextParameter,
+      city: value
+    });
+  };
+
   render() {
-    const { account } = this.props;
     return (
       <div className="search">
         <form action="./search-guest.html">
@@ -134,7 +211,13 @@ export class HomeSearchBox extends React.Component<IHomeProp> {
                 </div>
               </div>
               <div className="keyword">
-                <input type="text" placeholder="Nhập địa điểm, thành phố hoặc dự án" />
+                <Cascader
+                  style={{ width: 530, marginLeft: 48 }}
+                  value={this.state.city}
+                  options={this.state.locations}
+                  onChange={this.onChangeCascader}
+                  placeholder="Chọn thành phố"
+                />
               </div>
               <div className="clearfix" />
             </div>
@@ -322,11 +405,10 @@ export class HomeSearchBox extends React.Component<IHomeProp> {
 }
 
 const mapStateToProps = storeState => ({
-  account: storeState.authentication.account,
-  isAuthenticated: storeState.authentication.isAuthenticated
+  cities: storeState.city.entities
 });
 
-const mapDispatchToProps = { getSession };
+const mapDispatchToProps = { getCities };
 
 type StateProps = ReturnType<typeof mapStateToProps>;
 type DispatchProps = typeof mapDispatchToProps;
