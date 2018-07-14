@@ -1,20 +1,13 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
-import { Translate } from 'react-jhipster';
 import { connect } from 'react-redux';
-import { Row, Col, Alert } from 'reactstrap';
-import { Form, Input, Cascader, Button } from 'antd';
+import { Row, Col } from 'reactstrap';
+import { Form, Input, Cascader } from 'antd';
 const FormItem = Form.Item;
 
-import { IRootState } from 'app/shared/reducers';
 import { getSession } from 'app/shared/reducers/authentication';
 
 import { getPaymentOfHouse } from 'app/entities/payment/payment.reducer';
 import { getImageOfHouse } from 'app/entities/house-photo/house-photo.reducer';
-
-import GoogleMaps from 'app/shared/util/google-maps';
-
-import district from 'app/entities/district/district';
 
 export interface IStepTwoProp extends StateProps, DispatchProps {
   updateHouse: Function;
@@ -88,7 +81,6 @@ export class StepTwo extends React.Component<IStepTwoProp, IStepOneState> {
   };
 
   render() {
-    const { account } = this.props;
     const formItemLayout = {
       labelCol: {
         span: 4
@@ -130,8 +122,6 @@ export class StepTwo extends React.Component<IStepTwoProp, IStepOneState> {
 }
 
 const mapStateToProps = storeState => ({
-  account: storeState.authentication.account,
-  isAuthenticated: storeState.authentication.isAuthenticated,
   cities: storeState.city.entities
 });
 

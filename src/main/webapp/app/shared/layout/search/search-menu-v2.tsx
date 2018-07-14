@@ -2,6 +2,7 @@ import './search-menu-v2.css';
 
 import React from 'react';
 import { connect } from 'react-redux';
+import qs from 'query-string';
 import { Col, Select, Button, Cascader } from 'antd';
 const Option = Select.Option;
 
@@ -14,12 +15,14 @@ export interface ISearchPageProp extends StateProps, DispatchProps {
 }
 
 export interface ISearchPageState {
+  city: any;
   parameters: any;
   locations: any;
 }
 
 export class SearchPage extends React.Component<ISearchPageProp> {
   state: ISearchPageState = {
+    city: null,
     parameters: {},
     locations: []
   };
@@ -29,6 +32,15 @@ export class SearchPage extends React.Component<ISearchPageProp> {
       this.props.getCities();
     } else {
       this.mappingCity();
+    }
+    if (this.props.location) {
+      const parsed = qs.parse(this.props.location.search);
+      if (parsed) {
+        this.setState({
+          parameters: parsed,
+          city: parsed.cityId ? [parseInt(parsed.cityId), parseInt(parsed.districtId), parseInt(parsed.wardId)] : null
+        });
+      }
     }
   }
 
@@ -81,7 +93,11 @@ export class SearchPage extends React.Component<ISearchPageProp> {
 
   actionTypeForm() {
     return (
-      <Select style={{ width: 140, marginRight: -2 }} placeholder="Hình thức" onChange={this.menuTypeClick}>
+      <Select
+        style={{ width: 140, marginRight: -2 }}
+        value={this.state.parameters.actionType}
+        placeholder="Hình thức"
+        onChange={this.menuTypeClick}>
         <Option value="FOR_SELL">Bán</Option>
         <Option value="FOR_RENT">Cho thuê</Option>
       </Select>
@@ -98,7 +114,11 @@ export class SearchPage extends React.Component<ISearchPageProp> {
 
   landTypeForm() {
     return (
-      <Select style={{ width: 180, marginRight: -2 }} placeholder="Loại bất động sản" onChange={this.menuLandTypeClick}>
+      <Select
+        style={{ width: 180, marginRight: -2 }}
+        value={this.state.parameters.landType}
+        placeholder="Loại bất động sản"
+        onChange={this.menuLandTypeClick}>
         <Option value="APARTMENT">{getLandType('APARTMENT')}</Option>
         <Option value="HOME">{getLandType('HOME')}</Option>
         <Option value="HOME_VILLA">{getLandType('HOME_VILLA')}</Option>
@@ -123,7 +143,8 @@ export class SearchPage extends React.Component<ISearchPageProp> {
     };
     const nextParameter = { ...this.state.parameters, ...parameters };
     this.setState({
-      parameters: nextParameter
+      parameters: nextParameter,
+      city: value
     });
   };
 
@@ -131,6 +152,7 @@ export class SearchPage extends React.Component<ISearchPageProp> {
     return (
       <Cascader
         style={{ width: 380, marginRight: -2 }}
+        value={this.state.city}
         options={this.state.locations}
         onChange={this.onChangeCascader}
         placeholder="Chọn thành phố"
@@ -148,7 +170,11 @@ export class SearchPage extends React.Component<ISearchPageProp> {
 
   priceForm() {
     return (
-      <Select style={{ width: 150, marginRight: -2 }} placeholder="Khoảng giá" onChange={this.menuPriceClick}>
+      <Select
+        style={{ width: 150, marginRight: -2 }}
+        value={this.state.parameters.money}
+        placeholder="Khoảng giá"
+        onChange={this.menuPriceClick}>
         <Option value="0">Bất kỳ</Option>
         <Option value="1">&lt; 500 triệu</Option>
         <Option value="2">500 triệu - 1 tỷ</Option>
@@ -169,7 +195,11 @@ export class SearchPage extends React.Component<ISearchPageProp> {
 
   acreageForm() {
     return (
-      <Select style={{ width: 150, marginRight: -2 }} placeholder="Diện tích" onChange={this.menuAcreageClick}>
+      <Select
+        style={{ width: 150, marginRight: -2 }}
+        value={this.state.parameters.acreage}
+        placeholder="Diện tích"
+        onChange={this.menuAcreageClick}>
         <Option value="0">Bất kỳ</Option>
         <Option value="1">&lt; 50 m2</Option>
         <Option value="2">50 - 80 m2</Option>
@@ -185,6 +215,7 @@ export class SearchPage extends React.Component<ISearchPageProp> {
   };
 
   render() {
+    console.log(this.state.parameters);
     return (
       <Col span={24}>
         <div className="nav-search">

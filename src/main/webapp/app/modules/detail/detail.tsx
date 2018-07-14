@@ -7,10 +7,7 @@ import { connect } from 'react-redux';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { Row, Col, Container, Breadcrumb, BreadcrumbItem } from 'reactstrap';
 // import { Carousel as Album } from 'react-responsive-carousel';
-import { SERVER_API_URL } from 'app/config/constants';
-
 import ImageGallery from 'react-image-gallery';
-
 // import Lightbox from 'lightbox-react';
 
 import { Tabs, Input, Spin } from 'antd';
@@ -20,7 +17,7 @@ const TabPane = Tabs.TabPane;
 import { getLandType, getDirection, getMoney, encodeId, decodeId } from 'app/shared/util/utils';
 import { getEntity } from 'app/entities/house/house.reducer';
 import { getImageOfHouse } from 'app/entities/house-photo/house-photo.reducer';
-import { APP_LOCAL_DATE_FORMAT } from 'app/config/constants';
+import { SERVER_API_URL, APP_LOCAL_DATE_FORMAT } from 'app/config/constants';
 
 import SearchPage from 'app/shared/layout/search/search-menu';
 import GoogleMaps from 'app/shared/util/google-maps';
