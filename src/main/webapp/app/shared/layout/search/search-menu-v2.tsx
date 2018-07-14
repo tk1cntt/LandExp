@@ -1,14 +1,12 @@
 import './search-menu-v2.css';
 
 import React from 'react';
-import { Link } from 'react-router-dom';
-import { Translate } from 'react-jhipster';
 import { connect } from 'react-redux';
 import { Col, Select, Button, Cascader } from 'antd';
 const Option = Select.Option;
 
 import { getAllEntities as getCities } from 'app/entities/city/city.reducer';
-import { getLandType } from 'app/shared/util/utils';
+import { getLandType, queryString } from 'app/shared/util/utils';
 
 export interface ISearchPageProp extends StateProps, DispatchProps {
   location: any;
@@ -73,18 +71,34 @@ export class SearchPage extends React.Component<ISearchPageProp> {
 
   handleChangeActionType = () => {};
 
+  menuTypeClick = value => {
+    const parameters = { actionType: value };
+    const nextParameter = { ...this.state.parameters, ...parameters };
+    this.setState({
+      parameters: nextParameter
+    });
+  };
+
   actionTypeForm() {
     return (
-      <Select style={{ width: 140, marginRight: -2 }} placeholder="Hình thức" onChange={this.handleChangeActionType}>
+      <Select style={{ width: 140, marginRight: -2 }} placeholder="Hình thức" onChange={this.menuTypeClick}>
         <Option value="FOR_SELL">Bán</Option>
         <Option value="FOR_RENT">Cho thuê</Option>
       </Select>
     );
   }
 
+  menuLandTypeClick = value => {
+    const parameters = { landType: value };
+    const nextParameter = { ...this.state.parameters, ...parameters };
+    this.setState({
+      parameters: nextParameter
+    });
+  };
+
   landTypeForm() {
     return (
-      <Select style={{ width: 180, marginRight: -2 }} placeholder="Loại bất động sản" onChange={this.handleChangeActionType}>
+      <Select style={{ width: 180, marginRight: -2 }} placeholder="Loại bất động sản" onChange={this.menuLandTypeClick}>
         <Option value="APARTMENT">{getLandType('APARTMENT')}</Option>
         <Option value="HOME">{getLandType('HOME')}</Option>
         <Option value="HOME_VILLA">{getLandType('HOME_VILLA')}</Option>
@@ -101,6 +115,18 @@ export class SearchPage extends React.Component<ISearchPageProp> {
     );
   }
 
+  onChangeCascader = value => {
+    const parameters = {
+      cityId: value[0],
+      districtId: value[1],
+      wardId: value[2]
+    };
+    const nextParameter = { ...this.state.parameters, ...parameters };
+    this.setState({
+      parameters: nextParameter
+    });
+  };
+
   keywordForm() {
     return (
       <Cascader
@@ -112,15 +138,17 @@ export class SearchPage extends React.Component<ISearchPageProp> {
     );
   }
 
-  onChangeCascader = value => {
+  menuPriceClick = value => {
+    const parameters = { money: value };
+    const nextParameter = { ...this.state.parameters, ...parameters };
     this.setState({
-      city: value
+      parameters: nextParameter
     });
   };
 
   priceForm() {
     return (
-      <Select style={{ width: 150, marginRight: -2 }} placeholder="Khoảng giá" onChange={this.handleChangeActionType}>
+      <Select style={{ width: 150, marginRight: -2 }} placeholder="Khoảng giá" onChange={this.menuPriceClick}>
         <Option value="0">Bất kỳ</Option>
         <Option value="1">&lt; 500 triệu</Option>
         <Option value="2">500 triệu - 1 tỷ</Option>
@@ -131,9 +159,17 @@ export class SearchPage extends React.Component<ISearchPageProp> {
     );
   }
 
+  menuAcreageClick = value => {
+    const parameters = { acreage: value };
+    const nextParameter = { ...this.state.parameters, ...parameters };
+    this.setState({
+      parameters: nextParameter
+    });
+  };
+
   acreageForm() {
     return (
-      <Select style={{ width: 150, marginRight: -2 }} placeholder="Diện tích" onChange={this.handleChangeActionType}>
+      <Select style={{ width: 150, marginRight: -2 }} placeholder="Diện tích" onChange={this.menuAcreageClick}>
         <Option value="0">Bất kỳ</Option>
         <Option value="1">&lt; 50 m2</Option>
         <Option value="2">50 - 80 m2</Option>
@@ -143,6 +179,10 @@ export class SearchPage extends React.Component<ISearchPageProp> {
       </Select>
     );
   }
+
+  searchClick = () => {
+    this.props.history.push(`/tim-kiem?${queryString(this.state.parameters)}`);
+  };
 
   render() {
     return (
@@ -155,7 +195,7 @@ export class SearchPage extends React.Component<ISearchPageProp> {
               {this.keywordForm()}
               {this.priceForm()}
               {this.acreageForm()}
-              <Button>Tìm kiếm</Button>
+              <Button onClick={this.searchClick}>Tìm kiếm</Button>
             </div>
           </div>
         </div>

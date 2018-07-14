@@ -190,6 +190,9 @@ export const queryStringMapping = parameters => {
   let queryString = '';
   queryString += parameters.actionType ? 'actionType.equals=' + parameters.actionType + '&' : '';
   queryString += parameters.landType ? 'landType.equals=' + parameters.landType + '&' : '';
+  queryString += parameters.cityId ? 'cityId.equals=' + parameters.cityId + '&' : '';
+  queryString += parameters.districtId ? 'districtId.equals=' + parameters.districtId + '&' : '';
+  queryString += parameters.wardId ? 'wardId.equals=' + parameters.wardId + '&' : '';
   switch (parseInt(parameters.money)) {
     case 1:
       queryString += 'money.lessThan=500000001&';
