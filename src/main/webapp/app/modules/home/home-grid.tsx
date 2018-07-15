@@ -23,7 +23,7 @@ export class HomeGrid extends React.Component<IHomeProp> {
           {this.props.houses.map((house, i) => (
             <div key={`entity-${i}`} className="col-md-3 post-item">
               <div className="item-thumbnail">
-                <Link to={`/bat-dong-san/${encodeId(house.id)}`}>
+                <Link to={`/bat-dong-san/${encodeId(house.id)}/${house.link}`}>
                   <img src="/static/upload/products/item-1.png" />
                 </Link>
                 {house.actionType === 'FOR_SELL' ? <div className="type ban">BÁN</div> : <div className="type chothue">CHO THUÊ</div>}

@@ -20,6 +20,10 @@
   color: #ffffff !important;
 }
 
+.ant-tabs .ant-tabs-content {
+  min-height: 300px;
+}
+
 .cc-selector input {
   margin: 0;
   padding: 0;

@@ -12,7 +12,7 @@ import {
   JhiPagination
 } from 'react-jhipster';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { Modal } from 'antd';
+import { Modal, Card, Icon, Tooltip } from 'antd';
 const confirm = Modal.confirm;
 
 import Loading from 'app/shared/layout/loading/loading';
@@ -25,7 +25,7 @@ import { hasAnyAuthority } from 'app/shared/auth/private-route';
 import { AUTHORITIES } from 'app/config/constants';
 import { ITEMS_PER_PAGE } from 'app/shared/util/pagination.constants';
 
-export interface IHouseProps extends StateProps, DispatchProps, RouteComponentProps<{ url: string }> {}
+export interface IHouseProps extends StateProps, DispatchProps, RouteComponentProps<{ url: string }> { }
 
 export type IHouseState = IPaginationBaseState;
 
@@ -60,15 +60,31 @@ export class House extends React.Component<IHouseProps, IHouseState> {
     this.props.getEntities(activePage - 1, itemsPerPage, `${sort},${order}`);
   };
 
+  gotoEdit = id => {
+    this.props.history.push(`${this.props.match.url}/${id}/edit`);
+  }
+
   showDeleteConfirm = id => {
     confirm({
-      title: 'Do you want to delete these items?',
-      content: 'When clicked the OK button, this dialog will be closed after 1 second',
+      title: 'Bạn có muốn xoá tin đăng này?',
+      content: 'Hãy xác nhận lại thông tin trước khi thực hiện hành động xoá',
       onOk() {
         // console.log(id);
         // this.props.deleteEntity(this.props.houseEntity.id);
       },
-      onCancel() {}
+      onCancel() { }
+    });
+  };
+
+  showPaymentConfirm = id => {
+    confirm({
+      title: 'Bạn có muốn xác nhận đã thanh toán cho tin đăng?',
+      content: 'Hãy kiểm tra lại thông tin thanh toán của tin đăng trước khi thực hiện việc xác nhận',
+      onOk() {
+        // console.log(id);
+        // this.props.deleteEntity(this.props.houseEntity.id);
+      },
+      onCancel() { }
     });
   };
 
@@ -78,90 +94,92 @@ export class House extends React.Component<IHouseProps, IHouseState> {
       <Row>
         <SearchPage location={this.props.location} history={this.props.history} />
         <Container>
-          <Col md="12">
-            {this.props.loading ? <Loading /> : (
-              <>
-                <h2 id="house-heading">
-                  <Translate contentKey="landexpApp.house.home.title">Houses</Translate>
-                </h2>
-                <div className="table-responsive">
-                  <Table responsive>
-                    <thead>
-                      <tr>
-                        <th className="hand" onClick={this.sort('actionType')}>
-                          <Translate contentKey="landexpApp.house.actionType">Action Type</Translate> <FontAwesomeIcon icon="sort" />
-                        </th>
-                        <th className="hand" onClick={this.sort('landType')}>
-                          <Translate contentKey="landexpApp.house.landType">Land Type</Translate> <FontAwesomeIcon icon="sort" />
-                        </th>
-                        <th className="hand" onClick={this.sort('money')}>
-                          <Translate contentKey="landexpApp.house.money">Money</Translate> <FontAwesomeIcon icon="sort" />
-                        </th>
-                        <th className="hand" onClick={this.sort('discount')}>
-                          <Translate contentKey="landexpApp.house.discount">Discount</Translate> <FontAwesomeIcon icon="sort" />
-                        </th>
-                        <th>
-                          <Translate contentKey="landexpApp.house.city">City</Translate> <FontAwesomeIcon icon="sort" />
-                        </th>
-                        <th>
-                          <Translate contentKey="landexpApp.house.district">District</Translate> <FontAwesomeIcon icon="sort" />
-                        </th>
-                        <th>
-                          <Translate contentKey="landexpApp.house.ward">Ward</Translate> <FontAwesomeIcon icon="sort" />
-                        </th>
-                        <th>
-                          <Translate contentKey="landexpApp.house.saleType">Sale Type</Translate> <FontAwesomeIcon icon="sort" />
-                        </th>
-                        <th>
-                          <Translate contentKey="landexpApp.house.statusType">Status Type</Translate> <FontAwesomeIcon icon="sort" />
-                        </th>
-                        <th>
-                          <Translate contentKey="landexpApp.house.createBy">Create By</Translate> <FontAwesomeIcon icon="sort" />
-                        </th>
-                        <th />
-                      </tr>
-                    </thead>
-                    <tbody>
-                      {houseList.map((house, i) => (
-                        <tr key={`entity-${i}`}>
-                          <td>{house.actionType === 'FOR_SELL' ? 'Bán' : 'Cho thuê'}</td>
-                          <td>{getLandType(house.landType)}</td>
-                          <td>{new Intl.NumberFormat().format(house.money)} VNĐ</td>
-                          <td>{new Intl.NumberFormat().format(house.discount)} VNĐ</td>
-                          <td>{house.cityName ? <Link to={`city/${house.cityId}`}>{house.cityName}</Link> : ''}</td>
-                          <td>{house.districtName ? <Link to={`district/${house.districtId}`}>{house.districtName}</Link> : ''}</td>
-                          <td>{house.wardName ? <Link to={`ward/${house.wardId}`}>{house.wardName}</Link> : ''}</td>
-                          <td>{getSaleType(house.saleType)}</td>
-                          <td>{getStatusType(house.statusType)}</td>
-                          <td>{house.createByLogin}</td>
-                          <td>
-                            <Link to={`${match.url}/${house.id}/edit`}>
-                              <FontAwesomeIcon icon="pencil-alt" />{' '}
-                            </Link>
-                            {!this.props.isManager ? (
-                              ''
-                            ) : (
-                              <div style={{ float: 'left' }} onClick={this.showDeleteConfirm.bind(this, house.id)}>
-                                <FontAwesomeIcon icon="trash" />{' '}
-                              </div>
-                            )}
-                          </td>
-                        </tr>
-                      ))}
-                    </tbody>
-                  </Table>
-                </div>
-                <Row className="justify-content-center">
-                  <JhiPagination
-                    items={getPaginationItemsNumber(totalItems, this.state.itemsPerPage)}
-                    activePage={this.state.activePage}
-                    onSelect={this.handlePagination}
-                    maxButtons={5}
-                  />
+          <Row>
+            <Col md="12">
+              {this.props.loading ? <Loading /> : (
+                <Row>
+                  <Card title="Danh sách tin đăng">
+                    <div className="table-responsive">
+                      <Table responsive>
+                        <thead>
+                          <tr>
+                            <th className="hand" onClick={this.sort('actionType')}>
+                              <Translate contentKey="landexpApp.house.actionType">Action Type</Translate> <FontAwesomeIcon icon="sort" />
+                            </th>
+                            <th className="hand" onClick={this.sort('landType')}>
+                              <Translate contentKey="landexpApp.house.landType">Land Type</Translate> <FontAwesomeIcon icon="sort" />
+                            </th>
+                            <th className="hand" onClick={this.sort('money')}>
+                              <Translate contentKey="landexpApp.house.money">Money</Translate> <FontAwesomeIcon icon="sort" />
+                            </th>
+                            <th>
+                              <Translate contentKey="landexpApp.house.city">City</Translate> <FontAwesomeIcon icon="sort" />
+                            </th>
+                            <th>
+                              <Translate contentKey="landexpApp.house.district">District</Translate> <FontAwesomeIcon icon="sort" />
+                            </th>
+                            <th>
+                              <Translate contentKey="landexpApp.house.saleType">Sale Type</Translate> <FontAwesomeIcon icon="sort" />
+                            </th>
+                            <th>
+                              <Translate contentKey="landexpApp.house.statusType">Status Type</Translate> <FontAwesomeIcon icon="sort" />
+                            </th>
+                            <th>
+                              <Translate contentKey="landexpApp.house.createBy">Create By</Translate> <FontAwesomeIcon icon="sort" />
+                            </th>
+                            <th />
+                          </tr>
+                        </thead>
+                        <tbody>
+                          {houseList.map((house, i) => (
+                            <tr key={`entity-${i}`}>
+                              <td>{house.actionType === 'FOR_SELL' ? 'Bán' : 'Cho thuê'}</td>
+                              <td>{getLandType(house.landType)}</td>
+                              <td>{new Intl.NumberFormat().format(house.money)} VNĐ</td>
+                              <td>{house.cityName ? <Link to={`city/${house.cityId}`}>{house.cityName}</Link> : ''}</td>
+                              <td>{house.districtName ? <Link to={`district/${house.districtId}`}>{house.districtName}</Link> : ''}</td>
+                              <td>{getSaleType(house.saleType)}</td>
+                              <td>{getStatusType(house.statusType)}</td>
+                              <td>{house.createByLogin}</td>
+                              <td style={{ display: 'inline-block', width: 70 }}>
+                                <div style={{ float: 'left', marginRight: 5 }} onClick={this.gotoEdit.bind(this, house.id)}>
+                                  <Tooltip placement="top" title={'Sửa tin đăng'}>
+                                    <Icon type="edit" />{' '}
+                                  </Tooltip>
+                                </div>
+                                {!this.props.isManager ? '' : (
+                                  <>
+                                    <div style={{ float: 'left', marginRight: 5 }} onClick={this.showPaymentConfirm.bind(this, house.id)}>
+                                      <Tooltip placement="top" title={'Xác nhận thanh toán'}>
+                                        <Icon type="pay-circle" />{' '}
+                                      </Tooltip>
+                                    </div>
+                                    <div style={{ float: 'left' }} onClick={this.showDeleteConfirm.bind(this, house.id)}>
+                                      <Tooltip placement="top" title={'Xoá tin đăng'}>
+                                        <Icon type="delete" />{' '}
+                                      </Tooltip>
+                                    </div>
+                                  </>
+                                )}
+                              </td>
+                            </tr>
+                          ))}
+                        </tbody>
+                      </Table>
+                    </div>
+                    <Row className="justify-content-center">
+                      <JhiPagination
+                        items={getPaginationItemsNumber(totalItems, this.state.itemsPerPage)}
+                        activePage={this.state.activePage}
+                        onSelect={this.handlePagination}
+                        maxButtons={5}
+                      />
+                    </Row>
+                  </Card>
                 </Row>
-              </>
-            )}
-          </Col>
+              )}
+            </Col>
+          </Row>
         </Container>
       </Row>
     );

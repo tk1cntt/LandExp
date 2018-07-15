@@ -22,7 +22,7 @@ import { SERVER_API_URL, APP_LOCAL_DATE_FORMAT } from 'app/config/constants';
 import SearchPage from 'app/shared/layout/search/search-menu';
 import GoogleMaps from 'app/shared/util/google-maps';
 
-export interface IDetailProp extends StateProps, DispatchProps, RouteComponentProps<{ key: any }> {}
+export interface IDetailProp extends StateProps, DispatchProps, RouteComponentProps<{ id: any, link: any }> {}
 
 export interface IDetailState {
   search: string;
@@ -38,7 +38,7 @@ export class Detail extends React.Component<IDetailProp, IDetailState> {
   };
 
   componentDidMount() {
-    const houseId = decodeId(this.props.match.params.key);
+    const houseId = decodeId(this.props.match.params.id);
     this.props.getEntity(houseId);
     /* tslint:disable-next-line */
     this.props.getImageOfHouse(parseInt(houseId));
