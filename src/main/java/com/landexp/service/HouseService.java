@@ -6,6 +6,7 @@ import com.landexp.domain.enumeration.StatusType;
 import com.landexp.repository.HouseRepository;
 import com.landexp.repository.UserRepository;
 import com.landexp.service.dto.HouseDTO;
+import com.landexp.service.dto.HouseDetailDTO;
 import com.landexp.service.mapper.HouseMapper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -59,14 +60,14 @@ public class HouseService {
      * @param houseDTO the entity to save
      * @return the persisted entity
      */
-    public HouseDTO saveByUsername(HouseDTO houseDTO, String username) {
+    public HouseDetailDTO saveByUsername(HouseDetailDTO houseDTO, String username) {
         log.debug("Request to save House : {}", houseDTO);
         House house = houseMapper.toEntity(houseDTO);
         Optional<User> existingUser = userRepository.findOneByLogin(username);
         house.setCreateBy(existingUser.get());
         house.setUpdateBy(existingUser.get());
         house = houseRepository.save(house);
-        return houseMapper.toDto(house);
+        return houseMapper.toDetailDto(house);
     }
 
     /**
@@ -75,13 +76,13 @@ public class HouseService {
      * @param houseDTO the entity to save
      * @return the persisted entity
      */
-    public HouseDTO updateByUsername(HouseDTO houseDTO, String username) {
+    public HouseDetailDTO updateByUsername(HouseDetailDTO houseDTO, String username) {
         log.debug("Request to save House : {}", houseDTO);
         House house = houseMapper.toEntity(houseDTO);
         Optional<User> existingUser = userRepository.findOneByLogin(username);
         house.setUpdateBy(existingUser.get());
         house = houseRepository.save(house);
-        return houseMapper.toDto(house);
+        return houseMapper.toDetailDto(house);
     }
 
     /**
@@ -103,11 +104,11 @@ public class HouseService {
      * @return the persisted entity
      */
     @Transactional(readOnly = true)
-    public HouseDTO initHouse(String username) {
+    public HouseDetailDTO initHouse(String username) {
         log.debug("Request to get init House {}", username);
         House house = houseRepository.findFirstByStatusTypeAndCreateByLogin(StatusType.OPEN, username);
         if (!ObjectUtils.isEmpty(house)) {
-            return houseMapper.toDto(house);
+            return houseMapper.toDetailDto(house);
         } else {
             return null;
         }
@@ -146,10 +147,10 @@ public class HouseService {
      * @return the entity
      */
     @Transactional(readOnly = true)
-    public Optional<HouseDTO> findOne(Long id) {
+    public Optional<HouseDetailDTO> findOne(Long id) {
         log.debug("Request to get House : {}", id);
         return houseRepository.findById(id)
-            .map(houseMapper::toDto);
+            .map(houseMapper::toDetailDto);
     }
 
     /**

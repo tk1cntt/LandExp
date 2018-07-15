@@ -19,9 +19,7 @@ public class HouseDTO implements Serializable {
 
     private Long id;
 
-    private String title;
     private String link;
-    private String fullAddress;
 
     @Lob
     private byte[] avatar;
@@ -37,17 +35,7 @@ public class HouseDTO implements Serializable {
 
     private Float acreage;
 
-    private Float acreageStreetSide;
-
     private Float discount;
-
-    private DirectionType direction;
-
-    private DirectionType directionBalcony;
-
-    private String floor;
-
-    private Float numberOfFloor;
 
     private Integer bathRoom;
 
@@ -55,65 +43,21 @@ public class HouseDTO implements Serializable {
 
     private Boolean parking;
 
-    private String summary;
-
     private LandType landType;
-
-    private SaleType saleType;
-
-    private Float fee;
-
-    private Float feeMax;
-
-    private PresentType present;
-
-    private Integer hits;
-
-    private String customer;
-
-    private String mobile;
-
-    private String email;
-
-    private String facebook;
-
-    private String zalo;
-
-    private StatusType statusType;
-
-    private String googleId;
-
-    private Float latitude;
-
-    private Float longitude;
 
     private LocalDate createAt;
 
     private LocalDate updateAt;
 
-    private Long cityId;
-
     private String cityName;
-
-    private Long districtId;
 
     private String districtName;
 
-    private Long wardId;
-
     private String wardName;
-
-    private Long projectId;
 
     private String projectName;
 
-    private Long createById;
-
     private String createByLogin;
-
-    private Long updateById;
-
-    private String updateByLogin;
 
     public Long getId() {
         return id;
@@ -123,28 +67,12 @@ public class HouseDTO implements Serializable {
         this.id = id;
     }
 
-    public String getTitle() {
-        return title;
-    }
-
-    public void setTitle(String title) {
-        this.title = title;
-    }
-
     public String getLink() {
         return link;
     }
 
     public void setLink(String link) {
         this.link = link;
-    }
-
-    public String getFullAddress() {
-        return fullAddress;
-    }
-
-    public void setFullAddress(String fullAddress) {
-        this.fullAddress = fullAddress;
     }
 
     public byte[] getAvatar() {
@@ -203,52 +131,12 @@ public class HouseDTO implements Serializable {
         this.acreage = acreage;
     }
 
-    public Float getAcreageStreetSide() {
-        return acreageStreetSide;
-    }
-
-    public void setAcreageStreetSide(Float acreageStreetSide) {
-        this.acreageStreetSide = acreageStreetSide;
-    }
-
     public Float getDiscount() {
         return discount;
     }
 
     public void setDiscount(Float discount) {
         this.discount = discount;
-    }
-
-    public DirectionType getDirection() {
-        return direction;
-    }
-
-    public void setDirection(DirectionType direction) {
-        this.direction = direction;
-    }
-
-    public DirectionType getDirectionBalcony() {
-        return directionBalcony;
-    }
-
-    public void setDirectionBalcony(DirectionType directionBalcony) {
-        this.directionBalcony = directionBalcony;
-    }
-
-    public String getFloor() {
-        return floor;
-    }
-
-    public void setFloor(String floor) {
-        this.floor = floor;
-    }
-
-    public Float getNumberOfFloor() {
-        return numberOfFloor;
-    }
-
-    public void setNumberOfFloor(Float numberOfFloor) {
-        this.numberOfFloor = numberOfFloor;
     }
 
     public Integer getBathRoom() {
@@ -275,132 +163,12 @@ public class HouseDTO implements Serializable {
         this.parking = parking;
     }
 
-    public String getSummary() {
-        return summary;
-    }
-
-    public void setSummary(String summary) {
-        this.summary = summary;
-    }
-
     public LandType getLandType() {
         return landType;
     }
 
     public void setLandType(LandType landType) {
         this.landType = landType;
-    }
-
-    public SaleType getSaleType() {
-        return saleType;
-    }
-
-    public void setSaleType(SaleType saleType) {
-        this.saleType = saleType;
-    }
-
-    public Float getFee() {
-        return fee;
-    }
-
-    public void setFee(Float fee) {
-        this.fee = fee;
-    }
-
-    public Float getFeeMax() {
-        return feeMax;
-    }
-
-    public void setFeeMax(Float feeMax) {
-        this.feeMax = feeMax;
-    }
-
-    public PresentType getPresent() {
-        return present;
-    }
-
-    public void setPresent(PresentType present) {
-        this.present = present;
-    }
-
-    public Integer getHits() {
-        return hits;
-    }
-
-    public void setHits(Integer hits) {
-        this.hits = hits;
-    }
-
-    public String getCustomer() {
-        return customer;
-    }
-
-    public void setCustomer(String customer) {
-        this.customer = customer;
-    }
-
-    public String getMobile() {
-        return mobile;
-    }
-
-    public void setMobile(String mobile) {
-        this.mobile = mobile;
-    }
-
-    public String getEmail() {
-        return email;
-    }
-
-    public void setEmail(String email) {
-        this.email = email;
-    }
-
-    public String getFacebook() {
-        return facebook;
-    }
-
-    public void setFacebook(String facebook) {
-        this.facebook = facebook;
-    }
-
-    public String getZalo() {
-        return zalo;
-    }
-
-    public void setZalo(String zalo) {
-        this.zalo = zalo;
-    }
-
-    public StatusType getStatusType() {
-        return statusType;
-    }
-
-    public void setStatusType(StatusType statusType) {
-        this.statusType = statusType;
-    }
-
-    public String getGoogleId() {
-        return googleId;
-    }
-
-    public void setGoogleId(String googleId) {
-        this.googleId = googleId;
-    }
-
-    public Float getLatitude() {
-        return latitude;
-    }
-
-    public void setLatitude(Float latitude) {
-        this.latitude = latitude;
-    }
-
-    public Float getLongitude() {
-        return longitude;
-    }
-
-    public void setLongitude(Float longitude) {
-        this.longitude = longitude;
     }
 
     public LocalDate getCreateAt() {
@@ -419,28 +187,12 @@ public class HouseDTO implements Serializable {
         this.updateAt = updateAt;
     }
 
-    public Long getCityId() {
-        return cityId;
-    }
-
-    public void setCityId(Long cityId) {
-        this.cityId = cityId;
-    }
-
     public String getCityName() {
         return cityName;
     }
 
     public void setCityName(String cityName) {
         this.cityName = cityName;
-    }
-
-    public Long getDistrictId() {
-        return districtId;
-    }
-
-    public void setDistrictId(Long districtId) {
-        this.districtId = districtId;
     }
 
     public String getDistrictName() {
@@ -451,28 +203,12 @@ public class HouseDTO implements Serializable {
         this.districtName = districtName;
     }
 
-    public Long getWardId() {
-        return wardId;
-    }
-
-    public void setWardId(Long wardId) {
-        this.wardId = wardId;
-    }
-
     public String getWardName() {
         return wardName;
     }
 
     public void setWardName(String wardName) {
         this.wardName = wardName;
-    }
-
-    public Long getProjectId() {
-        return projectId;
-    }
-
-    public void setProjectId(Long landProjectId) {
-        this.projectId = landProjectId;
     }
 
     public String getProjectName() {
@@ -483,36 +219,12 @@ public class HouseDTO implements Serializable {
         this.projectName = landProjectName;
     }
 
-    public Long getCreateById() {
-        return createById;
-    }
-
-    public void setCreateById(Long userId) {
-        this.createById = userId;
-    }
-
     public String getCreateByLogin() {
         return createByLogin;
     }
 
     public void setCreateByLogin(String userLogin) {
         this.createByLogin = userLogin;
-    }
-
-    public Long getUpdateById() {
-        return updateById;
-    }
-
-    public void setUpdateById(Long userId) {
-        this.updateById = userId;
-    }
-
-    public String getUpdateByLogin() {
-        return updateByLogin;
-    }
-
-    public void setUpdateByLogin(String userLogin) {
-        this.updateByLogin = userLogin;
     }
 
     @Override
@@ -546,45 +258,18 @@ public class HouseDTO implements Serializable {
             ", address='" + getAddress() + "'" +
             ", money=" + getMoney() +
             ", acreage=" + getAcreage() +
-            ", acreageStreetSide=" + getAcreageStreetSide() +
             ", discount=" + getDiscount() +
-            ", direction='" + getDirection() + "'" +
-            ", directionBalcony='" + getDirectionBalcony() + "'" +
-            ", floor='" + getFloor() + "'" +
-            ", numberOfFloor=" + getNumberOfFloor() +
             ", bathRoom=" + getBathRoom() +
             ", bedRoom=" + getBedRoom() +
             ", parking='" + isParking() + "'" +
-            ", summary='" + getSummary() + "'" +
             ", landType='" + getLandType() + "'" +
-            ", saleType='" + getSaleType() + "'" +
-            ", fee=" + getFee() +
-            ", feeMax=" + getFeeMax() +
-            ", present='" + getPresent() + "'" +
-            ", hits=" + getHits() +
-            ", customer='" + getCustomer() + "'" +
-            ", mobile='" + getMobile() + "'" +
-            ", email='" + getEmail() + "'" +
-            ", facebook='" + getFacebook() + "'" +
-            ", zalo='" + getZalo() + "'" +
-            ", statusType='" + getStatusType() + "'" +
-            ", googleId='" + getGoogleId() + "'" +
-            ", latitude=" + getLatitude() +
-            ", longitude=" + getLongitude() +
             ", createAt='" + getCreateAt() + "'" +
             ", updateAt='" + getUpdateAt() + "'" +
-            ", city=" + getCityId() +
             ", city='" + getCityName() + "'" +
-            ", district=" + getDistrictId() +
             ", district='" + getDistrictName() + "'" +
-            ", ward=" + getWardId() +
             ", ward='" + getWardName() + "'" +
-            ", project=" + getProjectId() +
             ", project='" + getProjectName() + "'" +
-            ", createBy=" + getCreateById() +
             ", createBy='" + getCreateByLogin() + "'" +
-            ", updateBy=" + getUpdateById() +
-            ", updateBy='" + getUpdateByLogin() + "'" +
             "}";
     }
 }

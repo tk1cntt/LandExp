@@ -5,6 +5,7 @@ import com.landexp.domain.enumeration.DirectionType;
 import com.landexp.domain.enumeration.LandType;
 import com.landexp.domain.enumeration.UserActionType;
 import com.landexp.service.dto.HouseDTO;
+import com.landexp.service.dto.HouseDetailDTO;
 import com.landexp.service.dto.HousePhotoDTO;
 import org.springframework.util.ObjectUtils;
 import org.springframework.util.StringUtils;
@@ -137,7 +138,7 @@ public class MappingUtils {
         return ObjectUtils.isEmpty(data) ? null : new String(Base64.getEncoder().encode(data));
     }
 
-    public static HouseResponse mappingHouseResponse(HouseDTO dto) {
+    public static HouseResponse mappingHouseResponse(HouseDetailDTO dto) {
         HouseResponse response = new HouseResponse();
         response.setAvatar(formatImageData(dto.getAvatar()));
         response.setAvatarContentType(dto.getAvatarContentType());
@@ -183,7 +184,7 @@ public class MappingUtils {
         return responses;
     }
 
-    public static HouseDetailResponse mappingHouseDetailResponse(HouseDTO dto, List<HousePhotoDTO> photos) {
+    public static HouseDetailResponse mappingHouseDetailResponse(HouseDetailDTO dto, List<HousePhotoDTO> photos) {
         HouseDetailResponse response = new HouseDetailResponse();
         response.setTitle(formatTitle(dto));
         response.setDescription(dto.getSummary());
@@ -192,7 +193,7 @@ public class MappingUtils {
         return response;
     }
 
-    public static String formatFullAddress(HouseDTO dto) {
+    public static String formatFullAddress(HouseDetailDTO dto) {
         StringBuilder sb = new StringBuilder();
         sb.append(StringUtils.isEmpty(dto.getAddress()) ? "" : dto.getAddress());
         sb.append(StringUtils.isEmpty(dto.getWardName()) ? "" : ", " + dto.getWardName());
@@ -201,7 +202,7 @@ public class MappingUtils {
         return sb.toString();
     }
 
-    public static String formatTitle(HouseDTO dto) {
+    public static String formatTitle(HouseDetailDTO dto) {
         StringBuilder sb = new StringBuilder();
         sb.append(formatActionType(dto.getActionType()));
         sb.append(" - ");
@@ -223,7 +224,7 @@ public class MappingUtils {
         return new java.text.DecimalFormat("#").format(number);
     }
 
-    public static String formatLink(HouseDTO dto) {
+    public static String formatLink(HouseDetailDTO dto) {
         StringBuilder sb = new StringBuilder();
         sb.append(removeAccent(formatActionType(dto.getActionType())));
         sb.append(" ");

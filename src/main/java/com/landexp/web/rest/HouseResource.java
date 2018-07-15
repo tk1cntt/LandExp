@@ -10,14 +10,11 @@ import com.landexp.security.SecurityUtils;
 import com.landexp.service.HouseService;
 import com.landexp.service.PaymentService;
 import com.landexp.service.ServiceFeeService;
-import com.landexp.service.dto.PaymentDTO;
-import com.landexp.service.dto.ServiceFeeDTO;
+import com.landexp.service.dto.*;
 import com.landexp.web.rest.errors.BadRequestAlertException;
 import com.landexp.web.rest.errors.ExecuteRuntimeException;
 import com.landexp.web.rest.util.HeaderUtil;
 import com.landexp.web.rest.util.PaginationUtil;
-import com.landexp.service.dto.HouseDTO;
-import com.landexp.service.dto.HouseCriteria;
 import com.landexp.service.HouseQueryService;
 import io.github.jhipster.web.util.ResponseUtil;
 import org.slf4j.Logger;
@@ -74,12 +71,12 @@ public class HouseResource {
     @GetMapping("/houses/init")
     @Timed
     @Secured(AuthoritiesConstants.USER)
-    public ResponseEntity<HouseDTO> initHouse() throws URISyntaxException {
+    public ResponseEntity<HouseDetailDTO> initHouse() throws URISyntaxException {
         log.debug("REST request to init House");
         String username = SecurityUtils.getCurrentUserLogin().get();
-        HouseDTO houseDTO = houseService.initHouse(username);
+        HouseDetailDTO houseDTO = houseService.initHouse(username);
         if (ObjectUtils.isEmpty(houseDTO)) {
-            houseDTO = new HouseDTO();
+            houseDTO = new HouseDetailDTO();
             houseDTO.setStatusType(StatusType.OPEN);
             log.debug("Save init House {}", houseDTO);
             houseDTO = houseService.saveByUsername(houseDTO, username);
@@ -130,12 +127,12 @@ public class HouseResource {
     @PutMapping("/houses")
     @Timed
     @Secured(AuthoritiesConstants.USER)
-    public ResponseEntity<HouseDTO> updateHouse(@RequestBody HouseDTO houseDTO) throws URISyntaxException {
+    public ResponseEntity<HouseDetailDTO> updateHouse(@RequestBody HouseDetailDTO houseDTO) throws URISyntaxException {
         log.debug("REST request to update House : {}", houseDTO);
         if (houseDTO.getId() == null) {
             throw new BadRequestAlertException("Invalid id", ENTITY_NAME, "idnull");
         }
-        HouseDTO currentDTO = houseService.findOne(houseDTO.getId()).get();
+        HouseDetailDTO currentDTO = houseService.findOne(houseDTO.getId()).get();
         if (ObjectUtils.isEmpty(currentDTO)) {
             throw new ExecuteRuntimeException("Invalid id");
         }
@@ -158,7 +155,7 @@ public class HouseResource {
             houseDTO.setStatusType(currentDTO.getStatusType());
         }
         houseDTO.setUpdateAt(LocalDate.now());
-        HouseDTO result = houseService.updateByUsername(houseDTO, username);
+        HouseDetailDTO result = houseService.updateByUsername(houseDTO, username);
         return ResponseEntity.ok()
             .headers(HeaderUtil.createEntityUpdateAlert(ENTITY_NAME, houseDTO.getId().toString()))
             .body(result);
@@ -235,9 +232,9 @@ public class HouseResource {
      */
     @GetMapping("/houses/{id}")
     @Timed
-    public ResponseEntity<HouseDTO> getHouse(@PathVariable Long id) {
+    public ResponseEntity<HouseDetailDTO> getHouse(@PathVariable Long id) {
         log.debug("REST request to get House : {}", id);
-        Optional<HouseDTO> houseDTO = houseService.findOne(id);
+        Optional<HouseDetailDTO> houseDTO = houseService.findOne(id);
         if (ObjectUtils.isEmpty(houseDTO.get())) {
             return ResponseUtil.wrapOrNotFound(houseDTO);
         }
@@ -250,11 +247,7 @@ public class HouseResource {
         } else if (!houseDTO.get().getStatusType().equals(StatusType.PAID) && !SecurityUtils.isCurrentUserInRole(AuthoritiesConstants.MANAGER)) {
             throw new ExecuteRuntimeException("No permission");
         }
-        HouseDTO dto = houseDTO.get();
-        dto.setTitle(MappingUtils.formatTitle(dto));
-        dto.setFullAddress(MappingUtils.formatFullAddress(dto));
-        dto.setLink(MappingUtils.formatLink(dto));
-        return ResponseUtil.wrapOrNotFound(Optional.of(dto));
+        return ResponseUtil.wrapOrNotFound(houseDTO);
     }
 
     /**
@@ -268,7 +261,7 @@ public class HouseResource {
     @Secured(AuthoritiesConstants.USER)
     public ResponseEntity<Void> deleteHouse(@PathVariable Long id) {
         log.debug("REST request to delete House : {}", id);
-        Optional<HouseDTO> houseDTO = houseService.findOne(id);
+        Optional<HouseDetailDTO> houseDTO = houseService.findOne(id);
         if (ObjectUtils.isEmpty(houseDTO.get())) {
             throw new BadRequestAlertException("Invalid id", ENTITY_NAME, "idnull");
         }

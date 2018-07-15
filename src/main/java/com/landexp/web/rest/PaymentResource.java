@@ -8,6 +8,7 @@ import com.landexp.service.HouseService;
 import com.landexp.service.PaymentQueryService;
 import com.landexp.service.PaymentService;
 import com.landexp.service.dto.HouseDTO;
+import com.landexp.service.dto.HouseDetailDTO;
 import com.landexp.service.dto.PaymentCriteria;
 import com.landexp.service.dto.PaymentDTO;
 import com.landexp.web.rest.errors.BadRequestAlertException;
@@ -111,7 +112,7 @@ public class PaymentResource {
         if (ObjectUtils.isEmpty(paymentDTO)) {
             throw new BadRequestAlertException("Invalid id", ENTITY_NAME, "idnull");
         }
-        HouseDTO houseDTO = houseService.findOne(paymentDTO.getHouseId()).get();
+        HouseDetailDTO houseDTO = houseService.findOne(paymentDTO.getHouseId()).get();
         if (ObjectUtils.isEmpty(houseDTO)) {
             throw new BadRequestAlertException("Invalid id", ENTITY_NAME, "idnull");
         }
