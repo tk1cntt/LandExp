@@ -38,7 +38,7 @@ public class MappingUtils {
     }
 
     public static String formatMoney(Float money, UserActionType actionType) {
-        if (ObjectUtils.isEmpty(money)) return null;
+        if (ObjectUtils.isEmpty(money)) return "";
         StringBuilder sb = new StringBuilder();
         sb.append("<span>");
         if (money >= 1000000000) {
