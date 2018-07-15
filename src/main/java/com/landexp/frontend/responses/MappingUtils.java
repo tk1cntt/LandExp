@@ -73,6 +73,7 @@ public class MappingUtils {
     }
 
     public static String formatActionType(UserActionType actionType) {
+        if (ObjectUtils.isEmpty(actionType)) return null;
         if (actionType == UserActionType.FOR_SELL) {
             return "Bán";
         }
@@ -102,6 +103,7 @@ public class MappingUtils {
     }
 
     public static String formatLandType(LandType type) {
+        if (ObjectUtils.isEmpty(type)) return null;
         switch (type) {
             case APARTMENT:
                 return "Chung cư";

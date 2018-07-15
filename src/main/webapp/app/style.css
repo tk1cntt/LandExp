@@ -243,10 +243,7 @@ ul.right-menu .button {
 }
 
 .top-search-box .select {
-  position: relative;
-  display: block;
   width: 175px;
-  height: 50px;
   float: left;
 }
 
@@ -292,11 +289,8 @@ ul.right-menu .button {
 }
 
 .bottom-search-box .select {
-  position: relative;
-  display: block;
   margin: 0 9px;
   width: 175px;
-  height: 50px;
   float: left;
 }
 
