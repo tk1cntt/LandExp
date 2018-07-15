@@ -240,6 +240,22 @@ public class MappingUtils {
         return sb.toString().toLowerCase().replaceAll(" ", "-").replaceAll("\\/", "-");
     }
 
+    public static String formatLink(HouseDTO dto) {
+        StringBuilder sb = new StringBuilder();
+        sb.append(removeAccent(formatActionType(dto.getActionType())));
+        sb.append(" ");
+        sb.append(removeAccent(formatLandType(dto.getLandType())));
+        sb.append(" ");
+        sb.append(removeAccent(formatMoney(dto.getMoney(), dto.getActionType())
+            .replaceAll("<span>", "")
+            .replaceAll("</span>", "")));
+        sb.append(" ");
+        sb.append(removeAccent(dto.getDistrictName()));
+        sb.append(" ");
+        sb.append(removeAccent(dto.getCityName()));
+        return sb.toString().toLowerCase().replaceAll(" ", "-").replaceAll("\\/", "-");
+    }
+
     public static String formatParking(Boolean parking) {
         if (ObjectUtils.isEmpty(parking)) return "<i class=\"fa fa-times\"></i>";
         if (parking) {

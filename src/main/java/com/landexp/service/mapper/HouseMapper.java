@@ -53,9 +53,14 @@ public interface HouseMapper extends EntityMapper<HouseDTO, House> {
     }
 
     @AfterMapping
-    default void addMores(@MappingTarget HouseDetailDTO dto, House house) {
+    default void addMores(@MappingTarget HouseDetailDTO dto) {
         dto.setTitle(MappingUtils.formatTitle(dto));
         dto.setFullAddress(MappingUtils.formatFullAddress(dto));
+        dto.setLink(MappingUtils.formatLink(dto));
+    }
+
+    @AfterMapping
+    default void addMores(@MappingTarget HouseDTO dto) {
         dto.setLink(MappingUtils.formatLink(dto));
     }
 }
