@@ -52,19 +52,19 @@ export class HomeDetail extends React.Component<IHomeProp> {
         ) : (
           <>
             {this.houseImageGalleryFrom(images)}
-            <h3>Bán căn hộ chung cư</h3>
+            <h3 style={{ marginTop: 20 }}>Bán căn hộ chung cư</h3>
             <ul className="tab">
               <li className="active">
-                <a href="#">MÔ TẢ CƠ BẢN</a>
+                <a>MÔ TẢ CƠ BẢN</a>
               </li>
               <li>
-                <a href="#">VỊ TRÍ &amp; TIỆN ÍCH</a>
+                <a>VỊ TRÍ &amp; TIỆN ÍCH</a>
               </li>
               <li>
-                <a href="#">LIÊN HỆ</a>
+                <a>LIÊN HỆ</a>
               </li>
               <li>
-                <a href="#">THÔNG TIN KHÁC</a>
+                <a>THÔNG TIN KHÁC</a>
               </li>
             </ul>
             <div className="description" id="description">
@@ -72,28 +72,25 @@ export class HomeDetail extends React.Component<IHomeProp> {
                 <span>Hình thức</span>Bán
               </p>
               <p>
-                <span>Loại hình</span>Căn hộ chung cư
+                <span>Loại hình</span>
+                {getLandType(this.props.houseEntity.landType)}
               </p>
               <p>
                 <span>Dự án</span>Dự án Vinhomes D’Capitale
               </p>
               <div className="property-label">Mô tả</div>
               <div className="property">
-                <span className="compact">60m2</span>
-                <span className="bedroom">2</span>
-                <span className="bathroom">1</span>
-                <span className="compass">Đông</span>
-                <span className="floor">Tầng 10</span>
+                <span className="compact">{this.props.houseEntity.acreage}m2</span>
+                <span className="bedroom">{this.props.houseEntity.bedRoom}</span>
+                <span className="bathroom">{this.props.houseEntity.bathRoom}</span>
+                <span className="compass">{getDirection(this.props.houseEntity.direction)}</span>
+                <span className="floor">Tầng {this.props.houseEntity.floor}</span>
                 <span className="gara">
-                  <i className="fa fa-check" />
+                  {this.props.houseEntity.parking ? <i className="fa fa-check" /> : <i className="fa fa-times" />}
                 </span>
               </div>
               <div className="content">
-                <p>
-                  The crafting and the designing of the project is built with exceptional and well planned amenities to showcase a world
-                  within the four walls. The quality work and dedication in intending this concrete chic is an idea of lavish living. The
-                  well planned structures …
-                </p>
+                <p dangerouslySetInnerHTML={{ __html: this.props.houseEntity.summary }} />
               </div>
               <p>
                 <a className="more" href="#">
@@ -102,8 +99,8 @@ export class HomeDetail extends React.Component<IHomeProp> {
               </p>
             </div>
             <div className="location">
-              <h3>
-                Bản đồ vị trí Bất động sản <span className="address">22 Láng Hạ, Đống Đa, Hà Nội</span>
+              <h3 style={{ marginTop: 20 }}>
+                Bản đồ vị trí Bất động sản <span className="address">{this.props.houseEntity.fullAddress}</span>
               </h3>
               <div className="heading">
                 <ul>
@@ -221,31 +218,36 @@ export class HomeDetail extends React.Component<IHomeProp> {
             <div className="contact-info">
               <div className="row">
                 <div className="col-sm-6 personal description">
-                  <h3>Liên hệ</h3>
+                  <h3 style={{ marginTop: 20 }}>Liên hệ</h3>
                   <p>
-                    <span>Họ tên</span>Lâm Nhật Long
+                    <span>Họ tên</span>
+                    {this.props.houseEntity.customer}
                   </p>
                   <p>
-                    <span>Số điện thoại</span>0963 768333
+                    <span>Số điện thoại</span>
+                    {this.props.houseEntity.mobile}
                   </p>
                   <p>
-                    <span>Email</span>lamnhatlong@gmail.com
+                    <span>Email</span>
+                    {this.props.houseEntity.email}
                   </p>
                   <p>
-                    <span>Zalo</span>0963 768333
+                    <span>Zalo</span>
+                    {this.props.houseEntity.zalo}
                   </p>
                   <p>
-                    <span>Messenger</span>0963 768333
+                    <span>Messenger</span>
+                    {this.props.houseEntity.facebook}
                   </p>
                 </div>
                 <div className="col-sm-6 time-to-view">
-                  <h3>Thời gian xem bất động sản</h3>
+                  <h3 style={{ marginTop: 20 }}>Thời gian xem bất động sản</h3>
                   <p>17h - 19h các ngày trong tuần 10h - 12h các ngày thứ 7, chủ nhật</p>
                 </div>
               </div>
             </div>
             <div className="other-info">
-              <h3>Thông tin khác</h3>
+              <h3 style={{ marginTop: 20 }}>Thông tin khác</h3>
               <div className="row">
                 <div className="col-sm-4 text-center">
                   <div className="circle orange-bd">200</div>
@@ -262,7 +264,7 @@ export class HomeDetail extends React.Component<IHomeProp> {
               </div>
             </div>
             <div className="related">
-              <h3>
+              <h3 style={{ marginTop: 20 }}>
                 Có thể bạn quan tâm
                 <span className="tool-box">
                   <a className="prev">

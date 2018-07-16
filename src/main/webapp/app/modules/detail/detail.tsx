@@ -192,17 +192,10 @@ export class Detail extends React.Component<IDetailProp, IDetailState> {
 
   render() {
     const { loading, updating } = this.props;
-    // const { photoIndex, isOpen } = this.state;
     const slides = [];
     const images = [];
     if (this.props.housePhotoList) {
-      /*
       this.props.housePhotoList.map(file => {
-        slides.push(<img key={file.id} className="center-cropped" src={`data:image/jpeg;base64,${file.image}`} />);
-      });
-      */
-      this.props.housePhotoList.map(file => {
-        // images.push({ original: `data:image/jpeg;base64,${file.image}`, thumbnail: `data:image/jpeg;base64,${file.image}` });
         images.push({
           original: `${SERVER_API_URL}/api/house-photos/${encodeId(file.id)}/contents/${this.props.houseEntity.link}-${encodeId(
             file.id
