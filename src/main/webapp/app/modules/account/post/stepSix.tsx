@@ -105,6 +105,7 @@ export class StepSix extends React.Component<IStepSixProp, IStepSixState> {
             <Input
               onChange={this.onChangeMobile}
               value={this.state.mobile || this.props.house.mobile}
+              type="number"
               addonBefore="Điện thoại"
               placeholder="Số điện thoại liên hệ"
             />

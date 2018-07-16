@@ -8,8 +8,7 @@ const Option = Select.Option;
 const RadioButton = Radio.Button;
 const RadioGroup = Radio.Group;
 const { TextArea } = Input;
-/* tslint:disable-next-line */
-import RichTextEditor from 'react-rte';
+import ReactQuill from 'react-quill';
 
 import { IRootState } from 'app/shared/reducers';
 import { getSession } from 'app/shared/reducers/authentication';
@@ -45,7 +44,7 @@ export class StepThree extends React.Component<IStepThreeProp, IStepThreeState> 
     floor: null,
     parking: null,
     furniture: null,
-    summary: RichTextEditor.createEmptyValue()
+    summary: ''
   };
 
   onChangeAcreage = e => {
@@ -163,7 +162,7 @@ export class StepThree extends React.Component<IStepThreeProp, IStepThreeState> 
       summary: value
     });
     this.props.updateHouse({
-      summary: value.toString('html')
+      summary: value
     });
   };
 
@@ -316,7 +315,7 @@ export class StepThree extends React.Component<IStepThreeProp, IStepThreeState> 
         */}
         <Col md="12">
           <div style={{ marginTop: 16 }}>
-            <RichTextEditor
+            <ReactQuill
               value={this.state.summary || this.props.house.summary}
               onChange={this.onChangeSummary}
               placeholder="Mô tả thêm về ngôi nhà của bạn"

@@ -2,7 +2,6 @@
 import './home.css';
 
 import React from 'react';
-import * as $ from 'jquery';
 import { connect } from 'react-redux';
 import qs from 'query-string';
 import { Select, Cascader, Radio } from 'antd';
