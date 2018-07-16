@@ -45,62 +45,6 @@ export class HomeSearchBox extends React.Component<IHomeSearchBoxProp, IHomeSear
         });
       }
     }
-    $('.select li').click(function() {
-      $(this)
-        .siblings()
-        .removeClass('active');
-      $(this).addClass('active');
-    });
-
-    $('.select .js-type li').click(function() {
-      $('.select span#type').text($(this).html());
-      $('.select input#slType').attr('value', $(this).attr('data-value'));
-    });
-
-    $('.select .js-category li').click(function() {
-      $('.select span#category').text($(this).html());
-      $('.select input#slCategory').attr('value', $(this).attr('data-value'));
-    });
-
-    $('.select .js-price li').click(function() {
-      $('.select span#price').text($(this).text());
-      $('.select input#slPrice').attr('value', $(this).attr('data-value'));
-    });
-
-    $('.select .js-square li').click(function() {
-      $('.select span#square').text($(this).text());
-      $('.select input#slSqrare').attr('value', $(this).attr('data-value'));
-    });
-
-    $('.js-bathroom li').click(function() {
-      $('.js-bathroom').css('display', 'none');
-      $('#bathroom span').text($(this).html());
-      $('input#slBathroom').attr('value', $(this).attr('data-value'));
-    });
-
-    $('.select .js-bathroom li').click(function() {
-      $('.select span#bathroom').text($(this).text());
-      $('.select input#slBathroom').attr('value', $(this).attr('data-value'));
-    });
-
-    $('.js-bedroom li').click(function() {
-      $('.js-bedroom').css('display', 'none');
-      $('#bedroom span').text($(this).html());
-      $('input#slBedroom').attr('value', $(this).attr('data-value'));
-    });
-
-    $('.select .js-bedroom li').click(function() {
-      $('.select span#bedroom').text($(this).text());
-      $('.select input#slBedroom').attr('value', $(this).attr('data-value'));
-    });
-
-    $('.js-price .advance-options input').change(function() {
-      $('#price').html($('.js-price input.min-value').val() + ' - ' + $('.js-price input.max-value').val() + ' tỷ');
-    });
-
-    $('.js-square .advance-options input').change(function() {
-      $('#square').html($('.js-square input.min-value').val() + ' - ' + $('.js-square input.max-value').val() + ' m2');
-    });
   }
 
   componentDidUpdate(prevProps) {
@@ -217,12 +161,7 @@ export class HomeSearchBox extends React.Component<IHomeSearchBoxProp, IHomeSear
     return (
       <div className="select">
         <label>Khoảng giá</label>
-        <Select
-          style={{ width: 175 }}
-          value={this.state.parameters.money}
-          placeholder="Khoảng giá"
-          onChange={this.menuPriceClick}
-        >
+        <Select style={{ width: 175 }} value={this.state.parameters.money} placeholder="Khoảng giá" onChange={this.menuPriceClick}>
           <Option value="0">Bất kỳ</Option>
           <Option value="1">&lt; 500 triệu</Option>
           <Option value="2">500 triệu - 1 tỷ</Option>
@@ -246,12 +185,7 @@ export class HomeSearchBox extends React.Component<IHomeSearchBoxProp, IHomeSear
     return (
       <div className="select">
         <label>Diện tích</label>
-        <Select
-          style={{ width: 175 }}
-          value={this.state.parameters.acreage}
-          placeholder="Diện tích"
-          onChange={this.menuAcreageClick}
-        >
+        <Select style={{ width: 175 }} value={this.state.parameters.acreage} placeholder="Diện tích" onChange={this.menuAcreageClick}>
           <Option value="0">Bất kỳ</Option>
           <Option value="1">&lt; 50 m2</Option>
           <Option value="2">50 - 80 m2</Option>
@@ -263,8 +197,8 @@ export class HomeSearchBox extends React.Component<IHomeSearchBoxProp, IHomeSear
     );
   }
 
-  menuBathRoomClick = e => {
-    const parameters = { bathRoom: e.target.dataset.value };
+  menuBathRoomClick = value => {
+    const parameters = { bathRoom: value };
     const nextParameter = { ...this.state.parameters, ...parameters };
     this.setState({
       parameters: nextParameter
@@ -275,12 +209,7 @@ export class HomeSearchBox extends React.Component<IHomeSearchBoxProp, IHomeSear
     return (
       <div className="select">
         <label>Số phòng tắm</label>
-        <Select
-          style={{ width: 175 }}
-          value={this.state.parameters.acreage}
-          placeholder="Số phòng tắm"
-          onChange={this.menuAcreageClick}
-        >
+        <Select style={{ width: 175 }} value={this.state.parameters.bathRoom} placeholder="Số phòng tắm" onChange={this.menuBathRoomClick}>
           <Option value="0">Bất kỳ</Option>
           <Option value="1">+1</Option>
           <Option value="2">+2</Option>
@@ -292,8 +221,8 @@ export class HomeSearchBox extends React.Component<IHomeSearchBoxProp, IHomeSear
     );
   }
 
-  menuBedRoomClick = e => {
-    const parameters = { bedRoom: e.target.dataset.value };
+  menuBedRoomClick = value => {
+    const parameters = { bedRoom: value };
     const nextParameter = { ...this.state.parameters, ...parameters };
     this.setState({
       parameters: nextParameter
@@ -304,12 +233,7 @@ export class HomeSearchBox extends React.Component<IHomeSearchBoxProp, IHomeSear
     return (
       <div className="select">
         <label>Số phòng ngủ</label>
-        <Select
-          style={{ width: 175 }}
-          value={this.state.parameters.acreage}
-          placeholder="Số phòng ngủ"
-          onChange={this.menuAcreageClick}
-        >
+        <Select style={{ width: 175 }} value={this.state.parameters.bedRoom} placeholder="Số phòng ngủ" onChange={this.menuBedRoomClick}>
           <Option value="0">Bất kỳ</Option>
           <Option value="1">1</Option>
           <Option value="2">2</Option>
@@ -321,8 +245,8 @@ export class HomeSearchBox extends React.Component<IHomeSearchBoxProp, IHomeSear
     );
   }
 
-  handlActionTypeChange = e => {
-    const parameters = { actionType: e.target.value };
+  handlActionTypeChange = value => {
+    const parameters = { actionType: value };
     const nextParameter = { ...this.state.parameters, ...parameters };
     this.setState({
       parameters: nextParameter

@@ -2,7 +2,7 @@
 import './search-menu-v1.css';
 
 import React from 'react';
-import $ from 'jquery';
+// import $ from 'jquery';
 import { connect } from 'react-redux';
 import { Col } from 'reactstrap';
 import qs from 'query-string';
@@ -38,6 +38,7 @@ export class SearchPage extends React.Component<ISearchPageProp, ISearchPageStat
       this.props.getHouses(queryStringMapping(parsed));
     }
     */
+    /*
     $('.dropdown-submenu div').on('click', function(e) {
       $(this)
         .next('ul')
@@ -161,6 +162,7 @@ export class SearchPage extends React.Component<ISearchPageProp, ISearchPageStat
     $('.js-square .advance-options input').change(function() {
       $('#square').html($('.js-square input.min-value').val() + ' - ' + $('.js-square input.max-value').val() + ' m2');
     });
+    */
   }
 
   componentDidUpdate(prevProps) {
