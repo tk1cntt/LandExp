@@ -6,7 +6,8 @@ import { IPaginationBaseState, getSortState } from 'react-jhipster';
 import { connect } from 'react-redux';
 import { Row } from 'reactstrap';
 import { getSession } from 'app/shared/reducers/authentication';
-import { getHouses, getEntities, getOwnerEntities } from 'app/entities/house/house.reducer';
+import { getHouses, getEntities, getOwnerEntities, getEntity } from 'app/entities/house/house.reducer';
+import { getImageOfHouse } from 'app/entities/house-photo/house-photo.reducer';
 import { ITEMS_PER_PAGE } from 'app/shared/util/pagination.constants';
 
 import * as qs from 'query-string';
@@ -22,11 +23,13 @@ export interface IHomeProp extends StateProps, DispatchProps, RouteComponentProp
 
 export interface IHomeState extends IPaginationBaseState {
   search: string;
+  showGrid: any;
 }
 
 export class Home extends React.Component<IHomeProp, IHomeState> {
   state: IHomeState = {
     search: '',
+    showGrid: true,
     ...getSortState(this.props.location, ITEMS_PER_PAGE)
   };
 
@@ -37,7 +40,21 @@ export class Home extends React.Component<IHomeProp, IHomeState> {
       this.props.getHouses(queryStringMapping(parsed));
     }
   }
+
+  showForm(value) {
+    if (!value) {
+      this.props.getEntity(this.props.houseList[0].id);
+      this.props.getImageOfHouse(this.props.houseList[0].id);
+    }
+    this.setState({
+      showGrid: value
+    });
+  }
+
   render() {
+    const from = (this.state.activePage - 1) * this.state.itemsPerPage + 1;
+    const to = this.state.activePage * this.state.itemsPerPage;
+
     return (
       <Row>
         <HomeSearchBox location={this.props.location} history={this.props.history} />
@@ -49,30 +66,30 @@ export class Home extends React.Component<IHomeProp, IHomeState> {
             <>
               <div className="row lastest-posts">
                 <h2>
-                  Tin mới đăng<span>
-                    Hiển thị 1 - {this.props.totalItems < 20 ? this.props.totalItems : 20} trong {this.props.totalItems} Bất động sản
+                  Tin mới đăng
+                  <span>
+                    Hiển thị {from} - {this.props.totalItems < 20 ? this.props.totalItems : to} trong {this.props.totalItems} Bất động sản
                   </span>
                   <div className="toolbox">
-                    <label htmlFor="sortby">Sắp xếp: </label>
-                    <select name="sortby" id="sortby">
-                      <option>Ngày đăng mới nhất</option>
-                      <option>Giá từ thấp đến cao</option>
-                      <option>Giá từ cao đến thấp</option>
-                    </select>
                     <ul role="tablist">
-                      <li className="listview-button">
-                        <a href="#list" aria-controls="home" role="tab" data-toggle="tab" />
+                      <li
+                        className={!this.state.showGrid ? 'listview-button active' : 'listview-button'}
+                        onClick={this.showForm.bind(this, false)}
+                      >
+                        <a aria-controls="home" role="tab" data-toggle="tab" />
                       </li>
-                      <li className="gridview-button active">
-                        <a href="#grid" aria-controls="home" role="tab" data-toggle="tab" />
+                      <li
+                        className={this.state.showGrid ? 'gridview-button active' : 'gridview-button'}
+                        onClick={this.showForm.bind(this, true)}
+                      >
+                        <a aria-controls="home" role="tab" data-toggle="tab" />
                       </li>
                     </ul>
                   </div>
                 </h2>
                 <div className="row">
                   <div className="tab-content">
-                    <HomeList houses={this.props.houseList} />
-                    <HomeGrid houses={this.props.houseList} />
+                    {this.state.showGrid ? <HomeGrid houses={this.props.houseList} /> : <HomeList houses={this.props.houseList} />}
                   </div>
                 </div>
               </div>
@@ -90,7 +107,7 @@ const mapStateToProps = storeState => ({
   loading: storeState.house.loading
 });
 
-const mapDispatchToProps = { getSession, getHouses, getEntities, getOwnerEntities };
+const mapDispatchToProps = { getSession, getHouses, getEntities, getOwnerEntities, getEntity, getImageOfHouse };
 
 type StateProps = ReturnType<typeof mapStateToProps>;
 type DispatchProps = typeof mapDispatchToProps;

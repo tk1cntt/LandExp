@@ -5,8 +5,9 @@ import { Link } from 'react-router-dom';
 import { Translate, TextFormat } from 'react-jhipster';
 import { connect } from 'react-redux';
 import { Row, Col, Alert } from 'reactstrap';
-import { getSession } from 'app/shared/reducers/authentication';
-import { getLandType, getMoney, formatDate } from 'app/shared/util/utils';
+import { getEntity } from 'app/entities/house/house.reducer';
+import { getImageOfHouse } from 'app/entities/house-photo/house-photo.reducer';
+import { getLandType, getMoney, formatDate, encodeId } from 'app/shared/util/utils';
 import { APP_DATE_FORMAT, APP_LOCAL_DATE_FORMAT } from 'app/config/constants';
 
 import SearchPage from 'app/shared/layout/search/search-menu';
@@ -26,10 +27,14 @@ export class HomeList extends React.Component<IHomeProp, IHouseState> {
   };
 
   componentDidMount() {
-    // this.props.getSession();
+    this.setState({
+      itemActive: this.props.houses[0].id
+    });
   }
 
   itemInfoClick = house => {
+    this.props.getEntity(house.id);
+    this.props.getImageOfHouse(house.id);
     this.setState({
       itemActive: house.id
     });
@@ -38,7 +43,7 @@ export class HomeList extends React.Component<IHomeProp, IHouseState> {
   render() {
     const { account } = this.props;
     return (
-      <div role="tabpanel" className="tab-pane" id="list">
+      <div role="tabpanel" className="tab-pane active" id="list">
         <div className="listview-left">
           {this.props.houses.map((house, i) => (
             <div
@@ -47,9 +52,9 @@ export class HomeList extends React.Component<IHomeProp, IHouseState> {
               onClick={this.itemInfoClick.bind(this, house)}
             >
               <div className="item-thumbnail">
-                <a href="#">
+                <Link to={`/bat-dong-san/${encodeId(house.id)}/${house.link}`}>
                   <img src="/static/upload/products/item-1.png" />
-                </a>
+                </Link>
                 {house.actionType === 'FOR_SELL' ? <div className="type ban">BÁN</div> : <div className="type chothue">CHO THUÊ</div>}
               </div>
               <div className="item-info">
@@ -102,7 +107,7 @@ const mapStateToProps = storeState => ({
   isAuthenticated: storeState.authentication.isAuthenticated
 });
 
-const mapDispatchToProps = { getSession };
+const mapDispatchToProps = { getImageOfHouse, getEntity };
 
 type StateProps = ReturnType<typeof mapStateToProps>;
 type DispatchProps = typeof mapDispatchToProps;

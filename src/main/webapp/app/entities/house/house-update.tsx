@@ -23,7 +23,7 @@ import { getActionType, getLandType, getCityType, getDirection, getPresent, getS
 import Loading from 'app/shared/layout/loading/loading';
 import SearchPage from 'app/shared/layout/search/search-menu';
 
-export interface IHouseUpdateProps extends StateProps, DispatchProps, RouteComponentProps<{ id: number }> { }
+export interface IHouseUpdateProps extends StateProps, DispatchProps, RouteComponentProps<{ id: number }> {}
 
 export interface IHouseUpdateState {
   isNew: boolean;
@@ -207,7 +207,9 @@ export class HouseUpdate extends React.Component<IHouseUpdateProps, IHouseUpdate
         <Container>
           <Row>
             <Col md="12">
-              {loading ? <Loading /> : (
+              {loading ? (
+                <Loading />
+              ) : (
                 <Row>
                   <Card title="Thông tin chi tiết về ngôi nhà">
                     <AvForm model={isNew ? {} : houseEntity} className="home-edit-content" onSubmit={this.saveEntity}>
@@ -269,16 +271,16 @@ export class HouseUpdate extends React.Component<IHouseUpdateProps, IHouseUpdate
                                 type="select"
                                 className="form-control"
                                 name="projectId"
-                                value={(!isNew && houseEntity.projectId)}
+                                value={!isNew && houseEntity.projectId}
                                 onChange={this.projectUpdate}
                               >
                                 <option value="" key="0" />
                                 {landProjects
                                   ? landProjects.map(otherEntity => (
-                                    <option value={otherEntity.id} key={otherEntity.id}>
-                                      {otherEntity.name}
-                                    </option>
-                                  ))
+                                      <option value={otherEntity.id} key={otherEntity.id}>
+                                        {otherEntity.name}
+                                      </option>
+                                    ))
                                   : null}
                               </AvInput>
                             </AvGroup>
@@ -461,7 +463,9 @@ export class HouseUpdate extends React.Component<IHouseUpdateProps, IHouseUpdate
                             </AvGroup>
                           </Col>
                         </TabPane>
-                        <TabPane tab="Địa chỉ" key="3">Content of Tab Pane 3</TabPane>
+                        <TabPane tab="Địa chỉ" key="3">
+                          Content of Tab Pane 3
+                        </TabPane>
                         <TabPane tab="Hình ảnh" key="4">
                           <Col md="12">
                             <AvGroup>
@@ -579,7 +583,7 @@ const mapStateToProps = (storeState: IRootState) => ({
   landProjects: storeState.landProject.entities,
   users: storeState.userManagement.users,
   houseEntity: storeState.house.entity,
-  loading: storeState.house.loading,
+  loading: storeState.house.loadingDetail,
   updating: storeState.house.updating
 });
 

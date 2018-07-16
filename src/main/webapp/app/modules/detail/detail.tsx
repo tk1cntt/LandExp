@@ -332,7 +332,7 @@ export class Detail extends React.Component<IDetailProp, IDetailState> {
 
 const mapStateToProps = storeState => ({
   houseEntity: storeState.house.entity,
-  loading: storeState.house.loading,
+  loading: storeState.house.loadingDetail,
   updating: storeState.house.updating,
   housePhotoList: storeState.housePhoto.entities,
   photoLoading: storeState.housePhoto.loading

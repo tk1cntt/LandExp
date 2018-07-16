@@ -24,6 +24,7 @@ export const ACTION_TYPES = {
 
 const initialState = {
   loading: false,
+  loadingDetail: false,
   errorMessage: null,
   entities: [] as ReadonlyArray<IHouse>,
   entity: defaultValue,
@@ -40,12 +41,18 @@ export default (state: HouseState = initialState, action): HouseState => {
   switch (action.type) {
     case REQUEST(ACTION_TYPES.SEARCH_HOUSES):
     case REQUEST(ACTION_TYPES.FETCH_HOUSE_LIST):
-    case REQUEST(ACTION_TYPES.FETCH_HOUSE):
       return {
         ...state,
         errorMessage: null,
         updateSuccess: false,
         loading: true
+      };
+    case REQUEST(ACTION_TYPES.FETCH_HOUSE):
+      return {
+        ...state,
+        errorMessage: null,
+        updateSuccess: false,
+        loadingDetail: true
       };
     case REQUEST(ACTION_TYPES.CREATE_HOUSE):
     case REQUEST(ACTION_TYPES.UPDATE_HOUSE):
@@ -65,6 +72,7 @@ export default (state: HouseState = initialState, action): HouseState => {
       return {
         ...state,
         loading: false,
+        loadingDetail: false,
         updating: false,
         updateSuccess: false,
         errorMessage: action.payload
@@ -73,6 +81,7 @@ export default (state: HouseState = initialState, action): HouseState => {
       return {
         ...state,
         loading: false,
+        totalItems: action.payload.headers['x-total-count'],
         entities: action.payload.data
       };
     case SUCCESS(ACTION_TYPES.FETCH_HOUSE_LIST):
@@ -85,7 +94,7 @@ export default (state: HouseState = initialState, action): HouseState => {
     case SUCCESS(ACTION_TYPES.FETCH_HOUSE):
       return {
         ...state,
-        loading: false,
+        loadingDetail: false,
         entity: action.payload.data
       };
     case SUCCESS(ACTION_TYPES.CREATE_HOUSE):
@@ -127,7 +136,7 @@ const apiUrl = SERVER_API_URL + '/api/houses';
 // Actions
 
 export const getEntities: ICrudGetAllAction<IHouse> = (page, size, sort) => {
-  const requestUrl = `${apiUrl}/users${sort ? `?page=${page}&size=${size}&sort=${sort}` : ''}`;
+  const requestUrl = `${apiUrl}${sort ? `?page=${page}&size=${size}&sort=${sort}` : ''}`;
   return {
     type: ACTION_TYPES.FETCH_HOUSE_LIST,
     payload: client.get<IHouse>(`${requestUrl}${sort ? '&' : '?'}cacheBuster=${new Date().getTime()}`)
@@ -138,6 +147,18 @@ export const getHouses: ICrudSearchAction<IHouse> = query => ({
   type: ACTION_TYPES.SEARCH_HOUSES,
   payload: client.get<IHouse>(`${apiUrl}?` + query)
 });
+
+export const getUserEntities: ICrudGetAllAction<IHouse> = (page, size, sort) => {
+  const jwt = Storage.local.get('jhi-authenticationToken') || Storage.session.get('jhi-authenticationToken');
+  if (jwt) {
+    client.defaults.headers['Authorization'] = `Bearer ${jwt}`;
+  }
+  const requestUrl = `${apiUrl}/users${sort ? `?page=${page}&size=${size}&sort=${sort}` : ''}`;
+  return {
+    type: ACTION_TYPES.FETCH_HOUSE_LIST,
+    payload: client.get<IHouse>(`${requestUrl}${sort ? '&' : '?'}cacheBuster=${new Date().getTime()}`)
+  };
+};
 
 export const getOwnerEntities: ICrudGetAllAction<IHouse> = (page, size, sort) => {
   const jwt = Storage.local.get('jhi-authenticationToken') || Storage.session.get('jhi-authenticationToken');

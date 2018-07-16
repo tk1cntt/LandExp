@@ -53,16 +53,24 @@ const MyMapComponent: React.StatelessComponent<{
 ));
 
 export default class GoogleMaps extends React.PureComponent {
+  timer: any;
+
   state = {
     isMarkerShown: false
   };
 
   componentDidMount() {
+    this.timer = null;
     this.delayedShowMarker();
   }
 
+  componentWillUnmount() {
+    clearTimeout(this.timer);
+  }
+
   delayedShowMarker = () => {
-    setTimeout(() => {
+    clearTimeout(this.timer);
+    this.timer = setTimeout(() => {
       this.setState({ isMarkerShown: true });
     }, 3000);
   };
