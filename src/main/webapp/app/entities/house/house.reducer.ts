@@ -50,6 +50,7 @@ export default (state: HouseState = initialState, action): HouseState => {
     case REQUEST(ACTION_TYPES.FETCH_HOUSE):
       return {
         ...state,
+        entity: defaultValue,
         errorMessage: null,
         updateSuccess: false,
         loadingDetail: true

@@ -14,7 +14,7 @@ const Routes = ({ match }) => (
     <ErrorBoundaryRoute path={`${match.url}/danh-sach-tin-dang`} component={House} />
     <ErrorBoundaryRoute path={`${match.url}/dang-tin`} component={Post} />
     <ErrorBoundaryRoute path={`${match.url}/sua-tin-dang/:id`} component={Edit} />
-    <ErrorBoundaryRoute path={`${match.url}/xem-truoc-tin-dang/:key?`} component={Detail} />
+    <ErrorBoundaryRoute path={`${match.url}/xem-truoc-tin-dang/:id`} component={Detail} />
     <ErrorBoundaryRoute path={`${match.url}/thanh-toan/:id`} component={Payment} />
     <ErrorBoundaryRoute path={`${match.url}/thong-tin-tai-khoan`} component={Settings} />
     <ErrorBoundaryRoute path={`${match.url}/thay-doi-mat-khau`} component={Password} />

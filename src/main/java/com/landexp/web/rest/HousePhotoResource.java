@@ -2,6 +2,7 @@ package com.landexp.web.rest;
 
 import com.codahale.metrics.annotation.Timed;
 import com.landexp.config.Utils;
+import com.landexp.responses.HousePhotoResponse;
 import com.landexp.security.AuthoritiesConstants;
 import com.landexp.service.HousePhotoService;
 import com.landexp.web.rest.errors.BadRequestAlertException;
@@ -156,14 +157,14 @@ public class HousePhotoResource {
     /**
      * GET  /house-photos/:id/houses : get the photo of house.
      *
-     * @param id the id of the housePhotoDTO to retrieve
+     * @param id the id of the HousePhotoResponse to retrieve
      * @return the ResponseEntity with status 200 (OK) and with body the housePhotoDTO, or with status 404 (Not Found)
      */
     @GetMapping("/house-photos/{id}/houses")
     @Timed
-    public ResponseEntity<List<HousePhotoDTO>> getPhotoOfHouse(@PathVariable Long id, Pageable pageable) {
+    public ResponseEntity<List<HousePhotoResponse>> getPhotoOfHouse(@PathVariable Long id, Pageable pageable) {
         log.debug("REST request to get photo of house : {}", id);
-        Page<HousePhotoDTO> page = housePhotoService.findByHouse(id, pageable);
+        Page<HousePhotoResponse> page = housePhotoService.findByHouse(id, pageable);
         HttpHeaders headers = PaginationUtil.generatePaginationHttpHeaders(page, "/api/house-photos/" + id + "/houses");
         return new ResponseEntity<>(page.getContent(), headers, HttpStatus.OK);
     }

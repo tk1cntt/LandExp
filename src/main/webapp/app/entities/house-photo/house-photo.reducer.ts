@@ -41,6 +41,7 @@ export default (state: HousePhotoState = initialState, action): HousePhotoState 
     case REQUEST(ACTION_TYPES.FETCH_HOUSEPHOTO):
       return {
         ...state,
+        entities: [],
         errorMessage: null,
         updateSuccess: false,
         loading: true

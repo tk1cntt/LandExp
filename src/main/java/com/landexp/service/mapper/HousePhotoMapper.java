@@ -1,6 +1,7 @@
 package com.landexp.service.mapper;
 
 import com.landexp.domain.*;
+import com.landexp.responses.HousePhotoResponse;
 import com.landexp.service.dto.HousePhotoDTO;
 
 import org.mapstruct.*;
@@ -17,6 +18,9 @@ public interface HousePhotoMapper extends EntityMapper<HousePhotoDTO, HousePhoto
     @Mapping(source = "updateBy.id", target = "updateById")
     @Mapping(source = "updateBy.login", target = "updateByLogin")
     HousePhotoDTO toDto(HousePhoto housePhoto);
+
+    @Mapping(source = "house.id", target = "houseId")
+    HousePhotoResponse toResponse(HousePhoto housePhoto);
 
     @Mapping(source = "houseId", target = "house")
     @Mapping(source = "createById", target = "createBy")

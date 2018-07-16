@@ -164,6 +164,13 @@
   height: 376px;
 }
 
+.image-gallery-content .image-gallery-slide-wrapper .image-gallery-slides .image-gallery-slide .image-gallery-image img {
+  object-fit: cover; /* Do not scale the image */
+  object-position: center; /* Center the image within the element */
+  width: 568px !important;
+  height: 376px;
+}
+
 .image-gallery-content .image-gallery-thumbnails-wrapper .image-gallery-thumbnails .image-gallery-thumbnails-container img {
   object-fit: cover; /* Do not scale the image */
   object-position: center; /* Center the image within the element */

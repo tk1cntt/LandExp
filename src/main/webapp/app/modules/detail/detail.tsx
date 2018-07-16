@@ -19,10 +19,11 @@ import { getEntity } from 'app/entities/house/house.reducer';
 import { getImageOfHouse } from 'app/entities/house-photo/house-photo.reducer';
 import { SERVER_API_URL, APP_LOCAL_DATE_FORMAT } from 'app/config/constants';
 
+import Loading from 'app/shared/layout/loading/loading';
 import SearchPage from 'app/shared/layout/search/search-menu';
 import GoogleMaps from 'app/shared/util/google-maps';
 
-export interface IDetailProp extends StateProps, DispatchProps, RouteComponentProps<{ id: any; link: any }> {}
+export interface IDetailProp extends StateProps, DispatchProps, RouteComponentProps<{ id: any; link: any }> { }
 
 export interface IDetailState {
   search: string;
@@ -210,13 +211,7 @@ export class Detail extends React.Component<IDetailProp, IDetailState> {
       <Row>
         <SearchPage location={this.props.location} history={this.props.history} />
         <Container>
-          {this.props.loading && this.props.photoLoading ? (
-            <Row>
-              <Col className="justify-content-center" md="12">
-                <Spin tip="Đang cập nhật dữ liệu..." />
-              </Col>
-            </Row>
-          ) : (
+          {this.props.loading && this.props.photoLoading ? <Loading /> : (
             <Row>
               <Row id="product-content">
                 {this.houseImageGalleryFrom(images)}

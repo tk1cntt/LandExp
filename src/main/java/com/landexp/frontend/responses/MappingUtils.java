@@ -1,15 +1,10 @@
 package com.landexp.frontend.responses;
 
-import com.landexp.config.Utils;
 import com.landexp.domain.enumeration.DirectionType;
 import com.landexp.domain.enumeration.LandType;
 import com.landexp.domain.enumeration.UserActionType;
-import com.landexp.responses.HouseDetailResponse;
-import com.landexp.responses.HouseImageResponse;
-import com.landexp.responses.HouseResponse;
 import com.landexp.service.dto.HouseDTO;
 import com.landexp.service.dto.HouseDetailDTO;
-import com.landexp.service.dto.HousePhotoDTO;
 import org.springframework.util.ObjectUtils;
 import org.springframework.util.StringUtils;
 
@@ -17,16 +12,14 @@ import java.text.DecimalFormat;
 import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.time.ZoneId;
-import java.util.ArrayList;
 import java.util.Base64;
 import java.util.Date;
-import java.util.List;
 
 public class MappingUtils {
 
     public static void main(String[] args) {
-        System.out.println(1600000000f/1000000000);
-        System.out.println(1400000000f/1000000000);
+        System.out.println(1600000000f / 1000000000);
+        System.out.println(1400000000f / 1000000000);
         System.out.println(formatMoney(1600000000f, UserActionType.FOR_SELL));
         System.out.println(formatMoney(1400000000f, UserActionType.FOR_SELL));
         System.out.println(formatMoney(900000000f, UserActionType.FOR_SELL));
@@ -139,61 +132,6 @@ public class MappingUtils {
 
     private static String formatImageData(byte[] data) {
         return ObjectUtils.isEmpty(data) ? null : new String(Base64.getEncoder().encode(data));
-    }
-
-    public static HouseResponse mappingHouseResponse(HouseDetailDTO dto) {
-        HouseResponse response = new HouseResponse();
-        response.setAvatar(formatImageData(dto.getAvatar()));
-        response.setAvatarContentType(dto.getAvatarContentType());
-        response.setActionType(formatActionType(dto.getActionType()));
-        response.setLandType(formatLandType(dto.getLandType()));
-        response.setAddress(dto.getDistrictName() + ", " + dto.getCityName());
-        response.setFullAddress(formatFullAddress(dto));
-        response.setAcreage(formatNumberRemoveDotZero(dto.getAcreage()));
-        response.setMoney(formatMoney(dto.getMoney(), dto.getActionType()));
-        response.setAcreageStreetSide(formatNumberRemoveDotZero(dto.getAcreageStreetSide()));
-        response.setBathRoom(dto.getBathRoom());
-        response.setBedRoom(dto.getBedRoom());
-        response.setDirection(formatDirection(dto.getDirection()));
-        response.setDirectionBalcony(formatDirection(dto.getDirectionBalcony()));
-        response.setFloor(dto.getFloor());
-        response.setNumberOfFloor(formatNumberRemoveDotZero(dto.getNumberOfFloor()));
-        response.setImage(formatByte(dto.getAvatar()));
-        response.setImageContentType(dto.getAvatarContentType());
-        response.setUpdateAt(formatDate(dto.getUpdateAt()));
-        response.setParking(formatParking(dto.isParking()));
-        response.setSummary(dto.getSummary());
-        response.setLink(formatLink(dto));
-        response.setId(Utils.encodeId(dto.getId()));
-        response.setCustomer(dto.getCustomer());
-        response.setMobile(dto.getMobile());
-        response.setEmail(dto.getEmail());
-        return response;
-    }
-
-    public static HouseImageResponse mappingHouseImageResponse(HousePhotoDTO dto) {
-        HouseImageResponse response = new HouseImageResponse();
-        response.setImageId(Utils.encodeId(dto.getId()));
-        response.setImageData(formatImageData(dto.getImage()));
-        response.setImageContentType(dto.getImageContentType());
-        return response;
-    }
-
-    public static List<HouseImageResponse> mappingHouseImageResponses(List<HousePhotoDTO> images) {
-        List<HouseImageResponse> responses = new ArrayList<>();
-        for (HousePhotoDTO dto : images) {
-            responses.add(mappingHouseImageResponse(dto));
-        }
-        return responses;
-    }
-
-    public static HouseDetailResponse mappingHouseDetailResponse(HouseDetailDTO dto, List<HousePhotoDTO> photos) {
-        HouseDetailResponse response = new HouseDetailResponse();
-        response.setTitle(formatTitle(dto));
-        response.setDescription(dto.getSummary());
-        response.setHouse(mappingHouseResponse(dto));
-        response.setImages(mappingHouseImageResponses(photos));
-        return response;
     }
 
     public static String formatFullAddress(HouseDetailDTO dto) {

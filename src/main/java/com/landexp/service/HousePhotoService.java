@@ -2,18 +2,18 @@ package com.landexp.service;
 
 import com.landexp.domain.HousePhoto;
 import com.landexp.repository.HousePhotoRepository;
+import com.landexp.responses.HousePhotoResponse;
 import com.landexp.service.dto.HousePhotoDTO;
 import com.landexp.service.mapper.HousePhotoMapper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-
 import java.util.Optional;
+
 /**
  * Service Implementation for managing HousePhoto.
  */
@@ -65,10 +65,10 @@ public class HousePhotoService {
      * @return the list of entities
      */
     @Transactional(readOnly = true)
-    public Page<HousePhotoDTO> findByHouse(Long id, Pageable pageable) {
+    public Page<HousePhotoResponse> findByHouse(Long id, Pageable pageable) {
         log.debug("Request to get photo of house {}", id);
         return housePhotoRepository.findByHouseId(id, pageable)
-            .map(housePhotoMapper::toDto);
+            .map(housePhotoMapper::toResponse);
     }
 
 
