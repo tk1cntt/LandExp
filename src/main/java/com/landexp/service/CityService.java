@@ -70,7 +70,7 @@ public class CityService {
     @Transactional(readOnly = true)
     public List<CityDTO> findAll() {
         log.debug("Request to get all Cities");
-        return cityRepository.findAll().stream()
+        return cityRepository.findByEnabledTrueOrderByIndexDescNameAsc().stream()
             .map(cityMapper::toDto)
             .collect(Collectors.toCollection(LinkedList::new));
     }
