@@ -13,6 +13,7 @@ import com.landexp.service.ServiceFeeService;
 import com.landexp.service.dto.*;
 import com.landexp.web.rest.errors.BadRequestAlertException;
 import com.landexp.web.rest.errors.ExecuteRuntimeException;
+import com.landexp.web.rest.errors.InternalServerErrorException;
 import com.landexp.web.rest.util.HeaderUtil;
 import com.landexp.web.rest.util.PaginationUtil;
 import com.landexp.service.HouseQueryService;
@@ -134,12 +135,12 @@ public class HouseResource {
         }
         HouseDetailDTO currentDTO = houseService.findOne(houseDTO.getId()).get();
         if (ObjectUtils.isEmpty(currentDTO)) {
-            return ResponseUtil.wrapOrNotFound(Optional.of(null));
+            throw new InternalServerErrorException("Not found");
         }
         String username = SecurityUtils.getCurrentUserLogin().get();
         if (!username.equalsIgnoreCase(currentDTO.getCreateByLogin())
             && !SecurityUtils.isCurrentUserInRole(AuthoritiesConstants.STAFF)) {
-            return ResponseUtil.wrapOrNotFound(Optional.of(null));
+            throw new InternalServerErrorException("No permission");
         }
         if (currentDTO.getStatusType().equals(StatusType.OPEN)) {
             houseDTO.setStatusType(StatusType.PENDING);
@@ -236,16 +237,16 @@ public class HouseResource {
         log.debug("REST request to get House : {}", id);
         Optional<HouseDetailDTO> houseDTO = houseService.findOne(id);
         if (ObjectUtils.isEmpty(houseDTO.get())) {
-            return ResponseUtil.wrapOrNotFound(houseDTO);
+            throw new InternalServerErrorException("Not found");
         }
         if (SecurityUtils.getCurrentUserLogin().get().equalsIgnoreCase(houseDTO.get().getCreateByLogin())) {
             if (!houseDTO.get().getStatusType().equals(StatusType.OPEN)
                 && !houseDTO.get().getStatusType().equals(StatusType.PENDING)
                 && houseDTO.get().getStatusType().equals(StatusType.PAID)) {
-                return ResponseUtil.wrapOrNotFound(Optional.of(null));
+                throw new InternalServerErrorException("No permission");
             }
         } else if (!houseDTO.get().getStatusType().equals(StatusType.PAID) && !SecurityUtils.isCurrentUserInRole(AuthoritiesConstants.MANAGER)) {
-            return ResponseUtil.wrapOrNotFound(Optional.of(null));
+            throw new InternalServerErrorException("No permission");
         }
         return ResponseUtil.wrapOrNotFound(houseDTO);
     }
@@ -263,11 +264,11 @@ public class HouseResource {
         log.debug("REST request to delete House : {}", id);
         Optional<HouseDetailDTO> houseDTO = houseService.findOne(id);
         if (ObjectUtils.isEmpty(houseDTO.get())) {
-            return ResponseUtil.wrapOrNotFound(Optional.of(null));
+            throw new InternalServerErrorException("Not found");
         }
         if (!SecurityUtils.getCurrentUserLogin().get().equalsIgnoreCase(houseDTO.get().getCreateByLogin())
             && !SecurityUtils.isCurrentUserInRole(AuthoritiesConstants.MANAGER)) {
-            return ResponseUtil.wrapOrNotFound(Optional.of(null));
+            throw new InternalServerErrorException("No permission");
         }
         houseService.delete(id);
         return ResponseEntity.ok().headers(HeaderUtil.createEntityDeletionAlert(ENTITY_NAME, id.toString())).build();
