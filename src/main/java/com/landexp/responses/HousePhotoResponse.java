@@ -1,14 +1,14 @@
-package com.landexp.service.dto;
+package com.landexp.responses;
 
-import java.time.LocalDate;
-import java.io.Serializable;
-import java.util.Objects;
 import javax.persistence.Lob;
+import java.io.Serializable;
+import java.time.LocalDate;
+import java.util.Objects;
 
 /**
  * A DTO for the HousePhoto entity.
  */
-public class HousePhotoDTO implements Serializable {
+public class HousePhotoResponse implements Serializable {
 
     private Long id;
 
@@ -139,7 +139,7 @@ public class HousePhotoDTO implements Serializable {
             return false;
         }
 
-        HousePhotoDTO housePhotoDTO = (HousePhotoDTO) o;
+        HousePhotoResponse housePhotoDTO = (HousePhotoResponse) o;
         if (housePhotoDTO.getId() == null || getId() == null) {
             return false;
         }

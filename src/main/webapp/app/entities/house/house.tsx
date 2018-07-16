@@ -4,13 +4,7 @@ import { Link, RouteComponentProps } from 'react-router-dom';
 import { Col, Row, Container, Table } from 'reactstrap';
 import { getLandType, getSaleType, getStatusType } from 'app/shared/util/utils';
 // tslint:disable-next-line:no-unused-variable
-import {
-  Translate,
-  getSortState,
-  IPaginationBaseState,
-  getPaginationItemsNumber,
-  JhiPagination
-} from 'react-jhipster';
+import { Translate, getSortState, IPaginationBaseState, getPaginationItemsNumber, JhiPagination } from 'react-jhipster';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { Modal, Card, Icon, Tooltip } from 'antd';
 const confirm = Modal.confirm;
@@ -19,13 +13,13 @@ import Loading from 'app/shared/layout/loading/loading';
 import SearchPage from 'app/shared/layout/search/search-menu';
 
 import { IRootState } from 'app/shared/reducers';
-import { getEntities } from './house.reducer';
+import { getEntities, getStaffEntities } from './house.reducer';
 // tslint:disable-next-line:no-unused-variable
 import { hasAnyAuthority } from 'app/shared/auth/private-route';
 import { AUTHORITIES } from 'app/config/constants';
 import { ITEMS_PER_PAGE } from 'app/shared/util/pagination.constants';
 
-export interface IHouseProps extends StateProps, DispatchProps, RouteComponentProps<{ url: string }> { }
+export interface IHouseProps extends StateProps, DispatchProps, RouteComponentProps<{ url: string }> {}
 
 export type IHouseState = IPaginationBaseState;
 
@@ -58,11 +52,12 @@ export class House extends React.Component<IHouseProps, IHouseState> {
   getEntities = () => {
     const { activePage, itemsPerPage, sort, order } = this.state;
     this.props.getEntities(activePage - 1, itemsPerPage, `${sort},${order}`);
+    // this.props.getStaffEntities(activePage - 1, itemsPerPage, `${sort},${order}`);
   };
 
   gotoEdit = id => {
     this.props.history.push(`${this.props.match.url}/${id}/edit`);
-  }
+  };
 
   showDeleteConfirm = id => {
     confirm({
@@ -72,7 +67,7 @@ export class House extends React.Component<IHouseProps, IHouseState> {
         // console.log(id);
         // this.props.deleteEntity(this.props.houseEntity.id);
       },
-      onCancel() { }
+      onCancel() {}
     });
   };
 
@@ -84,7 +79,7 @@ export class House extends React.Component<IHouseProps, IHouseState> {
         // console.log(id);
         // this.props.deleteEntity(this.props.houseEntity.id);
       },
-      onCancel() { }
+      onCancel() {}
     });
   };
 
@@ -96,7 +91,9 @@ export class House extends React.Component<IHouseProps, IHouseState> {
         <Container>
           <Row>
             <Col md="12">
-              {this.props.loading ? <Loading /> : (
+              {this.props.loading ? (
+                <Loading />
+              ) : (
                 <Row>
                   <Card title="Danh sách tin đăng">
                     <div className="table-responsive">
@@ -147,7 +144,9 @@ export class House extends React.Component<IHouseProps, IHouseState> {
                                     <Icon type="edit" />{' '}
                                   </Tooltip>
                                 </div>
-                                {!this.props.isManager ? '' : (
+                                {!this.props.isManager ? (
+                                  ''
+                                ) : (
                                   <>
                                     <div style={{ float: 'left', marginRight: 5 }} onClick={this.showPaymentConfirm.bind(this, house.id)}>
                                       <Tooltip placement="top" title={'Xác nhận thanh toán'}>
@@ -194,7 +193,8 @@ const mapStateToProps = ({ house, authentication }: IRootState) => ({
 });
 
 const mapDispatchToProps = {
-  getEntities
+  getEntities,
+  getStaffEntities
 };
 
 type StateProps = ReturnType<typeof mapStateToProps>;

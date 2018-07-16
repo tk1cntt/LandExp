@@ -4,6 +4,9 @@ import com.landexp.config.Utils;
 import com.landexp.domain.enumeration.DirectionType;
 import com.landexp.domain.enumeration.LandType;
 import com.landexp.domain.enumeration.UserActionType;
+import com.landexp.responses.HouseDetailResponse;
+import com.landexp.responses.HouseImageResponse;
+import com.landexp.responses.HouseResponse;
 import com.landexp.service.dto.HouseDTO;
 import com.landexp.service.dto.HouseDetailDTO;
 import com.landexp.service.dto.HousePhotoDTO;
@@ -11,7 +14,6 @@ import org.springframework.util.ObjectUtils;
 import org.springframework.util.StringUtils;
 
 import java.text.DecimalFormat;
-import java.text.Normalizer;
 import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.time.ZoneId;
@@ -19,7 +21,6 @@ import java.util.ArrayList;
 import java.util.Base64;
 import java.util.Date;
 import java.util.List;
-import java.util.regex.Pattern;
 
 public class MappingUtils {
 

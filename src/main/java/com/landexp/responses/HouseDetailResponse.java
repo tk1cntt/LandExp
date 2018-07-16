@@ -1,4 +1,4 @@
-package com.landexp.service.dto;
+package com.landexp.responses;
 
 import com.landexp.domain.enumeration.*;
 
@@ -10,7 +10,7 @@ import java.util.Objects;
 /**
  * A DTO for the House entity.
  */
-public class HouseDetailDTO implements Serializable {
+public class HouseDetailResponse implements Serializable {
 
     private Long id;
 
@@ -519,7 +519,7 @@ public class HouseDetailDTO implements Serializable {
             return false;
         }
 
-        HouseDetailDTO houseDTO = (HouseDetailDTO) o;
+        HouseDetailResponse houseDTO = (HouseDetailResponse) o;
         if (houseDTO.getId() == null || getId() == null) {
             return false;
         }

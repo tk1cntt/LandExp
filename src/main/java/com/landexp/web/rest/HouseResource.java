@@ -134,12 +134,12 @@ public class HouseResource {
         }
         HouseDetailDTO currentDTO = houseService.findOne(houseDTO.getId()).get();
         if (ObjectUtils.isEmpty(currentDTO)) {
-            throw new ExecuteRuntimeException("Invalid id");
+            return ResponseUtil.wrapOrNotFound(Optional.of(null));
         }
         String username = SecurityUtils.getCurrentUserLogin().get();
         if (!username.equalsIgnoreCase(currentDTO.getCreateByLogin())
             && !SecurityUtils.isCurrentUserInRole(AuthoritiesConstants.STAFF)) {
-            throw new ExecuteRuntimeException("No permission");
+            return ResponseUtil.wrapOrNotFound(Optional.of(null));
         }
         if (currentDTO.getStatusType().equals(StatusType.OPEN)) {
             houseDTO.setStatusType(StatusType.PENDING);
@@ -189,7 +189,7 @@ public class HouseResource {
      * @param pageable the pagination information
      * @return the ResponseEntity with status 200 (OK) and the list of houses in body
      */
-    @GetMapping("/houses/users")
+    @GetMapping("/houses/staffs")
     @Timed
     @Secured(AuthoritiesConstants.USER)
     public ResponseEntity<List<HouseDTO>> getAllHouseOfStaff(Pageable pageable) {
@@ -242,10 +242,10 @@ public class HouseResource {
             if (!houseDTO.get().getStatusType().equals(StatusType.OPEN)
                 && !houseDTO.get().getStatusType().equals(StatusType.PENDING)
                 && houseDTO.get().getStatusType().equals(StatusType.PAID)) {
-                throw new ExecuteRuntimeException("No permission");
+                return ResponseUtil.wrapOrNotFound(Optional.of(null));
             }
         } else if (!houseDTO.get().getStatusType().equals(StatusType.PAID) && !SecurityUtils.isCurrentUserInRole(AuthoritiesConstants.MANAGER)) {
-            throw new ExecuteRuntimeException("No permission");
+            return ResponseUtil.wrapOrNotFound(Optional.of(null));
         }
         return ResponseUtil.wrapOrNotFound(houseDTO);
     }
@@ -263,11 +263,11 @@ public class HouseResource {
         log.debug("REST request to delete House : {}", id);
         Optional<HouseDetailDTO> houseDTO = houseService.findOne(id);
         if (ObjectUtils.isEmpty(houseDTO.get())) {
-            throw new BadRequestAlertException("Invalid id", ENTITY_NAME, "idnull");
+            return ResponseUtil.wrapOrNotFound(Optional.of(null));
         }
         if (!SecurityUtils.getCurrentUserLogin().get().equalsIgnoreCase(houseDTO.get().getCreateByLogin())
             && !SecurityUtils.isCurrentUserInRole(AuthoritiesConstants.MANAGER)) {
-            throw new ExecuteRuntimeException("No permission");
+            return ResponseUtil.wrapOrNotFound(Optional.of(null));
         }
         houseService.delete(id);
         return ResponseEntity.ok().headers(HeaderUtil.createEntityDeletionAlert(ENTITY_NAME, id.toString())).build();

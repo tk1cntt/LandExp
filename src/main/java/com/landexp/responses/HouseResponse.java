@@ -1,21 +1,17 @@
-package com.landexp.service.dto;
+package com.landexp.responses;
 
-import java.time.LocalDate;
-import java.io.Serializable;
-import java.util.Objects;
-import javax.persistence.Lob;
-import com.landexp.domain.enumeration.UserActionType;
-import com.landexp.domain.enumeration.DirectionType;
-import com.landexp.domain.enumeration.DirectionType;
 import com.landexp.domain.enumeration.LandType;
-import com.landexp.domain.enumeration.SaleType;
-import com.landexp.domain.enumeration.PresentType;
-import com.landexp.domain.enumeration.StatusType;
+import com.landexp.domain.enumeration.UserActionType;
+
+import javax.persistence.Lob;
+import java.io.Serializable;
+import java.time.LocalDate;
+import java.util.Objects;
 
 /**
  * A DTO for the House entity.
  */
-public class HouseDTO implements Serializable {
+public class HouseResponse implements Serializable {
 
     private Long id;
 
@@ -236,7 +232,7 @@ public class HouseDTO implements Serializable {
             return false;
         }
 
-        HouseDTO houseDTO = (HouseDTO) o;
+        HouseResponse houseDTO = (HouseResponse) o;
         if (houseDTO.getId() == null || getId() == null) {
             return false;
         }
