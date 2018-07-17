@@ -28,47 +28,51 @@ export class ServiceFee extends React.Component<IServiceFeeProps> {
       <Row>
         <SearchPage location={this.props.location} history={this.props.history} />
         <Container>
-          <Col md="12">
-            {this.props.loading ? (
-              <Loading />
-            ) : (
-              <Card title="Bảng phí dịch vụ">
-                <div className="table-responsive">
-                  <Table responsive>
-                    <thead>
-                      <tr>
-                        <th>
-                          <Translate contentKey="landexpApp.serviceFee.saleType">Sale Type</Translate>
-                        </th>
-                        <th>
-                          <Translate contentKey="landexpApp.serviceFee.fee">Fee</Translate>
-                        </th>
-                        <th />
-                      </tr>
-                    </thead>
-                    <tbody>
-                      {serviceFeeList.map((serviceFee, i) => (
-                        <tr key={`entity-${i}`}>
-                          <td>{getSaleType(serviceFee.saleType)}</td>
-                          <td>{new Intl.NumberFormat().format(serviceFee.fee)} VNĐ</td>
-                          <td className="text-right">
-                            <div className="btn-group flex-btn-group-container">
-                              <Button tag={Link} to={`${match.url}/${serviceFee.id}/edit`} color="primary" size="sm">
-                                <FontAwesomeIcon icon="pencil-alt" />{' '}
-                                <span className="d-none d-md-inline">
-                                  <Translate contentKey="entity.action.edit">Edit</Translate>
-                                </span>
-                              </Button>
-                            </div>
-                          </td>
-                        </tr>
-                      ))}
-                    </tbody>
-                  </Table>
-                </div>
-              </Card>
-            )}
-          </Col>
+          <Row>
+            <Col md="12">
+              <Row>
+                {this.props.loading ? (
+                  <Loading />
+                ) : (
+                  <Card title="Bảng phí dịch vụ">
+                    <div className="table-responsive">
+                      <Table responsive>
+                        <thead>
+                          <tr>
+                            <th>
+                              <Translate contentKey="landexpApp.serviceFee.saleType">Sale Type</Translate>
+                            </th>
+                            <th>
+                              <Translate contentKey="landexpApp.serviceFee.fee">Fee</Translate>
+                            </th>
+                            <th />
+                          </tr>
+                        </thead>
+                        <tbody>
+                          {serviceFeeList.map((serviceFee, i) => (
+                            <tr key={`entity-${i}`}>
+                              <td>{getSaleType(serviceFee.saleType)}</td>
+                              <td>{new Intl.NumberFormat().format(serviceFee.fee)} VNĐ</td>
+                              <td className="text-right">
+                                <div className="btn-group flex-btn-group-container">
+                                  <Button tag={Link} to={`${match.url}/${serviceFee.id}/edit`} color="primary" size="sm">
+                                    <FontAwesomeIcon icon="pencil-alt" />{' '}
+                                    <span className="d-none d-md-inline">
+                                      <Translate contentKey="entity.action.edit">Edit</Translate>
+                                    </span>
+                                  </Button>
+                                </div>
+                              </td>
+                            </tr>
+                          ))}
+                        </tbody>
+                      </Table>
+                    </div>
+                  </Card>
+                )}
+              </Row>
+            </Col>
+          </Row>
         </Container>
       </Row>
     );

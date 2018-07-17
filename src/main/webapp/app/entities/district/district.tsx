@@ -56,69 +56,73 @@ export class District extends React.Component<IDistrictProps, IDistrictState> {
       <Row>
         <SearchPage location={this.props.location} history={this.props.history} />
         <Container>
-          <Col md="12">
-            {this.props.loading ? (
-              <Loading />
-            ) : (
-              <Card title="Danh sách quận huyện">
-                <div className="table-responsive">
-                  <Table responsive>
-                    <thead>
-                      <tr>
-                        <th className="hand" onClick={this.sort('name')}>
-                          <Translate contentKey="landexpApp.district.name">Name</Translate> <FontAwesomeIcon icon="sort" />
-                        </th>
-                        <th>
-                          <Translate contentKey="landexpApp.district.region">Region</Translate> <FontAwesomeIcon icon="sort" />
-                        </th>
-                        <th>
-                          <Translate contentKey="landexpApp.district.city">City</Translate> <FontAwesomeIcon icon="sort" />
-                        </th>
-                        <th className="hand" onClick={this.sort('enabled')}>
-                          <Translate contentKey="landexpApp.district.enabled">Enabled</Translate> <FontAwesomeIcon icon="sort" />
-                        </th>
-                        <th />
-                      </tr>
-                    </thead>
-                    <tbody>
-                      {districtList.map((district, i) => (
-                        <tr key={`entity-${i}`}>
-                          <td>{district.name}</td>
-                          <td>{district.regionId ? <Link to={`region/${district.regionId}`}>{district.regionName}</Link> : ''}</td>
-                          <td>{district.cityId ? <Link to={`city/${district.cityId}`}>{district.cityName}</Link> : ''}</td>
-                          <td>
-                            {district.enabled ? (
-                              <Icon type="check-square" style={{ color: 'green' }} />
-                            ) : (
-                              <Icon type="close-square" style={{ color: 'red' }} />
-                            )}
-                          </td>
-                          <td className="text-right">
-                            <div className="btn-group flex-btn-group-container">
-                              <Button tag={Link} to={`${match.url}/${district.id}/edit`} color="primary" size="sm">
-                                <FontAwesomeIcon icon="pencil-alt" />{' '}
-                                <span className="d-none d-md-inline">
-                                  <Translate contentKey="entity.action.edit">Edit</Translate>
-                                </span>
-                              </Button>
-                            </div>
-                          </td>
-                        </tr>
-                      ))}
-                    </tbody>
-                  </Table>
-                </div>
-                <Row className="justify-content-center">
-                  <JhiPagination
-                    items={getPaginationItemsNumber(totalItems, this.state.itemsPerPage)}
-                    activePage={this.state.activePage}
-                    onSelect={this.handlePagination}
-                    maxButtons={3}
-                  />
-                </Row>
-              </Card>
-            )}
-          </Col>
+          <Row>
+            <Col md="12">
+              <Row>
+                {this.props.loading ? (
+                  <Loading />
+                ) : (
+                  <Card title="Danh sách quận huyện">
+                    <div className="table-responsive">
+                      <Table responsive>
+                        <thead>
+                          <tr>
+                            <th className="hand" onClick={this.sort('name')}>
+                              <Translate contentKey="landexpApp.district.name">Name</Translate> <FontAwesomeIcon icon="sort" />
+                            </th>
+                            <th>
+                              <Translate contentKey="landexpApp.district.region">Region</Translate> <FontAwesomeIcon icon="sort" />
+                            </th>
+                            <th>
+                              <Translate contentKey="landexpApp.district.city">City</Translate> <FontAwesomeIcon icon="sort" />
+                            </th>
+                            <th className="hand" onClick={this.sort('enabled')}>
+                              <Translate contentKey="landexpApp.district.enabled">Enabled</Translate> <FontAwesomeIcon icon="sort" />
+                            </th>
+                            <th />
+                          </tr>
+                        </thead>
+                        <tbody>
+                          {districtList.map((district, i) => (
+                            <tr key={`entity-${i}`}>
+                              <td>{district.name}</td>
+                              <td>{district.regionId ? <Link to={`region/${district.regionId}`}>{district.regionName}</Link> : ''}</td>
+                              <td>{district.cityId ? <Link to={`city/${district.cityId}`}>{district.cityName}</Link> : ''}</td>
+                              <td>
+                                {district.enabled ? (
+                                  <Icon type="check-square" style={{ color: 'green' }} />
+                                ) : (
+                                  <Icon type="close-square" style={{ color: 'red' }} />
+                                )}
+                              </td>
+                              <td className="text-right">
+                                <div className="btn-group flex-btn-group-container">
+                                  <Button tag={Link} to={`${match.url}/${district.id}/edit`} color="primary" size="sm">
+                                    <FontAwesomeIcon icon="pencil-alt" />{' '}
+                                    <span className="d-none d-md-inline">
+                                      <Translate contentKey="entity.action.edit">Edit</Translate>
+                                    </span>
+                                  </Button>
+                                </div>
+                              </td>
+                            </tr>
+                          ))}
+                        </tbody>
+                      </Table>
+                    </div>
+                    <Row className="justify-content-center">
+                      <JhiPagination
+                        items={getPaginationItemsNumber(totalItems, this.state.itemsPerPage)}
+                        activePage={this.state.activePage}
+                        onSelect={this.handlePagination}
+                        maxButtons={3}
+                      />
+                    </Row>
+                  </Card>
+                )}
+              </Row>
+            </Col>
+          </Row>
         </Container>
       </Row>
     );

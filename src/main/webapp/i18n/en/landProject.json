@@ -22,7 +22,7 @@
             "photos": "Photos",
             "city": "City",
             "district": "District",
-            "street": "Street",
+            "ward": "Ward",
             "createBy": "Create By",
             "updateBy": "Update By"
         }

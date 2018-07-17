@@ -55,64 +55,65 @@ export class Region extends React.Component<IRegionProps, IRegionState> {
       <Row>
         <SearchPage location={this.props.location} history={this.props.history} />
         <Container>
-          <Col md="12">
-            {this.props.loading ? (
-              <Loading />
-            ) : (
-              <Card title="Danh sách khu vực">
-                <h2 id="region-heading">
-                  <Translate contentKey="landexpApp.region.home.title">Regions</Translate>
-                </h2>
-                <div className="table-responsive">
-                  <Table responsive>
-                    <thead>
-                      <tr>
-                        <th className="hand" onClick={this.sort('name')}>
-                          <Translate contentKey="landexpApp.region.name">Name</Translate> <FontAwesomeIcon icon="sort" />
-                        </th>
-                        <th className="hand" onClick={this.sort('enabled')}>
-                          <Translate contentKey="landexpApp.region.enabled">Enabled</Translate> <FontAwesomeIcon icon="sort" />
-                        </th>
-                        <th />
-                      </tr>
-                    </thead>
-                    <tbody>
-                      {regionList.map((region, i) => (
-                        <tr key={`entity-${i}`}>
-                          <td>{region.name}</td>
-                          <td>
-                            {region.enabled ? (
-                              <Icon type="check-square" style={{ color: 'green' }} />
-                            ) : (
-                              <Icon type="close-square" style={{ color: 'red' }} />
-                            )}
-                          </td>
-                          <td className="text-right">
-                            <div className="btn-group flex-btn-group-container">
-                              <Button tag={Link} to={`${match.url}/${region.id}/edit`} color="primary" size="sm">
-                                <FontAwesomeIcon icon="pencil-alt" />{' '}
-                                <span className="d-none d-md-inline">
-                                  <Translate contentKey="entity.action.edit">Edit</Translate>
-                                </span>
-                              </Button>
-                            </div>
-                          </td>
-                        </tr>
-                      ))}
-                    </tbody>
-                  </Table>
-                </div>
-                <Row className="justify-content-center">
-                  <JhiPagination
-                    items={getPaginationItemsNumber(totalItems, this.state.itemsPerPage)}
-                    activePage={this.state.activePage}
-                    onSelect={this.handlePagination}
-                    maxButtons={5}
-                  />
-                </Row>
-              </Card>
-            )}
-          </Col>
+          <Row>
+            <Col md="12">
+              <Row>
+                {this.props.loading ? (
+                  <Loading />
+                ) : (
+                  <Card title="Danh sách khu vực">
+                    <div className="table-responsive">
+                      <Table responsive>
+                        <thead>
+                          <tr>
+                            <th className="hand" onClick={this.sort('name')}>
+                              <Translate contentKey="landexpApp.region.name">Name</Translate> <FontAwesomeIcon icon="sort" />
+                            </th>
+                            <th className="hand" onClick={this.sort('enabled')}>
+                              <Translate contentKey="landexpApp.region.enabled">Enabled</Translate> <FontAwesomeIcon icon="sort" />
+                            </th>
+                            <th />
+                          </tr>
+                        </thead>
+                        <tbody>
+                          {regionList.map((region, i) => (
+                            <tr key={`entity-${i}`}>
+                              <td>{region.name}</td>
+                              <td>
+                                {region.enabled ? (
+                                  <Icon type="check-square" style={{ color: 'green' }} />
+                                ) : (
+                                  <Icon type="close-square" style={{ color: 'red' }} />
+                                )}
+                              </td>
+                              <td className="text-right">
+                                <div className="btn-group flex-btn-group-container">
+                                  <Button tag={Link} to={`${match.url}/${region.id}/edit`} color="primary" size="sm">
+                                    <FontAwesomeIcon icon="pencil-alt" />{' '}
+                                    <span className="d-none d-md-inline">
+                                      <Translate contentKey="entity.action.edit">Edit</Translate>
+                                    </span>
+                                  </Button>
+                                </div>
+                              </td>
+                            </tr>
+                          ))}
+                        </tbody>
+                      </Table>
+                    </div>
+                    <Row className="justify-content-center">
+                      <JhiPagination
+                        items={getPaginationItemsNumber(totalItems, this.state.itemsPerPage)}
+                        activePage={this.state.activePage}
+                        onSelect={this.handlePagination}
+                        maxButtons={5}
+                      />
+                    </Row>
+                  </Card>
+                )}
+              </Row>
+            </Col>
+          </Row>
         </Container>
       </Row>
     );

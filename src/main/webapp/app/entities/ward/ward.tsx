@@ -56,65 +56,69 @@ export class Ward extends React.Component<IWardProps, IWardState> {
       <Row>
         <SearchPage location={this.props.location} history={this.props.history} />
         <Container>
-          <Col md="12">
-            {this.props.loading ? (
-              <Loading />
-            ) : (
-              <Card title="Danh sách xã phường">
-                <div className="table-responsive">
-                  <Table responsive>
-                    <thead>
-                      <tr>
-                        <th>
-                          <Translate contentKey="landexpApp.ward.name">Name</Translate>
-                        </th>
-                        <th>
-                          <Translate contentKey="landexpApp.ward.district">District</Translate>
-                        </th>
-                        <th>
-                          <Translate contentKey="landexpApp.ward.enabled">Enabled</Translate>
-                        </th>
-                        <th />
-                      </tr>
-                    </thead>
-                    <tbody>
-                      {wardList.map((ward, i) => (
-                        <tr key={`entity-${i}`}>
-                          <td>{ward.name}</td>
-                          <td>{ward.districtName}</td>
-                          <td>
-                            {ward.enabled ? (
-                              <Icon type="check-square" style={{ color: 'green' }} />
-                            ) : (
-                              <Icon type="close-square" style={{ color: 'red' }} />
-                            )}
-                          </td>
-                          <td className="text-right">
-                            <div className="btn-group flex-btn-group-container">
-                              <Button tag={Link} to={`${match.url}/${ward.id}/edit`} color="primary" size="sm">
-                                <FontAwesomeIcon icon="pencil-alt" />{' '}
-                                <span className="d-none d-md-inline">
-                                  <Translate contentKey="entity.action.edit">Edit</Translate>
-                                </span>
-                              </Button>
-                            </div>
-                          </td>
-                        </tr>
-                      ))}
-                    </tbody>
-                  </Table>
-                </div>
-                <Row className="justify-content-center">
-                  <JhiPagination
-                    items={getPaginationItemsNumber(totalItems, this.state.itemsPerPage)}
-                    activePage={this.state.activePage}
-                    onSelect={this.handlePagination}
-                    maxButtons={3}
-                  />
-                </Row>
-              </Card>
-            )}
-          </Col>
+          <Row>
+            <Col md="12">
+              <Row>
+                {this.props.loading ? (
+                  <Loading />
+                ) : (
+                  <Card title="Danh sách xã phường">
+                    <div className="table-responsive">
+                      <Table responsive>
+                        <thead>
+                          <tr>
+                            <th>
+                              <Translate contentKey="landexpApp.ward.name">Name</Translate>
+                            </th>
+                            <th>
+                              <Translate contentKey="landexpApp.ward.district">District</Translate>
+                            </th>
+                            <th>
+                              <Translate contentKey="landexpApp.ward.enabled">Enabled</Translate>
+                            </th>
+                            <th />
+                          </tr>
+                        </thead>
+                        <tbody>
+                          {wardList.map((ward, i) => (
+                            <tr key={`entity-${i}`}>
+                              <td>{ward.name}</td>
+                              <td>{ward.districtName}</td>
+                              <td>
+                                {ward.enabled ? (
+                                  <Icon type="check-square" style={{ color: 'green' }} />
+                                ) : (
+                                  <Icon type="close-square" style={{ color: 'red' }} />
+                                )}
+                              </td>
+                              <td className="text-right">
+                                <div className="btn-group flex-btn-group-container">
+                                  <Button tag={Link} to={`${match.url}/${ward.id}/edit`} color="primary" size="sm">
+                                    <FontAwesomeIcon icon="pencil-alt" />{' '}
+                                    <span className="d-none d-md-inline">
+                                      <Translate contentKey="entity.action.edit">Edit</Translate>
+                                    </span>
+                                  </Button>
+                                </div>
+                              </td>
+                            </tr>
+                          ))}
+                        </tbody>
+                      </Table>
+                    </div>
+                    <Row className="justify-content-center">
+                      <JhiPagination
+                        items={getPaginationItemsNumber(totalItems, this.state.itemsPerPage)}
+                        activePage={this.state.activePage}
+                        onSelect={this.handlePagination}
+                        maxButtons={3}
+                      />
+                    </Row>
+                  </Card>
+                )}
+              </Row>
+            </Col>
+          </Row>
         </Container>
       </Row>
     );
