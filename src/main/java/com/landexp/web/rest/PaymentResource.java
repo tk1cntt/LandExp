@@ -4,6 +4,7 @@ import com.codahale.metrics.annotation.Timed;
 import com.landexp.domain.enumeration.PaymentStatusType;
 import com.landexp.domain.enumeration.StatusType;
 import com.landexp.security.AuthoritiesConstants;
+import com.landexp.security.SecurityUtils;
 import com.landexp.service.HouseService;
 import com.landexp.service.PaymentQueryService;
 import com.landexp.service.PaymentService;
@@ -28,6 +29,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.net.URI;
 import java.net.URISyntaxException;
+import java.time.LocalDate;
 import java.util.List;
 import java.util.Optional;
 
@@ -114,11 +116,14 @@ public class PaymentResource {
         }
         HouseDetailDTO houseDTO = houseService.findOne(paymentDTO.getHouseId()).get();
         if (ObjectUtils.isEmpty(houseDTO)) {
-            throw new BadRequestAlertException("Invalid id", ENTITY_NAME, "idnull");
+            throw new BadRequestAlertException("Invalid id", ENTITY_NAME, "notfound");
         }
+        String username = SecurityUtils.getCurrentUserLogin().get();
         paymentDTO.setPaymentStatus(PaymentStatusType.PAID);
-        PaymentDTO result = paymentService.save(paymentDTO);
+        paymentDTO.setPaidTime(LocalDate.now());
+        PaymentDTO result = paymentService.updateByUsername(paymentDTO, username);
         houseDTO.setStatusType(StatusType.PAID);
+        houseService.saveByUsername(houseDTO, username);
         return ResponseEntity.ok()
             .headers(HeaderUtil.createEntityUpdateAlert(ENTITY_NAME, paymentDTO.getId().toString()))
             .body(result);

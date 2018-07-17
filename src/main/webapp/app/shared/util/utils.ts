@@ -123,9 +123,9 @@ export const getSaleType = type => {
 
 export const getPaymentStatus = type => {
   switch (type) {
-    case 'FAILED':
+    case 'CANCELED':
       return 'Thanh toán thất bại';
-    case 'SUCCESS':
+    case 'PAID':
       return 'Đã thanh toán';
     default:
       return 'Chờ thanh toán';

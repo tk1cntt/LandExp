@@ -1,37 +1,32 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { Link, RouteComponentProps } from 'react-router-dom';
-import { Button, Col, Row, Table } from 'reactstrap';
-// tslint:disable-next-line:no-unused-variable
-import {
-  Translate,
-  TextFormat,
-  getSortState,
-  IPaginationBaseState,
-  getPaginationItemsNumber,
-  JhiPagination
-} from 'react-jhipster';
+import { Button, Col, Row, Container, Table } from 'reactstrap';
+import { Translate, TextFormat, getSortState, IPaginationBaseState, getPaginationItemsNumber, JhiPagination } from 'react-jhipster';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { Modal, Card, Icon, Tooltip } from 'antd';
 
 import { IRootState } from 'app/shared/reducers';
-import { getEntities } from './payment.reducer';
+import { getLandType, getSaleType, getStatusType, getPaymentStatus } from 'app/shared/util/utils';
+import { getEntities, approvePayment } from './payment.reducer';
 import { IPayment } from 'app/shared/model/payment.model';
-// tslint:disable-next-line:no-unused-variable
 import { APP_DATE_FORMAT, APP_LOCAL_DATE_FORMAT } from 'app/config/constants';
 import { ITEMS_PER_PAGE } from 'app/shared/util/pagination.constants';
+
+import Loading from 'app/shared/layout/loading/loading';
+import SearchPage from 'app/shared/layout/search/search-menu';
 
 export interface IPaymentProps extends StateProps, DispatchProps, RouteComponentProps<{ url: string }> {}
 
 export interface IPaymentState extends IPaginationBaseState {
-  showDelete: any;
   showConfirm: any;
+  paymentInfo: any;
 }
 
 export class Payment extends React.Component<IPaymentProps, IPaymentState> {
   state: IPaymentState = {
-    showDelete: false,
     showConfirm: false,
+    paymentInfo: undefined,
     ...getSortState(this.props.location, ITEMS_PER_PAGE)
   };
 
@@ -61,192 +56,151 @@ export class Payment extends React.Component<IPaymentProps, IPaymentState> {
     this.props.getEntities(activePage - 1, itemsPerPage, `${sort},${order}`);
   };
 
-  /*
-  showDeleteConfirm = id => {
-    this.setState({
-      showDelete: true,
-    });
-
-    confirm({
-      title: 'Bạn có muốn xoá tin đăng này?',
-      content: 'Hãy xác nhận lại thông tin trước khi thực hiện hành động xoá',
-      okText: 'Xoá',
-      cancelText: 'Huỷ',
-      okType: 'danger',
-      onOk() {
-        this.props.deleteEntity(id);
-      },
-      onCancel() { }
-    });
+  gotoEdit = id => {
+    this.props.history.push(`${this.props.match.url}/${id}/edit`);
   };
 
-  handleDeleteOk = id => {
-    this.props.deleteEntity(id);
-    this.setState({
-      showDelete: false,
-    });
-  }
-
-  handleDeleteCancel = id => {
-    this.setState({
-      showDelete: false,
-    });
-  }
-
-  showPaymentConfirm = id => {
+  showPaymentConfirm = paymentInfo => {
     this.setState({
       showConfirm: true,
-    });
-
-    confirm({
-      title: 'Bạn có muốn xác nhận đã thanh toán cho tin đăng?',
-      content: 'Hãy xác nhận lại thông tin thanh toán của tin đăng trước khi thực hiện việc xác nhận',
-      okText: 'Xác nhận',
-      cancelText: 'Huỷ',
-      okType: 'danger',
-      onOk() {
-        this.props.approvePayment(id);
-      },
-      onCancel() { }
+      paymentInfo
     });
   };
 
   handlePaymentOk = id => {
     this.props.approvePayment(id);
     this.setState({
-      showConfirm: false,
+      showConfirm: false
     });
-  }
+  };
 
-  handlePaymentCancel = id => {
+  handlePaymentCancel = () => {
     this.setState({
-      showConfirm: false,
+      showConfirm: false
     });
-  }
-  */
+  };
 
   render() {
     const { paymentList, match, totalItems } = this.props;
     return (
-      <div>
-        <h2 id="payment-heading">
-          <Translate contentKey="landexpApp.payment.home.title">Payments</Translate>
-          <Link to={`${match.url}/new`} className="btn btn-primary float-right jh-create-entity" id="jh-create-entity">
-            <FontAwesomeIcon icon="plus" />&nbsp;
-            <Translate contentKey="landexpApp.payment.home.createLabel">Create new Payment</Translate>
-          </Link>
-        </h2>
-        <div className="table-responsive">
-          <Table responsive>
-            <thead>
-              <tr>
-                <th className="hand" onClick={this.sort('id')}>
-                  <Translate contentKey="global.field.id">ID</Translate> <FontAwesomeIcon icon="sort" />
-                </th>
-                <th className="hand" onClick={this.sort('code')}>
-                  <Translate contentKey="landexpApp.payment.code">Code</Translate> <FontAwesomeIcon icon="sort" />
-                </th>
-                <th className="hand" onClick={this.sort('money')}>
-                  <Translate contentKey="landexpApp.payment.money">Money</Translate> <FontAwesomeIcon icon="sort" />
-                </th>
-                <th className="hand" onClick={this.sort('paidTime')}>
-                  <Translate contentKey="landexpApp.payment.paidTime">Paid Time</Translate> <FontAwesomeIcon icon="sort" />
-                </th>
-                <th className="hand" onClick={this.sort('paymentStatus')}>
-                  <Translate contentKey="landexpApp.payment.paymentStatus">Payment Status</Translate> <FontAwesomeIcon icon="sort" />
-                </th>
-                <th className="hand" onClick={this.sort('createAt')}>
-                  <Translate contentKey="landexpApp.payment.createAt">Create At</Translate> <FontAwesomeIcon icon="sort" />
-                </th>
-                <th className="hand" onClick={this.sort('updateAt')}>
-                  <Translate contentKey="landexpApp.payment.updateAt">Update At</Translate> <FontAwesomeIcon icon="sort" />
-                </th>
-                <th>
-                  <Translate contentKey="landexpApp.payment.house">House</Translate> <FontAwesomeIcon icon="sort" />
-                </th>
-                <th>
-                  <Translate contentKey="landexpApp.payment.customer">Customer</Translate> <FontAwesomeIcon icon="sort" />
-                </th>
-                <th>
-                  <Translate contentKey="landexpApp.payment.createBy">Create By</Translate> <FontAwesomeIcon icon="sort" />
-                </th>
-                <th>
-                  <Translate contentKey="landexpApp.payment.updateBy">Update By</Translate> <FontAwesomeIcon icon="sort" />
-                </th>
-                <th />
-              </tr>
-            </thead>
-            <tbody>
-              {paymentList.map((payment, i) => (
-                <tr key={`entity-${i}`}>
-                  <td>
-                    <Button tag={Link} to={`${match.url}/${payment.id}`} color="link" size="sm">
-                      {payment.id}
-                    </Button>
-                  </td>
-                  <td>{payment.code}</td>
-                  <td>{payment.money}</td>
-                  <td>
-                    <TextFormat type="date" value={payment.paidTime} format={APP_LOCAL_DATE_FORMAT} />
-                  </td>
-                  <td>{payment.paymentStatus}</td>
-                  <td>
-                    <TextFormat type="date" value={payment.createAt} format={APP_LOCAL_DATE_FORMAT} />
-                  </td>
-                  <td>
-                    <TextFormat type="date" value={payment.updateAt} format={APP_LOCAL_DATE_FORMAT} />
-                  </td>
-                  <td>{payment.houseId ? <Link to={`house/${payment.houseId}`}>{payment.houseId}</Link> : ''}</td>
-                  <td>{payment.customerLogin ? payment.customerLogin : ''}</td>
-                  <td>{payment.createByLogin ? payment.createByLogin : ''}</td>
-                  <td>{payment.updateByLogin ? payment.updateByLogin : ''}</td>
-                  <td className="text-right">
-                    <div className="btn-group flex-btn-group-container">
-                      <Button tag={Link} to={`${match.url}/${payment.id}`} color="info" size="sm">
-                        <FontAwesomeIcon icon="eye" />{' '}
-                        <span className="d-none d-md-inline">
-                          <Translate contentKey="entity.action.view">View</Translate>
-                        </span>
-                      </Button>
-                      <Button tag={Link} to={`${match.url}/${payment.id}/edit`} color="primary" size="sm">
-                        <FontAwesomeIcon icon="pencil-alt" />{' '}
-                        <span className="d-none d-md-inline">
-                          <Translate contentKey="entity.action.edit">Edit</Translate>
-                        </span>
-                      </Button>
-                      <Button tag={Link} to={`${match.url}/${payment.id}/delete`} color="danger" size="sm">
-                        <FontAwesomeIcon icon="trash" />{' '}
-                        <span className="d-none d-md-inline">
-                          <Translate contentKey="entity.action.delete">Delete</Translate>
-                        </span>
-                      </Button>
+      <Row>
+        <SearchPage location={this.props.location} history={this.props.history} />
+        <Container>
+          <Row>
+            <Col md="12">
+              {this.props.loading || this.props.updating ? (
+                <Loading />
+              ) : (
+                <Row>
+                  <Card title="Danh sách chờ thanh toán">
+                    <div className="table-responsive">
+                      <Table responsive>
+                        <thead>
+                          <tr>
+                            <th className="hand" onClick={this.sort('code')}>
+                              <Translate contentKey="landexpApp.payment.code">Code</Translate> <FontAwesomeIcon icon="sort" />
+                            </th>
+                            <th className="hand" onClick={this.sort('money')}>
+                              <Translate contentKey="landexpApp.payment.money">Money</Translate> <FontAwesomeIcon icon="sort" />
+                            </th>
+                            <th className="hand" onClick={this.sort('paidTime')}>
+                              <Translate contentKey="landexpApp.payment.paidTime">Paid Time</Translate> <FontAwesomeIcon icon="sort" />
+                            </th>
+                            <th className="hand" onClick={this.sort('paymentStatus')}>
+                              <Translate contentKey="landexpApp.payment.paymentStatus">Payment Status</Translate>{' '}
+                              <FontAwesomeIcon icon="sort" />
+                            </th>
+                            <th className="hand" onClick={this.sort('createAt')}>
+                              <Translate contentKey="landexpApp.payment.createAt">Create At</Translate> <FontAwesomeIcon icon="sort" />
+                            </th>
+                            <th>
+                              <Translate contentKey="landexpApp.payment.customer">Customer</Translate> <FontAwesomeIcon icon="sort" />
+                            </th>
+                            <th />
+                          </tr>
+                        </thead>
+                        <tbody>
+                          {paymentList.map((payment, i) => (
+                            <tr key={`entity-${i}`}>
+                              <td>{payment.code}</td>
+                              <td>{new Intl.NumberFormat().format(payment.money)} VNĐ</td>
+                              <td>
+                                {!payment.paidTime ? (
+                                  ''
+                                ) : (
+                                  <TextFormat type="date" value={payment.paidTime} format={APP_LOCAL_DATE_FORMAT} />
+                                )}
+                              </td>
+                              <td>{getPaymentStatus(payment.paymentStatus)}</td>
+                              <td>{payment.customerLogin ? payment.customerLogin : ''}</td>
+                              <td style={{ display: 'inline-block', width: 70 }}>
+                                <div style={{ float: 'left', marginRight: 5 }} onClick={this.gotoEdit.bind(this, payment.id)}>
+                                  <Tooltip placement="top" title={'Sửa tin đăng'}>
+                                    <Icon type="edit" />{' '}
+                                  </Tooltip>
+                                </div>
+                                {payment.paymentStatus === 'PAID' ? (
+                                  ''
+                                ) : (
+                                  <div style={{ float: 'left' }} onClick={this.showPaymentConfirm.bind(this, payment)}>
+                                    <Tooltip placement="top" title={'Xác nhận thanh toán'}>
+                                      <Icon type="pay-circle" />
+                                    </Tooltip>
+                                  </div>
+                                )}
+                              </td>
+                            </tr>
+                          ))}
+                        </tbody>
+                      </Table>
                     </div>
-                  </td>
-                </tr>
-              ))}
-            </tbody>
-          </Table>
-        </div>
-        <Row className="justify-content-center">
-          <JhiPagination
-            items={getPaginationItemsNumber(totalItems, this.state.itemsPerPage)}
-            activePage={this.state.activePage}
-            onSelect={this.handlePagination}
-            maxButtons={5}
-          />
-        </Row>
-      </div>
+                    {!this.state.showConfirm ? (
+                      ''
+                    ) : (
+                      <Modal
+                        title={`Xác nhận thanh toán cho tin đăng mã ${this.state.paymentInfo.code}`}
+                        visible={this.state.showConfirm}
+                        okText="Xác nhận"
+                        okType="danger"
+                        cancelText="Hủy"
+                        onOk={this.handlePaymentOk.bind(this, this.state.paymentInfo.id)}
+                        onCancel={this.handlePaymentCancel}
+                      >
+                        <p>Hãy xác nhận lại thông tin thanh toán</p>
+                        <p>Mã thanh toán: {this.state.paymentInfo.code}</p>
+                        <p>Số tiền: {new Intl.NumberFormat().format(this.state.paymentInfo.money)} VNĐ</p>
+                        <p>Khách hàng: {this.state.paymentInfo.customerLogin}</p>
+                      </Modal>
+                    )}
+                    <Row className="justify-content-center">
+                      <JhiPagination
+                        items={getPaginationItemsNumber(totalItems, this.state.itemsPerPage)}
+                        activePage={this.state.activePage}
+                        onSelect={this.handlePagination}
+                        maxButtons={3}
+                      />
+                    </Row>
+                  </Card>
+                </Row>
+              )}
+            </Col>
+          </Row>
+        </Container>
+      </Row>
     );
   }
 }
 
 const mapStateToProps = ({ payment }: IRootState) => ({
   paymentList: payment.entities,
-  totalItems: payment.totalItems
+  totalItems: payment.totalItems,
+  loading: payment.loading,
+  updating: payment.updating
 });
 
 const mapDispatchToProps = {
-  getEntities
+  getEntities,
+  approvePayment
 };
 
 type StateProps = ReturnType<typeof mapStateToProps>;

@@ -7,7 +7,6 @@ import { getLandType, getSaleType, getStatusType } from 'app/shared/util/utils';
 import { Translate, getSortState, IPaginationBaseState, getPaginationItemsNumber, JhiPagination } from 'react-jhipster';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { Modal, Card, Icon, Tooltip } from 'antd';
-const confirm = Modal.confirm;
 
 import Loading from 'app/shared/layout/loading/loading';
 import SearchPage from 'app/shared/layout/search/search-menu';
@@ -23,11 +22,13 @@ export interface IHouseProps extends StateProps, DispatchProps, RouteComponentPr
 
 export interface IHouseState extends IPaginationBaseState {
   showDelete: any;
+  houseId: any;
 }
 
 export class House extends React.Component<IHouseProps, IHouseState> {
   state: IHouseState = {
     showDelete: false,
+    houseId: undefined,
     ...getSortState(this.props.location, ITEMS_PER_PAGE)
   };
 
@@ -62,24 +63,25 @@ export class House extends React.Component<IHouseProps, IHouseState> {
     this.props.history.push(`${this.props.match.url}/${id}/edit`);
   };
 
-  showDeleteConfirm = id => {
+  showDeleteConfirm = houseId => {
     this.setState({
       showDelete: true,
+      houseId
     });
   };
 
   handleDeleteOk = id => {
     this.props.deleteEntity(id);
     this.setState({
-      showDelete: false,
+      showDelete: false
     });
-  }
+  };
 
   handleDeleteCancel = () => {
     this.setState({
-      showDelete: false,
+      showDelete: false
     });
-  }
+  };
 
   render() {
     const { houseList, match, totalItems } = this.props;
@@ -89,7 +91,7 @@ export class House extends React.Component<IHouseProps, IHouseState> {
         <Container>
           <Row>
             <Col md="12">
-              {this.props.loading ? (
+              {this.props.loading || this.props.updating ? (
                 <Loading />
               ) : (
                 <Row>
@@ -145,21 +147,11 @@ export class House extends React.Component<IHouseProps, IHouseState> {
                                 {!this.props.isManager ? (
                                   ''
                                 ) : (
-                                  <>
-                                    <div style={{ float: 'left' }} onClick={this.showDeleteConfirm.bind(this, house.id)}>
-                                      <Tooltip placement="top" title={'Xoá tin đăng'}>
-                                        <Icon type="delete" />{' '}
-                                      </Tooltip>
-                                    </div>
-                                    <Modal
-                                      title="Bạn có muốn xoá tin đăng này?"
-                                      visible={this.state.showDelete}
-                                      onOk={this.handleDeleteOk.bind(this, house.id)}
-                                      onCancel={this.handleDeleteCancel}
-                                    >
-                                      <p>Hãy xác nhận lại thông tin trước khi thực hiện hành động xoá</p>
-                                    </Modal>
-                                  </>
+                                  <div style={{ float: 'left' }} onClick={this.showDeleteConfirm.bind(this, house.id)}>
+                                    <Tooltip placement="top" title={'Xoá tin đăng'}>
+                                      <Icon type="delete" />{' '}
+                                    </Tooltip>
+                                  </div>
                                 )}
                               </td>
                             </tr>
@@ -167,6 +159,21 @@ export class House extends React.Component<IHouseProps, IHouseState> {
                         </tbody>
                       </Table>
                     </div>
+                    {!this.state.showDelete ? (
+                      ''
+                    ) : (
+                      <Modal
+                        title="Bạn có muốn xoá tin đăng này?"
+                        visible={this.state.showDelete}
+                        okText="Xóa"
+                        okType="danger"
+                        cancelText="Hủy"
+                        onOk={this.handleDeleteOk.bind(this, this.state.houseId)}
+                        onCancel={this.handleDeleteCancel}
+                      >
+                        <p>Hãy xác nhận lại thông tin trước khi thực hiện hành động xoá</p>
+                      </Modal>
+                    )}
                     <Row className="justify-content-center">
                       <JhiPagination
                         items={getPaginationItemsNumber(totalItems, this.state.itemsPerPage)}
@@ -189,6 +196,7 @@ export class House extends React.Component<IHouseProps, IHouseState> {
 const mapStateToProps = ({ house, authentication }: IRootState) => ({
   isManager: hasAnyAuthority(authentication.account.authorities, [AUTHORITIES.MANAGER]),
   loading: house.loading,
+  updating: house.updating,
   houseList: house.entities,
   totalItems: house.totalItems
 });

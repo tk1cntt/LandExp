@@ -1,7 +1,11 @@
 package com.landexp.service;
 
+import com.landexp.domain.House;
 import com.landexp.domain.Payment;
+import com.landexp.domain.User;
 import com.landexp.repository.PaymentRepository;
+import com.landexp.repository.UserRepository;
+import com.landexp.service.dto.HouseDetailDTO;
 import com.landexp.service.dto.PaymentDTO;
 import com.landexp.service.mapper.PaymentMapper;
 import org.slf4j.Logger;
@@ -27,9 +31,12 @@ public class PaymentService {
 
     private final PaymentMapper paymentMapper;
 
-    public PaymentService(PaymentRepository paymentRepository, PaymentMapper paymentMapper) {
+    private final UserRepository userRepository;
+
+    public PaymentService(PaymentRepository paymentRepository, PaymentMapper paymentMapper, UserRepository userRepository) {
         this.paymentRepository = paymentRepository;
         this.paymentMapper = paymentMapper;
+        this.userRepository = userRepository;
     }
 
     /**
@@ -43,6 +50,21 @@ public class PaymentService {
         Payment payment = paymentMapper.toEntity(paymentDTO);
         payment = paymentRepository.save(payment);
         return paymentMapper.toDto(payment);
+    }
+
+    /**
+     * Save a payment.
+     *
+     * @param paymentDTO the entity to save
+     * @return the persisted entity
+     */
+    public PaymentDTO updateByUsername(PaymentDTO paymentDTO, String username) {
+        log.debug("Request to save House : {}", paymentDTO);
+        Payment house = paymentMapper.toEntity(paymentDTO);
+        Optional<User> existingUser = userRepository.findOneByLogin(username);
+        house.setUpdateBy(existingUser.get());
+        house = paymentRepository.save(house);
+        return paymentMapper.toDto(house);
     }
 
     /**

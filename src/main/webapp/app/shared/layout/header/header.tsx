@@ -69,6 +69,11 @@ export default class Header extends React.Component<IHeaderProps, IHeaderState> 
           </Link>
         </Menu.Item>
         <Menu.Item>
+          <Link to="/quan-ly/thanh-toan">
+            <FontAwesomeIcon icon="asterisk" />&nbsp; Quản lý thanh toán
+          </Link>
+        </Menu.Item>
+        <Menu.Item>
           <Link to="/quan-ly/house-photo">
             <FontAwesomeIcon icon="asterisk" />&nbsp; Ảnh tin đăng
           </Link>
