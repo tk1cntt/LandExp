@@ -74,20 +74,10 @@ export default class Header extends React.Component<IHeaderProps, IHeaderState> 
           </Link>
         </Menu.Item>
         <Menu.Item>
-          <Link to="/quan-ly/house-photo">
-            <FontAwesomeIcon icon="asterisk" />&nbsp; Ảnh tin đăng
-          </Link>
-        </Menu.Item>
-        <Menu.Item>
           <Link to="/quan-ly/cac-du-an">
             <FontAwesomeIcon icon="asterisk" />&nbsp; Các dự án
           </Link>
         </Menu.Item>
-        {/*
-        <DropdownItem tag={Link} to="/quan-ly/land-project-photo">
-          <FontAwesomeIcon icon="asterisk" />&nbsp; Ảnh các dự án
-        </DropdownItem>
-        */}
         <Menu.Item>
           <Link to="/quan-ly/tin-tuc">
             <FontAwesomeIcon icon="asterisk" />&nbsp; Tin tức
@@ -96,6 +86,12 @@ export default class Header extends React.Component<IHeaderProps, IHeaderState> 
         <Menu.Item>
           <Link to="/quan-ly/danh-muc-tin-tuc">
             <FontAwesomeIcon icon="asterisk" />&nbsp; Danh mục tin tức
+          </Link>
+        </Menu.Item>
+        {/*
+        <Menu.Item>
+          <Link to="/quan-ly/house-photo">
+            <FontAwesomeIcon icon="asterisk" />&nbsp; Ảnh tin đăng
           </Link>
         </Menu.Item>
         <Menu.Item>
@@ -108,11 +104,7 @@ export default class Header extends React.Component<IHeaderProps, IHeaderState> 
             <FontAwesomeIcon icon="asterisk" />&nbsp; Tư vấn tài chính
           </Link>
         </Menu.Item>
-        <Menu.Item>
-          <Link to="/quan-ly/thanh-toan">
-            <FontAwesomeIcon icon="asterisk" />&nbsp; Thông tin thanh toán
-          </Link>
-        </Menu.Item>
+        */}
       </SubMenu>
     );
   }

@@ -3,15 +3,9 @@ import { connect } from 'react-redux';
 import { Link, RouteComponentProps } from 'react-router-dom';
 import { Button, Col, Row, Container, Table } from 'reactstrap';
 // tslint:disable-next-line:no-unused-variable
-import {
-  Translate,
-  getSortState,
-  IPaginationBaseState,
-  getPaginationItemsNumber,
-  JhiPagination
-} from 'react-jhipster';
+import { Translate, getSortState, IPaginationBaseState, getPaginationItemsNumber, JhiPagination } from 'react-jhipster';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { Icon } from 'antd';
+import { Card, Icon } from 'antd';
 import Loading from 'app/shared/layout/loading/loading';
 import SearchPage from 'app/shared/layout/search/search-menu';
 
@@ -20,7 +14,7 @@ import { getEntities } from './region.reducer';
 // tslint:disable-next-line:no-unused-variable
 import { ITEMS_PER_PAGE } from 'app/shared/util/pagination.constants';
 
-export interface IRegionProps extends StateProps, DispatchProps, RouteComponentProps<{ url: string }> { }
+export interface IRegionProps extends StateProps, DispatchProps, RouteComponentProps<{ url: string }> {}
 
 export type IRegionState = IPaginationBaseState;
 
@@ -62,8 +56,10 @@ export class Region extends React.Component<IRegionProps, IRegionState> {
         <SearchPage location={this.props.location} history={this.props.history} />
         <Container>
           <Col md="12">
-            {this.props.loading ? <Loading /> : (
-              <>
+            {this.props.loading ? (
+              <Loading />
+            ) : (
+              <Card title="Danh sách khu vực">
                 <h2 id="region-heading">
                   <Translate contentKey="landexpApp.region.home.title">Regions</Translate>
                 </h2>
@@ -88,8 +84,8 @@ export class Region extends React.Component<IRegionProps, IRegionState> {
                             {region.enabled ? (
                               <Icon type="check-square" style={{ color: 'green' }} />
                             ) : (
-                                <Icon type="close-square" style={{ color: 'red' }} />
-                              )}
+                              <Icon type="close-square" style={{ color: 'red' }} />
+                            )}
                           </td>
                           <td className="text-right">
                             <div className="btn-group flex-btn-group-container">
@@ -114,7 +110,7 @@ export class Region extends React.Component<IRegionProps, IRegionState> {
                     maxButtons={5}
                   />
                 </Row>
-              </>
+              </Card>
             )}
           </Col>
         </Container>

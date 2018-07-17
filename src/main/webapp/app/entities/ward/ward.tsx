@@ -3,15 +3,9 @@ import { connect } from 'react-redux';
 import { Link, RouteComponentProps } from 'react-router-dom';
 import { Button, Col, Row, Container, Table } from 'reactstrap';
 // tslint:disable-next-line:no-unused-variable
-import {
-  Translate,
-  getSortState,
-  IPaginationBaseState,
-  getPaginationItemsNumber,
-  JhiPagination
-} from 'react-jhipster';
+import { Translate, getSortState, IPaginationBaseState, getPaginationItemsNumber, JhiPagination } from 'react-jhipster';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { Icon } from 'antd';
+import { Card, Icon } from 'antd';
 import Loading from 'app/shared/layout/loading/loading';
 
 import { IRootState } from 'app/shared/reducers';
@@ -21,7 +15,7 @@ import { ITEMS_PER_PAGE } from 'app/shared/util/pagination.constants';
 
 import SearchPage from 'app/shared/layout/search/search-menu';
 
-export interface IWardProps extends StateProps, DispatchProps, RouteComponentProps<{ url: string }> { }
+export interface IWardProps extends StateProps, DispatchProps, RouteComponentProps<{ url: string }> {}
 
 export type IWardState = IPaginationBaseState;
 
@@ -63,11 +57,10 @@ export class Ward extends React.Component<IWardProps, IWardState> {
         <SearchPage location={this.props.location} history={this.props.history} />
         <Container>
           <Col md="12">
-            {this.props.loading ? <Loading /> : (
-              <>
-                <h2 id="ward-heading">
-                  <Translate contentKey="landexpApp.ward.home.title">Wards</Translate>
-                </h2>
+            {this.props.loading ? (
+              <Loading />
+            ) : (
+              <Card title="Danh sách xã phường">
                 <div className="table-responsive">
                   <Table responsive>
                     <thead>
@@ -93,8 +86,8 @@ export class Ward extends React.Component<IWardProps, IWardState> {
                             {ward.enabled ? (
                               <Icon type="check-square" style={{ color: 'green' }} />
                             ) : (
-                                <Icon type="close-square" style={{ color: 'red' }} />
-                              )}
+                              <Icon type="close-square" style={{ color: 'red' }} />
+                            )}
                           </td>
                           <td className="text-right">
                             <div className="btn-group flex-btn-group-container">
@@ -119,7 +112,7 @@ export class Ward extends React.Component<IWardProps, IWardState> {
                     maxButtons={3}
                   />
                 </Row>
-              </>
+              </Card>
             )}
           </Col>
         </Container>

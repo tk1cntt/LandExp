@@ -3,15 +3,9 @@ import { connect } from 'react-redux';
 import { Link, RouteComponentProps } from 'react-router-dom';
 import { Button, Col, Row, Container, Table } from 'reactstrap';
 // tslint:disable-next-line:no-unused-variable
-import {
-  Translate,
-  getSortState,
-  IPaginationBaseState,
-  getPaginationItemsNumber,
-  JhiPagination
-} from 'react-jhipster';
+import { Translate, getSortState, IPaginationBaseState, getPaginationItemsNumber, JhiPagination } from 'react-jhipster';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { Icon } from 'antd';
+import { Card, Icon } from 'antd';
 import Loading from 'app/shared/layout/loading/loading';
 
 import { IRootState } from 'app/shared/reducers';
@@ -66,10 +60,7 @@ export class District extends React.Component<IDistrictProps, IDistrictState> {
             {this.props.loading ? (
               <Loading />
             ) : (
-              <>
-                <h2 id="district-heading">
-                  <Translate contentKey="landexpApp.district.home.title">Districts</Translate>
-                </h2>
+              <Card title="Danh sách quận huyện">
                 <div className="table-responsive">
                   <Table responsive>
                     <thead>
@@ -125,7 +116,7 @@ export class District extends React.Component<IDistrictProps, IDistrictState> {
                     maxButtons={3}
                   />
                 </Row>
-              </>
+              </Card>
             )}
           </Col>
         </Container>

@@ -5,6 +5,8 @@ import { Button, Col, Row, Container, Table } from 'reactstrap';
 // tslint:disable-next-line:no-unused-variable
 import { Translate, ICrudGetAllAction } from 'react-jhipster';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { Card } from 'antd';
+
 import Loading from 'app/shared/layout/loading/loading';
 import SearchPage from 'app/shared/layout/search/search-menu';
 
@@ -13,7 +15,7 @@ import { getEntities } from './service-fee.reducer';
 // tslint:disable-next-line:no-unused-variable
 import { getSaleType } from 'app/shared/util/utils';
 
-export interface IServiceFeeProps extends StateProps, DispatchProps, RouteComponentProps<{ url: string }> { }
+export interface IServiceFeeProps extends StateProps, DispatchProps, RouteComponentProps<{ url: string }> {}
 
 export class ServiceFee extends React.Component<IServiceFeeProps> {
   componentDidMount() {
@@ -27,11 +29,10 @@ export class ServiceFee extends React.Component<IServiceFeeProps> {
         <SearchPage location={this.props.location} history={this.props.history} />
         <Container>
           <Col md="12">
-            {this.props.loading ? <Loading /> : (
-              <>
-                <h2 id="service-fee-heading">
-                  <Translate contentKey="landexpApp.serviceFee.home.title">Service Fees</Translate>
-                </h2>
+            {this.props.loading ? (
+              <Loading />
+            ) : (
+              <Card title="Bảng phí dịch vụ">
                 <div className="table-responsive">
                   <Table responsive>
                     <thead>
@@ -65,7 +66,7 @@ export class ServiceFee extends React.Component<IServiceFeeProps> {
                     </tbody>
                   </Table>
                 </div>
-              </>
+              </Card>
             )}
           </Col>
         </Container>
