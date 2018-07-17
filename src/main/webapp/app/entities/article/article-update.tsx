@@ -1,11 +1,18 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { Link, RouteComponentProps } from 'react-router-dom';
-import { Button, Row, Col, Label } from 'reactstrap';
+import { Button, Row, Col, Container, Label } from 'reactstrap';
 import { AvForm, AvGroup, AvInput, AvField } from 'availity-reactstrap-validation';
 // tslint:disable-next-line:no-unused-variable
 import { Translate, translate, ICrudGetAction, ICrudGetAllAction, setFileData, openFile, byteSize, ICrudPutAction } from 'react-jhipster';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import ReactQuill from 'react-quill';
+import { Select, Input, Card, Icon } from 'antd';
+const Option = Select.Option;
+
+import Loading from 'app/shared/layout/loading/loading';
+import SearchPage from 'app/shared/layout/search/search-menu';
+
 import { IRootState } from 'app/shared/reducers';
 
 import { ICategory } from 'app/shared/model/category.model';
@@ -17,6 +24,7 @@ import { IArticle } from 'app/shared/model/article.model';
 // tslint:disable-next-line:no-unused-variable
 import { convertDateTimeFromServer } from 'app/shared/util/date-utils';
 import { keysToValues } from 'app/shared/util/entity-utils';
+import article from 'app/entities/article/article';
 
 export interface IArticleUpdateProps extends StateProps, DispatchProps, RouteComponentProps<{ id: number }> {}
 
@@ -25,6 +33,10 @@ export interface IArticleUpdateState {
   categoryId: number;
   createById: number;
   updateById: number;
+  title: any;
+  summary: any;
+  content: any;
+  statusType: any;
 }
 
 export class ArticleUpdate extends React.Component<IArticleUpdateProps, IArticleUpdateState> {
@@ -34,6 +46,10 @@ export class ArticleUpdate extends React.Component<IArticleUpdateProps, IArticle
       categoryId: 0,
       createById: 0,
       updateById: 0,
+      title: null,
+      summary: null,
+      content: null,
+      statusType: null,
       isNew: !this.props.match.params || !this.props.match.params.id
     };
   }
@@ -62,8 +78,12 @@ export class ArticleUpdate extends React.Component<IArticleUpdateProps, IArticle
       const { articleEntity } = this.props;
       const entity = {
         ...articleEntity,
-        ...values
+        ...values,
+        summary: this.state.summary,
+        content: this.state.content
       };
+
+      console.log(entity);
 
       if (this.state.isNew) {
         this.props.createEntity(entity);
@@ -75,7 +95,7 @@ export class ArticleUpdate extends React.Component<IArticleUpdateProps, IArticle
   };
 
   handleClose = () => {
-    this.props.history.push('/entity/article');
+    this.props.history.push('/quan-ly/tin-tuc');
   };
 
   categoryUpdate = element => {
@@ -129,187 +149,142 @@ export class ArticleUpdate extends React.Component<IArticleUpdateProps, IArticle
     }
   };
 
+  onChangeTitle = value => {
+    this.setState({
+      title: value
+    });
+  };
+
+  onChangeSummary = value => {
+    this.setState({
+      summary: value
+    });
+  };
+
+  onChangeContent = value => {
+    this.setState({
+      content: value
+    });
+  };
+
+  onChangeStatusType = value => {
+    this.setState({
+      statusType: value
+    });
+  };
+
   render() {
     const isInvalid = false;
-    const { articleEntity, categories, users, loading, updating } = this.props;
+    const { categories, users, loading, updating } = this.props;
+    let articleEntity = this.props.articleEntity;
     const { isNew } = this.state;
-
+    if (isNew) {
+      articleEntity = {};
+    }
     const { avatar, avatarContentType } = articleEntity;
 
     return (
-      <div>
-        <Row className="justify-content-center">
-          <Col md="8">
-            <h2 id="landexpApp.article.home.createOrEditLabel">
-              <Translate contentKey="landexpApp.article.home.createOrEditLabel">Create or edit a Article</Translate>
-            </h2>
-          </Col>
-        </Row>
-        <Row className="justify-content-center">
-          <Col md="8">
-            {loading ? (
-              <p>Loading...</p>
-            ) : (
-              <AvForm model={isNew ? {} : articleEntity} onSubmit={this.saveEntity}>
-                {!isNew ? (
-                  <AvGroup>
-                    <Label for="id">
-                      <Translate contentKey="global.field.id">ID</Translate>
-                    </Label>
-                    <AvInput id="article-id" type="text" className="form-control" name="id" required readOnly />
-                  </AvGroup>
-                ) : null}
-                <AvGroup>
-                  <AvGroup>
-                    <Label id="avatarLabel" for="avatar">
-                      <Translate contentKey="landexpApp.article.avatar">Avatar</Translate>
-                    </Label>
-                    <br />
-                    {avatar ? (
-                      <div>
-                        <a onClick={openFile(avatarContentType, avatar)}>
-                          <img src={`data:${avatarContentType};base64,${avatar}`} style={{ maxHeight: '100px' }} />
-                        </a>
-                        <br />
-                        <Row>
-                          <Col md="11">
-                            <span>
-                              {avatarContentType}, {byteSize(avatar)}
-                            </span>
-                          </Col>
-                          <Col md="1">
-                            <Button color="danger" onClick={this.clearBlob('avatar')}>
-                              <FontAwesomeIcon icon="times-circle" />
-                            </Button>
-                          </Col>
-                        </Row>
-                      </div>
-                    ) : null}
-                    <input id="file_avatar" type="file" onChange={this.onBlobChange(true, 'avatar')} accept="image/*" />
-                  </AvGroup>
-                </AvGroup>
-                <AvGroup>
-                  <Label id="titleLabel" for="title">
-                    <Translate contentKey="landexpApp.article.title">Title</Translate>
-                  </Label>
-                  <AvField id="article-title" type="text" name="title" />
-                </AvGroup>
-                <AvGroup>
-                  <Label id="titleAliasLabel" for="titleAlias">
-                    <Translate contentKey="landexpApp.article.titleAlias">Title Alias</Translate>
-                  </Label>
-                  <AvField id="article-titleAlias" type="text" name="titleAlias" />
-                </AvGroup>
-                <AvGroup>
-                  <Label id="summaryLabel" for="summary">
-                    <Translate contentKey="landexpApp.article.summary">Summary</Translate>
-                  </Label>
-                  <AvField id="article-summary" type="text" name="summary" />
-                </AvGroup>
-                <AvGroup>
-                  <Label id="contentLabel" for="content">
-                    <Translate contentKey="landexpApp.article.content">Content</Translate>
-                  </Label>
-                  <AvField id="article-content" type="text" name="content" />
-                </AvGroup>
-                <AvGroup>
-                  <Label id="statusTypeLabel">
-                    <Translate contentKey="landexpApp.article.statusType">Status Type</Translate>
-                  </Label>
-                  <AvInput
-                    id="article-statusType"
-                    type="select"
-                    className="form-control"
-                    name="statusType"
-                    value={(!isNew && articleEntity.statusType) || 'OPEN'}
-                  >
-                    <option value="OPEN">OPEN</option>
-                    <option value="PENDING">PENDING</option>
-                    <option value="PAID">PAID</option>
-                    <option value="CANCELED">CANCELED</option>
-                    <option value="EXPIRED">EXPIRED</option>
-                    <option value="SOLD">SOLD</option>
-                  </AvInput>
-                </AvGroup>
-                <AvGroup>
-                  <Label id="hitsLabel" for="hits">
-                    <Translate contentKey="landexpApp.article.hits">Hits</Translate>
-                  </Label>
-                  <AvField id="article-hits" type="number" className="form-control" name="hits" />
-                </AvGroup>
-                <AvGroup>
-                  <Label id="createAtLabel" for="createAt">
-                    <Translate contentKey="landexpApp.article.createAt">Create At</Translate>
-                  </Label>
-                  <AvField id="article-createAt" type="date" className="form-control" name="createAt" />
-                </AvGroup>
-                <AvGroup>
-                  <Label id="updateAtLabel" for="updateAt">
-                    <Translate contentKey="landexpApp.article.updateAt">Update At</Translate>
-                  </Label>
-                  <AvField id="article-updateAt" type="date" className="form-control" name="updateAt" />
-                </AvGroup>
-                <AvGroup>
-                  <Label for="category.name">
-                    <Translate contentKey="landexpApp.article.category">Category</Translate>
-                  </Label>
-                  <AvInput id="article-category" type="select" className="form-control" name="categoryId" onChange={this.categoryUpdate}>
-                    <option value="" key="0" />
-                    {categories
-                      ? categories.map(otherEntity => (
-                          <option value={otherEntity.id} key={otherEntity.id}>
-                            {otherEntity.name}
-                          </option>
-                        ))
-                      : null}
-                  </AvInput>
-                </AvGroup>
-                <AvGroup>
-                  <Label for="createBy.login">
-                    <Translate contentKey="landexpApp.article.createBy">Create By</Translate>
-                  </Label>
-                  <AvInput id="article-createBy" type="select" className="form-control" name="createById" onChange={this.createByUpdate}>
-                    <option value="" key="0" />
-                    {users
-                      ? users.map(otherEntity => (
-                          <option value={otherEntity.id} key={otherEntity.id}>
-                            {otherEntity.login}
-                          </option>
-                        ))
-                      : null}
-                  </AvInput>
-                </AvGroup>
-                <AvGroup>
-                  <Label for="updateBy.login">
-                    <Translate contentKey="landexpApp.article.updateBy">Update By</Translate>
-                  </Label>
-                  <AvInput id="article-updateBy" type="select" className="form-control" name="updateById" onChange={this.updateByUpdate}>
-                    <option value="" key="0" />
-                    {users
-                      ? users.map(otherEntity => (
-                          <option value={otherEntity.id} key={otherEntity.id}>
-                            {otherEntity.login}
-                          </option>
-                        ))
-                      : null}
-                  </AvInput>
-                </AvGroup>
-                <Button tag={Link} id="cancel-save" to="/entity/article" replace color="info">
-                  <FontAwesomeIcon icon="arrow-left" />&nbsp;
-                  <span className="d-none d-md-inline">
-                    <Translate contentKey="entity.action.back">Back</Translate>
-                  </span>
-                </Button>
-                &nbsp;
-                <Button color="primary" id="save-entity" type="submit" disabled={isInvalid || updating}>
-                  <FontAwesomeIcon icon="save" />&nbsp;
-                  <Translate contentKey="entity.action.save">Save</Translate>
-                </Button>
-              </AvForm>
-            )}
-          </Col>
-        </Row>
-      </div>
+      <Row>
+        <SearchPage location={this.props.location} history={this.props.history} />
+        <Container>
+          <Row>
+            <Col md="12">
+              <Row>
+                {this.props.loading ? (
+                  <Loading />
+                ) : (
+                  <Card title="Cập nhật tin tức">
+                    <Col md="12" style={{ marginBottom: 20 }}>
+                      <Label id="avatarLabel" for="avatar">
+                        <Translate contentKey="landexpApp.article.avatar">Avatar</Translate>
+                      </Label>
+                      <br />
+                      {avatar ? (
+                        <div>
+                          <a onClick={openFile(avatarContentType, avatar)}>
+                            <img src={`data:${avatarContentType};base64,${avatar}`} style={{ maxHeight: '100px' }} />
+                          </a>
+                          <br />
+                          <Row>
+                            <Col md="11">
+                              <span>
+                                {avatarContentType}, {byteSize(avatar)}
+                              </span>
+                            </Col>
+                            <Col md="1">
+                              <Button color="danger" onClick={this.clearBlob('avatar')}>
+                                <FontAwesomeIcon icon="times-circle" />
+                              </Button>
+                            </Col>
+                          </Row>
+                        </div>
+                      ) : null}
+                      <input id="file_avatar" type="file" onChange={this.onBlobChange(true, 'avatar')} accept="image/*" />
+                    </Col>
+                    <Col md="12" style={{ marginBottom: 20 }}>
+                      <Input
+                        addonBefore="Tiêu đề bản tin"
+                        value={this.state.title || this.props.articleEntity.title}
+                        onChange={this.onChangeTitle}
+                      />
+                    </Col>
+                    <Col md="12" style={{ marginBottom: 20 }}>
+                      <Label id="summaryLabel" for="summary">
+                        <Translate contentKey="landexpApp.article.summary">Summary</Translate>
+                      </Label>
+                      <ReactQuill defaultValue={this.state.summary} onChange={this.onChangeSummary} placeholder="Tóm tắt bản tin" />
+                    </Col>
+                    <Col md="12" style={{ marginBottom: 20 }}>
+                      <Label id="contentLabel" for="content">
+                        <Translate contentKey="landexpApp.article.content">Content</Translate>
+                      </Label>
+                      <ReactQuill defaultValue={this.state.content} onChange={this.onChangeContent} placeholder="Chi tiết bản tin" />
+                    </Col>
+                    <Col md="12" style={{ marginBottom: 20 }}>
+                      <Select
+                        style={{ width: '100%' }}
+                        value={this.state.statusType || 'OPEN'}
+                        placeholder="Trạng thái tin"
+                        onChange={this.onChangeStatusType}
+                      >
+                        <Option value="OPEN">Chờ xét duyệt</Option>
+                        <Option value="PAID">Hiển thị</Option>
+                      </Select>
+                    </Col>
+                    <Col md="12" style={{ marginBottom: 20 }}>
+                      <Select
+                        style={{ width: '100%' }}
+                        value={this.state.statusType}
+                        placeholder="Danh mục tin tức"
+                        onChange={this.onChangeStatusType}
+                      >
+                        {categories
+                          ? categories.map(otherEntity => (
+                              <Option value={otherEntity.id} key={otherEntity.id}>
+                                {otherEntity.name}
+                              </Option>
+                            ))
+                          : null}
+                      </Select>
+                    </Col>
+                    <Button tag={Link} id="cancel-save" to="/quan-ly/tin-tuc" replace color="info">
+                      <FontAwesomeIcon icon="arrow-left" />&nbsp;
+                      <span className="d-none d-md-inline">
+                        <Translate contentKey="entity.action.back">Back</Translate>
+                      </span>
+                    </Button>
+                    &nbsp;
+                    <Button color="primary" id="save-entity" type="submit" disabled={isInvalid || updating}>
+                      <FontAwesomeIcon icon="save" />&nbsp;
+                      <Translate contentKey="entity.action.save">Save</Translate>
+                    </Button>
+                  </Card>
+                )}
+              </Row>
+            </Col>
+          </Row>
+        </Container>
+      </Row>
     );
   }
 }
