@@ -5,7 +5,6 @@ import { Button, Col, Row, Table } from 'reactstrap';
 // tslint:disable-next-line:no-unused-variable
 import {
   Translate,
-  ICrudGetAllAction,
   TextFormat,
   getSortState,
   IPaginationBaseState,
@@ -13,6 +12,7 @@ import {
   JhiPagination
 } from 'react-jhipster';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { Modal, Card, Icon, Tooltip } from 'antd';
 
 import { IRootState } from 'app/shared/reducers';
 import { getEntities } from './payment.reducer';
@@ -23,10 +23,15 @@ import { ITEMS_PER_PAGE } from 'app/shared/util/pagination.constants';
 
 export interface IPaymentProps extends StateProps, DispatchProps, RouteComponentProps<{ url: string }> {}
 
-export type IPaymentState = IPaginationBaseState;
+export interface IPaymentState extends IPaginationBaseState {
+  showDelete: any;
+  showConfirm: any;
+}
 
 export class Payment extends React.Component<IPaymentProps, IPaymentState> {
   state: IPaymentState = {
+    showDelete: false,
+    showConfirm: false,
     ...getSortState(this.props.location, ITEMS_PER_PAGE)
   };
 
@@ -55,6 +60,70 @@ export class Payment extends React.Component<IPaymentProps, IPaymentState> {
     const { activePage, itemsPerPage, sort, order } = this.state;
     this.props.getEntities(activePage - 1, itemsPerPage, `${sort},${order}`);
   };
+
+  /*
+  showDeleteConfirm = id => {
+    this.setState({
+      showDelete: true,
+    });
+
+    confirm({
+      title: 'Bạn có muốn xoá tin đăng này?',
+      content: 'Hãy xác nhận lại thông tin trước khi thực hiện hành động xoá',
+      okText: 'Xoá',
+      cancelText: 'Huỷ',
+      okType: 'danger',
+      onOk() {
+        this.props.deleteEntity(id);
+      },
+      onCancel() { }
+    });
+  };
+
+  handleDeleteOk = id => {
+    this.props.deleteEntity(id);
+    this.setState({
+      showDelete: false,
+    });
+  }
+
+  handleDeleteCancel = id => {
+    this.setState({
+      showDelete: false,
+    });
+  }
+
+  showPaymentConfirm = id => {
+    this.setState({
+      showConfirm: true,
+    });
+
+    confirm({
+      title: 'Bạn có muốn xác nhận đã thanh toán cho tin đăng?',
+      content: 'Hãy xác nhận lại thông tin thanh toán của tin đăng trước khi thực hiện việc xác nhận',
+      okText: 'Xác nhận',
+      cancelText: 'Huỷ',
+      okType: 'danger',
+      onOk() {
+        this.props.approvePayment(id);
+      },
+      onCancel() { }
+    });
+  };
+
+  handlePaymentOk = id => {
+    this.props.approvePayment(id);
+    this.setState({
+      showConfirm: false,
+    });
+  }
+
+  handlePaymentCancel = id => {
+    this.setState({
+      showConfirm: false,
+    });
+  }
+  */
 
   render() {
     const { paymentList, match, totalItems } = this.props;

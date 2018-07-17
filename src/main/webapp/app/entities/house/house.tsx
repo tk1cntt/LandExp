@@ -13,7 +13,7 @@ import Loading from 'app/shared/layout/loading/loading';
 import SearchPage from 'app/shared/layout/search/search-menu';
 
 import { IRootState } from 'app/shared/reducers';
-import { getEntities, getStaffEntities } from './house.reducer';
+import { getEntities, getStaffEntities, deleteEntity } from './house.reducer';
 // tslint:disable-next-line:no-unused-variable
 import { hasAnyAuthority } from 'app/shared/auth/private-route';
 import { AUTHORITIES } from 'app/config/constants';
@@ -21,10 +21,13 @@ import { ITEMS_PER_PAGE } from 'app/shared/util/pagination.constants';
 
 export interface IHouseProps extends StateProps, DispatchProps, RouteComponentProps<{ url: string }> {}
 
-export type IHouseState = IPaginationBaseState;
+export interface IHouseState extends IPaginationBaseState {
+  showDelete: any;
+}
 
 export class House extends React.Component<IHouseProps, IHouseState> {
   state: IHouseState = {
+    showDelete: false,
     ...getSortState(this.props.location, ITEMS_PER_PAGE)
   };
 
@@ -60,28 +63,23 @@ export class House extends React.Component<IHouseProps, IHouseState> {
   };
 
   showDeleteConfirm = id => {
-    confirm({
-      title: 'Bạn có muốn xoá tin đăng này?',
-      content: 'Hãy xác nhận lại thông tin trước khi thực hiện hành động xoá',
-      onOk() {
-        // console.log(id);
-        // this.props.deleteEntity(this.props.houseEntity.id);
-      },
-      onCancel() {}
+    this.setState({
+      showDelete: true,
     });
   };
 
-  showPaymentConfirm = id => {
-    confirm({
-      title: 'Bạn có muốn xác nhận đã thanh toán cho tin đăng?',
-      content: 'Hãy kiểm tra lại thông tin thanh toán của tin đăng trước khi thực hiện việc xác nhận',
-      onOk() {
-        // console.log(id);
-        // this.props.deleteEntity(this.props.houseEntity.id);
-      },
-      onCancel() {}
+  handleDeleteOk = id => {
+    this.props.deleteEntity(id);
+    this.setState({
+      showDelete: false,
     });
-  };
+  }
+
+  handleDeleteCancel = () => {
+    this.setState({
+      showDelete: false,
+    });
+  }
 
   render() {
     const { houseList, match, totalItems } = this.props;
@@ -148,16 +146,19 @@ export class House extends React.Component<IHouseProps, IHouseState> {
                                   ''
                                 ) : (
                                   <>
-                                    <div style={{ float: 'left', marginRight: 5 }} onClick={this.showPaymentConfirm.bind(this, house.id)}>
-                                      <Tooltip placement="top" title={'Xác nhận thanh toán'}>
-                                        <Icon type="pay-circle" />{' '}
-                                      </Tooltip>
-                                    </div>
                                     <div style={{ float: 'left' }} onClick={this.showDeleteConfirm.bind(this, house.id)}>
                                       <Tooltip placement="top" title={'Xoá tin đăng'}>
                                         <Icon type="delete" />{' '}
                                       </Tooltip>
                                     </div>
+                                    <Modal
+                                      title="Bạn có muốn xoá tin đăng này?"
+                                      visible={this.state.showDelete}
+                                      onOk={this.handleDeleteOk.bind(this, house.id)}
+                                      onCancel={this.handleDeleteCancel}
+                                    >
+                                      <p>Hãy xác nhận lại thông tin trước khi thực hiện hành động xoá</p>
+                                    </Modal>
                                   </>
                                 )}
                               </td>
@@ -194,7 +195,8 @@ const mapStateToProps = ({ house, authentication }: IRootState) => ({
 
 const mapDispatchToProps = {
   getEntities,
-  getStaffEntities
+  getStaffEntities,
+  deleteEntity
 };
 
 type StateProps = ReturnType<typeof mapStateToProps>;

@@ -156,6 +156,8 @@
         "userexists": "Tên đăng nhập đã được sử dụng!",
         "emailexists": "Số điện thoại đã được sử dụng!",
         "idexists": "Thêm mới {{ entityName }} không được trùng với định danh đã tồn tại",
+        "notfound": "Không tìm thấy",
+        "nopermission": "Bạn không được phép xem tin này",
         "idnull": "Invalid ID"
     },
     "footer": "Đây là chân trang của bạn"

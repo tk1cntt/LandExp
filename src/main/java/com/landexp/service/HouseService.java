@@ -47,11 +47,11 @@ public class HouseService {
      * @param houseDTO the entity to save
      * @return the persisted entity
      */
-    public HouseDTO save(HouseDTO houseDTO) {
+    public HouseDetailDTO save(HouseDetailDTO houseDTO) {
         log.debug("Request to save House : {}", houseDTO);
         House house = houseMapper.toEntity(houseDTO);
         house = houseRepository.save(house);
-        return houseMapper.toDto(house);
+        return houseMapper.toDetailDto(house);
     }
 
     /**

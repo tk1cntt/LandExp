@@ -157,6 +157,8 @@
         "userexists": "Login name already used!",
         "emailexists": "Mobile number is already in use!",
         "idexists": "A new {{ entityName }} cannot already have an ID",
+        "notfound": "Not found",
+        "nopermission": "No permission",
         "idnull": "Invalid ID"
     },
     "footer": "This is your footer"

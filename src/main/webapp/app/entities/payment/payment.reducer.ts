@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { Storage, ICrudSearchAction, ICrudGetAction, ICrudGetAllAction, ICrudPutAction, ICrudDeleteAction } from 'react-jhipster';
+import { Storage, ICrudGetAction, ICrudGetAllAction, ICrudPutAction, ICrudDeleteAction } from 'react-jhipster';
 
 import { cleanEntity } from 'app/shared/util/entity-utils';
 import { REQUEST, SUCCESS, FAILURE } from 'app/shared/reducers/action-type.util';
@@ -156,7 +156,7 @@ export const updateEntity: ICrudPutAction<IPayment> = entity => async dispatch =
   return result;
 };
 
-export const approveEntity: ICrudPutAction<IPayment> = id => async dispatch => {
+export const approvePayment: ICrudPutAction<IPayment> = id => async dispatch => {
   const jwt = Storage.local.get('jhi-authenticationToken') || Storage.session.get('jhi-authenticationToken');
   if (jwt) {
     client.defaults.headers['Authorization'] = `Bearer ${jwt}`;

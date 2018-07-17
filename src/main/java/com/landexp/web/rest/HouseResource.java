@@ -4,19 +4,16 @@ import com.codahale.metrics.annotation.Timed;
 import com.landexp.config.Utils;
 import com.landexp.domain.enumeration.PaymentStatusType;
 import com.landexp.domain.enumeration.StatusType;
-import com.landexp.frontend.responses.MappingUtils;
 import com.landexp.security.AuthoritiesConstants;
 import com.landexp.security.SecurityUtils;
+import com.landexp.service.HouseQueryService;
 import com.landexp.service.HouseService;
 import com.landexp.service.PaymentService;
 import com.landexp.service.ServiceFeeService;
 import com.landexp.service.dto.*;
 import com.landexp.web.rest.errors.BadRequestAlertException;
-import com.landexp.web.rest.errors.ExecuteRuntimeException;
-import com.landexp.web.rest.errors.InternalServerErrorException;
 import com.landexp.web.rest.util.HeaderUtil;
 import com.landexp.web.rest.util.PaginationUtil;
-import com.landexp.service.HouseQueryService;
 import io.github.jhipster.web.util.ResponseUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -31,7 +28,6 @@ import org.springframework.web.bind.annotation.*;
 
 import java.net.URI;
 import java.net.URISyntaxException;
-
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
@@ -105,12 +101,12 @@ public class HouseResource {
     @PostMapping("/houses")
     @Timed
     @Secured(AuthoritiesConstants.USER)
-    public ResponseEntity<HouseDTO> createHouse(@RequestBody HouseDTO houseDTO) throws URISyntaxException {
+    public ResponseEntity<HouseDetailDTO> createHouse(@RequestBody HouseDetailDTO houseDTO) throws URISyntaxException {
         log.debug("REST request to save House : {}", houseDTO);
         if (houseDTO.getId() != null) {
             throw new BadRequestAlertException("A new house cannot already have an ID", ENTITY_NAME, "idexists");
         }
-        HouseDTO result = houseService.save(houseDTO);
+        HouseDetailDTO result = houseService.save(houseDTO);
         return ResponseEntity.created(new URI("/api/houses/" + result.getId()))
             .headers(HeaderUtil.createEntityCreationAlert(ENTITY_NAME, result.getId().toString()))
             .body(result);
@@ -135,12 +131,12 @@ public class HouseResource {
         }
         HouseDetailDTO currentDTO = houseService.findOne(houseDTO.getId()).get();
         if (ObjectUtils.isEmpty(currentDTO)) {
-            throw new InternalServerErrorException("Not found");
+            throw new BadRequestAlertException("Invalid id", ENTITY_NAME, "notfound");
         }
         String username = SecurityUtils.getCurrentUserLogin().get();
         if (!username.equalsIgnoreCase(currentDTO.getCreateByLogin())
             && !SecurityUtils.isCurrentUserInRole(AuthoritiesConstants.STAFF)) {
-            throw new InternalServerErrorException("No permission");
+            throw new BadRequestAlertException("Invalid id", ENTITY_NAME, "nopermission");
         }
         if (currentDTO.getStatusType().equals(StatusType.OPEN)) {
             houseDTO.setStatusType(StatusType.PENDING);
@@ -237,16 +233,16 @@ public class HouseResource {
         log.debug("REST request to get House : {}", id);
         Optional<HouseDetailDTO> houseDTO = houseService.findOne(id);
         if (ObjectUtils.isEmpty(houseDTO.get())) {
-            throw new InternalServerErrorException("Not found");
+            throw new BadRequestAlertException("Invalid id", ENTITY_NAME, "notfound");
         }
         if (SecurityUtils.getCurrentUserLogin().get().equalsIgnoreCase(houseDTO.get().getCreateByLogin())) {
             if (!houseDTO.get().getStatusType().equals(StatusType.OPEN)
                 && !houseDTO.get().getStatusType().equals(StatusType.PENDING)
                 && houseDTO.get().getStatusType().equals(StatusType.PAID)) {
-                throw new InternalServerErrorException("No permission");
+                throw new BadRequestAlertException("Invalid id", ENTITY_NAME, "nopermission");
             }
         } else if (!houseDTO.get().getStatusType().equals(StatusType.PAID) && !SecurityUtils.isCurrentUserInRole(AuthoritiesConstants.MANAGER)) {
-            throw new InternalServerErrorException("No permission");
+            throw new BadRequestAlertException("Invalid id", ENTITY_NAME, "nopermission");
         }
         return ResponseUtil.wrapOrNotFound(houseDTO);
     }
@@ -264,13 +260,15 @@ public class HouseResource {
         log.debug("REST request to delete House : {}", id);
         Optional<HouseDetailDTO> houseDTO = houseService.findOne(id);
         if (ObjectUtils.isEmpty(houseDTO.get())) {
-            throw new InternalServerErrorException("Not found");
+            throw new BadRequestAlertException("Invalid id", ENTITY_NAME, "notfound");
         }
         if (!SecurityUtils.getCurrentUserLogin().get().equalsIgnoreCase(houseDTO.get().getCreateByLogin())
             && !SecurityUtils.isCurrentUserInRole(AuthoritiesConstants.MANAGER)) {
-            throw new InternalServerErrorException("No permission");
+            throw new BadRequestAlertException("Invalid id", ENTITY_NAME, "nopermission");
         }
-        houseService.delete(id);
+        HouseDetailDTO dto = houseDTO.get();
+        dto.setStatusType(StatusType.CANCELED);
+        houseService.save(dto);
         return ResponseEntity.ok().headers(HeaderUtil.createEntityDeletionAlert(ENTITY_NAME, id.toString())).build();
     }
 }
