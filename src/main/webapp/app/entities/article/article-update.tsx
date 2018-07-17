@@ -113,23 +113,22 @@ export class ArticleUpdate extends React.Component<IArticleUpdateProps, IArticle
     this.props.setBlob(name, undefined, undefined);
   };
 
-  saveEntity = (event, errors, values) => {
-    if (errors.length === 0) {
-      const { articleEntity } = this.props;
-      const entity = {
-        ...articleEntity,
-        ...values,
-        summary: this.state.summary,
-        content: this.state.content
-      };
-
-      if (this.state.isNew) {
-        this.props.createEntity(entity);
-      } else {
-        this.props.updateEntity(entity);
-      }
-      this.handleClose();
+  saveEntity = () => {
+    const { articleEntity } = this.props;
+    const entity = {
+      ...articleEntity,
+      summary: this.state.summary,
+      content: this.state.content
+    };
+    /*
+    console.log(entity);
+    if (this.state.isNew) {
+      this.props.createEntity(entity);
+    } else {
+      this.props.updateEntity(entity);
     }
+    this.handleClose();
+    */
   };
 
   handleClose = () => {
@@ -213,12 +212,8 @@ export class ArticleUpdate extends React.Component<IArticleUpdateProps, IArticle
 
   render() {
     const isInvalid = false;
-    const { categories, users, loading, updating } = this.props;
-    let articleEntity = this.props.articleEntity;
+    const { articleEntity, categories, users, loading, updating } = this.props;
     const { isNew } = this.state;
-    if (isNew) {
-      articleEntity = {};
-    }
     const { avatar, avatarContentType } = articleEntity;
 
     return (
@@ -251,7 +246,7 @@ export class ArticleUpdate extends React.Component<IArticleUpdateProps, IArticle
                             </Col>
                             <Col md="1">
                               <Button color="danger" onClick={this.clearBlob('avatar')}>
-                                <FontAwesomeIcon icon="times-circle" />
+                                <FontAwesomeIcon icon="trash" />
                               </Button>
                             </Col>
                           </Row>
@@ -262,7 +257,7 @@ export class ArticleUpdate extends React.Component<IArticleUpdateProps, IArticle
                     <Col md="12" style={{ marginBottom: 20 }}>
                       <Input
                         addonBefore="Tiêu đề bản tin"
-                        value={this.state.title || this.props.articleEntity.title}
+                        defaultValue={this.state.title || this.props.articleEntity.title}
                         onChange={this.onChangeTitle}
                       />
                     </Col>
@@ -312,17 +307,17 @@ export class ArticleUpdate extends React.Component<IArticleUpdateProps, IArticle
                           : null}
                       </Select>
                     </Col>
-                    <Button tag={Link} id="cancel-save" to="/quan-ly/tin-tuc" replace color="info">
-                      <FontAwesomeIcon icon="arrow-left" />&nbsp;
-                      <span className="d-none d-md-inline">
-                        <Translate contentKey="entity.action.back">Back</Translate>
-                      </span>
-                    </Button>
-                    &nbsp;
-                    <Button color="primary" id="save-entity" type="submit" disabled={isInvalid || updating}>
-                      <FontAwesomeIcon icon="save" />&nbsp;
-                      <Translate contentKey="entity.action.save">Save</Translate>
-                    </Button>
+                    <Col md="12">
+                      <Button tag={Link} id="cancel-save" to="/quan-ly/tin-tuc" replace color="info">
+                        <FontAwesomeIcon icon="arrow-left" />{' '}
+                        <span className="d-none d-md-inline">
+                          <Translate contentKey="entity.action.back">Back</Translate>
+                        </span>
+                      </Button>{' '}
+                      <Button color="primary" id="save-entity" disabled={isInvalid || updating} onClick={this.saveEntity}>
+                        <FontAwesomeIcon icon="save" /> <Translate contentKey="entity.action.save">Save</Translate>
+                      </Button>
+                    </Col>
                   </Card>
                 )}
               </Row>
