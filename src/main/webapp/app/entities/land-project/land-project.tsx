@@ -73,6 +73,10 @@ export class LandProject extends React.Component<ILandProjectProps, ILandProject
                   <Loading />
                 ) : (
                   <Card title="Danh sách dự án">
+                    <Link to={`${match.url}/new`} className="btn btn-primary float-right jh-create-entity" id="jh-create-entity">
+                      <FontAwesomeIcon icon="plus" />&nbsp;
+                      <Translate contentKey="landexpApp.landProject.home.createLabel">Create new Land Project</Translate>
+                    </Link>
                     <div className="table-responsive">
                       <Table responsive>
                         <thead>

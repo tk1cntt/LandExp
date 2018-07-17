@@ -40,6 +40,46 @@ export interface IArticleUpdateState {
 }
 
 export class ArticleUpdate extends React.Component<IArticleUpdateProps, IArticleUpdateState> {
+  /*
+   * Quill modules to attach to editor
+   * See https://quilljs.com/docs/modules/ for complete options
+   */
+  modules = {
+    toolbar: [
+      [{ header: [1, 2, false] }],
+      [{ size: [] }],
+      ['bold', 'italic', 'underline', 'strike', 'blockquote'],
+      [{ list: 'ordered' }, { list: 'bullet' }, { indent: '-1' }, { indent: '+1' }],
+      ['link', 'image', 'video'],
+      ['clean']
+    ],
+    clipboard: {
+      // toggle to add extra line breaks when pasting HTML:
+      matchVisual: false
+    }
+  };
+
+  /*
+   * Quill editor formats
+   * See https://quilljs.com/docs/formats/
+   */
+  formats = [
+    'header',
+    'font',
+    'size',
+    'bold',
+    'italic',
+    'underline',
+    'strike',
+    'blockquote',
+    'list',
+    'bullet',
+    'indent',
+    'link',
+    'image',
+    'video'
+  ];
+
   constructor(props) {
     super(props);
     this.state = {
@@ -236,7 +276,14 @@ export class ArticleUpdate extends React.Component<IArticleUpdateProps, IArticle
                       <Label id="contentLabel" for="content">
                         <Translate contentKey="landexpApp.article.content">Content</Translate>
                       </Label>
-                      <ReactQuill defaultValue={this.state.content} onChange={this.onChangeContent} placeholder="Chi tiết bản tin" />
+                      <ReactQuill
+                        defaultValue={this.state.content}
+                        theme="snow"
+                        modules={this.modules}
+                        formats={this.formats}
+                        onChange={this.onChangeContent}
+                        placeholder="Chi tiết bản tin"
+                      />
                     </Col>
                     <Col md="12" style={{ marginBottom: 20 }}>
                       <Select

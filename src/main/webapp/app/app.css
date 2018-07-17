@@ -176,3 +176,7 @@
   object-position: center; /* Center the image within the element */
   height: 67px;
 }
+
+.ql-container.ql-snow {
+  min-height: 300px;
+}
