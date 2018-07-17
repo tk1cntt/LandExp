@@ -1,7 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { Link, RouteComponentProps } from 'react-router-dom';
-import { Button, Col, Row, Table } from 'reactstrap';
+import { Button, Col, Row, Container, Table } from 'reactstrap';
 // tslint:disable-next-line:no-unused-variable
 import {
   Translate,
@@ -13,6 +13,10 @@ import {
   JhiPagination
 } from 'react-jhipster';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { Card, Icon } from 'antd';
+
+import Loading from 'app/shared/layout/loading/loading';
+import SearchPage from 'app/shared/layout/search/search-menu';
 
 import { IRootState } from 'app/shared/reducers';
 import { getEntities } from './category.reducer';
@@ -59,94 +63,83 @@ export class Category extends React.Component<ICategoryProps, ICategoryState> {
   render() {
     const { categoryList, match, totalItems } = this.props;
     return (
-      <div>
-        <h2 id="category-heading">
-          <Translate contentKey="landexpApp.category.home.title">Categories</Translate>
-          <Link to={`${match.url}/new`} className="btn btn-primary float-right jh-create-entity" id="jh-create-entity">
-            <FontAwesomeIcon icon="plus" />&nbsp;
-            <Translate contentKey="landexpApp.category.home.createLabel">Create new Category</Translate>
-          </Link>
-        </h2>
-        <div className="table-responsive">
-          <Table responsive>
-            <thead>
-              <tr>
-                <th className="hand" onClick={this.sort('id')}>
-                  <Translate contentKey="global.field.id">ID</Translate> <FontAwesomeIcon icon="sort" />
-                </th>
-                <th className="hand" onClick={this.sort('name')}>
-                  <Translate contentKey="landexpApp.category.name">Name</Translate> <FontAwesomeIcon icon="sort" />
-                </th>
-                <th className="hand" onClick={this.sort('nameAlias')}>
-                  <Translate contentKey="landexpApp.category.nameAlias">Name Alias</Translate> <FontAwesomeIcon icon="sort" />
-                </th>
-                <th className="hand" onClick={this.sort('createAt')}>
-                  <Translate contentKey="landexpApp.category.createAt">Create At</Translate> <FontAwesomeIcon icon="sort" />
-                </th>
-                <th className="hand" onClick={this.sort('updateAt')}>
-                  <Translate contentKey="landexpApp.category.updateAt">Update At</Translate> <FontAwesomeIcon icon="sort" />
-                </th>
-                <th />
-              </tr>
-            </thead>
-            <tbody>
-              {categoryList.map((category, i) => (
-                <tr key={`entity-${i}`}>
-                  <td>
-                    <Button tag={Link} to={`${match.url}/${category.id}`} color="link" size="sm">
-                      {category.id}
-                    </Button>
-                  </td>
-                  <td>{category.name}</td>
-                  <td>{category.nameAlias}</td>
-                  <td>
-                    <TextFormat type="date" value={category.createAt} format={APP_LOCAL_DATE_FORMAT} />
-                  </td>
-                  <td>
-                    <TextFormat type="date" value={category.updateAt} format={APP_LOCAL_DATE_FORMAT} />
-                  </td>
-                  <td className="text-right">
-                    <div className="btn-group flex-btn-group-container">
-                      <Button tag={Link} to={`${match.url}/${category.id}`} color="info" size="sm">
-                        <FontAwesomeIcon icon="eye" />{' '}
-                        <span className="d-none d-md-inline">
-                          <Translate contentKey="entity.action.view">View</Translate>
-                        </span>
-                      </Button>
-                      <Button tag={Link} to={`${match.url}/${category.id}/edit`} color="primary" size="sm">
-                        <FontAwesomeIcon icon="pencil-alt" />{' '}
-                        <span className="d-none d-md-inline">
-                          <Translate contentKey="entity.action.edit">Edit</Translate>
-                        </span>
-                      </Button>
-                      <Button tag={Link} to={`${match.url}/${category.id}/delete`} color="danger" size="sm">
-                        <FontAwesomeIcon icon="trash" />{' '}
-                        <span className="d-none d-md-inline">
-                          <Translate contentKey="entity.action.delete">Delete</Translate>
-                        </span>
-                      </Button>
+      <Row>
+        <SearchPage location={this.props.location} history={this.props.history} />
+        <Container>
+          <Row>
+            <Col md="12">
+              <Row>
+                {this.props.loading ? (
+                  <Loading />
+                ) : (
+                  <Card title="Danh mục tin tức">
+                    <Link to={`${match.url}/new`} className="btn btn-primary float-right jh-create-entity" id="jh-create-entity">
+                      <FontAwesomeIcon icon="plus" />&nbsp;
+                      <Translate contentKey="landexpApp.category.home.createLabel">Create new Category</Translate>
+                    </Link>
+                    <div className="table-responsive">
+                      <Table responsive>
+                        <thead>
+                          <tr>
+                            <th className="hand" onClick={this.sort('name')}>
+                              <Translate contentKey="landexpApp.category.name">Name</Translate> <FontAwesomeIcon icon="sort" />
+                            </th>
+                            <th className="hand" onClick={this.sort('createAt')}>
+                              <Translate contentKey="landexpApp.category.createAt">Create At</Translate> <FontAwesomeIcon icon="sort" />
+                            </th>
+                            <th />
+                          </tr>
+                        </thead>
+                        <tbody>
+                          {categoryList.map((category, i) => (
+                            <tr key={`entity-${i}`}>
+                              <td>{category.name}</td>
+                              <td>
+                                <TextFormat type="date" value={category.createAt} format={APP_LOCAL_DATE_FORMAT} />
+                              </td>
+                              <td className="text-right">
+                                <div className="btn-group flex-btn-group-container">
+                                  <Button tag={Link} to={`${match.url}/${category.id}/edit`} color="primary" size="sm">
+                                    <FontAwesomeIcon icon="pencil-alt" />{' '}
+                                    <span className="d-none d-md-inline">
+                                      <Translate contentKey="entity.action.edit">Edit</Translate>
+                                    </span>
+                                  </Button>
+                                  <Button tag={Link} to={`${match.url}/${category.id}/delete`} color="danger" size="sm">
+                                    <FontAwesomeIcon icon="trash" />{' '}
+                                    <span className="d-none d-md-inline">
+                                      <Translate contentKey="entity.action.delete">Delete</Translate>
+                                    </span>
+                                  </Button>
+                                </div>
+                              </td>
+                            </tr>
+                          ))}
+                        </tbody>
+                      </Table>
                     </div>
-                  </td>
-                </tr>
-              ))}
-            </tbody>
-          </Table>
-        </div>
-        <Row className="justify-content-center">
-          <JhiPagination
-            items={getPaginationItemsNumber(totalItems, this.state.itemsPerPage)}
-            activePage={this.state.activePage}
-            onSelect={this.handlePagination}
-            maxButtons={5}
-          />
-        </Row>
-      </div>
+                    <Row className="justify-content-center">
+                      <JhiPagination
+                        items={getPaginationItemsNumber(totalItems, this.state.itemsPerPage)}
+                        activePage={this.state.activePage}
+                        onSelect={this.handlePagination}
+                        maxButtons={5}
+                      />
+                    </Row>
+                  </Card>
+                )}
+              </Row>
+            </Col>
+          </Row>
+        </Container>
+      </Row>
     );
   }
 }
 
 const mapStateToProps = ({ category }: IRootState) => ({
   categoryList: category.entities,
+  loading: category.loading,
   totalItems: category.totalItems
 });
 

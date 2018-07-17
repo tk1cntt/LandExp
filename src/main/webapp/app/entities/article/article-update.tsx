@@ -83,8 +83,6 @@ export class ArticleUpdate extends React.Component<IArticleUpdateProps, IArticle
         content: this.state.content
       };
 
-      console.log(entity);
-
       if (this.state.isNew) {
         this.props.createEntity(entity);
       } else {
