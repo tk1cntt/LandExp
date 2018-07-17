@@ -7,7 +7,6 @@ import {
   openFile,
   byteSize,
   Translate,
-  ICrudGetAllAction,
   TextFormat,
   getSortState,
   IPaginationBaseState,
@@ -18,9 +17,8 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
 import { IRootState } from 'app/shared/reducers';
 import { getEntities } from './house-photo.reducer';
-import { IHousePhoto } from 'app/shared/model/house-photo.model';
 // tslint:disable-next-line:no-unused-variable
-import { APP_DATE_FORMAT, APP_LOCAL_DATE_FORMAT } from 'app/config/constants';
+import { APP_LOCAL_DATE_FORMAT } from 'app/config/constants';
 import { ITEMS_PER_PAGE } from 'app/shared/util/pagination.constants';
 
 export interface IHousePhotoProps extends StateProps, DispatchProps, RouteComponentProps<{ url: string }> {}

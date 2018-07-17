@@ -1,16 +1,15 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { Link, RouteComponentProps } from 'react-router-dom';
-import { Button, Col, Row, Container, Table } from 'reactstrap';
+import { RouteComponentProps } from 'react-router-dom';
+import { Col, Row, Container, Table } from 'reactstrap';
 import { Translate, TextFormat, getSortState, IPaginationBaseState, getPaginationItemsNumber, JhiPagination } from 'react-jhipster';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { Modal, Card, Icon, Tooltip } from 'antd';
 
 import { IRootState } from 'app/shared/reducers';
-import { getLandType, getSaleType, getStatusType, getPaymentStatus } from 'app/shared/util/utils';
+import { getPaymentStatus } from 'app/shared/util/utils';
 import { getEntities, approvePayment } from './payment.reducer';
-import { IPayment } from 'app/shared/model/payment.model';
-import { APP_DATE_FORMAT, APP_LOCAL_DATE_FORMAT } from 'app/config/constants';
+import { APP_LOCAL_DATE_FORMAT } from 'app/config/constants';
 import { ITEMS_PER_PAGE } from 'app/shared/util/pagination.constants';
 
 import Loading from 'app/shared/layout/loading/loading';

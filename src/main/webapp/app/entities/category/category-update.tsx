@@ -4,9 +4,9 @@ import { Link, RouteComponentProps } from 'react-router-dom';
 import { Button, Row, Col, Container, Label } from 'reactstrap';
 import { AvForm, AvGroup, AvInput, AvField } from 'availity-reactstrap-validation';
 // tslint:disable-next-line:no-unused-variable
-import { Translate, translate, ICrudGetAction, ICrudGetAllAction, ICrudPutAction } from 'react-jhipster';
+import { Translate } from 'react-jhipster';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { Card, Icon } from 'antd';
+import { Card } from 'antd';
 
 import Loading from 'app/shared/layout/loading/loading';
 import SearchPage from 'app/shared/layout/search/search-menu';
@@ -14,10 +14,6 @@ import SearchPage from 'app/shared/layout/search/search-menu';
 import { IRootState } from 'app/shared/reducers';
 
 import { getEntity, updateEntity, createEntity, reset } from './category.reducer';
-import { ICategory } from 'app/shared/model/category.model';
-// tslint:disable-next-line:no-unused-variable
-import { convertDateTimeFromServer } from 'app/shared/util/date-utils';
-import { keysToValues } from 'app/shared/util/entity-utils';
 
 export interface ICategoryUpdateProps extends StateProps, DispatchProps, RouteComponentProps<{ id: number }> {}
 
@@ -59,7 +55,7 @@ export class CategoryUpdate extends React.Component<ICategoryUpdateProps, ICateg
   };
 
   handleClose = () => {
-    this.props.history.push('/entity/category');
+    this.props.history.push('/quan-ly/danh-muc-tin-tuc');
   };
 
   render() {
@@ -90,7 +86,7 @@ export class CategoryUpdate extends React.Component<ICategoryUpdateProps, ICateg
                         </Label>
                         <AvField id="category-name" type="text" name="name" />
                       </AvGroup>
-                      <Button tag={Link} id="cancel-save" to="/entity/category" replace color="info">
+                      <Button tag={Link} id="cancel-save" to="/quan-ly/danh-muc-tin-tuc" replace color="info">
                         <FontAwesomeIcon icon="arrow-left" />&nbsp;
                         <span className="d-none d-md-inline">
                           <Translate contentKey="entity.action.back">Back</Translate>

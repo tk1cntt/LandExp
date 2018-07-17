@@ -14,7 +14,6 @@ import SearchPage from 'app/shared/layout/search/search-menu';
 import { getEntities as getRegions } from 'app/entities/region/region.reducer';
 import { getEntities as getCities } from 'app/entities/city/city.reducer';
 import { getEntity, updateEntity, createEntity, reset } from './district.reducer';
-// tslint:disable-next-line:no-unused-variable
 
 export interface IDistrictUpdateProps extends StateProps, DispatchProps, RouteComponentProps<{ id: number }> {}
 

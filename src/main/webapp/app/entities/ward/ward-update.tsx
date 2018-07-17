@@ -6,7 +6,7 @@ import { AvForm, AvGroup, AvInput, AvField } from 'availity-reactstrap-validatio
 // tslint:disable-next-line:no-unused-variable
 import { Translate } from 'react-jhipster';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { Card, Icon } from 'antd';
+import { Card } from 'antd';
 import { IRootState } from 'app/shared/reducers';
 
 import { getEntities as getDistricts } from 'app/entities/district/district.reducer';

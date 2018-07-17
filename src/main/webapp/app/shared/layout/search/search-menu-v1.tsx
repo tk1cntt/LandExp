@@ -6,7 +6,6 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { Col } from 'reactstrap';
 import qs from 'query-string';
-import { AutoComplete } from 'antd';
 
 import { getLandType, queryStringMapping, queryString, getPriceByNumber, getAcreageByNumber } from 'app/shared/util/utils';
 import { getHouses } from 'app/entities/house/house.reducer';

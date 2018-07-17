@@ -7,7 +7,6 @@ import {
   openFile,
   byteSize,
   Translate,
-  ICrudGetAllAction,
   TextFormat,
   getSortState,
   IPaginationBaseState,
@@ -15,16 +14,15 @@ import {
   JhiPagination
 } from 'react-jhipster';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { Card, Icon } from 'antd';
+import { Card } from 'antd';
 
 import Loading from 'app/shared/layout/loading/loading';
 import SearchPage from 'app/shared/layout/search/search-menu';
 
 import { IRootState } from 'app/shared/reducers';
 import { getEntities } from './article.reducer';
-import { IArticle } from 'app/shared/model/article.model';
 // tslint:disable-next-line:no-unused-variable
-import { APP_DATE_FORMAT, APP_LOCAL_DATE_FORMAT } from 'app/config/constants';
+import { APP_LOCAL_DATE_FORMAT } from 'app/config/constants';
 import { ITEMS_PER_PAGE } from 'app/shared/util/pagination.constants';
 
 export interface IArticleProps extends StateProps, DispatchProps, RouteComponentProps<{ url: string }> {}
