@@ -19,6 +19,7 @@ import { getEntity } from 'app/entities/house/house.reducer';
 import { getImageOfHouse } from 'app/entities/house-photo/house-photo.reducer';
 import { SERVER_API_URL, APP_LOCAL_DATE_FORMAT } from 'app/config/constants';
 
+import Permission from 'app/shared/layout/no/Permission';
 import Loading from 'app/shared/layout/loading/loading';
 import SearchPage from 'app/shared/layout/search/search-menu';
 import GoogleMaps from 'app/shared/util/google-maps';
@@ -213,6 +214,14 @@ export class Detail extends React.Component<IDetailProp, IDetailState> {
         <Container>
           {this.props.loading && this.props.photoLoading ? (
             <Loading />
+          ) : !this.props.houseEntity.id ? (
+            <Row>
+              <Col md="12">
+                <Row>
+                  <Permission />
+                </Row>
+              </Col>
+            </Row>
           ) : (
             <Row>
               <Row id="product-content">
