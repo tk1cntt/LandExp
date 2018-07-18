@@ -103,6 +103,18 @@ public class RegionResource {
     }
 
     /**
+     * GET  /regions : get all the regions.
+
+     * @return the ResponseEntity with status 200 (OK) and the list of regions in body
+     */
+    @GetMapping("/regions/all")
+    @Timed
+    public List<RegionDTO> getAllRegions() {
+        log.debug("REST request to get all Regions");
+        return regionService.findAll();
+    }
+
+    /**
      * GET  /regions/:id : get the "id" region.
      *
      * @param id the id of the regionDTO to retrieve

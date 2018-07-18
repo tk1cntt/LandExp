@@ -11,8 +11,8 @@ import { Card, Icon } from 'antd';
 import Loading from 'app/shared/layout/loading/loading';
 import SearchPage from 'app/shared/layout/search/search-menu';
 
-import { getEntities as getRegions } from 'app/entities/region/region.reducer';
-import { getEntities as getCities } from 'app/entities/city/city.reducer';
+import { getAllEntities as getRegions } from 'app/entities/region/region.reducer';
+import { getAllEntities as getCities } from 'app/entities/city/city.reducer';
 import { getEntity, updateEntity, createEntity, reset } from './district.reducer';
 
 export interface IDistrictUpdateProps extends StateProps, DispatchProps, RouteComponentProps<{ id: number }> {}

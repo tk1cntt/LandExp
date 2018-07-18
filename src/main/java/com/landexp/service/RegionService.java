@@ -13,7 +13,11 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 
+import java.util.LinkedList;
+import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
+
 /**
  * Service Implementation for managing Region.
  */
@@ -59,6 +63,19 @@ public class RegionService {
     }
 
     /**
+     * Get all the cities.
+     *
+     * @return the list of entities
+     */
+    @Transactional(readOnly = true)
+    public List<RegionDTO> findAll() {
+        log.debug("Request to get all Regions");
+        return regionRepository.findAll().stream()
+            .map(regionMapper::toDto)
+            .collect(Collectors.toCollection(LinkedList::new));
+    }
+
+    /**
      * Get all the Region with eager load of many-to-many relationships.
      *
      * @return the list of entities
@@ -66,7 +83,7 @@ public class RegionService {
     public Page<RegionDTO> findAllWithEagerRelationships(Pageable pageable) {
         return regionRepository.findAllWithEagerRelationships(pageable).map(regionMapper::toDto);
     }
-    
+
 
     /**
      * Get one region by id.
