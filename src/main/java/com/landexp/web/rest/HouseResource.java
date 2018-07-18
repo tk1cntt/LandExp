@@ -81,7 +81,7 @@ public class HouseResource {
             paymentDTO.setHouseId(houseDTO.getId());
             paymentDTO.setCode(Utils.encodePayment(houseDTO.getId()).toUpperCase());
             paymentDTO.setCreateAt(LocalDate.now());
-            paymentDTO.setPaymentStatus(PaymentStatusType.PENDING);
+            paymentDTO.setPaymentStatus(PaymentStatusType.OPEN);
             paymentDTO.setCustomerId(houseDTO.getCreateById());
             paymentDTO.setCustomerLogin(houseDTO.getCreateByLogin());
             paymentDTO.setCreateById(houseDTO.getCreateById());
@@ -144,6 +144,7 @@ public class HouseResource {
             if (!ObjectUtils.isEmpty(serviceFee)) {
                 PaymentDTO paymentDTO = paymentService.findByHouse(houseDTO.getId()).get();
                 if (!ObjectUtils.isEmpty(paymentDTO)) {
+                    paymentDTO.setPaymentStatus(PaymentStatusType.PENDING);
                     paymentDTO.setMoney(serviceFee.getFee());
                     paymentService.save(paymentDTO);
                 }

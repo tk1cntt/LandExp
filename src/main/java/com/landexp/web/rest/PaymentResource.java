@@ -8,7 +8,6 @@ import com.landexp.security.SecurityUtils;
 import com.landexp.service.HouseService;
 import com.landexp.service.PaymentQueryService;
 import com.landexp.service.PaymentService;
-import com.landexp.service.dto.HouseDTO;
 import com.landexp.service.dto.HouseDetailDTO;
 import com.landexp.service.dto.PaymentCriteria;
 import com.landexp.service.dto.PaymentDTO;
@@ -30,6 +29,7 @@ import org.springframework.web.bind.annotation.*;
 import java.net.URI;
 import java.net.URISyntaxException;
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -165,6 +165,13 @@ public class PaymentResource {
     @Timed
     public ResponseEntity<List<PaymentDTO>> getAllPayments(PaymentCriteria criteria, Pageable pageable) {
         log.debug("REST request to get Payments by criteria: {}", criteria);
+        PaymentCriteria.PaymentStatusTypeFilter filter = new PaymentCriteria.PaymentStatusTypeFilter();
+        List<PaymentStatusType> statusTypes = new ArrayList<>();
+        statusTypes.add(PaymentStatusType.PENDING);
+        statusTypes.add(PaymentStatusType.PAID);
+        statusTypes.add(PaymentStatusType.CANCELED);
+        filter.setIn(statusTypes);
+        criteria.setPaymentStatus(filter);
         Page<PaymentDTO> page = paymentQueryService.findByCriteria(criteria, pageable);
         HttpHeaders headers = PaginationUtil.generatePaginationHttpHeaders(page, "/api/payments");
         return new ResponseEntity<>(page.getContent(), headers, HttpStatus.OK);

@@ -4,6 +4,9 @@ export interface IWard {
   id?: number;
   name?: string;
   enabled?: boolean;
+  type?: string;
+  latitude?: number;
+  longitude?: number;
   createAt?: Moment;
   updateAt?: Moment;
   districtId?: number;

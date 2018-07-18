@@ -2,15 +2,7 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { Link, RouteComponentProps } from 'react-router-dom';
 import { Button, Col, Row, Container, Table } from 'reactstrap';
-import {
-  openFile,
-  byteSize,
-  Translate,
-  getSortState,
-  IPaginationBaseState,
-  getPaginationItemsNumber,
-  JhiPagination
-} from 'react-jhipster';
+import { openFile, byteSize, Translate, getSortState, IPaginationBaseState, getPaginationItemsNumber, JhiPagination } from 'react-jhipster';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { Card } from 'antd';
 import Loading from 'app/shared/layout/loading/loading';
@@ -89,9 +81,6 @@ export class LandProject extends React.Component<ILandProjectProps, ILandProject
                               <Translate contentKey="landexpApp.landProject.district">District</Translate> <FontAwesomeIcon icon="sort" />
                             </th>
                             <th>
-                              <Translate contentKey="landexpApp.landProject.ward">Ward</Translate> <FontAwesomeIcon icon="sort" />
-                            </th>
-                            <th>
                               <Translate contentKey="landexpApp.landProject.createBy">Create By</Translate> <FontAwesomeIcon icon="sort" />
                             </th>
                             <th />
@@ -125,7 +114,6 @@ export class LandProject extends React.Component<ILandProjectProps, ILandProject
                                   ''
                                 )}
                               </td>
-                              <td>{landProject.wardName ? <Link to={`ward/${landProject.wardId}`}>{landProject.wardName}</Link> : ''}</td>
                               <td>{landProject.createByLogin ? landProject.createByLogin : ''}</td>
                               <td className="text-right">
                                 <div className="btn-group flex-btn-group-container">
@@ -159,7 +147,7 @@ export class LandProject extends React.Component<ILandProjectProps, ILandProject
                         items={getPaginationItemsNumber(totalItems, this.state.itemsPerPage)}
                         activePage={this.state.activePage}
                         onSelect={this.handlePagination}
-                        maxButtons={5}
+                        maxButtons={3}
                       />
                     </Row>
                   </Card>

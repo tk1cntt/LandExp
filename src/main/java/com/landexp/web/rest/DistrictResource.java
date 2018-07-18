@@ -2,6 +2,7 @@ package com.landexp.web.rest;
 
 import com.codahale.metrics.annotation.Timed;
 import com.landexp.service.DistrictService;
+import com.landexp.service.dto.CityDTO;
 import com.landexp.web.rest.errors.BadRequestAlertException;
 import com.landexp.web.rest.util.HeaderUtil;
 import com.landexp.web.rest.util.PaginationUtil;
@@ -100,6 +101,18 @@ public class DistrictResource {
         Page<DistrictDTO> page = districtQueryService.findByCriteria(criteria, pageable);
         HttpHeaders headers = PaginationUtil.generatePaginationHttpHeaders(page, "/api/districts");
         return new ResponseEntity<>(page.getContent(), headers, HttpStatus.OK);
+    }
+
+    /**
+     * GET  /cities : get all the cities.
+     *
+     * @return the ResponseEntity with status 200 (OK) and the list of cities in body
+     */
+    @GetMapping("/districts/all")
+    @Timed
+    public List<DistrictDTO> getAllCities() {
+        log.debug("REST request to get all Cities");
+        return districtService.findAll();
     }
 
     /**

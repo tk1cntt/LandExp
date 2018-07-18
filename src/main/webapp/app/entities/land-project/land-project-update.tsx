@@ -11,8 +11,8 @@ import Loading from 'app/shared/layout/loading/loading';
 import SearchPage from 'app/shared/layout/search/search-menu';
 import { IRootState } from 'app/shared/reducers';
 
-import { getEntities as getCities } from 'app/entities/city/city.reducer';
-import { getEntities as getDistricts } from 'app/entities/district/district.reducer';
+import { getAllEntities as getCities } from 'app/entities/city/city.reducer';
+import { getAllEntities as getDistricts } from 'app/entities/district/district.reducer';
 import { getEntities as getWards } from 'app/entities/ward/ward.reducer';
 import { getUsers } from 'app/modules/administration/user-management/user-management.reducer';
 import { getEntity, updateEntity, createEntity, setBlob, reset } from './land-project.reducer';
@@ -270,27 +270,6 @@ export class LandProjectUpdate extends React.Component<ILandProjectUpdateProps, 
                                 <option value="" key="0" />
                                 {districts
                                   ? districts.map(otherEntity => (
-                                      <option value={otherEntity.id} key={otherEntity.id}>
-                                        {otherEntity.name}
-                                      </option>
-                                    ))
-                                  : null}
-                              </AvInput>
-                            </AvGroup>
-                            <AvGroup>
-                              <Label for="ward.name">
-                                <Translate contentKey="landexpApp.landProject.ward">Ward</Translate>
-                              </Label>
-                              <AvInput
-                                id="land-project-ward"
-                                type="select"
-                                className="form-control"
-                                name="wardId"
-                                onChange={this.wardUpdate}
-                              >
-                                <option value="" key="0" />
-                                {wards
-                                  ? wards.map(otherEntity => (
                                       <option value={otherEntity.id} key={otherEntity.id}>
                                         {otherEntity.name}
                                       </option>

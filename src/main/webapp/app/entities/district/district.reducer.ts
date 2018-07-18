@@ -114,6 +114,11 @@ export const getEntities: ICrudGetAllAction<IDistrict> = (page, size, sort) => {
   };
 };
 
+export const getAllEntities: ICrudGetAllAction<IDistrict> = (page, size, sort) => ({
+  type: ACTION_TYPES.FETCH_DISTRICT_LIST,
+  payload: client.get<IDistrict>(`${apiUrl}/all?cacheBuster=${new Date().getTime()}`)
+});
+
 export const getEntity: ICrudGetAction<IDistrict> = id => {
   const requestUrl = `${apiUrl}/${id}`;
   return {
