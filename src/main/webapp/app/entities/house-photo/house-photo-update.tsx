@@ -4,19 +4,14 @@ import { Link, RouteComponentProps } from 'react-router-dom';
 import { Button, Row, Col, Label } from 'reactstrap';
 import { AvForm, AvGroup, AvInput, AvField } from 'availity-reactstrap-validation';
 // tslint:disable-next-line:no-unused-variable
-import { Translate, translate, ICrudGetAction, ICrudGetAllAction, setFileData, openFile, byteSize, ICrudPutAction } from 'react-jhipster';
+import { Translate, setFileData, openFile, byteSize } from 'react-jhipster';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { IRootState } from 'app/shared/reducers';
 
-import { IHouse } from 'app/shared/model/house.model';
 import { getEntities as getHouses } from 'app/entities/house/house.reducer';
-import { IUser } from 'app/shared/model/user.model';
 import { getUsers } from 'app/modules/administration/user-management/user-management.reducer';
 import { getEntity, updateEntity, createEntity, setBlob, reset } from './house-photo.reducer';
-import { IHousePhoto } from 'app/shared/model/house-photo.model';
 // tslint:disable-next-line:no-unused-variable
-import { convertDateTimeFromServer } from 'app/shared/util/date-utils';
-import { keysToValues } from 'app/shared/util/entity-utils';
 
 export interface IHousePhotoUpdateProps extends StateProps, DispatchProps, RouteComponentProps<{ id: number }> {}
 
