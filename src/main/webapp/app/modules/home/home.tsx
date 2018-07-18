@@ -6,7 +6,7 @@ import { IPaginationBaseState, getSortState } from 'react-jhipster';
 import { connect } from 'react-redux';
 import { Row } from 'reactstrap';
 import { getSession } from 'app/shared/reducers/authentication';
-import { getHouses, getEntities, getOwnerEntities, getEntity } from 'app/entities/house/house.reducer';
+import { getHouses, getEntities, getTopEntities, getOwnerEntities, getEntity } from 'app/entities/house/house.reducer';
 import { getImageOfHouse } from 'app/entities/house-photo/house-photo.reducer';
 import { ITEMS_PER_PAGE } from 'app/shared/util/pagination.constants';
 
@@ -34,11 +34,14 @@ export class Home extends React.Component<IHomeProp, IHomeState> {
   };
 
   componentDidMount() {
+    /*
     if (this.props.location) {
       const parsed = qs.parse(this.props.location.search);
       // this.props.getSession();
       this.props.getHouses(queryStringMapping(parsed));
     }
+    */
+    this.props.getTopEntities();
   }
 
   showForm(value) {
@@ -107,7 +110,7 @@ const mapStateToProps = storeState => ({
   loading: storeState.house.loading
 });
 
-const mapDispatchToProps = { getSession, getHouses, getEntities, getOwnerEntities, getEntity, getImageOfHouse };
+const mapDispatchToProps = { getSession, getHouses, getEntities, getTopEntities, getOwnerEntities, getEntity, getImageOfHouse };
 
 type StateProps = ReturnType<typeof mapStateToProps>;
 type DispatchProps = typeof mapDispatchToProps;

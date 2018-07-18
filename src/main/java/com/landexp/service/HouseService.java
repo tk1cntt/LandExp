@@ -18,7 +18,11 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.ObjectUtils;
 
 
+import java.util.LinkedList;
+import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
+
 /**
  * Service Implementation for managing House.
  */
@@ -96,6 +100,19 @@ public class HouseService {
         log.debug("Request to get all Houses");
         return houseRepository.findByStatusTypeNotOrderByCreateAtDesc(StatusType.OPEN, pageable)
             .map(houseMapper::toDto);
+    }
+
+    /**
+     * Get top the houses.
+     *
+     * @return the list of entities
+     */
+    @Transactional(readOnly = true)
+    public List<HouseDTO> findTop() {
+        log.debug("Request to get top Houses");
+        return houseRepository.findTop8OrderByCreateAtDesc().stream()
+            .map(houseMapper::toDto)
+            .collect(Collectors.toCollection(LinkedList::new));
     }
 
     /**

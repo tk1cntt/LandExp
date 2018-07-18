@@ -182,6 +182,18 @@ public class HouseResource {
     }
 
     /**
+     * GET  /houses/top : get top the houses.
+     *
+     * @return the ResponseEntity with status 200 (OK) and the list of houses in body
+     */
+    @GetMapping("/houses/top")
+    @Timed
+    public List<HouseDTO> getTopHouses() {
+        log.debug("REST request to get top Houses");
+        return houseService.findTop();
+    }
+
+    /**
      * GET  /houses/users : get all the house of staff
      *
      * @param pageable the pagination information

@@ -1,72 +1,108 @@
 import './home.css';
 
 import React from 'react';
-import { Link, RouteComponentProps } from 'react-router-dom';
-import { Translate } from 'react-jhipster';
+import { RouteComponentProps } from 'react-router-dom';
+import { IPaginationBaseState, getSortState } from 'react-jhipster';
 import { connect } from 'react-redux';
-import { Row, Col, Alert } from 'reactstrap';
+import { Row } from 'reactstrap';
 import { getSession } from 'app/shared/reducers/authentication';
-import { getHouses, getEntities, getOwnerEntities } from 'app/entities/house/house.reducer';
+import { getHouses, getEntities, getTopEntities, getOwnerEntities, getEntity } from 'app/entities/house/house.reducer';
+import { getImageOfHouse } from 'app/entities/house-photo/house-photo.reducer';
+import { ITEMS_PER_PAGE } from 'app/shared/util/pagination.constants';
 
 import * as qs from 'query-string';
-import { Spin } from 'antd';
+import Loading from 'app/shared/layout/loading/loading';
 
 import { queryStringMapping } from 'app/shared/util/utils';
 import SearchPage from 'app/shared/layout/search/search-menu';
-import HomeGrid from './home-grid';
-import HomeList from './home-list';
+import HomeGrid from '../home/home-grid';
+import HomeList from '../home/home-list';
 import HomePanelGuest from './home-panel-guest';
 import HomePanelUser from './home-panel-user';
 
 export interface IHomeProp extends StateProps, DispatchProps, RouteComponentProps<{}> {}
 
-export interface IHomeState {
+export interface IHomeState extends IPaginationBaseState {
   parameters: any;
+  showGrid: any;
 }
 
 export class Home extends React.Component<IHomeProp, IHomeState> {
   state: IHomeState = {
-    parameters: {}
+    parameters: {},
+    showGrid: true,
+    ...getSortState(this.props.location, ITEMS_PER_PAGE)
   };
 
+  componentDidMount() {
+    if (this.props.location) {
+      const parsed = qs.parse(this.props.location.search);
+      this.props.getHouses(queryStringMapping(parsed));
+    }
+  }
+
+  componentDidUpdate(prevProps) {
+    // Typical usage (don't forget to compare props):
+    if (this.props.location !== prevProps.location) {
+      const parsed = qs.parse(this.props.location.search);
+      this.props.getHouses(queryStringMapping(parsed));
+    }
+  }
+
+  showForm(value) {
+    if (!value) {
+      this.props.getEntity(this.props.houseList[0].id);
+      this.props.getImageOfHouse(this.props.houseList[0].id);
+    }
+    this.setState({
+      showGrid: value
+    });
+  }
+
   render() {
-    const { account, isAuthenticated } = this.props;
+    const from = (this.state.activePage - 1) * this.state.itemsPerPage + 1;
+    const to = this.state.activePage * this.state.itemsPerPage;
+
     return (
       <Row>
         <SearchPage location={this.props.location} history={this.props.history} />
-        {isAuthenticated ? <HomePanelUser /> : <HomePanelGuest />}
+        {this.props.isAuthenticated ? <HomePanelUser /> : <HomePanelGuest />}
         <div className="container">
-          <Spin spinning={this.props.loading} tip="Đang cập nhật dữ liệu...">
-            <div className="row lastest-posts">
-              <h2>
-                Tin mới đăng<span>
-                  Hiển thị 1 - {} trong {this.props.totalItems} Bất động sản
-                </span>
-                <div className="toolbox">
-                  <label htmlFor="sortby">Sắp xếp: </label>
-                  <select name="sortby" id="sortby">
-                    <option>Ngày đăng mới nhất</option>
-                    <option>Giá từ thấp đến cao</option>
-                    <option>Giá từ cao đến thấp</option>
-                  </select>
-                  <ul role="tablist">
-                    <li className="listview-button">
-                      <a href="#list" aria-controls="home" role="tab" data-toggle="tab" />
-                    </li>
-                    <li className="gridview-button active">
-                      <a href="#grid" aria-controls="home" role="tab" data-toggle="tab" />
-                    </li>
-                  </ul>
-                </div>
-              </h2>
-              <div className="row">
-                <div className="tab-content">
-                  <HomeList houses={this.props.houseList} />
-                  <HomeGrid houses={this.props.houseList} />
+          {this.props.loading ? (
+            <Loading />
+          ) : (
+            <>
+              <div className="row lastest-posts">
+                <h2>
+                  Tin mới đăng
+                  <span>
+                    Hiển thị {from} - {this.props.totalItems < 20 ? this.props.totalItems : to} trong {this.props.totalItems} Bất động sản
+                  </span>
+                  <div className="toolbox">
+                    <ul role="tablist">
+                      <li
+                        className={!this.state.showGrid ? 'listview-button active' : 'listview-button'}
+                        onClick={this.showForm.bind(this, false)}
+                      >
+                        <a aria-controls="home" role="tab" data-toggle="tab" />
+                      </li>
+                      <li
+                        className={this.state.showGrid ? 'gridview-button active' : 'gridview-button'}
+                        onClick={this.showForm.bind(this, true)}
+                      >
+                        <a aria-controls="home" role="tab" data-toggle="tab" />
+                      </li>
+                    </ul>
+                  </div>
+                </h2>
+                <div className="row">
+                  <div className="tab-content">
+                    {this.state.showGrid ? <HomeGrid houses={this.props.houseList} /> : <HomeList houses={this.props.houseList} />}
+                  </div>
                 </div>
               </div>
-            </div>
-          </Spin>
+            </>
+          )}
         </div>
       </Row>
     );
@@ -75,13 +111,12 @@ export class Home extends React.Component<IHomeProp, IHomeState> {
 
 const mapStateToProps = storeState => ({
   isAuthenticated: storeState.authentication.isAuthenticated,
-  account: storeState.authentication.account,
   houseList: storeState.house.entities,
   totalItems: storeState.house.totalItems,
   loading: storeState.house.loading
 });
 
-const mapDispatchToProps = { getSession, getHouses, getEntities, getOwnerEntities };
+const mapDispatchToProps = { getSession, getHouses, getEntities, getTopEntities, getOwnerEntities, getEntity, getImageOfHouse };
 
 type StateProps = ReturnType<typeof mapStateToProps>;
 type DispatchProps = typeof mapDispatchToProps;

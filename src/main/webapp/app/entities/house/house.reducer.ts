@@ -149,6 +149,11 @@ export const getHouses: ICrudSearchAction<IHouse> = query => ({
   payload: client.get<IHouse>(`${apiUrl}?` + query)
 });
 
+export const getTopEntities: ICrudGetAllAction<IHouse> = (page, size, sort) => ({
+  type: ACTION_TYPES.FETCH_HOUSE_LIST,
+  payload: client.get<IHouse>(`${apiUrl}?cacheBuster=${new Date().getTime()}`)
+});
+
 export const getStaffEntities: ICrudGetAllAction<IHouse> = (page, size, sort) => {
   const jwt = Storage.local.get('jhi-authenticationToken') || Storage.session.get('jhi-authenticationToken');
   if (jwt) {
