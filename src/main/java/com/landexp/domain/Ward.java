@@ -30,6 +30,15 @@ public class Ward implements Serializable {
     @Column(name = "enabled")
     private Boolean enabled;
 
+    @Column(name = "type")
+    private String type;
+
+    @Column(name = "latitude")
+    private Float latitude;
+
+    @Column(name = "longitude")
+    private Float longitude;
+
     @Column(name = "create_at")
     private LocalDate createAt;
 
@@ -73,6 +82,30 @@ public class Ward implements Serializable {
 
     public void setEnabled(Boolean enabled) {
         this.enabled = enabled;
+    }
+
+    public String getType() {
+        return type;
+    }
+
+    public void setType(String type) {
+        this.type = type;
+    }
+
+    public Float getLatitude() {
+        return latitude;
+    }
+
+    public void setLatitude(Float latitude) {
+        this.latitude = latitude;
+    }
+
+    public Float getLongitude() {
+        return longitude;
+    }
+
+    public void setLongitude(Float longitude) {
+        this.longitude = longitude;
     }
 
     public LocalDate getCreateAt() {
@@ -141,6 +174,9 @@ public class Ward implements Serializable {
             "id=" + getId() +
             ", name='" + getName() + "'" +
             ", enabled='" + isEnabled() + "'" +
+            ", type='" + getType() + "'" +
+            ", latitude='" + getLatitude() + "'" +
+            ", longitude='" + getLongitude() + "'" +
             ", createAt='" + getCreateAt() + "'" +
             ", updateAt='" + getUpdateAt() + "'" +
             "}";

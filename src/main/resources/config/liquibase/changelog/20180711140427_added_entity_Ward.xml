@@ -26,6 +26,18 @@
                 <constraints nullable="true" />
             </column>
 
+            <column name="type" type="varchar(10)">
+                <constraints nullable="true" />
+            </column>
+
+            <column name="latitude" type="${floatType}">
+                <constraints nullable="true" />
+            </column>
+
+            <column name="longitude" type="${floatType}">
+                <constraints nullable="true" />
+            </column>
+
             <column name="enabled" type="bit">
                 <constraints nullable="true" />
             </column>

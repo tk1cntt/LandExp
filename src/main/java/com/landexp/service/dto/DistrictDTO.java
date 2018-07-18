@@ -2,6 +2,7 @@ package com.landexp.service.dto;
 
 import com.landexp.domain.Ward;
 
+import javax.persistence.Column;
 import java.time.LocalDate;
 import java.io.Serializable;
 import java.util.List;
@@ -17,6 +18,12 @@ public class DistrictDTO implements Serializable {
     private String name;
 
     private Boolean enabled;
+
+    private String type;
+
+    private Float latitude;
+
+    private Float longitude;
 
     private LocalDate createAt;
 
@@ -54,6 +61,30 @@ public class DistrictDTO implements Serializable {
 
     public void setEnabled(Boolean enabled) {
         this.enabled = enabled;
+    }
+
+    public String getType() {
+        return type;
+    }
+
+    public void setType(String type) {
+        this.type = type;
+    }
+
+    public Float getLatitude() {
+        return latitude;
+    }
+
+    public void setLatitude(Float latitude) {
+        this.latitude = latitude;
+    }
+
+    public Float getLongitude() {
+        return longitude;
+    }
+
+    public void setLongitude(Float longitude) {
+        this.longitude = longitude;
     }
 
     public LocalDate getCreateAt() {
@@ -139,6 +170,9 @@ public class DistrictDTO implements Serializable {
             "id=" + getId() +
             ", name='" + getName() + "'" +
             ", enabled='" + isEnabled() + "'" +
+            ", type='" + getType() + "'" +
+            ", latitude='" + getLatitude() + "'" +
+            ", longitude='" + getLongitude() + "'" +
             ", createAt='" + getCreateAt() + "'" +
             ", updateAt='" + getUpdateAt() + "'" +
             ", region=" + getRegionId() +
