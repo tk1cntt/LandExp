@@ -13,5 +13,5 @@ import java.util.List;
 @SuppressWarnings("unused")
 @Repository
 public interface CityRepository extends JpaRepository<City, Long>, JpaSpecificationExecutor<City> {
-    List<City> findByEnabledTrueOrderByIndexDescNameAsc();
+    List<City> findByEnabledTrueOrderByIndexAscNameAsc();
 }

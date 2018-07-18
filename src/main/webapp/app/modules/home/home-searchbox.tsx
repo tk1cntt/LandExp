@@ -61,16 +61,16 @@ export class HomeSearchBox extends React.Component<IHomeSearchBoxProp, IHomeSear
         label: city.name,
         children: []
       };
-      city.districts.map(data => {
+      city.districts.map(district => {
         const districtData = {
-          value: data.id,
-          label: data.name,
+          value: district.id,
+          label: district.type + ' ' + district.name,
           children: []
         };
-        data.wards.map(ward => {
+        district.wards.map(ward => {
           const wardData = {
             value: ward.id,
-            label: ward.name
+            label: ward.type + ' ' + ward.name
           };
           districtData.children.push(wardData);
         });

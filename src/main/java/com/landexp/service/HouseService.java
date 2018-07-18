@@ -110,7 +110,7 @@ public class HouseService {
     @Transactional(readOnly = true)
     public List<HouseDTO> findTop() {
         log.debug("Request to get top Houses");
-        return houseRepository.findTop8OrderByCreateAtDesc().stream()
+        return houseRepository.findTop8ByOrderByCreateAtDesc().stream()
             .map(houseMapper::toDto)
             .collect(Collectors.toCollection(LinkedList::new));
     }

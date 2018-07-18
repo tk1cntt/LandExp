@@ -1,4 +1,4 @@
-id;name;type;province_id;latitude;longitude
+id;name;type;city_id;latitude;longitude
 001;"Ba Đình";Quận;01;21.0356;105.827
 002;"Hoàn Kiếm";Quận;01;21.0314;105.853
 003;"Tây Hồ";Quận;01;21.0694;105.819

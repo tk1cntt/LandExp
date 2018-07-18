@@ -47,6 +47,7 @@ public class City implements Serializable {
 
     @OneToMany(mappedBy = "city")
     @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
+    @OrderBy("type DESC, name ASC")
     private Set<District> districts = new HashSet<>();
 
     // jhipster-needle-entity-add-field - JHipster will add fields here, do not remove
