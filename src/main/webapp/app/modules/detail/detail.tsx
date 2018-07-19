@@ -192,6 +192,8 @@ export class Detail extends React.Component<IDetailProp, IDetailState> {
     );
   }
 
+  updateMarkerPosition = () => {};
+
   render() {
     const { loading, updating } = this.props;
     const slides = [];
@@ -259,7 +261,7 @@ export class Detail extends React.Component<IDetailProp, IDetailState> {
                 </Col>
                 <Col md="5">{this.houseNearByForm()}</Col>
                 <Col md="7">
-                  <GoogleMaps />
+                  <GoogleMaps updateMarkerPosition={this.updateMarkerPosition} currentPosition={{}}/>
                 </Col>
               </Row>
               <Row style={{ marginTop: 10, marginBottom: 10 }}>

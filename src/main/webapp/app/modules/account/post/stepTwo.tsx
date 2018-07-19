@@ -31,23 +31,22 @@ export class StepTwo extends React.Component<IStepTwoProp, IStepOneState> {
     this.props.getPaymentOfHouse(this.props.house.id);
     this.props.getImageOfHouse(this.props.house.id);
     const locations = this.state.locations;
-    const cities = this.props.cities;
-    cities.map(city => {
+    this.props.cities.map(city => {
       const cityData = {
         value: city.id,
         label: city.name,
         children: []
       };
-      city.districts.map(data => {
+      city.districts.map(district => {
         const districtData = {
-          value: data.id,
-          label: data.name,
+          value: district.id,
+          label: district.type + ' ' + district.name,
           children: []
         };
-        data.wards.map(ward => {
+        district.wards.map(ward => {
           const wardData = {
             value: ward.id,
-            label: ward.name
+            label: ward.type + ' ' + ward.name
           };
           districtData.children.push(wardData);
         });
