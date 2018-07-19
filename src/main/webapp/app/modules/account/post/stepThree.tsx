@@ -338,10 +338,11 @@ export class StepThree extends React.Component<IStepThreeProp, IStepThreeState> 
         </Col>
         */}
         <Col md="12">
-          <div style={{ marginTop: 16 }}>
+          <div className="app-editor" style={{ marginTop: 16 }}>
             <ReactQuill
               value={this.state.summary || this.props.house.summary || ''}
               onChange={this.onChangeSummary}
+              bounds={'.app-editor'}
               placeholder="Mô tả thêm về ngôi nhà của bạn"
             />
           </div>

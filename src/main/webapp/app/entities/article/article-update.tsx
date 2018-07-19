@@ -2,7 +2,6 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { Link, RouteComponentProps } from 'react-router-dom';
 import { Button, Row, Col, Container, Label } from 'reactstrap';
-// tslint:disable-next-line:no-unused-variable
 import { Translate, setFileData, openFile, byteSize } from 'react-jhipster';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import ReactQuill from 'react-quill';
@@ -75,13 +74,13 @@ export class ArticleUpdate extends React.Component<IArticleUpdateProps, IArticle
   constructor(props) {
     super(props);
     this.state = {
-      categoryId: 0,
-      createById: 0,
-      updateById: 0,
+      categoryId: null,
+      createById: null,
+      updateById: null,
       title: null,
       summary: null,
       content: null,
-      statusType: null,
+      statusType: 'OPEN',
       isNew: !this.props.match.params || !this.props.match.params.id
     };
   }
@@ -110,17 +109,17 @@ export class ArticleUpdate extends React.Component<IArticleUpdateProps, IArticle
     const entity = {
       ...articleEntity,
       summary: this.state.summary,
-      content: this.state.content
+      content: this.state.content,
+      title: this.state.title,
+      statusType: this.state.statusType,
+      categoryId: this.state.categoryId
     };
-    /*
-    console.log(entity);
     if (this.state.isNew) {
       this.props.createEntity(entity);
     } else {
       this.props.updateEntity(entity);
     }
     this.handleClose();
-    */
   };
 
   handleClose = () => {
@@ -178,9 +177,9 @@ export class ArticleUpdate extends React.Component<IArticleUpdateProps, IArticle
     }
   };
 
-  onChangeTitle = value => {
+  onChangeTitle = e => {
     this.setState({
-      title: value
+      title: e.target.value
     });
   };
 
@@ -202,6 +201,12 @@ export class ArticleUpdate extends React.Component<IArticleUpdateProps, IArticle
     });
   };
 
+  onChangeCategory = value => {
+    this.setState({
+      categoryId: value
+    });
+  };
+
   render() {
     const isInvalid = false;
     const { articleEntity, categories, users, loading, updating } = this.props;
@@ -218,7 +223,7 @@ export class ArticleUpdate extends React.Component<IArticleUpdateProps, IArticle
                 {this.props.loading ? (
                   <Loading />
                 ) : (
-                  <Card title="Cập nhật tin tức">
+                  <Card title="Nội dung tin tức">
                     <Col md="12" style={{ marginBottom: 20 }}>
                       <Label id="avatarLabel" for="avatar">
                         <Translate contentKey="landexpApp.article.avatar">Avatar</Translate>
@@ -254,25 +259,9 @@ export class ArticleUpdate extends React.Component<IArticleUpdateProps, IArticle
                       />
                     </Col>
                     <Col md="12" style={{ marginBottom: 20 }}>
-                      <Label id="summaryLabel" for="summary">
-                        <Translate contentKey="landexpApp.article.summary">Summary</Translate>
+                      <Label id="statusTypeLabel" for="statusType">
+                        <Translate contentKey="landexpApp.article.statusType">StatusType</Translate>
                       </Label>
-                      <ReactQuill defaultValue={this.state.summary} onChange={this.onChangeSummary} placeholder="Tóm tắt bản tin" />
-                    </Col>
-                    <Col md="12" style={{ marginBottom: 20 }}>
-                      <Label id="contentLabel" for="content">
-                        <Translate contentKey="landexpApp.article.content">Content</Translate>
-                      </Label>
-                      <ReactQuill
-                        defaultValue={this.state.content}
-                        theme="snow"
-                        modules={this.modules}
-                        formats={this.formats}
-                        onChange={this.onChangeContent}
-                        placeholder="Chi tiết bản tin"
-                      />
-                    </Col>
-                    <Col md="12" style={{ marginBottom: 20 }}>
                       <Select
                         style={{ width: '100%' }}
                         value={this.state.statusType || 'OPEN'}
@@ -284,11 +273,14 @@ export class ArticleUpdate extends React.Component<IArticleUpdateProps, IArticle
                       </Select>
                     </Col>
                     <Col md="12" style={{ marginBottom: 20 }}>
+                      <Label id="categoryLabel" for="category">
+                        <Translate contentKey="landexpApp.article.category">Category</Translate>
+                      </Label>
                       <Select
                         style={{ width: '100%' }}
-                        value={this.state.statusType}
+                        defaultValue={this.state.categoryId}
                         placeholder="Danh mục tin tức"
-                        onChange={this.onChangeStatusType}
+                        onChange={this.onChangeCategory}
                       >
                         {categories
                           ? categories.map(otherEntity => (
@@ -298,6 +290,31 @@ export class ArticleUpdate extends React.Component<IArticleUpdateProps, IArticle
                             ))
                           : null}
                       </Select>
+                    </Col>
+                    <Col md="12" className="app-editor" style={{ marginBottom: 20 }}>
+                      <Label id="summaryLabel" for="summary">
+                        <Translate contentKey="landexpApp.article.summary">Summary</Translate>
+                      </Label>
+                      <ReactQuill
+                        bounds={'.app-editor'}
+                        defaultValue={this.state.summary}
+                        onChange={this.onChangeSummary}
+                        placeholder="Tóm tắt bản tin"
+                      />
+                    </Col>
+                    <Col md="12" className="content-editor" style={{ marginBottom: 20 }}>
+                      <Label id="contentLabel" for="content">
+                        <Translate contentKey="landexpApp.article.content">Content</Translate>
+                      </Label>
+                      <ReactQuill
+                        defaultValue={this.state.content || ''}
+                        theme="snow"
+                        bounds={'.content-editor'}
+                        modules={this.modules}
+                        formats={this.formats}
+                        onChange={this.onChangeContent}
+                        placeholder="Chi tiết bản tin"
+                      />
                     </Col>
                     <Col md="12">
                       <Button tag={Link} id="cancel-save" to="/quan-ly/tin-tuc" replace color="info">
