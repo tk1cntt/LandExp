@@ -3,7 +3,6 @@ import { connect } from 'react-redux';
 import { Link, RouteComponentProps } from 'react-router-dom';
 import { Col, Row, Container, Table } from 'reactstrap';
 import { getLandType, getSaleType, getStatusType } from 'app/shared/util/utils';
-// tslint:disable-next-line:no-unused-variable
 import { Translate, getSortState, IPaginationBaseState, getPaginationItemsNumber, JhiPagination } from 'react-jhipster';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { Modal, Card, Icon, Tooltip } from 'antd';
@@ -13,7 +12,6 @@ import SearchPage from 'app/shared/layout/search/search-menu';
 
 import { IRootState } from 'app/shared/reducers';
 import { getEntities, getStaffEntities, deleteEntity } from './house.reducer';
-// tslint:disable-next-line:no-unused-variable
 import { hasAnyAuthority } from 'app/shared/auth/private-route';
 import { AUTHORITIES } from 'app/config/constants';
 import { ITEMS_PER_PAGE } from 'app/shared/util/pagination.constants';

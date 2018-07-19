@@ -3,12 +3,15 @@
 /// <reference types="google-maps" />
 /// <reference types="markerclustererplus" />
 import React from 'react';
+import { connect } from 'react-redux';
 import { GoogleMap, Marker, withGoogleMap, withScriptjs } from 'react-google-maps';
 import { compose, withProps } from 'recompose';
 
 const MyMapComponent: React.StatelessComponent<{
   isMarkerShown: boolean;
   onMarkerClick: any;
+  updateMarkerPosition: any;
+  currentPosition: any;
 }> = compose(
   withProps({
     googleMapURL:
@@ -19,11 +22,15 @@ const MyMapComponent: React.StatelessComponent<{
   }),
   withScriptjs,
   withGoogleMap
-)(props => (
-  <GoogleMap defaultZoom={16} defaultCenter={{ lat: 21.0286669, lng: 105.8521484 }}>
+)(props => {
+  const position = {
+    lat: props.currentPosition.latitude ? props.currentPosition.latitude : 21.0286669,
+    lng: props.currentPosition.longitude ? props.currentPosition.longitude : 105.8521484
+  };
+  <GoogleMap defaultZoom={16} defaultCenter={position}>
     {props.isMarkerShown && (
       <Marker
-        position={{ lat: 21.0286669, lng: 105.8521484 }}
+        position={position}
         draggable
         onDragEnd={e => {
           fetch(
@@ -49,10 +56,17 @@ const MyMapComponent: React.StatelessComponent<{
         }}
       />
     )}
-  </GoogleMap>
-));
+  </GoogleMap>;
+});
 
-export default class GoogleMaps extends React.PureComponent {
+export interface IGoogleMapsProps extends StateProps, DispatchProps {
+  updateMarkerPosition: Function;
+  currentPosition: any;
+}
+
+export interface IGoogleMapsState {}
+
+export class GoogleMaps extends React.Component<IGoogleMapsProps, IGoogleMapsState> {
   timer: any;
 
   state = {
@@ -81,6 +95,27 @@ export default class GoogleMaps extends React.PureComponent {
   };
 
   render() {
-    return <MyMapComponent isMarkerShown={this.state.isMarkerShown} onMarkerClick={this.handleMarkerClick} />;
+    return (
+      <MyMapComponent
+        updateMarkerPosition={this.props.updateMarkerPosition}
+        isMarkerShown={this.state.isMarkerShown}
+        currentPosition={this.props.currentPosition}
+        onMarkerClick={this.handleMarkerClick}
+      />
+    );
   }
 }
+
+const mapStateToProps = storeState => ({
+  cities: storeState.city.entities
+});
+
+const mapDispatchToProps = {};
+
+type StateProps = ReturnType<typeof mapStateToProps>;
+type DispatchProps = typeof mapDispatchToProps;
+
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(GoogleMaps);
