@@ -261,7 +261,10 @@ export class Detail extends React.Component<IDetailProp, IDetailState> {
                 </Col>
                 <Col md="5">{this.houseNearByForm()}</Col>
                 <Col md="7">
-                  <GoogleMaps updateMarkerPosition={this.updateMarkerPosition} currentPosition={{}}/>
+                  <GoogleMaps
+                    updateMarkerPosition={this.updateMarkerPosition}
+                    currentPosition={{ latitude: this.props.houseEntity.latitude, longitude: this.props.houseEntity.longitude }}
+                  />
                 </Col>
               </Row>
               <Row style={{ marginTop: 10, marginBottom: 10 }}>

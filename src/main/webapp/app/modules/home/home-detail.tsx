@@ -31,6 +31,9 @@ export class HomeDetail extends React.Component<IHomeProp> {
     );
   }
 
+  updateMarkerPosition = () => {
+  }
+
   render() {
     const images = [];
     if (this.props.housePhotoList) {
@@ -212,7 +215,10 @@ export class HomeDetail extends React.Component<IHomeProp> {
               allowFullScreen
             />
             {*/}
-                <GoogleMaps />
+                <GoogleMaps
+                  updateMarkerPosition={this.updateMarkerPosition}
+                  currentPosition={{ latitude: this.props.houseEntity.latitude, longitude: this.props.houseEntity.longitude }}
+                />
               </div>
             </div>
             <div className="contact-info">
