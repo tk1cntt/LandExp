@@ -277,3 +277,30 @@ export const getAcreageByNumber = acreage => {
       return 'Bất kỳ';
   }
 };
+
+export const showAcreageStreetSide = landType => {
+  if (
+    landType === 'HOME' ||
+    landType === 'HOME_STREET_SIDE' ||
+    landType === 'LAND_SCAPE' ||
+    landType === 'LAND_OF_PROJECT' ||
+    landType === 'KIOSKS'
+  ) {
+    return true;
+  }
+  return false;
+};
+
+export const showNumberOfFloor = landType => {
+  if (landType === 'HOME' || landType === 'HOME_STREET_SIDE' || landType === 'HOME_VILLA') {
+    return true;
+  }
+  return false;
+};
+
+export const showBedRoom = landType => {
+  if (landType === 'HOME' || landType === 'HOME_STREET_SIDE' || landType === 'HOME_VILLA' || landType === 'APARTMENT') {
+    return true;
+  }
+  return false;
+};

@@ -10,6 +10,7 @@ const RadioGroup = Radio.Group;
 const { TextArea } = Input;
 import ReactQuill from 'react-quill';
 
+import { showAcreageStreetSide, showNumberOfFloor, showBedRoom } from 'app/shared/util/utils';
 import { IRootState } from 'app/shared/reducers';
 import { getSession } from 'app/shared/reducers/authentication';
 
@@ -180,7 +181,7 @@ export class StepThree extends React.Component<IStepThreeProp, IStepThreeState> 
           </p>
         </Col>
         <Col md="6">
-          <div>
+          <div style={{ marginTop: 16 }}>
             <Input
               addonBefore="Diện tích sàn"
               type="number"
@@ -190,93 +191,92 @@ export class StepThree extends React.Component<IStepThreeProp, IStepThreeState> 
             />
           </div>
         </Col>
-        <Col md="6">
-          <div>
-            <Input
-              addonBefore="Mặt tiền"
-              type="number"
-              value={this.state.acreageStreetSide || this.props.house.acreageStreetSide}
-              onChange={this.onChangeAcreageStreetSide}
-              placeholder="Diện tích theo mét?"
-            />
-          </div>
-        </Col>
-        <Col md="6">
-          <div style={{ marginTop: 16 }}>
-            <Input
-              addonBefore="Số phòng ngủ"
-              type="number"
-              value={this.state.bedRoom || this.props.house.bedRoom}
-              onChange={this.onChangeBedRoom}
-              placeholder="Có bao nhiêu phòng ngủ?"
-            />
-          </div>
-        </Col>
-        <Col md="6">
-          <div style={{ marginTop: 16 }}>
-            <Input
-              addonBefore="Số phòng tắm"
-              type="number"
-              value={this.state.bathRoom || this.props.house.bathRoom}
-              onChange={this.onChangeBathRoom}
-              placeholder="Có bao nhiêu phòng tắm?"
-            />
-          </div>
-        </Col>
-        <Col md="6">
-          <div style={{ marginTop: 16 }}>
-            <Input
-              addonBefore="Tầng số"
-              value={this.state.floor || this.props.house.floor}
-              onChange={this.onChangeFloor}
-              placeholder="Nhà bạn ở tầng bao nhiêu?"
-            />
-          </div>
-        </Col>
-        <Col md="6">
-          <div style={{ marginTop: 16 }}>
-            <Input
-              addonBefore="Số tầng"
-              type="number"
-              value={this.state.numberOfFloor || this.props.house.numberOfFloor}
-              onChange={this.onChangeNumberOfFloor}
-              placeholder="Nhà bạn có bao nhiêu tầng?"
-            />
-          </div>
-        </Col>
-        <Col md="6">
+        {showAcreageStreetSide(this.props.house.landType) ? (
+          <Col md="6">
+            <div style={{ marginTop: 16 }}>
+              <Input
+                addonBefore="Mặt tiền"
+                type="number"
+                value={this.state.acreageStreetSide || this.props.house.acreageStreetSide}
+                onChange={this.onChangeAcreageStreetSide}
+                placeholder="Diện tích theo mét?"
+              />
+            </div>
+          </Col>
+        ) : (
+          ''
+        )}
+        {showBedRoom(this.props.house.landType) ? (
+          <Col md="6">
+            <div style={{ marginTop: 16 }}>
+              <Input
+                addonBefore="Số phòng ngủ"
+                type="number"
+                value={this.state.bedRoom || this.props.house.bedRoom}
+                onChange={this.onChangeBedRoom}
+                placeholder="Có bao nhiêu phòng ngủ?"
+              />
+            </div>
+          </Col>
+        ) : (
+          ''
+        )}
+        {showBedRoom(this.props.house.landType) ? (
+          <Col md="6">
+            <div style={{ marginTop: 16 }}>
+              <Input
+                addonBefore="Số phòng tắm"
+                type="number"
+                value={this.state.bathRoom || this.props.house.bathRoom}
+                onChange={this.onChangeBathRoom}
+                placeholder="Có bao nhiêu phòng tắm?"
+              />
+            </div>
+          </Col>
+        ) : (
+          ''
+        )}
+        {this.props.house.landType === 'APARTMENT' ? (
+          <Col md="6">
+            <div style={{ marginTop: 16 }}>
+              <Input
+                addonBefore="Tầng số"
+                value={this.state.floor || this.props.house.floor}
+                onChange={this.onChangeFloor}
+                placeholder="Nhà bạn ở tầng bao nhiêu?"
+              />
+            </div>
+          </Col>
+        ) : (
+          ''
+        )}
+        {showNumberOfFloor(this.props.house.landType) ? (
+          <Col md="6">
+            <div style={{ marginTop: 16 }}>
+              <Input
+                addonBefore="Số tầng"
+                type="number"
+                value={this.state.numberOfFloor || this.props.house.numberOfFloor}
+                onChange={this.onChangeNumberOfFloor}
+                placeholder="Nhà bạn có bao nhiêu tầng?"
+              />
+            </div>
+          </Col>
+        ) : (
+          ''
+        )}
+        <Col md="12">
           <div style={{ marginTop: 16 }}>
             <b>Hướng nhà</b>
           </div>
         </Col>
-        <Col md="6">
-          <div style={{ marginTop: 16 }}>
-            <b>Hướng ban công</b>
-          </div>
-        </Col>
-        <Col md="6">
+        <Col md="12">
           <div style={{ marginTop: 16 }}>
             <RadioGroup onChange={this.onChangeDirection} value={this.state.direction || this.props.house.direction}>
               <RadioButton value="EAST">Đông</RadioButton>
               <RadioButton value="WEST">Tây</RadioButton>
               <RadioButton value="SOUTH">Nam</RadioButton>
               <RadioButton value="NORTH">Bắc</RadioButton>
-            </RadioGroup>
-          </div>
-        </Col>
-        <Col md="6">
-          <div style={{ marginTop: 16 }}>
-            <RadioGroup onChange={this.onChangeDirectionBalcony} value={this.state.directionBalcony || this.props.house.directionBalcony}>
-              <RadioButton value="EAST">Đông</RadioButton>
-              <RadioButton value="WEST">Tây</RadioButton>
-              <RadioButton value="SOUTH">Nam</RadioButton>
-              <RadioButton value="NORTH">Bắc</RadioButton>
-            </RadioGroup>
-          </div>
-        </Col>
-        <Col md="6">
-          <div style={{ marginTop: 16 }}>
-            <RadioGroup onChange={this.onChangeDirection} value={this.state.direction || this.props.house.direction}>
               <RadioButton value="EAST_NORTH">Đông Bắc</RadioButton>
               <RadioButton value="EAST_SOUTH">Đông Nam</RadioButton>
               <RadioButton value="WEST_NORTH">Tây Bắc</RadioButton>
@@ -284,28 +284,52 @@ export class StepThree extends React.Component<IStepThreeProp, IStepThreeState> 
             </RadioGroup>
           </div>
         </Col>
-        <Col md="6">
-          <div style={{ marginTop: 16 }}>
-            <RadioGroup onChange={this.onChangeDirectionBalcony} value={this.state.directionBalcony || this.props.house.directionBalcony}>
-              <RadioButton value="EAST_NORTH">Đông Bắc</RadioButton>
-              <RadioButton value="EAST_SOUTH">Đông Nam</RadioButton>
-              <RadioButton value="WEST_NORTH">Tây Bắc</RadioButton>
-              <RadioButton value="WEST_SOUTH">Tây Nam</RadioButton>
-            </RadioGroup>
-          </div>
-        </Col>
-        <Col md="12">
-          <div style={{ marginTop: 16 }}>
-            <b>Tiện nghi</b>
-          </div>
-        </Col>
-        <Col md="12">
-          <div style={{ marginTop: 16 }}>
-            <Checkbox onChange={this.onChangeParking} checked={this.state.parking || this.props.house.parking}>
-              Có chỗ để ôtô
-            </Checkbox>
-          </div>
-        </Col>
+        {this.props.house.landType === 'APARTMENT' ? (
+          <>
+            <Col md="12">
+              <div style={{ marginTop: 16 }}>
+                <b>Hướng ban công</b>
+              </div>
+            </Col>
+            <Col md="12">
+              <div style={{ marginTop: 16 }}>
+                <RadioGroup
+                  onChange={this.onChangeDirectionBalcony}
+                  value={this.state.directionBalcony || this.props.house.directionBalcony}
+                >
+                  <RadioButton value="EAST">Đông</RadioButton>
+                  <RadioButton value="WEST">Tây</RadioButton>
+                  <RadioButton value="SOUTH">Nam</RadioButton>
+                  <RadioButton value="NORTH">Bắc</RadioButton>
+                  <RadioButton value="EAST_NORTH">Đông Bắc</RadioButton>
+                  <RadioButton value="EAST_SOUTH">Đông Nam</RadioButton>
+                  <RadioButton value="WEST_NORTH">Tây Bắc</RadioButton>
+                  <RadioButton value="WEST_SOUTH">Tây Nam</RadioButton>
+                </RadioGroup>
+              </div>
+            </Col>
+          </>
+        ) : (
+          ''
+        )}
+        {showBedRoom(this.props.house.landType) ? (
+          <>
+            <Col md="12">
+              <div style={{ marginTop: 16 }}>
+                <b>Tiện nghi</b>
+              </div>
+            </Col>
+            <Col md="12">
+              <div style={{ marginTop: 16 }}>
+                <Checkbox onChange={this.onChangeParking} checked={this.state.parking || this.props.house.parking}>
+                  Có chỗ để ôtô{' '}
+                </Checkbox>
+              </div>
+            </Col>
+          </>
+        ) : (
+          ''
+        )}
         {/*
         <Col md="12">
           <div style={{ marginTop: 16 }}>
@@ -316,7 +340,7 @@ export class StepThree extends React.Component<IStepThreeProp, IStepThreeState> 
         <Col md="12">
           <div style={{ marginTop: 16 }}>
             <ReactQuill
-              value={this.state.summary || this.props.house.summary}
+              value={this.state.summary || this.props.house.summary || ''}
               onChange={this.onChangeSummary}
               placeholder="Mô tả thêm về ngôi nhà của bạn"
             />
