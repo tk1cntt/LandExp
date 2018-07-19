@@ -104,7 +104,7 @@ export const getPresent = type => {
       return 'Hỗ trợ phí giao dịch';
     // case 'HAVE_PRESENT':
     default:
-      return 'Có quà tặng';
+      return 'Không hỗ trợ';
   }
 };
 
