@@ -116,7 +116,7 @@ public class PaymentResource {
         }
         HouseDetailDTO houseDTO = houseService.findOne(paymentDTO.getHouseId()).get();
         if (ObjectUtils.isEmpty(houseDTO)) {
-            throw new BadRequestAlertException("Invalid id", ENTITY_NAME, "notfound");
+            throw new BadRequestAlertException("Not Found " + id, ENTITY_NAME, "notfound");
         }
         String username = SecurityUtils.getCurrentUserLogin().get();
         paymentDTO.setPaymentStatus(PaymentStatusType.PAID);
@@ -145,7 +145,7 @@ public class PaymentResource {
         log.debug("REST request to cancel Payment : {}", id);
         PaymentDTO paymentDTO = paymentService.findOne(id).get();
         if (ObjectUtils.isEmpty(paymentDTO)) {
-            throw new BadRequestAlertException("Invalid id", ENTITY_NAME, "idnull");
+            throw new BadRequestAlertException("Not Found " + id, ENTITY_NAME, "notfound");
         }
         paymentDTO.setPaymentStatus(PaymentStatusType.CANCELED);
         PaymentDTO result = paymentService.save(paymentDTO);

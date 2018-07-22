@@ -131,12 +131,12 @@ public class HouseResource {
         }
         HouseDetailDTO currentDTO = houseService.findOne(houseDTO.getId()).get();
         if (ObjectUtils.isEmpty(currentDTO)) {
-            throw new BadRequestAlertException("Invalid id", ENTITY_NAME, "notfound");
+            throw new BadRequestAlertException("Not Found " + id, ENTITY_NAME, "notfound");
         }
         String username = SecurityUtils.getCurrentUserLogin().get();
         if (!username.equalsIgnoreCase(currentDTO.getCreateByLogin())
             && !SecurityUtils.isCurrentUserInRole(AuthoritiesConstants.STAFF)) {
-            throw new BadRequestAlertException("Invalid id", ENTITY_NAME, "nopermission");
+            throw new BadRequestAlertException("No permission", ENTITY_NAME, "nopermission");
         }
         if (currentDTO.getStatusType().equals(StatusType.OPEN)) {
             houseDTO.setStatusType(StatusType.PENDING);
@@ -246,16 +246,14 @@ public class HouseResource {
         log.debug("REST request to get House : {}", id);
         Optional<HouseDetailDTO> houseDTO = houseService.findOne(id);
         if (ObjectUtils.isEmpty(houseDTO.get())) {
-            throw new BadRequestAlertException("Invalid id", ENTITY_NAME, "notfound");
+            throw new BadRequestAlertException("Not Found " + id, ENTITY_NAME, "notfound");
         }
         if (SecurityUtils.getCurrentUserLogin().get().equalsIgnoreCase(houseDTO.get().getCreateByLogin())) {
-            if (!houseDTO.get().getStatusType().equals(StatusType.OPEN)
-                && !houseDTO.get().getStatusType().equals(StatusType.PENDING)
-                && houseDTO.get().getStatusType().equals(StatusType.PAID)) {
-                throw new BadRequestAlertException("Invalid id", ENTITY_NAME, "nopermission");
+            if (houseDTO.get().getStatusType().equals(StatusType.CANCELED)) {
+                throw new BadRequestAlertException("No permission", ENTITY_NAME, "nopermission");
             }
         } else if (!houseDTO.get().getStatusType().equals(StatusType.PAID) && !SecurityUtils.isCurrentUserInRole(AuthoritiesConstants.MANAGER)) {
-            throw new BadRequestAlertException("Invalid id", ENTITY_NAME, "nopermission");
+            throw new BadRequestAlertException("No permission", ENTITY_NAME, "nopermission");
         }
         return ResponseUtil.wrapOrNotFound(houseDTO);
     }
@@ -273,11 +271,11 @@ public class HouseResource {
         log.debug("REST request to delete House : {}", id);
         Optional<HouseDetailDTO> houseDTO = houseService.findOne(id);
         if (ObjectUtils.isEmpty(houseDTO.get())) {
-            throw new BadRequestAlertException("Invalid id", ENTITY_NAME, "notfound");
+            throw new BadRequestAlertException("Not Found " + id, ENTITY_NAME, "notfound");
         }
         if (!SecurityUtils.getCurrentUserLogin().get().equalsIgnoreCase(houseDTO.get().getCreateByLogin())
             && !SecurityUtils.isCurrentUserInRole(AuthoritiesConstants.MANAGER)) {
-            throw new BadRequestAlertException("Invalid id", ENTITY_NAME, "nopermission");
+            throw new BadRequestAlertException("No permission", ENTITY_NAME, "nopermission");
         }
         HouseDetailDTO dto = houseDTO.get();
         dto.setStatusType(StatusType.CANCELED);
