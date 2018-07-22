@@ -131,7 +131,7 @@ public class HouseResource {
         }
         HouseDetailDTO currentDTO = houseService.findOne(houseDTO.getId()).get();
         if (ObjectUtils.isEmpty(currentDTO)) {
-            throw new BadRequestAlertException("Not Found " + id, ENTITY_NAME, "notfound");
+            throw new BadRequestAlertException("Not Found " + houseDTO.getId(), ENTITY_NAME, "notfound");
         }
         String username = SecurityUtils.getCurrentUserLogin().get();
         if (!username.equalsIgnoreCase(currentDTO.getCreateByLogin())
@@ -172,7 +172,7 @@ public class HouseResource {
         log.debug("REST request to get Houses by criteria: {}", criteria);
         HouseCriteria.StatusTypeFilter filter = new HouseCriteria.StatusTypeFilter();
         List<StatusType> statusTypes = new ArrayList<>();
-        statusTypes.add(StatusType.PENDING);
+        // statusTypes.add(StatusType.PENDING);
         statusTypes.add(StatusType.PAID);
         filter.setIn(statusTypes);
         criteria.setStatusType(filter);
