@@ -108,11 +108,11 @@ export class ArticleUpdate extends React.Component<IArticleUpdateProps, IArticle
     const { articleEntity } = this.props;
     const entity = {
       ...articleEntity,
-      summary: this.state.summary,
-      content: this.state.content,
-      title: this.state.title,
+      summary: this.state.summary || this.props.articleEntity.summary,
+      content: this.state.content || this.props.articleEntity.content,
+      title: this.state.title || this.props.articleEntity.title,
       statusType: this.state.statusType,
-      categoryId: this.state.categoryId
+      categoryId: this.state.categoryId || this.props.articleEntity.categoryId
     };
     if (this.state.isNew) {
       this.props.createEntity(entity);

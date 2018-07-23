@@ -54,8 +54,8 @@ public class ArticleResourceIntTest {
     private static final String DEFAULT_TITLE = "AAAAAAAAAA";
     private static final String UPDATED_TITLE = "BBBBBBBBBB";
 
-    private static final String DEFAULT_TITLE_ALIAS = "AAAAAAAAAA";
-    private static final String UPDATED_TITLE_ALIAS = "BBBBBBBBBB";
+    private static final Boolean DEFAULT_ENABLED = false;
+    private static final Boolean UPDATED_ENABLED = true;
 
     private static final String DEFAULT_SUMMARY = "AAAAAAAAAA";
     private static final String UPDATED_SUMMARY = "BBBBBBBBBB";
@@ -81,7 +81,7 @@ public class ArticleResourceIntTest {
 
     @Autowired
     private ArticleMapper articleMapper;
-    
+
 
     @Autowired
     private ArticleService articleService;
@@ -124,7 +124,7 @@ public class ArticleResourceIntTest {
             .avatar(DEFAULT_AVATAR)
             .avatarContentType(DEFAULT_AVATAR_CONTENT_TYPE)
             .title(DEFAULT_TITLE)
-            .titleAlias(DEFAULT_TITLE_ALIAS)
+            .enabled(DEFAULT_ENABLED)
             .summary(DEFAULT_SUMMARY)
             .content(DEFAULT_CONTENT)
             .statusType(DEFAULT_STATUS_TYPE)
@@ -158,7 +158,7 @@ public class ArticleResourceIntTest {
         assertThat(testArticle.getAvatar()).isEqualTo(DEFAULT_AVATAR);
         assertThat(testArticle.getAvatarContentType()).isEqualTo(DEFAULT_AVATAR_CONTENT_TYPE);
         assertThat(testArticle.getTitle()).isEqualTo(DEFAULT_TITLE);
-        assertThat(testArticle.getTitleAlias()).isEqualTo(DEFAULT_TITLE_ALIAS);
+        assertThat(testArticle.isEnabled()).isEqualTo(DEFAULT_ENABLED);
         assertThat(testArticle.getSummary()).isEqualTo(DEFAULT_SUMMARY);
         assertThat(testArticle.getContent()).isEqualTo(DEFAULT_CONTENT);
         assertThat(testArticle.getStatusType()).isEqualTo(DEFAULT_STATUS_TYPE);
@@ -201,7 +201,7 @@ public class ArticleResourceIntTest {
             .andExpect(jsonPath("$.[*].avatarContentType").value(hasItem(DEFAULT_AVATAR_CONTENT_TYPE)))
             .andExpect(jsonPath("$.[*].avatar").value(hasItem(Base64Utils.encodeToString(DEFAULT_AVATAR))))
             .andExpect(jsonPath("$.[*].title").value(hasItem(DEFAULT_TITLE.toString())))
-            .andExpect(jsonPath("$.[*].titleAlias").value(hasItem(DEFAULT_TITLE_ALIAS.toString())))
+            .andExpect(jsonPath("$.[*].enabled").value(hasItem(DEFAULT_ENABLED.toString())))
             .andExpect(jsonPath("$.[*].summary").value(hasItem(DEFAULT_SUMMARY.toString())))
             .andExpect(jsonPath("$.[*].content").value(hasItem(DEFAULT_CONTENT.toString())))
             .andExpect(jsonPath("$.[*].statusType").value(hasItem(DEFAULT_STATUS_TYPE.toString())))
@@ -209,7 +209,7 @@ public class ArticleResourceIntTest {
             .andExpect(jsonPath("$.[*].createAt").value(hasItem(DEFAULT_CREATE_AT.toString())))
             .andExpect(jsonPath("$.[*].updateAt").value(hasItem(DEFAULT_UPDATE_AT.toString())));
     }
-    
+
 
     @Test
     @Transactional
@@ -225,7 +225,7 @@ public class ArticleResourceIntTest {
             .andExpect(jsonPath("$.avatarContentType").value(DEFAULT_AVATAR_CONTENT_TYPE))
             .andExpect(jsonPath("$.avatar").value(Base64Utils.encodeToString(DEFAULT_AVATAR)))
             .andExpect(jsonPath("$.title").value(DEFAULT_TITLE.toString()))
-            .andExpect(jsonPath("$.titleAlias").value(DEFAULT_TITLE_ALIAS.toString()))
+            .andExpect(jsonPath("$.enabled").value(DEFAULT_ENABLED.toString()))
             .andExpect(jsonPath("$.summary").value(DEFAULT_SUMMARY.toString()))
             .andExpect(jsonPath("$.content").value(DEFAULT_CONTENT.toString()))
             .andExpect(jsonPath("$.statusType").value(DEFAULT_STATUS_TYPE.toString()))
@@ -257,7 +257,7 @@ public class ArticleResourceIntTest {
             .avatar(UPDATED_AVATAR)
             .avatarContentType(UPDATED_AVATAR_CONTENT_TYPE)
             .title(UPDATED_TITLE)
-            .titleAlias(UPDATED_TITLE_ALIAS)
+            .enabled(UPDATED_ENABLED)
             .summary(UPDATED_SUMMARY)
             .content(UPDATED_CONTENT)
             .statusType(UPDATED_STATUS_TYPE)
@@ -278,7 +278,7 @@ public class ArticleResourceIntTest {
         assertThat(testArticle.getAvatar()).isEqualTo(UPDATED_AVATAR);
         assertThat(testArticle.getAvatarContentType()).isEqualTo(UPDATED_AVATAR_CONTENT_TYPE);
         assertThat(testArticle.getTitle()).isEqualTo(UPDATED_TITLE);
-        assertThat(testArticle.getTitleAlias()).isEqualTo(UPDATED_TITLE_ALIAS);
+        assertThat(testArticle.isEnabled()).isEqualTo(UPDATED_ENABLED);
         assertThat(testArticle.getSummary()).isEqualTo(UPDATED_SUMMARY);
         assertThat(testArticle.getContent()).isEqualTo(UPDATED_CONTENT);
         assertThat(testArticle.getStatusType()).isEqualTo(UPDATED_STATUS_TYPE);

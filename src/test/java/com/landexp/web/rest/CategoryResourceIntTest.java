@@ -47,8 +47,8 @@ public class CategoryResourceIntTest {
     private static final String DEFAULT_NAME = "AAAAAAAAAA";
     private static final String UPDATED_NAME = "BBBBBBBBBB";
 
-    private static final String DEFAULT_NAME_ALIAS = "AAAAAAAAAA";
-    private static final String UPDATED_NAME_ALIAS = "BBBBBBBBBB";
+    private static final Boolean DEFAULT_ENABLED = false;
+    private static final Boolean UPDATED_ENABLED = true;
 
     private static final LocalDate DEFAULT_CREATE_AT = LocalDate.ofEpochDay(0L);
     private static final LocalDate UPDATED_CREATE_AT = LocalDate.now(ZoneId.systemDefault());
@@ -62,7 +62,7 @@ public class CategoryResourceIntTest {
 
     @Autowired
     private CategoryMapper categoryMapper;
-    
+
 
     @Autowired
     private CategoryService categoryService;
@@ -103,7 +103,7 @@ public class CategoryResourceIntTest {
     public static Category createEntity(EntityManager em) {
         Category category = new Category()
             .name(DEFAULT_NAME)
-            .nameAlias(DEFAULT_NAME_ALIAS)
+            .enabled(DEFAULT_ENABLED)
             .createAt(DEFAULT_CREATE_AT)
             .updateAt(DEFAULT_UPDATE_AT);
         return category;
@@ -131,7 +131,7 @@ public class CategoryResourceIntTest {
         assertThat(categoryList).hasSize(databaseSizeBeforeCreate + 1);
         Category testCategory = categoryList.get(categoryList.size() - 1);
         assertThat(testCategory.getName()).isEqualTo(DEFAULT_NAME);
-        assertThat(testCategory.getNameAlias()).isEqualTo(DEFAULT_NAME_ALIAS);
+        assertThat(testCategory.isEnabled()).isEqualTo(DEFAULT_ENABLED);
         assertThat(testCategory.getCreateAt()).isEqualTo(DEFAULT_CREATE_AT);
         assertThat(testCategory.getUpdateAt()).isEqualTo(DEFAULT_UPDATE_AT);
     }
@@ -168,11 +168,11 @@ public class CategoryResourceIntTest {
             .andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8_VALUE))
             .andExpect(jsonPath("$.[*].id").value(hasItem(category.getId().intValue())))
             .andExpect(jsonPath("$.[*].name").value(hasItem(DEFAULT_NAME.toString())))
-            .andExpect(jsonPath("$.[*].nameAlias").value(hasItem(DEFAULT_NAME_ALIAS.toString())))
+            .andExpect(jsonPath("$.[*].enabled").value(hasItem(DEFAULT_ENABLED.toString())))
             .andExpect(jsonPath("$.[*].createAt").value(hasItem(DEFAULT_CREATE_AT.toString())))
             .andExpect(jsonPath("$.[*].updateAt").value(hasItem(DEFAULT_UPDATE_AT.toString())));
     }
-    
+
 
     @Test
     @Transactional
@@ -186,7 +186,7 @@ public class CategoryResourceIntTest {
             .andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8_VALUE))
             .andExpect(jsonPath("$.id").value(category.getId().intValue()))
             .andExpect(jsonPath("$.name").value(DEFAULT_NAME.toString()))
-            .andExpect(jsonPath("$.nameAlias").value(DEFAULT_NAME_ALIAS.toString()))
+            .andExpect(jsonPath("$.enabled").value(DEFAULT_ENABLED.toString()))
             .andExpect(jsonPath("$.createAt").value(DEFAULT_CREATE_AT.toString()))
             .andExpect(jsonPath("$.updateAt").value(DEFAULT_UPDATE_AT.toString()));
     }
@@ -212,7 +212,7 @@ public class CategoryResourceIntTest {
         em.detach(updatedCategory);
         updatedCategory
             .name(UPDATED_NAME)
-            .nameAlias(UPDATED_NAME_ALIAS)
+            .enabled(UPDATED_ENABLED)
             .createAt(UPDATED_CREATE_AT)
             .updateAt(UPDATED_UPDATE_AT);
         CategoryDTO categoryDTO = categoryMapper.toDto(updatedCategory);
@@ -227,7 +227,7 @@ public class CategoryResourceIntTest {
         assertThat(categoryList).hasSize(databaseSizeBeforeUpdate);
         Category testCategory = categoryList.get(categoryList.size() - 1);
         assertThat(testCategory.getName()).isEqualTo(UPDATED_NAME);
-        assertThat(testCategory.getNameAlias()).isEqualTo(UPDATED_NAME_ALIAS);
+        assertThat(testCategory.isEnabled()).isEqualTo(UPDATED_ENABLED);
         assertThat(testCategory.getCreateAt()).isEqualTo(UPDATED_CREATE_AT);
         assertThat(testCategory.getUpdateAt()).isEqualTo(UPDATED_UPDATE_AT);
     }
