@@ -2,6 +2,7 @@ package com.landexp.web.rest;
 
 import com.codahale.metrics.annotation.Timed;
 import com.landexp.config.Utils;
+import com.landexp.frontend.responses.MappingUtils;
 import com.landexp.responses.HousePhotoResponse;
 import com.landexp.security.AuthoritiesConstants;
 import com.landexp.service.HousePhotoService;
@@ -47,15 +48,6 @@ public class HousePhotoResource {
 
     public HousePhotoResource(HousePhotoService housePhotoService) {
         this.housePhotoService = housePhotoService;
-    }
-
-    private BufferedImage createImageFromBytes(byte[] imageData) {
-        ByteArrayInputStream bais = new ByteArrayInputStream(imageData);
-        try {
-            return ImageIO.read(bais);
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        }
     }
 
     public byte[] convert(ByteArrayOutputStream out) {
@@ -132,7 +124,7 @@ public class HousePhotoResource {
         log.debug("REST request to get a image data in byte array");
         HousePhotoDTO dto = housePhotoService.findOne(Utils.decodeId(id)).get();
         ByteArrayOutputStream bao = new ByteArrayOutputStream();
-        Thumbnails.of(createImageFromBytes(dto.getImage()))
+        Thumbnails.of(MappingUtils.createImageFromBytes(dto.getImage()))
             .size(538, 376)
             .outputFormat("jpg")
             .toOutputStream(bao);

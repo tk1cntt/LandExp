@@ -33,7 +33,7 @@
                 <constraints nullable="true" />
             </column>
 
-            <column name="title_alias" type="varchar(255)">
+            <column name="enabled" type="bit">
                 <constraints nullable="true" />
             </column>
 

@@ -1,13 +1,18 @@
 package com.landexp.web.rest;
 
 import com.codahale.metrics.annotation.Timed;
+import com.landexp.config.Utils;
+import com.landexp.frontend.responses.MappingUtils;
 import com.landexp.security.AuthoritiesConstants;
 import com.landexp.service.ArticleService;
+import com.landexp.service.dto.ArticleDetailDTO;
+import com.landexp.service.dto.HousePhotoDTO;
 import com.landexp.web.rest.errors.BadRequestAlertException;
 import com.landexp.web.rest.util.HeaderUtil;
 import com.landexp.web.rest.util.PaginationUtil;
 import com.landexp.service.dto.ArticleDTO;
 import io.github.jhipster.web.util.ResponseUtil;
+import net.coobird.thumbnailator.Thumbnails;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.data.domain.Page;
@@ -18,6 +23,8 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.annotation.Secured;
 import org.springframework.web.bind.annotation.*;
 
+import java.io.ByteArrayOutputStream;
+import java.io.IOException;
 import java.net.URI;
 import java.net.URISyntaxException;
 
@@ -51,12 +58,12 @@ public class ArticleResource {
     @PostMapping("/articles")
     @Timed
     @Secured(AuthoritiesConstants.STAFF)
-    public ResponseEntity<ArticleDTO> createArticle(@RequestBody ArticleDTO articleDTO) throws URISyntaxException {
+    public ResponseEntity<ArticleDetailDTO> createArticle(@RequestBody ArticleDetailDTO articleDTO) throws URISyntaxException {
         log.debug("REST request to save Article : {}", articleDTO);
         if (articleDTO.getId() != null) {
             throw new BadRequestAlertException("A new article cannot already have an ID", ENTITY_NAME, "idexists");
         }
-        ArticleDTO result = articleService.save(articleDTO);
+        ArticleDetailDTO result = articleService.save(articleDTO);
         return ResponseEntity.created(new URI("/api/articles/" + result.getId()))
             .headers(HeaderUtil.createEntityCreationAlert(ENTITY_NAME, result.getId().toString()))
             .body(result);
@@ -74,12 +81,12 @@ public class ArticleResource {
     @PutMapping("/articles")
     @Timed
     @Secured(AuthoritiesConstants.STAFF)
-    public ResponseEntity<ArticleDTO> updateArticle(@RequestBody ArticleDTO articleDTO) throws URISyntaxException {
+    public ResponseEntity<ArticleDetailDTO> updateArticle(@RequestBody ArticleDetailDTO articleDTO) throws URISyntaxException {
         log.debug("REST request to update Article : {}", articleDTO);
         if (articleDTO.getId() == null) {
             throw new BadRequestAlertException("Invalid id", ENTITY_NAME, "idnull");
         }
-        ArticleDTO result = articleService.save(articleDTO);
+        ArticleDetailDTO result = articleService.save(articleDTO);
         return ResponseEntity.ok()
             .headers(HeaderUtil.createEntityUpdateAlert(ENTITY_NAME, articleDTO.getId().toString()))
             .body(result);
@@ -147,10 +154,27 @@ public class ArticleResource {
      */
     @GetMapping("/articles/{id}")
     @Timed
-    public ResponseEntity<ArticleDTO> getArticle(@PathVariable Long id) {
+    public ResponseEntity<ArticleDetailDTO> getArticle(@PathVariable Long id) {
         log.debug("REST request to get Article : {}", id);
-        Optional<ArticleDTO> articleDTO = articleService.findOne(id);
+        Optional<ArticleDetailDTO> articleDTO = articleService.findOne(id);
         return ResponseUtil.wrapOrNotFound(articleDTO);
+    }
+
+    /**
+     * GET  /house-photos/{id}/contents : get photo in byte array.
+     */
+    @GetMapping("/articles/{id}/avatar/{link}")
+    @Timed
+    @ResponseBody
+    public byte[] getHousePhotoById(@PathVariable String id, @PathVariable String link) throws IOException {
+        log.debug("REST request to get a image data in byte array");
+        ArticleDetailDTO articleDTO = articleService.findOne(Utils.decodeId(id)).get();
+        ByteArrayOutputStream bao = new ByteArrayOutputStream();
+        Thumbnails.of(MappingUtils.createImageFromBytes(articleDTO.getAvatar()))
+            .size(538, 376)
+            .outputFormat("jpg")
+            .toOutputStream(bao);
+        return bao.toByteArray();
     }
 
     /**

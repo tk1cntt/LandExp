@@ -4,6 +4,7 @@ import com.codahale.metrics.annotation.Timed;
 import com.landexp.config.Utils;
 import com.landexp.domain.enumeration.PaymentStatusType;
 import com.landexp.domain.enumeration.StatusType;
+import com.landexp.frontend.responses.MappingUtils;
 import com.landexp.security.AuthoritiesConstants;
 import com.landexp.security.SecurityUtils;
 import com.landexp.service.HouseQueryService;
@@ -15,6 +16,7 @@ import com.landexp.web.rest.errors.BadRequestAlertException;
 import com.landexp.web.rest.util.HeaderUtil;
 import com.landexp.web.rest.util.PaginationUtil;
 import io.github.jhipster.web.util.ResponseUtil;
+import net.coobird.thumbnailator.Thumbnails;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.data.domain.Page;
@@ -26,6 +28,8 @@ import org.springframework.security.access.annotation.Secured;
 import org.springframework.util.ObjectUtils;
 import org.springframework.web.bind.annotation.*;
 
+import java.io.ByteArrayOutputStream;
+import java.io.IOException;
 import java.net.URI;
 import java.net.URISyntaxException;
 import java.time.LocalDate;
@@ -254,6 +258,23 @@ public class HouseResource {
             throw new BadRequestAlertException("No permission", ENTITY_NAME, "nopermission");
         }
         return ResponseUtil.wrapOrNotFound(houseDTO);
+    }
+
+    /**
+     * GET  /house-photos/{id}/contents : get photo in byte array.
+     */
+    @GetMapping("/houses/{id}/avatar/{link}")
+    @Timed
+    @ResponseBody
+    public byte[] getHousePhotoById(@PathVariable String id, @PathVariable String link) throws IOException {
+        log.debug("REST request to get a image data in byte array");
+        HouseDetailDTO dto = houseService.findOne(Utils.decodeId(id)).get();
+        ByteArrayOutputStream bao = new ByteArrayOutputStream();
+        Thumbnails.of(MappingUtils.createImageFromBytes(dto.getAvatar()))
+            .size(538, 376)
+            .outputFormat("jpg")
+            .toOutputStream(bao);
+        return bao.toByteArray();
     }
 
     /**

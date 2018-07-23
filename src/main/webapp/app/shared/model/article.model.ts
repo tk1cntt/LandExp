@@ -14,7 +14,8 @@ export interface IArticle {
   avatarContentType?: string;
   avatar?: any;
   title?: string;
-  titleAlias?: string;
+  linnk?: string;
+  enabled?: boolean;
   summary?: string;
   content?: string;
   statusType?: StatusType;

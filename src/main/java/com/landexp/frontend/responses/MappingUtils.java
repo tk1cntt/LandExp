@@ -3,11 +3,17 @@ package com.landexp.frontend.responses;
 import com.landexp.domain.enumeration.DirectionType;
 import com.landexp.domain.enumeration.LandType;
 import com.landexp.domain.enumeration.UserActionType;
+import com.landexp.service.dto.ArticleDTO;
+import com.landexp.service.dto.ArticleDetailDTO;
 import com.landexp.service.dto.HouseDTO;
 import com.landexp.service.dto.HouseDetailDTO;
 import org.springframework.util.ObjectUtils;
 import org.springframework.util.StringUtils;
 
+import javax.imageio.ImageIO;
+import java.awt.image.BufferedImage;
+import java.io.ByteArrayInputStream;
+import java.io.IOException;
 import java.text.DecimalFormat;
 import java.text.SimpleDateFormat;
 import java.time.LocalDate;
@@ -195,6 +201,31 @@ public class MappingUtils {
         sb.append(" ");
         sb.append(removeAccent(dto.getCityName()));
         return sb.toString().toLowerCase().replaceAll(" ", "-").replaceAll("\\/", "-");
+    }
+
+    public static String formatLink(ArticleDetailDTO dto) {
+        StringBuilder sb = new StringBuilder();
+        sb.append(removeAccent(dto.getCategoryName()));
+        sb.append(" ");
+        sb.append(removeAccent(dto.getTitle()));
+        return sb.toString().toLowerCase().replaceAll(" ", "-").replaceAll("\\/", "-");
+    }
+
+    public static String formatLink(ArticleDTO dto) {
+        StringBuilder sb = new StringBuilder();
+        sb.append(removeAccent(dto.getCategoryName()));
+        sb.append(" ");
+        sb.append(removeAccent(dto.getTitle()));
+        return sb.toString().toLowerCase().replaceAll(" ", "-").replaceAll("\\/", "-");
+    }
+
+    public static BufferedImage createImageFromBytes(byte[] imageData) {
+        ByteArrayInputStream bais = new ByteArrayInputStream(imageData);
+        try {
+            return ImageIO.read(bais);
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
     }
 
     public static String formatParking(Boolean parking) {
