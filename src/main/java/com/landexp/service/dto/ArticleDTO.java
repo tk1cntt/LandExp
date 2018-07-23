@@ -12,9 +12,30 @@ import com.landexp.domain.enumeration.StatusType;
 public class ArticleDTO implements Serializable {
 
     private Long id;
+
     private String link;
+
+    @Lob
+    private byte[] avatar;
+    private String avatarContentType;
+
     private String title;
+
+    private Boolean enabled;
+
+    private StatusType statusType;
+
+    private Integer hits;
+
+    private LocalDate createAt;
+
+    private LocalDate updateAt;
+
     private String categoryName;
+
+    private String createByLogin;
+
+    private String updateByLogin;
 
     public Long getId() {
         return id;
@@ -22,6 +43,22 @@ public class ArticleDTO implements Serializable {
 
     public void setId(Long id) {
         this.id = id;
+    }
+
+    public byte[] getAvatar() {
+        return avatar;
+    }
+
+    public void setAvatar(byte[] avatar) {
+        this.avatar = avatar;
+    }
+
+    public String getAvatarContentType() {
+        return avatarContentType;
+    }
+
+    public void setAvatarContentType(String avatarContentType) {
+        this.avatarContentType = avatarContentType;
     }
 
     public String getLink() {
@@ -40,12 +77,68 @@ public class ArticleDTO implements Serializable {
         this.title = title;
     }
 
+    public Boolean isEnabled() {
+        return enabled;
+    }
+
+    public void setEnabled(Boolean enabled) {
+        this.enabled = enabled;
+    }
+
+    public StatusType getStatusType() {
+        return statusType;
+    }
+
+    public void setStatusType(StatusType statusType) {
+        this.statusType = statusType;
+    }
+
+    public Integer getHits() {
+        return hits;
+    }
+
+    public void setHits(Integer hits) {
+        this.hits = hits;
+    }
+
+    public LocalDate getCreateAt() {
+        return createAt;
+    }
+
+    public void setCreateAt(LocalDate createAt) {
+        this.createAt = createAt;
+    }
+
+    public LocalDate getUpdateAt() {
+        return updateAt;
+    }
+
+    public void setUpdateAt(LocalDate updateAt) {
+        this.updateAt = updateAt;
+    }
+
     public String getCategoryName() {
         return categoryName;
     }
 
     public void setCategoryName(String categoryName) {
         this.categoryName = categoryName;
+    }
+
+    public String getCreateByLogin() {
+        return createByLogin;
+    }
+
+    public void setCreateByLogin(String userLogin) {
+        this.createByLogin = userLogin;
+    }
+
+    public String getUpdateByLogin() {
+        return updateByLogin;
+    }
+
+    public void setUpdateByLogin(String userLogin) {
+        this.updateByLogin = userLogin;
     }
 
     @Override
@@ -75,7 +168,13 @@ public class ArticleDTO implements Serializable {
             "id=" + getId() +
             ", link='" + getLink() + "'" +
             ", title='" + getTitle() + "'" +
+            ", statusType='" + getStatusType() + "'" +
+            ", hits=" + getHits() +
+            ", createAt='" + getCreateAt() + "'" +
+            ", updateAt='" + getUpdateAt() + "'" +
             ", category='" + getCategoryName() + "'" +
+            ", createBy='" + getCreateByLogin() + "'" +
+            ", updateBy='" + getUpdateByLogin() + "'" +
             "}";
     }
 }

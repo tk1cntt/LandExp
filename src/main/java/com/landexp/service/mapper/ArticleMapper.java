@@ -15,6 +15,7 @@ import org.mapstruct.*;
 public interface ArticleMapper extends EntityMapper<ArticleDTO, Article> {
 
     @Mapping(source = "category.name", target = "categoryName")
+    @Mapping(source = "createBy.login", target = "createByLogin")
     ArticleDTO toDto(Article article);
 
     @Mapping(source = "categoryId", target = "category")
