@@ -1,13 +1,13 @@
 package com.landexp.web.rest;
 
 import com.codahale.metrics.annotation.Timed;
+import com.landexp.service.UserFinancialQueryService;
 import com.landexp.service.UserFinancialService;
+import com.landexp.service.dto.UserFinancialCriteria;
+import com.landexp.service.dto.UserFinancialDTO;
 import com.landexp.web.rest.errors.BadRequestAlertException;
 import com.landexp.web.rest.util.HeaderUtil;
 import com.landexp.web.rest.util.PaginationUtil;
-import com.landexp.service.dto.UserFinancialDTO;
-import com.landexp.service.dto.UserFinancialCriteria;
-import com.landexp.service.UserFinancialQueryService;
 import io.github.jhipster.web.util.ResponseUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -20,7 +20,6 @@ import org.springframework.web.bind.annotation.*;
 
 import java.net.URI;
 import java.net.URISyntaxException;
-
 import java.util.List;
 import java.util.Optional;
 
@@ -31,10 +30,8 @@ import java.util.Optional;
 @RequestMapping("/api")
 public class UserFinancialResource {
 
-    private final Logger log = LoggerFactory.getLogger(UserFinancialResource.class);
-
     private static final String ENTITY_NAME = "userFinancial";
-
+    private final Logger log = LoggerFactory.getLogger(UserFinancialResource.class);
     private final UserFinancialService userFinancialService;
 
     private final UserFinancialQueryService userFinancialQueryService;

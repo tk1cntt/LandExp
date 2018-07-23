@@ -6,10 +6,10 @@ import com.landexp.frontend.responses.MappingUtils;
 import com.landexp.responses.HousePhotoResponse;
 import com.landexp.security.AuthoritiesConstants;
 import com.landexp.service.HousePhotoService;
+import com.landexp.service.dto.HousePhotoDTO;
 import com.landexp.web.rest.errors.BadRequestAlertException;
 import com.landexp.web.rest.util.HeaderUtil;
 import com.landexp.web.rest.util.PaginationUtil;
-import com.landexp.service.dto.HousePhotoDTO;
 import io.github.jhipster.web.util.ResponseUtil;
 import net.coobird.thumbnailator.Thumbnails;
 import org.slf4j.Logger;
@@ -22,14 +22,10 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.annotation.Secured;
 import org.springframework.web.bind.annotation.*;
 
-import javax.imageio.ImageIO;
-import java.awt.image.BufferedImage;
-import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.net.URI;
 import java.net.URISyntaxException;
-
 import java.util.List;
 import java.util.Optional;
 
@@ -40,10 +36,8 @@ import java.util.Optional;
 @RequestMapping("/api")
 public class HousePhotoResource {
 
-    private final Logger log = LoggerFactory.getLogger(HousePhotoResource.class);
-
     private static final String ENTITY_NAME = "housePhoto";
-
+    private final Logger log = LoggerFactory.getLogger(HousePhotoResource.class);
     private final HousePhotoService housePhotoService;
 
     public HousePhotoResource(HousePhotoService housePhotoService) {

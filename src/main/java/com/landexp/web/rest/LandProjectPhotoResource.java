@@ -2,9 +2,9 @@ package com.landexp.web.rest;
 
 import com.codahale.metrics.annotation.Timed;
 import com.landexp.service.LandProjectPhotoService;
+import com.landexp.service.dto.LandProjectPhotoDTO;
 import com.landexp.web.rest.errors.BadRequestAlertException;
 import com.landexp.web.rest.util.HeaderUtil;
-import com.landexp.service.dto.LandProjectPhotoDTO;
 import io.github.jhipster.web.util.ResponseUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -13,7 +13,6 @@ import org.springframework.web.bind.annotation.*;
 
 import java.net.URI;
 import java.net.URISyntaxException;
-
 import java.util.List;
 import java.util.Optional;
 
@@ -24,10 +23,8 @@ import java.util.Optional;
 @RequestMapping("/api")
 public class LandProjectPhotoResource {
 
-    private final Logger log = LoggerFactory.getLogger(LandProjectPhotoResource.class);
-
     private static final String ENTITY_NAME = "landProjectPhoto";
-
+    private final Logger log = LoggerFactory.getLogger(LandProjectPhotoResource.class);
     private final LandProjectPhotoService landProjectPhotoService;
 
     public LandProjectPhotoResource(LandProjectPhotoService landProjectPhotoService) {

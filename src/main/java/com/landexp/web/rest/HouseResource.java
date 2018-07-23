@@ -44,10 +44,8 @@ import java.util.Optional;
 @RequestMapping("/api")
 public class HouseResource {
 
-    private final Logger log = LoggerFactory.getLogger(HouseResource.class);
-
     private static final String ENTITY_NAME = "house";
-
+    private final Logger log = LoggerFactory.getLogger(HouseResource.class);
     private final HouseService houseService;
 
     private final HouseQueryService houseQueryService;

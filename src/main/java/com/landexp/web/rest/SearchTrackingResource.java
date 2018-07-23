@@ -1,13 +1,13 @@
 package com.landexp.web.rest;
 
 import com.codahale.metrics.annotation.Timed;
+import com.landexp.service.SearchTrackingQueryService;
 import com.landexp.service.SearchTrackingService;
+import com.landexp.service.dto.SearchTrackingCriteria;
+import com.landexp.service.dto.SearchTrackingDTO;
 import com.landexp.web.rest.errors.BadRequestAlertException;
 import com.landexp.web.rest.util.HeaderUtil;
 import com.landexp.web.rest.util.PaginationUtil;
-import com.landexp.service.dto.SearchTrackingDTO;
-import com.landexp.service.dto.SearchTrackingCriteria;
-import com.landexp.service.SearchTrackingQueryService;
 import io.github.jhipster.web.util.ResponseUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -20,7 +20,6 @@ import org.springframework.web.bind.annotation.*;
 
 import java.net.URI;
 import java.net.URISyntaxException;
-
 import java.util.List;
 import java.util.Optional;
 
@@ -31,10 +30,8 @@ import java.util.Optional;
 @RequestMapping("/api")
 public class SearchTrackingResource {
 
-    private final Logger log = LoggerFactory.getLogger(SearchTrackingResource.class);
-
     private static final String ENTITY_NAME = "searchTracking";
-
+    private final Logger log = LoggerFactory.getLogger(SearchTrackingResource.class);
     private final SearchTrackingService searchTrackingService;
 
     private final SearchTrackingQueryService searchTrackingQueryService;

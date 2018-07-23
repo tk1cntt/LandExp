@@ -1,13 +1,13 @@
 package com.landexp.web.rest;
 
 import com.codahale.metrics.annotation.Timed;
+import com.landexp.service.RegionQueryService;
 import com.landexp.service.RegionService;
+import com.landexp.service.dto.RegionCriteria;
+import com.landexp.service.dto.RegionDTO;
 import com.landexp.web.rest.errors.BadRequestAlertException;
 import com.landexp.web.rest.util.HeaderUtil;
 import com.landexp.web.rest.util.PaginationUtil;
-import com.landexp.service.dto.RegionDTO;
-import com.landexp.service.dto.RegionCriteria;
-import com.landexp.service.RegionQueryService;
 import io.github.jhipster.web.util.ResponseUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -20,7 +20,6 @@ import org.springframework.web.bind.annotation.*;
 
 import java.net.URI;
 import java.net.URISyntaxException;
-
 import java.util.List;
 import java.util.Optional;
 
@@ -31,10 +30,8 @@ import java.util.Optional;
 @RequestMapping("/api")
 public class RegionResource {
 
-    private final Logger log = LoggerFactory.getLogger(RegionResource.class);
-
     private static final String ENTITY_NAME = "region";
-
+    private final Logger log = LoggerFactory.getLogger(RegionResource.class);
     private final RegionService regionService;
 
     private final RegionQueryService regionQueryService;
@@ -104,7 +101,7 @@ public class RegionResource {
 
     /**
      * GET  /regions : get all the regions.
-
+     *
      * @return the ResponseEntity with status 200 (OK) and the list of regions in body
      */
     @GetMapping("/regions/all")

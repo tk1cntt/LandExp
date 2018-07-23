@@ -125,7 +125,7 @@ public class PaymentResource {
         houseDTO.setStatusType(StatusType.PAID);
         houseService.saveByUsername(houseDTO, username);
         return ResponseEntity.ok()
-            .headers(HeaderUtil.createEntityUpdateAlert(ENTITY_NAME, paymentDTO.getId().toString()))
+            .headers(HeaderUtil.createEntityUpdateAlert(ENTITY_NAME, result.getId().toString()))
             .body(result);
     }
 
@@ -147,10 +147,17 @@ public class PaymentResource {
         if (ObjectUtils.isEmpty(paymentDTO)) {
             throw new BadRequestAlertException("Not Found " + id, ENTITY_NAME, "notfound");
         }
+        HouseDetailDTO houseDTO = houseService.findOne(paymentDTO.getHouseId()).get();
+        if (ObjectUtils.isEmpty(houseDTO)) {
+            throw new BadRequestAlertException("Not Found " + id, ENTITY_NAME, "notfound");
+        }
+        String username = SecurityUtils.getCurrentUserLogin().get();
         paymentDTO.setPaymentStatus(PaymentStatusType.CANCELED);
-        PaymentDTO result = paymentService.save(paymentDTO);
+        PaymentDTO result = paymentService.updateByUsername(paymentDTO, username);
+        houseDTO.setStatusType(StatusType.CANCELED);
+        houseService.saveByUsername(houseDTO, username);
         return ResponseEntity.ok()
-            .headers(HeaderUtil.createEntityUpdateAlert(ENTITY_NAME, paymentDTO.getId().toString()))
+            .headers(HeaderUtil.createEntityUpdateAlert(ENTITY_NAME, result.getId().toString()))
             .body(result);
     }
 

@@ -5,12 +5,11 @@ import com.landexp.config.Utils;
 import com.landexp.frontend.responses.MappingUtils;
 import com.landexp.security.AuthoritiesConstants;
 import com.landexp.service.ArticleService;
+import com.landexp.service.dto.ArticleDTO;
 import com.landexp.service.dto.ArticleDetailDTO;
-import com.landexp.service.dto.HousePhotoDTO;
 import com.landexp.web.rest.errors.BadRequestAlertException;
 import com.landexp.web.rest.util.HeaderUtil;
 import com.landexp.web.rest.util.PaginationUtil;
-import com.landexp.service.dto.ArticleDTO;
 import io.github.jhipster.web.util.ResponseUtil;
 import net.coobird.thumbnailator.Thumbnails;
 import org.slf4j.Logger;
@@ -27,7 +26,6 @@ import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.net.URI;
 import java.net.URISyntaxException;
-
 import java.util.List;
 import java.util.Optional;
 
@@ -38,10 +36,8 @@ import java.util.Optional;
 @RequestMapping("/api")
 public class ArticleResource {
 
-    private final Logger log = LoggerFactory.getLogger(ArticleResource.class);
-
     private static final String ENTITY_NAME = "article";
-
+    private final Logger log = LoggerFactory.getLogger(ArticleResource.class);
     private final ArticleService articleService;
 
     public ArticleResource(ArticleService articleService) {

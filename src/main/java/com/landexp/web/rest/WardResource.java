@@ -1,13 +1,13 @@
 package com.landexp.web.rest;
 
 import com.codahale.metrics.annotation.Timed;
+import com.landexp.service.WardQueryService;
 import com.landexp.service.WardService;
+import com.landexp.service.dto.WardCriteria;
+import com.landexp.service.dto.WardDTO;
 import com.landexp.web.rest.errors.BadRequestAlertException;
 import com.landexp.web.rest.util.HeaderUtil;
 import com.landexp.web.rest.util.PaginationUtil;
-import com.landexp.service.dto.WardDTO;
-import com.landexp.service.dto.WardCriteria;
-import com.landexp.service.WardQueryService;
 import io.github.jhipster.web.util.ResponseUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -20,7 +20,6 @@ import org.springframework.web.bind.annotation.*;
 
 import java.net.URI;
 import java.net.URISyntaxException;
-
 import java.util.List;
 import java.util.Optional;
 
@@ -31,10 +30,8 @@ import java.util.Optional;
 @RequestMapping("/api")
 public class WardResource {
 
-    private final Logger log = LoggerFactory.getLogger(WardResource.class);
-
     private static final String ENTITY_NAME = "ward";
-
+    private final Logger log = LoggerFactory.getLogger(WardResource.class);
     private final WardService wardService;
 
     private final WardQueryService wardQueryService;

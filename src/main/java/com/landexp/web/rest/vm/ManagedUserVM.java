@@ -1,6 +1,7 @@
 package com.landexp.web.rest.vm;
 
 import com.landexp.service.dto.UserDTO;
+
 import javax.validation.constraints.Size;
 
 /**
