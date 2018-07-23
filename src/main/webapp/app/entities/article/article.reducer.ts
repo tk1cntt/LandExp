@@ -10,16 +10,12 @@ const client = axios.create({
 });
 
 import { IArticle, defaultValue } from 'app/shared/model/article.model';
+import { IMapArticle } from 'app/shared/model/article.all.model';
 
 export const ACTION_TYPES = {
   FETCH_ARTICLE_LIST: 'article/FETCH_ARTICLE_LIST',
-  FETCH_ARTICLE_LIST_3: 'article/FETCH_ARTICLE_LIST_3',
-  FETCH_ARTICLE_LIST_4: 'article/FETCH_ARTICLE_LIST_4',
-  FETCH_ARTICLE_LIST_5: 'article/FETCH_ARTICLE_LIST_5',
   FETCH_ARTICLE_TOP: 'article/FETCH_ARTICLE_TOP',
-  FETCH_ARTICLE_TOP_3: 'article/FETCH_ARTICLE_TOP_3',
-  FETCH_ARTICLE_TOP_4: 'article/FETCH_ARTICLE_TOP_4',
-  FETCH_ARTICLE_TOP_5: 'article/FETCH_ARTICLE_TOP_5',
+  FETCH_ARTICLE_TOP_LIST: 'article/FETCH_ARTICLE_TOP_LIST',
   FETCH_ARTICLE: 'article/FETCH_ARTICLE',
   CREATE_ARTICLE: 'article/CREATE_ARTICLE',
   UPDATE_ARTICLE: 'article/UPDATE_ARTICLE',
@@ -38,20 +34,8 @@ const initialState = {
   updateSuccess: false,
   loadingTop: false,
   topEntities: [] as ReadonlyArray<IArticle>,
-  loadingTop3: false,
-  top3Entities: [] as ReadonlyArray<IArticle>,
-  loadingTop4: false,
-  top4Entities: [] as ReadonlyArray<IArticle>,
-  loadingTop5: false,
-  top5Entities: [] as ReadonlyArray<IArticle>,
-  allEntities: [] as ReadonlyArray<IArticle>,
-  allTotalItems: 0,
-  all3Entities: [] as ReadonlyArray<IArticle>,
-  all3TotalItems: 0,
-  all4Entities: [] as ReadonlyArray<IArticle>,
-  all4TotalItems: 0,
-  all5Entities: [] as ReadonlyArray<IArticle>,
-  all5TotalItems: 0
+  loadingTopList: false,
+  topListEntities: [] as ReadonlyArray<IMapArticle>
 };
 
 export type ArticleState = Readonly<typeof initialState>;
@@ -75,26 +59,12 @@ export default (state: ArticleState = initialState, action): ArticleState => {
         updateSuccess: false,
         loadingTop: true
       };
-    case REQUEST(ACTION_TYPES.FETCH_ARTICLE_TOP_3):
+    case REQUEST(ACTION_TYPES.FETCH_ARTICLE_TOP_LIST):
       return {
         ...state,
         errorMessage: null,
         updateSuccess: false,
-        loadingTop3: true
-      };
-    case REQUEST(ACTION_TYPES.FETCH_ARTICLE_TOP_4):
-      return {
-        ...state,
-        errorMessage: null,
-        updateSuccess: false,
-        loadingTop4: true
-      };
-    case REQUEST(ACTION_TYPES.FETCH_ARTICLE_TOP_5):
-      return {
-        ...state,
-        errorMessage: null,
-        updateSuccess: false,
-        loadingTop5: true
+        loadingTopList: true
       };
     case REQUEST(ACTION_TYPES.CREATE_ARTICLE):
     case REQUEST(ACTION_TYPES.UPDATE_ARTICLE):
@@ -125,26 +95,10 @@ export default (state: ArticleState = initialState, action): ArticleState => {
         updateSuccess: false,
         errorMessage: action.payload
       };
-    case FAILURE(ACTION_TYPES.FETCH_ARTICLE_TOP_3):
+    case FAILURE(ACTION_TYPES.FETCH_ARTICLE_TOP_LIST):
       return {
         ...state,
-        loadingTop3: false,
-        updating: false,
-        updateSuccess: false,
-        errorMessage: action.payload
-      };
-    case FAILURE(ACTION_TYPES.FETCH_ARTICLE_TOP_4):
-      return {
-        ...state,
-        loadingTop4: false,
-        updating: false,
-        updateSuccess: false,
-        errorMessage: action.payload
-      };
-    case FAILURE(ACTION_TYPES.FETCH_ARTICLE_TOP_5):
-      return {
-        ...state,
-        loadingTop5: false,
+        loadingTopList: false,
         updating: false,
         updateSuccess: false,
         errorMessage: action.payload
@@ -162,23 +116,11 @@ export default (state: ArticleState = initialState, action): ArticleState => {
         loadingTop: false,
         topEntities: action.payload.data
       };
-    case SUCCESS(ACTION_TYPES.FETCH_ARTICLE_TOP_3):
+    case SUCCESS(ACTION_TYPES.FETCH_ARTICLE_TOP_LIST):
       return {
         ...state,
-        loadingTop3: false,
-        top3Entities: action.payload.data
-      };
-    case SUCCESS(ACTION_TYPES.FETCH_ARTICLE_TOP_4):
-      return {
-        ...state,
-        loadingTop4: false,
-        top4Entities: action.payload.data
-      };
-    case SUCCESS(ACTION_TYPES.FETCH_ARTICLE_TOP_5):
-      return {
-        ...state,
-        loadingTop5: false,
-        top5Entities: action.payload.data
+        loadingTopList: false,
+        topListEntities: action.payload.data
       };
     case SUCCESS(ACTION_TYPES.FETCH_ARTICLE):
       return {
@@ -240,50 +182,10 @@ export const getTopEntities: ICrudGetAllAction<IArticle> = (page, size, sort) =>
   };
 };
 
-export const getTopOfCategory5: ICrudGetAllAction<IArticle> = (page, size, sort) => {
+export const getTopList: ICrudGetAllAction<IArticle> = (page, size, sort) => {
   const requestUrl = `${apiUrl}/5/top${sort ? `?page=${page}&size=${size}&sort=${sort}` : ''}`;
   return {
-    type: ACTION_TYPES.FETCH_ARTICLE_TOP_5,
-    payload: client.get<IArticle>(`${requestUrl}${sort ? '&' : '?'}cacheBuster=${new Date().getTime()}`)
-  };
-};
-
-export const getTopOfCategory4: ICrudGetAllAction<IArticle> = (page, size, sort) => {
-  const requestUrl = `${apiUrl}/4/top${sort ? `?page=${page}&size=${size}&sort=${sort}` : ''}`;
-  return {
-    type: ACTION_TYPES.FETCH_ARTICLE_TOP_4,
-    payload: client.get<IArticle>(`${requestUrl}${sort ? '&' : '?'}cacheBuster=${new Date().getTime()}`)
-  };
-};
-
-export const getTopOfCategory3: ICrudGetAllAction<IArticle> = (page, size, sort) => {
-  const requestUrl = `${apiUrl}/3/top${sort ? `?page=${page}&size=${size}&sort=${sort}` : ''}`;
-  return {
-    type: ACTION_TYPES.FETCH_ARTICLE_TOP_3,
-    payload: client.get<IArticle>(`${requestUrl}${sort ? '&' : '?'}cacheBuster=${new Date().getTime()}`)
-  };
-};
-
-export const getBy5: ICrudGetAllAction<IArticle> = (page, size, sort) => {
-  const requestUrl = `${apiUrl}/5/all${sort ? `?page=${page}&size=${size}&sort=${sort}` : ''}`;
-  return {
-    type: ACTION_TYPES.FETCH_ARTICLE_LIST,
-    payload: client.get<IArticle>(`${requestUrl}${sort ? '&' : '?'}cacheBuster=${new Date().getTime()}`)
-  };
-};
-
-export const getBy4: ICrudGetAllAction<IArticle> = (page, size, sort) => {
-  const requestUrl = `${apiUrl}/4/all${sort ? `?page=${page}&size=${size}&sort=${sort}` : ''}`;
-  return {
-    type: ACTION_TYPES.FETCH_ARTICLE_LIST,
-    payload: client.get<IArticle>(`${requestUrl}${sort ? '&' : '?'}cacheBuster=${new Date().getTime()}`)
-  };
-};
-
-export const getBy3: ICrudGetAllAction<IArticle> = (page, size, sort) => {
-  const requestUrl = `${apiUrl}/3/all${sort ? `?page=${page}&size=${size}&sort=${sort}` : ''}`;
-  return {
-    type: ACTION_TYPES.FETCH_ARTICLE_LIST,
+    type: ACTION_TYPES.FETCH_ARTICLE_TOP_LIST,
     payload: client.get<IArticle>(`${requestUrl}${sort ? '&' : '?'}cacheBuster=${new Date().getTime()}`)
   };
 };

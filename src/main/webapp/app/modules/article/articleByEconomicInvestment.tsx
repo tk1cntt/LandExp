@@ -1,4 +1,4 @@
-import './ArticleBox.css';
+import './article.css';
 
 import React from 'react';
 import { RouteComponentProps } from 'react-router-dom';

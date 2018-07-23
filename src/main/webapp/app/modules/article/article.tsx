@@ -2,27 +2,23 @@ import './article.css';
 
 import React from 'react';
 import { RouteComponentProps } from 'react-router-dom';
-import { TextFormat } from 'react-jhipster';
 import { connect } from 'react-redux';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { Row, Col, Container, Breadcrumb, BreadcrumbItem } from 'reactstrap';
-import ImageGallery from 'react-image-gallery';
+import { Row, Col, Container } from 'reactstrap';
 
-import { getLandType, getDirection, getMoney, encodeId, decodeId } from 'app/shared/util/utils';
-import { getEntities } from 'app/entities/article/article.reducer';
-import { getImageOfHouse } from 'app/entities/house-photo/house-photo.reducer';
-import { SERVER_API_URL, APP_LOCAL_DATE_FORMAT } from 'app/config/constants';
+import { getTopList } from 'app/entities/article/article.reducer';
 
 import Loading from 'app/shared/layout/loading/loading';
 import SearchPage from 'app/shared/layout/search/search-menu';
 import HomeNewsBox from 'app/modules/home/home-newsbox';
-import ExperienceAndLife from './articleByExperienceAndLife';
-import DesignCorner from './articleByDesignCorner';
-import EconomicInvestment from './articleByEconomicInvestment';
+import ArticleBox from './article-box';
 
 export interface IArticleProp extends StateProps, DispatchProps, RouteComponentProps<{}> {}
 
 export class Article extends React.Component<IArticleProp> {
+  componentDidMount() {
+    this.props.getTopList();
+  }
+
   render() {
     return (
       <Row>
@@ -33,9 +29,9 @@ export class Article extends React.Component<IArticleProp> {
           ) : (
             <>
               <HomeNewsBox />
-              <ExperienceAndLife />
-              <DesignCorner />
-              <EconomicInvestment />
+              {this.props.articleList.map(article => {
+                <ArticleBox title={article.key} contents={article.contents} />;
+              })}
             </>
           )}
         </Container>
@@ -45,11 +41,11 @@ export class Article extends React.Component<IArticleProp> {
 }
 
 const mapStateToProps = ({ article }) => ({
-  articleEntity: article.entity,
-  loading: article.loading
+  articleList: article.topListEntities,
+  loading: article.loadingTopList
 });
 
-const mapDispatchToProps = { getEntities };
+const mapDispatchToProps = { getTopList };
 
 type StateProps = ReturnType<typeof mapStateToProps>;
 type DispatchProps = typeof mapDispatchToProps;
