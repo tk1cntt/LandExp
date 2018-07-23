@@ -27,36 +27,38 @@ const MyMapComponent: React.StatelessComponent<{
     lat: props.currentPosition.latitude ? props.currentPosition.latitude : 21.0286669,
     lng: props.currentPosition.longitude ? props.currentPosition.longitude : 105.8521484
   };
-  <GoogleMap defaultZoom={16} defaultCenter={position}>
-    {props.isMarkerShown && (
-      <Marker
-        position={position}
-        draggable
-        onDragEnd={e => {
-          fetch(
-            `https://maps.googleapis.com/maps/api/geocode/json?latlng=${e.latLng.lat()},${e.latLng.lng()}&sensor=false&key=AIzaSyCYcnnPJ3J-v8nbiyGbp4APnQANcmQeIwc`
-          )
-            .then(response => {
-              if (!response.ok) {
-                console.log(response);
-              }
-              return response.json(); //we only get here if there is no error
-            })
-            .then(response => {
-              console.log(response.results[0]);
-              console.log(response.results[0].address_components[response.results[0].address_components.length - 1].long_name);
-              console.log(response.results[0].address_components[response.results[0].address_components.length - 2].long_name);
-              console.log(response.results[0].address_components[response.results[0].address_components.length - 3].long_name);
-              console.log(response.results[0].address_components[response.results[0].address_components.length - 4].long_name);
-              console.log(response.results[0].address_components[response.results[0].address_components.length - 5].long_name);
-            })
-            .catch(err => {
-              console.log(err);
-            });
-        }}
-      />
-    )}
-  </GoogleMap>;
+  return (
+    <GoogleMap defaultZoom={16} defaultCenter={position}>
+      {props.isMarkerShown && (
+        <Marker
+          position={position}
+          draggable
+          onDragEnd={e => {
+            fetch(
+              `https://maps.googleapis.com/maps/api/geocode/json?latlng=${e.latLng.lat()},${e.latLng.lng()}&sensor=false&key=AIzaSyCYcnnPJ3J-v8nbiyGbp4APnQANcmQeIwc`
+            )
+              .then(response => {
+                if (!response.ok) {
+                  console.log(response);
+                }
+                return response.json(); //we only get here if there is no error
+              })
+              .then(response => {
+                console.log(response.results[0]);
+                console.log(response.results[0].address_components[response.results[0].address_components.length - 1].long_name);
+                console.log(response.results[0].address_components[response.results[0].address_components.length - 2].long_name);
+                console.log(response.results[0].address_components[response.results[0].address_components.length - 3].long_name);
+                console.log(response.results[0].address_components[response.results[0].address_components.length - 4].long_name);
+                console.log(response.results[0].address_components[response.results[0].address_components.length - 5].long_name);
+              })
+              .catch(err => {
+                console.log(err);
+              });
+          }}
+        />
+      )}
+    </GoogleMap>
+  );
 });
 
 export interface IGoogleMapsProps extends StateProps, DispatchProps {

@@ -31,8 +31,7 @@ export class HomeDetail extends React.Component<IHomeProp> {
     );
   }
 
-  updateMarkerPosition = () => {
-  }
+  updateMarkerPosition = () => {};
 
   render() {
     const images = [];

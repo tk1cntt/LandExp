@@ -1,7 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { Link, RouteComponentProps } from 'react-router-dom';
-import { Col, Row, Container, Table } from 'reactstrap';
+import { Col, Row, Container, Table, Button } from 'reactstrap';
 import { getLandType, getSaleType, getStatusType } from 'app/shared/util/utils';
 import { Translate, getSortState, IPaginationBaseState, getPaginationItemsNumber, JhiPagination } from 'react-jhipster';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
@@ -137,19 +137,21 @@ export class House extends React.Component<IHouseProps, IHouseState> {
                               <td>{getStatusType(house.statusType)}</td>
                               <td>{house.createByLogin}</td>
                               <td style={{ display: 'inline-block', width: 70 }}>
-                                <div style={{ float: 'left', marginRight: 5 }} onClick={this.gotoEdit.bind(this, house.id)}>
-                                  <Tooltip placement="top" title={'Sửa tin đăng'}>
-                                    <Icon type="edit" />{' '}
-                                  </Tooltip>
-                                </div>
+                                <Button onClick={this.gotoEdit.bind(this, house.id)} color="primary" size="sm">
+                                  <FontAwesomeIcon icon="pencil-alt" />{' '}
+                                  <span className="d-none d-md-inline">
+                                    <Translate contentKey="entity.action.edit">Edit</Translate>
+                                  </span>
+                                </Button>
                                 {!this.props.isManager ? (
                                   ''
                                 ) : (
-                                  <div style={{ float: 'left' }} onClick={this.showDeleteConfirm.bind(this, house.id)}>
-                                    <Tooltip placement="top" title={'Xoá tin đăng'}>
-                                      <Icon type="delete" />{' '}
-                                    </Tooltip>
-                                  </div>
+                                  <Button onClick={this.showDeleteConfirm.bind(this, house.id)} color="danger" size="sm">
+                                    <FontAwesomeIcon icon="trash" />{' '}
+                                    <span className="d-none d-md-inline">
+                                      <Translate contentKey="entity.action.delete">Delete</Translate>
+                                    </span>
+                                  </Button>
                                 )}
                               </td>
                             </tr>
