@@ -248,11 +248,9 @@ public class HouseResource {
         if (ObjectUtils.isEmpty(houseDTO.get())) {
             throw new BadRequestAlertException("Not Found " + id, ENTITY_NAME, "notfound");
         }
-        if (SecurityUtils.getCurrentUserLogin().get().equalsIgnoreCase(houseDTO.get().getCreateByLogin())) {
-            if (houseDTO.get().getStatusType().equals(StatusType.CANCELED)) {
-                throw new BadRequestAlertException("No permission", ENTITY_NAME, "nopermission");
-            }
-        } else if (!houseDTO.get().getStatusType().equals(StatusType.PAID) && !SecurityUtils.isCurrentUserInRole(AuthoritiesConstants.MANAGER)) {
+        if (!SecurityUtils.getCurrentUserLogin().get().equalsIgnoreCase(houseDTO.get().getCreateByLogin())
+            && !SecurityUtils.isCurrentUserInRole(AuthoritiesConstants.MANAGER)
+            && !SecurityUtils.isCurrentUserInRole(AuthoritiesConstants.STAFF)) {
             throw new BadRequestAlertException("No permission", ENTITY_NAME, "nopermission");
         }
         return ResponseUtil.wrapOrNotFound(houseDTO);

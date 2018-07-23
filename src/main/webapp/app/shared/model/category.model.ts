@@ -3,7 +3,8 @@ import { Moment } from 'moment';
 export interface ICategory {
   id?: number;
   name?: string;
-  nameAlias?: string;
+  index?: number;
+  enabled?: boolean;
   createAt?: Moment;
   updateAt?: Moment;
 }

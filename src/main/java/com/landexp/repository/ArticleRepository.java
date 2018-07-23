@@ -1,6 +1,10 @@
 package com.landexp.repository;
 
 import com.landexp.domain.Article;
+import com.landexp.domain.House;
+import com.landexp.domain.enumeration.StatusType;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.*;
 import org.springframework.stereotype.Repository;
 
@@ -18,5 +22,11 @@ public interface ArticleRepository extends JpaRepository<Article, Long> {
 
     @Query("select article from Article article where article.updateBy.login = ?#{principal.username}")
     List<Article> findByUpdateByIsCurrentUser();
+
+    Page<Article> findByCategoryIdAndStatusTypeOrderByCreateAtDesc(Long id, StatusType statusType, Pageable pageable);
+
+    List<Article> findTop3ByCategoryIdAndStatusTypeOrderByCreateAtDesc(Long id, StatusType statusType);
+
+    List<Article> findTop5ByStatusTypeOrderByCreateAtDesc(StatusType statusType);
 
 }

@@ -1,6 +1,7 @@
 package com.landexp.web.rest;
 
 import com.codahale.metrics.annotation.Timed;
+import com.landexp.security.AuthoritiesConstants;
 import com.landexp.service.ArticleService;
 import com.landexp.web.rest.errors.BadRequestAlertException;
 import com.landexp.web.rest.util.HeaderUtil;
@@ -14,6 +15,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.annotation.Secured;
 import org.springframework.web.bind.annotation.*;
 
 import java.net.URI;
@@ -48,6 +50,7 @@ public class ArticleResource {
      */
     @PostMapping("/articles")
     @Timed
+    @Secured(AuthoritiesConstants.STAFF)
     public ResponseEntity<ArticleDTO> createArticle(@RequestBody ArticleDTO articleDTO) throws URISyntaxException {
         log.debug("REST request to save Article : {}", articleDTO);
         if (articleDTO.getId() != null) {
@@ -70,6 +73,7 @@ public class ArticleResource {
      */
     @PutMapping("/articles")
     @Timed
+    @Secured(AuthoritiesConstants.STAFF)
     public ResponseEntity<ArticleDTO> updateArticle(@RequestBody ArticleDTO articleDTO) throws URISyntaxException {
         log.debug("REST request to update Article : {}", articleDTO);
         if (articleDTO.getId() == null) {
@@ -97,6 +101,45 @@ public class ArticleResource {
     }
 
     /**
+     * GET  /articles : get all the articles.
+     *
+     * @return the ResponseEntity with status 200 (OK) and the list of articles in body
+     */
+    @GetMapping("/articles/top")
+    @Timed
+    public List<ArticleDTO> getTop() {
+        log.debug("REST request to get a page of Articles");
+        return articleService.findTop();
+    }
+
+    /**
+     * GET  /articles : get all the articles.
+     *
+     * @return the ResponseEntity with status 200 (OK) and the list of articles in body
+     */
+    @GetMapping("/articles/{id}/top")
+    @Timed
+    public List<ArticleDTO> getTopByCategory(@PathVariable Long id) {
+        log.debug("REST request to get a page of Articles");
+        return articleService.findTopBy(id);
+    }
+
+    /**
+     * GET  /articles : get all the articles.
+     *
+     * @param pageable the pagination information
+     * @return the ResponseEntity with status 200 (OK) and the list of articles in body
+     */
+    @GetMapping("/articles/{id}/all")
+    @Timed
+    public ResponseEntity<List<ArticleDTO>> getByArticles(@PathVariable Long id, Pageable pageable) {
+        log.debug("REST request to get a page of Articles");
+        Page<ArticleDTO> page = articleService.findBy(id, pageable);
+        HttpHeaders headers = PaginationUtil.generatePaginationHttpHeaders(page, "/api/articles/" + id + "/all");
+        return new ResponseEntity<>(page.getContent(), headers, HttpStatus.OK);
+    }
+
+    /**
      * GET  /articles/:id : get the "id" article.
      *
      * @param id the id of the articleDTO to retrieve
@@ -118,6 +161,7 @@ public class ArticleResource {
      */
     @DeleteMapping("/articles/{id}")
     @Timed
+    @Secured(AuthoritiesConstants.STAFF)
     public ResponseEntity<Void> deleteArticle(@PathVariable Long id) {
         log.debug("REST request to delete Article : {}", id);
         articleService.delete(id);

@@ -13,7 +13,9 @@ public class CategoryDTO implements Serializable {
 
     private String name;
 
-    private String nameAlias;
+    private Integer index;
+
+    private Boolean enabled;
 
     private LocalDate createAt;
 
@@ -35,12 +37,20 @@ public class CategoryDTO implements Serializable {
         this.name = name;
     }
 
-    public String getNameAlias() {
-        return nameAlias;
+    public Integer getIndex() {
+        return index;
     }
 
-    public void setNameAlias(String nameAlias) {
-        this.nameAlias = nameAlias;
+    public void setIndex(Integer index) {
+        this.index = index;
+    }
+
+    public Boolean isEnabled() {
+        return enabled;
+    }
+
+    public void setEnabled(Boolean enabled) {
+        this.enabled = enabled;
     }
 
     public LocalDate getCreateAt() {
@@ -85,7 +95,8 @@ public class CategoryDTO implements Serializable {
         return "CategoryDTO{" +
             "id=" + getId() +
             ", name='" + getName() + "'" +
-            ", nameAlias='" + getNameAlias() + "'" +
+            ", index=" + getIndex() +
+            ", enabled='" + isEnabled() + "'" +
             ", createAt='" + getCreateAt() + "'" +
             ", updateAt='" + getUpdateAt() + "'" +
             "}";

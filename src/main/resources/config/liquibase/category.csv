@@ -1,6 +1,6 @@
-id;name
-1;"Tin tức bất động sản"
-2;"Câu hỏi thường gặp"
-3;"Kinh nghiệm & cuộc sống"
-4;"Góc thiết kế"
-5;"Kinh tế đầu tư"
+id;name;jhi_index
+1;"Tin tức bất động sản";0
+2;"Câu hỏi thường gặp";0
+3;"Kinh nghiệm & cuộc sống";1
+4;"Góc thiết kế";2
+5;"Kinh tế đầu tư";3

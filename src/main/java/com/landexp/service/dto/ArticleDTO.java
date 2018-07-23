@@ -19,7 +19,7 @@ public class ArticleDTO implements Serializable {
 
     private String title;
 
-    private String titleAlias;
+    private Boolean enabled;
 
     private String summary;
 
@@ -77,12 +77,12 @@ public class ArticleDTO implements Serializable {
         this.title = title;
     }
 
-    public String getTitleAlias() {
-        return titleAlias;
+    public Boolean isEnabled() {
+        return enabled;
     }
 
-    public void setTitleAlias(String titleAlias) {
-        this.titleAlias = titleAlias;
+    public void setEnabled(Boolean enabled) {
+        this.enabled = enabled;
     }
 
     public String getSummary() {
@@ -208,7 +208,7 @@ public class ArticleDTO implements Serializable {
             "id=" + getId() +
             ", avatar='" + getAvatar() + "'" +
             ", title='" + getTitle() + "'" +
-            ", titleAlias='" + getTitleAlias() + "'" +
+            ", enabled='" + isEnabled() + "'" +
             ", summary='" + getSummary() + "'" +
             ", content='" + getContent() + "'" +
             ", statusType='" + getStatusType() + "'" +

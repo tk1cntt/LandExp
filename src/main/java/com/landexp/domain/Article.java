@@ -38,8 +38,8 @@ public class Article implements Serializable {
     @Column(name = "title")
     private String title;
 
-    @Column(name = "title_alias")
-    private String titleAlias;
+    @Column(name = "enabled")
+    private Boolean enabled;
 
     @Column(name = "summary")
     private String summary;
@@ -122,17 +122,17 @@ public class Article implements Serializable {
         this.title = title;
     }
 
-    public String getTitleAlias() {
-        return titleAlias;
+    public Boolean isEnabled() {
+        return enabled;
     }
 
-    public Article titleAlias(String titleAlias) {
-        this.titleAlias = titleAlias;
+    public Article enabled(Boolean enabled) {
+        this.enabled = enabled;
         return this;
     }
 
-    public void setTitleAlias(String titleAlias) {
-        this.titleAlias = titleAlias;
+    public void setEnabled(Boolean enabled) {
+        this.enabled = enabled;
     }
 
     public String getSummary() {
@@ -280,7 +280,7 @@ public class Article implements Serializable {
             ", avatar='" + getAvatar() + "'" +
             ", avatarContentType='" + getAvatarContentType() + "'" +
             ", title='" + getTitle() + "'" +
-            ", titleAlias='" + getTitleAlias() + "'" +
+            ", enabled='" + isEnabled() + "'" +
             ", summary='" + getSummary() + "'" +
             ", content='" + getContent() + "'" +
             ", statusType='" + getStatusType() + "'" +

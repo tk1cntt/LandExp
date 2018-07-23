@@ -28,8 +28,11 @@ public class Category implements Serializable {
     @Column(name = "name")
     private String name;
 
-    @Column(name = "name_alias")
-    private String nameAlias;
+    @Column(name = "jhi_index")
+    private Integer index;
+
+    @Column(name = "enabled")
+    private Boolean enabled;
 
     @CreationTimestamp
     @Column(name = "create_at")
@@ -61,17 +64,30 @@ public class Category implements Serializable {
         this.name = name;
     }
 
-    public String getNameAlias() {
-        return nameAlias;
+    public Integer getIndex() {
+        return index;
     }
 
-    public Category nameAlias(String nameAlias) {
-        this.nameAlias = nameAlias;
+    public Category index(Integer index) {
+        this.index = index;
         return this;
     }
 
-    public void setNameAlias(String nameAlias) {
-        this.nameAlias = nameAlias;
+    public void setIndex(Integer index) {
+        this.index = index;
+    }
+
+    public Boolean isEnabled() {
+        return enabled;
+    }
+
+    public Category enabled(Boolean enabled) {
+        this.enabled = enabled;
+        return this;
+    }
+
+    public void setEnabled(Boolean enabled) {
+        this.enabled = enabled;
     }
 
     public LocalDate getCreateAt() {
@@ -126,7 +142,8 @@ public class Category implements Serializable {
         return "Category{" +
             "id=" + getId() +
             ", name='" + getName() + "'" +
-            ", nameAlias='" + getNameAlias() + "'" +
+            ", index=" + getIndex() +
+            ", enabled='" + isEnabled() + "'" +
             ", createAt='" + getCreateAt() + "'" +
             ", updateAt='" + getUpdateAt() + "'" +
             "}";

@@ -9,20 +9,32 @@ import { Row, Col, Container, Breadcrumb, BreadcrumbItem } from 'reactstrap';
 import ImageGallery from 'react-image-gallery';
 
 import { getLandType, getDirection, getMoney, encodeId, decodeId } from 'app/shared/util/utils';
-import { getEntities } from 'app/entities/article/article.reducer';
+import { getEntity } from 'app/entities/article/article.reducer';
 import { getImageOfHouse } from 'app/entities/house-photo/house-photo.reducer';
 import { SERVER_API_URL, APP_LOCAL_DATE_FORMAT } from 'app/config/constants';
 
 import Loading from 'app/shared/layout/loading/loading';
 import SearchPage from 'app/shared/layout/search/search-menu';
 import HomeNewsBox from 'app/modules/home/home-newsbox';
-import ExperienceAndLife from './articleByExperienceAndLife';
-import DesignCorner from './articleByDesignCorner';
-import EconomicInvestment from './articleByEconomicInvestment';
 
-export interface IArticleProp extends StateProps, DispatchProps, RouteComponentProps<{}> {}
+export interface IArticleProp extends StateProps, DispatchProps, RouteComponentProps<{ id: any; link: any }> {}
 
-export class Article extends React.Component<IArticleProp> {
+export interface IArticleState {
+  search: string;
+  photoIndex: any;
+}
+
+export class Article extends React.Component<IArticleProp, IArticleState> {
+  state: IArticleState = {
+    search: null,
+    photoIndex: 0
+  };
+
+  componentDidMount() {
+    const articleId = decodeId(this.props.match.params.id);
+    this.props.getEntity(articleId);
+  }
+
   render() {
     return (
       <Row>
@@ -33,9 +45,7 @@ export class Article extends React.Component<IArticleProp> {
           ) : (
             <>
               <HomeNewsBox />
-              <ExperienceAndLife />
-              <DesignCorner />
-              <EconomicInvestment />
+              <Row />
             </>
           )}
         </Container>
@@ -49,7 +59,7 @@ const mapStateToProps = ({ article }) => ({
   loading: article.loading
 });
 
-const mapDispatchToProps = { getEntities };
+const mapDispatchToProps = { getEntity };
 
 type StateProps = ReturnType<typeof mapStateToProps>;
 type DispatchProps = typeof mapDispatchToProps;

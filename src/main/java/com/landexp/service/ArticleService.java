@@ -1,6 +1,7 @@
 package com.landexp.service;
 
 import com.landexp.domain.Article;
+import com.landexp.domain.enumeration.StatusType;
 import com.landexp.repository.ArticleRepository;
 import com.landexp.service.dto.ArticleDTO;
 import com.landexp.service.mapper.ArticleMapper;
@@ -13,7 +14,11 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 
+import java.util.LinkedList;
+import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
+
 /**
  * Service Implementation for managing Article.
  */
@@ -58,6 +63,46 @@ public class ArticleService {
             .map(articleMapper::toDto);
     }
 
+    /**
+     * Get top 5 the articles.
+     *
+     * @param id the category id
+     * @return the list of entities
+     */
+    @Transactional(readOnly = true)
+    public List<ArticleDTO> findTop() {
+        log.debug("Request to get all Articles");
+        return articleRepository.findTop5ByStatusTypeOrderByCreateAtDesc(StatusType.PAID).stream()
+            .map(articleMapper::toDto)
+            .collect(Collectors.toCollection(LinkedList::new));
+    }
+
+    /**
+     * Get top 3 the articles.
+     *
+     * @param id the category id
+     * @return the list of entities
+     */
+    @Transactional(readOnly = true)
+    public List<ArticleDTO> findTopBy(Long id) {
+        log.debug("Request to get all Articles");
+        return articleRepository.findTop3ByCategoryIdAndStatusTypeOrderByCreateAtDesc(id, StatusType.PAID).stream()
+            .map(articleMapper::toDto)
+            .collect(Collectors.toCollection(LinkedList::new));
+    }
+
+    /**
+     * Get all the articles.
+     *
+     * @param pageable the pagination information
+     * @return the list of entities
+     */
+    @Transactional(readOnly = true)
+    public Page<ArticleDTO> findBy(Long id, Pageable pageable) {
+        log.debug("Request to get by Articles");
+        return articleRepository.findByCategoryIdAndStatusTypeOrderByCreateAtDesc(id, StatusType.PAID, pageable)
+            .map(articleMapper::toDto);
+    }
 
     /**
      * Get one article by id.

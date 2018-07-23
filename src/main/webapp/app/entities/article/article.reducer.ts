@@ -13,6 +13,13 @@ import { IArticle, defaultValue } from 'app/shared/model/article.model';
 
 export const ACTION_TYPES = {
   FETCH_ARTICLE_LIST: 'article/FETCH_ARTICLE_LIST',
+  FETCH_ARTICLE_LIST_3: 'article/FETCH_ARTICLE_LIST_3',
+  FETCH_ARTICLE_LIST_4: 'article/FETCH_ARTICLE_LIST_4',
+  FETCH_ARTICLE_LIST_5: 'article/FETCH_ARTICLE_LIST_5',
+  FETCH_ARTICLE_TOP: 'article/FETCH_ARTICLE_TOP',
+  FETCH_ARTICLE_TOP_3: 'article/FETCH_ARTICLE_TOP_3',
+  FETCH_ARTICLE_TOP_4: 'article/FETCH_ARTICLE_TOP_4',
+  FETCH_ARTICLE_TOP_5: 'article/FETCH_ARTICLE_TOP_5',
   FETCH_ARTICLE: 'article/FETCH_ARTICLE',
   CREATE_ARTICLE: 'article/CREATE_ARTICLE',
   UPDATE_ARTICLE: 'article/UPDATE_ARTICLE',
@@ -28,7 +35,23 @@ const initialState = {
   entity: defaultValue,
   updating: false,
   totalItems: 0,
-  updateSuccess: false
+  updateSuccess: false,
+  loadingTop: false,
+  topEntities: [] as ReadonlyArray<IArticle>,
+  loadingTop3: false,
+  top3Entities: [] as ReadonlyArray<IArticle>,
+  loadingTop4: false,
+  top4Entities: [] as ReadonlyArray<IArticle>,
+  loadingTop5: false,
+  top5Entities: [] as ReadonlyArray<IArticle>,
+  allEntities: [] as ReadonlyArray<IArticle>,
+  allTotalItems: 0,
+  all3Entities: [] as ReadonlyArray<IArticle>,
+  all3TotalItems: 0,
+  all4Entities: [] as ReadonlyArray<IArticle>,
+  all4TotalItems: 0,
+  all5Entities: [] as ReadonlyArray<IArticle>,
+  all5TotalItems: 0
 };
 
 export type ArticleState = Readonly<typeof initialState>;
@@ -44,6 +67,34 @@ export default (state: ArticleState = initialState, action): ArticleState => {
         errorMessage: null,
         updateSuccess: false,
         loading: true
+      };
+    case REQUEST(ACTION_TYPES.FETCH_ARTICLE_TOP):
+      return {
+        ...state,
+        errorMessage: null,
+        updateSuccess: false,
+        loadingTop: true
+      };
+    case REQUEST(ACTION_TYPES.FETCH_ARTICLE_TOP_3):
+      return {
+        ...state,
+        errorMessage: null,
+        updateSuccess: false,
+        loadingTop3: true
+      };
+    case REQUEST(ACTION_TYPES.FETCH_ARTICLE_TOP_4):
+      return {
+        ...state,
+        errorMessage: null,
+        updateSuccess: false,
+        loadingTop4: true
+      };
+    case REQUEST(ACTION_TYPES.FETCH_ARTICLE_TOP_5):
+      return {
+        ...state,
+        errorMessage: null,
+        updateSuccess: false,
+        loadingTop5: true
       };
     case REQUEST(ACTION_TYPES.CREATE_ARTICLE):
     case REQUEST(ACTION_TYPES.UPDATE_ARTICLE):
@@ -66,12 +117,68 @@ export default (state: ArticleState = initialState, action): ArticleState => {
         updateSuccess: false,
         errorMessage: action.payload
       };
+    case FAILURE(ACTION_TYPES.FETCH_ARTICLE_TOP):
+      return {
+        ...state,
+        loadingTop: false,
+        updating: false,
+        updateSuccess: false,
+        errorMessage: action.payload
+      };
+    case FAILURE(ACTION_TYPES.FETCH_ARTICLE_TOP_3):
+      return {
+        ...state,
+        loadingTop3: false,
+        updating: false,
+        updateSuccess: false,
+        errorMessage: action.payload
+      };
+    case FAILURE(ACTION_TYPES.FETCH_ARTICLE_TOP_4):
+      return {
+        ...state,
+        loadingTop4: false,
+        updating: false,
+        updateSuccess: false,
+        errorMessage: action.payload
+      };
+    case FAILURE(ACTION_TYPES.FETCH_ARTICLE_TOP_5):
+      return {
+        ...state,
+        loadingTop5: false,
+        updating: false,
+        updateSuccess: false,
+        errorMessage: action.payload
+      };
     case SUCCESS(ACTION_TYPES.FETCH_ARTICLE_LIST):
       return {
         ...state,
         loading: false,
         totalItems: action.payload.headers['x-total-count'],
         entities: action.payload.data
+      };
+    case SUCCESS(ACTION_TYPES.FETCH_ARTICLE_TOP):
+      return {
+        ...state,
+        loadingTop: false,
+        topEntities: action.payload.data
+      };
+    case SUCCESS(ACTION_TYPES.FETCH_ARTICLE_TOP_3):
+      return {
+        ...state,
+        loadingTop3: false,
+        top3Entities: action.payload.data
+      };
+    case SUCCESS(ACTION_TYPES.FETCH_ARTICLE_TOP_4):
+      return {
+        ...state,
+        loadingTop4: false,
+        top4Entities: action.payload.data
+      };
+    case SUCCESS(ACTION_TYPES.FETCH_ARTICLE_TOP_5):
+      return {
+        ...state,
+        loadingTop5: false,
+        top5Entities: action.payload.data
       };
     case SUCCESS(ACTION_TYPES.FETCH_ARTICLE):
       return {
@@ -119,6 +226,62 @@ const apiUrl = SERVER_API_URL + '/api/articles';
 
 export const getEntities: ICrudGetAllAction<IArticle> = (page, size, sort) => {
   const requestUrl = `${apiUrl}${sort ? `?page=${page}&size=${size}&sort=${sort}` : ''}`;
+  return {
+    type: ACTION_TYPES.FETCH_ARTICLE_LIST,
+    payload: client.get<IArticle>(`${requestUrl}${sort ? '&' : '?'}cacheBuster=${new Date().getTime()}`)
+  };
+};
+
+export const getTopEntities: ICrudGetAllAction<IArticle> = (page, size, sort) => {
+  const requestUrl = `${apiUrl}/top${sort ? `?page=${page}&size=${size}&sort=${sort}` : ''}`;
+  return {
+    type: ACTION_TYPES.FETCH_ARTICLE_TOP,
+    payload: client.get<IArticle>(`${requestUrl}${sort ? '&' : '?'}cacheBuster=${new Date().getTime()}`)
+  };
+};
+
+export const getTopOfCategory5: ICrudGetAllAction<IArticle> = (page, size, sort) => {
+  const requestUrl = `${apiUrl}/5/top${sort ? `?page=${page}&size=${size}&sort=${sort}` : ''}`;
+  return {
+    type: ACTION_TYPES.FETCH_ARTICLE_TOP_5,
+    payload: client.get<IArticle>(`${requestUrl}${sort ? '&' : '?'}cacheBuster=${new Date().getTime()}`)
+  };
+};
+
+export const getTopOfCategory4: ICrudGetAllAction<IArticle> = (page, size, sort) => {
+  const requestUrl = `${apiUrl}/4/top${sort ? `?page=${page}&size=${size}&sort=${sort}` : ''}`;
+  return {
+    type: ACTION_TYPES.FETCH_ARTICLE_TOP_4,
+    payload: client.get<IArticle>(`${requestUrl}${sort ? '&' : '?'}cacheBuster=${new Date().getTime()}`)
+  };
+};
+
+export const getTopOfCategory3: ICrudGetAllAction<IArticle> = (page, size, sort) => {
+  const requestUrl = `${apiUrl}/3/top${sort ? `?page=${page}&size=${size}&sort=${sort}` : ''}`;
+  return {
+    type: ACTION_TYPES.FETCH_ARTICLE_TOP_3,
+    payload: client.get<IArticle>(`${requestUrl}${sort ? '&' : '?'}cacheBuster=${new Date().getTime()}`)
+  };
+};
+
+export const getBy5: ICrudGetAllAction<IArticle> = (page, size, sort) => {
+  const requestUrl = `${apiUrl}/5/all${sort ? `?page=${page}&size=${size}&sort=${sort}` : ''}`;
+  return {
+    type: ACTION_TYPES.FETCH_ARTICLE_LIST,
+    payload: client.get<IArticle>(`${requestUrl}${sort ? '&' : '?'}cacheBuster=${new Date().getTime()}`)
+  };
+};
+
+export const getBy4: ICrudGetAllAction<IArticle> = (page, size, sort) => {
+  const requestUrl = `${apiUrl}/4/all${sort ? `?page=${page}&size=${size}&sort=${sort}` : ''}`;
+  return {
+    type: ACTION_TYPES.FETCH_ARTICLE_LIST,
+    payload: client.get<IArticle>(`${requestUrl}${sort ? '&' : '?'}cacheBuster=${new Date().getTime()}`)
+  };
+};
+
+export const getBy3: ICrudGetAllAction<IArticle> = (page, size, sort) => {
+  const requestUrl = `${apiUrl}/3/all${sort ? `?page=${page}&size=${size}&sort=${sort}` : ''}`;
   return {
     type: ACTION_TYPES.FETCH_ARTICLE_LIST,
     payload: client.get<IArticle>(`${requestUrl}${sort ? '&' : '?'}cacheBuster=${new Date().getTime()}`)
