@@ -278,7 +278,7 @@ export class ArticleUpdate extends React.Component<IArticleUpdateProps, IArticle
                       </Label>
                       <Select
                         style={{ width: '100%' }}
-                        defaultValue={this.state.categoryId}
+                        defaultValue={this.state.categoryId || this.props.articleEntity.categoryId}
                         placeholder="Danh mục tin tức"
                         onChange={this.onChangeCategory}
                       >
@@ -297,7 +297,7 @@ export class ArticleUpdate extends React.Component<IArticleUpdateProps, IArticle
                       </Label>
                       <ReactQuill
                         bounds={'.app-editor'}
-                        defaultValue={this.state.summary}
+                        defaultValue={this.state.summary || this.props.articleEntity.summary || ''}
                         onChange={this.onChangeSummary}
                         placeholder="Tóm tắt bản tin"
                       />
@@ -307,7 +307,7 @@ export class ArticleUpdate extends React.Component<IArticleUpdateProps, IArticle
                         <Translate contentKey="landexpApp.article.content">Content</Translate>
                       </Label>
                       <ReactQuill
-                        defaultValue={this.state.content || ''}
+                        defaultValue={this.state.content || this.props.articleEntity.content || ''}
                         theme="snow"
                         bounds={'.content-editor'}
                         modules={this.modules}
