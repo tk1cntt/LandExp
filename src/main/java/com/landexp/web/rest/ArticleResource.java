@@ -8,9 +8,11 @@ import com.landexp.frontend.responses.MappingUtils;
 import com.landexp.repository.CategoryRepository;
 import com.landexp.security.AuthoritiesConstants;
 import com.landexp.service.ArticleService;
+import com.landexp.service.CategoryService;
 import com.landexp.service.dto.ArticleDTO;
 import com.landexp.service.dto.ArticleDetailDTO;
 import com.landexp.service.dto.ArticleMapDTO;
+import com.landexp.service.dto.CategoryDTO;
 import com.landexp.web.rest.errors.BadRequestAlertException;
 import com.landexp.web.rest.util.HeaderUtil;
 import com.landexp.web.rest.util.PaginationUtil;
@@ -44,11 +46,11 @@ public class ArticleResource {
     private static final String ENTITY_NAME = "article";
     private final Logger log = LoggerFactory.getLogger(ArticleResource.class);
     private final ArticleService articleService;
-    private final CategoryRepository categoryRepository;
+    private final CategoryService categoryService;
 
-    public ArticleResource(ArticleService articleService, CategoryRepository categoryRepository) {
+    public ArticleResource(ArticleService articleService, CategoryService categoryService) {
         this.articleService = articleService;
-        this.categoryRepository = categoryRepository;
+        this.categoryService = categoryService;
     }
 
     /**
@@ -132,11 +134,11 @@ public class ArticleResource {
     public List<ArticleMapDTO> getAllTop() {
         log.debug("REST request to get a page of Articles");
         List<ArticleMapDTO> maps = new ArrayList<>();
-        List<Category> categories = categoryRepository.findByEnabledOrderByIndexAsc(true);
-        for(Category category_: categories) {
+        List<CategoryDTO> categories = categoryService.findByStatus(true);
+        for(CategoryDTO dto: categories) {
             ArticleMapDTO map = new ArticleMapDTO();
-            List<ArticleDTO> articles = articleService.findTopBy(category_.getId());
-            map.setKey(category_.getName());
+            List<ArticleDTO> articles = articleService.findTopBy(dto.getId());
+            map.setKey(dto.getName());
             map.setValue(articles);
             maps.add(map);
         }

@@ -3,6 +3,7 @@ package com.landexp.service;
 import com.landexp.domain.Category;
 import com.landexp.repository.CategoryRepository;
 import com.landexp.service.dto.CategoryDTO;
+import com.landexp.service.dto.CityDTO;
 import com.landexp.service.mapper.CategoryMapper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -13,7 +14,11 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 
+import java.util.LinkedList;
+import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
+
 /**
  * Service Implementation for managing Category.
  */
@@ -58,6 +63,18 @@ public class CategoryService {
             .map(categoryMapper::toDto);
     }
 
+    /**
+     * Get all the categories.
+     *
+     * @return the list of entities
+     */
+    @Transactional(readOnly = true)
+    public List<CategoryDTO> findByStatus(boolean status) {
+        log.debug("Request to get all categories by status");
+        return categoryRepository.findByEnabledOrderByIndexAsc(status).stream()
+            .map(categoryMapper::toDto)
+            .collect(Collectors.toCollection(LinkedList::new));
+    }
 
     /**
      * Get one category by id.

@@ -199,10 +199,10 @@ export default class Header extends React.Component<IHeaderProps, IHeaderState> 
             </div>
             <ul className="menu left-menu">
               <li>
-                <Link to={'/mua'}>Mua</Link>
+                <Link to={'/tim-kiem?actionType=FOR_SELL'}>Mua</Link>
               </li>
               <li>
-                <Link to={'/thue'}>Thuê</Link>
+                <Link to={'/tim-kiem?actionType=FOR_RENT'}>Thuê</Link>
               </li>
               <li>
                 <Link to={'/tro-giup'}>Trợ giúp</Link>

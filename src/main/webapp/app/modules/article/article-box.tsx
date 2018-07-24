@@ -26,16 +26,76 @@ export class ArticleBox extends React.Component<IArticleBoxProp> {
   render() {
     return (
       <Row>
-        <Container>
-          <Row>
-            <h2>{this.props.title}</h2>
-            {this.props.contents.map(article => {
-              <Col md="4">
-                <div>{article.title}</div>
-              </Col>;
-            })}
-          </Row>
-        </Container>
+        <div className="gridview">
+          <div className="col-md-3 post-item">
+            <div className="item-thumbnail">
+              <a href="#">
+                <img src="/static/upload/products/item-1.png" />
+              </a>
+              <div className="type chothue">KINH TẾ ĐẦU TƯ</div>
+            </div>
+            <div className="item-info">
+              <a href="#">
+                <h3 className="title">Bí quyết để có một ngôi nhà đẹp</h3>
+              </a>
+              <p className="location">
+                Satellite imagery appears to show Pyongyang has demolished buildings at the Sohae rocket launch site.
+              </p>
+            </div>
+            <div className="clearfix" />
+          </div>
+          <div className="col-md-3 post-item">
+            <div className="item-thumbnail">
+              <a href="#">
+                <img src="/static/upload/products/item-1.png" />
+              </a>
+              <div className="type chothue">KINH TẾ ĐẦU TƯ</div>
+            </div>
+            <div className="item-info">
+              <a href="#">
+                <h3 className="title">Bí quyết để có một ngôi nhà đẹp</h3>
+              </a>
+              <p className="location">
+                Satellite imagery appears to show Pyongyang has demolished buildings at the Sohae rocket launch site.
+              </p>
+            </div>
+            <div className="clearfix" />
+          </div>
+          <div className="col-md-3 post-item">
+            <div className="item-thumbnail">
+              <a href="#">
+                <img src="/static/upload/products/item-1.png" />
+              </a>
+              <div className="type chothue">KINH TẾ ĐẦU TƯ</div>
+            </div>
+            <div className="item-info">
+              <a href="#">
+                <h3 className="title">Bí quyết để có một ngôi nhà đẹp</h3>
+              </a>
+              <p className="location">
+                Satellite imagery appears to show Pyongyang has demolished buildings at the Sohae rocket launch site.
+              </p>
+            </div>
+            <div className="clearfix" />
+          </div>
+          <div className="col-md-3 post-item">
+            <div className="item-thumbnail">
+              <a href="#">
+                <img src="/static/upload/products/item-1.png" />
+              </a>
+              <div className="type chothue">KINH TẾ ĐẦU TƯ</div>
+            </div>
+            <div className="item-info">
+              <a href="#">
+                <h3 className="title">Bí quyết để có một ngôi nhà đẹp</h3>
+              </a>
+              <p className="location">
+                Satellite imagery appears to show Pyongyang has demolished buildings at the Sohae rocket launch site.
+              </p>
+            </div>
+            <div className="clearfix" />
+          </div>
+        </div>
       </Row>
     );
   }

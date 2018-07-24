@@ -5,6 +5,7 @@ import com.landexp.LandexpApp;
 import com.landexp.domain.Article;
 import com.landexp.repository.ArticleRepository;
 import com.landexp.service.ArticleService;
+import com.landexp.service.CategoryService;
 import com.landexp.service.dto.ArticleDTO;
 import com.landexp.service.mapper.ArticleMapper;
 import com.landexp.web.rest.errors.ExceptionTranslator;
@@ -82,9 +83,11 @@ public class ArticleResourceIntTest {
     @Autowired
     private ArticleMapper articleMapper;
 
-
     @Autowired
     private ArticleService articleService;
+
+    @Autowired
+    private CategoryService categoryService;
 
     @Autowired
     private MappingJackson2HttpMessageConverter jacksonMessageConverter;
@@ -105,7 +108,7 @@ public class ArticleResourceIntTest {
     @Before
     public void setup() {
         MockitoAnnotations.initMocks(this);
-        final ArticleResource articleResource = new ArticleResource(articleService);
+        final ArticleResource articleResource = new ArticleResource(articleService, categoryService);
         this.restArticleMockMvc = MockMvcBuilders.standaloneSetup(articleResource)
             .setCustomArgumentResolvers(pageableArgumentResolver)
             .setControllerAdvice(exceptionTranslator)

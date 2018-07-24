@@ -57,6 +57,11 @@ const Article = Loadable({
   loader: () => import(/* webpackChunkName: "article" */ 'app/modules/article/article'),
   loading: () => <Loading />
 });
+
+const ArticleDetail = Loadable({
+  loader: () => import(/* webpackChunkName: "article-detail" */ 'app/modules/article/article-detail'),
+  loading: () => <Loading />
+});
 // tslint:enable
 
 const Routes = () => (
@@ -72,7 +77,8 @@ const Routes = () => (
       <PrivateRoute path="/tai-khoan" component={Account} hasAnyAuthorities={[AUTHORITIES.USER]} />
       <PrivateRoute path="/quan-ly" component={Entities} hasAnyAuthorities={[AUTHORITIES.STAFF]} />
       <ErrorBoundaryRoute path="/bat-dong-san/:id/:link" component={Detail} />
-      <ErrorBoundaryRoute path="/tin-tuc/:id/:link" component={Article} />
+      <ErrorBoundaryRoute path="/tin-tuc" component={Article} />
+      <ErrorBoundaryRoute path="/tin-tuc-chi-tiet/:id/:link" component={ArticleDetail} />
       <ErrorBoundaryRoute path="/tim-kiem" component={Search} />
       <ErrorBoundaryRoute path="/" component={Home} />
     </Switch>

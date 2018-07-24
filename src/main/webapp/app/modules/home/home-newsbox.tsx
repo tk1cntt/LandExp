@@ -7,8 +7,6 @@ import { connect } from 'react-redux';
 import { Row, Col, Alert } from 'reactstrap';
 import { getSession } from 'app/shared/reducers/authentication';
 
-import SearchPage from 'app/shared/layout/search/search-menu';
-
 export interface IHomeProp extends StateProps, DispatchProps {}
 
 export class HomePanelUser extends React.Component<IHomeProp> {

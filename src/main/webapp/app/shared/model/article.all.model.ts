@@ -3,7 +3,7 @@ import { IArticle } from './article.model';
 
 export interface IMapArticle {
   key?: string;
-  contents?: IArticle[];
+  value?: IArticle[];
 }
 
 export const defaultValue: Readonly<IMapArticle> = {};

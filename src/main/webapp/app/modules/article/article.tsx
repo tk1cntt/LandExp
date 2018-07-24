@@ -5,7 +5,7 @@ import { RouteComponentProps } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { Row, Col, Container } from 'reactstrap';
 
-import { getTopList } from 'app/entities/article/article.reducer';
+import { getTopCategoryEntities } from 'app/entities/article/article.reducer';
 
 import Loading from 'app/shared/layout/loading/loading';
 import SearchPage from 'app/shared/layout/search/search-menu';
@@ -16,26 +16,19 @@ export interface IArticleProp extends StateProps, DispatchProps, RouteComponentP
 
 export class Article extends React.Component<IArticleProp> {
   componentDidMount() {
-    this.props.getTopList();
+    this.props.getTopCategoryEntities();
   }
 
   render() {
     return (
-      <Row>
-        <SearchPage location={this.props.location} history={this.props.history} />
-        <Container>
-          {this.props.loading ? (
-            <Loading />
-          ) : (
-            <>
-              <HomeNewsBox />
-              {this.props.articleList.map(article => {
-                <ArticleBox title={article.key} contents={article.contents} />;
-              })}
-            </>
-          )}
-        </Container>
-      </Row>
+      <Container className="article">
+        <HomeNewsBox />
+        <Row>
+          <ArticleBox title="Danh sach" contents={{}} />
+          <ArticleBox title="Danh sach" contents={{}} />
+          <ArticleBox title="Danh sach" contents={{}} />
+        </Row>
+      </Container>
     );
   }
 }
@@ -45,7 +38,7 @@ const mapStateToProps = ({ article }) => ({
   loading: article.loadingTopList
 });
 
-const mapDispatchToProps = { getTopList };
+const mapDispatchToProps = { getTopCategoryEntities };
 
 type StateProps = ReturnType<typeof mapStateToProps>;
 type DispatchProps = typeof mapDispatchToProps;

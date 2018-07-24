@@ -182,6 +182,14 @@ export const getTopEntities: ICrudGetAllAction<IArticle> = (page, size, sort) =>
   };
 };
 
+export const getTopCategoryEntities: ICrudGetAllAction<IArticle> = (page, size, sort) => {
+  const requestUrl = `${apiUrl}/all${sort ? `?page=${page}&size=${size}&sort=${sort}` : ''}`;
+  return {
+    type: ACTION_TYPES.FETCH_ARTICLE_TOP_LIST,
+    payload: client.get<IArticle>(`${requestUrl}${sort ? '&' : '?'}cacheBuster=${new Date().getTime()}`)
+  };
+};
+
 export const getTopList: ICrudGetAllAction<IArticle> = (page, size, sort) => {
   const requestUrl = `${apiUrl}/5/top${sort ? `?page=${page}&size=${size}&sort=${sort}` : ''}`;
   return {
