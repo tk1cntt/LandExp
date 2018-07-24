@@ -2,16 +2,10 @@ import './article.css';
 
 import React from 'react';
 import { RouteComponentProps } from 'react-router-dom';
-import { TextFormat } from 'react-jhipster';
 import { connect } from 'react-redux';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { Row, Col, Container, Breadcrumb, BreadcrumbItem } from 'reactstrap';
-import ImageGallery from 'react-image-gallery';
+import { Row, Col, Container } from 'reactstrap';
 
-import { getLandType, getDirection, getMoney, encodeId, decodeId } from 'app/shared/util/utils';
 import { getTopList } from 'app/entities/article/article.reducer';
-import { getImageOfHouse } from 'app/entities/house-photo/house-photo.reducer';
-import { SERVER_API_URL, APP_LOCAL_DATE_FORMAT } from 'app/config/constants';
 
 import Loading from 'app/shared/layout/loading/loading';
 

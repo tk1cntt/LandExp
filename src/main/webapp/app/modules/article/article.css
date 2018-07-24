@@ -12,3 +12,37 @@
   margin-top: 20px;
   margin-bottom: 20px;
 }
+
+.article .right-menu .article-item {
+  display: inline-block;
+  border: 1px solid #e8e8e8;
+}
+
+.article .right-menu .article-thumbnail {
+  width: 260px;
+  height: 216px;
+}
+
+.article .right-menu .article-thumbnail img {
+  object-fit: cover; /* Do not scale the image */
+  object-position: center; /* Center the image within the element */
+  width: 260px !important;
+  height: 216px;
+}
+
+.article .right-menu .article-info {
+  float: left;
+}
+
+.article .right-menu .article-info h3 {
+  padding: 10px;
+  font-size: 16px;
+  color: #222;
+  overflow: hidden;
+}
+
+.article .right-menu .article-info .location {
+  padding-top: 10px;
+  padding-left: 13px;
+  border-top: 1px solid #dfdfdf;
+}
