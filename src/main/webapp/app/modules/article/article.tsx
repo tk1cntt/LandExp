@@ -5,7 +5,7 @@ import { RouteComponentProps } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { Row, Col, Container } from 'reactstrap';
 
-import { getTopCategoryEntities } from 'app/entities/article/article.reducer';
+import { getEntities, getTopCategoryEntities } from 'app/entities/article/article.reducer';
 
 import Loading from 'app/shared/layout/loading/loading';
 import SearchPage from 'app/shared/layout/search/search-menu';
@@ -19,32 +19,21 @@ export interface IArticleProp extends StateProps, DispatchProps, RouteComponentP
 
 export class Article extends React.Component<IArticleProp> {
   componentDidMount() {
-    this.props.getTopCategoryEntities();
+    this.props.getEntities();
   }
 
   render() {
+    console.log(this.props.articleList);
     return (
       <Row>
         <Container className="article">
           <HomeNewsBox />
           <Row>
-            <ArticleBox title="Danh sach" contents={{}} />
-            <ArticleBox title="Danh sach" contents={{}} />
-            <ArticleBox title="Danh sach" contents={{}} />
             <Row>
               <div className="gridview">
-                <ArticleItem article={{}} />
-                <ArticleItem article={{}} />
-                <ArticleItem article={{}} />
-                <ArticleItem article={{}} />
-                <ArticleItem article={{}} />
-                <ArticleItem article={{}} />
-                <ArticleItem article={{}} />
-                <ArticleItem article={{}} />
-                <ArticleItem article={{}} />
-                <ArticleItem article={{}} />
-                <ArticleItem article={{}} />
-                <ArticleItem article={{}} />
+                {this.props.articleList.map((article, i) => <ArticleItem key={`article-id-${i}`} article={article} /> )}
+                {this.props.articleList.map((article, i) => <ArticleItem key={`article-id-${i}`} article={article} /> )}
+                {this.props.articleList.map((article, i) => <ArticleItem key={`article-id-${i}`} article={article} /> )}
               </div>
             </Row>
           </Row>
@@ -55,11 +44,11 @@ export class Article extends React.Component<IArticleProp> {
 }
 
 const mapStateToProps = ({ article }) => ({
-  articleList: article.topListEntities,
-  loading: article.loadingTopList
+  articleList: article.entities,
+  loading: article.loading
 });
 
-const mapDispatchToProps = { getTopCategoryEntities };
+const mapDispatchToProps = { getEntities, getTopCategoryEntities };
 
 type StateProps = ReturnType<typeof mapStateToProps>;
 type DispatchProps = typeof mapDispatchToProps;

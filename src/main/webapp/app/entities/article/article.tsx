@@ -81,17 +81,11 @@ export class Article extends React.Component<IArticleProps, IArticleState> {
                       <Table responsive>
                         <thead>
                           <tr>
-                            <th className="hand" onClick={this.sort('avatar')}>
-                              <Translate contentKey="landexpApp.article.avatar">Avatar</Translate> <FontAwesomeIcon icon="sort" />
-                            </th>
                             <th className="hand" onClick={this.sort('title')}>
                               <Translate contentKey="landexpApp.article.title">Title</Translate> <FontAwesomeIcon icon="sort" />
                             </th>
                             <th className="hand" onClick={this.sort('statusType')}>
                               <Translate contentKey="landexpApp.article.statusType">Status Type</Translate> <FontAwesomeIcon icon="sort" />
-                            </th>
-                            <th className="hand" onClick={this.sort('hits')}>
-                              <Translate contentKey="landexpApp.article.hits">Hits</Translate> <FontAwesomeIcon icon="sort" />
                             </th>
                             <th className="hand" onClick={this.sort('createAt')}>
                               <Translate contentKey="landexpApp.article.createAt">Create At</Translate> <FontAwesomeIcon icon="sort" />
@@ -108,25 +102,8 @@ export class Article extends React.Component<IArticleProps, IArticleState> {
                         <tbody>
                           {articleList.map((article, i) => (
                             <tr key={`entity-${i}`}>
-                              <td>
-                                {article.avatar ? (
-                                  <div>
-                                    <a onClick={openFile(article.avatarContentType, article.avatar)}>
-                                      <img
-                                        src={`data:${article.avatarContentType};base64,${article.avatar}`}
-                                        style={{ maxHeight: '30px' }}
-                                      />
-                                      &nbsp;
-                                    </a>
-                                    <span>
-                                      {article.avatarContentType}, {byteSize(article.avatar)}
-                                    </span>
-                                  </div>
-                                ) : null}
-                              </td>
                               <td>{article.title}</td>
-                              <td>{article.statusType}</td>
-                              <td>{article.hits}</td>
+                              <td>{article.statusType === 'OPEN' ? 'Chờ duyệt' : 'Đã duyệt'}</td>
                               <td>
                                 <TextFormat type="date" value={article.createAt} format={APP_LOCAL_DATE_FORMAT} />
                               </td>

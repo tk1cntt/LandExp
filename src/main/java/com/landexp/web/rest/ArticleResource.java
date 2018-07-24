@@ -7,6 +7,7 @@ import com.landexp.domain.Category_;
 import com.landexp.frontend.responses.MappingUtils;
 import com.landexp.repository.CategoryRepository;
 import com.landexp.security.AuthoritiesConstants;
+import com.landexp.security.SecurityUtils;
 import com.landexp.service.ArticleService;
 import com.landexp.service.CategoryService;
 import com.landexp.service.dto.ArticleDTO;
@@ -18,6 +19,7 @@ import com.landexp.web.rest.util.HeaderUtil;
 import com.landexp.web.rest.util.PaginationUtil;
 import io.github.jhipster.web.util.ResponseUtil;
 import net.coobird.thumbnailator.Thumbnails;
+import net.coobird.thumbnailator.geometry.Positions;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.data.domain.Page;
@@ -68,7 +70,8 @@ public class ArticleResource {
         if (articleDTO.getId() != null) {
             throw new BadRequestAlertException("A new article cannot already have an ID", ENTITY_NAME, "idexists");
         }
-        ArticleDetailDTO result = articleService.save(articleDTO);
+        String username = SecurityUtils.getCurrentUserLogin().get();
+        ArticleDetailDTO result = articleService.saveByUsername(articleDTO, username);
         return ResponseEntity.created(new URI("/api/articles/" + result.getId()))
             .headers(HeaderUtil.createEntityCreationAlert(ENTITY_NAME, result.getId().toString()))
             .body(result);
@@ -91,7 +94,8 @@ public class ArticleResource {
         if (articleDTO.getId() == null) {
             throw new BadRequestAlertException("Invalid id", ENTITY_NAME, "idnull");
         }
-        ArticleDetailDTO result = articleService.save(articleDTO);
+        String username = SecurityUtils.getCurrentUserLogin().get();
+        ArticleDetailDTO result = articleService.updateByUsername(articleDTO, username);
         return ResponseEntity.ok()
             .headers(HeaderUtil.createEntityUpdateAlert(ENTITY_NAME, articleDTO.getId().toString()))
             .body(result);
@@ -197,7 +201,8 @@ public class ArticleResource {
         ArticleDetailDTO articleDTO = articleService.findOne(Utils.decodeId(id)).get();
         ByteArrayOutputStream bao = new ByteArrayOutputStream();
         Thumbnails.of(MappingUtils.createImageFromBytes(articleDTO.getAvatar()))
-            .size(538, 376)
+            .size(278, 180)
+            .crop(Positions.CENTER)
             .outputFormat("jpg")
             .toOutputStream(bao);
         return bao.toByteArray();

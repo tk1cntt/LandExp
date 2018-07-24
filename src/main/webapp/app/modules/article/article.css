@@ -45,4 +45,6 @@
   padding-top: 10px;
   padding-left: 13px;
   border-top: 1px solid #dfdfdf;
+  max-height: 50px;
+  overflow: hidden;
 }

@@ -15,13 +15,11 @@ public class ArticleDTO implements Serializable {
 
     private String link;
 
-    @Lob
-    private byte[] avatar;
-    private String avatarContentType;
-
     private String title;
 
     private Boolean enabled;
+
+    private String summary;
 
     private StatusType statusType;
 
@@ -43,22 +41,6 @@ public class ArticleDTO implements Serializable {
 
     public void setId(Long id) {
         this.id = id;
-    }
-
-    public byte[] getAvatar() {
-        return avatar;
-    }
-
-    public void setAvatar(byte[] avatar) {
-        this.avatar = avatar;
-    }
-
-    public String getAvatarContentType() {
-        return avatarContentType;
-    }
-
-    public void setAvatarContentType(String avatarContentType) {
-        this.avatarContentType = avatarContentType;
     }
 
     public String getLink() {
@@ -83,6 +65,14 @@ public class ArticleDTO implements Serializable {
 
     public void setEnabled(Boolean enabled) {
         this.enabled = enabled;
+    }
+
+    public String getSummary() {
+        return summary;
+    }
+
+    public void setSummary(String summary) {
+        this.summary = summary;
     }
 
     public StatusType getStatusType() {
@@ -168,6 +158,8 @@ public class ArticleDTO implements Serializable {
             "id=" + getId() +
             ", link='" + getLink() + "'" +
             ", title='" + getTitle() + "'" +
+            ", enabled='" + isEnabled() + "'" +
+            ", summary='" + getSummary() + "'" +
             ", statusType='" + getStatusType() + "'" +
             ", hits=" + getHits() +
             ", createAt='" + getCreateAt() + "'" +

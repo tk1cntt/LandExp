@@ -86,9 +86,8 @@ export class ArticleUpdate extends React.Component<IArticleUpdateProps, IArticle
   }
 
   componentDidMount() {
-    if (this.state.isNew) {
-      this.props.reset();
-    } else {
+    this.props.reset();
+    if (!this.state.isNew) {
       this.props.getEntity(this.props.match.params.id);
     }
 

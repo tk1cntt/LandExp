@@ -17,6 +17,7 @@ import com.landexp.web.rest.util.HeaderUtil;
 import com.landexp.web.rest.util.PaginationUtil;
 import io.github.jhipster.web.util.ResponseUtil;
 import net.coobird.thumbnailator.Thumbnails;
+import net.coobird.thumbnailator.geometry.Positions;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.data.domain.Page;
@@ -270,6 +271,7 @@ public class HouseResource {
         ByteArrayOutputStream bao = new ByteArrayOutputStream();
         Thumbnails.of(MappingUtils.createImageFromBytes(dto.getAvatar()))
             .size(538, 376)
+            .crop(Positions.CENTER)
             .outputFormat("jpg")
             .toOutputStream(bao);
         return bao.toByteArray();

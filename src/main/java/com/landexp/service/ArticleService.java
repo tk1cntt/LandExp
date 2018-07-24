@@ -1,8 +1,10 @@
 package com.landexp.service;
 
 import com.landexp.domain.Article;
+import com.landexp.domain.User;
 import com.landexp.domain.enumeration.StatusType;
 import com.landexp.repository.ArticleRepository;
+import com.landexp.repository.UserRepository;
 import com.landexp.service.dto.ArticleDTO;
 import com.landexp.service.dto.ArticleDetailDTO;
 import com.landexp.service.mapper.ArticleMapper;
@@ -30,12 +32,15 @@ public class ArticleService {
     private final Logger log = LoggerFactory.getLogger(ArticleService.class);
 
     private final ArticleRepository articleRepository;
+    private final UserRepository userRepository;
 
     private final ArticleMapper articleMapper;
 
-    public ArticleService(ArticleRepository articleRepository, ArticleMapper articleMapper) {
+    public ArticleService(ArticleRepository articleRepository, ArticleMapper articleMapper, UserRepository userRepository) {
         this.articleRepository = articleRepository;
         this.articleMapper = articleMapper;
+        this.userRepository = userRepository;
+
     }
 
     /**
@@ -47,6 +52,37 @@ public class ArticleService {
     public ArticleDetailDTO save(ArticleDetailDTO articleDTO) {
         log.debug("Request to save Article : {}", articleDTO);
         Article article = articleMapper.toEntity(articleDTO);
+        article = articleRepository.save(article);
+        return articleMapper.toDetailDto(article);
+    }
+
+    /**
+     * Save a article.
+     *
+     * @param articleDTO the entity to save
+     * @return the persisted entity
+     */
+    public ArticleDetailDTO saveByUsername(ArticleDetailDTO articleDTO, String username) {
+        log.debug("Request to save Article : {}", articleDTO);
+        Article article = articleMapper.toEntity(articleDTO);
+        Optional<User> existingUser = userRepository.findOneByLogin(username);
+        article.setCreateBy(existingUser.get());
+        article.setUpdateBy(existingUser.get());
+        article = articleRepository.save(article);
+        return articleMapper.toDetailDto(article);
+    }
+
+    /**
+     * Update a article.
+     *
+     * @param articleDTO the entity to save
+     * @return the persisted entity
+     */
+    public ArticleDetailDTO updateByUsername(ArticleDetailDTO articleDTO, String username) {
+        log.debug("Request to save Article : {}", articleDTO);
+        Article article = articleMapper.toEntity(articleDTO);
+        Optional<User> existingUser = userRepository.findOneByLogin(username);
+        article.setUpdateBy(existingUser.get());
         article = articleRepository.save(article);
         return articleMapper.toDetailDto(article);
     }
