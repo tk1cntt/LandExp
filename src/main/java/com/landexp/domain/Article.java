@@ -41,10 +41,12 @@ public class Article implements Serializable {
     @Column(name = "enabled")
     private Boolean enabled;
 
-    @Column(name = "summary")
+    @Lob
+    @Column(name = "summary", columnDefinition = "LONGTEXT")
     private String summary;
 
-    @Column(name = "content")
+    @Lob
+    @Column(name = "content", columnDefinition = "LONGTEXT")
     private String content;
 
     @Enumerated(EnumType.STRING)
