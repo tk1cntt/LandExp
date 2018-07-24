@@ -25,7 +25,7 @@ public interface ArticleRepository extends JpaRepository<Article, Long> {
 
     Page<Article> findByCategoryIdAndStatusTypeOrderByCreateAtDesc(Long id, StatusType statusType, Pageable pageable);
 
-    List<Article> findTop3ByCategoryIdAndStatusTypeOrderByCreateAtDesc(Long id, StatusType statusType);
+    List<Article> findTop4ByCategoryIdAndStatusTypeOrderByCreateAtDesc(Long id, StatusType statusType);
 
     List<Article> findTop5ByStatusTypeOrderByCreateAtDesc(StatusType statusType);
 

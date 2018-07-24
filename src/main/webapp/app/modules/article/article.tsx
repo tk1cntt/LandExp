@@ -5,7 +5,7 @@ import { RouteComponentProps } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { Row, Col, Container } from 'reactstrap';
 
-import { getEntities, getTopCategoryEntities } from 'app/entities/article/article.reducer';
+import { getEntities } from 'app/entities/article/article.reducer';
 
 import Loading from 'app/shared/layout/loading/loading';
 import SearchPage from 'app/shared/layout/search/search-menu';
@@ -23,7 +23,6 @@ export class Article extends React.Component<IArticleProp> {
   }
 
   render() {
-    console.log(this.props.articleList);
     return (
       <Row>
         <Container className="article">
@@ -31,9 +30,9 @@ export class Article extends React.Component<IArticleProp> {
           <Row>
             <Row>
               <div className="gridview">
-                {this.props.articleList.map((article, i) => <ArticleItem key={`article-id-${i}`} article={article} /> )}
-                {this.props.articleList.map((article, i) => <ArticleItem key={`article-id-${i}`} article={article} /> )}
-                {this.props.articleList.map((article, i) => <ArticleItem key={`article-id-${i}`} article={article} /> )}
+                {this.props.articleList.map((article, i) => (
+                  <ArticleItem key={`article-id-${i}`} article={article} />
+                ))}
               </div>
             </Row>
           </Row>
@@ -48,7 +47,7 @@ const mapStateToProps = ({ article }) => ({
   loading: article.loading
 });
 
-const mapDispatchToProps = { getEntities, getTopCategoryEntities };
+const mapDispatchToProps = { getEntities };
 
 type StateProps = ReturnType<typeof mapStateToProps>;
 type DispatchProps = typeof mapDispatchToProps;

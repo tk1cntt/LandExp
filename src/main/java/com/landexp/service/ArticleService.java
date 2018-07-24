@@ -103,7 +103,6 @@ public class ArticleService {
     /**
      * Get top 5 the articles.
      *
-     * @param id the category id
      * @return the list of entities
      */
     @Transactional(readOnly = true)
@@ -123,7 +122,7 @@ public class ArticleService {
     @Transactional(readOnly = true)
     public List<ArticleDTO> findTopBy(Long id) {
         log.debug("Request to get all Articles");
-        return articleRepository.findTop3ByCategoryIdAndStatusTypeOrderByCreateAtDesc(id, StatusType.PAID).stream()
+        return articleRepository.findTop4ByCategoryIdAndStatusTypeOrderByCreateAtDesc(id, StatusType.PAID).stream()
             .map(articleMapper::toDto)
             .collect(Collectors.toCollection(LinkedList::new));
     }

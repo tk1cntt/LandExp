@@ -1,6 +1,7 @@
 import './article.css';
 
 import React from 'react';
+import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { encodeId } from 'app/shared/util/utils';
 import { SERVER_API_URL } from 'app/config/constants';
@@ -20,11 +21,11 @@ export class ArticleItem extends React.Component<IArticleItemProp> {
     return (
       <div className="col-md-3 post-item">
         <div className="item-thumbnail">
-          <a href="#">
+          <Link to={`/tin-tuc-chi-tiet/${encodeId(article.id)}/${article.link}`}>
             <img src={`${SERVER_API_URL}/api/articles/${encodeId(article.id)}/avatar/${article.link}-${encodeId(
               article.id
             )}.jpg`} />
-          </a>
+          </Link>
           <div className="type chothue">{this.props.article.categoryName}</div>
         </div>
         <div className="item-info">
