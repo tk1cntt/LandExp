@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 import { Row, Col, Label } from 'reactstrap';
 import { AvForm, AvGroup, AvInput, AvField } from 'availity-reactstrap-validation';
 import { Translate, setFileData, openFile, byteSize } from 'react-jhipster';
+import ReactQuill from 'react-quill';
 import { Select, Input, Checkbox } from 'antd';
 const Option = Select.Option;
 
@@ -27,6 +28,7 @@ export interface IHouseDetailUpdateState {
   bedRoom: any;
   bathRoom: any;
   parking: any;
+  summary: any;
 }
 
 export class HouseDetailUpdate extends React.Component<IHouseDetailUpdateProps, IHouseDetailUpdateState> {
@@ -43,7 +45,8 @@ export class HouseDetailUpdate extends React.Component<IHouseDetailUpdateProps, 
     acreageStreetSide: undefined,
     bedRoom: undefined,
     bathRoom: undefined,
-    parking: undefined
+    parking: undefined,
+    summary: ''
   };
 
   componentDidMount() {
@@ -196,6 +199,15 @@ export class HouseDetailUpdate extends React.Component<IHouseDetailUpdateProps, 
     });
   };
 
+  onChangeSummary = value => {
+    this.setState({
+      summary: value
+    });
+    this.props.updateHouse({
+      summary: value
+    });
+  };
+
   render() {
     const formItemLayout = {
       labelCol: {
@@ -210,7 +222,7 @@ export class HouseDetailUpdate extends React.Component<IHouseDetailUpdateProps, 
 
     return (
       <>
-        <Row>
+        <Row style={{ marginBottom: 10 }}>
           <Col md="6">
             <Label id="actionTypeLabel">
               <Translate contentKey="landexpApp.house.actionType">Action Type</Translate>
@@ -252,7 +264,7 @@ export class HouseDetailUpdate extends React.Component<IHouseDetailUpdateProps, 
             </Select>
           </Col>
         </Row>
-        <Row>
+        <Row style={{ marginBottom: 10 }}>
           <Col md="6">
             <Label id="projectLabel" for="project">
               <Translate contentKey="landexpApp.house.project">Project</Translate>
@@ -265,15 +277,15 @@ export class HouseDetailUpdate extends React.Component<IHouseDetailUpdateProps, 
             >
               {landProjects
                 ? landProjects.map(otherEntity => (
-                  <Option value={otherEntity.id} key={otherEntity.id}>
-                    {otherEntity.name}
-                  </Option>
-                ))
+                    <Option value={otherEntity.id} key={otherEntity.id}>
+                      {otherEntity.name}
+                    </Option>
+                  ))
                 : null}
             </Select>
           </Col>
         </Row>
-        <Row>
+        <Row style={{ marginBottom: 10 }}>
           <Col md="6">
             <Label id="acreageLabel" for="acreage">
               <Translate contentKey="landexpApp.house.acreage">Acreage</Translate>
@@ -287,7 +299,7 @@ export class HouseDetailUpdate extends React.Component<IHouseDetailUpdateProps, 
             <Input defaultValue={houseEntity.acreageStreetSide} onChange={this.onChangeAcreageStreetSide} />
           </Col>
         </Row>
-        <Row>
+        <Row style={{ marginBottom: 10 }}>
           <Col md="6">
             <Label id="directionLabel">
               <Translate contentKey="landexpApp.house.direction">Direction</Translate>
@@ -329,7 +341,7 @@ export class HouseDetailUpdate extends React.Component<IHouseDetailUpdateProps, 
             </Select>
           </Col>
         </Row>
-        <Row>
+        <Row style={{ marginBottom: 10 }}>
           <Col md="6">
             <Label id="numberOfFloorLabel" for="numberOfFloor">
               <Translate contentKey="landexpApp.house.floor">Floor</Translate>
@@ -343,37 +355,38 @@ export class HouseDetailUpdate extends React.Component<IHouseDetailUpdateProps, 
             <Input defaultValue={houseEntity.numberOfFloor} type="number" onChange={this.onChangeNumberOfFloor} />
           </Col>
         </Row>
-        <Row>
+        <Row style={{ marginBottom: 10 }}>
           <Col md="6">
-            <AvGroup>
-              <Label id="bathRoomLabel" for="bathRoom">
-                <Translate contentKey="landexpApp.house.bathRoom">Bath Room</Translate>
-              </Label>
-              <Input defaultValue={houseEntity.bathRoom} type="number" onChange={this.onChangeBedRoom} />
-            </AvGroup>
+            <Label id="bathRoomLabel" for="bathRoom">
+              <Translate contentKey="landexpApp.house.bathRoom">Bath Room</Translate>
+            </Label>
+            <Input defaultValue={houseEntity.bathRoom} type="number" onChange={this.onChangeBedRoom} />
           </Col>
           <Col md="6">
-            <AvGroup>
-              <Label id="bedRoomLabel" for="bedRoom">
-                <Translate contentKey="landexpApp.house.bedRoom">Bed Room</Translate>
-              </Label>
-              <Input defaultValue={houseEntity.bedRoom} type="number" onChange={this.onChangeBathRoom} />
-            </AvGroup>
+            <Label id="bedRoomLabel" for="bedRoom">
+              <Translate contentKey="landexpApp.house.bedRoom">Bed Room</Translate>
+            </Label>
+            <Input defaultValue={houseEntity.bedRoom} type="number" onChange={this.onChangeBathRoom} />
           </Col>
         </Row>
-        <Row>
+        <Row style={{ marginBottom: 10 }}>
           <Col md="12">
-            <Checkbox onChange={this.onChangeParking}><Translate contentKey="landexpApp.house.parking">Parking</Translate></Checkbox>
+            <Checkbox onChange={this.onChangeParking}>
+              <Translate contentKey="landexpApp.house.parking">Parking</Translate>
+            </Checkbox>
           </Col>
         </Row>
-        <Row>
+        <Row style={{ marginBottom: 10 }}>
           <Col md="12">
-            <AvGroup>
-              <Label id="summaryLabel" for="summary">
-                <Translate contentKey="landexpApp.house.summary">Summary</Translate>
-              </Label>
-              <AvField id="house-summary" type="text" name="summary" />
-            </AvGroup>
+            <Label id="summaryLabel" for="summary">
+              <Translate contentKey="landexpApp.house.summary">Summary</Translate>
+            </Label>
+            <ReactQuill
+              bounds={'.app-editor'}
+              defaultValue={this.state.summary || houseEntity.summary || ''}
+              onChange={this.onChangeSummary}
+              placeholder="Tóm tắt bản tin"
+            />
           </Col>
         </Row>
       </>
