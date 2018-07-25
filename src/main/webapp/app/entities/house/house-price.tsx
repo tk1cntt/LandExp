@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 import { Row, Col, Label } from 'reactstrap';
 import { AvForm, AvGroup, AvInput, AvField } from 'availity-reactstrap-validation';
 import { Translate, setFileData, openFile, byteSize } from 'react-jhipster';
+import NumberFormat from 'react-number-format';
 import { Select, Input, Cascader } from 'antd';
 const Option = Select.Option;
 
@@ -28,21 +29,23 @@ export class HousePriceUpdate extends React.Component<IHousePriceUpdateProps, IH
     present: undefined
   };
 
-  onChangeMoney = e => {
+  onChangeMoney = values => {
+    const { formattedValue, value } = values;
     this.setState({
-      money: e.target.value
+      money: formattedValue
     });
     this.props.updateHouse({
-      money: e.target.value
+      money: value
     });
   };
 
-  onChangeDiscount = e => {
+  onChangeDiscount = values => {
+    const { formattedValue, value } = values;
     this.setState({
-      discount: e.target.value
+      discount: formattedValue
     });
     this.props.updateHouse({
-      discount: e.target.value
+      discount: value
     });
   };
 
@@ -74,13 +77,25 @@ export class HousePriceUpdate extends React.Component<IHousePriceUpdateProps, IH
           <Label id="moneyLabel" for="money">
             <Translate contentKey="landexpApp.house.money">Money</Translate>
           </Label>
-          <Input defaultValue={houseEntity.money} onChange={this.onChangeMoney} />
+          <NumberFormat
+            value={houseEntity.money}
+            displayType={'input'}
+            customInput={Input}
+            thousandSeparator
+            onValueChange={this.onChangeMoney}
+          />
         </Col>
         <Col md="6">
           <Label id="discountLabel" for="discount">
             <Translate contentKey="landexpApp.house.discount">Discount</Translate>
           </Label>
-          <Input defaultValue={houseEntity.discount} onChange={this.onChangeDiscount} />
+          <NumberFormat
+            value={houseEntity.discount}
+            displayType={'input'}
+            customInput={Input}
+            thousandSeparator
+            onValueChange={this.onChangeDiscount}
+          />
         </Col>
         <Col md="6">
           <Label id="saleTypeLabel">

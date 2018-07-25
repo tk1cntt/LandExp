@@ -27,7 +27,18 @@ export class HouseAddressUpdate extends React.Component<IHouseAddressUpdateProps
   };
 
   componentDidMount() {
-    const locations = this.state.locations;
+    this.mappingCity();
+  }
+
+  componentDidUpdate(prevProps) {
+    // Typical usage (don't forget to compare props):
+    if (this.props.cities !== prevProps.cities) {
+      this.mappingCity();
+    }
+  }
+
+  mappingCity() {
+    const locations = [];
     this.props.cities.map(city => {
       const cityData = {
         value: city.id,
@@ -81,7 +92,9 @@ export class HouseAddressUpdate extends React.Component<IHouseAddressUpdateProps
     });
   };
 
-  updateMarkerPosition = position => {};
+  updateMarkerPosition = position => {
+    this.props.updateHouse(position);
+  };
 
   render() {
     const formItemLayout = {
@@ -107,23 +120,21 @@ export class HouseAddressUpdate extends React.Component<IHouseAddressUpdateProps
           <strong>Vị trí bất động sản của bạn?</strong>
         </h3>
         <Col md="12">
-          <Form>
-            <FormItem {...formItemLayout} label="Thành phố">
-              <Cascader
-                defaultValue={this.state.city || defaultValue}
-                options={this.state.locations}
-                onChange={this.onChangeCascader}
-                placeholder="Chọn thành phố"
-              />
-            </FormItem>
-            <FormItem {...formItemLayout} label="Địa chỉ chi tiết">
-              <Input
-                placeholder="Số nhà, ngõ, ngách, phố"
-                value={this.state.address || this.props.houseEntity.address}
-                onChange={this.onChangeAddress}
-              />
-            </FormItem>
-          </Form>
+          <FormItem {...formItemLayout} label="Thành phố">
+            <Cascader
+              defaultValue={this.state.city || defaultValue}
+              options={this.state.locations}
+              onChange={this.onChangeCascader}
+              placeholder="Chọn thành phố"
+            />
+          </FormItem>
+          <FormItem {...formItemLayout} label="Địa chỉ chi tiết">
+            <Input
+              placeholder="Số nhà, ngõ, ngách, phố"
+              value={this.state.address || this.props.houseEntity.address}
+              onChange={this.onChangeAddress}
+            />
+          </FormItem>
           <GoogleMaps updateMarkerPosition={this.updateMarkerPosition} currentPosition={currentPosition} />
         </Col>
       </>

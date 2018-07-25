@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 import { Translate } from 'react-jhipster';
 import { connect } from 'react-redux';
 import { Row, Col, Alert } from 'reactstrap';
-import * as NumberFormat from 'react-number-format';
+import NumberFormat from 'react-number-format';
 import { Cascader, Input, Form, Radio } from 'antd';
 const FormItem = Form.Item;
 const InputGroup = Input.Group;

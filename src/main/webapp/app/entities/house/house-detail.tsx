@@ -15,6 +15,8 @@ export interface IHouseDetailUpdateProps extends StateProps, DispatchProps {
 }
 
 export interface IHouseDetailUpdateState {
+  actionType: any;
+  landType: any;
   city: any;
   address: any;
   locations: any;
@@ -33,6 +35,8 @@ export interface IHouseDetailUpdateState {
 
 export class HouseDetailUpdate extends React.Component<IHouseDetailUpdateProps, IHouseDetailUpdateState> {
   state: IHouseDetailUpdateState = {
+    actionType: undefined,
+    landType: undefined,
     city: undefined,
     address: undefined,
     locations: [],
@@ -48,37 +52,6 @@ export class HouseDetailUpdate extends React.Component<IHouseDetailUpdateProps, 
     parking: undefined,
     summary: ''
   };
-
-  componentDidMount() {
-    const locations = this.state.locations;
-    const cities = this.props.cities;
-    cities.map(city => {
-      const cityData = {
-        value: city.id,
-        label: city.name,
-        children: []
-      };
-      city.districts.map(data => {
-        const districtData = {
-          value: data.id,
-          label: data.name,
-          children: []
-        };
-        data.wards.map(ward => {
-          const wardData = {
-            value: ward.id,
-            label: ward.name
-          };
-          districtData.children.push(wardData);
-        });
-        cityData.children.push(districtData);
-      });
-      locations.push(cityData);
-    });
-    this.setState({
-      locations
-    });
-  }
 
   onChangeCascader = value => {
     this.setState({
@@ -102,19 +75,28 @@ export class HouseDetailUpdate extends React.Component<IHouseDetailUpdateProps, 
 
   onChangeActionType = value => {
     this.setState({
-      address: value
+      actionType: value
     });
     this.props.updateHouse({
-      address: value
+      actionType: value
+    });
+  };
+
+  onChangeLandType = value => {
+    this.setState({
+      landType: value
+    });
+    this.props.updateHouse({
+      landType: value
     });
   };
 
   onChangeProject = value => {
     this.setState({
-      address: value
+      projectId: value
     });
     this.props.updateHouse({
-      address: value
+      projectId: value
     });
   };
 
@@ -229,7 +211,7 @@ export class HouseDetailUpdate extends React.Component<IHouseDetailUpdateProps, 
             </Label>
             <Select
               style={{ width: '100%' }}
-              value={houseEntity.actionType || 'FOR_SELL'}
+              defaultValue={houseEntity.actionType}
               placeholder="Hình thức"
               onChange={this.onChangeActionType}
             >
@@ -243,9 +225,9 @@ export class HouseDetailUpdate extends React.Component<IHouseDetailUpdateProps, 
             </Label>
             <Select
               style={{ width: '100%' }}
-              value={houseEntity.landType || 'APARTMENT'}
+              defaultValue={houseEntity.landType}
               placeholder="Loại hình bất động sản"
-              onChange={this.onChangeActionType}
+              onChange={this.onChangeLandType}
             >
               <Option value="APARTMENT">{getLandType('APARTMENT')}</Option>
               <Option value="PEN_HOUSE">{getLandType('PEN_HOUSE')}</Option>
@@ -271,7 +253,7 @@ export class HouseDetailUpdate extends React.Component<IHouseDetailUpdateProps, 
             </Label>
             <Select
               style={{ width: '100%' }}
-              defaultValue={this.state.projectId}
+              defaultValue={houseEntity.projectId}
               placeholder="Danh sách dự án"
               onChange={this.onChangeProject}
             >
