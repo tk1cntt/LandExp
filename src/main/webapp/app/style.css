@@ -1696,7 +1696,8 @@ label {
 .product-info .price {
   font-size: 22px;
   color: #3a65f9;
-  margin-top: 15px;
+  margin-top: 9px;
+  margin-bottom: 0px;
 }
 
 .product-info .property {
@@ -1767,7 +1768,7 @@ label {
 #product-content .contact {
   background-color: #f4f7ff;
   border: none;
-  padding: 27px 10px;
+  padding: 22px 10px;
 }
 
 #product-content .contact h3 {
