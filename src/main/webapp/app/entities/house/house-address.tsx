@@ -1,6 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { Row, Col } from 'reactstrap';
+import { Row, Col, Label } from 'reactstrap';
 import { Form, Input, Cascader } from 'antd';
 const FormItem = Form.Item;
 
@@ -116,25 +116,26 @@ export class HouseAddressUpdate extends React.Component<IHouseAddressUpdateProps
 
     return (
       <>
-        <h3 className="text-center">
-          <strong>Vị trí bất động sản của bạn?</strong>
-        </h3>
-        <Col md="12">
-          <FormItem {...formItemLayout} label="Thành phố">
-            <Cascader
-              defaultValue={this.state.city || defaultValue}
-              options={this.state.locations}
-              onChange={this.onChangeCascader}
-              placeholder="Chọn thành phố"
-            />
-          </FormItem>
-          <FormItem {...formItemLayout} label="Địa chỉ chi tiết">
-            <Input
-              placeholder="Số nhà, ngõ, ngách, phố"
-              value={this.state.address || this.props.houseEntity.address}
-              onChange={this.onChangeAddress}
-            />
-          </FormItem>
+        <h3 className="text-center">Vị trí bất động sản của bạn?</h3>
+        <Col md="12" style={{ marginBottom: 20 }}>
+          <Label>Thành phố</Label>
+          <Cascader
+            style={{ width: '100%' }}
+            defaultValue={this.state.city || defaultValue}
+            options={this.state.locations}
+            onChange={this.onChangeCascader}
+            placeholder="Chọn thành phố"
+          />
+        </Col>
+        <Col md="12" style={{ marginBottom: 20 }}>
+          <Label>Địa chỉ</Label>
+          <Input
+            placeholder="Số nhà, ngõ, ngách, phố"
+            value={this.state.address || this.props.houseEntity.address}
+            onChange={this.onChangeAddress}
+          />
+        </Col>
+        <Col md="12" style={{ marginBottom: 20 }}>
           <GoogleMaps updateMarkerPosition={this.updateMarkerPosition} currentPosition={currentPosition} />
         </Col>
       </>
