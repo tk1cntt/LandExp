@@ -133,18 +133,22 @@ export class House extends React.Component<IHouseProps, IHouseState> {
                           <td>{house.createByLogin}</td>
                           <td className="text-right">
                             <div className="btn-group flex-btn-group-container">
-                              <Button tag={Link} to={`/tai-khoan/xem-truoc-tin-dang/${encodeId(house.id)}`} color="info" size="sm">
+                              <Button tag={Link} to={`/bat-dong-san/${encodeId(house.id)}/xem-truoc-tin-dang`} color="info" size="sm">
                                 <FontAwesomeIcon icon="eye" />{' '}
                                 <span className="d-none d-md-inline">
                                   <Translate contentKey="entity.action.view">View</Translate>
                                 </span>
                               </Button>
-                              <Button tag={Link} to={`/tai-khoan/sua-tin-dang/${encodeId(house.id)}`} color="primary" size="sm">
-                                <FontAwesomeIcon icon="pencil-alt" />{' '}
-                                <span className="d-none d-md-inline">
-                                  <Translate contentKey="entity.action.edit">Edit</Translate>
-                                </span>
-                              </Button>
+                              {house.statusType !== 'PAID' ? (
+                                <Button tag={Link} to={`/tai-khoan/sua-tin-dang/${encodeId(house.id)}`} color="primary" size="sm">
+                                  <FontAwesomeIcon icon="pencil-alt" />{' '}
+                                  <span className="d-none d-md-inline">
+                                    <Translate contentKey="entity.action.edit">Edit</Translate>
+                                  </span>
+                                </Button>
+                              ) : (
+                                ''
+                              )}
                               {house.statusType === 'PENDING' ? (
                                 <Button tag={Link} to={`/tai-khoan/thanh-toan/${encodeId(house.id)}`} color="warning" size="sm">
                                   <FontAwesomeIcon icon="coffee" />{' '}

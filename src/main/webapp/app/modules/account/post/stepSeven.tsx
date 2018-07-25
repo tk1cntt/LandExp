@@ -47,10 +47,7 @@ export class StepSeven extends React.Component<IStepSevenProp, IStepSevenState> 
         </h3>
         <p>Bạn đã hoàn tất việc cung cấp thông tin đăng bán bất động sản trên website của chúng tôi.</p>
         <p>
-          <i>
-            Bạn vui lòng kiểm tra lại thông tin đăng bán ở cột bên phải. Nếu thông tin chính xác bạn vui lòng hoàn tất đăng tin bằng cách
-            nhấn vào nút “Đăng tin”.
-          </i>
+          <i>Bạn vui lòng kiểm tra lại thông tin đăng bán ở cột bên phải.</i>
         </p>
         <p>
           Bạn sẽ cần thanh toán khoản phí đăng tin 1 lần duy nhất, tin đăng của bạn sẽ được hiển thị trên website ngay. Chúng tôi sẽ bắt đầu

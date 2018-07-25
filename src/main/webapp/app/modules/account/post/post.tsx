@@ -71,7 +71,8 @@ export class PostPage extends React.Component<IPostProp, IPostState> {
 
   gotoPreview = () => {
     // Go to preview page
-    this.props.history.push(`/tai-khoan/xem-truoc-tin-dang/${encodeId(this.props.house.id)}`);
+    // this.props.history.push(`/tai-khoan/xem-truoc-tin-dang/${encodeId(this.props.house.id)}`);
+    this.props.history.push(`/bat-dong-san/${encodeId(this.props.house.id)}/xem-truoc-tin-dang`);
   };
 
   prev = () => {

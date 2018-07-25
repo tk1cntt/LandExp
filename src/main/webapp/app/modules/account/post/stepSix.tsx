@@ -44,12 +44,16 @@ export class StepSix extends React.Component<IStepSixProp, IStepSixState> {
   };
 
   onChangeMobile = e => {
-    this.setState({
-      mobile: e.target.value
-    });
-    this.props.updateHouse({
-      mobile: e.target.value
-    });
+    const { value } = e.target;
+    const reg = /^-?(0|[1-9][0-9]*)(\.[0-9]*)?$/;
+    if ((!isNaN(value) && reg.test(value)) || value === '' || value === '-') {
+      this.setState({
+        mobile: e.target.value
+      });
+      this.props.updateHouse({
+        mobile: e.target.value
+      });
+    }
   };
 
   onChangeEmail = e => {
