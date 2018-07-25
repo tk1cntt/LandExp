@@ -54,7 +54,7 @@ export class SearchPage extends React.Component<ISearchPageProp> {
   }
 
   mappingCity() {
-    const locations = this.state.locations;
+    const locations = []; // this.state.locations;
     this.props.cities.map(city => {
       const cityData = {
         value: city.id,

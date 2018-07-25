@@ -73,7 +73,7 @@ export class HousePriceUpdate extends React.Component<IHousePriceUpdateProps, IH
     const { houseEntity } = this.props;
     return (
       <>
-        <Col md="6">
+        <Col md="6" style={{ marginBottom: 20 }}>
           <Label id="moneyLabel" for="money">
             <Translate contentKey="landexpApp.house.money">Money</Translate>
           </Label>
@@ -85,7 +85,7 @@ export class HousePriceUpdate extends React.Component<IHousePriceUpdateProps, IH
             onValueChange={this.onChangeMoney}
           />
         </Col>
-        <Col md="6">
+        <Col md="6" style={{ marginBottom: 20 }}>
           <Label id="discountLabel" for="discount">
             <Translate contentKey="landexpApp.house.discount">Discount</Translate>
           </Label>
@@ -97,7 +97,7 @@ export class HousePriceUpdate extends React.Component<IHousePriceUpdateProps, IH
             onValueChange={this.onChangeDiscount}
           />
         </Col>
-        <Col md="6">
+        <Col md="6" style={{ marginBottom: 20 }}>
           <Label id="saleTypeLabel">
             <Translate contentKey="landexpApp.house.saleType">Sale Type</Translate>
           </Label>
@@ -108,7 +108,7 @@ export class HousePriceUpdate extends React.Component<IHousePriceUpdateProps, IH
             <Option value="SALE_SUPPORT_VIP">{getSaleType('SALE_SUPPORT_VIP')}</Option>
           </Select>
         </Col>
-        <Col md="6">
+        <Col md="6" style={{ marginBottom: 20 }}>
           <Label id="presentLabel">
             <Translate contentKey="landexpApp.house.present">Present</Translate>
           </Label>

@@ -1,7 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { Row, Col, Label } from 'reactstrap';
-import { AvForm, AvGroup, AvInput, AvField } from 'availity-reactstrap-validation';
 import { Translate, setFileData, openFile, byteSize } from 'react-jhipster';
 import { Form, Input, Cascader } from 'antd';
 const FormItem = Form.Item;
@@ -79,38 +78,34 @@ export class HouseInfoUpdate extends React.Component<IHouseInfoUpdateProps, IHou
     const { houseEntity } = this.props;
     return (
       <>
-        <Col md="6">
+        <Col md="6" style={{ marginBottom: 20 }}>
           <Label id="customerLabel" for="customer">
             <Translate contentKey="landexpApp.house.customer">Customer</Translate>
           </Label>
           <Input defaultValue={houseEntity.customer} onChange={this.onChangeCustomer} />
         </Col>
-        <Col md="6">
+        <Col md="6" style={{ marginBottom: 20 }}>
           <Label id="mobileLabel" for="mobile">
             <Translate contentKey="landexpApp.house.mobile">Mobile</Translate>
           </Label>
-          <AvField id="house-mobile" type="text" name="mobile" />
           <Input defaultValue={houseEntity.mobile} type="number" onChange={this.onChangeMobile} />
         </Col>
-        <Col md="6">
+        <Col md="6" style={{ marginBottom: 20 }}>
           <Label id="emailLabel" for="email">
             <Translate contentKey="landexpApp.house.email">Email</Translate>
           </Label>
-          <AvField id="house-email" type="text" name="email" />
           <Input defaultValue={houseEntity.email} onChange={this.onChangeEmail} />
         </Col>
-        <Col md="6">
+        <Col md="6" style={{ marginBottom: 20 }}>
           <Label id="facebookLabel" for="facebook">
             <Translate contentKey="landexpApp.house.facebook">Facebook</Translate>
           </Label>
-          <AvField id="house-facebook" type="text" name="facebook" />
           <Input defaultValue={houseEntity.facebook} onChange={this.onChangeFacebook} />
         </Col>
-        <Col md="6">
+        <Col md="6" style={{ marginBottom: 20 }}>
           <Label id="zaloLabel" for="zalo">
             <Translate contentKey="landexpApp.house.zalo">Zalo</Translate>
           </Label>
-          <AvField id="house-zalo" type="text" name="zalo" />
           <Input defaultValue={houseEntity.zalo} onChange={this.onChangeZalo} />
         </Col>
       </>

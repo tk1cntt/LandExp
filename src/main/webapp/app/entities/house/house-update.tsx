@@ -17,7 +17,7 @@ import { getEntities as getLandProjects } from 'app/entities/land-project/land-p
 import { getUsers } from 'app/modules/administration/user-management/user-management.reducer';
 import { getEntity, updateEntity, createEntity, setBlob, reset } from './house.reducer';
 import { getActionType, getLandType, getCityType, getDirection, getPresent, getSaleType, getStatusType } from 'app/shared/util/utils';
-import { getImageOfHouse } from 'app/entities/house-photo/house-photo.reducer';
+import { getImageOfHouse, createEntity as createPhoto } from 'app/entities/house-photo/house-photo.reducer';
 
 import Loading from 'app/shared/layout/loading/loading';
 import SearchPage from 'app/shared/layout/search/search-menu';
@@ -30,13 +30,6 @@ import HousePhotoUpdate from './house-photo';
 export interface IHouseUpdateProps extends StateProps, DispatchProps, RouteComponentProps<{ id: number }> {}
 
 export interface IHouseUpdateState {
-  isNew: boolean;
-  cityId: number;
-  districtId: number;
-  wardId: number;
-  projectId: number;
-  createById: number;
-  updateById: number;
   house: any;
 }
 
@@ -44,25 +37,13 @@ export class HouseUpdate extends React.Component<IHouseUpdateProps, IHouseUpdate
   constructor(props) {
     super(props);
     this.state = {
-      cityId: 0,
-      districtId: 0,
-      wardId: 0,
-      projectId: 0,
-      createById: 0,
-      updateById: 0,
-      house: {},
-      isNew: !this.props.match.params || !this.props.match.params.id
+      house: {}
     };
   }
 
   componentDidMount() {
-    if (this.state.isNew) {
-      this.props.reset();
-    } else {
-      this.props.getEntity(this.props.match.params.id);
-      this.props.getImageOfHouse(this.props.match.params.id);
-    }
-
+    this.props.getEntity(this.props.match.params.id);
+    this.props.getImageOfHouse(this.props.match.params.id);
     this.props.getLandProjects();
   }
 
@@ -79,11 +60,18 @@ export class HouseUpdate extends React.Component<IHouseUpdateProps, IHouseUpdate
       ...houseEntity,
       ...this.state.house
     };
-
-    if (this.state.isNew) {
-      this.props.createEntity(entity);
-    } else {
-      this.props.updateEntity(entity);
+    this.props.updateEntity(entity);
+    if (entity.fileList) {
+      entity.fileList.map(file => {
+        if (file.photoId) {
+          // this.props.updatePhoto({ id: file.photoId, image: realData, imageContentType: file.type, houseId: this.props.house.id });
+        } else {
+          const imageURL = file.thumbUrl;
+          const block = imageURL.split(';');
+          const realData = block[1].split(',')[1];
+          this.props.createPhoto({ image: realData, imageContentType: file.type, houseId: houseEntity.id });
+        }
+      });
     }
     this.handleClose();
   };
@@ -95,8 +83,6 @@ export class HouseUpdate extends React.Component<IHouseUpdateProps, IHouseUpdate
   render() {
     const isInvalid = false;
     const { houseEntity, cities, districts, wards, landProjects, users, loading, updating } = this.props;
-    const { isNew } = this.state;
-
     const { avatar, avatarContentType } = houseEntity;
 
     const entity = {
@@ -115,42 +101,40 @@ export class HouseUpdate extends React.Component<IHouseUpdateProps, IHouseUpdate
               ) : (
                 <Row>
                   <Card title="Thông tin chi tiết về ngôi nhà">
-                    <AvForm model={isNew ? {} : houseEntity} className="home-edit-content" onSubmit={this.saveEntity}>
-                      <Tabs defaultActiveKey="1">
-                        <TabPane tab="Đặc điểm" key="1">
-                          <HouseDetail updateHouse={this.updateHouse} houseEntity={entity} />
-                        </TabPane>
-                        <TabPane tab="Giá" key="2">
-                          <HousePrice updateHouse={this.updateHouse} houseEntity={entity} />
-                        </TabPane>
-                        <TabPane tab="Địa chỉ" key="3">
-                          <HouseAddress updateHouse={this.updateHouse} houseEntity={entity} />
-                        </TabPane>
-                        <TabPane tab="Hình ảnh" key="4">
-                          <HousePhotoUpdate updateHouse={this.updateHouse} houseEntity={entity} />
-                        </TabPane>
-                        <TabPane tab="Liên hệ" key="5">
-                          <HouseInfoUpdate updateHouse={this.updateHouse} houseEntity={entity} />
-                        </TabPane>
-                      </Tabs>
-                      <Row className="justify-content-center">
+                    <Tabs defaultActiveKey="1">
+                      <TabPane tab="Đặc điểm" key="1">
+                        <HouseDetail updateHouse={this.updateHouse} houseEntity={entity} />
+                      </TabPane>
+                      <TabPane tab="Giá" key="2">
+                        <HousePrice updateHouse={this.updateHouse} houseEntity={entity} />
+                      </TabPane>
+                      <TabPane tab="Địa chỉ" key="3">
+                        <HouseAddress updateHouse={this.updateHouse} houseEntity={entity} />
+                      </TabPane>
+                      <TabPane tab="Hình ảnh" key="4">
+                        <HousePhotoUpdate updateHouse={this.updateHouse} houseEntity={entity} />
+                      </TabPane>
+                      <TabPane tab="Liên hệ" key="5">
+                        <HouseInfoUpdate updateHouse={this.updateHouse} houseEntity={entity} />
+                      </TabPane>
+                    </Tabs>
+                    <Row className="justify-content-center">
+                      <Col md="12">
                         <Col md="12">
-                          <Col md="12">
-                            <Button tag={Link} id="cancel-save" to="/quan-ly/tin-dang" replace color="info">
-                              <FontAwesomeIcon icon="arrow-left" />&nbsp;
-                              <span className="d-none d-md-inline">
-                                <Translate contentKey="entity.action.back">Back</Translate>
-                              </span>
-                            </Button>
-                            &nbsp;
-                            <Button color="primary" id="save-entity" type="submit" disabled={isInvalid || updating}>
-                              <FontAwesomeIcon icon="save" />&nbsp;
-                              <Translate contentKey="entity.action.save">Save</Translate>
-                            </Button>
-                          </Col>
+                          <Button tag={Link} id="cancel-save" to="/quan-ly/tin-dang" replace color="info">
+                            <FontAwesomeIcon icon="arrow-left" />&nbsp;
+                            <span className="d-none d-md-inline">
+                              <Translate contentKey="entity.action.back">Back</Translate>
+                            </span>
+                          </Button>
+                          &nbsp;
+                          <Button color="primary" id="save-entity" type="submit" disabled={isInvalid || updating}>
+                            <FontAwesomeIcon icon="save" />&nbsp;
+                            <Translate contentKey="entity.action.save">Save</Translate>
+                          </Button>
                         </Col>
-                      </Row>
-                    </AvForm>
+                      </Col>
+                    </Row>
                   </Card>
                 </Row>
               )}
@@ -182,6 +166,7 @@ const mapDispatchToProps = {
   getUsers,
   getEntity,
   updateEntity,
+  createPhoto,
   setBlob,
   createEntity,
   reset

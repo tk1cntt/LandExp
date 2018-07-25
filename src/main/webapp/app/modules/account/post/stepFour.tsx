@@ -4,9 +4,11 @@ import { Translate } from 'react-jhipster';
 import { connect } from 'react-redux';
 import { Upload, Icon, Modal, Carousel, Spin } from 'antd';
 
+import { SERVER_API_URL } from 'app/config/constants';
 import { IRootState } from 'app/shared/reducers';
 import { getSession } from 'app/shared/reducers/authentication';
 import { deleteEntity } from 'app/entities/house-photo/house-photo.reducer';
+import { encodeId } from 'app/shared/util/utils';
 
 export interface IStepFourProp extends StateProps, DispatchProps {
   updateHouse: Function;
@@ -27,15 +29,21 @@ export class StepFour extends React.Component<IStepFourProp, IStepFourState> {
   };
 
   componentDidMount() {
+    const fileList = [];
     this.props.housePhotoList.map(photo => {
-      this.state.fileList.push({
+      const thumbUrl = `${SERVER_API_URL}/api/house-photos/${encodeId(photo.id)}/contents/${this.props.house.link}-${encodeId(
+        photo.id
+      )}.jpg`;
+      fileList.push({
         uid: photo.id,
         photoId: photo.id,
-        thumbUrl: 'data:image/jpeg;base64,' + photo.image,
-        type: photo.imageContentType
+        thumbUrl
+        // thumbUrl: 'data:image/jpeg;base64,' + photo.image,
+        // type: photo.imageContentType
       });
-      this.props.updateHouse({ fileList: this.state.fileList });
     });
+    this.setState({ fileList });
+    this.props.updateHouse({ fileList });
   }
 
   handleCancel = () => {

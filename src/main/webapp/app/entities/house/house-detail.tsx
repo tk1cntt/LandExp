@@ -204,7 +204,7 @@ export class HouseDetailUpdate extends React.Component<IHouseDetailUpdateProps, 
 
     return (
       <>
-        <Row style={{ marginBottom: 10 }}>
+        <Row style={{ marginBottom: 20 }}>
           <Col md="6">
             <Label id="actionTypeLabel">
               <Translate contentKey="landexpApp.house.actionType">Action Type</Translate>
@@ -246,7 +246,7 @@ export class HouseDetailUpdate extends React.Component<IHouseDetailUpdateProps, 
             </Select>
           </Col>
         </Row>
-        <Row style={{ marginBottom: 10 }}>
+        <Row style={{ marginBottom: 20 }}>
           <Col md="6">
             <Label id="projectLabel" for="project">
               <Translate contentKey="landexpApp.house.project">Project</Translate>
@@ -267,7 +267,7 @@ export class HouseDetailUpdate extends React.Component<IHouseDetailUpdateProps, 
             </Select>
           </Col>
         </Row>
-        <Row style={{ marginBottom: 10 }}>
+        <Row style={{ marginBottom: 20 }}>
           <Col md="6">
             <Label id="acreageLabel" for="acreage">
               <Translate contentKey="landexpApp.house.acreage">Acreage</Translate>
@@ -281,7 +281,7 @@ export class HouseDetailUpdate extends React.Component<IHouseDetailUpdateProps, 
             <Input defaultValue={houseEntity.acreageStreetSide} onChange={this.onChangeAcreageStreetSide} />
           </Col>
         </Row>
-        <Row style={{ marginBottom: 10 }}>
+        <Row style={{ marginBottom: 20 }}>
           <Col md="6">
             <Label id="directionLabel">
               <Translate contentKey="landexpApp.house.direction">Direction</Translate>
@@ -323,7 +323,7 @@ export class HouseDetailUpdate extends React.Component<IHouseDetailUpdateProps, 
             </Select>
           </Col>
         </Row>
-        <Row style={{ marginBottom: 10 }}>
+        <Row style={{ marginBottom: 20 }}>
           <Col md="6">
             <Label id="numberOfFloorLabel" for="numberOfFloor">
               <Translate contentKey="landexpApp.house.floor">Floor</Translate>
@@ -337,7 +337,7 @@ export class HouseDetailUpdate extends React.Component<IHouseDetailUpdateProps, 
             <Input defaultValue={houseEntity.numberOfFloor} type="number" onChange={this.onChangeNumberOfFloor} />
           </Col>
         </Row>
-        <Row style={{ marginBottom: 10 }}>
+        <Row style={{ marginBottom: 20 }}>
           <Col md="6">
             <Label id="bathRoomLabel" for="bathRoom">
               <Translate contentKey="landexpApp.house.bathRoom">Bath Room</Translate>
@@ -351,14 +351,14 @@ export class HouseDetailUpdate extends React.Component<IHouseDetailUpdateProps, 
             <Input defaultValue={houseEntity.bedRoom} type="number" onChange={this.onChangeBathRoom} />
           </Col>
         </Row>
-        <Row style={{ marginBottom: 10 }}>
+        <Row style={{ marginBottom: 20 }}>
           <Col md="12">
             <Checkbox onChange={this.onChangeParking}>
               <Translate contentKey="landexpApp.house.parking">Parking</Translate>
             </Checkbox>
           </Col>
         </Row>
-        <Row style={{ marginBottom: 10 }}>
+        <Row style={{ marginBottom: 20 }}>
           <Col md="12">
             <Label id="summaryLabel" for="summary">
               <Translate contentKey="landexpApp.house.summary">Summary</Translate>
