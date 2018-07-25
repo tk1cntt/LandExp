@@ -125,57 +125,6 @@ export class ArticleUpdate extends React.Component<IArticleUpdateProps, IArticle
     this.props.history.push('/quan-ly/tin-tuc');
   };
 
-  categoryUpdate = element => {
-    const name = element.target.value.toString();
-    if (name === '') {
-      this.setState({
-        categoryId: -1
-      });
-    } else {
-      for (const i in this.props.categories) {
-        if (name === this.props.categories[i].name.toString()) {
-          this.setState({
-            categoryId: this.props.categories[i].id
-          });
-        }
-      }
-    }
-  };
-
-  createByUpdate = element => {
-    const login = element.target.value.toString();
-    if (login === '') {
-      this.setState({
-        createById: -1
-      });
-    } else {
-      for (const i in this.props.users) {
-        if (login === this.props.users[i].login.toString()) {
-          this.setState({
-            createById: this.props.users[i].id
-          });
-        }
-      }
-    }
-  };
-
-  updateByUpdate = element => {
-    const login = element.target.value.toString();
-    if (login === '') {
-      this.setState({
-        updateById: -1
-      });
-    } else {
-      for (const i in this.props.users) {
-        if (login === this.props.users[i].login.toString()) {
-          this.setState({
-            updateById: this.props.users[i].id
-          });
-        }
-      }
-    }
-  };
-
   onChangeTitle = e => {
     this.setState({
       title: e.target.value

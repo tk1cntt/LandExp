@@ -210,6 +210,7 @@ export class Detail extends React.Component<IDetailProp, IDetailState> {
         });
       });
     }
+
     return (
       <Row>
         <SearchPage location={this.props.location} history={this.props.history} />

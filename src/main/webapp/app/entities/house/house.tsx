@@ -1,11 +1,12 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { Link, RouteComponentProps } from 'react-router-dom';
-import { Col, Row, Container, Table, Button } from 'reactstrap';
-import { getLandType, getSaleType, getStatusType } from 'app/shared/util/utils';
+import { Col, Row, Container, Label, Table, Button } from 'reactstrap';
+import { getActionType, getLandType, getCityType, getDirection, getPresent, getSaleType, getStatusType } from 'app/shared/util/utils';
 import { Translate, getSortState, IPaginationBaseState, getPaginationItemsNumber, JhiPagination } from 'react-jhipster';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { Modal, Card, Icon, Tooltip } from 'antd';
+import { Select, Modal, Card, Icon, Tooltip } from 'antd';
+const Option = Select.Option;
 
 import Loading from 'app/shared/layout/loading/loading';
 import SearchPage from 'app/shared/layout/search/search-menu';
@@ -21,12 +22,14 @@ export interface IHouseProps extends StateProps, DispatchProps, RouteComponentPr
 export interface IHouseState extends IPaginationBaseState {
   showDelete: any;
   houseId: any;
+  parameters: any;
 }
 
 export class House extends React.Component<IHouseProps, IHouseState> {
   state: IHouseState = {
     showDelete: false,
     houseId: undefined,
+    parameters: {},
     ...getSortState(this.props.location, ITEMS_PER_PAGE)
   };
 
@@ -81,6 +84,60 @@ export class House extends React.Component<IHouseProps, IHouseState> {
     });
   };
 
+  menuTypeClick = value => {
+    const parameters = { actionType: value };
+    const nextParameter = { ...this.state.parameters, ...parameters };
+    this.setState({
+      parameters: nextParameter
+    });
+  };
+
+  actionTypeForm() {
+    return (
+      <Select
+        style={{ width: 140, marginRight: -2 }}
+        value={this.state.parameters.actionType}
+        placeholder="Hình thức"
+        onChange={this.menuTypeClick}
+      >
+        <Option value="FOR_SELL">Bán</Option>
+        <Option value="FOR_RENT">Cho thuê</Option>
+      </Select>
+    );
+  }
+
+  menuLandTypeClick = value => {
+    const parameters = { landType: value };
+    const nextParameter = { ...this.state.parameters, ...parameters };
+    this.setState({
+      parameters: nextParameter
+    });
+  };
+
+  landTypeForm() {
+    return (
+      <Select
+        style={{ width: 180, marginRight: -2 }}
+        value={this.state.parameters.landType}
+        placeholder="Loại bất động sản"
+        onChange={this.menuLandTypeClick}
+      >
+        <Option value="APARTMENT">{getLandType('APARTMENT')}</Option>
+        <Option value="HOME">{getLandType('HOME')}</Option>
+        <Option value="HOME_VILLA">{getLandType('HOME_VILLA')}</Option>
+        <Option value="HOME_STREET_SIDE">{getLandType('HOME_STREET_SIDE')}</Option>
+        <Option value="LAND_SCAPE">{getLandType('LAND_SCAPE')}</Option>
+        <Option value="LAND_OF_PROJECT">{getLandType('LAND_OF_PROJECT')}</Option>
+        <Option value="LAND_FARM">{getLandType('LAND_FARM')}</Option>
+        <Option value="LAND_RESORT">{getLandType('LAND_RESORT')}</Option>
+        <Option value="MOTEL_ROOM">{getLandType('MOTEL_ROOM')}</Option>
+        <Option value="OFFICE">{getLandType('OFFICE')}</Option>
+        <Option value="WAREHOUSES">{getLandType('WAREHOUSES')}</Option>
+        <Option value="KIOSKS">{getLandType('KIOSKS')}</Option>
+      </Select>
+    );
+  }
+
   render() {
     const { houseList, match, totalItems } = this.props;
     return (
@@ -94,6 +151,10 @@ export class House extends React.Component<IHouseProps, IHouseState> {
               ) : (
                 <Row>
                   <Card title="Danh sách tin đăng">
+                    <Row style={{ marginBottom: 20 }}>
+                      {this.actionTypeForm()}
+                      {this.landTypeForm()}
+                    </Row>
                     <div className="table-responsive">
                       <Table responsive>
                         <thead>
@@ -143,15 +204,15 @@ export class House extends React.Component<IHouseProps, IHouseState> {
                                     <Translate contentKey="entity.action.edit">Edit</Translate>
                                   </span>
                                 </Button>
-                                {!this.props.isManager ? (
-                                  ''
-                                ) : (
+                                {this.props.isManager && house.statusType !== 'PAID' ? (
                                   <Button onClick={this.showDeleteConfirm.bind(this, house.id)} color="danger" size="sm">
                                     <FontAwesomeIcon icon="trash" />{' '}
                                     <span className="d-none d-md-inline">
                                       <Translate contentKey="entity.action.delete">Delete</Translate>
                                     </span>
                                   </Button>
+                                ) : (
+                                  ''
                                 )}
                               </td>
                             </tr>
@@ -159,9 +220,7 @@ export class House extends React.Component<IHouseProps, IHouseState> {
                         </tbody>
                       </Table>
                     </div>
-                    {!this.state.showDelete ? (
-                      ''
-                    ) : (
+                    {this.state.showDelete ? (
                       <Modal
                         title="Bạn có muốn xoá tin đăng này?"
                         visible={this.state.showDelete}
@@ -173,6 +232,8 @@ export class House extends React.Component<IHouseProps, IHouseState> {
                       >
                         <p>Hãy xác nhận lại thông tin trước khi thực hiện hành động xoá</p>
                       </Modal>
+                    ) : (
+                      ''
                     )}
                     <Row className="justify-content-center">
                       <JhiPagination

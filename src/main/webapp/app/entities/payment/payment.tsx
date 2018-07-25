@@ -115,6 +115,7 @@ export class Payment extends React.Component<IPaymentProps, IPaymentState> {
                             <th>
                               <Translate contentKey="landexpApp.payment.customer">Customer</Translate> <FontAwesomeIcon icon="sort" />
                             </th>
+                            <th className="hand">Nhân viên</th>
                             <th />
                           </tr>
                         </thead>
@@ -131,23 +132,25 @@ export class Payment extends React.Component<IPaymentProps, IPaymentState> {
                                 )}
                               </td>
                               <td>{getPaymentStatus(payment.paymentStatus)}</td>
+                              <td>{payment.createAt ? payment.createAt : ''}</td>
                               <td>{payment.customerLogin ? payment.customerLogin : ''}</td>
-                              <td style={{ display: 'inline-block', width: 70 }}>
-                                <div style={{ float: 'left', marginRight: 5 }} onClick={this.gotoEdit.bind(this, payment.id)}>
-                                  <Tooltip placement="top" title={'Sửa tin đăng'}>
-                                    <Icon type="edit" />{' '}
-                                  </Tooltip>
-                                </div>
-                                {payment.paymentStatus === 'PAID' ? (
-                                  ''
-                                ) : (
+                              <td>{payment.updateByLogin ? payment.updateByLogin : ''}</td>
+                              {payment.paymentStatus !== 'PAID' ? (
+                                <td style={{ display: 'inline-block', width: 70 }}>
+                                  <div style={{ float: 'left', marginRight: 5 }} onClick={this.gotoEdit.bind(this, payment.id)}>
+                                    <Tooltip placement="top" title={'Sửa tin đăng'}>
+                                      <Icon type="edit" />{' '}
+                                    </Tooltip>
+                                  </div>
                                   <div style={{ float: 'left' }} onClick={this.showPaymentConfirm.bind(this, payment)}>
                                     <Tooltip placement="top" title={'Xác nhận thanh toán'}>
                                       <Icon type="pay-circle" />
                                     </Tooltip>
                                   </div>
-                                )}
-                              </td>
+                                </td>
+                              ) : (
+                                <td />
+                              )}
                             </tr>
                           ))}
                         </tbody>

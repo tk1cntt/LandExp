@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 import { Translate } from 'react-jhipster';
 import { connect } from 'react-redux';
 import { Row, Col, Alert } from 'reactstrap';
-import * as NumberFormat from 'react-number-format';
+import NumberFormat from 'react-number-format';
 import { Cascader, Input, Form, Radio } from 'antd';
 const FormItem = Form.Item;
 const InputGroup = Input.Group;
@@ -100,7 +100,7 @@ export class StepFive extends React.Component<IStepFiveProp, IStepFiveState> {
         </Col>
         <Col md="12">
           <Form>
-            <FormItem {...formItemLayout} label="Giá bán đề xuất">
+            <FormItem {...formItemLayout} label="Giá đề xuất">
               <NumberFormat
                 value={this.state.money || this.props.house.money}
                 displayType={'input'}
@@ -109,7 +109,7 @@ export class StepFive extends React.Component<IStepFiveProp, IStepFiveState> {
                 onValueChange={this.onChangeMoney}
               />
             </FormItem>
-            <FormItem {...formItemLayout} label="Giá bán mong muốn">
+            <FormItem {...formItemLayout} label="Giá mong muốn">
               <NumberFormat
                 value={this.state.discount || this.props.house.discount}
                 displayType={'input'}

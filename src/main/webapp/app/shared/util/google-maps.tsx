@@ -44,12 +44,18 @@ const MyMapComponent: React.StatelessComponent<{
                 return response.json(); //we only get here if there is no error
               })
               .then(response => {
-                console.log(response.results[0]);
-                console.log(response.results[0].address_components[response.results[0].address_components.length - 1].long_name);
-                console.log(response.results[0].address_components[response.results[0].address_components.length - 2].long_name);
-                console.log(response.results[0].address_components[response.results[0].address_components.length - 3].long_name);
-                console.log(response.results[0].address_components[response.results[0].address_components.length - 4].long_name);
-                console.log(response.results[0].address_components[response.results[0].address_components.length - 5].long_name);
+                // console.log(response.results[0]);
+                // console.log(response.results[0].geometry.location);
+                props.updateMarkerPosition({
+                  latitude: response.results[0].geometry.location.lat,
+                  longitude: response.results[0].geometry.location.lng,
+                  googleId: response.results[0].geometry.place_id
+                });
+                // console.log(response.results[0].address_components[response.results[0].address_components.length - 1].long_name);
+                // console.log(response.results[0].address_components[response.results[0].address_components.length - 2].long_name);
+                // console.log(response.results[0].address_components[response.results[0].address_components.length - 3].long_name);
+                // console.log(response.results[0].address_components[response.results[0].address_components.length - 4].long_name);
+                // console.log(response.results[0].address_components[response.results[0].address_components.length - 5].long_name);
               })
               .catch(err => {
                 console.log(err);
@@ -88,7 +94,7 @@ export class GoogleMaps extends React.Component<IGoogleMapsProps, IGoogleMapsSta
     clearTimeout(this.timer);
     this.timer = setTimeout(() => {
       this.setState({ isMarkerShown: true });
-    }, 3000);
+    }, 1000);
   };
 
   handleMarkerClick = () => {

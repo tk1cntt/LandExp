@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 import { Row, Col, Label } from 'reactstrap';
 import { AvForm, AvGroup, AvInput, AvField } from 'availity-reactstrap-validation';
 import { Translate, setFileData, openFile, byteSize } from 'react-jhipster';
+import ReactQuill from 'react-quill';
 import { Select, Input, Checkbox } from 'antd';
 const Option = Select.Option;
 
@@ -14,6 +15,8 @@ export interface IHouseDetailUpdateProps extends StateProps, DispatchProps {
 }
 
 export interface IHouseDetailUpdateState {
+  actionType: any;
+  landType: any;
   city: any;
   address: any;
   locations: any;
@@ -27,10 +30,13 @@ export interface IHouseDetailUpdateState {
   bedRoom: any;
   bathRoom: any;
   parking: any;
+  summary: any;
 }
 
 export class HouseDetailUpdate extends React.Component<IHouseDetailUpdateProps, IHouseDetailUpdateState> {
   state: IHouseDetailUpdateState = {
+    actionType: undefined,
+    landType: undefined,
     city: undefined,
     address: undefined,
     locations: [],
@@ -43,39 +49,9 @@ export class HouseDetailUpdate extends React.Component<IHouseDetailUpdateProps, 
     acreageStreetSide: undefined,
     bedRoom: undefined,
     bathRoom: undefined,
-    parking: undefined
+    parking: undefined,
+    summary: ''
   };
-
-  componentDidMount() {
-    const locations = this.state.locations;
-    const cities = this.props.cities;
-    cities.map(city => {
-      const cityData = {
-        value: city.id,
-        label: city.name,
-        children: []
-      };
-      city.districts.map(data => {
-        const districtData = {
-          value: data.id,
-          label: data.name,
-          children: []
-        };
-        data.wards.map(ward => {
-          const wardData = {
-            value: ward.id,
-            label: ward.name
-          };
-          districtData.children.push(wardData);
-        });
-        cityData.children.push(districtData);
-      });
-      locations.push(cityData);
-    });
-    this.setState({
-      locations
-    });
-  }
 
   onChangeCascader = value => {
     this.setState({
@@ -99,19 +75,28 @@ export class HouseDetailUpdate extends React.Component<IHouseDetailUpdateProps, 
 
   onChangeActionType = value => {
     this.setState({
-      address: value
+      actionType: value
     });
     this.props.updateHouse({
-      address: value
+      actionType: value
+    });
+  };
+
+  onChangeLandType = value => {
+    this.setState({
+      landType: value
+    });
+    this.props.updateHouse({
+      landType: value
     });
   };
 
   onChangeProject = value => {
     this.setState({
-      address: value
+      projectId: value
     });
     this.props.updateHouse({
-      address: value
+      projectId: value
     });
   };
 
@@ -196,6 +181,15 @@ export class HouseDetailUpdate extends React.Component<IHouseDetailUpdateProps, 
     });
   };
 
+  onChangeSummary = value => {
+    this.setState({
+      summary: value
+    });
+    this.props.updateHouse({
+      summary: value
+    });
+  };
+
   render() {
     const formItemLayout = {
       labelCol: {
@@ -210,14 +204,14 @@ export class HouseDetailUpdate extends React.Component<IHouseDetailUpdateProps, 
 
     return (
       <>
-        <Row>
+        <Row style={{ marginBottom: 20 }}>
           <Col md="6">
             <Label id="actionTypeLabel">
               <Translate contentKey="landexpApp.house.actionType">Action Type</Translate>
             </Label>
             <Select
               style={{ width: '100%' }}
-              value={houseEntity.actionType || 'FOR_SELL'}
+              defaultValue={houseEntity.actionType}
               placeholder="Hình thức"
               onChange={this.onChangeActionType}
             >
@@ -231,9 +225,9 @@ export class HouseDetailUpdate extends React.Component<IHouseDetailUpdateProps, 
             </Label>
             <Select
               style={{ width: '100%' }}
-              value={houseEntity.landType || 'APARTMENT'}
+              defaultValue={houseEntity.landType}
               placeholder="Loại hình bất động sản"
-              onChange={this.onChangeActionType}
+              onChange={this.onChangeLandType}
             >
               <Option value="APARTMENT">{getLandType('APARTMENT')}</Option>
               <Option value="PEN_HOUSE">{getLandType('PEN_HOUSE')}</Option>
@@ -252,28 +246,28 @@ export class HouseDetailUpdate extends React.Component<IHouseDetailUpdateProps, 
             </Select>
           </Col>
         </Row>
-        <Row>
+        <Row style={{ marginBottom: 20 }}>
           <Col md="6">
             <Label id="projectLabel" for="project">
               <Translate contentKey="landexpApp.house.project">Project</Translate>
             </Label>
             <Select
               style={{ width: '100%' }}
-              defaultValue={this.state.projectId}
+              defaultValue={houseEntity.projectId}
               placeholder="Danh sách dự án"
               onChange={this.onChangeProject}
             >
               {landProjects
                 ? landProjects.map(otherEntity => (
-                  <Option value={otherEntity.id} key={otherEntity.id}>
-                    {otherEntity.name}
-                  </Option>
-                ))
+                    <Option value={otherEntity.id} key={otherEntity.id}>
+                      {otherEntity.name}
+                    </Option>
+                  ))
                 : null}
             </Select>
           </Col>
         </Row>
-        <Row>
+        <Row style={{ marginBottom: 20 }}>
           <Col md="6">
             <Label id="acreageLabel" for="acreage">
               <Translate contentKey="landexpApp.house.acreage">Acreage</Translate>
@@ -287,7 +281,7 @@ export class HouseDetailUpdate extends React.Component<IHouseDetailUpdateProps, 
             <Input defaultValue={houseEntity.acreageStreetSide} onChange={this.onChangeAcreageStreetSide} />
           </Col>
         </Row>
-        <Row>
+        <Row style={{ marginBottom: 20 }}>
           <Col md="6">
             <Label id="directionLabel">
               <Translate contentKey="landexpApp.house.direction">Direction</Translate>
@@ -329,7 +323,7 @@ export class HouseDetailUpdate extends React.Component<IHouseDetailUpdateProps, 
             </Select>
           </Col>
         </Row>
-        <Row>
+        <Row style={{ marginBottom: 20 }}>
           <Col md="6">
             <Label id="numberOfFloorLabel" for="numberOfFloor">
               <Translate contentKey="landexpApp.house.floor">Floor</Translate>
@@ -343,37 +337,38 @@ export class HouseDetailUpdate extends React.Component<IHouseDetailUpdateProps, 
             <Input defaultValue={houseEntity.numberOfFloor} type="number" onChange={this.onChangeNumberOfFloor} />
           </Col>
         </Row>
-        <Row>
+        <Row style={{ marginBottom: 20 }}>
           <Col md="6">
-            <AvGroup>
-              <Label id="bathRoomLabel" for="bathRoom">
-                <Translate contentKey="landexpApp.house.bathRoom">Bath Room</Translate>
-              </Label>
-              <Input defaultValue={houseEntity.bathRoom} type="number" onChange={this.onChangeBedRoom} />
-            </AvGroup>
+            <Label id="bathRoomLabel" for="bathRoom">
+              <Translate contentKey="landexpApp.house.bathRoom">Bath Room</Translate>
+            </Label>
+            <Input defaultValue={houseEntity.bathRoom} type="number" onChange={this.onChangeBedRoom} />
           </Col>
           <Col md="6">
-            <AvGroup>
-              <Label id="bedRoomLabel" for="bedRoom">
-                <Translate contentKey="landexpApp.house.bedRoom">Bed Room</Translate>
-              </Label>
-              <Input defaultValue={houseEntity.bedRoom} type="number" onChange={this.onChangeBathRoom} />
-            </AvGroup>
+            <Label id="bedRoomLabel" for="bedRoom">
+              <Translate contentKey="landexpApp.house.bedRoom">Bed Room</Translate>
+            </Label>
+            <Input defaultValue={houseEntity.bedRoom} type="number" onChange={this.onChangeBathRoom} />
           </Col>
         </Row>
-        <Row>
+        <Row style={{ marginBottom: 20 }}>
           <Col md="12">
-            <Checkbox onChange={this.onChangeParking}><Translate contentKey="landexpApp.house.parking">Parking</Translate></Checkbox>
+            <Checkbox onChange={this.onChangeParking}>
+              <Translate contentKey="landexpApp.house.parking">Parking</Translate>
+            </Checkbox>
           </Col>
         </Row>
-        <Row>
+        <Row style={{ marginBottom: 20 }}>
           <Col md="12">
-            <AvGroup>
-              <Label id="summaryLabel" for="summary">
-                <Translate contentKey="landexpApp.house.summary">Summary</Translate>
-              </Label>
-              <AvField id="house-summary" type="text" name="summary" />
-            </AvGroup>
+            <Label id="summaryLabel" for="summary">
+              <Translate contentKey="landexpApp.house.summary">Summary</Translate>
+            </Label>
+            <ReactQuill
+              bounds={'.app-editor'}
+              defaultValue={this.state.summary || houseEntity.summary || ''}
+              onChange={this.onChangeSummary}
+              placeholder="Tóm tắt bản tin"
+            />
           </Col>
         </Row>
       </>
