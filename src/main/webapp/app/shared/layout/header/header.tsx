@@ -2,6 +2,7 @@ import './header.css';
 
 import React from 'react';
 import { Link } from 'react-router-dom';
+import LoadingBar from 'react-redux-loading-bar';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { Menu, Dropdown, Icon } from 'antd';
 const SubMenu = Menu.SubMenu;
@@ -190,6 +191,7 @@ export default class Header extends React.Component<IHeaderProps, IHeaderState> 
     );
     return (
       <header>
+        <LoadingBar />
         <div className="container">
           <div className="row">
             <div className="logo">
