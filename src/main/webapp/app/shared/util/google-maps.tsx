@@ -9,13 +9,14 @@ import { compose, withProps } from 'recompose';
 
 const MyMapComponent: React.StatelessComponent<{
   isMarkerShown: boolean;
+  isMarkerDraggable: boolean;
   onMarkerClick: any;
   updateMarkerPosition: any;
   currentPosition: any;
 }> = compose(
   withProps({
     googleMapURL:
-      'https://maps.googleapis.com/maps/api/js?key=AIzaSyCYcnnPJ3J-v8nbiyGbp4APnQANcmQeIwc&v=3.exp&libraries=geometry,drawing,places',
+      'https://maps.googleapis.com/maps/api/js?key=AIzaSyDntb24qki_UHk9hElFvu_XNvS7ySRrc8U&v=3.exp&libraries=geometry,drawing,places',
     loadingElement: <div style={{ height: `100%` }} />,
     containerElement: <div style={{ height: `400px` }} />,
     mapElement: <div style={{ height: `100%` }} />
@@ -32,10 +33,10 @@ const MyMapComponent: React.StatelessComponent<{
       {props.isMarkerShown && (
         <Marker
           position={position}
-          draggable
+          draggable={props.isMarkerDraggable}
           onDragEnd={e => {
             fetch(
-              `https://maps.googleapis.com/maps/api/geocode/json?latlng=${e.latLng.lat()},${e.latLng.lng()}&sensor=false&key=AIzaSyCYcnnPJ3J-v8nbiyGbp4APnQANcmQeIwc`
+              `https://maps.googleapis.com/maps/api/geocode/json?latlng=${e.latLng.lat()},${e.latLng.lng()}&sensor=false&key=AIzaSyDntb24qki_UHk9hElFvu_XNvS7ySRrc8U`
             )
               .then(response => {
                 if (!response.ok) {
@@ -70,6 +71,7 @@ const MyMapComponent: React.StatelessComponent<{
 export interface IGoogleMapsProps extends StateProps, DispatchProps {
   updateMarkerPosition: Function;
   currentPosition: any;
+  isMarkerDraggable: boolean;
 }
 
 export interface IGoogleMapsState {}
@@ -107,6 +109,7 @@ export class GoogleMaps extends React.Component<IGoogleMapsProps, IGoogleMapsSta
       <MyMapComponent
         updateMarkerPosition={this.props.updateMarkerPosition}
         isMarkerShown={this.state.isMarkerShown}
+        isMarkerDraggable={this.props.isMarkerDraggable}
         currentPosition={this.props.currentPosition}
         onMarkerClick={this.handleMarkerClick}
       />

@@ -1,8 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { Row, Col, Label } from 'reactstrap';
-import { Form, Input, Cascader } from 'antd';
-const FormItem = Form.Item;
+import { Col, Label } from 'reactstrap';
+import { Input, Cascader } from 'antd';
 
 import GoogleMaps from 'app/shared/util/google-maps';
 
@@ -97,15 +96,6 @@ export class HouseAddressUpdate extends React.Component<IHouseAddressUpdateProps
   };
 
   render() {
-    const formItemLayout = {
-      labelCol: {
-        span: 4
-      },
-      wrapperCol: {
-        span: 20
-      }
-    };
-
     const defaultValue = [this.props.houseEntity.cityId, this.props.houseEntity.districtId, this.props.houseEntity.wardId];
 
     const { latitude, longitude } = this.props.houseEntity;
@@ -136,7 +126,10 @@ export class HouseAddressUpdate extends React.Component<IHouseAddressUpdateProps
           />
         </Col>
         <Col md="12" style={{ marginBottom: 20 }}>
-          <GoogleMaps updateMarkerPosition={this.updateMarkerPosition} currentPosition={currentPosition} />
+          <GoogleMaps
+            isMarkerDraggable
+            updateMarkerPosition={this.updateMarkerPosition}
+            currentPosition={currentPosition} />
         </Col>
       </>
     );

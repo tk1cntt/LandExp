@@ -4,13 +4,12 @@ import React from 'react';
 import { RouteComponentProps } from 'react-router-dom';
 import { TextFormat } from 'react-jhipster';
 import { connect } from 'react-redux';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { Row, Col, Container, Breadcrumb, BreadcrumbItem } from 'reactstrap';
+import { Row, Col, Container } from 'reactstrap';
 // import { Carousel as Album } from 'react-responsive-carousel';
 import ImageGallery from 'react-image-gallery';
 // import Lightbox from 'lightbox-react';
 
-import { Tabs, Input, Spin } from 'antd';
+import { Tabs, Input } from 'antd';
 const { TextArea } = Input;
 const TabPane = Tabs.TabPane;
 
@@ -19,7 +18,7 @@ import { getEntity } from 'app/entities/house/house.reducer';
 import { getImageOfHouse } from 'app/entities/house-photo/house-photo.reducer';
 import { SERVER_API_URL, APP_LOCAL_DATE_FORMAT } from 'app/config/constants';
 
-import Permission from 'app/shared/layout/no/Permission';
+// import Permission from 'app/shared/layout/no/Permission';
 import Loading from 'app/shared/layout/loading/loading';
 import SearchPage from 'app/shared/layout/search/search-menu';
 import GoogleMaps from 'app/shared/util/google-maps';
@@ -45,18 +44,6 @@ export class Detail extends React.Component<IDetailProp, IDetailState> {
     /* tslint:disable-next-line */
     this.props.getImageOfHouse(parseInt(houseId));
   }
-
-  /*
-  houseSliderFrom(slides: any) {
-    return (
-      <Col md="6">
-        <div className="justify-content-center" style={{ border: '1px solid #dfdfdf' }}>
-          <Album autoPlay>{slides}</Album>
-        </div>
-      </Col>
-    );
-  }
-  */
 
   houseImageGalleryFrom(images: any) {
     return (
@@ -256,6 +243,7 @@ export class Detail extends React.Component<IDetailProp, IDetailState> {
                 <Col md="7">
                   <GoogleMaps
                     updateMarkerPosition={this.updateMarkerPosition}
+                    isMarkerDraggable={false}
                     currentPosition={{ latitude: this.props.houseEntity.latitude, longitude: this.props.houseEntity.longitude }}
                   />
                 </Col>
