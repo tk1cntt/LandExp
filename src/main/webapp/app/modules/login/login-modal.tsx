@@ -3,6 +3,7 @@ import { Translate, translate } from 'react-jhipster';
 import { Button, Container, Alert, Row, Col } from 'reactstrap';
 import { AvForm, AvField } from 'availity-reactstrap-validation';
 import { Link } from 'react-router-dom';
+import { Card } from 'antd';
 
 import SearchPage from 'app/shared/layout/search/search-menu';
 import Loading from 'app/shared/layout/loading/loading';
@@ -30,15 +31,10 @@ class LoginModal extends React.Component<ILoginModalProps> {
       <Row>
         <SearchPage location={this.props.location} history={this.props.history} />
         <Container>
-          <Col md="12">
-            {this.props.loading ? (
-              <Loading />
-            ) : (
+          <Row>
+            <Col md="12">
               <Row>
-                <Col md="12">
-                  <Translate contentKey="login.title">Sign in</Translate>
-                </Col>
-                <Col md="12">
+                <Card title="Đăng nhập">
                   <AvForm onSubmit={this.handleSubmit}>
                     <Row>
                       <Col md="12">
@@ -82,10 +78,10 @@ class LoginModal extends React.Component<ILoginModalProps> {
                       <Translate contentKey="global.messages.info.register.link">Register a new account</Translate>
                     </Link>
                   </div>
-                </Col>
+                </Card>
               </Row>
-            )}
-          </Col>
+            </Col>
+          </Row>
         </Container>
       </Row>
     );
