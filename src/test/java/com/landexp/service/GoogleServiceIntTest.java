@@ -30,9 +30,9 @@ public class GoogleServiceIntTest {
     @Test
     public void testGoogleServiceSearchNearBy() throws JsonProcessingException {
         PlaceType[] places = new PlaceType[2];
-        places[0] = PlaceType.CAFE;
-        places[1] = PlaceType.FOOD;
-        places[1] = PlaceType.SCHOOL;
+        places[0] = PlaceType.RESTAURANT;
+        // places[1] = PlaceType.HOSPITAL;
+        // places[2] = PlaceType.SCHOOL;
         Map<String, GooglePlaceResponse> responses = googleService.searchNearby(21.0286669, 105.8521484, 500, places);
         System.out.println(mapper.writeValueAsString(responses));
     }

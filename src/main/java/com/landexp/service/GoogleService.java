@@ -60,6 +60,7 @@ public class GoogleService {
             nearbySearchRequest.radius(radius);
             nearbySearchRequest.type(types);
             nearbySearchRequest.language("vi");
+            nearbySearchRequest.rankby(RankBy.PROMINENCE);
             return getGooglePlaceResponses(nearbySearchRequest.await());
         } catch (Exception e) {
             throw new ExecuteRuntimeException(e.getMessage());
@@ -73,7 +74,7 @@ public class GoogleService {
                 GooglePlaceResponse googlePlaceResponse = new GooglePlaceResponse();
                 googlePlaceResponse.setGoogleId(result.placeId);
                 googlePlaceResponse.setType(result.types);
-                googlePlaceResponse.setAddress(result.formattedAddress);
+                googlePlaceResponse.setAddress(result.vicinity);
                 googlePlaceResponse.setTitle(result.name);
                 googlePlaceResponse.setLongitude(result.geometry.location.lng);
                 googlePlaceResponse.setLatitude(result.geometry.location.lat);

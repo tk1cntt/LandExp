@@ -204,7 +204,7 @@ export class Detail extends React.Component<IDetailProp, IDetailState> {
           original: `${SERVER_API_URL}/api/house-photos/${encodeId(file.id)}/contents/${this.props.houseEntity.link}-${encodeId(
             file.id
           )}.jpg`,
-          thumbnail: `${SERVER_API_URL}/api/house-photos/${encodeId(file.id)}/contents/${this.props.houseEntity.link}-${encodeId(
+          thumbnail: `${SERVER_API_URL}/api/house-photos/${encodeId(file.id)}/thumbnails/${this.props.houseEntity.link}-${encodeId(
             file.id
           )}.jpg`
         });

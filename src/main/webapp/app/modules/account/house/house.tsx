@@ -2,7 +2,7 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { Link, RouteComponentProps } from 'react-router-dom';
 import { Button, Col, Row, Container, Table } from 'reactstrap';
-import { getLandType, getSaleType, getStatusType, encodeId } from 'app/shared/util/utils';
+import { getLandType, getSaleType, getStatusType, encodeId, encodePayment } from 'app/shared/util/utils';
 // tslint:disable-next-line:no-unused-variable
 import { Translate, getSortState, IPaginationBaseState, getPaginationItemsNumber, JhiPagination } from 'react-jhipster';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
@@ -140,7 +140,7 @@ export class House extends React.Component<IHouseProps, IHouseState> {
                                     ''
                                   )}
                                   {house.statusType === 'PENDING' ? (
-                                    <Button tag={Link} to={`/tai-khoan/thanh-toan/${encodeId(house.id)}`} color="warning" size="sm">
+                                    <Button tag={Link} to={`/tai-khoan/thanh-toan/${encodePayment(house.id)}`} color="warning" size="sm">
                                       <FontAwesomeIcon icon="coffee" />{' '}
                                       <span className="d-none d-md-inline">
                                         <Translate contentKey="entity.action.pay">Pay</Translate>
