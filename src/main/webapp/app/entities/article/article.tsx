@@ -21,7 +21,7 @@ import SearchPage from 'app/shared/layout/search/search-menu';
 
 import { IRootState } from 'app/shared/reducers';
 import { getEntities } from './article.reducer';
-// tslint:disable-next-line:no-unused-variable
+import { encodeId } from 'app/shared/util/utils';
 import { APP_LOCAL_DATE_FORMAT } from 'app/config/constants';
 import { ITEMS_PER_PAGE } from 'app/shared/util/pagination.constants';
 
@@ -107,13 +107,16 @@ export class Article extends React.Component<IArticleProps, IArticleState> {
                               <td>
                                 <TextFormat type="date" value={article.createAt} format={APP_LOCAL_DATE_FORMAT} />
                               </td>
-                              <td>
-                                {article.categoryName ? <Link to={`category/${article.categoryId}`}>{article.categoryName}</Link> : ''}
-                              </td>
+                              <td>{article.categoryName}</td>
                               <td>{article.createByLogin ? article.createByLogin : ''}</td>
                               <td className="text-right">
                                 <div className="btn-group flex-btn-group-container">
-                                  <Button tag={Link} to={`${match.url}/${article.id}`} color="info" size="sm">
+                                  <Button
+                                    tag={Link}
+                                    to={`/tin-tuc-chi-tiet/${encodeId(article.id)}/${article.link}`}
+                                    color="info"
+                                    size="sm"
+                                  >
                                     <FontAwesomeIcon icon="eye" />{' '}
                                     <span className="d-none d-md-inline">
                                       <Translate contentKey="entity.action.view">View</Translate>
@@ -123,12 +126,6 @@ export class Article extends React.Component<IArticleProps, IArticleState> {
                                     <FontAwesomeIcon icon="pencil-alt" />{' '}
                                     <span className="d-none d-md-inline">
                                       <Translate contentKey="entity.action.edit">Edit</Translate>
-                                    </span>
-                                  </Button>
-                                  <Button tag={Link} to={`${match.url}/${article.id}/delete`} color="danger" size="sm">
-                                    <FontAwesomeIcon icon="trash" />{' '}
-                                    <span className="d-none d-md-inline">
-                                      <Translate contentKey="entity.action.delete">Delete</Translate>
                                     </span>
                                   </Button>
                                 </div>

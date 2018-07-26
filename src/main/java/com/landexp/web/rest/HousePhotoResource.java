@@ -126,6 +126,23 @@ public class HousePhotoResource {
     }
 
     /**
+     * GET  /house-photos/{id}/thumbnails : get photo in byte array.
+     */
+    @GetMapping("/house-photos/{id}/thumbnails/{link}")
+    @Timed
+    @ResponseBody
+    public byte[] getPhotoThumbnail(@PathVariable String id, @PathVariable String link) throws IOException {
+        log.debug("REST request to get a image data in byte array");
+        HousePhotoDTO dto = housePhotoService.findOne(Utils.decodeId(id)).get();
+        ByteArrayOutputStream bao = new ByteArrayOutputStream();
+        Thumbnails.of(MappingUtils.createImageFromBytes(dto.getImage()))
+            .size(92, 67)
+            .outputFormat("jpg")
+            .toOutputStream(bao);
+        return bao.toByteArray();
+    }
+
+    /**
      * GET  /house-photos/:id : get the "id" housePhoto.
      *
      * @param id the id of the housePhotoDTO to retrieve

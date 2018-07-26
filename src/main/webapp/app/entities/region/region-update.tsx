@@ -61,7 +61,7 @@ export class RegionUpdate extends React.Component<IRegionUpdateProps, IRegionUpd
   };
 
   handleClose = () => {
-    this.props.history.push('/entity/region');
+    this.props.history.push('/quan-ly/khu-vuc');
   };
 
   userUpdate = element => {
@@ -116,10 +116,7 @@ export class RegionUpdate extends React.Component<IRegionUpdateProps, IRegionUpd
                       <AvForm model={isNew ? {} : regionEntity} onSubmit={this.saveEntity}>
                         {!isNew ? (
                           <AvGroup>
-                            <Label for="id">
-                              <Translate contentKey="global.field.id">ID</Translate>
-                            </Label>
-                            <AvInput id="region-id" type="text" className="form-control" name="id" required readOnly />
+                            <AvInput id="region-id" type="hidden" className="form-control" name="id" required readOnly />
                           </AvGroup>
                         ) : null}
                         <AvGroup>
@@ -149,16 +146,21 @@ export class RegionUpdate extends React.Component<IRegionUpdateProps, IRegionUpd
                           >
                             <option value="" key="0" />
                             {users
-                              ? users.map(otherEntity => (
-                                  <option value={otherEntity.login} key={otherEntity.id}>
-                                    {otherEntity.login}
-                                  </option>
-                                ))
+                              ? users.map(
+                                  otherEntity =>
+                                    otherEntity.authorities.includes('ROLE_STAFF') ? (
+                                      <option value={otherEntity.login} key={otherEntity.id}>
+                                        {otherEntity.login}
+                                      </option>
+                                    ) : (
+                                      ''
+                                    )
+                                )
                               : null}
                           </AvInput>
                           <AvInput id="region-user" type="hidden" name="users" value={this.state.idsuser} />
                         </AvGroup>
-                        <Button tag={Link} id="cancel-save" to="/entity/region" replace color="info">
+                        <Button tag={Link} id="cancel-save" to="/quan-ly/khu-vuc" replace color="info">
                           <FontAwesomeIcon icon="arrow-left" />&nbsp;
                           <span className="d-none d-md-inline">
                             <Translate contentKey="entity.action.back">Back</Translate>

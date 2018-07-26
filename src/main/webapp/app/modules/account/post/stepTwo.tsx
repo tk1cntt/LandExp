@@ -4,10 +4,7 @@ import { Row, Col } from 'reactstrap';
 import { Form, Input, Cascader } from 'antd';
 const FormItem = Form.Item;
 
-import { getSession } from 'app/shared/reducers/authentication';
-
 import { getPaymentOfHouse } from 'app/entities/payment/payment.reducer';
-import { getImageOfHouse } from 'app/entities/house-photo/house-photo.reducer';
 
 export interface IStepTwoProp extends StateProps, DispatchProps {
   updateHouse: Function;
@@ -29,8 +26,18 @@ export class StepTwo extends React.Component<IStepTwoProp, IStepOneState> {
 
   componentDidMount() {
     this.props.getPaymentOfHouse(this.props.house.id);
-    this.props.getImageOfHouse(this.props.house.id);
-    const locations = this.state.locations;
+    this.mappingCity();
+  }
+
+  componentDidUpdate(prevProps) {
+    // Typical usage (don't forget to compare props):
+    if (this.props.cities !== prevProps.cities) {
+      this.mappingCity();
+    }
+  }
+
+  mappingCity() {
+    const locations = [];
     this.props.cities.map(city => {
       const cityData = {
         value: city.id,
@@ -124,7 +131,7 @@ const mapStateToProps = storeState => ({
   cities: storeState.city.entities
 });
 
-const mapDispatchToProps = { getSession, getPaymentOfHouse, getImageOfHouse };
+const mapDispatchToProps = { getPaymentOfHouse };
 
 type StateProps = ReturnType<typeof mapStateToProps>;
 type DispatchProps = typeof mapDispatchToProps;

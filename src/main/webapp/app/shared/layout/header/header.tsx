@@ -2,6 +2,7 @@ import './header.css';
 
 import React from 'react';
 import { Link } from 'react-router-dom';
+import LoadingBar from 'react-redux-loading-bar';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { Menu, Dropdown, Icon } from 'antd';
 const SubMenu = Menu.SubMenu;
@@ -83,11 +84,6 @@ export default class Header extends React.Component<IHeaderProps, IHeaderState> 
             <FontAwesomeIcon icon="asterisk" />&nbsp; Quản lý tin tức
           </Link>
         </Menu.Item>
-        <Menu.Item>
-          <Link to="/quan-ly/danh-muc-tin-tuc">
-            <FontAwesomeIcon icon="asterisk" />&nbsp; Danh mục tin tức
-          </Link>
-        </Menu.Item>
         {/*
         <Menu.Item>
           <Link to="/quan-ly/house-photo">
@@ -146,6 +142,11 @@ export default class Header extends React.Component<IHeaderProps, IHeaderState> 
           </Link>
         </Menu.Item>
         <Menu.Item>
+          <Link to="/quan-ly/danh-muc-tin-tuc">
+            <FontAwesomeIcon icon="asterisk" />&nbsp; Danh mục tin tức
+          </Link>
+        </Menu.Item>
+        <Menu.Item>
           <Link to="/quan-ly/tai-khoan-nguoi-dung">
             <FontAwesomeIcon icon="user" /> Tài khoản người dùng
           </Link>
@@ -190,6 +191,7 @@ export default class Header extends React.Component<IHeaderProps, IHeaderState> 
     );
     return (
       <header>
+        <LoadingBar />
         <div className="container">
           <div className="row">
             <div className="logo">

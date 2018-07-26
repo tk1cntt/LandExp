@@ -1,15 +1,19 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { Link, RouteComponentProps } from 'react-router-dom';
-import { Button, Label, Row, Col } from 'reactstrap';
+import { Button, Label, Row, Col, Container } from 'reactstrap';
 import { AvForm, AvGroup, AvInput, AvField, AvFeedback } from 'availity-reactstrap-validation';
 import { Translate, translate, ICrudGetAction, ICrudGetAllAction, ICrudPutAction } from 'react-jhipster';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { Card } from 'antd';
 
 import { locales } from 'app/config/translation';
 import { IUser } from 'app/shared/model/user.model';
 import { getUser, getRoles, updateUser, createUser, reset } from './user-management.reducer';
 import { IRootState } from 'app/shared/reducers';
+
+import Loading from 'app/shared/layout/loading/loading';
+import SearchPage from 'app/shared/layout/search/search-menu';
 
 export interface IUserManagementUpdateProps extends StateProps, DispatchProps, RouteComponentProps<{ login: string }> {}
 
@@ -41,7 +45,7 @@ export class UserManagementUpdate extends React.Component<IUserManagementUpdateP
   };
 
   handleClose = () => {
-    this.props.history.push('/admin/user-management');
+    this.props.history.push('/quan-ly/tai-khoan-nguoi-dung');
   };
 
   render() {
@@ -49,164 +53,154 @@ export class UserManagementUpdate extends React.Component<IUserManagementUpdateP
     const { user, loading, updating, roles } = this.props;
     const { isNew } = this.state;
     return (
-      <div>
-        <Row className="justify-content-center">
-          <Col md="8">
-            <h1>
-              <Translate contentKey="userManagement.home.createOrEditLabel">Create or edit a User</Translate>
-            </h1>
-          </Col>
-        </Row>
-        <Row className="justify-content-center">
-          <Col md="8">
-            {loading ? (
-              <p>Loading...</p>
-            ) : (
-              <AvForm onValidSubmit={this.saveUser}>
-                {user.id ? (
-                  <AvGroup>
-                    <Label for="id">
-                      <Translate contentKey="global.field.id">ID</Translate>
-                    </Label>
-                    <AvField type="text" className="form-control" name="id" required readOnly value={user.id} />
-                  </AvGroup>
-                ) : null}
-                <AvGroup>
-                  <Label for="login">
-                    <Translate contentKey="userManagement.login">Login</Translate>
-                  </Label>
-                  <AvField
-                    type="text"
-                    className="form-control"
-                    name="login"
-                    validate={{
-                      required: {
-                        value: true,
-                        errorMessage: translate('register.messages.validate.login.required')
-                      },
-                      pattern: {
-                        value: '^[_.@A-Za-z0-9-]*$',
-                        errorMessage: translate('register.messages.validate.login.pattern')
-                      },
-                      minLength: {
-                        value: 1,
-                        errorMessage: translate('register.messages.validate.login.minlength')
-                      },
-                      maxLength: {
-                        value: 50,
-                        errorMessage: translate('register.messages.validate.login.maxlength')
-                      }
-                    }}
-                    value={user.login}
-                  />
-                </AvGroup>
-                <AvGroup>
-                  <Label for="firstName">
-                    <Translate contentKey="userManagement.firstName">First Name</Translate>
-                  </Label>
-                  <AvField
-                    type="text"
-                    className="form-control"
-                    name="firstName"
-                    validate={{
-                      maxLength: {
-                        value: 50,
-                        errorMessage: translate('entity.validation.maxlength', { max: 50 })
-                      }
-                    }}
-                    value={user.firstName}
-                  />
-                </AvGroup>
-                <AvGroup>
-                  <Label for="lastName">
-                    <Translate contentKey="userManagement.lastName">Last Name</Translate>
-                  </Label>
-                  <AvField
-                    type="text"
-                    className="form-control"
-                    name="lastName"
-                    validate={{
-                      maxLength: {
-                        value: 50,
-                        errorMessage: translate('entity.validation.maxlength', { max: 50 })
-                      }
-                    }}
-                    value={user.lastName}
-                  />
-                  <AvFeedback>This field cannot be longer than 50 characters.</AvFeedback>
-                </AvGroup>
-                <AvGroup>
-                  <AvField
-                    name="email"
-                    label={translate('global.form.email')}
-                    placeholder={translate('global.form.email.placeholder')}
-                    validate={{
-                      required: {
-                        value: true,
-                        errorMessage: translate('global.messages.validate.email.required')
-                      },
-                      pattern: {
-                        value: '^0[0-9-]*$',
-                        errorMessage: translate('global.messages.validate.email.invalid')
-                      },
-                      minLength: {
-                        value: 5,
-                        errorMessage: translate('global.messages.validate.email.minlength')
-                      },
-                      maxLength: {
-                        value: 254,
-                        errorMessage: translate('global.messages.validate.email.maxlength')
-                      }
-                    }}
-                    value={user.email}
-                  />
-                </AvGroup>
-                <AvGroup check>
-                  <Label>
-                    <AvInput type="checkbox" name="activated" value={user.activated} />{' '}
-                    <Translate contentKey="userManagement.activated">Activated</Translate>
-                  </Label>
-                </AvGroup>
-                <AvGroup>
-                  <Label for="langKey">
-                    <Translate contentKey="userManagement.langKey">Language Key</Translate>
-                  </Label>
-                  <AvField type="select" className="form-control" name="langKey" defaultValue={locales[0]}>
-                    {locales.map(lang => (
-                      <option value={lang} key={lang}>
-                        {lang}
-                      </option>
-                    ))}
-                  </AvField>
-                </AvGroup>
-                <AvGroup>
-                  <Label for="authorities">
-                    <Translate contentKey="userManagement.profiles">Language Key</Translate>
-                  </Label>
-                  <AvInput type="select" className="form-control" name="authorities" value={user.authorities} multiple>
-                    {roles.map(role => (
-                      <option value={role} key={role}>
-                        {role}
-                      </option>
-                    ))}
-                  </AvInput>
-                </AvGroup>
-                <Button tag={Link} to="/admin/user-management" replace color="info">
-                  <FontAwesomeIcon icon="arrow-left" />&nbsp;
-                  <span className="d-none d-md-inline">
-                    <Translate contentKey="entity.action.back">Back</Translate>
-                  </span>
-                </Button>
-                &nbsp;
-                <Button color="primary" type="submit" disabled={isInvalid || updating}>
-                  <FontAwesomeIcon icon="save" />&nbsp;
-                  <Translate contentKey="entity.action.save">Save</Translate>
-                </Button>
-              </AvForm>
-            )}
-          </Col>
-        </Row>
-      </div>
+      <Row>
+        <SearchPage location={this.props.location} history={this.props.history} />
+        <Container>
+          <Row>
+            <Col md="12">
+              {this.props.loading ? (
+                <Loading />
+              ) : (
+                <Row>
+                  <Card title="Thông tin người dùng">
+                    <AvForm onValidSubmit={this.saveUser}>
+                      {user.id ? (
+                        <AvGroup>
+                          <AvField type="hidden" className="form-control" name="id" required readOnly value={user.id} />
+                        </AvGroup>
+                      ) : null}
+                      <AvGroup>
+                        <Label for="login">
+                          <Translate contentKey="userManagement.login">Login</Translate>
+                        </Label>
+                        <AvField
+                          type="text"
+                          className="form-control"
+                          name="login"
+                          validate={{
+                            required: {
+                              value: true,
+                              errorMessage: translate('register.messages.validate.login.required')
+                            },
+                            pattern: {
+                              value: '^[_.@A-Za-z0-9-]*$',
+                              errorMessage: translate('register.messages.validate.login.pattern')
+                            },
+                            minLength: {
+                              value: 1,
+                              errorMessage: translate('register.messages.validate.login.minlength')
+                            },
+                            maxLength: {
+                              value: 50,
+                              errorMessage: translate('register.messages.validate.login.maxlength')
+                            }
+                          }}
+                          value={user.login}
+                        />
+                      </AvGroup>
+                      <AvGroup>
+                        <Label for="firstName">
+                          <Translate contentKey="userManagement.firstName">First Name</Translate>
+                        </Label>
+                        <AvField
+                          type="text"
+                          className="form-control"
+                          name="firstName"
+                          validate={{
+                            maxLength: {
+                              value: 50,
+                              errorMessage: translate('entity.validation.maxlength', { max: 50 })
+                            }
+                          }}
+                          value={user.firstName}
+                        />
+                      </AvGroup>
+                      <AvGroup>
+                        <Label for="lastName">
+                          <Translate contentKey="userManagement.lastName">Last Name</Translate>
+                        </Label>
+                        <AvField
+                          type="text"
+                          className="form-control"
+                          name="lastName"
+                          validate={{
+                            maxLength: {
+                              value: 50,
+                              errorMessage: translate('entity.validation.maxlength', { max: 50 })
+                            }
+                          }}
+                          value={user.lastName}
+                        />
+                        <AvFeedback>This field cannot be longer than 50 characters.</AvFeedback>
+                      </AvGroup>
+                      <AvGroup>
+                        <AvField
+                          name="email"
+                          label={translate('global.form.email')}
+                          placeholder={translate('global.form.email.placeholder')}
+                          validate={{
+                            required: {
+                              value: true,
+                              errorMessage: translate('global.messages.validate.email.required')
+                            },
+                            pattern: {
+                              value: '^0[0-9-]*$',
+                              errorMessage: translate('global.messages.validate.email.invalid')
+                            },
+                            minLength: {
+                              value: 5,
+                              errorMessage: translate('global.messages.validate.email.minlength')
+                            },
+                            maxLength: {
+                              value: 254,
+                              errorMessage: translate('global.messages.validate.email.maxlength')
+                            }
+                          }}
+                          value={user.email}
+                        />
+                      </AvGroup>
+                      <AvGroup check>
+                        <Label>
+                          <AvInput type="checkbox" name="activated" value={user.activated} />{' '}
+                          <Translate contentKey="userManagement.activated">Activated</Translate>
+                        </Label>
+                      </AvGroup>
+                      <AvGroup>
+                        <Label for="authorities">
+                          <Translate contentKey="userManagement.profiles">Language Key</Translate>
+                        </Label>
+                        <AvInput type="select" className="form-control" name="authorities" value={user.authorities} multiple>
+                          {roles.map(
+                            role =>
+                              role !== 'ROLE_ADMIN' ? (
+                                <option value={role} key={role}>
+                                  {role}
+                                </option>
+                              ) : (
+                                ''
+                              )
+                          )}
+                        </AvInput>
+                      </AvGroup>
+                      <Button tag={Link} to="/quan-ly/tai-khoan-nguoi-dung" replace color="info">
+                        <FontAwesomeIcon icon="arrow-left" />&nbsp;
+                        <span className="d-none d-md-inline">
+                          <Translate contentKey="entity.action.back">Back</Translate>
+                        </span>
+                      </Button>
+                      &nbsp;
+                      <Button color="primary" type="submit" disabled={isInvalid || updating}>
+                        <FontAwesomeIcon icon="save" />&nbsp;
+                        <Translate contentKey="entity.action.save">Save</Translate>
+                      </Button>
+                    </AvForm>
+                  </Card>
+                </Row>
+              )}
+            </Col>
+          </Row>
+        </Container>
+      </Row>
     );
   }
 }

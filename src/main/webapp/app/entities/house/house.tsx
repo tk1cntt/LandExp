@@ -155,49 +155,49 @@ export class House extends React.Component<IHouseProps, IHouseState> {
                       {this.actionTypeForm()}
                       {this.landTypeForm()}
                     </Row>
-                    <div className="table-responsive">
-                      <Table responsive>
-                        <thead>
-                          <tr>
-                            <th className="hand" onClick={this.sort('actionType')}>
-                              <Translate contentKey="landexpApp.house.actionType">Action Type</Translate> <FontAwesomeIcon icon="sort" />
-                            </th>
-                            <th className="hand" onClick={this.sort('landType')}>
-                              <Translate contentKey="landexpApp.house.landType">Land Type</Translate> <FontAwesomeIcon icon="sort" />
-                            </th>
-                            <th className="hand" onClick={this.sort('money')}>
-                              <Translate contentKey="landexpApp.house.money">Money</Translate> <FontAwesomeIcon icon="sort" />
-                            </th>
-                            <th>
-                              <Translate contentKey="landexpApp.house.city">City</Translate> <FontAwesomeIcon icon="sort" />
-                            </th>
-                            <th>
-                              <Translate contentKey="landexpApp.house.district">District</Translate> <FontAwesomeIcon icon="sort" />
-                            </th>
-                            <th>
-                              <Translate contentKey="landexpApp.house.saleType">Sale Type</Translate> <FontAwesomeIcon icon="sort" />
-                            </th>
-                            <th>
-                              <Translate contentKey="landexpApp.house.statusType">Status Type</Translate> <FontAwesomeIcon icon="sort" />
-                            </th>
-                            <th>
-                              <Translate contentKey="landexpApp.house.createBy">Create By</Translate> <FontAwesomeIcon icon="sort" />
-                            </th>
-                            <th />
-                          </tr>
-                        </thead>
-                        <tbody>
-                          {houseList.map((house, i) => (
-                            <tr key={`entity-${i}`}>
-                              <td>{house.actionType === 'FOR_SELL' ? 'Bán' : 'Cho thuê'}</td>
-                              <td>{getLandType(house.landType)}</td>
-                              <td>{new Intl.NumberFormat().format(house.money)} VNĐ</td>
-                              <td>{house.cityName ? <Link to={`city/${house.cityId}`}>{house.cityName}</Link> : ''}</td>
-                              <td>{house.districtName ? <Link to={`district/${house.districtId}`}>{house.districtName}</Link> : ''}</td>
-                              <td>{getSaleType(house.saleType)}</td>
-                              <td>{getStatusType(house.statusType)}</td>
-                              <td>{house.createByLogin}</td>
-                              <td style={{ display: 'inline-block', width: 70 }}>
+                    <Table responsive striped>
+                      <thead>
+                        <tr>
+                          <th className="hand" onClick={this.sort('actionType')}>
+                            <Translate contentKey="landexpApp.house.actionType">Action Type</Translate> <FontAwesomeIcon icon="sort" />
+                          </th>
+                          <th className="hand" onClick={this.sort('landType')}>
+                            <Translate contentKey="landexpApp.house.landType">Land Type</Translate> <FontAwesomeIcon icon="sort" />
+                          </th>
+                          <th className="hand" onClick={this.sort('money')}>
+                            <Translate contentKey="landexpApp.house.money">Money</Translate> <FontAwesomeIcon icon="sort" />
+                          </th>
+                          <th>
+                            <Translate contentKey="landexpApp.house.city">City</Translate> <FontAwesomeIcon icon="sort" />
+                          </th>
+                          <th>
+                            <Translate contentKey="landexpApp.house.district">District</Translate> <FontAwesomeIcon icon="sort" />
+                          </th>
+                          <th>
+                            <Translate contentKey="landexpApp.house.saleType">Sale Type</Translate> <FontAwesomeIcon icon="sort" />
+                          </th>
+                          <th>
+                            <Translate contentKey="landexpApp.house.statusType">Status Type</Translate> <FontAwesomeIcon icon="sort" />
+                          </th>
+                          <th>
+                            <Translate contentKey="landexpApp.house.createBy">Create By</Translate> <FontAwesomeIcon icon="sort" />
+                          </th>
+                          <th />
+                        </tr>
+                      </thead>
+                      <tbody>
+                        {houseList.map((house, i) => (
+                          <tr key={`entity-${i}`}>
+                            <td>{house.actionType === 'FOR_SELL' ? 'Bán' : 'Cho thuê'}</td>
+                            <td>{getLandType(house.landType)}</td>
+                            <td>{new Intl.NumberFormat().format(house.money)} VNĐ</td>
+                            <td>{house.cityName}</td>
+                            <td>{house.districtName}</td>
+                            <td>{getSaleType(house.saleType)}</td>
+                            <td>{getStatusType(house.statusType)}</td>
+                            <td>{house.createByLogin}</td>
+                            <td className="text-right">
+                              <div className="btn-group flex-btn-group-container">
                                 <Button onClick={this.gotoEdit.bind(this, house.id)} color="primary" size="sm">
                                   <FontAwesomeIcon icon="pencil-alt" />{' '}
                                   <span className="d-none d-md-inline">
@@ -214,12 +214,12 @@ export class House extends React.Component<IHouseProps, IHouseState> {
                                 ) : (
                                   ''
                                 )}
-                              </td>
-                            </tr>
-                          ))}
-                        </tbody>
-                      </Table>
-                    </div>
+                              </div>
+                            </td>
+                          </tr>
+                        ))}
+                      </tbody>
+                    </Table>
                     {this.state.showDelete ? (
                       <Modal
                         title="Bạn có muốn xoá tin đăng này?"

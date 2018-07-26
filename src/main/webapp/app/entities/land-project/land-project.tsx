@@ -64,84 +64,60 @@ export class LandProject extends React.Component<ILandProjectProps, ILandProject
                       <FontAwesomeIcon icon="plus" />&nbsp;
                       <Translate contentKey="landexpApp.landProject.home.createLabel">Create new Land Project</Translate>
                     </Link>
-                    <div className="table-responsive">
-                      <Table responsive>
-                        <thead>
-                          <tr>
-                            <th className="hand" onClick={this.sort('name')}>
-                              <Translate contentKey="landexpApp.landProject.name">Name</Translate> <FontAwesomeIcon icon="sort" />
-                            </th>
-                            <th className="hand" onClick={this.sort('image')}>
-                              <Translate contentKey="landexpApp.landProject.image">Image</Translate> <FontAwesomeIcon icon="sort" />
-                            </th>
-                            <th>
-                              <Translate contentKey="landexpApp.landProject.city">City</Translate> <FontAwesomeIcon icon="sort" />
-                            </th>
-                            <th>
-                              <Translate contentKey="landexpApp.landProject.district">District</Translate> <FontAwesomeIcon icon="sort" />
-                            </th>
-                            <th>
-                              <Translate contentKey="landexpApp.landProject.createBy">Create By</Translate> <FontAwesomeIcon icon="sort" />
-                            </th>
-                            <th />
-                          </tr>
-                        </thead>
-                        <tbody>
-                          {landProjectList.map((landProject, i) => (
-                            <tr key={`entity-${i}`}>
-                              <td>{landProject.name}</td>
-                              <td>
-                                {landProject.image ? (
-                                  <div>
-                                    <a onClick={openFile(landProject.imageContentType, landProject.image)}>
-                                      <img
-                                        src={`data:${landProject.imageContentType};base64,${landProject.image}`}
-                                        style={{ maxHeight: '30px' }}
-                                      />
-                                      &nbsp;
-                                    </a>
-                                    <span>
-                                      {landProject.imageContentType}, {byteSize(landProject.image)}
-                                    </span>
-                                  </div>
-                                ) : null}
-                              </td>
-                              <td>{landProject.cityName ? <Link to={`city/${landProject.cityId}`}>{landProject.cityName}</Link> : ''}</td>
-                              <td>
-                                {landProject.districtName ? (
-                                  <Link to={`district/${landProject.districtId}`}>{landProject.districtName}</Link>
-                                ) : (
-                                  ''
-                                )}
-                              </td>
-                              <td>{landProject.createByLogin ? landProject.createByLogin : ''}</td>
-                              <td className="text-right">
-                                <div className="btn-group flex-btn-group-container">
-                                  <Button tag={Link} to={`${match.url}/${landProject.id}`} color="info" size="sm">
-                                    <FontAwesomeIcon icon="eye" />{' '}
-                                    <span className="d-none d-md-inline">
-                                      <Translate contentKey="entity.action.view">View</Translate>
-                                    </span>
-                                  </Button>
-                                  <Button tag={Link} to={`${match.url}/${landProject.id}/edit`} color="primary" size="sm">
-                                    <FontAwesomeIcon icon="pencil-alt" />{' '}
-                                    <span className="d-none d-md-inline">
-                                      <Translate contentKey="entity.action.edit">Edit</Translate>
-                                    </span>
-                                  </Button>
-                                  <Button tag={Link} to={`${match.url}/${landProject.id}/delete`} color="danger" size="sm">
-                                    <FontAwesomeIcon icon="trash" />{' '}
-                                    <span className="d-none d-md-inline">
-                                      <Translate contentKey="entity.action.delete">Delete</Translate>
-                                    </span>
-                                  </Button>
+                    <Table style={{ marginTop: 20 }} responsive striped>
+                      <thead>
+                        <tr>
+                          <th>
+                            <Translate contentKey="landexpApp.landProject.name">Name</Translate>
+                          </th>
+                          <th>
+                            <Translate contentKey="landexpApp.landProject.image">Image</Translate>
+                          </th>
+                          <th>
+                            <Translate contentKey="landexpApp.landProject.city">City</Translate>
+                          </th>
+                          <th>
+                            <Translate contentKey="landexpApp.landProject.district">District</Translate>
+                          </th>
+                          <th />
+                        </tr>
+                      </thead>
+                      <tbody>
+                        {landProjectList.map((landProject, i) => (
+                          <tr key={`entity-${i}`}>
+                            <td>{landProject.name}</td>
+                            <td>
+                              {landProject.image ? (
+                                <div>
+                                  <a onClick={openFile(landProject.imageContentType, landProject.image)}>
+                                    <img
+                                      src={`data:${landProject.imageContentType};base64,${landProject.image}`}
+                                      style={{ maxHeight: '30px' }}
+                                    />
+                                    &nbsp;
+                                  </a>
+                                  <span>
+                                    {landProject.imageContentType}, {byteSize(landProject.image)}
+                                  </span>
                                 </div>
-                              </td>
-                            </tr>
-                          ))}
-                        </tbody>
-                      </Table>
-                    </div>
+                              ) : null}
+                            </td>
+                            <td>{landProject.cityName}</td>
+                            <td>{landProject.districtName}</td>
+                            <td className="text-right">
+                              <div className="btn-group flex-btn-group-container">
+                                <Button tag={Link} to={`${match.url}/${landProject.id}/edit`} color="primary" size="sm">
+                                  <FontAwesomeIcon icon="pencil-alt" />{' '}
+                                  <span className="d-none d-md-inline">
+                                    <Translate contentKey="entity.action.edit">Edit</Translate>
+                                  </span>
+                                </Button>
+                              </div>
+                            </td>
+                          </tr>
+                        ))}
+                      </tbody>
+                    </Table>
                     <Row className="justify-content-center">
                       <JhiPagination
                         items={getPaginationItemsNumber(totalItems, this.state.itemsPerPage)}

@@ -14,7 +14,6 @@ import SearchPage from 'app/shared/layout/search/search-menu';
 import { IRootState } from 'app/shared/reducers';
 
 import { getEntities as getCategories } from 'app/entities/category/category.reducer';
-import { getUsers } from 'app/modules/administration/user-management/user-management.reducer';
 import { getEntity, updateEntity, createEntity, setBlob, reset } from './article.reducer';
 
 export interface IArticleUpdateProps extends StateProps, DispatchProps, RouteComponentProps<{ id: number }> {}
@@ -92,7 +91,10 @@ export class ArticleUpdate extends React.Component<IArticleUpdateProps, IArticle
     }
 
     this.props.getCategories();
-    this.props.getUsers();
+  }
+
+  componentWillUnmount() {
+    this.props.reset();
   }
 
   onBlobChange = (isAnImage, name) => event => {
@@ -157,7 +159,7 @@ export class ArticleUpdate extends React.Component<IArticleUpdateProps, IArticle
 
   render() {
     const isInvalid = false;
-    const { articleEntity, categories, users, loading, updating } = this.props;
+    const { articleEntity, categories, loading, updating } = this.props;
     const { isNew } = this.state;
     const { avatar, avatarContentType } = articleEntity;
 
@@ -217,7 +219,7 @@ export class ArticleUpdate extends React.Component<IArticleUpdateProps, IArticle
                         onChange={this.onChangeStatusType}
                       >
                         <Option value="OPEN">Chờ xét duyệt</Option>
-                        <Option value="PAID">Hiển thị</Option>
+                        <Option value="PAID">Duyệt luôn</Option>
                       </Select>
                     </Col>
                     <Col md="12" style={{ marginBottom: 20 }}>
@@ -288,7 +290,6 @@ export class ArticleUpdate extends React.Component<IArticleUpdateProps, IArticle
 
 const mapStateToProps = (storeState: IRootState) => ({
   categories: storeState.category.entities,
-  users: storeState.userManagement.users,
   articleEntity: storeState.article.entity,
   loading: storeState.article.loading,
   updating: storeState.article.updating
@@ -296,7 +297,6 @@ const mapStateToProps = (storeState: IRootState) => ({
 
 const mapDispatchToProps = {
   getCategories,
-  getUsers,
   getEntity,
   updateEntity,
   setBlob,

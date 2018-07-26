@@ -161,7 +161,7 @@ export class Detail extends React.Component<IDetailProp, IDetailState> {
         <TabPane
           tab={
             <span>
-              <FontAwesomeIcon icon="utensils" /> Nhà hàng
+              <i className="fa fa-home" /> Nhà hàng
             </span>
           }
           key="1"
@@ -171,7 +171,7 @@ export class Detail extends React.Component<IDetailProp, IDetailState> {
         <TabPane
           tab={
             <span>
-              <FontAwesomeIcon icon="shopping-cart" /> Mua sắm
+              <i className="fa fa-shopping-cart" /> Mua sắm
             </span>
           }
           key="2"
@@ -181,7 +181,7 @@ export class Detail extends React.Component<IDetailProp, IDetailState> {
         <TabPane
           tab={
             <span>
-              <FontAwesomeIcon icon="graduation-cap" /> Trường học
+              <i className="fa fa-graduation-cap" /> Trường học
             </span>
           }
           key="3"
@@ -217,14 +217,6 @@ export class Detail extends React.Component<IDetailProp, IDetailState> {
         <Container>
           {this.props.loading && this.props.photoLoading ? (
             <Loading />
-          ) : !this.props.houseEntity.id ? (
-            <Row>
-              <Col md="12">
-                <Row>
-                  <Permission />
-                </Row>
-              </Col>
-            </Row>
           ) : (
             <Row>
               <Row id="product-content">
@@ -250,7 +242,7 @@ export class Detail extends React.Component<IDetailProp, IDetailState> {
                   }
                 />
               )*/}
-              <Row style={{ marginTop: 10, marginBottom: 10 }}>
+              <Row style={{ marginBottom: 20 }}>
                 <Col md="12">
                   <h3 className="lo-title">
                     Bản đồ vị trí và tiện ích trong khu vực
@@ -268,7 +260,7 @@ export class Detail extends React.Component<IDetailProp, IDetailState> {
                   />
                 </Col>
               </Row>
-              <Row style={{ marginTop: 10, marginBottom: 10 }}>
+              <Row style={{ marginBottom: 20 }}>
                 <Col md="5">
                   <h4>Mô tả thêm</h4>
                   <div className="product-desc" dangerouslySetInnerHTML={{ __html: this.props.houseEntity.summary }} />
@@ -283,14 +275,14 @@ export class Detail extends React.Component<IDetailProp, IDetailState> {
                         <span className="input-addon">VNĐ</span>
                       </div>
                     </Col>
-                    <Col md="5" style={{ marginLeft: -15 }}>
+                    <Col md="5" style={{ marginLeft: -12 }}>
                       <div className="form-group">
                         <label>Số tiền tích lũy hàng tháng</label>
                         <Input placeholder="0.0" />
                         <span className="input-addon">VNĐ</span>
                       </div>
                     </Col>
-                    <Col md="2" style={{ marginLeft: -15 }}>
+                    <Col md="2">
                       <div className="form-group">
                         <label>Lãi vay</label>
                         <Input placeholder="0.0" />
@@ -309,7 +301,7 @@ export class Detail extends React.Component<IDetailProp, IDetailState> {
                         <span className="input-addon">VNĐ</span>
                       </div>
                     </Col>
-                    <Col md="7" style={{ marginLeft: -15 }}>
+                    <Col md="7" style={{ marginLeft: -12 }}>
                       <label>Tư vấn</label>
                       <TextArea
                         rows={5}
@@ -320,6 +312,7 @@ export class Detail extends React.Component<IDetailProp, IDetailState> {
                       <button type="submit" className="btn btn-info">
                         Nhận tư vấn
                       </button>
+                      {'  '}
                       <button type="submit" className="btn btn-success">
                         Đăng ký vay
                       </button>

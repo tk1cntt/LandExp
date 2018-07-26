@@ -28,7 +28,6 @@ export class Payment extends React.Component<IPaymentProp, IPaymentState> {
     const paymentId = decodePayment(this.props.match.params.id);
     /* tslint:disable-next-line */
     this.props.getPayment(parseInt(paymentId));
-    this.props.getSession();
   }
 
   onChange = e => {
@@ -78,7 +77,6 @@ export class Payment extends React.Component<IPaymentProp, IPaymentState> {
   }
 
   render() {
-    const { account } = this.props;
     const radioStyle = {
       display: 'block',
       height: '30px',
@@ -124,12 +122,10 @@ export class Payment extends React.Component<IPaymentProp, IPaymentState> {
 }
 
 const mapStateToProps = storeState => ({
-  account: storeState.authentication.account,
-  isAuthenticated: storeState.authentication.isAuthenticated,
   payment: storeState.payment.entity
 });
 
-const mapDispatchToProps = { getSession, getPayment };
+const mapDispatchToProps = { getPayment };
 
 type StateProps = ReturnType<typeof mapStateToProps>;
 type DispatchProps = typeof mapDispatchToProps;

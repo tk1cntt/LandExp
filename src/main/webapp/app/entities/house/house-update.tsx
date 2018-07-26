@@ -128,7 +128,7 @@ export class HouseUpdate extends React.Component<IHouseUpdateProps, IHouseUpdate
                             </span>
                           </Button>
                           &nbsp;
-                          <Button color="primary" id="save-entity" type="submit" disabled={isInvalid || updating}>
+                          <Button color="primary" id="save-entity" onClick={this.saveEntity} disabled={isInvalid || updating}>
                             <FontAwesomeIcon icon="save" />&nbsp;
                             <Translate contentKey="entity.action.save">Save</Translate>
                           </Button>
