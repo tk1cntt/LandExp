@@ -8,14 +8,16 @@ import { Steps, Button, Card, Spin } from 'antd';
 const Step = Steps.Step;
 
 import { IRootState } from 'app/shared/reducers';
-import { getSession } from 'app/shared/reducers/authentication';
 import { getActionType, getLandType, getCityType, getDirection, getPresent, getSaleType, encodeId, decodeId } from 'app/shared/util/utils';
 
-import { getEntity as getHouse, updateEntity as updateHouse } from 'app/entities/house/house.reducer';
-import { getEntities as getCities } from 'app/entities/city/city.reducer';
+import { getEntity as getHouse, updateEntity as updateHouse, reset as clearHouse } from 'app/entities/house/house.reducer';
 import { getEntities as getServiceFees } from 'app/entities/service-fee/service-fee.reducer';
-import { createEntity as createPhoto, updateEntity as updatePhoto, getImageOfHouse } from 'app/entities/house-photo/house-photo.reducer';
-import { getPaymentOfHouse } from 'app/entities/payment/payment.reducer';
+import {
+  createEntity as createPhoto,
+  updateEntity as updatePhoto,
+  getImageOfHouse,
+  reset as clearPhoto
+} from 'app/entities/house-photo/house-photo.reducer';
 
 import SearchPage from 'app/shared/layout/search/search-menu';
 
@@ -44,10 +46,10 @@ export class EditPage extends React.Component<IEditProp, IEditState> {
 
   componentDidMount() {
     const houseId = decodeId(this.props.match.params.id);
+    this.props.clearHouse();
+    this.props.clearPhoto();
     this.props.getHouse(houseId);
-    this.props.getPaymentOfHouse(houseId);
     this.props.getImageOfHouse(houseId);
-    this.props.getSession();
     this.props.getServiceFees();
   }
 
@@ -239,12 +241,12 @@ export class EditPage extends React.Component<IEditProp, IEditState> {
     this.props.updateHouse(entity);
     if (entity.fileList) {
       entity.fileList.map(file => {
-        const imageURL = file.thumbUrl;
-        const block = imageURL.split(';');
-        const realData = block[1].split(',')[1];
         if (file.photoId) {
           // this.props.updatePhoto({ id: file.photoId, image: realData, imageContentType: file.type, houseId: this.props.house.id });
         } else {
+          const imageURL = file.thumbUrl;
+          const block = imageURL.split(';');
+          const realData = block[1].split(',')[1];
           this.props.createPhoto({ image: realData, imageContentType: file.type, houseId: this.props.house.id });
         }
       });
@@ -604,15 +606,14 @@ const mapStateToProps = storeState => ({
 });
 
 const mapDispatchToProps = {
-  getSession,
   getHouse,
   updateHouse,
   createPhoto,
   updatePhoto,
   getImageOfHouse,
-  getCities,
   getServiceFees,
-  getPaymentOfHouse
+  clearHouse,
+  clearPhoto
 };
 
 type StateProps = ReturnType<typeof mapStateToProps>;

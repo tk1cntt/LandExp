@@ -23,7 +23,11 @@ import {
 import { getEntity as getHouse, updateEntity as updateHouse, reset as clearHouse } from 'app/entities/house/house.reducer';
 import { getEntities as getCities } from 'app/entities/city/city.reducer';
 import { getEntities as getServiceFees } from 'app/entities/service-fee/service-fee.reducer';
-import { createEntity as createPhoto, updateEntity as updatePhoto } from 'app/entities/house-photo/house-photo.reducer';
+import {
+  createEntity as createPhoto,
+  updateEntity as updatePhoto,
+  reset as clearPhoto
+} from 'app/entities/house-photo/house-photo.reducer';
 
 import SearchPage from 'app/shared/layout/search/search-menu';
 
@@ -54,9 +58,8 @@ export class PostPage extends React.Component<IPostProp, IPostState> {
 
   componentDidMount() {
     this.props.clearHouse();
+    this.props.clearPhoto();
     this.props.getHouse('init');
-    this.props.getSession();
-    // this.props.getCities();
     this.props.getServiceFees();
   }
 
@@ -663,7 +666,17 @@ const mapStateToProps = storeState => ({
   updating: storeState.house.updating
 });
 
-const mapDispatchToProps = { getSession, getHouse, updateHouse, clearHouse, createPhoto, updatePhoto, getCities, getServiceFees };
+const mapDispatchToProps = {
+  getSession,
+  getHouse,
+  updateHouse,
+  clearHouse,
+  createPhoto,
+  updatePhoto,
+  clearPhoto,
+  getCities,
+  getServiceFees
+};
 
 type StateProps = ReturnType<typeof mapStateToProps>;
 type DispatchProps = typeof mapDispatchToProps;
