@@ -92,70 +92,64 @@ export class Payment extends React.Component<IPaymentProps, IPaymentState> {
               ) : (
                 <Row>
                   <Card title="Danh sách chờ thanh toán">
-                    <div className="table-responsive">
-                      <Table responsive>
-                        <thead>
-                          <tr>
-                            <th className="hand" onClick={this.sort('code')}>
-                              <Translate contentKey="landexpApp.payment.code">Code</Translate> <FontAwesomeIcon icon="sort" />
-                            </th>
-                            <th className="hand" onClick={this.sort('money')}>
-                              <Translate contentKey="landexpApp.payment.money">Money</Translate> <FontAwesomeIcon icon="sort" />
-                            </th>
-                            <th className="hand" onClick={this.sort('paidTime')}>
-                              <Translate contentKey="landexpApp.payment.paidTime">Paid Time</Translate> <FontAwesomeIcon icon="sort" />
-                            </th>
-                            <th className="hand" onClick={this.sort('paymentStatus')}>
-                              <Translate contentKey="landexpApp.payment.paymentStatus">Payment Status</Translate>{' '}
-                              <FontAwesomeIcon icon="sort" />
-                            </th>
-                            <th className="hand" onClick={this.sort('createAt')}>
-                              <Translate contentKey="landexpApp.payment.createAt">Create At</Translate> <FontAwesomeIcon icon="sort" />
-                            </th>
-                            <th>
-                              <Translate contentKey="landexpApp.payment.customer">Customer</Translate> <FontAwesomeIcon icon="sort" />
-                            </th>
-                            <th className="hand">Nhân viên</th>
-                            <th />
-                          </tr>
-                        </thead>
-                        <tbody>
-                          {paymentList.map((payment, i) => (
-                            <tr key={`entity-${i}`}>
-                              <td>{payment.code}</td>
-                              <td>{new Intl.NumberFormat().format(payment.money)} VNĐ</td>
-                              <td>
-                                {!payment.paidTime ? (
-                                  ''
-                                ) : (
-                                  <TextFormat type="date" value={payment.paidTime} format={APP_LOCAL_DATE_FORMAT} />
-                                )}
+                    <Table responsive striped>
+                      <thead>
+                        <tr>
+                          <th className="hand" onClick={this.sort('code')}>
+                            <Translate contentKey="landexpApp.payment.code">Code</Translate> <FontAwesomeIcon icon="sort" />
+                          </th>
+                          <th className="hand" onClick={this.sort('money')}>
+                            <Translate contentKey="landexpApp.payment.money">Money</Translate> <FontAwesomeIcon icon="sort" />
+                          </th>
+                          <th className="hand" onClick={this.sort('paidTime')}>
+                            <Translate contentKey="landexpApp.payment.paidTime">Paid Time</Translate> <FontAwesomeIcon icon="sort" />
+                          </th>
+                          <th className="hand" onClick={this.sort('paymentStatus')}>
+                            <Translate contentKey="landexpApp.payment.paymentStatus">Payment Status</Translate>{' '}
+                            <FontAwesomeIcon icon="sort" />
+                          </th>
+                          <th className="hand" onClick={this.sort('createAt')}>
+                            <Translate contentKey="landexpApp.payment.createAt">Create At</Translate> <FontAwesomeIcon icon="sort" />
+                          </th>
+                          <th>
+                            <Translate contentKey="landexpApp.payment.customer">Customer</Translate> <FontAwesomeIcon icon="sort" />
+                          </th>
+                          <th className="hand">Nhân viên</th>
+                          <th />
+                        </tr>
+                      </thead>
+                      <tbody>
+                        {paymentList.map((payment, i) => (
+                          <tr key={`entity-${i}`}>
+                            <td>{payment.code}</td>
+                            <td>{new Intl.NumberFormat().format(payment.money)} VNĐ</td>
+                            <td>
+                              {!payment.paidTime ? '' : <TextFormat type="date" value={payment.paidTime} format={APP_LOCAL_DATE_FORMAT} />}
+                            </td>
+                            <td>{getPaymentStatus(payment.paymentStatus)}</td>
+                            <td>{payment.createAt ? payment.createAt : ''}</td>
+                            <td>{payment.customerLogin ? payment.customerLogin : ''}</td>
+                            <td>{payment.updateByLogin ? payment.updateByLogin : ''}</td>
+                            {payment.paymentStatus !== 'PAID' ? (
+                              <td style={{ display: 'inline-block', width: 70 }}>
+                                <div style={{ float: 'left', marginRight: 5 }} onClick={this.gotoEdit.bind(this, payment.id)}>
+                                  <Tooltip placement="top" title={'Sửa tin đăng'}>
+                                    <Icon type="edit" />{' '}
+                                  </Tooltip>
+                                </div>
+                                <div style={{ float: 'left' }} onClick={this.showPaymentConfirm.bind(this, payment)}>
+                                  <Tooltip placement="top" title={'Xác nhận thanh toán'}>
+                                    <Icon type="pay-circle" />
+                                  </Tooltip>
+                                </div>
                               </td>
-                              <td>{getPaymentStatus(payment.paymentStatus)}</td>
-                              <td>{payment.createAt ? payment.createAt : ''}</td>
-                              <td>{payment.customerLogin ? payment.customerLogin : ''}</td>
-                              <td>{payment.updateByLogin ? payment.updateByLogin : ''}</td>
-                              {payment.paymentStatus !== 'PAID' ? (
-                                <td style={{ display: 'inline-block', width: 70 }}>
-                                  <div style={{ float: 'left', marginRight: 5 }} onClick={this.gotoEdit.bind(this, payment.id)}>
-                                    <Tooltip placement="top" title={'Sửa tin đăng'}>
-                                      <Icon type="edit" />{' '}
-                                    </Tooltip>
-                                  </div>
-                                  <div style={{ float: 'left' }} onClick={this.showPaymentConfirm.bind(this, payment)}>
-                                    <Tooltip placement="top" title={'Xác nhận thanh toán'}>
-                                      <Icon type="pay-circle" />
-                                    </Tooltip>
-                                  </div>
-                                </td>
-                              ) : (
-                                <td />
-                              )}
-                            </tr>
-                          ))}
-                        </tbody>
-                      </Table>
-                    </div>
+                            ) : (
+                              <td />
+                            )}
+                          </tr>
+                        ))}
+                      </tbody>
+                    </Table>
                     {!this.state.showConfirm ? (
                       ''
                     ) : (
