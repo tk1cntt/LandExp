@@ -184,7 +184,9 @@ public class MappingUtils {
         sb.append(removeAccent(dto.getDistrictName()));
         sb.append(" ");
         sb.append(removeAccent(dto.getCityName()));
-        return sb.toString().toLowerCase().replaceAll(" ", "-").replaceAll("\\/", "-");
+        return sb.toString().toLowerCase()
+            .replaceAll(" ", "-").replaceAll("\\/", "-")
+            .replaceAll("'", "").replaceAll("\"", "");
     }
 
     public static String formatLink(HouseDTO dto) {
