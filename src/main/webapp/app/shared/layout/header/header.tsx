@@ -83,11 +83,6 @@ export default class Header extends React.Component<IHeaderProps, IHeaderState> 
             <FontAwesomeIcon icon="asterisk" />&nbsp; Quản lý tin tức
           </Link>
         </Menu.Item>
-        <Menu.Item>
-          <Link to="/quan-ly/danh-muc-tin-tuc">
-            <FontAwesomeIcon icon="asterisk" />&nbsp; Danh mục tin tức
-          </Link>
-        </Menu.Item>
         {/*
         <Menu.Item>
           <Link to="/quan-ly/house-photo">
@@ -143,6 +138,11 @@ export default class Header extends React.Component<IHeaderProps, IHeaderState> 
         <Menu.Item>
           <Link to="/quan-ly/bang-phi-dich-vu">
             <FontAwesomeIcon icon="asterisk" />&nbsp; Bảng phí dịch vụ
+          </Link>
+        </Menu.Item>
+        <Menu.Item>
+          <Link to="/quan-ly/danh-muc-tin-tuc">
+            <FontAwesomeIcon icon="asterisk" />&nbsp; Danh mục tin tức
           </Link>
         </Menu.Item>
         <Menu.Item>

@@ -86,6 +86,12 @@ export class CategoryUpdate extends React.Component<ICategoryUpdateProps, ICateg
                         </Label>
                         <AvField id="category-name" type="text" name="name" />
                       </AvGroup>
+                      <AvGroup>
+                        <Label id="enabledLabel" check>
+                          <AvInput id="category-enabled" type="checkbox" className="form-control" name="enabled" />
+                          Danh mục tin tức (Tin tức hiển thị trên trang web thuộc danh mục này)
+                        </Label>
+                      </AvGroup>
                       <Button tag={Link} id="cancel-save" to="/quan-ly/danh-muc-tin-tuc" replace color="info">
                         <FontAwesomeIcon icon="arrow-left" />&nbsp;
                         <span className="d-none d-md-inline">

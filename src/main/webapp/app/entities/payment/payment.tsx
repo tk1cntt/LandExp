@@ -133,7 +133,7 @@ export class Payment extends React.Component<IPaymentProps, IPaymentState> {
                             {payment.paymentStatus !== 'PAID' ? (
                               <td style={{ display: 'inline-block', width: 70 }}>
                                 <div style={{ float: 'left', marginRight: 5 }} onClick={this.gotoEdit.bind(this, payment.id)}>
-                                  <Tooltip placement="top" title={'Sửa tin đăng'}>
+                                  <Tooltip placement="top" title={'Sửa thanh toán'}>
                                     <Icon type="edit" />{' '}
                                   </Tooltip>
                                 </div>
