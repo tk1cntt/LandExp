@@ -4,6 +4,7 @@ import com.landexp.config.ApplicationProperties;
 import com.landexp.config.DefaultProfileUtil;
 
 import com.landexp.service.GoogleService;
+import com.landexp.service.GraphHopperService;
 import io.github.jhipster.config.JHipsterConstants;
 
 import org.slf4j.Logger;
@@ -36,6 +37,11 @@ public class LandexpApp {
     @Bean
     public GoogleService googleService() {
         return new GoogleService(googleApiKey);
+    }
+
+    @Bean
+    public GraphHopperService graphHopperService() {
+        return new GraphHopperService();
     }
     /**
      * Initializes landexp.
