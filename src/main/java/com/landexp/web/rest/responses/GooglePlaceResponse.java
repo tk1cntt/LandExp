@@ -14,7 +14,8 @@ public class GooglePlaceResponse {
     private List<String> photos;
     private String url;
     private String address;
-    private double ratingAverage;
+    private Float ratingAverage;
+    private Integer distance;
     private double longitude;
     private double latitude;
 
@@ -69,12 +70,20 @@ public class GooglePlaceResponse {
         this.address = address;
     }
 
-    public double getRatingAverage() {
+    public Float getRatingAverage() {
         return ratingAverage;
     }
 
-    public void setRatingAverage(double ratingAverage) {
+    public void setRatingAverage(Float ratingAverage) {
         this.ratingAverage = ratingAverage;
+    }
+
+    public Integer getDistance() {
+        return distance;
+    }
+
+    public void setDistance(Integer distance) {
+        this.distance = distance;
     }
 
     public double getLongitude() {

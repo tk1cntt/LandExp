@@ -32,11 +32,11 @@ public class GraphHopperService {
         hopper.importOrLoad();
     }
 
-    public PathWrapper route(double fromLat, double fromLon, double toLat, double toLon) {
+    public PathWrapper route(double fromLat, double fromLon, double toLat, double toLon, String type) {
         // simple configuration of the request object, see the GraphHopperServlet class for more possibilities.
-        GHRequest req = new GHRequest(21.040291, 105.850929, 21.035474, 105.854866).
+        GHRequest req = new GHRequest(fromLat, fromLon, toLat, toLon).
             setWeighting("fastest").
-            setVehicle("car").
+            setVehicle(type).
             setLocale(Locale.US);
         GHResponse rsp = hopper.route(req);
         // first check for errors

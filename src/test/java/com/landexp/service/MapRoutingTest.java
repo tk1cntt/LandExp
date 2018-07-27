@@ -17,7 +17,7 @@ public class MapRoutingTest {
 
     @Test
     public void testRoute() {
-        PathWrapper path = graphHopperService.route(21.040291, 105.850929, 21.035474, 105.854866);
+        PathWrapper path = graphHopperService.route(20.912487, 106.149673, 20.905380, 106.147649, "car");
         // points, distance in meters and time in millis of the full path
         PointList pointList = path.getPoints();
         double distance = path.getDistance();
