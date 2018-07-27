@@ -11,14 +11,11 @@ import com.landexp.domain.LandProject;
 import com.landexp.domain.User;
 import com.landexp.domain.User;
 import com.landexp.repository.HouseRepository;
-import com.landexp.service.HouseService;
-import com.landexp.service.PaymentService;
-import com.landexp.service.ServiceFeeService;
+import com.landexp.service.*;
 import com.landexp.service.dto.HouseDTO;
 import com.landexp.service.mapper.HouseMapper;
 import com.landexp.web.rest.errors.ExceptionTranslator;
 import com.landexp.service.dto.HouseCriteria;
-import com.landexp.service.HouseQueryService;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -185,6 +182,9 @@ public class HouseResourceIntTest {
     private ServiceFeeService serviceFeeService;
 
     @Autowired
+    private GoogleService googleService;
+
+    @Autowired
     private MappingJackson2HttpMessageConverter jacksonMessageConverter;
 
     @Autowired
@@ -203,7 +203,7 @@ public class HouseResourceIntTest {
     @Before
     public void setup() {
         MockitoAnnotations.initMocks(this);
-        final HouseResource houseResource = new HouseResource(houseService, houseQueryService, paymentService, serviceFeeService);
+        final HouseResource houseResource = new HouseResource(houseService, houseQueryService, paymentService, serviceFeeService, googleService);
         this.restHouseMockMvc = MockMvcBuilders.standaloneSetup(houseResource)
             .setCustomArgumentResolvers(pageableArgumentResolver)
             .setControllerAdvice(exceptionTranslator)

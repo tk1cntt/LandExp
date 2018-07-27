@@ -1,10 +1,14 @@
 package com.landexp.service.dto;
 
 import com.landexp.domain.enumeration.*;
+import com.landexp.web.rest.responses.GooglePlaceResponse;
 
 import javax.persistence.Lob;
 import java.io.Serializable;
 import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.List;
 import java.util.Objects;
 
 /**
@@ -81,6 +85,10 @@ public class HouseDetailDTO implements Serializable {
     private Float latitude;
 
     private Float longitude;
+
+    private Collection<GooglePlaceResponse> hospitals = new ArrayList<>();
+    private Collection<GooglePlaceResponse> schools = new ArrayList<>();
+    private Collection<GooglePlaceResponse> restaurants = new ArrayList<>();
 
     private LocalDate createAt;
 
@@ -396,6 +404,30 @@ public class HouseDetailDTO implements Serializable {
 
     public void setLongitude(Float longitude) {
         this.longitude = longitude;
+    }
+
+    public Collection<GooglePlaceResponse> getHospitals() {
+        return hospitals;
+    }
+
+    public void setHospitals(Collection<GooglePlaceResponse> hospitals) {
+        this.hospitals = hospitals;
+    }
+
+    public Collection<GooglePlaceResponse> getSchools() {
+        return schools;
+    }
+
+    public void setSchools(Collection<GooglePlaceResponse> schools) {
+        this.schools = schools;
+    }
+
+    public Collection<GooglePlaceResponse> getRestaurants() {
+        return restaurants;
+    }
+
+    public void setRestaurants(Collection<GooglePlaceResponse> restaurants) {
+        this.restaurants = restaurants;
     }
 
     public LocalDate getCreateAt() {

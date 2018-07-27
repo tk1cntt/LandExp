@@ -2,10 +2,7 @@ package com.landexp.web.rest;
 
 import com.codahale.metrics.annotation.Timed;
 import com.landexp.config.Utils;
-import com.landexp.domain.Category;
-import com.landexp.domain.Category_;
 import com.landexp.frontend.responses.MappingUtils;
-import com.landexp.repository.CategoryRepository;
 import com.landexp.security.AuthoritiesConstants;
 import com.landexp.security.SecurityUtils;
 import com.landexp.service.ArticleService;
@@ -139,7 +136,7 @@ public class ArticleResource {
         log.debug("REST request to get a page of Articles");
         List<ArticleMapDTO> maps = new ArrayList<>();
         List<CategoryDTO> categories = categoryService.findByStatus(true);
-        for(CategoryDTO dto: categories) {
+        for (CategoryDTO dto : categories) {
             ArticleMapDTO map = new ArticleMapDTO();
             List<ArticleDTO> articles = articleService.findTopBy(dto.getId());
             map.setKey(dto.getName());

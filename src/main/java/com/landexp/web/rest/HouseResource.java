@@ -1,23 +1,24 @@
 package com.landexp.web.rest;
 
 import com.codahale.metrics.annotation.Timed;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.google.maps.model.PlaceType;
 import com.landexp.config.Utils;
 import com.landexp.domain.enumeration.PaymentStatusType;
 import com.landexp.domain.enumeration.StatusType;
 import com.landexp.frontend.responses.MappingUtils;
 import com.landexp.security.AuthoritiesConstants;
 import com.landexp.security.SecurityUtils;
-import com.landexp.service.HouseQueryService;
-import com.landexp.service.HouseService;
-import com.landexp.service.PaymentService;
-import com.landexp.service.ServiceFeeService;
+import com.landexp.service.*;
 import com.landexp.service.dto.*;
 import com.landexp.web.rest.errors.BadRequestAlertException;
+import com.landexp.web.rest.responses.GooglePlaceResponse;
 import com.landexp.web.rest.util.HeaderUtil;
 import com.landexp.web.rest.util.PaginationUtil;
 import io.github.jhipster.web.util.ResponseUtil;
 import net.coobird.thumbnailator.Thumbnails;
 import net.coobird.thumbnailator.geometry.Positions;
+import org.apache.commons.io.FileUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.data.domain.Page;
@@ -27,16 +28,17 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.annotation.Secured;
 import org.springframework.util.ObjectUtils;
+import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.*;
 
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.net.URI;
 import java.net.URISyntaxException;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.time.LocalDate;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Optional;
+import java.util.*;
 
 /**
  * REST controller for managing House.
@@ -55,11 +57,18 @@ public class HouseResource {
 
     private final ServiceFeeService serviceFeeService;
 
-    public HouseResource(HouseService houseService, HouseQueryService houseQueryService, PaymentService paymentService, ServiceFeeService serviceFeeService) {
+    private final GoogleService googleService;
+
+    public HouseResource(HouseService houseService,
+                         HouseQueryService houseQueryService,
+                         PaymentService paymentService,
+                         ServiceFeeService serviceFeeService,
+                         GoogleService googleService) {
         this.houseService = houseService;
         this.houseQueryService = houseQueryService;
         this.paymentService = paymentService;
         this.serviceFeeService = serviceFeeService;
+        this.googleService = googleService;
     }
 
     /**
@@ -245,19 +254,41 @@ public class HouseResource {
      */
     @GetMapping("/houses/{id}")
     @Timed
-    public ResponseEntity<HouseDetailDTO> getHouse(@PathVariable Long id) {
+    public ResponseEntity<HouseDetailDTO> getHouse(@PathVariable Long id) throws IOException {
         log.debug("REST request to get House : {}", id);
         Optional<HouseDetailDTO> houseDTO = houseService.findOne(id);
         if (ObjectUtils.isEmpty(houseDTO.get())) {
             throw new BadRequestAlertException("Not Found " + id, ENTITY_NAME, "notfound");
         }
         if (!houseDTO.get().getStatusType().equals(StatusType.PAID)
-            &&!SecurityUtils.getCurrentUserLogin().get().equalsIgnoreCase(houseDTO.get().getCreateByLogin())
+            && !SecurityUtils.getCurrentUserLogin().get().equalsIgnoreCase(houseDTO.get().getCreateByLogin())
             && !SecurityUtils.isCurrentUserInRole(AuthoritiesConstants.MANAGER)
             && !SecurityUtils.isCurrentUserInRole(AuthoritiesConstants.STAFF)) {
             throw new BadRequestAlertException("No permission", ENTITY_NAME, "nopermission");
         }
-        return ResponseUtil.wrapOrNotFound(houseDTO);
+        HouseDetailDTO dto = houseDTO.get();
+        if (StringUtils.isEmpty(dto.getGoogleId())) {
+            dto.setRestaurants(getPlaces(dto.getGoogleId(), PlaceType.RESTAURANT, dto.getLatitude(), dto.getLongitude(), 500));
+            dto.setSchools(getPlaces(dto.getGoogleId(), PlaceType.SCHOOL, dto.getLatitude(), dto.getLongitude(), 500));
+            dto.setHospitals(getPlaces(dto.getGoogleId(), PlaceType.HOSPITAL, dto.getLatitude(), dto.getLongitude(), 500));
+        }
+        return ResponseUtil.wrapOrNotFound(Optional.of(dto));
+    }
+
+    private Collection<GooglePlaceResponse> getPlaces(String placeId, PlaceType placeType, double latitude, double longitude, int radius) throws IOException {
+        ObjectMapper mapper = new ObjectMapper();
+        Path path = Paths.get("google-places", placeId, placeType.toString().toLowerCase() + ".json");
+        MappingUtils.folderBy(path.toFile());
+        if (path.toFile().exists()) {
+            return mapper.readValue(path.toFile(), Collection.class);
+        } else {
+            PlaceType[] places = new PlaceType[1];
+            places[0] = placeType;
+            Map<String, GooglePlaceResponse> restaurants = googleService.searchNearby(latitude, longitude, radius, places);
+            String jsonArray = mapper.writeValueAsString(restaurants.values());
+            FileUtils.write(path.toFile(), jsonArray, "utf-8");
+            return mapper.readValue(path.toFile(), Collection.class);
+        }
     }
 
     /**

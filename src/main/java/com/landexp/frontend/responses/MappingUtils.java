@@ -13,7 +13,9 @@ import org.springframework.util.StringUtils;
 import javax.imageio.ImageIO;
 import java.awt.image.BufferedImage;
 import java.io.ByteArrayInputStream;
+import java.io.File;
 import java.io.IOException;
+import java.nio.file.Paths;
 import java.text.DecimalFormat;
 import java.text.SimpleDateFormat;
 import java.time.LocalDate;
@@ -228,6 +230,21 @@ public class MappingUtils {
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
+    }
+
+    public static File folderBy(String root, String... more) {
+        File folder = Paths.get(root, more).toFile();
+        if (!folder.exists()) {
+            folder.mkdirs();
+        }
+        return folder;
+    }
+
+    public static File folderBy(File folder) {
+        if (!folder.exists()) {
+            folder.mkdirs();
+        }
+        return folder;
     }
 
     public static String formatParking(Boolean parking) {
