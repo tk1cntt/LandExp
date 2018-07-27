@@ -1,19 +1,14 @@
 import './home.css';
 
 import React from 'react';
-import { Link } from 'react-router-dom';
-import { Translate } from 'react-jhipster';
 import { connect } from 'react-redux';
-import { Row, Col, Alert } from 'reactstrap';
-import { Spin } from 'antd';
 import ImageGallery from 'react-image-gallery';
 
 import { getSession } from 'app/shared/reducers/authentication';
-import { getLandType, getDirection, getMoney, encodeId, decodeId } from 'app/shared/util/utils';
+import { getLandType, getDirection, encodeId } from 'app/shared/util/utils';
 import { SERVER_API_URL } from 'app/config/constants';
 
 import Loading from 'app/shared/layout/loading/loading';
-import SearchPage from 'app/shared/layout/search/search-menu';
 import GoogleMaps from 'app/shared/util/google-maps';
 
 export interface IHomeProp extends StateProps, DispatchProps {}
@@ -216,6 +211,7 @@ export class HomeDetail extends React.Component<IHomeProp> {
             {*/}
                 <GoogleMaps
                   updateMarkerPosition={this.updateMarkerPosition}
+                  isMarkerDraggable={false}
                   currentPosition={{ latitude: this.props.houseEntity.latitude, longitude: this.props.houseEntity.longitude }}
                 />
               </div>
