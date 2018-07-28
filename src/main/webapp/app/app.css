@@ -184,3 +184,31 @@
 .content-editor .ql-editor {
   min-height: 500px;
 }
+
+.location .nearby div {
+  width: 520px;
+  padding-left: 5px;
+  padding-right: 5px;
+  display: inline-block;
+}
+
+.location .nearby div h3 .title {
+  color: #3a65f9;
+}
+
+.location .nearby div h3 span {
+  float: right;
+  font-weight: 300 !important;
+  color: #aaaaaa;
+}
+
+.location .nearby {
+  overflow-y: scroll;
+  height: 320px;
+}
+
+.product-info .location p {
+  min-height: 42px;
+  max-height: 42px;
+  overflow: hidden;
+}

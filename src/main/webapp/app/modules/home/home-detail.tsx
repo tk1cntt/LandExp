@@ -3,9 +3,11 @@ import './home.css';
 import React from 'react';
 import { connect } from 'react-redux';
 import ImageGallery from 'react-image-gallery';
+import { Tabs, Input } from 'antd';
+const TabPane = Tabs.TabPane;
 
 import { getSession } from 'app/shared/reducers/authentication';
-import { getLandType, getDirection, encodeId } from 'app/shared/util/utils';
+import { getLandType, getDirection, humanize, encodeId } from 'app/shared/util/utils';
 import { SERVER_API_URL } from 'app/config/constants';
 
 import Loading from 'app/shared/layout/loading/loading';
@@ -27,6 +29,73 @@ export class HomeDetail extends React.Component<IHomeProp> {
   }
 
   updateMarkerPosition = () => {};
+
+  houseNearByForm() {
+    return (
+      <Tabs defaultActiveKey="1" style={{ border: '1px solid #dfdfdf', padding: 10, minHeight: 400, maxHeight: 400 }}>
+        <TabPane
+          tab={
+            <span>
+              <i className="fa fa-home" /> Nhà hàng
+            </span>
+          }
+          key="1"
+          className="nearby"
+        >
+          {this.props.houseEntity.restaurants &&
+            this.props.houseEntity.restaurants.map((restaurant, i) => (
+              <div key={`restaurant-id-${i}`}>
+                <h3>
+                  <div className="title">{restaurant.title}</div>
+                  <span>{humanize(restaurant.distance / 1000)}km</span>
+                </h3>
+                <p style={{ padding: 5 }}>{restaurant.address}</p>
+              </div>
+            ))}
+        </TabPane>
+        <TabPane
+          tab={
+            <span>
+              <i className="fa fa-shopping-cart" /> Bệnh viện
+            </span>
+          }
+          key="2"
+          className="nearby"
+        >
+          {this.props.houseEntity.hospitals &&
+            this.props.houseEntity.hospitals.map((restaurant, i) => (
+              <div key={`restaurant-id-${i}`}>
+                <h3>
+                  <div className="title">{restaurant.title}</div>
+                  <span>{humanize(restaurant.distance / 1000)}km</span>
+                </h3>
+                <p style={{ padding: 5 }}>{restaurant.address}</p>
+              </div>
+            ))}
+        </TabPane>
+        <TabPane
+          tab={
+            <span>
+              <i className="fa fa-graduation-cap" /> Trường học
+            </span>
+          }
+          key="3"
+          className="nearby"
+        >
+          {this.props.houseEntity.schools &&
+            this.props.houseEntity.schools.map((restaurant, i) => (
+              <div key={`restaurant-id-${i}`}>
+                <h3>
+                  <div className="title">{restaurant.title}</div>
+                  <span>{humanize(restaurant.distance / 1000)}km</span>
+                </h3>
+                <p style={{ padding: 5 }}>{restaurant.address}</p>
+              </div>
+            ))}
+        </TabPane>
+      </Tabs>
+    );
+  }
 
   render() {
     const images = [];
@@ -99,116 +168,8 @@ export class HomeDetail extends React.Component<IHomeProp> {
               <h3 style={{ marginTop: 20 }}>
                 Bản đồ vị trí Bất động sản <span className="address">{this.props.houseEntity.fullAddress}</span>
               </h3>
-              <div className="heading">
-                <ul>
-                  <li>
-                    <a>Vị trí BDS</a>
-                  </li>
-                  <li>
-                    <a>Nhà hàng</a>
-                  </li>
-                  <li>
-                    <a>Mua sắm</a>
-                  </li>
-                  <li>
-                    <a>Thể thao Giải trí</a>
-                  </li>
-                  <li>
-                    <a>Trường học</a>
-                  </li>
-                </ul>
-              </div>
-              <div className="location-search">
-                <p>
-                  <span className="color-gray">Tìm thấy:</span> 10 kết quả
-                </p>
-                <div className="toolbox">
-                  <form action="#" className="form-inline">
-                    <label htmlFor="distance">Bán kính</label>
-                    <select id="distance" className="form-control">
-                      <option value={1}>1 km</option>
-                      <option value={2}>2 km</option>
-                    </select>
-                  </form>
-                </div>
-                <p />
-                <div className="result">
-                  <div>
-                    <h3>
-                      <a href="#">Nhà hàng Thành Nam</a>
-                      <span>1.995km</span>
-                    </h3>
-                    <p>11 Nguyễn Xiển, Q. Thanh Xuân, Hà Nội</p>
-                  </div>
-                  <div>
-                    <h3>
-                      <a href="#">Nhà hàng Thành Nam</a>
-                      <span>1.995km</span>
-                    </h3>
-                    <p>11 Nguyễn Xiển, Q. Thanh Xuân, Hà Nội</p>
-                  </div>
-                  <div>
-                    <h3>
-                      <a href="#">Nhà hàng Thành Nam</a>
-                      <span>1.995km</span>
-                    </h3>
-                    <p>11 Nguyễn Xiển, Q. Thanh Xuân, Hà Nội</p>
-                  </div>
-                  <div>
-                    <h3>
-                      <a href="#">Nhà hàng Thành Nam</a>
-                      <span>1.995km</span>
-                    </h3>
-                    <p>11 Nguyễn Xiển, Q. Thanh Xuân, Hà Nội</p>
-                  </div>
-                  <div>
-                    <h3>
-                      <a href="#">Nhà hàng Thành Nam</a>
-                      <span>1.995km</span>
-                    </h3>
-                    <p>11 Nguyễn Xiển, Q. Thanh Xuân, Hà Nội</p>
-                  </div>
-                  <div>
-                    <h3>
-                      <a href="#">Nhà hàng Thành Nam</a>
-                      <span>1.995km</span>
-                    </h3>
-                    <p>11 Nguyễn Xiển, Q. Thanh Xuân, Hà Nội</p>
-                  </div>
-                  <div>
-                    <h3>
-                      <a href="#">Nhà hàng Thành Nam</a>
-                      <span>1.995km</span>
-                    </h3>
-                    <p>11 Nguyễn Xiển, Q. Thanh Xuân, Hà Nội</p>
-                  </div>
-                  <div>
-                    <h3>
-                      <a href="#">Nhà hàng Thành Nam</a>
-                      <span>1.995km</span>
-                    </h3>
-                    <p>11 Nguyễn Xiển, Q. Thanh Xuân, Hà Nội</p>
-                  </div>
-                  <div>
-                    <h3>
-                      <a href="#">Nhà hàng Thành Nam</a>
-                      <span>1.995km</span>
-                    </h3>
-                    <p>11 Nguyễn Xiển, Q. Thanh Xuân, Hà Nội</p>
-                  </div>
-                </div>
-              </div>
-              <div id="map">
-                {/*}
-            <iframe
-              src="https://maps.google.com/maps?q=21.0286669,105.8521484&hl=es;z=14&amp;output=embed"
-              width={565}
-              height={276}
-              frameBorder={0}
-              style={{ border: 0 }}
-              allowFullScreen
-            />
-            {*/}
+              {this.houseNearByForm()}
+              <div id="map" style={{ marginTop: 20 }}>
                 <GoogleMaps
                   updateMarkerPosition={this.updateMarkerPosition}
                   isMarkerDraggable={false}
@@ -247,6 +208,7 @@ export class HomeDetail extends React.Component<IHomeProp> {
                 </div>
               </div>
             </div>
+            {/*}
             <div className="other-info">
               <h3 style={{ marginTop: 20 }}>Thông tin khác</h3>
               <div className="row">
@@ -384,6 +346,7 @@ export class HomeDetail extends React.Component<IHomeProp> {
                 </div>
               </div>
             </div>
+            {*/}
           </>
         )}
       </>
