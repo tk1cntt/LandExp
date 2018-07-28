@@ -627,6 +627,7 @@ ul.right-menu .button {
   margin: 0;
   color: #aaaaaa;
   font-size: 12px;
+  min-height: 18px;
 }
 
 .item-info .price {

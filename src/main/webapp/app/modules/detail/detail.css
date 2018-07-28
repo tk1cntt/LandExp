@@ -19,3 +19,9 @@
   overflow-y: scroll;
   height: 320px;
 }
+
+.product-info .location p {
+  min-height: 42px;
+  max-height: 42px;
+  overflow: hidden;
+}

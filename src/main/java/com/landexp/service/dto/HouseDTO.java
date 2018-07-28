@@ -57,6 +57,10 @@ public class HouseDTO implements Serializable {
 
     private String wardName;
 
+    private String districtType;
+
+    private String wardType;
+
     private String projectName;
 
     private String createByLogin;
@@ -219,6 +223,22 @@ public class HouseDTO implements Serializable {
 
     public void setWardName(String wardName) {
         this.wardName = wardName;
+    }
+
+    public String getDistrictType() {
+        return districtType;
+    }
+
+    public void setDistrictType(String districtType) {
+        this.districtType = districtType;
+    }
+
+    public String getWardType() {
+        return wardType;
+    }
+
+    public void setWardType(String wardType) {
+        this.wardType = wardType;
     }
 
     public String getProjectName() {

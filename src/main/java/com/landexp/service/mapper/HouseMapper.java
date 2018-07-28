@@ -15,7 +15,9 @@ public interface HouseMapper extends EntityMapper<HouseDTO, House> {
 
     @Mapping(source = "city.name", target = "cityName")
     @Mapping(source = "district.name", target = "districtName")
+    @Mapping(source = "district.type", target = "districtType")
     @Mapping(source = "ward.name", target = "wardName")
+    @Mapping(source = "ward.type", target = "wardType")
     @Mapping(source = "project.name", target = "projectName")
     @Mapping(source = "createBy.login", target = "createByLogin")
     HouseDTO toDto(House house);

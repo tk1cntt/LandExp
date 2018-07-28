@@ -251,7 +251,8 @@ export class EditPage extends React.Component<IEditProp, IEditState> {
         }
       });
     }
-    this.props.history.push(`/tai-khoan/xem-truoc-tin-dang/${encodeId(this.props.house.id)}`);
+    // this.props.history.push(`/tai-khoan/xem-truoc-tin-dang/${encodeId(this.props.house.id)}`);
+    this.props.history.push(`/bat-dong-san/${encodeId(this.props.house.id)}/xem-truoc-tin-dang`);
   };
 
   updateHouse = house => {

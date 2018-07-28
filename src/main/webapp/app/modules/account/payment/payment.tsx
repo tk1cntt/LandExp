@@ -1,13 +1,10 @@
 import React from 'react';
-import { Link, RouteComponentProps } from 'react-router-dom';
-import { Translate } from 'react-jhipster';
+import { RouteComponentProps } from 'react-router-dom';
 import { connect } from 'react-redux';
-import { Row, Col, Container, Alert } from 'reactstrap';
-import { Card, Radio, Input, Button } from 'antd';
+import { Row, Col, Container } from 'reactstrap';
+import { Card, Radio } from 'antd';
 const RadioGroup = Radio.Group;
 
-import { IRootState } from 'app/shared/reducers';
-import { getSession } from 'app/shared/reducers/authentication';
 import { getEntity as getPayment } from 'app/entities/payment/payment.reducer';
 import { decodePayment } from 'app/shared/util/utils';
 

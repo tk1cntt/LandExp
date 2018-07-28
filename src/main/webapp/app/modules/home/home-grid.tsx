@@ -37,7 +37,7 @@ export class HomeGrid extends React.Component<IHomeProp> {
                 <a href="#">
                   <h3 className="title">{getLandType(house.landType)}</h3>
                 </a>
-                <p className="subtitle">Dự án Vinhome D’Capital</p>
+                <p className="subtitle">{house.projectName}</p>
                 <p className="price" dangerouslySetInnerHTML={{ __html: getMoney(house.money, house.actionType) }} />
                 <div className="post-date">
                   Ngày đăng{' '}
@@ -52,7 +52,7 @@ export class HomeGrid extends React.Component<IHomeProp> {
                   <span className="gara">{house.parking ? <i className="fa fa-check" /> : <i className="fa fa-times" />}</span>
                 </div>
                 <p className="location">
-                  {house.districtName}, {house.cityName}
+                  {house.districtType}{' '}{house.districtName},{' '}{house.cityName}
                 </p>
               </div>
               <div className="clearfix" />

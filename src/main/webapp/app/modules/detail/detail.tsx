@@ -86,8 +86,10 @@ export class Detail extends React.Component<IDetailProp, IDetailState> {
         <div className="location">
           <span className="title">Địa chỉ</span>
           <p>
-            {this.props.houseEntity.address}, {this.props.houseEntity.wardName}, {this.props.houseEntity.districtName},{' '}
-            {this.props.houseEntity.cityName}
+            {this.props.houseEntity.address},
+            {' '}{this.props.houseEntity.wardType}{' '}{this.props.houseEntity.wardName},
+            {' '}{this.props.houseEntity.districtType}{' '}{this.props.houseEntity.districtName},
+            {' '}{this.props.houseEntity.cityName}
           </p>
         </div>
         <div className="button-group">

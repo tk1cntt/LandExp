@@ -106,8 +106,10 @@ export interface IHouse {
   cityName?: string;
   cityId?: number;
   districtName?: string;
+  districtType?: string;
   districtId?: number;
   wardName?: string;
+  wardType?: string;
   wardId?: number;
   projectName?: string;
   projectId?: number;

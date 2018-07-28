@@ -142,7 +142,7 @@ public class UserResource {
      */
     @GetMapping("/users")
     @Timed
-    @Secured(AuthoritiesConstants.MANAGER)
+    @Secured(AuthoritiesConstants.STAFF)
     public ResponseEntity<List<UserDTO>> getAllUsers(Pageable pageable) {
         final Page<UserDTO> page = userService.getAllManagedUsers(pageable);
         HttpHeaders headers = PaginationUtil.generatePaginationHttpHeaders(page, "/api/users");

@@ -132,11 +132,13 @@ export class Payment extends React.Component<IPaymentProps, IPaymentState> {
                             <td>{payment.updateByLogin ? payment.updateByLogin : ''}</td>
                             {payment.paymentStatus !== 'PAID' ? (
                               <td style={{ display: 'inline-block', width: 70 }}>
+                                {/*}
                                 <div style={{ float: 'left', marginRight: 5 }} onClick={this.gotoEdit.bind(this, payment.id)}>
                                   <Tooltip placement="top" title={'Sửa thanh toán'}>
                                     <Icon type="edit" />{' '}
                                   </Tooltip>
                                 </div>
+                                {*/}
                                 <div style={{ float: 'left' }} onClick={this.showPaymentConfirm.bind(this, payment)}>
                                   <Tooltip placement="top" title={'Xác nhận thanh toán'}>
                                     <Icon type="pay-circle" />
