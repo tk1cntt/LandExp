@@ -268,9 +268,9 @@ public class HouseResource {
         }
         HouseDetailDTO dto = houseDTO.get();
         if (!StringUtils.isEmpty(dto.getGoogleId())) {
-            dto.setRestaurants(googleService.getPlaces(dto.getGoogleId(), PlaceType.RESTAURANT, dto.getLatitude(), dto.getLongitude(), 500));
-            dto.setSchools(googleService.getPlaces(dto.getGoogleId(), PlaceType.SCHOOL, dto.getLatitude(), dto.getLongitude(), 500));
-            dto.setHospitals(googleService.getPlaces(dto.getGoogleId(), PlaceType.HOSPITAL, dto.getLatitude(), dto.getLongitude(), 500));
+            dto.setRestaurants(googleService.getPlaces(dto.getGoogleId(), "supermarket", dto.getLatitude(), dto.getLongitude(), 500));
+            dto.setSchools(googleService.getPlaces(dto.getGoogleId(), "school", dto.getLatitude(), dto.getLongitude(), 500));
+            dto.setHospitals(googleService.getPlaces(dto.getGoogleId(), "hospital", dto.getLatitude(), dto.getLongitude(), 500));
         }
         return ResponseUtil.wrapOrNotFound(Optional.of(dto));
     }

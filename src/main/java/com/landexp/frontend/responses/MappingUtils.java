@@ -145,8 +145,8 @@ public class MappingUtils {
     public static String formatFullAddress(HouseDetailDTO dto) {
         StringBuilder sb = new StringBuilder();
         sb.append(StringUtils.isEmpty(dto.getAddress()) ? "" : dto.getAddress());
-        sb.append(StringUtils.isEmpty(dto.getWardName()) ? "" : ", " + dto.getWardName());
-        sb.append(StringUtils.isEmpty(dto.getDistrictName()) ? "" : ", " + dto.getDistrictName());
+        sb.append(StringUtils.isEmpty(dto.getWardName()) ? "" : ", " + dto.getWardType() + " " + dto.getWardName());
+        sb.append(StringUtils.isEmpty(dto.getDistrictName()) ? "" : ", " + dto.getDistrictType() + " " + dto.getDistrictName());
         sb.append(StringUtils.isEmpty(dto.getCityName()) ? "" : ", " + dto.getCityName());
         return sb.toString();
     }

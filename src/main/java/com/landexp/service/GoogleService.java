@@ -103,15 +103,15 @@ public class GoogleService {
         return googlePlaceResponse;
     }
 
-    public Map<String, GooglePlaceResponse> searchNearby(double latitude, double longitude, int radius, PlaceType[] types) throws ExecuteRuntimeException {
+    public Map<String, GooglePlaceResponse> searchNearby(double latitude, double longitude, int radius, String placeType) throws ExecuteRuntimeException {
         try {
             ObjectMapper mapper = new ObjectMapper();
-            logger.debug("Search near by [{},{}] with radius {} and type {}", latitude, longitude, radius, types.toString());
+            logger.debug("Search near by [{},{}] with radius {} and type {}", latitude, longitude, radius, placeType);
             StringBuilder link = new StringBuilder();
             link.append("https://maps.googleapis.com/maps/api/place/nearbysearch/json?");
             link.append("location=").append(latitude).append(",").append(longitude);
             link.append("&radius=").append(radius);
-            link.append("&type=").append(types[0].toString().toLowerCase());
+            link.append("&type=").append(placeType);
             link.append("&rankby=prominence");
             link.append("&language=vi");
             link.append("&key=").append(googleApiKey);
@@ -160,16 +160,14 @@ public class GoogleService {
         return googlePlaceResponses;
     }
 
-    public Collection<GooglePlaceResponse> getPlaces(String placeId, PlaceType placeType, double latitude, double longitude, int radius) throws IOException {
+    public Collection<GooglePlaceResponse> getPlaces(String placeId, String placeType, double latitude, double longitude, int radius) throws IOException {
         ObjectMapper mapper = new ObjectMapper();
         Path path = Paths.get("google-places", placeId, placeType.toString().toLowerCase() + ".json");
         MappingUtils.folderBy(path.toFile());
         if (path.toFile().exists()) {
             return mapper.readValue(path.toFile(), Collection.class);
         } else {
-            PlaceType[] places = new PlaceType[1];
-            places[0] = placeType;
-            Map<String, GooglePlaceResponse> restaurants = searchNearby(latitude, longitude, radius, places);
+            Map<String, GooglePlaceResponse> restaurants = searchNearby(latitude, longitude, radius, placeType);
             String jsonArray = mapper.writeValueAsString(restaurants.values());
             FileUtils.write(path.toFile(), jsonArray, "utf-8");
             return mapper.readValue(path.toFile(), Collection.class);

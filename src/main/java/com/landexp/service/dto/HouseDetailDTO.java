@@ -102,9 +102,13 @@ public class HouseDetailDTO implements Serializable {
 
     private String districtName;
 
+    private String districtType;
+
     private Long wardId;
 
     private String wardName;
+
+    private String wardType;
 
     private Long projectId;
 
@@ -492,6 +496,22 @@ public class HouseDetailDTO implements Serializable {
 
     public void setWardName(String wardName) {
         this.wardName = wardName;
+    }
+
+    public String getDistrictType() {
+        return districtType;
+    }
+
+    public void setDistrictType(String districtType) {
+        this.districtType = districtType;
+    }
+
+    public String getWardType() {
+        return wardType;
+    }
+
+    public void setWardType(String wardType) {
+        this.wardType = wardType;
     }
 
     public Long getProjectId() {
