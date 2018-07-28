@@ -10,7 +10,6 @@ import java.util.List;
 public class GooglePlaceResponse {
     private String title;
     private String googleId;
-    private String[] type;
     private List<String> photos;
     private String url;
     private String address;
@@ -33,14 +32,6 @@ public class GooglePlaceResponse {
 
     public void setGoogleId(String googleId) {
         this.googleId = googleId;
-    }
-
-    public String[] getType() {
-        return type;
-    }
-
-    public void setType(String[] type) {
-        this.type = type;
     }
 
     public List<String> getPhotos() {

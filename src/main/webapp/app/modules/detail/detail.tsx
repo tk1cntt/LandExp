@@ -13,7 +13,7 @@ import { Tabs, Input } from 'antd';
 const { TextArea } = Input;
 const TabPane = Tabs.TabPane;
 
-import { getLandType, getDirection, getMoney, encodeId, decodeId } from 'app/shared/util/utils';
+import { getLandType, getDirection, getMoney, humanize, encodeId, decodeId } from 'app/shared/util/utils';
 import { getEntity } from 'app/entities/house/house.reducer';
 import { getImageOfHouse } from 'app/entities/house-photo/house-photo.reducer';
 import { SERVER_API_URL, APP_LOCAL_DATE_FORMAT } from 'app/config/constants';
@@ -152,18 +152,36 @@ export class Detail extends React.Component<IDetailProp, IDetailState> {
             </span>
           }
           key="1"
+          className="nearby"
         >
-          Content of Tab Pane 1
+          {this.props.houseEntity.restaurants && this.props.houseEntity.restaurants.map((restaurant, i) => (
+            <div key={`restaurant-id-${i}`}>
+              <h3>
+                <div className="title">{restaurant.title}</div>
+                <span>{humanize(restaurant.distance/1000)}km</span>
+              </h3>
+              <p style={{ padding: 5 }}>{restaurant.address}</p>
+            </div>
+          ))}
         </TabPane>
         <TabPane
           tab={
             <span>
-              <i className="fa fa-shopping-cart" /> Mua sắm
+              <i className="fa fa-shopping-cart" /> Bệnh viện
             </span>
           }
           key="2"
+          className="nearby"
         >
-          Content of Tab Pane 2
+          {this.props.houseEntity.hospitals && this.props.houseEntity.hospitals.map((restaurant, i) => (
+            <div key={`restaurant-id-${i}`}>
+              <h3>
+                <div className="title">{restaurant.title}</div>
+                <span>{humanize(restaurant.distance/1000)}km</span>
+              </h3>
+              <p style={{ padding: 5 }}>{restaurant.address}</p>
+            </div>
+          ))}
         </TabPane>
         <TabPane
           tab={
@@ -172,8 +190,17 @@ export class Detail extends React.Component<IDetailProp, IDetailState> {
             </span>
           }
           key="3"
+          className="nearby"
         >
-          Content of Tab Pane 3
+          {this.props.houseEntity.schools && this.props.houseEntity.schools.map((restaurant, i) => (
+            <div key={`restaurant-id-${i}`}>
+              <h3>
+                <div className="title">{restaurant.title}</div>
+                <span>{humanize(restaurant.distance/1000)}km</span>
+              </h3>
+              <p style={{ padding: 5 }}>{restaurant.address}</p>
+            </div>
+          ))}
         </TabPane>
       </Tabs>
     );
@@ -229,7 +256,7 @@ export class Detail extends React.Component<IDetailProp, IDetailState> {
                   }
                 />
               )*/}
-              <Row style={{ marginBottom: 20 }}>
+              <Row style={{ marginBottom: 20 }} className="location-search">
                 <Col md="12">
                   <h3 className="lo-title">
                     Bản đồ vị trí và tiện ích trong khu vực

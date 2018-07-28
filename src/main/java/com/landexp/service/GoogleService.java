@@ -3,44 +3,83 @@ package com.landexp.service;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.google.maps.GeoApiContext;
 import com.google.maps.GeocodingApi;
-import com.google.maps.NearbySearchRequest;
 import com.google.maps.PlacesApi;
 import com.google.maps.model.*;
 import com.graphhopper.PathWrapper;
 import com.landexp.frontend.responses.MappingUtils;
+import com.landexp.responses.GooglePlaceInfoResponse;
+import com.landexp.responses.GooglePlaceResultResponse;
 import com.landexp.web.rest.errors.ExecuteRuntimeException;
 import com.landexp.web.rest.responses.GooglePlaceResponse;
 import org.apache.commons.io.FileUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpEntity;
+import org.springframework.http.HttpHeaders;
 import org.springframework.stereotype.Service;
 import org.springframework.util.ObjectUtils;
+import org.springframework.web.client.RestTemplate;
 
 import javax.transaction.Transactional;
 import java.io.IOException;
 import java.nio.file.Path;
 import java.nio.file.Paths;
-import java.util.Collection;
-import java.util.HashMap;
-import java.util.Map;
+import java.util.*;
+import java.util.concurrent.ThreadLocalRandom;
 
 @Service
 @Transactional
 public class GoogleService {
+    @Autowired
+    GraphHopperService graphHopperService;
     /**
      * Declare Logger variable to throws log messages on the console window
      **/
     private Logger logger = LoggerFactory.getLogger(this.getClass());
     private GeoApiContext context;
+    private String googleApiKey;
 
     @Autowired
-    GraphHopperService graphHopperService;
+    private RestTemplate restTemplate;
 
     public GoogleService(String googleApiKey) {
+        this.googleApiKey = googleApiKey;
         context = new GeoApiContext.Builder()
             .apiKey(googleApiKey)
             .build();
+    }
+
+    public static String generateUserAgent() {
+        List<String> userAgents = new ArrayList<String>();
+        // Firefox
+        userAgents.add("Mozilla/5.0 (Windows NT 6.1; WOW64; rv:40.0) Gecko/20100101 Firefox/40.1");
+        userAgents.add("Mozilla/5.0 (Windows NT 6.3; rv:36.0) Gecko/20100101 Firefox/36.0");
+        userAgents.add("Mozilla/5.0 (Macintosh; Intel Mac OS X 10_10; rv:33.0) Gecko/20100101 Firefox/33.0");
+        userAgents.add("Mozilla/5.0 (X11; Linux i586; rv:31.0) Gecko/20100101 Firefox/31.0");
+        userAgents.add("Mozilla/5.0 (Windows NT 6.1; WOW64; rv:31.0) Gecko/20130401 Firefox/31.0");
+        userAgents.add("Mozilla/5.0 (Windows NT 5.1; rv:31.0) Gecko/20100101 Firefox/31.0");
+        // Chrome
+        userAgents.add("Mozilla/5.0 (Windows NT 6.1) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/41.0.2228.0 Safari/537.36");
+        userAgents.add("Mozilla/5.0 (Macintosh; Intel Mac OS X 10_10_1) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/41.0.2227.1 Safari/537.36");
+        userAgents.add("Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/41.0.2227.0 Safari/537.36");
+        userAgents.add("Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/41.0.2227.0 Safari/537.36");
+        userAgents.add("Mozilla/5.0 (Windows NT 10.0) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/40.0.2214.93 Safari/537.36");
+        // nextInt is normally exclusive of the top value,
+        // so add 1 to make it inclusive
+        int randomNum = ThreadLocalRandom.current().nextInt(0, 10);
+        if (randomNum >= userAgents.size()) {
+            randomNum--;
+        }
+        // Get user agent
+        return userAgents.get(randomNum);
+    }
+
+    private HttpEntity<String> addHeaders() {
+        HttpHeaders headers = new HttpHeaders();
+        headers.put("Upgrade-Insecure-Requests", Collections.singletonList(new String("1")));
+        headers.put("User-Agent", Collections.singletonList(generateUserAgent()));
+        return new HttpEntity<String>(headers);
     }
 
     public GooglePlaceResponse getPlaceDetail(String googleId) throws ExecuteRuntimeException {
@@ -55,7 +94,6 @@ public class GoogleService {
     private GooglePlaceResponse mappingGooglePlaceRespoonse(PlaceDetails placeDetails) {
         GooglePlaceResponse googlePlaceResponse = new GooglePlaceResponse();
         googlePlaceResponse.setGoogleId(placeDetails.placeId);
-        googlePlaceResponse.setType(placeDetails.types);
         googlePlaceResponse.setAddress(placeDetails.formattedAddress);
         googlePlaceResponse.setTitle(placeDetails.name);
         googlePlaceResponse.setUrl(placeDetails.url.toString());
@@ -67,13 +105,34 @@ public class GoogleService {
 
     public Map<String, GooglePlaceResponse> searchNearby(double latitude, double longitude, int radius, PlaceType[] types) throws ExecuteRuntimeException {
         try {
+            ObjectMapper mapper = new ObjectMapper();
             logger.debug("Search near by [{},{}] with radius {} and type {}", latitude, longitude, radius, types.toString());
-            NearbySearchRequest nearbySearchRequest = PlacesApi.nearbySearchQuery(context, new LatLng(latitude, longitude));
-            nearbySearchRequest.radius(radius);
-            nearbySearchRequest.type(types);
-            nearbySearchRequest.language("vi");
-            nearbySearchRequest.rankby(RankBy.PROMINENCE);
-            return getGooglePlaceResponses(latitude, longitude, nearbySearchRequest.await());
+            StringBuilder link = new StringBuilder();
+            link.append("https://maps.googleapis.com/maps/api/place/nearbysearch/json?");
+            link.append("location=").append(latitude).append(",").append(longitude);
+            link.append("&radius=").append(radius);
+            link.append("&type=").append(types[0].toString().toLowerCase());
+            link.append("&rankby=prominence");
+            link.append("&language=vi");
+            link.append("&key=").append(googleApiKey);
+            String json = restTemplate.getForObject(link.toString(), String.class, addHeaders());
+            GooglePlaceInfoResponse response = mapper.readValue(json, GooglePlaceInfoResponse.class);
+            Map<String, GooglePlaceResponse> googlePlaceResponses = new HashMap<>();
+            for (GooglePlaceResultResponse result : response.getResults()) {
+                GooglePlaceResponse googlePlaceResponse = new GooglePlaceResponse();
+                googlePlaceResponse.setGoogleId(result.getPlaceId());
+                googlePlaceResponse.setAddress(result.getVicinity());
+                googlePlaceResponse.setTitle(result.getName());
+                googlePlaceResponse.setLongitude(result.getGeometry().getLocation().getLng());
+                googlePlaceResponse.setLatitude(result.getGeometry().getLocation().getLat());
+                googlePlaceResponse.setRatingAverage(result.getRating());
+                PathWrapper path = graphHopperService.route(latitude, longitude, result.getGeometry().getLocation().getLat(), result.getGeometry().getLocation().getLng(), "car");
+                if (!ObjectUtils.isEmpty(path)) {
+                    googlePlaceResponse.setDistance(path.getDistance());
+                }
+                googlePlaceResponses.put(result.getPlaceId(), googlePlaceResponse);
+            }
+            return googlePlaceResponses;
         } catch (Exception e) {
             e.printStackTrace();
             throw new ExecuteRuntimeException(e.getMessage());
@@ -86,7 +145,6 @@ public class GoogleService {
             for (PlacesSearchResult result : placesSearchResponse.results) {
                 GooglePlaceResponse googlePlaceResponse = new GooglePlaceResponse();
                 googlePlaceResponse.setGoogleId(result.placeId);
-                googlePlaceResponse.setType(result.types);
                 googlePlaceResponse.setAddress(result.vicinity);
                 googlePlaceResponse.setTitle(result.name);
                 googlePlaceResponse.setLongitude(result.geometry.location.lng);

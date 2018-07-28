@@ -1,0 +1,21 @@
+.location-search .nearby div {
+  width: 430px;
+  padding-left: 5px;
+  padding-right: 5px;
+  display: inline-block;
+}
+
+.location-search .nearby div h3 .title {
+  color: #3a65f9;
+}
+
+.location-search .nearby div h3 span {
+  float: right;
+  font-weight: 300 !important;
+  color: #aaaaaa;
+}
+
+.location-search .nearby {
+  overflow-y: scroll;
+  height: 320px;
+}

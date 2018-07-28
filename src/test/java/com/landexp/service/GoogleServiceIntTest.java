@@ -30,7 +30,7 @@ public class GoogleServiceIntTest {
 
     @Test
     public void testGoogleServiceSearchNearBy() throws IOException {
-        System.out.println(mapper.writeValueAsString(googleService.getPlaces("ChIJlclXM5WrNTERDqL5tGu_ugE", PlaceType.RESTAURANT, 21.0286669, 105.8521484, 500)));
+        System.out.println(mapper.writeValueAsString(googleService.getPlaces("ChIJlclXM5WrNTERDqL5tGu_ugE", PlaceType.SCHOOL, 10.76441,106.67443, 1000)));
     }
 
     @Test

@@ -1,5 +1,6 @@
 import { Moment } from 'moment';
 import { IHousePhoto } from './house-photo.model';
+import { IGooglePlace } from './google.place.model';
 
 export const enum UserActionType {
   FOR_BUY = 'FOR_BUY',
@@ -99,6 +100,9 @@ export interface IHouse {
   createAt?: Moment;
   updateAt?: Moment;
   photos?: IHousePhoto[];
+  restaurants?: IGooglePlace[];
+  hospitals?: IGooglePlace[];
+  schools?: IGooglePlace[];
   cityName?: string;
   cityId?: number;
   districtName?: string;
