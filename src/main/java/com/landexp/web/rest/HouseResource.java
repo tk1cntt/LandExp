@@ -200,7 +200,7 @@ public class HouseResource {
      * @param criteria the criterias which the requested entities should match
      * @return the ResponseEntity with status 200 (OK) and the list of houses in body
      */
-    @GetMapping("/houses/itens")
+    @GetMapping("/houses/items")
     @Timed
     @Secured(AuthoritiesConstants.STAFF)
     public ResponseEntity<List<HouseDTO>> getItemHouses(HouseCriteria criteria, Pageable pageable) {

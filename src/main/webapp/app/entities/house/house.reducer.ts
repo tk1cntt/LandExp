@@ -146,7 +146,7 @@ export const getEntities: ICrudGetAllAction<IHouse> = (page, size, sort) => {
 
 export const getHouses: ICrudSearchAction<IHouse> = query => ({
   type: ACTION_TYPES.SEARCH_HOUSES,
-  payload: client.get<IHouse>(`${apiUrl}?` + query)
+  payload: client.get<IHouse>(`${apiUrl}?${query}&sort=createAt,desc`)
 });
 
 export const getTopEntities: ICrudGetAllAction<IHouse> = (page, size, sort) => ({
@@ -207,7 +207,7 @@ export const createEntity: ICrudPutAction<IHouse> = entity => async dispatch => 
     type: ACTION_TYPES.CREATE_HOUSE,
     payload: client.post(apiUrl, cleanEntity(entity))
   });
-  dispatch(getEntities());
+  // dispatch(getEntities());
   return result;
 };
 
@@ -220,7 +220,7 @@ export const updateEntity: ICrudPutAction<IHouse> = entity => async dispatch => 
     type: ACTION_TYPES.UPDATE_HOUSE,
     payload: client.put(apiUrl, cleanEntity(entity))
   });
-  dispatch(getEntities());
+  // dispatch(getEntities());
   return result;
 };
 
@@ -234,7 +234,7 @@ export const deleteEntity: ICrudDeleteAction<IHouse> = id => async dispatch => {
     type: ACTION_TYPES.DELETE_HOUSE,
     payload: client.delete(requestUrl)
   });
-  dispatch(getEntities());
+  // dispatch(getEntities());
   return result;
 };
 

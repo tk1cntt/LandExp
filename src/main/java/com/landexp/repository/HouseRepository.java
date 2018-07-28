@@ -33,5 +33,5 @@ public interface HouseRepository extends JpaRepository<House, Long>, JpaSpecific
 
     House findFirstByStatusTypeAndCreateByLogin(StatusType statusType, String username);
 
-    List<House> findTop8ByOrderByCreateAtDesc();
+    List<House> findTop8ByStatusTypeOrderByCreateAtDesc(StatusType statusType);
 }
