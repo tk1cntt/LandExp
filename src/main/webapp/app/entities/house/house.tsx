@@ -1,18 +1,18 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { Link, RouteComponentProps } from 'react-router-dom';
-import { Col, Row, Container, Label, Table, Button } from 'reactstrap';
-import { getActionType, getLandType, getCityType, getDirection, getPresent, getSaleType, getStatusType } from 'app/shared/util/utils';
+import { RouteComponentProps } from 'react-router-dom';
+import { Col, Row, Container, Table, Button } from 'reactstrap';
+import { getLandType, getSaleType, getStatusType } from 'app/shared/util/utils';
 import { Translate, getSortState, IPaginationBaseState, getPaginationItemsNumber, JhiPagination } from 'react-jhipster';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { Select, Modal, Card, Icon, Tooltip } from 'antd';
+import { Select, Modal, Card } from 'antd';
 const Option = Select.Option;
 
 import Loading from 'app/shared/layout/loading/loading';
 import SearchPage from 'app/shared/layout/search/search-menu';
 
 import { IRootState } from 'app/shared/reducers';
-import { getEntities, getStaffEntities, deleteEntity } from './house.reducer';
+import { getEntities, getItemEntities, getStaffEntities, deleteEntity } from './house.reducer';
 import { hasAnyAuthority } from 'app/shared/auth/private-route';
 import { AUTHORITIES } from 'app/config/constants';
 import { ITEMS_PER_PAGE } from 'app/shared/util/pagination.constants';
@@ -56,7 +56,7 @@ export class House extends React.Component<IHouseProps, IHouseState> {
 
   getEntities = () => {
     const { activePage, itemsPerPage, sort, order } = this.state;
-    this.props.getEntities(activePage - 1, itemsPerPage, `${sort},${order}`);
+    this.props.getItemEntities(activePage - 1, itemsPerPage, `${sort},${order}`);
     // this.props.getStaffEntities(activePage - 1, itemsPerPage, `${sort},${order}`);
   };
 
@@ -264,6 +264,7 @@ const mapStateToProps = ({ house, authentication }: IRootState) => ({
 
 const mapDispatchToProps = {
   getEntities,
+  getItemEntities,
   getStaffEntities,
   deleteEntity
 };

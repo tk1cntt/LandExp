@@ -180,11 +180,35 @@ public class HouseResource {
      */
     @GetMapping("/houses")
     @Timed
-    public ResponseEntity<List<HouseDTO>> getAllHouses(HouseCriteria criteria, Pageable pageable) {
+    public ResponseEntity<List<HouseDTO>> getPublicHouses(HouseCriteria criteria, Pageable pageable) {
         log.debug("REST request to get Houses by criteria: {}", criteria);
         HouseCriteria.StatusTypeFilter filter = new HouseCriteria.StatusTypeFilter();
         List<StatusType> statusTypes = new ArrayList<>();
         // statusTypes.add(StatusType.PENDING);
+        statusTypes.add(StatusType.PAID);
+        filter.setIn(statusTypes);
+        criteria.setStatusType(filter);
+        Page<HouseDTO> page = houseQueryService.findByCriteria(criteria, pageable);
+        HttpHeaders headers = PaginationUtil.generatePaginationHttpHeaders(page, "/api/houses");
+        return new ResponseEntity<>(page.getContent(), headers, HttpStatus.OK);
+    }
+
+    /**
+     * GET  /houses : get all the houses.
+     *
+     * @param pageable the pagination information
+     * @param criteria the criterias which the requested entities should match
+     * @return the ResponseEntity with status 200 (OK) and the list of houses in body
+     */
+    @GetMapping("/houses/itens")
+    @Timed
+    @Secured(AuthoritiesConstants.STAFF)
+    public ResponseEntity<List<HouseDTO>> getItemHouses(HouseCriteria criteria, Pageable pageable) {
+        log.debug("REST request to get Houses by criteria: {}", criteria);
+        HouseCriteria.StatusTypeFilter filter = new HouseCriteria.StatusTypeFilter();
+        List<StatusType> statusTypes = new ArrayList<>();
+        statusTypes.add(StatusType.PENDING);
+        statusTypes.add(StatusType.CANCELED);
         statusTypes.add(StatusType.PAID);
         filter.setIn(statusTypes);
         criteria.setStatusType(filter);

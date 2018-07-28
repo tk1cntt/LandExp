@@ -2,15 +2,11 @@ import './home.css';
 
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { Translate, TextFormat } from 'react-jhipster';
 import { connect } from 'react-redux';
-import { Row, Col, Alert } from 'reactstrap';
 import { getEntity } from 'app/entities/house/house.reducer';
 import { getImageOfHouse } from 'app/entities/house-photo/house-photo.reducer';
 import { getLandType, getMoney, formatDate, encodeId } from 'app/shared/util/utils';
-import { APP_DATE_FORMAT, APP_LOCAL_DATE_FORMAT } from 'app/config/constants';
 
-import SearchPage from 'app/shared/layout/search/search-menu';
 import HouseDetail from './home-detail';
 
 export interface IHomeProp extends StateProps, DispatchProps {
@@ -41,7 +37,6 @@ export class HomeList extends React.Component<IHomeProp, IHouseState> {
   };
 
   render() {
-    const { account } = this.props;
     return (
       <div role="tabpanel" className="tab-pane active" id="list">
         <div className="listview-left">

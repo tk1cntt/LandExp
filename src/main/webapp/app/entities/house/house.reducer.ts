@@ -151,8 +151,20 @@ export const getHouses: ICrudSearchAction<IHouse> = query => ({
 
 export const getTopEntities: ICrudGetAllAction<IHouse> = (page, size, sort) => ({
   type: ACTION_TYPES.FETCH_HOUSE_LIST,
-  payload: client.get<IHouse>(`${apiUrl}?cacheBuster=${new Date().getTime()}`)
+  payload: client.get<IHouse>(`${apiUrl}/top?cacheBuster=${new Date().getTime()}`)
 });
+
+export const getItemEntities: ICrudGetAllAction<IHouse> = (page, size, sort) => {
+  const jwt = Storage.local.get('jhi-authenticationToken') || Storage.session.get('jhi-authenticationToken');
+  if (jwt) {
+    client.defaults.headers['Authorization'] = `Bearer ${jwt}`;
+  }
+  const requestUrl = `${apiUrl}/items${sort ? `?page=${page}&size=${size}&sort=${sort}` : ''}`;
+  return {
+    type: ACTION_TYPES.FETCH_HOUSE_LIST,
+    payload: client.get<IHouse>(`${requestUrl}${sort ? '&' : '?'}cacheBuster=${new Date().getTime()}`)
+  };
+};
 
 export const getStaffEntities: ICrudGetAllAction<IHouse> = (page, size, sort) => {
   const jwt = Storage.local.get('jhi-authenticationToken') || Storage.session.get('jhi-authenticationToken');
