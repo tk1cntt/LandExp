@@ -1,4 +1,3 @@
-
 export interface IGooglePlace {
   title?: string;
   googleId?: number;

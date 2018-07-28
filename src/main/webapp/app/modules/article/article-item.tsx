@@ -22,9 +22,7 @@ export class ArticleItem extends React.Component<IArticleItemProp> {
       <div className="col-md-3 post-item">
         <div className="item-thumbnail">
           <Link to={`/tin-tuc-chi-tiet/${encodeId(article.id)}/${article.link}`}>
-            <img src={`${SERVER_API_URL}/api/articles/${encodeId(article.id)}/avatar/${article.link}-${encodeId(
-              article.id
-            )}.jpg`} />
+            <img src={`${SERVER_API_URL}/api/articles/${encodeId(article.id)}/avatar/${article.link}-${encodeId(article.id)}.jpg`} />
           </Link>
           <div className="type chothue">{this.props.article.categoryName}</div>
         </div>
@@ -32,9 +30,7 @@ export class ArticleItem extends React.Component<IArticleItemProp> {
           <a href="#">
             <h3 className="title">{this.props.article.title}</h3>
           </a>
-          <p className="location"
-            dangerouslySetInnerHTML={{ __html: this.props.article.summary }}
-          />
+          <p className="location" dangerouslySetInnerHTML={{ __html: this.props.article.summary }} />
         </div>
         <div className="clearfix" />
       </div>

@@ -154,15 +154,16 @@ export class Detail extends React.Component<IDetailProp, IDetailState> {
           key="1"
           className="nearby"
         >
-          {this.props.houseEntity.restaurants && this.props.houseEntity.restaurants.map((restaurant, i) => (
-            <div key={`restaurant-id-${i}`}>
-              <h3>
-                <div className="title">{restaurant.title}</div>
-                <span>{humanize(restaurant.distance/1000)}km</span>
-              </h3>
-              <p style={{ padding: 5 }}>{restaurant.address}</p>
-            </div>
-          ))}
+          {this.props.houseEntity.restaurants &&
+            this.props.houseEntity.restaurants.map((restaurant, i) => (
+              <div key={`restaurant-id-${i}`}>
+                <h3>
+                  <div className="title">{restaurant.title}</div>
+                  <span>{humanize(restaurant.distance / 1000)}km</span>
+                </h3>
+                <p style={{ padding: 5 }}>{restaurant.address}</p>
+              </div>
+            ))}
         </TabPane>
         <TabPane
           tab={
@@ -173,15 +174,16 @@ export class Detail extends React.Component<IDetailProp, IDetailState> {
           key="2"
           className="nearby"
         >
-          {this.props.houseEntity.hospitals && this.props.houseEntity.hospitals.map((restaurant, i) => (
-            <div key={`restaurant-id-${i}`}>
-              <h3>
-                <div className="title">{restaurant.title}</div>
-                <span>{humanize(restaurant.distance/1000)}km</span>
-              </h3>
-              <p style={{ padding: 5 }}>{restaurant.address}</p>
-            </div>
-          ))}
+          {this.props.houseEntity.hospitals &&
+            this.props.houseEntity.hospitals.map((restaurant, i) => (
+              <div key={`restaurant-id-${i}`}>
+                <h3>
+                  <div className="title">{restaurant.title}</div>
+                  <span>{humanize(restaurant.distance / 1000)}km</span>
+                </h3>
+                <p style={{ padding: 5 }}>{restaurant.address}</p>
+              </div>
+            ))}
         </TabPane>
         <TabPane
           tab={
@@ -192,15 +194,16 @@ export class Detail extends React.Component<IDetailProp, IDetailState> {
           key="3"
           className="nearby"
         >
-          {this.props.houseEntity.schools && this.props.houseEntity.schools.map((restaurant, i) => (
-            <div key={`restaurant-id-${i}`}>
-              <h3>
-                <div className="title">{restaurant.title}</div>
-                <span>{humanize(restaurant.distance/1000)}km</span>
-              </h3>
-              <p style={{ padding: 5 }}>{restaurant.address}</p>
-            </div>
-          ))}
+          {this.props.houseEntity.schools &&
+            this.props.houseEntity.schools.map((restaurant, i) => (
+              <div key={`restaurant-id-${i}`}>
+                <h3>
+                  <div className="title">{restaurant.title}</div>
+                  <span>{humanize(restaurant.distance / 1000)}km</span>
+                </h3>
+                <p style={{ padding: 5 }}>{restaurant.address}</p>
+              </div>
+            ))}
         </TabPane>
       </Tabs>
     );
@@ -209,8 +212,6 @@ export class Detail extends React.Component<IDetailProp, IDetailState> {
   updateMarkerPosition = () => {};
 
   render() {
-    const { loading, updating } = this.props;
-    const slides = [];
     const images = [];
     if (this.props.housePhotoList) {
       this.props.housePhotoList.map(file => {

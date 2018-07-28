@@ -9,7 +9,7 @@ import { getTopEntities } from 'app/entities/article/article.reducer';
 
 import Loading from 'app/shared/layout/loading/loading';
 
-export interface IHomeProp extends StateProps, DispatchProps { }
+export interface IHomeProp extends StateProps, DispatchProps {}
 
 export class HomeNewsBox extends React.Component<IHomeProp> {
   componentDidMount() {
@@ -22,14 +22,14 @@ export class HomeNewsBox extends React.Component<IHomeProp> {
         <h2>
           Tin mới<span>Thứ 5, ngày 31 tháng 05 năm 2018</span>
         </h2>
-        {this.props.loading ? <Loading /> : (
+        {this.props.loading ? (
+          <Loading />
+        ) : (
           <ul>
-            {this.props.articleList.map((article, i) =>
+            {this.props.articleList.map((article, i) => (
               <li key={`artivle-id-${i}`} className={`article-id-${i}`}>
                 <Link to={`/tin-tuc-chi-tiet/${encodeId(article.id)}/${article.link}`}>
-                  <img src={`${SERVER_API_URL}/api/articles/${encodeId(article.id)}/avatar/${article.link}-${encodeId(
-                    article.id
-                  )}.jpg`} />
+                  <img src={`${SERVER_API_URL}/api/articles/${encodeId(article.id)}/avatar/${article.link}-${encodeId(article.id)}.jpg`} />
                 </Link>
                 <div className="caption">
                   <div className="caption-content">
@@ -44,7 +44,7 @@ export class HomeNewsBox extends React.Component<IHomeProp> {
                   </div>
                 </div>
               </li>
-            )}
+            ))}
           </ul>
         )}
       </div>

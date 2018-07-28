@@ -30,9 +30,7 @@ export class Article extends React.Component<IArticleProp> {
           <Row>
             <Row>
               <div className="gridview">
-                {this.props.articleList.map((article, i) => (
-                  <ArticleItem key={`article-id-${i}`} article={article} />
-                ))}
+                {this.props.articleList.map((article, i) => <ArticleItem key={`article-id-${i}`} article={article} />)}
               </div>
             </Row>
           </Row>

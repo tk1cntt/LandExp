@@ -174,7 +174,7 @@ export const getMoney = (money, actionType) => {
 
 export const humanize = x => {
   return x.toFixed(2).replace(/\.?0*$/, '');
-}
+};
 
 export const encodeId = id => hashids.encode(id, 20190101);
 
