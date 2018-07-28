@@ -267,7 +267,7 @@ public class HouseResource {
             throw new BadRequestAlertException("No permission", ENTITY_NAME, "nopermission");
         }
         HouseDetailDTO dto = houseDTO.get();
-        if (StringUtils.isEmpty(dto.getGoogleId())) {
+        if (!StringUtils.isEmpty(dto.getGoogleId())) {
             dto.setRestaurants(googleService.getPlaces(dto.getGoogleId(), PlaceType.RESTAURANT, dto.getLatitude(), dto.getLongitude(), 500));
             dto.setSchools(googleService.getPlaces(dto.getGoogleId(), PlaceType.SCHOOL, dto.getLatitude(), dto.getLongitude(), 500));
             dto.setHospitals(googleService.getPlaces(dto.getGoogleId(), PlaceType.HOSPITAL, dto.getLatitude(), dto.getLongitude(), 500));
