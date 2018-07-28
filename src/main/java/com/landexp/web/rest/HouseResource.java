@@ -155,10 +155,10 @@ public class HouseResource {
             ServiceFeeDTO serviceFee = serviceFeeService.findBySaleType(houseDTO.getSaleType()).get();
             if (!ObjectUtils.isEmpty(serviceFee)) {
                 PaymentDTO paymentDTO = paymentService.findByHouse(houseDTO.getId()).get();
-                if (!ObjectUtils.isEmpty(paymentDTO)) {
+                if (!ObjectUtils.isEmpty(paymentDTO) && paymentDTO.getPaymentStatus() != PaymentStatusType.PAID) {
                     paymentDTO.setPaymentStatus(PaymentStatusType.PENDING);
                     paymentDTO.setMoney(serviceFee.getFee());
-                    paymentService.save(paymentDTO);
+                    paymentService.updateByUsername(paymentDTO, username);
                 }
             }
         } else {
@@ -268,9 +268,9 @@ public class HouseResource {
         }
         HouseDetailDTO dto = houseDTO.get();
         if (!StringUtils.isEmpty(dto.getGoogleId())) {
-            dto.setRestaurants(googleService.getPlaces(dto.getGoogleId(), "supermarket", dto.getLatitude(), dto.getLongitude(), 500));
-            dto.setSchools(googleService.getPlaces(dto.getGoogleId(), "school", dto.getLatitude(), dto.getLongitude(), 500));
-            dto.setHospitals(googleService.getPlaces(dto.getGoogleId(), "hospital", dto.getLatitude(), dto.getLongitude(), 500));
+            dto.setRestaurants(googleService.getPlaces(dto.getGoogleId(), "supermarket", dto.getLatitude(), dto.getLongitude(), 1000));
+            dto.setSchools(googleService.getPlaces(dto.getGoogleId(), "school", dto.getLatitude(), dto.getLongitude(), 1000));
+            dto.setHospitals(googleService.getPlaces(dto.getGoogleId(), "hospital", dto.getLatitude(), dto.getLongitude(), 1000));
         }
         return ResponseUtil.wrapOrNotFound(Optional.of(dto));
     }

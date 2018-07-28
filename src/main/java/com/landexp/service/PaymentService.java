@@ -1,23 +1,20 @@
 package com.landexp.service;
 
-import com.landexp.domain.House;
 import com.landexp.domain.Payment;
 import com.landexp.domain.User;
 import com.landexp.repository.PaymentRepository;
 import com.landexp.repository.UserRepository;
-import com.landexp.service.dto.HouseDetailDTO;
 import com.landexp.service.dto.PaymentDTO;
 import com.landexp.service.mapper.PaymentMapper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-
 import java.util.Optional;
+
 /**
  * Service Implementation for managing Payment.
  */
@@ -50,6 +47,22 @@ public class PaymentService {
         Payment payment = paymentMapper.toEntity(paymentDTO);
         payment = paymentRepository.save(payment);
         return paymentMapper.toDto(payment);
+    }
+
+    /**
+     * Save a payment.
+     *
+     * @param paymentDTO the entity to save
+     * @return the persisted entity
+     */
+    public PaymentDTO saveByUsername(PaymentDTO paymentDTO, String username) {
+        log.debug("Request to save House : {}", paymentDTO);
+        Payment house = paymentMapper.toEntity(paymentDTO);
+        Optional<User> existingUser = userRepository.findOneByLogin(username);
+        house.setCreateBy(existingUser.get());
+        house.setUpdateBy(existingUser.get());
+        house = paymentRepository.save(house);
+        return paymentMapper.toDto(house);
     }
 
     /**
