@@ -196,7 +196,7 @@ export class House extends React.Component<IHouseProps, IHouseState> {
                             <td>{getSaleType(house.saleType)}</td>
                             {house.statusType === 'PAID' ? (
                               <td style={{ color: 'green' }}><strong>{getStatusType(house.statusType)}</strong></td>
-                            ): (
+                            ) : (
                               <td style={{ color: 'red' }}><strong>{getStatusType(house.statusType)}</strong></td>
                             )}
                             <td>{house.createByLogin}</td>
