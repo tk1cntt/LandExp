@@ -6,6 +6,14 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { GoogleMap, Marker, withGoogleMap, withScriptjs } from 'react-google-maps';
 import { compose, withProps } from 'recompose';
+import { notification } from 'antd';
+
+const openNotificationWithIcon = (type) => {
+  notification[type]({
+    message: 'Lựa chọn vị trí không thành công',
+    description: 'Không lấy được thông tin tại vị trí này. Hãy chọn một vị trí lân cận.',
+  });
+};
 
 const MyMapComponent: React.StatelessComponent<{
   isMarkerShown: boolean;
@@ -16,7 +24,7 @@ const MyMapComponent: React.StatelessComponent<{
 }> = compose(
   withProps({
     googleMapURL:
-      'https://maps.googleapis.com/maps/api/js?key=AIzaSyDntb24qki_UHk9hElFvu_XNvS7ySRrc8U&v=3.exp&libraries=geometry,drawing,places',
+      'https://maps.googleapis.com/maps/api/js?key=AIzaSyCYcnnPJ3J-v8nbiyGbp4APnQANcmQeIwc&v=3.exp&libraries=geometry,drawing,places',
     loadingElement: <div style={{ height: `100%` }} />,
     containerElement: <div style={{ height: `400px` }} />,
     mapElement: <div style={{ height: `100%` }} />
@@ -36,7 +44,7 @@ const MyMapComponent: React.StatelessComponent<{
           draggable={props.isMarkerDraggable}
           onDragEnd={e => {
             fetch(
-              `https://maps.googleapis.com/maps/api/geocode/json?latlng=${e.latLng.lat()},${e.latLng.lng()}&sensor=false&key=AIzaSyDntb24qki_UHk9hElFvu_XNvS7ySRrc8U`
+              `https://maps.googleapis.com/maps/api/geocode/json?latlng=${e.latLng.lat()},${e.latLng.lng()}&sensor=false&key=AIzaSyCYcnnPJ3J-v8nbiyGbp4APnQANcmQeIwc`
             )
               .then(response => {
                 if (!response.ok) {
@@ -47,11 +55,16 @@ const MyMapComponent: React.StatelessComponent<{
               .then(response => {
                 // console.log(response.results[0]);
                 // console.log(response.results[0].geometry.location);
-                props.updateMarkerPosition({
-                  latitude: response.results[0].geometry.location.lat,
-                  longitude: response.results[0].geometry.location.lng,
-                  googleId: response.results[0].geometry.place_id
-                });
+                if (!response.results[0].geometry) {
+                  openNotificationWithIcon('error')
+                } else {
+                  const position = {
+                    latitude: response.results[0].geometry.location.lat,
+                    longitude: response.results[0].geometry.location.lng,
+                    googleId: response.results[0].place_id
+                  };
+                  props.updateMarkerPosition(position);
+                }
                 // console.log(response.results[0].address_components[response.results[0].address_components.length - 1].long_name);
                 // console.log(response.results[0].address_components[response.results[0].address_components.length - 2].long_name);
                 // console.log(response.results[0].address_components[response.results[0].address_components.length - 3].long_name);
@@ -74,7 +87,7 @@ export interface IGoogleMapsProps extends StateProps, DispatchProps {
   isMarkerDraggable: boolean;
 }
 
-export interface IGoogleMapsState {}
+export interface IGoogleMapsState { }
 
 export class GoogleMaps extends React.Component<IGoogleMapsProps, IGoogleMapsState> {
   timer: any;

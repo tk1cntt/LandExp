@@ -1,22 +1,15 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { Link, RouteComponentProps } from 'react-router-dom';
-import { Button, Row, Col, Container, Label } from 'reactstrap';
-import { AvForm, AvGroup, AvInput, AvField } from 'availity-reactstrap-validation';
-import { Translate, setFileData, openFile, byteSize } from 'react-jhipster';
+import { Button, Row, Col, Container } from 'reactstrap';
+import { Translate } from 'react-jhipster';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { Tabs, Card } from 'antd';
 const TabPane = Tabs.TabPane;
 
 import { IRootState } from 'app/shared/reducers';
-
-import { getEntities as getCities } from 'app/entities/city/city.reducer';
-import { getEntities as getDistricts } from 'app/entities/district/district.reducer';
-import { getEntities as getWards } from 'app/entities/ward/ward.reducer';
 import { getEntities as getLandProjects } from 'app/entities/land-project/land-project.reducer';
-import { getUsers } from 'app/modules/administration/user-management/user-management.reducer';
-import { getEntity, updateEntity, createEntity, setBlob, reset } from './house.reducer';
-import { getActionType, getLandType, getCityType, getDirection, getPresent, getSaleType, getStatusType } from 'app/shared/util/utils';
+import { getEntity, updateEntity } from './house.reducer';
 import { getImageOfHouse, createEntity as createPhoto } from 'app/entities/house-photo/house-photo.reducer';
 
 import Loading from 'app/shared/layout/loading/loading';
@@ -82,8 +75,7 @@ export class HouseUpdate extends React.Component<IHouseUpdateProps, IHouseUpdate
 
   render() {
     const isInvalid = false;
-    const { houseEntity, cities, districts, wards, landProjects, users, loading, updating } = this.props;
-    const { avatar, avatarContentType } = houseEntity;
+    const { houseEntity, loading, updating } = this.props;
 
     const entity = {
       ...houseEntity,
@@ -147,11 +139,6 @@ export class HouseUpdate extends React.Component<IHouseUpdateProps, IHouseUpdate
 }
 
 const mapStateToProps = (storeState: IRootState) => ({
-  cities: storeState.city.entities,
-  districts: storeState.district.entities,
-  wards: storeState.ward.entities,
-  landProjects: storeState.landProject.entities,
-  users: storeState.userManagement.users,
   houseEntity: storeState.house.entity,
   loading: storeState.house.loadingDetail,
   updating: storeState.house.updating
@@ -159,17 +146,10 @@ const mapStateToProps = (storeState: IRootState) => ({
 
 const mapDispatchToProps = {
   getImageOfHouse,
-  getCities,
-  getDistricts,
-  getWards,
   getLandProjects,
-  getUsers,
   getEntity,
   updateEntity,
-  createPhoto,
-  setBlob,
-  createEntity,
-  reset
+  createPhoto
 };
 
 type StateProps = ReturnType<typeof mapStateToProps>;

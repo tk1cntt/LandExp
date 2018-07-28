@@ -154,7 +154,7 @@ export class Detail extends React.Component<IDetailProp, IDetailState> {
         <TabPane
           tab={
             <span>
-              <i className="fa fa-home" /> Nhà hàng
+              <i className="fa fa-home" /> Mua sắm
             </span>
           }
           key="1"

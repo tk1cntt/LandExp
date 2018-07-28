@@ -68,8 +68,8 @@ module.exports = webpackMerge(commonConfig({ env: ENV }), {
   plugins: [
     new MiniCssExtractPlugin({
       // Options similar to the same options in webpackOptions.output
-      filename: 'content/[name].[hash].css',
-      chunkFilename: 'content/[name].[hash].css'
+      filename: 'content/[name].css',
+      chunkFilename: 'content/[name].css'
     }),
     new MomentLocalesPlugin({
       localesToKeep: [
