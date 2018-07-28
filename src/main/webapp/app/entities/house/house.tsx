@@ -1,8 +1,8 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { RouteComponentProps } from 'react-router-dom';
+import { Link, RouteComponentProps } from 'react-router-dom';
 import { Col, Row, Container, Table, Button } from 'reactstrap';
-import { getLandType, getSaleType, getStatusType } from 'app/shared/util/utils';
+import { getLandType, getSaleType, getStatusType, encodeId } from 'app/shared/util/utils';
 import { Translate, getSortState, IPaginationBaseState, getPaginationItemsNumber, JhiPagination } from 'react-jhipster';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { Select, Modal, Card } from 'antd';
@@ -56,7 +56,7 @@ export class House extends React.Component<IHouseProps, IHouseState> {
 
   getEntities = () => {
     const { activePage, itemsPerPage, sort, order } = this.state;
-    this.props.getItemEntities(activePage - 1, itemsPerPage, `${sort},${order}`);
+    this.props.getItemEntities(activePage - 1, itemsPerPage, `createAt,desc`);
     // this.props.getStaffEntities(activePage - 1, itemsPerPage, `${sort},${order}`);
   };
 
@@ -194,10 +194,20 @@ export class House extends React.Component<IHouseProps, IHouseState> {
                             <td>{house.cityName}</td>
                             <td>{house.districtName}</td>
                             <td>{getSaleType(house.saleType)}</td>
-                            <td>{getStatusType(house.statusType)}</td>
+                            {house.statusType === 'PAID' ? (
+                              <td style={{ color: 'green' }}><strong>{getStatusType(house.statusType)}</strong></td>
+                            ): (
+                              <td style={{ color: 'red' }}><strong>{getStatusType(house.statusType)}</strong></td>
+                            )}
                             <td>{house.createByLogin}</td>
                             <td className="text-right">
                               <div className="btn-group flex-btn-group-container">
+                                <Button tag={Link} to={`/bat-dong-san/${encodeId(house.id)}/xem-truoc-tin-dang`} color="info" size="sm">
+                                  <FontAwesomeIcon icon="eye" />{' '}
+                                  <span className="d-none d-md-inline">
+                                    <Translate contentKey="entity.action.view">View</Translate>
+                                  </span>
+                                </Button>
                                 <Button onClick={this.gotoEdit.bind(this, house.id)} color="primary" size="sm">
                                   <FontAwesomeIcon icon="pencil-alt" />{' '}
                                   <span className="d-none d-md-inline">

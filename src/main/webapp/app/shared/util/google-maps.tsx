@@ -8,10 +8,10 @@ import { GoogleMap, Marker, withGoogleMap, withScriptjs } from 'react-google-map
 import { compose, withProps } from 'recompose';
 import { notification } from 'antd';
 
-const openNotificationWithIcon = (type) => {
+const openNotificationWithIcon = type => {
   notification[type]({
     message: 'Lựa chọn vị trí không thành công',
-    description: 'Không lấy được thông tin tại vị trí này. Hãy chọn một vị trí lân cận.',
+    description: 'Không lấy được thông tin tại vị trí này. Hãy chọn một vị trí lân cận.'
   });
 };
 
@@ -56,7 +56,7 @@ const MyMapComponent: React.StatelessComponent<{
                 // console.log(response.results[0]);
                 // console.log(response.results[0].geometry.location);
                 if (!response.results[0].geometry) {
-                  openNotificationWithIcon('error')
+                  openNotificationWithIcon('error');
                 } else {
                   const position = {
                     latitude: response.results[0].geometry.location.lat,
@@ -87,7 +87,7 @@ export interface IGoogleMapsProps extends StateProps, DispatchProps {
   isMarkerDraggable: boolean;
 }
 
-export interface IGoogleMapsState { }
+export interface IGoogleMapsState {}
 
 export class GoogleMaps extends React.Component<IGoogleMapsProps, IGoogleMapsState> {
   timer: any;
