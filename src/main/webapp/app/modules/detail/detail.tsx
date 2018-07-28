@@ -58,12 +58,10 @@ export class Detail extends React.Component<IDetailProp, IDetailState> {
   houseAdressFull() {
     return (
       <>
-      {this.props.houseEntity.address},
-      {' '}{this.props.houseEntity.wardType}{' '}{this.props.houseEntity.wardName},
-      {' '}{this.props.houseEntity.districtType}{' '}{this.props.houseEntity.districtName},
-      {' '}{this.props.houseEntity.cityName}
+        {this.props.houseEntity.address}, {this.props.houseEntity.wardType} {this.props.houseEntity.wardName},{' '}
+        {this.props.houseEntity.districtType} {this.props.houseEntity.districtName}, {this.props.houseEntity.cityName}
       </>
-    )
+    );
   }
 
   houseDetailForm() {
@@ -269,9 +267,7 @@ export class Detail extends React.Component<IDetailProp, IDetailState> {
                 <Col md="12">
                   <h3 className="lo-title">
                     Bản đồ vị trí và tiện ích trong khu vực
-                    <span>
-                      {this.houseAdressFull()}
-                    </span>
+                    <span>{this.houseAdressFull()}</span>
                   </h3>
                 </Col>
                 <Col md="5">{this.houseNearByForm()}</Col>

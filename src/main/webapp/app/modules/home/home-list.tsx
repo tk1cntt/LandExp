@@ -70,7 +70,7 @@ export class HomeList extends React.Component<IHomeProp, IHouseState> {
                   <span className="gara">{house.parking ? <i className="fa fa-check" /> : <i className="fa fa-times" />}</span>
                 </div>
                 <p className="location">
-                  {house.districtType}{' '}{house.districtName},{' '}{house.cityName}
+                  {house.districtType} {house.districtName}, {house.cityName}
                 </p>
                 <div className="button-group">
                   <p className="post-date">{formatDate(new Date(house.createAt))}</p>
