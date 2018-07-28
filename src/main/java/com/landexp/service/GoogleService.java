@@ -103,6 +103,7 @@ public class GoogleService {
         return googlePlaceResponse;
     }
 
+    /*
     public Map<String, GooglePlaceResponse> searchNearby(double latitude, double longitude, int radius, String placeType) throws ExecuteRuntimeException {
         try {
             ObjectMapper mapper = new ObjectMapper();
@@ -131,6 +132,43 @@ public class GoogleService {
                     googlePlaceResponse.setDistance(path.getDistance());
                 }
                 googlePlaceResponses.put(result.getPlaceId(), googlePlaceResponse);
+            }
+            return googlePlaceResponses;
+        } catch (Exception e) {
+            e.printStackTrace();
+            throw new ExecuteRuntimeException(e.getMessage());
+        }
+    }
+    */
+
+    public List<GooglePlaceResponse> searchNearby(double latitude, double longitude, int radius, String placeType) throws ExecuteRuntimeException {
+        try {
+            ObjectMapper mapper = new ObjectMapper();
+            logger.debug("Search near by [{},{}] with radius {} and type {}", latitude, longitude, radius, placeType);
+            StringBuilder link = new StringBuilder();
+            link.append("https://maps.googleapis.com/maps/api/place/nearbysearch/json?");
+            link.append("location=").append(latitude).append(",").append(longitude);
+            link.append("&radius=").append(radius);
+            link.append("&type=").append(placeType);
+            link.append("&rankby=prominence");
+            link.append("&language=vi");
+            link.append("&key=").append(googleApiKey);
+            String json = restTemplate.getForObject(link.toString(), String.class, addHeaders());
+            GooglePlaceInfoResponse response = mapper.readValue(json, GooglePlaceInfoResponse.class);
+            List<GooglePlaceResponse> googlePlaceResponses = new ArrayList<>();
+            for (GooglePlaceResultResponse result : response.getResults()) {
+                GooglePlaceResponse googlePlaceResponse = new GooglePlaceResponse();
+                googlePlaceResponse.setGoogleId(result.getPlaceId());
+                googlePlaceResponse.setAddress(result.getVicinity());
+                googlePlaceResponse.setTitle(result.getName());
+                googlePlaceResponse.setLongitude(result.getGeometry().getLocation().getLng());
+                googlePlaceResponse.setLatitude(result.getGeometry().getLocation().getLat());
+                googlePlaceResponse.setRatingAverage(result.getRating());
+                PathWrapper path = graphHopperService.route(latitude, longitude, result.getGeometry().getLocation().getLat(), result.getGeometry().getLocation().getLng(), "car");
+                if (!ObjectUtils.isEmpty(path)) {
+                    googlePlaceResponse.setDistance(path.getDistance());
+                }
+                googlePlaceResponses.add(googlePlaceResponse);
             }
             return googlePlaceResponses;
         } catch (Exception e) {
@@ -167,8 +205,7 @@ public class GoogleService {
         if (path.toFile().exists()) {
             return mapper.readValue(path.toFile(), Collection.class);
         } else {
-            Map<String, GooglePlaceResponse> restaurants = searchNearby(latitude, longitude, radius, placeType);
-            String jsonArray = mapper.writeValueAsString(restaurants.values());
+            String jsonArray = mapper.writeValueAsString(searchNearby(latitude, longitude, radius, placeType));
             FileUtils.write(path.toFile(), jsonArray, "utf-8");
             return mapper.readValue(path.toFile(), Collection.class);
         }
