@@ -11,6 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
 
+import java.io.IOException;
 import java.util.Map;
 
 @RunWith(SpringRunner.class)
@@ -28,13 +29,8 @@ public class GoogleServiceIntTest {
     }
 
     @Test
-    public void testGoogleServiceSearchNearBy() throws JsonProcessingException {
-        PlaceType[] places = new PlaceType[2];
-        places[0] = PlaceType.RESTAURANT;
-        // places[1] = PlaceType.HOSPITAL;
-        // places[2] = PlaceType.SCHOOL;
-        Map<String, GooglePlaceResponse> responses = googleService.searchNearby(21.0286669, 105.8521484, 500, places);
-        System.out.println(mapper.writeValueAsString(responses));
+    public void testGoogleServiceSearchNearBy() throws IOException {
+        System.out.println(mapper.writeValueAsString(googleService.getPlaces("ChIJlclXM5WrNTERDqL5tGu_ugE", PlaceType.RESTAURANT, 21.0286669, 105.8521484, 500)));
     }
 
     @Test

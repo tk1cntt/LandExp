@@ -1,18 +1,27 @@
 package com.landexp.service;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.google.maps.GeoApiContext;
 import com.google.maps.GeocodingApi;
 import com.google.maps.NearbySearchRequest;
 import com.google.maps.PlacesApi;
 import com.google.maps.model.*;
+import com.graphhopper.PathWrapper;
+import com.landexp.frontend.responses.MappingUtils;
 import com.landexp.web.rest.errors.ExecuteRuntimeException;
 import com.landexp.web.rest.responses.GooglePlaceResponse;
+import org.apache.commons.io.FileUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.util.ObjectUtils;
 
 import javax.transaction.Transactional;
+import java.io.IOException;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.util.Collection;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -24,6 +33,9 @@ public class GoogleService {
      **/
     private Logger logger = LoggerFactory.getLogger(this.getClass());
     private GeoApiContext context;
+
+    @Autowired
+    GraphHopperService graphHopperService;
 
     public GoogleService(String googleApiKey) {
         context = new GeoApiContext.Builder()
@@ -61,13 +73,14 @@ public class GoogleService {
             nearbySearchRequest.type(types);
             nearbySearchRequest.language("vi");
             nearbySearchRequest.rankby(RankBy.PROMINENCE);
-            return getGooglePlaceResponses(nearbySearchRequest.await());
+            return getGooglePlaceResponses(latitude, longitude, nearbySearchRequest.await());
         } catch (Exception e) {
+            e.printStackTrace();
             throw new ExecuteRuntimeException(e.getMessage());
         }
     }
 
-    private Map<String, GooglePlaceResponse> getGooglePlaceResponses(PlacesSearchResponse placesSearchResponse) {
+    private Map<String, GooglePlaceResponse> getGooglePlaceResponses(double latitude, double longitude, PlacesSearchResponse placesSearchResponse) {
         Map<String, GooglePlaceResponse> googlePlaceResponses = new HashMap<>();
         if (placesSearchResponse.results != null) {
             for (PlacesSearchResult result : placesSearchResponse.results) {
@@ -79,10 +92,30 @@ public class GoogleService {
                 googlePlaceResponse.setLongitude(result.geometry.location.lng);
                 googlePlaceResponse.setLatitude(result.geometry.location.lat);
                 googlePlaceResponse.setRatingAverage(result.rating);
+                PathWrapper path = graphHopperService.route(latitude, longitude, result.geometry.location.lat, result.geometry.location.lng, "car");
+                if (!ObjectUtils.isEmpty(path)) {
+                    googlePlaceResponse.setDistance(path.getDistance());
+                }
                 googlePlaceResponses.put(result.placeId, googlePlaceResponse);
             }
         }
         return googlePlaceResponses;
+    }
+
+    public Collection<GooglePlaceResponse> getPlaces(String placeId, PlaceType placeType, double latitude, double longitude, int radius) throws IOException {
+        ObjectMapper mapper = new ObjectMapper();
+        Path path = Paths.get("google-places", placeId, placeType.toString().toLowerCase() + ".json");
+        MappingUtils.folderBy(path.toFile());
+        if (path.toFile().exists()) {
+            return mapper.readValue(path.toFile(), Collection.class);
+        } else {
+            PlaceType[] places = new PlaceType[1];
+            places[0] = placeType;
+            Map<String, GooglePlaceResponse> restaurants = searchNearby(latitude, longitude, radius, places);
+            String jsonArray = mapper.writeValueAsString(restaurants.values());
+            FileUtils.write(path.toFile(), jsonArray, "utf-8");
+            return mapper.readValue(path.toFile(), Collection.class);
+        }
     }
 
     public GooglePlaceResponse searchByAddress(String address) {

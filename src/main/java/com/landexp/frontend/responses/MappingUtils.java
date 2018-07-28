@@ -240,11 +240,11 @@ public class MappingUtils {
         return folder;
     }
 
-    public static File folderBy(File folder) {
-        if (!folder.exists()) {
-            folder.mkdirs();
+    public static void folderBy(File file) {
+        File parentFolder = new File(file.getParent());
+        if (parentFolder.exists()) {
+            parentFolder.mkdirs();
         }
-        return folder;
     }
 
     public static String formatParking(Boolean parking) {

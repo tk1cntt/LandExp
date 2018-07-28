@@ -268,28 +268,14 @@ public class HouseResource {
         }
         HouseDetailDTO dto = houseDTO.get();
         if (StringUtils.isEmpty(dto.getGoogleId())) {
-            dto.setRestaurants(getPlaces(dto.getGoogleId(), PlaceType.RESTAURANT, dto.getLatitude(), dto.getLongitude(), 500));
-            dto.setSchools(getPlaces(dto.getGoogleId(), PlaceType.SCHOOL, dto.getLatitude(), dto.getLongitude(), 500));
-            dto.setHospitals(getPlaces(dto.getGoogleId(), PlaceType.HOSPITAL, dto.getLatitude(), dto.getLongitude(), 500));
+            dto.setRestaurants(googleService.getPlaces(dto.getGoogleId(), PlaceType.RESTAURANT, dto.getLatitude(), dto.getLongitude(), 500));
+            dto.setSchools(googleService.getPlaces(dto.getGoogleId(), PlaceType.SCHOOL, dto.getLatitude(), dto.getLongitude(), 500));
+            dto.setHospitals(googleService.getPlaces(dto.getGoogleId(), PlaceType.HOSPITAL, dto.getLatitude(), dto.getLongitude(), 500));
         }
         return ResponseUtil.wrapOrNotFound(Optional.of(dto));
     }
 
-    private Collection<GooglePlaceResponse> getPlaces(String placeId, PlaceType placeType, double latitude, double longitude, int radius) throws IOException {
-        ObjectMapper mapper = new ObjectMapper();
-        Path path = Paths.get("google-places", placeId, placeType.toString().toLowerCase() + ".json");
-        MappingUtils.folderBy(path.toFile());
-        if (path.toFile().exists()) {
-            return mapper.readValue(path.toFile(), Collection.class);
-        } else {
-            PlaceType[] places = new PlaceType[1];
-            places[0] = placeType;
-            Map<String, GooglePlaceResponse> restaurants = googleService.searchNearby(latitude, longitude, radius, places);
-            String jsonArray = mapper.writeValueAsString(restaurants.values());
-            FileUtils.write(path.toFile(), jsonArray, "utf-8");
-            return mapper.readValue(path.toFile(), Collection.class);
-        }
-    }
+
 
     /**
      * GET  /house-photos/{id}/contents : get photo in byte array.
