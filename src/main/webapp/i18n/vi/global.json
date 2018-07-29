@@ -152,7 +152,7 @@
         "server.not.reachable": "Không tìm thấy máy chủ",
         "url.not.found": "Không tìm thấy",
         "NotNull": "Trường {{ fieldName }} không được để trống!",
-        "Size": "Trường {{ fieldName }} không nằm trong giới hạn tối thiểu/tối đa!",
+        "Size": "{{ fieldName }} không được để trống",
         "userexists": "Tên đăng nhập đã được sử dụng!",
         "emailexists": "Số điện thoại đã được sử dụng!",
         "idexists": "Thêm mới {{ entityName }} không được trùng với định danh đã tồn tại",

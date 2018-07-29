@@ -1,12 +1,11 @@
 import React from 'react';
 import { Translate, translate } from 'react-jhipster';
-import { Button, Container, Alert, Row, Col } from 'reactstrap';
+import { Button, Container, Row, Col } from 'reactstrap';
 import { AvForm, AvField } from 'availity-reactstrap-validation';
 import { Link } from 'react-router-dom';
-import { Card } from 'antd';
+import { Card, Alert } from 'antd';
 
 import SearchPage from 'app/shared/layout/search/search-menu';
-import Loading from 'app/shared/layout/loading/loading';
 
 export interface ILoginModalProps {
   showModal: boolean;
@@ -37,22 +36,18 @@ class LoginModal extends React.Component<ILoginModalProps> {
                 <Card title="Đăng nhập">
                   <AvForm onSubmit={this.handleSubmit}>
                     <Row>
-                      <Col md="12">
-                        {loginError ? (
-                          <Alert color="danger">
-                            <Translate contentKey="login.messages.error.authentication">
-                              <strong>Failed to sign in!</strong> Please check your credentials and try again.
-                            </Translate>
-                          </Alert>
-                        ) : null}
-                      </Col>
+                      {loginError ? (
+                        <Col md="12" style={{ marginBottom: 20 }}>
+                          <Alert type="error" message={translate('login.messages.error.authentication')} />
+                        </Col>
+                      ) : null}
                       <Col md="12">
                         <AvField
                           name="username"
                           label={translate('global.form.username')}
                           placeholder={translate('global.form.username.placeholder')}
                           required
-                          errorMessage="Username cannot be empty!"
+                          errorMessage={translate('login.messages.error.username')}
                         />
                         <AvField
                           name="password"
@@ -60,7 +55,7 @@ class LoginModal extends React.Component<ILoginModalProps> {
                           label={translate('login.form.password')}
                           placeholder={translate('login.form.password.placeholder')}
                           required
-                          errorMessage="Password cannot be empty!"
+                          errorMessage={translate('login.messages.error.password')}
                         />
                         <Button color="primary" type="submit">
                           <Translate contentKey="login.form.button">Sign in</Translate>

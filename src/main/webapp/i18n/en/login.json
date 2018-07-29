@@ -9,11 +9,19 @@
         },
         "messages": {
             "error": {
-                "authentication": "<strong>Failed to sign in!</strong> Please check your credentials and try again."
+                "authentication": "<strong>Failed to sign in!</strong> Please check your credentials and try again.",
+                "username": "Username cannot be empty",
+                "password": "Password cannot be empty"
             }
         },
         "password" : {
             "forgot": "Did you forget your password?"
         }
+    },
+    "landexpApp": {
+      "loginVM": {
+        "username": "username",
+        "password": "password"
+      }
     }
 }

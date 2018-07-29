@@ -1,13 +1,11 @@
 import React from 'react';
-import { Link, RouteComponentProps } from 'react-router-dom';
-import { Translate } from 'react-jhipster';
+import { RouteComponentProps } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { Row, Col, Container } from 'reactstrap';
 
 import { Steps, Button, Card, Alert } from 'antd';
 const Step = Steps.Step;
 
-import { IRootState } from 'app/shared/reducers';
 import { getSession } from 'app/shared/reducers/authentication';
 import {
   getActionType,
