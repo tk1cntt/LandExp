@@ -159,7 +159,10 @@
         "idexists": "A new {{ entityName }} cannot already have an ID",
         "notfound": "Not found",
         "nopermission": "No permission",
-        "idnull": "Invalid ID"
+        "idnull": "Invalid ID",
+        "http": {
+          "401": "No permission"
+        }
     },
     "footer": "This is your footer"
 }

@@ -158,7 +158,10 @@
         "idexists": "Thêm mới {{ entityName }} không được trùng với định danh đã tồn tại",
         "notfound": "Không tìm thấy",
         "nopermission": "Bạn không được phép xem tin này",
-        "idnull": "Invalid ID"
+        "idnull": "Invalid ID",
+        "http": {
+          "401": "Không có quyền"
+        }
     },
     "footer": "Đây là chân trang của bạn"
 }

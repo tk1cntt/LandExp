@@ -40,13 +40,13 @@ export default class Header extends React.Component<IHeaderProps, IHeaderState> 
         title={
           <span>
             <Icon type="appstore" />
-            <span> Quản lý tin đăng </span>
+            <span> Tin đăng của bạn </span>
           </span>
         }
       >
         <Menu.Item>
           <Link to="/tai-khoan/danh-sach-tin-dang">
-            <Icon type="book" /> Tin đã đăng của bạn
+            <Icon type="book" /> Xem danh sách tin đăng
           </Link>
         </Menu.Item>
       </SubMenu>
