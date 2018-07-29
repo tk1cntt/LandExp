@@ -94,11 +94,7 @@ public class HouseResource {
             paymentDTO.setCode(Utils.encodePayment(houseDTO.getId()).toUpperCase());
             paymentDTO.setCreateAt(LocalDate.now());
             paymentDTO.setPaymentStatus(PaymentStatusType.OPEN);
-            paymentDTO.setCustomerId(houseDTO.getCreateById());
-            paymentDTO.setCustomerLogin(houseDTO.getCreateByLogin());
-            paymentDTO.setCreateById(houseDTO.getCreateById());
-            paymentDTO.setCreateByLogin(houseDTO.getCreateByLogin());
-            paymentService.save(paymentDTO);
+            paymentService.saveByUsername(paymentDTO, username);
         }
         return ResponseUtil.wrapOrNotFound(Optional.of(houseDTO));
     }

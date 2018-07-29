@@ -57,12 +57,13 @@ public class PaymentService {
      */
     public PaymentDTO saveByUsername(PaymentDTO paymentDTO, String username) {
         log.debug("Request to save House : {}", paymentDTO);
-        Payment house = paymentMapper.toEntity(paymentDTO);
+        Payment payment = paymentMapper.toEntity(paymentDTO);
         Optional<User> existingUser = userRepository.findOneByLogin(username);
-        house.setCreateBy(existingUser.get());
-        house.setUpdateBy(existingUser.get());
-        house = paymentRepository.save(house);
-        return paymentMapper.toDto(house);
+        payment.setCustomer(existingUser.get());
+        payment.setCreateBy(existingUser.get());
+        payment.setUpdateBy(existingUser.get());
+        payment = paymentRepository.save(payment);
+        return paymentMapper.toDto(payment);
     }
 
     /**
@@ -73,11 +74,11 @@ public class PaymentService {
      */
     public PaymentDTO updateByUsername(PaymentDTO paymentDTO, String username) {
         log.debug("Request to save House : {}", paymentDTO);
-        Payment house = paymentMapper.toEntity(paymentDTO);
+        Payment payment = paymentMapper.toEntity(paymentDTO);
         Optional<User> existingUser = userRepository.findOneByLogin(username);
-        house.setUpdateBy(existingUser.get());
-        house = paymentRepository.save(house);
-        return paymentMapper.toDto(house);
+        payment.setUpdateBy(existingUser.get());
+        payment = paymentRepository.save(payment);
+        return paymentMapper.toDto(payment);
     }
 
     /**
