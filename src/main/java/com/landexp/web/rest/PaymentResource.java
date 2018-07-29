@@ -68,7 +68,8 @@ public class PaymentResource {
         if (paymentDTO.getId() != null) {
             throw new BadRequestAlertException("A new payment cannot already have an ID", ENTITY_NAME, "idexists");
         }
-        PaymentDTO result = paymentService.save(paymentDTO);
+        String username = SecurityUtils.getCurrentUserLogin().get();
+        PaymentDTO result = paymentService.saveByUsername(paymentDTO, username);
         return ResponseEntity.created(new URI("/api/payments/" + result.getId()))
             .headers(HeaderUtil.createEntityCreationAlert(ENTITY_NAME, result.getId().toString()))
             .body(result);
@@ -90,7 +91,8 @@ public class PaymentResource {
         if (paymentDTO.getId() == null) {
             throw new BadRequestAlertException("Invalid id", ENTITY_NAME, "idnull");
         }
-        PaymentDTO result = paymentService.save(paymentDTO);
+        String username = SecurityUtils.getCurrentUserLogin().get();
+        PaymentDTO result = paymentService.updateByUsername(paymentDTO, username);
         return ResponseEntity.ok()
             .headers(HeaderUtil.createEntityUpdateAlert(ENTITY_NAME, paymentDTO.getId().toString()))
             .body(result);
@@ -123,7 +125,7 @@ public class PaymentResource {
         paymentDTO.setPaidTime(LocalDate.now());
         PaymentDTO result = paymentService.updateByUsername(paymentDTO, username);
         houseDTO.setStatusType(StatusType.PAID);
-        houseService.saveByUsername(houseDTO, username);
+        houseService.updateByUsername(houseDTO, username);
         return ResponseEntity.ok()
             .headers(HeaderUtil.createEntityUpdateAlert(ENTITY_NAME, result.getId().toString()))
             .body(result);
@@ -155,7 +157,7 @@ public class PaymentResource {
         paymentDTO.setPaymentStatus(PaymentStatusType.CANCELED);
         PaymentDTO result = paymentService.updateByUsername(paymentDTO, username);
         houseDTO.setStatusType(StatusType.CANCELED);
-        houseService.saveByUsername(houseDTO, username);
+        houseService.updateByUsername(houseDTO, username);
         return ResponseEntity.ok()
             .headers(HeaderUtil.createEntityUpdateAlert(ENTITY_NAME, result.getId().toString()))
             .body(result);
