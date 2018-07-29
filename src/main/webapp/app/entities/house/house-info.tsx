@@ -39,12 +39,16 @@ export class HouseInfoUpdate extends React.Component<IHouseInfoUpdateProps, IHou
   };
 
   onChangeMobile = e => {
-    this.setState({
-      mobile: e.target.value
-    });
-    this.props.updateHouse({
-      mobile: e.target.value
-    });
+    const { value } = e.target;
+    const reg = /^\d{1,11}$/;
+    if ((!isNaN(value) && reg.test(value)) || value === '' || value === '-') {
+      this.setState({
+        mobile: e.target.value
+      });
+      this.props.updateHouse({
+        mobile: e.target.value
+      });
+    }
   };
 
   onChangeEmail = e => {

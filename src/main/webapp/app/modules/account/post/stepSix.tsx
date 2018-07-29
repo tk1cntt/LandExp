@@ -1,15 +1,8 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
-import { Translate } from 'react-jhipster';
 import { connect } from 'react-redux';
-import { Row, Col, Alert } from 'reactstrap';
-import { Cascader, Input, Select, Radio } from 'antd';
-const InputGroup = Input.Group;
-const Option = Select.Option;
-const RadioButton = Radio.Button;
-const RadioGroup = Radio.Group;
+import { Row, Col } from 'reactstrap';
+import { Input } from 'antd';
 
-import { IRootState } from 'app/shared/reducers';
 import { getSession } from 'app/shared/reducers/authentication';
 
 export interface IStepSixProp extends StateProps, DispatchProps {
@@ -45,7 +38,7 @@ export class StepSix extends React.Component<IStepSixProp, IStepSixState> {
 
   onChangeMobile = e => {
     const { value } = e.target;
-    const reg = /^-?(0|[1-9][0-9]*)(\.[0-9]*)?$/;
+    const reg = /^\d{1,11}$/;
     if ((!isNaN(value) && reg.test(value)) || value === '' || value === '-') {
       this.setState({
         mobile: e.target.value
@@ -84,7 +77,6 @@ export class StepSix extends React.Component<IStepSixProp, IStepSixState> {
   };
 
   render() {
-    const { account } = this.props;
     return (
       <Row>
         <h3 className="text-center">
@@ -109,7 +101,6 @@ export class StepSix extends React.Component<IStepSixProp, IStepSixState> {
             <Input
               onChange={this.onChangeMobile}
               value={this.state.mobile || this.props.house.mobile}
-              type="number"
               addonBefore="Điện thoại"
               placeholder="Số điện thoại liên hệ"
             />

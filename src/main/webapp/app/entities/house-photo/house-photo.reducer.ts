@@ -151,7 +151,7 @@ export const createEntity: ICrudPutAction<IHousePhoto> = entity => async dispatc
     type: ACTION_TYPES.CREATE_HOUSEPHOTO,
     payload: client.post(apiUrl, cleanEntity(entity))
   });
-  dispatch(getEntities());
+  // dispatch(getEntities());
   return result;
 };
 
@@ -164,7 +164,7 @@ export const updateEntity: ICrudPutAction<IHousePhoto> = entity => async dispatc
     type: ACTION_TYPES.UPDATE_HOUSEPHOTO,
     payload: client.put(apiUrl, cleanEntity(entity))
   });
-  dispatch(getEntities());
+  // dispatch(getEntities());
   return result;
 };
 
@@ -178,7 +178,7 @@ export const deleteEntity: ICrudDeleteAction<IHousePhoto> = id => async dispatch
     type: ACTION_TYPES.DELETE_HOUSEPHOTO,
     payload: client.delete(requestUrl)
   });
-  dispatch(getEntities());
+  // dispatch(getEntities());
   return result;
 };
 
