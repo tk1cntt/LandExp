@@ -1,8 +1,6 @@
 package com.landexp.web.rest;
 
 import com.codahale.metrics.annotation.Timed;
-import com.fasterxml.jackson.databind.ObjectMapper;
-import com.google.maps.model.PlaceType;
 import com.landexp.config.Utils;
 import com.landexp.domain.enumeration.PaymentStatusType;
 import com.landexp.domain.enumeration.StatusType;
@@ -12,13 +10,11 @@ import com.landexp.security.SecurityUtils;
 import com.landexp.service.*;
 import com.landexp.service.dto.*;
 import com.landexp.web.rest.errors.BadRequestAlertException;
-import com.landexp.web.rest.responses.GooglePlaceResponse;
 import com.landexp.web.rest.util.HeaderUtil;
 import com.landexp.web.rest.util.PaginationUtil;
 import io.github.jhipster.web.util.ResponseUtil;
 import net.coobird.thumbnailator.Thumbnails;
 import net.coobird.thumbnailator.geometry.Positions;
-import org.apache.commons.io.FileUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.data.domain.Page;
@@ -35,10 +31,10 @@ import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.net.URI;
 import java.net.URISyntaxException;
-import java.nio.file.Path;
-import java.nio.file.Paths;
 import java.time.LocalDate;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Optional;
 
 /**
  * REST controller for managing House.
@@ -298,7 +294,6 @@ public class HouseResource {
     }
 
 
-
     /**
      * GET  /house-photos/{id}/contents : get photo in byte array.
      */
@@ -336,9 +331,10 @@ public class HouseResource {
             && !SecurityUtils.isCurrentUserInRole(AuthoritiesConstants.MANAGER)) {
             throw new BadRequestAlertException("No permission", ENTITY_NAME, "nopermission");
         }
+        String username = SecurityUtils.getCurrentUserLogin().get();
         HouseDetailDTO dto = houseDTO.get();
         dto.setStatusType(StatusType.CANCELED);
-        houseService.save(dto);
+        houseService.saveByUsername(dto, username);
         return ResponseEntity.ok().headers(HeaderUtil.createEntityDeletionAlert(ENTITY_NAME, id.toString())).build();
     }
 }
