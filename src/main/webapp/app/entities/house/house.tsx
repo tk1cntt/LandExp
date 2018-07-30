@@ -2,7 +2,7 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { RouteComponentProps } from 'react-router-dom';
 import { Col, Row, Container, Table } from 'reactstrap';
-import { getLandType, getSaleType, getStatusType, encodeId } from 'app/shared/util/utils';
+import { getLandType, getSaleType, getStatusType, queryString, queryStringMapping, encodeId } from 'app/shared/util/utils';
 import { Translate, getSortState, IPaginationBaseState, getPaginationItemsNumber, JhiPagination } from 'react-jhipster';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import qs from 'query-string';
@@ -14,7 +14,6 @@ import SearchPage from 'app/shared/layout/search/search-menu';
 
 import { IRootState } from 'app/shared/reducers';
 import { getHouses, getEntities, getItemEntities, getStaffEntities, deleteEntity } from './house.reducer';
-import { queryString, queryStringMapping } from 'app/shared/util/utils';
 import { hasAnyAuthority } from 'app/shared/auth/private-route';
 import { AUTHORITIES } from 'app/config/constants';
 import { ITEMS_PER_PAGE } from 'app/shared/util/pagination.constants';

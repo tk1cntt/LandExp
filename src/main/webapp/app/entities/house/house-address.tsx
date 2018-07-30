@@ -132,7 +132,6 @@ export class HouseAddressUpdate extends React.Component<IHouseAddressUpdateProps
 
   render() {
     const defaultValue = [this.props.houseEntity.cityId, this.props.houseEntity.districtId, this.props.houseEntity.wardId];
-    console.log(this.state.currentPosition);
     return (
       <>
         <h3 className="text-center">Vị trí bất động sản của bạn?</h3>
@@ -167,7 +166,7 @@ export class HouseAddressUpdate extends React.Component<IHouseAddressUpdateProps
 
 const mapStateToProps = storeState => ({
   cities: storeState.city.entities,
-  wardEntity: storeState.ward.entity,
+  wardEntity: storeState.ward.entity
 });
 
 const mapDispatchToProps = { getWard };
