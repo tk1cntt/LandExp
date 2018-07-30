@@ -65,6 +65,8 @@ public class HouseDTO implements Serializable {
 
     private String projectName;
 
+    private String mobile;
+
     private String createByLogin;
 
     public Long getId() {
@@ -257,6 +259,14 @@ public class HouseDTO implements Serializable {
 
     public void setProjectName(String landProjectName) {
         this.projectName = landProjectName;
+    }
+
+    public String getMobile() {
+        return mobile;
+    }
+
+    public void setMobile(String mobile) {
+        this.mobile = mobile;
     }
 
     public String getCreateByLogin() {

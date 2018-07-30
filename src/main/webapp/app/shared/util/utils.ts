@@ -193,6 +193,9 @@ export const queryStringMapping = parameters => {
   queryString += parameters.cityId ? 'cityId.equals=' + parameters.cityId + '&' : '';
   queryString += parameters.districtId ? 'districtId.equals=' + parameters.districtId + '&' : '';
   queryString += parameters.wardId ? 'wardId.equals=' + parameters.wardId + '&' : '';
+  queryString += parameters.statusType ? 'statusType.equals=' + parameters.statusType + '&' : '';
+  queryString += parameters.saleType ? 'saleType.equals=' + parameters.saleType + '&' : '';
+  queryString += parameters.mobile ? 'mobile.contains=' + parameters.mobile + '&' : '';
   switch (parseInt(parameters.money)) {
     case 1:
       queryString += 'money.lessThan=500000001&';

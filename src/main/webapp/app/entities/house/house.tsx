@@ -193,7 +193,7 @@ export class House extends React.Component<IHouseProps, IHouseState> {
   }
 
   onChangeKeyword = e => {
-    const parameters = { createByLogin: e.target.value };
+    const parameters = { mobile: e.target.value };
     const nextParameter = { ...this.state.parameters, ...parameters };
     this.setState({
       parameters: nextParameter
@@ -201,7 +201,7 @@ export class House extends React.Component<IHouseProps, IHouseState> {
   };
 
   keywordForm() {
-    return <Input style={{ width: 280, marginRight: 2 }} placeholder="Khách hàng" onChange={this.onChangeKeyword} />;
+    return <Input style={{ width: 280, marginRight: 2 }} placeholder="Số điện thoại" onChange={this.onChangeKeyword} />;
   }
 
   searchClick = () => {
@@ -212,6 +212,7 @@ export class House extends React.Component<IHouseProps, IHouseState> {
     this.setState({
       parameters: {}
     });
+    this.getEntities();
   };
 
   render() {
@@ -246,28 +247,28 @@ export class House extends React.Component<IHouseProps, IHouseState> {
                       <thead>
                         <tr>
                           <th>
-                            <Translate contentKey="landexpApp.house.actionType">Action Type</Translate> <FontAwesomeIcon icon="sort" />
+                            <Translate contentKey="landexpApp.house.actionType">Action Type</Translate>
                           </th>
                           <th>
-                            <Translate contentKey="landexpApp.house.landType">Land Type</Translate> <FontAwesomeIcon icon="sort" />
+                            <Translate contentKey="landexpApp.house.landType">Land Type</Translate>
                           </th>
                           <th>
-                            <Translate contentKey="landexpApp.house.money">Money</Translate> <FontAwesomeIcon icon="sort" />
+                            <Translate contentKey="landexpApp.house.money">Money</Translate>
                           </th>
                           <th>
-                            <Translate contentKey="landexpApp.house.city">City</Translate> <FontAwesomeIcon icon="sort" />
+                            <Translate contentKey="landexpApp.house.city">City</Translate>
                           </th>
                           <th>
-                            <Translate contentKey="landexpApp.house.district">District</Translate> <FontAwesomeIcon icon="sort" />
+                            <Translate contentKey="landexpApp.house.district">District</Translate>
                           </th>
                           <th>
-                            <Translate contentKey="landexpApp.house.saleType">Sale Type</Translate> <FontAwesomeIcon icon="sort" />
+                            <Translate contentKey="landexpApp.house.saleType">Sale Type</Translate>
                           </th>
                           <th>
-                            <Translate contentKey="landexpApp.house.statusType">Status Type</Translate> <FontAwesomeIcon icon="sort" />
+                            <Translate contentKey="landexpApp.house.statusType">Status Type</Translate>
                           </th>
                           <th>
-                            <Translate contentKey="landexpApp.house.createBy">Create By</Translate> <FontAwesomeIcon icon="sort" />
+                            <Translate contentKey="landexpApp.house.mobile">Mobile</Translate>
                           </th>
                           <th />
                         </tr>
@@ -290,7 +291,7 @@ export class House extends React.Component<IHouseProps, IHouseState> {
                                 <strong>{getStatusType(house.statusType)}</strong>
                               </td>
                             )}
-                            <td>{house.createByLogin}</td>
+                            <td>{house.mobile}</td>
                             <td className="text-right">
                               <div className="btn-group flex-btn-group-container">
                                 <Button onClick={this.gotoView.bind(this, house.id)}>
