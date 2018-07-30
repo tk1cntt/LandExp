@@ -154,15 +154,15 @@ export const getTopEntities: ICrudGetAllAction<IHouse> = (page, size, sort) => (
   payload: client.get<IHouse>(`${apiUrl}/top?cacheBuster=${new Date().getTime()}`)
 });
 
-export const getItemEntities: ICrudGetAllAction<IHouse> = (page, size, sort) => {
+export const getItemEntities: ICrudSearchAction<IHouse> = query => {
   const jwt = Storage.local.get('jhi-authenticationToken') || Storage.session.get('jhi-authenticationToken');
   if (jwt) {
     client.defaults.headers['Authorization'] = `Bearer ${jwt}`;
   }
-  const requestUrl = `${apiUrl}/items${sort ? `?page=${page}&size=${size}&sort=${sort}` : ''}`;
+  const requestUrl = `${apiUrl}/items${query ? `?${query}` : ''}`;
   return {
     type: ACTION_TYPES.FETCH_HOUSE_LIST,
-    payload: client.get<IHouse>(`${requestUrl}${sort ? '&' : '?'}cacheBuster=${new Date().getTime()}`)
+    payload: client.get<IHouse>(`${requestUrl}${query ? `&cacheBuster=${new Date().getTime()}` : ''}`)
   };
 };
 

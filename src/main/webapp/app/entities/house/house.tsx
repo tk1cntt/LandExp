@@ -1,18 +1,20 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { Link, RouteComponentProps } from 'react-router-dom';
-import { Col, Row, Container, Table, Button } from 'reactstrap';
+import { Col, Row, Container, Table } from 'reactstrap';
 import { getLandType, getSaleType, getStatusType, encodeId } from 'app/shared/util/utils';
 import { Translate, getSortState, IPaginationBaseState, getPaginationItemsNumber, JhiPagination } from 'react-jhipster';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { Select, Modal, Card } from 'antd';
+import qs from 'query-string';
+import { Select, Input, Button, Modal, Card } from 'antd';
 const Option = Select.Option;
 
 import Loading from 'app/shared/layout/loading/loading';
 import SearchPage from 'app/shared/layout/search/search-menu';
 
 import { IRootState } from 'app/shared/reducers';
-import { getEntities, getItemEntities, getStaffEntities, deleteEntity } from './house.reducer';
+import { getHouses, getEntities, getItemEntities, getStaffEntities, deleteEntity } from './house.reducer';
+import { queryString, queryStringMapping } from 'app/shared/util/utils';
 import { hasAnyAuthority } from 'app/shared/auth/private-route';
 import { AUTHORITIES } from 'app/config/constants';
 import { ITEMS_PER_PAGE } from 'app/shared/util/pagination.constants';
@@ -34,34 +36,39 @@ export class House extends React.Component<IHouseProps, IHouseState> {
   };
 
   componentDidMount() {
-    this.getEntities();
+    if (this.props.location) {
+      const parsed = qs.parse(this.props.location.search);
+      this.props.getItemEntities(queryStringMapping(parsed));
+    }
   }
 
-  sort = prop => () => {
-    this.setState(
-      {
-        order: this.state.order === 'asc' ? 'desc' : 'asc',
-        sort: prop
-      },
-      () => this.sortEntities()
-    );
-  };
-
-  sortEntities() {
-    this.getEntities();
-    this.props.history.push(`${this.props.location.pathname}?page=${this.state.activePage}&sort=${this.state.sort},${this.state.order}`);
+  componentDidUpdate(prevProps) {
+    // Typical usage (don't forget to compare props):
+    if (this.props.location !== prevProps.location) {
+      const parsed = qs.parse(this.props.location.search);
+      this.props.getItemEntities(queryStringMapping(parsed));
+    }
   }
 
-  handlePagination = activePage => this.setState({ activePage }, () => this.sortEntities());
+  handlePagination = activePage => this.setState({ activePage }, () => this.getEntities());
 
   getEntities = () => {
-    const { activePage, itemsPerPage, sort, order } = this.state;
-    this.props.getItemEntities(activePage - 1, itemsPerPage, `createAt,desc`);
-    // this.props.getStaffEntities(activePage - 1, itemsPerPage, `${sort},${order}`);
+    const { activePage, itemsPerPage, sort } = this.state;
+    const nextParameter = {
+      ...this.state.parameters,
+      page: activePage - 1,
+      size: itemsPerPage,
+      sort: 'createAt,desc'
+    };
+    this.props.history.push(`${this.props.match.url}?${queryString(nextParameter)}`);
   };
 
   gotoEdit = id => {
     this.props.history.push(`${this.props.match.url}/${id}/edit`);
+  };
+
+  gotoView = id => {
+    this.props.history.push(`/bat-dong-san/${encodeId(id)}/xem-truoc-tin-dang`);
   };
 
   showDeleteConfirm = houseId => {
@@ -95,7 +102,7 @@ export class House extends React.Component<IHouseProps, IHouseState> {
   actionTypeForm() {
     return (
       <Select
-        style={{ width: 140, marginRight: -2 }}
+        style={{ width: 140, marginRight: 2 }}
         value={this.state.parameters.actionType}
         placeholder="Hình thức"
         onChange={this.menuTypeClick}
@@ -117,7 +124,7 @@ export class House extends React.Component<IHouseProps, IHouseState> {
   landTypeForm() {
     return (
       <Select
-        style={{ width: 180, marginRight: -2 }}
+        style={{ width: 180, marginRight: 2 }}
         value={this.state.parameters.landType}
         placeholder="Loại bất động sản"
         onChange={this.menuLandTypeClick}
@@ -138,6 +145,75 @@ export class House extends React.Component<IHouseProps, IHouseState> {
     );
   }
 
+  menuSaleTypeClick = value => {
+    const parameters = { saleType: value };
+    const nextParameter = { ...this.state.parameters, ...parameters };
+    this.setState({
+      parameters: nextParameter
+    });
+  };
+
+  saleTypeForm() {
+    return (
+      <Select
+        style={{ width: 180, marginRight: 2 }}
+        value={this.state.parameters.saleType}
+        placeholder="Loại tin"
+        onChange={this.menuSaleTypeClick}
+      >
+        <Option value="SALE_BY_MYSELF">{getSaleType('SALE_BY_MYSELF')}</Option>
+        <Option value="SALE_BY_MYSELF_VIP">{getSaleType('SALE_BY_MYSELF_VIP')}</Option>
+        <Option value="SALE_SUPPORT">{getSaleType('SALE_SUPPORT')}</Option>
+        <Option value="SALE_SUPPORT_VIP">{getSaleType('SALE_SUPPORT_VIP')}</Option>
+      </Select>
+    );
+  }
+
+  menuStatusClick = value => {
+    const parameters = { statusType: value };
+    const nextParameter = { ...this.state.parameters, ...parameters };
+    this.setState({
+      parameters: nextParameter
+    });
+  };
+
+  statusForm() {
+    return (
+      <Select
+        style={{ width: 180, marginRight: 2 }}
+        value={this.state.parameters.statusType}
+        placeholder="Trạng thái"
+        onChange={this.menuStatusClick}
+      >
+        <Option value="PENDING">{getStatusType('PENDING')}</Option>
+        <Option value="PAID">{getStatusType('PAID')}</Option>
+        <Option value="CANCELED">{getStatusType('CANCELED')}</Option>
+      </Select>
+    );
+  }
+
+  onChangeKeyword = e => {
+    const parameters = { createByLogin: e.target.value };
+    const nextParameter = { ...this.state.parameters, ...parameters };
+    this.setState({
+      parameters: nextParameter
+    });
+  };
+
+  keywordForm() {
+    return <Input style={{ width: 280, marginRight: 2 }} placeholder="Khách hàng" onChange={this.onChangeKeyword} />;
+  }
+
+  searchClick = () => {
+    this.getEntities();
+  };
+
+  clearSearchClick = () => {
+    this.setState({
+      parameters: {}
+    });
+  };
+
   render() {
     const { houseList, match, totalItems } = this.props;
     return (
@@ -152,19 +228,30 @@ export class House extends React.Component<IHouseProps, IHouseState> {
                 <Row>
                   <Card title="Danh sách tin đăng">
                     <Row style={{ marginBottom: 20 }}>
-                      {this.actionTypeForm()}
-                      {this.landTypeForm()}
+                      <Container>
+                        {this.actionTypeForm()}
+                        {this.landTypeForm()}
+                        {this.saleTypeForm()}
+                        {this.statusForm()}
+                        {this.keywordForm()}
+                        <Button onClick={this.searchClick} style={{ marginRight: 2 }} type="primary">
+                          <FontAwesomeIcon icon="search" />Tìm kiếm
+                        </Button>
+                        <Button onClick={this.clearSearchClick}>
+                          <FontAwesomeIcon icon="trash" />
+                        </Button>
+                      </Container>
                     </Row>
                     <Table responsive striped>
                       <thead>
                         <tr>
-                          <th className="hand" onClick={this.sort('actionType')}>
+                          <th>
                             <Translate contentKey="landexpApp.house.actionType">Action Type</Translate> <FontAwesomeIcon icon="sort" />
                           </th>
-                          <th className="hand" onClick={this.sort('landType')}>
+                          <th>
                             <Translate contentKey="landexpApp.house.landType">Land Type</Translate> <FontAwesomeIcon icon="sort" />
                           </th>
-                          <th className="hand" onClick={this.sort('money')}>
+                          <th>
                             <Translate contentKey="landexpApp.house.money">Money</Translate> <FontAwesomeIcon icon="sort" />
                           </th>
                           <th>
@@ -195,27 +282,31 @@ export class House extends React.Component<IHouseProps, IHouseState> {
                             <td>{house.districtName}</td>
                             <td>{getSaleType(house.saleType)}</td>
                             {house.statusType === 'PAID' ? (
-                              <td style={{ color: 'green' }}><strong>{getStatusType(house.statusType)}</strong></td>
+                              <td style={{ color: 'green' }}>
+                                <strong>{getStatusType(house.statusType)}</strong>
+                              </td>
                             ) : (
-                              <td style={{ color: 'red' }}><strong>{getStatusType(house.statusType)}</strong></td>
+                              <td style={{ color: 'red' }}>
+                                <strong>{getStatusType(house.statusType)}</strong>
+                              </td>
                             )}
                             <td>{house.createByLogin}</td>
                             <td className="text-right">
                               <div className="btn-group flex-btn-group-container">
-                                <Button tag={Link} to={`/bat-dong-san/${encodeId(house.id)}/xem-truoc-tin-dang`} color="info" size="sm">
+                                <Button onClick={this.gotoView.bind(this, house.id)}>
                                   <FontAwesomeIcon icon="eye" />{' '}
                                   <span className="d-none d-md-inline">
                                     <Translate contentKey="entity.action.view">View</Translate>
                                   </span>
                                 </Button>
-                                <Button onClick={this.gotoEdit.bind(this, house.id)} color="primary" size="sm">
+                                <Button onClick={this.gotoEdit.bind(this, house.id)} type="primary">
                                   <FontAwesomeIcon icon="pencil-alt" />{' '}
                                   <span className="d-none d-md-inline">
                                     <Translate contentKey="entity.action.edit">Edit</Translate>
                                   </span>
                                 </Button>
                                 {this.props.isManager && house.statusType !== 'PAID' ? (
-                                  <Button onClick={this.showDeleteConfirm.bind(this, house.id)} color="danger" size="sm">
+                                  <Button onClick={this.showDeleteConfirm.bind(this, house.id)} type="danger">
                                     <FontAwesomeIcon icon="trash" />{' '}
                                     <span className="d-none d-md-inline">
                                       <Translate contentKey="entity.action.delete">Delete</Translate>
@@ -273,6 +364,7 @@ const mapStateToProps = ({ house, authentication }: IRootState) => ({
 });
 
 const mapDispatchToProps = {
+  getHouses,
   getEntities,
   getItemEntities,
   getStaffEntities,

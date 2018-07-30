@@ -45,6 +45,8 @@ public class HouseDTO implements Serializable {
 
     private LandType landType;
 
+    private SaleType saleType;
+
     private StatusType statusType;
 
     private LocalDate createAt;
@@ -175,6 +177,14 @@ public class HouseDTO implements Serializable {
 
     public void setLandType(LandType landType) {
         this.landType = landType;
+    }
+
+    public SaleType getSaleType() {
+        return saleType;
+    }
+
+    public void setSaleType(SaleType saleType) {
+        this.saleType = saleType;
     }
 
     public StatusType getStatusType() {

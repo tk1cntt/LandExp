@@ -202,12 +202,14 @@ public class HouseResource {
     public ResponseEntity<List<HouseDTO>> getItemHouses(HouseCriteria criteria, Pageable pageable) {
         log.debug("REST request to get Houses by criteria: {}", criteria);
         HouseCriteria.StatusTypeFilter filter = new HouseCriteria.StatusTypeFilter();
-        List<StatusType> statusTypes = new ArrayList<>();
-        statusTypes.add(StatusType.PENDING);
-        statusTypes.add(StatusType.CANCELED);
-        statusTypes.add(StatusType.PAID);
-        filter.setIn(statusTypes);
-        criteria.setStatusType(filter);
+        if (ObjectUtils.isEmpty(criteria.getStatusType())) {
+            List<StatusType> statusTypes = new ArrayList<>();
+            statusTypes.add(StatusType.PENDING);
+            statusTypes.add(StatusType.CANCELED);
+            statusTypes.add(StatusType.PAID);
+            filter.setIn(statusTypes);
+            criteria.setStatusType(filter);
+        }
         Page<HouseDTO> page = houseQueryService.findByCriteria(criteria, pageable);
         HttpHeaders headers = PaginationUtil.generatePaginationHttpHeaders(page, "/api/houses");
         return new ResponseEntity<>(page.getContent(), headers, HttpStatus.OK);
