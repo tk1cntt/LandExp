@@ -15,6 +15,8 @@ export interface IHouseAddressUpdateState {
   address: any;
   locations: any;
   wardEntity: any;
+  currentPosition: any;
+  wards: any;
 }
 
 export class HouseAddressUpdate extends React.Component<IHouseAddressUpdateProps, IHouseAddressUpdateState> {
@@ -22,18 +24,33 @@ export class HouseAddressUpdate extends React.Component<IHouseAddressUpdateProps
     city: null,
     address: null,
     locations: [],
-    wardEntity: null
+    wardEntity: null,
+    currentPosition: null,
+    wards: []
   };
 
   componentDidMount() {
     this.mappingCity();
+    this.mappingPosition();
   }
 
   componentDidUpdate(prevProps) {
     // Typical usage (don't forget to compare props):
     if (this.props.cities !== prevProps.cities) {
       this.mappingCity();
+      this.mappingPosition();
     }
+  }
+
+  mappingPosition() {
+    const { latitude, longitude } = this.props.houseEntity;
+    const currentPosition = {
+      latitude: latitude ? latitude : this.state.wardEntity ? this.state.wardEntity.latitude : null,
+      longitude: longitude ? longitude : this.state.wardEntity ? this.state.wardEntity.longitude : null
+    };
+    this.setState({
+      currentPosition
+    });
   }
 
   mappingCity() {
@@ -53,7 +70,9 @@ export class HouseAddressUpdate extends React.Component<IHouseAddressUpdateProps
         district.wards.map(ward => {
           const wardData = {
             value: ward.id,
-            label: ward.type + ' ' + ward.name
+            label: ward.type + ' ' + ward.name,
+            latitude: ward.latitude,
+            longitude: ward.longitude
           };
           if (this.props.houseEntity.wardId === ward.id) {
             this.setState({
@@ -61,6 +80,9 @@ export class HouseAddressUpdate extends React.Component<IHouseAddressUpdateProps
             });
           }
           districtData.children.push(wardData);
+        });
+        this.setState({
+          wards: district.wards
         });
         cityData.children.push(districtData);
       });
@@ -80,6 +102,19 @@ export class HouseAddressUpdate extends React.Component<IHouseAddressUpdateProps
       districtId: value[1],
       wardId: value[2]
     });
+    console.log(this.state.wards);
+    this.state.wards.map(ward => {
+      console.log(ward);
+      if (value[2] === ward.id) {
+        const currentPosition = {
+          latitude: ward.latitude,
+          longitude: ward.longitude
+        };
+        this.setState({
+          currentPosition
+        });
+      }
+    });
   };
 
   onChangeAddress = e => {
@@ -97,13 +132,7 @@ export class HouseAddressUpdate extends React.Component<IHouseAddressUpdateProps
 
   render() {
     const defaultValue = [this.props.houseEntity.cityId, this.props.houseEntity.districtId, this.props.houseEntity.wardId];
-
-    const { latitude, longitude } = this.props.houseEntity;
-    const currentPosition = {
-      latitude: latitude ? latitude : this.state.wardEntity ? this.state.wardEntity.latitude : null,
-      longitude: longitude ? longitude : this.state.wardEntity ? this.state.wardEntity.longitude : null
-    };
-
+    console.log(this.state.currentPosition);
     return (
       <>
         <h3 className="text-center">Vị trí bất động sản của bạn?</h3>
@@ -129,7 +158,7 @@ export class HouseAddressUpdate extends React.Component<IHouseAddressUpdateProps
           <GoogleMaps
             isMarkerDraggable
             updateMarkerPosition={this.updateMarkerPosition}
-            currentPosition={currentPosition} />
+            currentPosition={this.state.currentPosition} />
         </Col>
       </>
     );

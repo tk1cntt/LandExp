@@ -26,16 +26,12 @@ import GoogleMaps from 'app/shared/util/google-maps';
 export interface IDetailProp extends StateProps, DispatchProps, RouteComponentProps<{ id: any; link: any }> {}
 
 export interface IDetailState {
-  search: string;
-  isOpen: Boolean;
-  photoIndex: any;
+  images: any;
 }
 
 export class Detail extends React.Component<IDetailProp, IDetailState> {
   state: IDetailState = {
-    search: null,
-    isOpen: false,
-    photoIndex: 0
+    images: []
   };
 
   componentDidMount() {
@@ -43,6 +39,32 @@ export class Detail extends React.Component<IDetailProp, IDetailState> {
     this.props.getEntity(houseId);
     /* tslint:disable-next-line */
     this.props.getImageOfHouse(parseInt(houseId));
+  }
+
+  componentDidUpdate(prevProps) {
+    // Typical usage (don't forget to compare props):
+    if (this.props.housePhotoList !== prevProps.housePhotoList) {
+      this.mappingImages();
+    }
+  }
+
+  mappingImages() {
+    const images = [];
+    if (this.props.housePhotoList) {
+      this.props.housePhotoList.map(file => {
+        images.push({
+          original: `${SERVER_API_URL}/api/house-photos/${encodeId(file.id)}/contents/${this.props.houseEntity.link}-${encodeId(
+            file.id
+          )}.jpg`,
+          thumbnail: `${SERVER_API_URL}/api/house-photos/${encodeId(file.id)}/thumbnails/${this.props.houseEntity.link}-${encodeId(
+            file.id
+          )}.jpg`
+        });
+      });
+    }
+    this.setState({
+      images
+    });
   }
 
   houseImageGalleryFrom(images: any) {
@@ -218,20 +240,6 @@ export class Detail extends React.Component<IDetailProp, IDetailState> {
   updateMarkerPosition = () => {};
 
   render() {
-    const images = [];
-    if (this.props.housePhotoList) {
-      this.props.housePhotoList.map(file => {
-        images.push({
-          original: `${SERVER_API_URL}/api/house-photos/${encodeId(file.id)}/contents/${this.props.houseEntity.link}-${encodeId(
-            file.id
-          )}.jpg`,
-          thumbnail: `${SERVER_API_URL}/api/house-photos/${encodeId(file.id)}/thumbnails/${this.props.houseEntity.link}-${encodeId(
-            file.id
-          )}.jpg`
-        });
-      });
-    }
-
     return (
       <Row>
         <SearchPage location={this.props.location} history={this.props.history} />
@@ -241,7 +249,7 @@ export class Detail extends React.Component<IDetailProp, IDetailState> {
           ) : (
             <Row>
               <Row id="product-content">
-                {this.houseImageGalleryFrom(images)}
+                {this.houseImageGalleryFrom(this.state.images)}
                 {this.houseDetailForm()}
                 {this.houseContactForm()}
               </Row>

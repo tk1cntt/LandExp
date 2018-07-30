@@ -37,7 +37,7 @@ const MyMapComponent: React.StatelessComponent<{
     lng: props.currentPosition.longitude ? props.currentPosition.longitude : 105.8521484
   };
   return (
-    <GoogleMap defaultZoom={16} defaultCenter={position}>
+    <GoogleMap zoom={16} center={position}>
       {props.isMarkerShown && (
         <Marker
           position={position}

@@ -1,14 +1,12 @@
 import React from 'react';
-import { Redirect, Link, RouteComponentProps } from 'react-router-dom';
-import { Translate } from 'react-jhipster';
+import { RouteComponentProps } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { Row, Col, Container, Alert } from 'reactstrap';
 
 import { Steps, Button, Card, Spin } from 'antd';
 const Step = Steps.Step;
 
-import { IRootState } from 'app/shared/reducers';
-import { getActionType, getLandType, getCityType, getDirection, getPresent, getSaleType, encodeId, decodeId } from 'app/shared/util/utils';
+import { getActionType, getLandType, getCityType, getDirection, getPresent, getSaleType, encodeId, encodePayment, decodeId } from 'app/shared/util/utils';
 
 import { getEntity as getHouse, updateEntity as updateHouse, reset as clearHouse } from 'app/entities/house/house.reducer';
 import { getEntities as getServiceFees } from 'app/entities/service-fee/service-fee.reducer';
@@ -61,6 +59,12 @@ export class EditPage extends React.Component<IEditProp, IEditState> {
   prev = () => {
     const current = this.state.current - 1;
     this.setState({ current });
+  };
+
+  gotoPreview = () => {
+    // Go to preview page
+    // this.props.history.push(`/tai-khoan/xem-truoc-tin-dang/${encodeId(this.props.house.id)}`);
+    this.props.history.push(`/bat-dong-san/${encodeId(this.props.house.id)}/xem-truoc-tin-dang`);
   };
 
   validateStep = id => {
@@ -252,7 +256,8 @@ export class EditPage extends React.Component<IEditProp, IEditState> {
       });
     }
     // this.props.history.push(`/tai-khoan/xem-truoc-tin-dang/${encodeId(this.props.house.id)}`);
-    this.props.history.push(`/bat-dong-san/${encodeId(this.props.house.id)}/xem-truoc-tin-dang`);
+    // this.props.history.push(`/bat-dong-san/${encodeId(this.props.house.id)}/xem-truoc-tin-dang`);
+    this.next();
   };
 
   updateHouse = house => {
@@ -539,6 +544,10 @@ export class EditPage extends React.Component<IEditProp, IEditState> {
       {
         title: 'Giá',
         content: <StepFive house={entity} updateHouse={this.updateHouse} />
+      },
+      {
+        title: 'Xác nhận',
+        content: <StepSeven />
       }
     ];
 
@@ -562,14 +571,19 @@ export class EditPage extends React.Component<IEditProp, IEditState> {
                         Quay lại
                       </Button>
                     )}
-                    {this.state.current < steps.length - 1 && (
+                    {this.state.current < steps.length - 2 && (
                       <Button type="primary" onClick={this.next}>
                         Tiếp tục
                       </Button>
                     )}
-                    {this.state.current === steps.length - 1 && (
+                    {this.state.current === steps.length - 2 && (
                       <Button type="primary" onClick={this.saveEntity}>
                         Hoàn tất
+                      </Button>
+                    )}
+                    {this.state.current === steps.length - 1 && (
+                      <Button type="primary" style={{ marginRight: 8 }} onClick={this.gotoPreview}>
+                        Xem trước tin đăng
                       </Button>
                     )}
                   </div>
