@@ -3,6 +3,8 @@ import { connect } from 'react-redux';
 import { Col, Label } from 'reactstrap';
 import { Input, Cascader } from 'antd';
 
+import { getEntity as getWard } from 'app/entities/ward/ward.reducer';
+
 import GoogleMaps from 'app/shared/util/google-maps';
 
 export interface IHouseAddressUpdateProps extends StateProps, DispatchProps {
@@ -39,6 +41,16 @@ export class HouseAddressUpdate extends React.Component<IHouseAddressUpdateProps
     if (this.props.cities !== prevProps.cities) {
       this.mappingCity();
       this.mappingPosition();
+    }
+    if (this.props.wardEntity !== prevProps.wardEntity) {
+      const { latitude, longitude } = this.props.wardEntity;
+      const currentPosition = {
+        latitude,
+        longitude
+      };
+      this.setState({
+        currentPosition
+      });
     }
   }
 
@@ -102,19 +114,7 @@ export class HouseAddressUpdate extends React.Component<IHouseAddressUpdateProps
       districtId: value[1],
       wardId: value[2]
     });
-    console.log(this.state.wards);
-    this.state.wards.map(ward => {
-      console.log(ward);
-      if (value[2] === ward.id) {
-        const currentPosition = {
-          latitude: ward.latitude,
-          longitude: ward.longitude
-        };
-        this.setState({
-          currentPosition
-        });
-      }
-    });
+    this.props.getWard(value[2]);
   };
 
   onChangeAddress = e => {
@@ -166,10 +166,11 @@ export class HouseAddressUpdate extends React.Component<IHouseAddressUpdateProps
 }
 
 const mapStateToProps = storeState => ({
-  cities: storeState.city.entities
+  cities: storeState.city.entities,
+  wardEntity: storeState.ward.entity,
 });
 
-const mapDispatchToProps = {};
+const mapDispatchToProps = { getWard };
 
 type StateProps = ReturnType<typeof mapStateToProps>;
 type DispatchProps = typeof mapDispatchToProps;

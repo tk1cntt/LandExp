@@ -1,24 +1,13 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { Button, Row, Col, Label } from 'reactstrap';
-import { AvForm, AvGroup, AvInput, AvField } from 'availity-reactstrap-validation';
 import { Translate, setFileData, openFile, byteSize } from 'react-jhipster';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { Upload, Modal, Cascader, Icon } from 'antd';
+import { Upload, Modal, Icon } from 'antd';
 
 import { SERVER_API_URL } from 'app/config/constants';
-import { getEntity, updateEntity, createEntity, setBlob, reset } from './house.reducer';
-import {
-  getActionType,
-  getLandType,
-  getCityType,
-  getDirection,
-  getPresent,
-  getSaleType,
-  getStatusType,
-  encodeId,
-  decodeId
-} from 'app/shared/util/utils';
+import { setBlob } from './house.reducer';
+import { encodeId } from 'app/shared/util/utils';
 import { deleteEntity } from 'app/entities/house-photo/house-photo.reducer';
 
 export interface IHousePhotoUpdateProps extends StateProps, DispatchProps {

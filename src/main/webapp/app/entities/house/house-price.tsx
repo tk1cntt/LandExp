@@ -1,13 +1,12 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { Row, Col, Label } from 'reactstrap';
-import { AvForm, AvGroup, AvInput, AvField } from 'availity-reactstrap-validation';
-import { Translate, setFileData, openFile, byteSize } from 'react-jhipster';
+import { Col, Label } from 'reactstrap';
+import { Translate } from 'react-jhipster';
 import NumberFormat from 'react-number-format';
-import { Select, Input, Cascader } from 'antd';
+import { Select, Input } from 'antd';
 const Option = Select.Option;
 
-import { getActionType, getLandType, getCityType, getDirection, getPresent, getSaleType, getStatusType } from 'app/shared/util/utils';
+import { getPresent, getSaleType } from 'app/shared/util/utils';
 
 export interface IHousePriceUpdateProps extends StateProps, DispatchProps {
   updateHouse: Function;

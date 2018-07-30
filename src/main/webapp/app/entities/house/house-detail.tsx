@@ -1,13 +1,12 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { Row, Col, Label } from 'reactstrap';
-import { AvForm, AvGroup, AvInput, AvField } from 'availity-reactstrap-validation';
-import { Translate, setFileData, openFile, byteSize } from 'react-jhipster';
+import { Translate } from 'react-jhipster';
 import ReactQuill from 'react-quill';
 import { Select, Input, Checkbox } from 'antd';
 const Option = Select.Option;
 
-import { getActionType, getLandType, getCityType, getDirection, getPresent, getSaleType, getStatusType } from 'app/shared/util/utils';
+import { getActionType, getLandType, getDirection } from 'app/shared/util/utils';
 
 export interface IHouseDetailUpdateProps extends StateProps, DispatchProps {
   updateHouse: Function;

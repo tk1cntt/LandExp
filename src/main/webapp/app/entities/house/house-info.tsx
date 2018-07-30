@@ -1,11 +1,8 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { Row, Col, Label } from 'reactstrap';
-import { Translate, setFileData, openFile, byteSize } from 'react-jhipster';
-import { Form, Input, Cascader } from 'antd';
-const FormItem = Form.Item;
-
-import { getActionType, getLandType, getCityType, getDirection, getPresent, getSaleType, getStatusType } from 'app/shared/util/utils';
+import { Col, Label } from 'reactstrap';
+import { Translate } from 'react-jhipster';
+import { Input } from 'antd';
 
 export interface IHouseInfoUpdateProps extends StateProps, DispatchProps {
   updateHouse: Function;
