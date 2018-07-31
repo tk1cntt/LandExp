@@ -84,28 +84,28 @@ export class House extends React.Component<IHouseProps, IHouseState> {
                           <thead>
                             <tr>
                               <th>
-                                <Translate contentKey="landexpApp.house.actionType">Action Type</Translate> <FontAwesomeIcon icon="sort" />
+                                <Translate contentKey="landexpApp.house.actionType">Action Type</Translate>
                               </th>
                               <th>
-                                <Translate contentKey="landexpApp.house.landType">Land Type</Translate> <FontAwesomeIcon icon="sort" />
+                                <Translate contentKey="landexpApp.house.landType">Land Type</Translate>
                               </th>
                               <th>
-                                <Translate contentKey="landexpApp.house.money">Money</Translate> <FontAwesomeIcon icon="sort" />
+                                <Translate contentKey="landexpApp.house.money">Money</Translate>
                               </th>
                               <th>
-                                <Translate contentKey="landexpApp.house.discount">Discount</Translate> <FontAwesomeIcon icon="sort" />
+                                <Translate contentKey="landexpApp.house.discount">Discount</Translate>
                               </th>
                               <th>
-                                <Translate contentKey="landexpApp.house.city">City</Translate> <FontAwesomeIcon icon="sort" />
+                                <Translate contentKey="landexpApp.house.city">City</Translate>
                               </th>
                               <th>
-                                <Translate contentKey="landexpApp.house.district">District</Translate> <FontAwesomeIcon icon="sort" />
+                                <Translate contentKey="landexpApp.house.district">District</Translate>
                               </th>
                               <th>
-                                <Translate contentKey="landexpApp.house.saleType">Sale Type</Translate> <FontAwesomeIcon icon="sort" />
+                                <Translate contentKey="landexpApp.house.saleType">Sale Type</Translate>
                               </th>
                               <th>
-                                <Translate contentKey="landexpApp.house.statusType">Status Type</Translate> <FontAwesomeIcon icon="sort" />
+                                <Translate contentKey="landexpApp.house.statusType">Status Type</Translate>
                               </th>
                               <th />
                             </tr>
