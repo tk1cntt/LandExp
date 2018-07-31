@@ -95,7 +95,7 @@ export class Payment extends React.Component<IPaymentProps, IPaymentState> {
   };
 
   menuStatusClick = value => {
-    const parameters = { statusType: value };
+    const parameters = { paymentStatus: value };
     const nextParameter = { ...this.state.parameters, ...parameters };
     this.setState({
       parameters: nextParameter
@@ -106,7 +106,7 @@ export class Payment extends React.Component<IPaymentProps, IPaymentState> {
     return (
       <Select
         style={{ width: 180, marginRight: 2 }}
-        value={this.state.parameters.statusType}
+        value={this.state.parameters.paymentStatus}
         placeholder="Trạng thái giao dịch"
         onChange={this.menuStatusClick}
       >
@@ -118,7 +118,7 @@ export class Payment extends React.Component<IPaymentProps, IPaymentState> {
   }
 
   onChangeKeyword = e => {
-    const parameters = { mobile: e.target.value };
+    const parameters = { code: e.target.value };
     const nextParameter = { ...this.state.parameters, ...parameters };
     this.setState({
       parameters: nextParameter
@@ -198,7 +198,15 @@ export class Payment extends React.Component<IPaymentProps, IPaymentState> {
                               <td>
                                 {!payment.paidTime ? '' : <TextFormat type="date" value={payment.paidTime} format={APP_LOCAL_DATE_FORMAT} />}
                               </td>
-                              <td>{getPaymentStatus(payment.paymentStatus)}</td>
+                              {payment.paymentStatus === 'PAID' ? (
+                                <td style={{ color: 'green' }}>
+                                  <strong>{getPaymentStatus(payment.paymentStatus)}</strong>
+                                </td>
+                              ) : (
+                                <td style={{ color: 'red' }}>
+                                  <strong>{getPaymentStatus(payment.paymentStatus)}</strong>
+                                </td>
+                              )}
                               <td>{payment.createAt ? payment.createAt : ''}</td>
                               <td>{payment.customerLogin ? payment.customerLogin : ''}</td>
                               <td>{payment.updateByLogin ? payment.updateByLogin : ''}</td>
