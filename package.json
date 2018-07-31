@@ -24,6 +24,7 @@
     "react": "16.4.1",
     "react-addons-css-transition-group": "16.0.0-alpha.3",
     "react-addons-transition-group": "16.0.0-alpha.3",
+    "react-device-detect": "^1.5.8",
     "react-dom": "16.4.1",
     "react-google-maps": "^9.4.5",
     "react-hot-loader": "3.1.1",
