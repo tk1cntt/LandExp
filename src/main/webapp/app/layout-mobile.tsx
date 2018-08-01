@@ -13,6 +13,8 @@ import AppRoutes from 'app/routes-mobile';
 
 import './style-mobile.css';
 /* tslint:disable-next-line */
+import 'antd-mobile/dist/antd-mobile.css';  // or 'antd-mobile/dist/antd-mobile.less'
+/* tslint:disable-next-line */
 import 'react-image-gallery/styles/css/image-gallery.css';
 
 export interface IAppProps extends StateProps, DispatchProps {}

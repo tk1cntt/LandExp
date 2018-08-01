@@ -19,6 +19,8 @@ import AppRoutes from 'app/routes-desktop';
 
 import './style-desktop.css';
 /* tslint:disable-next-line */
+import 'antd/dist/antd.css';  // or 'antd/dist/antd.less'
+/* tslint:disable-next-line */
 import 'react-image-gallery/styles/css/image-gallery.css';
 
 export interface IAppProps extends StateProps, DispatchProps {}

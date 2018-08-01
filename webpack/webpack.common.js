@@ -3,6 +3,7 @@ const CopyWebpackPlugin = require('copy-webpack-plugin');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const ForkTsCheckerWebpackPlugin = require('fork-ts-checker-webpack-plugin');
 const MergeJsonWebpackPlugin = require('merge-jsons-webpack-plugin');
+const amwWebpack = require('antd-mobile-web/webpack')
 
 const utils = require('./utils.js');
 
@@ -65,7 +66,8 @@ module.exports = options => ({
         enforce: 'pre',
         loaders: 'tslint-loader',
         exclude: ['node_modules']
-      }
+      },
+      amwWebpack.createSvgRule()
     ]
   },
   stats: {
