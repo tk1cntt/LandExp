@@ -1,6 +1,11 @@
 import axios from 'axios';
 
 import { REQUEST, SUCCESS, FAILURE } from 'app/shared/reducers/action-type.util';
+import { SERVER_API_URL } from 'app/config/constants';
+
+const client = axios.create({
+  baseURL: SERVER_API_URL
+});
 
 export const ACTION_TYPES = {
   UPDATE_PASSWORD: 'account/UPDATE_PASSWORD',
@@ -50,11 +55,11 @@ export default (state: PasswordState = initialState, action): PasswordState => {
 };
 
 // Actions
-const apiUrl = 'api/account';
+const apiUrl = '/api/account';
 
 export const savePassword = (currentPassword, newPassword) => ({
   type: ACTION_TYPES.UPDATE_PASSWORD,
-  payload: axios.post(`${apiUrl}/change-password`, { currentPassword, newPassword }),
+  payload: client.post(`${apiUrl}/change-password`, { currentPassword, newPassword }),
   meta: {
     successMessage: '<strong>Password changed!</strong>',
     errorMessage: '<strong>An error has occurred!</strong> The password could not be changed.'

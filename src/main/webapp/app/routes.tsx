@@ -2,42 +2,38 @@ import React from 'react';
 import { Switch } from 'react-router-dom';
 import Loadable from 'react-loadable';
 
-import Login from 'app/modules/login/login';
-import Register from 'app/modules/account/register/register';
 import Activate from 'app/modules/account/activate/activate';
 import PasswordResetInit from 'app/modules/account/password-reset/init/password-reset-init';
 import PasswordResetFinish from 'app/modules/account/password-reset/finish/password-reset-finish';
 import Logout from 'app/modules/login/logout';
-import Home from 'app/modules/home/home';
-import Entities from 'app/entities';
 import PrivateRoute from 'app/shared/auth/private-route';
 import ErrorBoundaryRoute from 'app/shared/error/error-boundary-route';
+import Loading from 'app/shared/layout/loading/loading';
 import { AUTHORITIES } from 'app/config/constants';
 
 // tslint:disable:space-in-parens
-const Account = Loadable({
-  loader: () => import(/* webpackChunkName: "account" */ 'app/modules/account'),
-  loading: () => <div>loading ...</div>
+const Login = Loadable({
+  loader: () => import(/* webpackChunkName: "login" */ 'app/modules/login/login'),
+  loading: () => <Loading />
 });
 
-const Admin = Loadable({
-  loader: () => import(/* webpackChunkName: "administration" */ 'app/modules/administration'),
-  loading: () => <div>loading ...</div>
+const Register = Loadable({
+  loader: () => import(/* webpackChunkName: "register" */ 'app/modules/account/register/register'),
+  loading: () => <Loading />
+});
+
+const Home = Loadable({
+  loader: () => import(/* webpackChunkName: "home" */ 'app/modules/home/home'),
+  loading: () => <Loading />
 });
 // tslint:enable
 
 const Routes = () => (
   <div className="view-routes">
-    <ErrorBoundaryRoute path="/login" component={Login} />
     <Switch>
-      <ErrorBoundaryRoute path="/logout" component={Logout} />
-      <ErrorBoundaryRoute path="/register" component={Register} />
-      <ErrorBoundaryRoute path="/activate/:key?" component={Activate} />
-      <ErrorBoundaryRoute path="/reset/request" component={PasswordResetInit} />
-      <ErrorBoundaryRoute path="/reset/finish/:key?" component={PasswordResetFinish} />
-      <PrivateRoute path="/admin" component={Admin} hasAnyAuthorities={[AUTHORITIES.ADMIN]} />
-      <PrivateRoute path="/account" component={Account} hasAnyAuthorities={[AUTHORITIES.ADMIN, AUTHORITIES.USER]} />
-      <PrivateRoute path="/entity" component={Entities} hasAnyAuthorities={[AUTHORITIES.USER]} />
+      <ErrorBoundaryRoute path="/dang-nhap" component={Login} />
+      <ErrorBoundaryRoute path="/thoat" component={Logout} />
+      <ErrorBoundaryRoute path="/dang-ky" component={Register} />
       <ErrorBoundaryRoute path="/" component={Home} />
     </Switch>
   </div>

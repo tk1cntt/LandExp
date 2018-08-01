@@ -1,6 +1,11 @@
 import axios from 'axios';
 
 import { REQUEST, SUCCESS, FAILURE } from 'app/shared/reducers/action-type.util';
+import { SERVER_API_URL } from 'app/config/constants';
+
+const client = axios.create({
+  baseURL: SERVER_API_URL
+});
 
 export const ACTION_TYPES = {
   CREATE_ACCOUNT: 'register/CREATE_ACCOUNT',
@@ -47,7 +52,7 @@ export default (state: RegisterState = initialState, action): RegisterState => {
 // Actions
 export const handleRegister = (login, email, password, langKey = 'en') => ({
   type: ACTION_TYPES.CREATE_ACCOUNT,
-  payload: axios.post('api/register', { login, email, password, langKey }),
+  payload: client.post('api/register', { login, email, password, langKey }),
   meta: {
     successMessage: '<strong>Registration saved!</strong> Please check your email for confirmation.'
   }
