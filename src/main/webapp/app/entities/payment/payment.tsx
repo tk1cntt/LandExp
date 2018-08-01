@@ -3,12 +3,14 @@ import { connect } from 'react-redux';
 import { RouteComponentProps } from 'react-router-dom';
 import { Col, Row, Container, Table } from 'reactstrap';
 import { Translate, TextFormat, getSortState, IPaginationBaseState, getPaginationItemsNumber, JhiPagination } from 'react-jhipster';
+import qs from 'query-string';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { Modal, Card, Icon, Tooltip } from 'antd';
+import { Select, Modal, Card, Icon, Tooltip, Button, Input } from 'antd';
+const Option = Select.Option;
 
 import { IRootState } from 'app/shared/reducers';
-import { getPaymentStatus, encodeId } from 'app/shared/util/utils';
-import { getEntities, approvePayment } from './payment.reducer';
+import { paymentQueryStringMapping, queryString, getPaymentStatus, encodeId } from 'app/shared/util/utils';
+import { getItemPayments, approvePayment } from './payment.reducer';
 import { APP_LOCAL_DATE_FORMAT } from 'app/config/constants';
 import { ITEMS_PER_PAGE } from 'app/shared/util/pagination.constants';
 
@@ -20,28 +22,31 @@ export interface IPaymentProps extends StateProps, DispatchProps, RouteComponent
 export interface IPaymentState extends IPaginationBaseState {
   showConfirm: any;
   paymentInfo: any;
+  parameters: any;
 }
 
 export class Payment extends React.Component<IPaymentProps, IPaymentState> {
   state: IPaymentState = {
     showConfirm: false,
     paymentInfo: undefined,
+    parameters: {},
     ...getSortState(this.props.location, ITEMS_PER_PAGE)
   };
 
   componentDidMount() {
-    this.getEntities();
+    if (this.props.location) {
+      const parsed = qs.parse(this.props.location.search);
+      this.props.getItemPayments(paymentQueryStringMapping(parsed));
+    }
   }
 
-  sort = prop => () => {
-    this.setState(
-      {
-        order: this.state.order === 'asc' ? 'desc' : 'asc',
-        sort: prop
-      },
-      () => this.sortEntities()
-    );
-  };
+  componentDidUpdate(prevProps) {
+    // Typical usage (don't forget to compare props):
+    if (this.props.location !== prevProps.location) {
+      const parsed = qs.parse(this.props.location.search);
+      this.props.getItemPayments(paymentQueryStringMapping(parsed));
+    }
+  }
 
   sortEntities() {
     this.getEntities();
@@ -51,8 +56,14 @@ export class Payment extends React.Component<IPaymentProps, IPaymentState> {
   handlePagination = activePage => this.setState({ activePage }, () => this.sortEntities());
 
   getEntities = () => {
-    const { activePage, itemsPerPage, sort, order } = this.state;
-    this.props.getEntities(activePage - 1, itemsPerPage, `${sort},${order}`);
+    const { activePage, itemsPerPage, sort } = this.state;
+    const nextParameter = {
+      ...this.state.parameters,
+      page: activePage - 1,
+      size: itemsPerPage,
+      sort: 'createAt,desc'
+    };
+    this.props.history.push(`${this.props.match.url}?${queryString(nextParameter)}`);
   };
 
   gotoEdit = id => {
@@ -83,6 +94,52 @@ export class Payment extends React.Component<IPaymentProps, IPaymentState> {
     });
   };
 
+  menuStatusClick = value => {
+    const parameters = { paymentStatus: value };
+    const nextParameter = { ...this.state.parameters, ...parameters };
+    this.setState({
+      parameters: nextParameter
+    });
+  };
+
+  statusForm() {
+    return (
+      <Select
+        style={{ width: 180, marginRight: 2 }}
+        value={this.state.parameters.paymentStatus}
+        placeholder="Trạng thái giao dịch"
+        onChange={this.menuStatusClick}
+      >
+        <Option value="PENDING">{getPaymentStatus('PENDING')}</Option>
+        <Option value="PAID">{getPaymentStatus('PAID')}</Option>
+        <Option value="CANCELED">{getPaymentStatus('CANCELED')}</Option>
+      </Select>
+    );
+  }
+
+  onChangeKeyword = e => {
+    const parameters = { code: e.target.value };
+    const nextParameter = { ...this.state.parameters, ...parameters };
+    this.setState({
+      parameters: nextParameter
+    });
+  };
+
+  keywordForm() {
+    return <Input style={{ width: 280, marginRight: 2 }} placeholder="Mã chuyển tiền" onChange={this.onChangeKeyword} />;
+  }
+
+  searchClick = () => {
+    this.getEntities();
+  };
+
+  clearSearchClick = () => {
+    this.setState({
+      parameters: {}
+    });
+    this.getEntities();
+  };
+
   render() {
     const { paymentList, match, totalItems } = this.props;
     return (
@@ -96,27 +153,38 @@ export class Payment extends React.Component<IPaymentProps, IPaymentState> {
               ) : (
                   <Row>
                     <Card title="Danh sách chờ thanh toán">
+                      <Row style={{ marginBottom: 20 }}>
+                        <Container>
+                          {this.statusForm()}
+                          {this.keywordForm()}
+                          <Button onClick={this.searchClick} style={{ marginRight: 2 }} type="primary">
+                            <FontAwesomeIcon icon="search" />Tìm kiếm
+                          </Button>
+                          <Button onClick={this.clearSearchClick}>
+                            <FontAwesomeIcon icon="trash" />
+                          </Button>
+                        </Container>
+                      </Row>
                       <Table responsive striped>
                         <thead>
                           <tr>
-                            <th className="hand" onClick={this.sort('code')}>
-                              <Translate contentKey="landexpApp.payment.code">Code</Translate> <FontAwesomeIcon icon="sort" />
-                            </th>
-                            <th className="hand" onClick={this.sort('money')}>
-                              <Translate contentKey="landexpApp.payment.money">Money</Translate> <FontAwesomeIcon icon="sort" />
-                            </th>
-                            <th className="hand" onClick={this.sort('paidTime')}>
-                              <Translate contentKey="landexpApp.payment.paidTime">Paid Time</Translate> <FontAwesomeIcon icon="sort" />
-                            </th>
-                            <th className="hand" onClick={this.sort('paymentStatus')}>
-                              <Translate contentKey="landexpApp.payment.paymentStatus">Payment Status</Translate>{' '}
-                              <FontAwesomeIcon icon="sort" />
-                            </th>
-                            <th className="hand" onClick={this.sort('createAt')}>
-                              <Translate contentKey="landexpApp.payment.createAt">Create At</Translate> <FontAwesomeIcon icon="sort" />
+                            <th>
+                              <Translate contentKey="landexpApp.payment.code">Code</Translate>
                             </th>
                             <th>
-                              <Translate contentKey="landexpApp.payment.customer">Customer</Translate> <FontAwesomeIcon icon="sort" />
+                              <Translate contentKey="landexpApp.payment.money">Money</Translate>
+                            </th>
+                            <th>
+                              <Translate contentKey="landexpApp.payment.paidTime">Paid Time</Translate>
+                            </th>
+                            <th>
+                              <Translate contentKey="landexpApp.payment.paymentStatus">Payment Status</Translate>
+                            </th>
+                            <th>
+                              <Translate contentKey="landexpApp.payment.createAt">Create At</Translate>
+                            </th>
+                            <th>
+                              <Translate contentKey="landexpApp.payment.customer">Customer</Translate>
                             </th>
                             <th className="hand">Nhân viên</th>
                             <th />
@@ -130,7 +198,15 @@ export class Payment extends React.Component<IPaymentProps, IPaymentState> {
                               <td>
                                 {!payment.paidTime ? '' : <TextFormat type="date" value={payment.paidTime} format={APP_LOCAL_DATE_FORMAT} />}
                               </td>
-                              <td>{getPaymentStatus(payment.paymentStatus)}</td>
+                              {payment.paymentStatus === 'PAID' ? (
+                                <td style={{ color: 'green' }}>
+                                  <strong>{getPaymentStatus(payment.paymentStatus)}</strong>
+                                </td>
+                              ) : (
+                                <td style={{ color: 'red' }}>
+                                  <strong>{getPaymentStatus(payment.paymentStatus)}</strong>
+                                </td>
+                              )}
                               <td>{payment.createAt ? payment.createAt : ''}</td>
                               <td>{payment.customerLogin ? payment.customerLogin : ''}</td>
                               <td>{payment.updateByLogin ? payment.updateByLogin : ''}</td>
@@ -204,7 +280,7 @@ const mapStateToProps = ({ payment }: IRootState) => ({
 });
 
 const mapDispatchToProps = {
-  getEntities,
+  getItemPayments,
   approvePayment
 };
 

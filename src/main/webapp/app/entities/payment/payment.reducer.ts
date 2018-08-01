@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { Storage, ICrudGetAction, ICrudGetAllAction, ICrudPutAction, ICrudDeleteAction } from 'react-jhipster';
+import { Storage, ICrudSearchAction, ICrudGetAction, ICrudGetAllAction, ICrudPutAction, ICrudDeleteAction } from 'react-jhipster';
 
 import { cleanEntity } from 'app/shared/util/entity-utils';
 import { REQUEST, SUCCESS, FAILURE } from 'app/shared/reducers/action-type.util';
@@ -113,6 +113,11 @@ export const getEntities: ICrudGetAllAction<IPayment> = (page, size, sort) => {
     payload: client.get<IPayment>(`${requestUrl}${sort ? '&' : '?'}cacheBuster=${new Date().getTime()}`)
   };
 };
+
+export const getItemPayments: ICrudSearchAction<IPayment> = query => ({
+  type: ACTION_TYPES.FETCH_PAYMENT_LIST,
+  payload: client.get<IPayment>(`${apiUrl}?${query}&sort=createAt,desc`)
+});
 
 export const getEntity: ICrudGetAction<IPayment> = id => {
   const requestUrl = `${apiUrl}/${id}`;

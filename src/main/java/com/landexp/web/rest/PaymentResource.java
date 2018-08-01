@@ -175,12 +175,14 @@ public class PaymentResource {
     public ResponseEntity<List<PaymentDTO>> getAllPayments(PaymentCriteria criteria, Pageable pageable) {
         log.debug("REST request to get Payments by criteria: {}", criteria);
         PaymentCriteria.PaymentStatusTypeFilter filter = new PaymentCriteria.PaymentStatusTypeFilter();
-        List<PaymentStatusType> statusTypes = new ArrayList<>();
-        statusTypes.add(PaymentStatusType.PENDING);
-        statusTypes.add(PaymentStatusType.PAID);
-        statusTypes.add(PaymentStatusType.CANCELED);
-        filter.setIn(statusTypes);
-        criteria.setPaymentStatus(filter);
+        if (ObjectUtils.isEmpty(criteria.getPaymentStatus())) {
+            List<PaymentStatusType> statusTypes = new ArrayList<>();
+            statusTypes.add(PaymentStatusType.PENDING);
+            statusTypes.add(PaymentStatusType.CANCELED);
+            statusTypes.add(PaymentStatusType.PAID);
+            filter.setIn(statusTypes);
+            criteria.setPaymentStatus(filter);
+        }
         Page<PaymentDTO> page = paymentQueryService.findByCriteria(criteria, pageable);
         HttpHeaders headers = PaginationUtil.generatePaginationHttpHeaders(page, "/api/payments");
         return new ResponseEntity<>(page.getContent(), headers, HttpStatus.OK);
