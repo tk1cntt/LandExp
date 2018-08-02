@@ -1,0 +1,94 @@
+
+.slider .slider-list img {
+  object-fit: cover; /* Do not scale the image */
+  object-position: center; /* Center the image within the element */
+  height: 255px;
+}
+
+.product-info {
+  border: 1px solid #dfdfdf;
+  padding-left: 20px;
+  padding-right: 20px;
+  background-color: #fff;
+}
+
+.product-info h1 {
+  margin-bottom: 0px;
+  font-size: 18px;
+  font-weight: bold;
+}
+
+.product-info .post-date {
+  display: contents;
+  margin: 0;
+  color: #888888;
+}
+
+.product-info .price {
+  font-size: 22px;
+  color: #3a65f9;
+  margin-top: 9px;
+  margin-bottom: 0px;
+}
+
+.product-info .property {
+  background: transparent;
+}
+
+.product-info .property span {
+  font-weight: bold;
+}
+
+.product-info .location {
+  border-top: 1px solid #f6f6f6;
+  position: relative;
+  padding-top: 17px;
+  margin: 20px 0px;
+}
+
+.product-info .location span.title {
+  position: absolute;
+  top: -12px;
+  display: block;
+  padding-right: 5px;
+  background: #fff;
+  color: #888888;
+}
+
+.product-info .button-group {
+  border: none;
+  text-align: inherit;
+  margin-top: 15px;
+  margin-bottom: 15px;
+}
+
+.product-info a {
+  display: inline-block;
+  height: 30px;
+  line-height: 30px;
+  margin: 10px auto;
+  width: 123px;
+}
+
+.product-info a img {
+  padding: 5px;
+  border-radius: 3px;
+  margin-right: 10px;
+}
+
+.product-info a.like {
+  color: #fe475e;
+}
+
+.product-info a.report {
+  text-align: right;
+  color: #ffa76e;
+}
+
+.product-info a.like img {
+  border: 1px solid #fe475e;
+}
+
+.product-info a.report img {
+  border: 1px solid #ffa76e;
+}

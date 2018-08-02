@@ -26,6 +26,11 @@ const Home = Loadable({
   loader: () => import(/* webpackChunkName: "home" */ 'app/modules/home/home'),
   loading: () => <Loading />
 });
+
+const Detail = Loadable({
+  loader: () => import(/* webpackChunkName: "detail" */ 'app/modules/detail/detail'),
+  loading: () => <Loading />
+});
 // tslint:enable
 
 const Routes = () => (
@@ -34,6 +39,7 @@ const Routes = () => (
       <ErrorBoundaryRoute path="/dang-nhap" component={Login} />
       <ErrorBoundaryRoute path="/thoat" component={Logout} />
       <ErrorBoundaryRoute path="/dang-ky" component={Register} />
+      <ErrorBoundaryRoute path="/bat-dong-san/:id/:link" component={Detail} />
       <ErrorBoundaryRoute path="/" component={Home} />
     </Switch>
   </div>

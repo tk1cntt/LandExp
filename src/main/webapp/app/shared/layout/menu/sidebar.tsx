@@ -8,6 +8,7 @@ class SideBar extends React.Component {
   render() {
     return (
       <List renderHeader={'Thông tin'}>
+        <List.Item arrow="horizontal" thumb={<Icon type="user-add" />} ><Link to={'/'}>Trang chủ</Link></List.Item>
         <List.Item arrow="horizontal" thumb={<Icon type="user-add" />} >Đăng ký</List.Item>
         <List.Item arrow="horizontal" thumb={<Icon type="unlock" />} >Đăng nhập</List.Item>
         <List.Item arrow="horizontal" thumb={<Icon type="edit" />} >Đăng tin</List.Item>
