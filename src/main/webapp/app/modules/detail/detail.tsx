@@ -1,7 +1,7 @@
 import './detail.css';
 
 import React from 'react';
-import { RouteComponentProps } from 'react-router-dom';
+import { Link, RouteComponentProps } from 'react-router-dom';
 import { TextFormat } from 'react-jhipster';
 import { connect } from 'react-redux';
 import { Icon } from 'antd';
@@ -123,7 +123,7 @@ export class Detail extends React.Component<IDetailProp, IDetailState> {
     return (
       <div style={{ height: '100%' }}>
         <NavBar icon={<Icon type="bars" />} onLeftClick={this.onOpenChange}>
-          <img src="/content/images/logo.png" />
+          <Link to={'/'}><img src="/content/images/logo.png" /></Link>
         </NavBar>
         <Drawer
           className="my-drawer"

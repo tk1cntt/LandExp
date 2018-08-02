@@ -46,7 +46,7 @@ export class Home extends React.Component<IHomeProp, IHomeState> {
     return (
       <div style={{ height: '100%' }}>
         <NavBar icon={<Icon type="bars" />} onLeftClick={this.onOpenChange}>
-          <img src="/content/images/logo.png" />
+          <Link to={'/'}><img src="/content/images/logo.png" /></Link>
         </NavBar>
         <SearchBar
           placeholder="Tìm kiếm thông tin nhà đất"
