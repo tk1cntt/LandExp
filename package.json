@@ -11,6 +11,7 @@
     "@fortawesome/fontawesome-svg-core": "1.2.0",
     "@fortawesome/free-solid-svg-icons": "5.1.0",
     "@fortawesome/react-fontawesome": "0.1.0",
+    "antd": "^3.7.3",
     "antd-mobile": "^2.2.2",
     "availity-reactstrap-validation": "2.0.2",
     "axios": "0.18.0",

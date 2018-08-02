@@ -15,9 +15,6 @@ import ErrorBoundary from 'app/shared/error/error-boundary';
 import { AUTHORITIES } from 'app/config/constants';
 import AppRoutes from 'app/routes';
 
-/* tslint:disable-next-line */
-import 'antd-mobile/dist/antd-mobile.css';  // or 'antd-mobile/dist/antd-mobile.less'
-
 export interface IAppProps extends StateProps, DispatchProps {}
 
 export class App extends React.Component<IAppProps> {
@@ -33,7 +30,7 @@ export class App extends React.Component<IAppProps> {
           <ErrorBoundary>
             <Header />
           </ErrorBoundary>
-          <div className="container-fluid view-container" id="app-view-container">
+          <div className="app-container">
             <ErrorBoundary>
               <AppRoutes />
             </ErrorBoundary>

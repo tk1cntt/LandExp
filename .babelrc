@@ -1,5 +1,18 @@
 {
-  "plugins": [
-    ["import", { "libraryName": "antd-mobile", "style": "css" }] // `style: true` for less
-  ]
+    "plugins": [
+        [
+            "import",
+            {
+                "libraryName": "antd",
+                "style": "css"
+            }
+        ], // `style: true` for less
+        [
+            "import",
+            {
+                "libraryName": "antd-mobile",
+                "style": "css"
+            }
+        ] // `style: true` for less
+    ]
 }

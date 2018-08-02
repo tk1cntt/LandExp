@@ -1,0 +1,36 @@
+@import url(fonts.css);
+body {
+  margin: 0px;
+  font-family: Helvetica Neue !important;
+  font-weight: 300;
+  font-size: 14px;
+  color: #454545;
+  background-color: #fff;
+}
+
+.app-container .my-drawer {
+  position: relative;
+  overflow: auto;
+  -webkit-overflow-scrolling: touch;
+}
+
+.app-container .my-drawer .am-drawer-sidebar {
+  background-color: #fff;
+  overflow: auto;
+  -webkit-overflow-scrolling: touch;
+}
+
+.app-container .my-drawer .am-drawer-sidebar .am-list {
+  width: 300px;
+  padding: 0;
+}
+
+.app-container .am-navbar {
+  background-color: #fff !important;
+  color: #000;
+}
+
+.app-container .am-navbar img {
+  float: left;
+  height: 25px;
+}
