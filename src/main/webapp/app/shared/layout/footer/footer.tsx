@@ -2,15 +2,9 @@ import './footer.css';
 
 import React from 'react';
 
-import { Col, Row } from 'reactstrap';
-
 const Footer = props => (
   <div className="footer page-content">
-    <Row>
-      <Col md="12">
-        <p>Your footer</p>
-      </Col>
-    </Row>
+    Copyright © 2018 LandExp. All rights reserved.
   </div>
 );
 

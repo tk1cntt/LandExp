@@ -14,9 +14,6 @@ import { getEntity as getHouse } from 'app/entities/house/house.reducer';
 import { getImageOfHouse } from 'app/entities/house-photo/house-photo.reducer';
 import { SERVER_API_URL, APP_LOCAL_DATE_FORMAT } from 'app/config/constants';
 
-// import Permission from 'app/shared/layout/no/Permission';
-import Loading from 'app/shared/layout/loading/loading';
-
 export interface IDetailProp extends StateProps, DispatchProps, RouteComponentProps<{ id: any; link: any }> { }
 
 export interface IDetailState {
@@ -149,11 +146,6 @@ export class Detail extends React.Component<IDetailProp, IDetailState> {
                         file.id
                       )}.jpg`}
                       style={{ width: '100%', verticalAlign: 'top' }}
-                      onLoad={() => {
-                        // fire window resize event to change height
-                        window.dispatchEvent(new Event('resize'));
-                        this.setState({ imgHeight: 'auto' });
-                      }}
                     />
                   ))}
                 </Carousel>

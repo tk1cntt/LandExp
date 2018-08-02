@@ -1,16 +1,19 @@
 import React from 'react';
-import { Toast } from 'antd-mobile';
+import { Spin } from 'antd';
 
 class Loading extends React.Component {
-  componentDidMount() {
-    Toast.loading('Loading...', 30);
-    setTimeout(() => {
-      Toast.hide();
-    }, 1000);
-  }
-
   render() {
-    return <></>;
+    const style = {
+      display: 'flex',
+      justifyContent: 'space-around',
+      minHeight: 300
+    };
+
+    return (
+      <div style={style}>
+        <Spin tip="Đang cập nhật dữ liệu..." />
+      </div>
+    );
   }
 }
 
