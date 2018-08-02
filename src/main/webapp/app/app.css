@@ -32,5 +32,44 @@ body {
 
 .app-container .am-navbar img {
   float: left;
-  height: 25px;
+  height: 20px;
+}
+
+.app-container .am-card-body {
+  padding: 0;
+}
+
+.compact {
+  background: url('../static/images/icon/ic_view_compact.png') no-repeat 0;
+}
+
+.bedroom {
+  background: url('../static/images/icon/ic_hotel.png') no-repeat 0;
+}
+
+.bathroom {
+  background: url('../static/images/icon/ic_bathtub.png') no-repeat 0;
+}
+
+.gara {
+  background: url('../static/images/icon/ic_directions_car.png') no-repeat 0;
+}
+
+.compass {
+  background: url('../static/images/icon/ic_compass.png') no-repeat 0;
+}
+
+.floor {
+  background: url('../static/images/icon/ic_offices-buildings.png') no-repeat 0;
+}
+
+.compact,
+.bedroom,
+.bathroom,
+.gara,
+.compass,
+.floor {
+  padding-left: 25px;
+  height: 20px;
+  line-height: 20px;
 }
