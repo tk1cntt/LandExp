@@ -1,14 +1,18 @@
 import React from 'react';
-
-import { Button, Modal, ModalHeader, ModalBody, ModalFooter, Label, Alert, Row, Col } from 'reactstrap';
-import { AvForm, AvField, AvGroup, AvInput } from 'availity-reactstrap-validation';
+import { Translate, translate } from 'react-jhipster';
+import { Button, Container, Row, Col } from 'reactstrap';
+import { AvForm, AvField } from 'availity-reactstrap-validation';
 import { Link } from 'react-router-dom';
+import { Card, Alert } from 'antd';
 
 export interface ILoginModalProps {
   showModal: boolean;
   loginError: boolean;
   handleLogin: Function;
   handleClose: Function;
+  loading: any;
+  location: any;
+  history: any;
 }
 
 class LoginModal extends React.Component<ILoginModalProps> {
@@ -21,62 +25,57 @@ class LoginModal extends React.Component<ILoginModalProps> {
     const { loginError, handleClose } = this.props;
 
     return (
-      <Modal isOpen={this.props.showModal} toggle={handleClose} backdrop="static" id="login-page" autoFocus={false}>
-        <AvForm onSubmit={this.handleSubmit}>
-          <ModalHeader id="login-title" toggle={handleClose}>
-            Sign in
-          </ModalHeader>
-          <ModalBody>
-            <Row>
-              <Col md="12">
-                {loginError ? (
-                  <Alert color="danger">
-                    <strong>Failed to sign in!</strong> Please check your credentials and try again.
-                  </Alert>
-                ) : null}
-              </Col>
-              <Col md="12">
-                <AvField
-                  name="username"
-                  label="Username"
-                  placeholder="Your username"
-                  required
-                  errorMessage="Username cannot be empty!"
-                  autoFocus
-                />
-                <AvField
-                  name="password"
-                  type="password"
-                  label="Password"
-                  placeholder="Your password"
-                  required
-                  errorMessage="Password cannot be empty!"
-                />
-                <AvGroup check inline>
-                  <Label className="form-check-label">
-                    <AvInput type="checkbox" name="rememberMe" /> Remember me
-                  </Label>
-                </AvGroup>
-              </Col>
-            </Row>
-            <div className="mt-1">&nbsp;</div>
-            <Alert color="warning">
-              <Link to="/reset/request">Did you forget your password?</Link>
-            </Alert>
-            <Alert color="warning">
-              <span>You don't have an account yet?</span> <Link to="/register">Register a new account</Link>
-            </Alert>
-          </ModalBody>
-          <ModalFooter>
-            <Button color="secondary" onClick={handleClose} tabIndex="1">
-              Cancel
-            </Button>{' '}
-            <Button color="primary" type="submit">
-              Sign in
-            </Button>
-          </ModalFooter>
-        </AvForm>
-      </Modal>
+      <Row>
+        <Container>
+          <Row>
+            <Col md="12">
+              <Row>
+                <Card title="Đăng nhập">
+                  <AvForm onSubmit={this.handleSubmit}>
+                    <Row>
+                      {loginError ? (
+                        <Col md="12" style={{ marginBottom: 20 }}>
+                          <Alert type="error" message={translate('login.messages.error.authentication')} />
+                        </Col>
+                      ) : null}
+                      <Col md="12">
+                        <AvField
+                          name="username"
+                          label={translate('global.form.username')}
+                          placeholder={translate('global.form.username.placeholder')}
+                          required
+                          errorMessage={translate('login.messages.error.username')}
+                        />
+                        <AvField
+                          name="password"
+                          type="password"
+                          label={translate('login.form.password')}
+                          placeholder={translate('login.form.password.placeholder')}
+                          required
+                          errorMessage={translate('login.messages.error.password')}
+                        />
+                        <Button color="primary" type="submit">
+                          <Translate contentKey="login.form.button">Sign in</Translate>
+                        </Button>
+                      </Col>
+                    </Row>
+                  </AvForm>
+                  <div className="mt-1">&nbsp;</div>
+                  <div>Bạn quên mật khẩu? Hãy liên hệ với chăm sóc khách hàng</div>
+                  <div>
+                    <span>
+                      <Translate contentKey="global.messages.info.register.noaccount">You don't have an account yet?</Translate>
+                    </span>{' '}
+                    <Link to="/dang-ky">
+                      <Translate contentKey="global.messages.info.register.link">Register a new account</Translate>
+                    </Link>
+                  </div>
+                </Card>
+              </Row>
+            </Col>
+          </Row>
+        </Container>
+      </Row>
     );
   }
 }
