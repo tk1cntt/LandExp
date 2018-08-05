@@ -5,6 +5,7 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { HashRouter as Router } from 'react-router-dom';
 import { ToastContainer, toast } from 'react-toastify';
+import { Storage } from 'react-jhipster';
 
 import { IRootState } from 'app/shared/reducers';
 import { getSession } from 'app/shared/reducers/authentication';
@@ -16,19 +17,22 @@ import { hasAnyAuthority } from 'app/shared/auth/private-route';
 import ErrorBoundary from 'app/shared/error/error-boundary';
 import { AUTHORITIES } from 'app/config/constants';
 import AppRoutes from 'app/routes';
+import { uid } from 'app/shared/util/utils';
 
 import './style.css';
 /* tslint:disable-next-line */
-// import 'antd/dist/antd.css';
-/* tslint:disable-next-line */
-// import 'react-responsive-carousel/lib/styles/carousel.min.css';
-/* tslint:disable-next-line */
 import 'react-image-gallery/styles/css/image-gallery.css';
+
+const UID = 'uid';
 
 export interface IAppProps extends StateProps, DispatchProps {}
 
 export class App extends React.Component<IAppProps> {
   componentDidMount() {
+    const _uid = Storage.local.get('uid');
+    if (!_uid) {
+      Storage.local.set(UID, uid());
+    }
     this.props.getSession();
     this.props.getProfile();
   }

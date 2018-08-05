@@ -1,7 +1,9 @@
 /* tslint:disable */
+import { Storage } from 'react-jhipster';
 const Hashids = require('hashids');
 const hashids = new Hashids('id.landexp.com.vn');
 const hashpayments = new Hashids('payment.landexp.com.vn');
+const uniqid = require('uniqid');
 
 export const getActionType = type => {
   if (type === 'FOR_SELL') {
@@ -314,3 +316,14 @@ export const showBedRoom = landType => {
   }
   return false;
 };
+
+export const uid = () => uniqid.time();
+
+export const getUid = () => {
+  let _uid = Storage.local.get('uid');
+  if (_uid) {
+    return _uid;
+  } else {
+    return undefined;
+  }
+}

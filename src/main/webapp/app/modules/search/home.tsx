@@ -9,11 +9,12 @@ import { getSession } from 'app/shared/reducers/authentication';
 import { getHouses, getEntities, getTopEntities, getOwnerEntities, getEntity } from 'app/entities/house/house.reducer';
 import { getImageOfHouse } from 'app/entities/house-photo/house-photo.reducer';
 import { ITEMS_PER_PAGE } from 'app/shared/util/pagination.constants';
+import track from 'react-tracking';
 
 import * as qs from 'query-string';
 import Loading from 'app/shared/layout/loading/loading';
 
-import { queryStringMapping } from 'app/shared/util/utils';
+import { queryStringMapping, getUid } from 'app/shared/util/utils';
 import SearchPage from 'app/shared/layout/search/search-menu';
 import HomeGrid from '../home/home-grid';
 import HomeList from '../home/home-list';
@@ -27,6 +28,7 @@ export interface IHomeState extends IPaginationBaseState {
   showGrid: any;
 }
 
+@track({})
 export class Home extends React.Component<IHomeProp, IHomeState> {
   state: IHomeState = {
     parameters: {},
@@ -34,6 +36,18 @@ export class Home extends React.Component<IHomeProp, IHomeState> {
     ...getSortState(this.props.location, ITEMS_PER_PAGE)
   };
 
+  @track((props) => {
+    const { account } = props;
+    const data = {
+      uid: getUid(),
+      username: account && account.login ? account.login : undefined,
+      page: 'SearchPage',
+      event: 'pageview',
+      pathname: props.location.pathname,
+      search: props.location.search
+    }
+    return data;
+  })
   componentDidMount() {
     if (this.props.location) {
       const parsed = qs.parse(this.props.location.search);
