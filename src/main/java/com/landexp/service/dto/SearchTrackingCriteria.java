@@ -1,11 +1,12 @@
 package com.landexp.service.dto;
 
 import java.io.Serializable;
+
+import com.landexp.domain.enumeration.UserActionType;
 import com.landexp.domain.enumeration.UserActivityType;
 import com.landexp.domain.enumeration.DirectionType;
 import com.landexp.domain.enumeration.LandType;
 import io.github.jhipster.service.filter.BooleanFilter;
-import io.github.jhipster.service.filter.DoubleFilter;
 import io.github.jhipster.service.filter.Filter;
 import io.github.jhipster.service.filter.FloatFilter;
 import io.github.jhipster.service.filter.IntegerFilter;
@@ -29,7 +30,7 @@ public class SearchTrackingCriteria implements Serializable {
     /**
      * Class for filtering UserActivityType
      */
-    public static class UserActivityTypeFilter extends Filter<UserActivityType> {
+    public static class UserActionTypeFilter extends Filter<UserActionType> {
     }
 
     /**
@@ -49,7 +50,7 @@ public class SearchTrackingCriteria implements Serializable {
 
     private LongFilter id;
 
-    private UserActivityTypeFilter actionType;
+    private UserActionTypeFilter actionType;
 
     private StringFilter keyword;
 
@@ -92,11 +93,11 @@ public class SearchTrackingCriteria implements Serializable {
         this.id = id;
     }
 
-    public UserActivityTypeFilter getActionType() {
+    public UserActionTypeFilter getActionType() {
         return actionType;
     }
 
-    public void setActionType(UserActivityTypeFilter actionType) {
+    public void setActionType(UserActionTypeFilter actionType) {
         this.actionType = actionType;
     }
 

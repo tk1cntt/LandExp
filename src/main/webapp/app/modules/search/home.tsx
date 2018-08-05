@@ -36,7 +36,7 @@ export class Home extends React.Component<IHomeProp, IHomeState> {
     ...getSortState(this.props.location, ITEMS_PER_PAGE)
   };
 
-  @track((props) => {
+  @track(props => {
     const { account } = props;
     const data = {
       uid: getUid(),
@@ -45,7 +45,7 @@ export class Home extends React.Component<IHomeProp, IHomeState> {
       event: 'pageview',
       pathname: props.location.pathname,
       search: props.location.search
-    }
+    };
     return data;
   })
   componentDidMount() {

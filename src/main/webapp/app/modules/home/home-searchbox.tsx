@@ -3,13 +3,15 @@ import './home.css';
 
 import React from 'react';
 import { connect } from 'react-redux';
+import track from 'react-tracking';
 import qs from 'query-string';
 import { Select, Cascader, Radio } from 'antd';
 const Option = Select.Option;
 const RadioGroup = Radio.Group;
 
+import { createEntity as createSearchTracking } from 'app/entities/search-tracking/search-tracking.reducer';
 import { getAllEntities as getCities } from 'app/entities/city/city.reducer';
-import { getLandType, getPriceByNumber, getAcreageByNumber, queryString } from 'app/shared/util/utils';
+import { getLandType, getUid, queryString } from 'app/shared/util/utils';
 
 export interface IHomeSearchBoxProp extends StateProps, DispatchProps {
   location: any;
@@ -22,6 +24,7 @@ export interface IHomeSearchBoxState {
   locations: any;
 }
 
+@track({})
 export class HomeSearchBox extends React.Component<IHomeSearchBoxProp, IHomeSearchBoxState> {
   state: IHomeSearchBoxState = {
     city: null,
@@ -65,15 +68,7 @@ export class HomeSearchBox extends React.Component<IHomeSearchBoxProp, IHomeSear
         const districtData = {
           value: district.id,
           label: district.type + ' ' + district.name,
-          children: []
         };
-        district.wards.map(ward => {
-          const wardData = {
-            value: ward.id,
-            label: ward.type + ' ' + ward.name
-          };
-          districtData.children.push(wardData);
-        });
         cityData.children.push(districtData);
       });
       locations.push(cityData);
@@ -110,9 +105,23 @@ export class HomeSearchBox extends React.Component<IHomeSearchBoxProp, IHomeSear
     );
   }
 
-  searchClick = () => {
+  @track((props, state) => {
+    const { account } = props;
+    const data = {
+      uid: getUid(),
+      username: account && account.login ? account.login : undefined,
+      page: 'HomePage',
+      event: 'searchClick',
+      pathname: props.location.pathname,
+      search: props.location.search
+    };
+    console.log(state.parameters);
+    props.createSearchTracking(state.parameters);
+    return data;
+  })
+  searchClick() {
     this.props.history.push(`/tim-kiem?${queryString(this.state.parameters)}`);
-  };
+  }
 
   menuLandTypeClick = value => {
     const parameters = { landType: value };
@@ -288,7 +297,7 @@ export class HomeSearchBox extends React.Component<IHomeSearchBoxProp, IHomeSear
             {this.menuBathRoomForm()}
             <div className="clearfix" />
           </div>
-          <button type="submit" onClick={this.searchClick}>
+          <button type="submit" onClick={this.searchClick.bind(this)}>
             TÌM KIẾM
           </button>
         </div>
@@ -316,7 +325,7 @@ const mapStateToProps = storeState => ({
   cities: storeState.city.entities
 });
 
-const mapDispatchToProps = { getCities };
+const mapDispatchToProps = { getCities, createSearchTracking };
 
 type StateProps = ReturnType<typeof mapStateToProps>;
 type DispatchProps = typeof mapDispatchToProps;

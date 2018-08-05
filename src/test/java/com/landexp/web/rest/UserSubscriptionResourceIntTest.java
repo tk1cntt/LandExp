@@ -6,6 +6,7 @@ import com.landexp.domain.UserSubscription;
 import com.landexp.domain.User;
 import com.landexp.domain.City;
 import com.landexp.domain.District;
+import com.landexp.domain.enumeration.UserActionType;
 import com.landexp.repository.UserSubscriptionRepository;
 import com.landexp.service.UserSubscriptionService;
 import com.landexp.service.dto.UserSubscriptionDTO;
@@ -52,8 +53,8 @@ import com.landexp.domain.enumeration.LandType;
 @SpringBootTest(classes = LandexpApp.class)
 public class UserSubscriptionResourceIntTest {
 
-    private static final UserActivityType DEFAULT_ACTION_TYPE = UserActivityType.USER_SEARCH_BUY;
-    private static final UserActivityType UPDATED_ACTION_TYPE = UserActivityType.USER_SEARCH_RENT;
+    private static final UserActionType DEFAULT_ACTION_TYPE = UserActionType.FOR_BUY;
+    private static final UserActionType UPDATED_ACTION_TYPE = UserActionType.FOR_SELL;
 
     private static final String DEFAULT_KEYWORD = "AAAAAAAAAA";
     private static final String UPDATED_KEYWORD = "BBBBBBBBBB";
@@ -103,7 +104,7 @@ public class UserSubscriptionResourceIntTest {
 
     @Autowired
     private UserSubscriptionMapper userSubscriptionMapper;
-    
+
 
     @Autowired
     private UserSubscriptionService userSubscriptionService;
@@ -249,7 +250,7 @@ public class UserSubscriptionResourceIntTest {
             .andExpect(jsonPath("$.[*].createAt").value(hasItem(DEFAULT_CREATE_AT.toString())))
             .andExpect(jsonPath("$.[*].updateAt").value(hasItem(DEFAULT_UPDATE_AT.toString())));
     }
-    
+
 
     @Test
     @Transactional

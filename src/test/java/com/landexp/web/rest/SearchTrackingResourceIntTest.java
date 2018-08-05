@@ -6,6 +6,7 @@ import com.landexp.domain.SearchTracking;
 import com.landexp.domain.User;
 import com.landexp.domain.City;
 import com.landexp.domain.District;
+import com.landexp.domain.enumeration.UserActionType;
 import com.landexp.repository.SearchTrackingRepository;
 import com.landexp.service.SearchTrackingService;
 import com.landexp.service.dto.SearchTrackingDTO;
@@ -52,8 +53,8 @@ import com.landexp.domain.enumeration.LandType;
 @SpringBootTest(classes = LandexpApp.class)
 public class SearchTrackingResourceIntTest {
 
-    private static final UserActivityType DEFAULT_ACTION_TYPE = UserActivityType.USER_SEARCH_BUY;
-    private static final UserActivityType UPDATED_ACTION_TYPE = UserActivityType.USER_SEARCH_RENT;
+    private static final UserActionType DEFAULT_ACTION_TYPE = UserActionType.FOR_SELL;
+    private static final UserActionType UPDATED_ACTION_TYPE = UserActionType.FOR_BUY;
 
     private static final String DEFAULT_KEYWORD = "AAAAAAAAAA";
     private static final String UPDATED_KEYWORD = "BBBBBBBBBB";
@@ -97,7 +98,7 @@ public class SearchTrackingResourceIntTest {
 
     @Autowired
     private SearchTrackingMapper searchTrackingMapper;
-    
+
 
     @Autowired
     private SearchTrackingService searchTrackingService;
@@ -237,7 +238,7 @@ public class SearchTrackingResourceIntTest {
             .andExpect(jsonPath("$.[*].landType").value(hasItem(DEFAULT_LAND_TYPE.toString())))
             .andExpect(jsonPath("$.[*].createAt").value(hasItem(DEFAULT_CREATE_AT.toString())));
     }
-    
+
 
     @Test
     @Transactional

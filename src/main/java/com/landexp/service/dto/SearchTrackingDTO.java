@@ -3,6 +3,8 @@ package com.landexp.service.dto;
 import java.time.LocalDate;
 import java.io.Serializable;
 import java.util.Objects;
+
+import com.landexp.domain.enumeration.UserActionType;
 import com.landexp.domain.enumeration.UserActivityType;
 import com.landexp.domain.enumeration.DirectionType;
 import com.landexp.domain.enumeration.LandType;
@@ -14,7 +16,7 @@ public class SearchTrackingDTO implements Serializable {
 
     private Long id;
 
-    private UserActivityType actionType;
+    private UserActionType actionType;
 
     private String keyword;
 
@@ -60,11 +62,11 @@ public class SearchTrackingDTO implements Serializable {
         this.id = id;
     }
 
-    public UserActivityType getActionType() {
+    public UserActionType getActionType() {
         return actionType;
     }
 
-    public void setActionType(UserActivityType actionType) {
+    public void setActionType(UserActionType actionType) {
         this.actionType = actionType;
     }
 

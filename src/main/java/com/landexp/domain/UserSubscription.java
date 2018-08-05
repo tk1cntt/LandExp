@@ -1,6 +1,7 @@
 package com.landexp.domain;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.landexp.domain.enumeration.UserActionType;
 import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
 
@@ -34,7 +35,7 @@ public class UserSubscription implements Serializable {
 
     @Enumerated(EnumType.STRING)
     @Column(name = "action_type")
-    private UserActivityType actionType;
+    private UserActionType actionType;
 
     @Column(name = "keyword")
     private String keyword;
@@ -103,16 +104,16 @@ public class UserSubscription implements Serializable {
         this.id = id;
     }
 
-    public UserActivityType getActionType() {
+    public UserActionType getActionType() {
         return actionType;
     }
 
-    public UserSubscription actionType(UserActivityType actionType) {
+    public UserSubscription actionType(UserActionType actionType) {
         this.actionType = actionType;
         return this;
     }
 
-    public void setActionType(UserActivityType actionType) {
+    public void setActionType(UserActionType actionType) {
         this.actionType = actionType;
     }
 
