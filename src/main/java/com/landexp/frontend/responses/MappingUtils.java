@@ -29,16 +29,17 @@ import java.util.Date;
 public class MappingUtils {
 
     public static void main(String[] args) {
-        System.out.println(1600000000f / 1000000000);
+        System.out.println(1600000444f / 1000000000);
         System.out.println(1400000000f / 1000000000);
-        System.out.println(formatMoney(1600000000f, UserActionType.FOR_SELL));
+        System.out.println(formatMoney(1666666666f, UserActionType.FOR_SELL));
         System.out.println(formatMoney(1400000000f, UserActionType.FOR_SELL));
         System.out.println(formatMoney(900000000f, UserActionType.FOR_SELL));
+        System.out.println(formatMoney(5f, UserActionType.FOR_SELL));
         System.out.println(VNCharacterUtils.removeAccent("Đất dự án"));
     }
 
     public static String numberFormat(double number) {
-        DecimalFormat df = new DecimalFormat("0.0");
+        DecimalFormat df = new DecimalFormat("#.##");
         return df.format(number).replaceAll("\\.0$", "");
     }
 
@@ -54,8 +55,12 @@ public class MappingUtils {
             sb.append(numberFormat(money / 1000000));
             sb.append("</span>");
             sb.append(" triệu");
+        } else if (1000 <= money && money < 1000000) {
+            sb.append(numberFormat(money / 1000));
+            sb.append("</span>");
+            sb.append(" ngàn");
         } else {
-            sb.append(new java.text.DecimalFormat("#").format(money / 1000));
+            sb.append(numberFormat(money));
             sb.append("</span>");
             sb.append(" ngàn");
         }
