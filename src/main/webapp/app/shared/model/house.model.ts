@@ -82,6 +82,7 @@ export interface IHouse {
   bedRoom?: number;
   parking?: boolean;
   summary?: string;
+  summaryNoHtml?: string;
   landType?: LandType;
   saleType?: SaleType;
   fee?: number;

@@ -56,6 +56,8 @@ public class HouseDetailDTO implements Serializable {
 
     private String summary;
 
+    private String summaryNoHtml;
+
     private LandType landType;
 
     private SaleType saleType;
@@ -288,6 +290,14 @@ public class HouseDetailDTO implements Serializable {
 
     public void setSummary(String summary) {
         this.summary = summary;
+    }
+
+    public String getSummaryNoHtml() {
+        return summaryNoHtml;
+    }
+
+    public void setSummaryNoHtml(String summaryNoHtml) {
+        this.summaryNoHtml = summaryNoHtml;
     }
 
     public LandType getLandType() {

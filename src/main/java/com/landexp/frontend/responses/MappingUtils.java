@@ -7,6 +7,9 @@ import com.landexp.service.dto.ArticleDTO;
 import com.landexp.service.dto.ArticleDetailDTO;
 import com.landexp.service.dto.HouseDTO;
 import com.landexp.service.dto.HouseDetailDTO;
+import org.jsoup.Jsoup;
+import org.jsoup.nodes.Document;
+import org.jsoup.nodes.Element;
 import org.springframework.util.ObjectUtils;
 import org.springframework.util.StringUtils;
 
@@ -270,5 +273,11 @@ public class MappingUtils {
     public static String removeAccent(String s) {
         if (StringUtils.isEmpty(s)) return null;
         return VNCharacterUtils.removeAccent(s);
+    }
+
+    public static String removeHtmlTag(String html) {
+        if (StringUtils.isEmpty(html)) return null;
+        Document doc = Jsoup.parse(html);
+        return doc.body().text();
     }
 }

@@ -61,6 +61,7 @@ public interface HouseMapper extends EntityMapper<HouseDTO, House> {
         dto.setTitle(MappingUtils.formatTitle(dto));
         dto.setFullAddress(MappingUtils.formatFullAddress(dto));
         dto.setLink(MappingUtils.formatLink(dto));
+        dto.setSummaryNoHtml(MappingUtils.removeHtmlTag(dto.getSummary()));
     }
 
     @AfterMapping
