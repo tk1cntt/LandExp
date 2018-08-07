@@ -6,6 +6,7 @@ import { IPaginationBaseState, getSortState } from 'react-jhipster';
 import { connect } from 'react-redux';
 import { Row } from 'reactstrap';
 import track from 'react-tracking';
+import ReactPiwik from 'react-piwik';
 
 import { getSession } from 'app/shared/reducers/authentication';
 import { getHouses, getEntities, getTopEntities, getOwnerEntities, getEntity } from 'app/entities/house/house.reducer';
@@ -65,7 +66,7 @@ export class Home extends React.Component<IHomeProp, IHomeState> {
       uid: getUid(),
       username: account && account.login ? account.login : undefined,
       page: 'HomePage',
-      event: state.showGrid !== true ? 'viewGrid' : 'viewList',
+      event: state.showGrid !== true ? 'viewGridEvent' : 'viewListEvent',
       pathname: props.location.pathname,
       search: props.location.search
     };

@@ -3,9 +3,10 @@ import './app.css';
 
 import React from 'react';
 import { connect } from 'react-redux';
-import { HashRouter as Router } from 'react-router-dom';
+import { Router } from 'react-router-dom';
 import { ToastContainer, toast } from 'react-toastify';
 import { Storage } from 'react-jhipster';
+import ReactPiwik from 'react-piwik';
 
 import { IRootState } from 'app/shared/reducers';
 import { getSession } from 'app/shared/reducers/authentication';
@@ -18,12 +19,19 @@ import ErrorBoundary from 'app/shared/error/error-boundary';
 import { AUTHORITIES } from 'app/config/constants';
 import AppRoutes from 'app/routes';
 import { uid } from 'app/shared/util/utils';
+import history from './history'
 
 import './style.css';
 /* tslint:disable-next-line */
 import 'react-image-gallery/styles/css/image-gallery.css';
 
 const UID = 'uid';
+
+const piwik = new ReactPiwik({
+  url: 'tracking.tinvang.com.vn',
+  siteId: 1,
+  trackErrors: true,
+});
 
 export interface IAppProps extends StateProps, DispatchProps {}
 
@@ -39,7 +47,7 @@ export class App extends React.Component<IAppProps> {
 
   render() {
     return (
-      <Router>
+      <Router history={piwik.connectToHistory(history)}>
         <div className="app-container">
           <ToastContainer position={toast.POSITION.TOP_LEFT} className="toastify-container" toastClassName="toastify-toast" />
           <ErrorBoundary>

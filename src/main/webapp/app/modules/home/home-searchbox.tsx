@@ -111,7 +111,7 @@ export class HomeSearchBox extends React.Component<IHomeSearchBoxProp, IHomeSear
       uid: getUid(),
       username: account && account.login ? account.login : undefined,
       page: 'HomePage',
-      event: 'searchClick',
+      event: 'searchEvent',
       pathname: props.location.pathname,
       search: props.location.search
     };

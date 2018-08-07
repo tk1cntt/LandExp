@@ -164,7 +164,8 @@ public class MappingUtils {
         sb.append(" giá ");
         sb.append(formatMoney(dto.getMoney(), dto.getActionType())
             .replaceAll("<span>", "")
-            .replaceAll("</span>", ""));
+            .replaceAll("</span>", "")
+            .replaceAll("\\/", "-"));
         sb.append(StringUtils.isEmpty(dto.getDistrictName()) ? "" : " - " + dto.getDistrictType() + " " + dto.getDistrictName());
         sb.append(StringUtils.isEmpty(dto.getCityName()) ? "" : ", " + dto.getCityName());
         return sb.toString();
@@ -196,8 +197,11 @@ public class MappingUtils {
         sb.append(" ");
         sb.append(removeAccent(dto.getCityName()));
         return sb.toString().toLowerCase()
-            .replaceAll(" ", "-").replaceAll("\\/", "-")
-            .replaceAll("'", "").replaceAll("\"", "");
+            .replaceAll(" ", "-")
+            .replaceAll("\\/", "-")
+            .replaceAll("'", "")
+            .replaceAll("\"", "")
+            .replaceAll(",", "");
     }
 
     public static String formatLink(HouseDTO dto) {
@@ -218,7 +222,12 @@ public class MappingUtils {
         sb.append(removeAccent(dto.getDistrictName()));
         sb.append(" ");
         sb.append(removeAccent(dto.getCityName()));
-        return sb.toString().toLowerCase().replaceAll(" ", "-").replaceAll("\\/", "-");
+        return sb.toString().toLowerCase()
+            .replaceAll(" ", "-")
+            .replaceAll("\\/", "-")
+            .replaceAll("'", "")
+            .replaceAll("\"", "")
+            .replaceAll(",", "");
     }
 
     public static String formatLink(ArticleDetailDTO dto) {
@@ -226,7 +235,12 @@ public class MappingUtils {
         sb.append(removeAccent(dto.getCategoryName()));
         sb.append(" ");
         sb.append(removeAccent(dto.getTitle()));
-        return sb.toString().toLowerCase().replaceAll(" ", "-").replaceAll("\\/", "-");
+        return sb.toString().toLowerCase()
+            .replaceAll(" ", "-")
+            .replaceAll("\\/", "-")
+            .replaceAll("'", "")
+            .replaceAll("\"", "")
+            .replaceAll(",", "");
     }
 
     public static String formatLink(ArticleDTO dto) {
@@ -234,7 +248,12 @@ public class MappingUtils {
         sb.append(removeAccent(dto.getCategoryName()));
         sb.append(" ");
         sb.append(removeAccent(dto.getTitle()));
-        return sb.toString().toLowerCase().replaceAll(" ", "-").replaceAll("\\/", "-");
+        return sb.toString().toLowerCase()
+            .replaceAll(" ", "-")
+            .replaceAll("\\/", "-")
+            .replaceAll("'", "")
+            .replaceAll("\"", "")
+            .replaceAll(",", "");
     }
 
     public static BufferedImage createImageFromBytes(byte[] imageData) {

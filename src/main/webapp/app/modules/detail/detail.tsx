@@ -14,7 +14,7 @@ import { Tabs, Input } from 'antd';
 const { TextArea } = Input;
 const TabPane = Tabs.TabPane;
 
-import { getLandType, getDirection, getMoney, humanize, encodeId, decodeId, removeHtmlTag } from 'app/shared/util/utils';
+import { getLandType, getDirection, getMoney, humanize, encodeId, decodeId } from 'app/shared/util/utils';
 import { getEntity } from 'app/entities/house/house.reducer';
 import { getImageOfHouse } from 'app/entities/house-photo/house-photo.reducer';
 import { SERVER_API_URL, APP_LOCAL_DATE_FORMAT } from 'app/config/constants';
