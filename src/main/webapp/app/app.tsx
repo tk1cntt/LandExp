@@ -19,7 +19,7 @@ import ErrorBoundary from 'app/shared/error/error-boundary';
 import { AUTHORITIES } from 'app/config/constants';
 import AppRoutes from 'app/routes';
 import { uid } from 'app/shared/util/utils';
-import history from './history'
+import history from './history';
 
 import './style.css';
 /* tslint:disable-next-line */
@@ -30,7 +30,7 @@ const UID = 'uid';
 const piwik = new ReactPiwik({
   url: 'tracking.tinvang.com.vn',
   siteId: 1,
-  trackErrors: true,
+  trackErrors: true
 });
 
 export interface IAppProps extends StateProps, DispatchProps {}
