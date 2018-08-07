@@ -159,7 +159,7 @@ public class MappingUtils {
         sb.append(formatActionType(dto.getActionType()));
         // sb.append(" - ");
         sb.append(" ");
-        sb.append(formatLandType(dto.getLandType()).toLowerCase());
+        sb.append(dto.getLandType() == null ? null : formatLandType(dto.getLandType()).toLowerCase());
         // sb.append(" - ");
         sb.append(" giá ");
         sb.append(formatMoney(dto.getMoney(), dto.getActionType())
