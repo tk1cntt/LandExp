@@ -122,7 +122,7 @@ public class MappingUtils {
             case OFFICE:
                 return "Văn phòng";
             case LAND_SCAPE:
-                return "Đất ở";
+                return "Đất thổ cư";
             case LAND_OF_PROJECT:
                 return "Đất dự án";
             case LAND_FARM:
@@ -154,14 +154,16 @@ public class MappingUtils {
     public static String formatTitle(HouseDetailDTO dto) {
         StringBuilder sb = new StringBuilder();
         sb.append(formatActionType(dto.getActionType()));
-        sb.append(" - ");
-        sb.append(formatLandType(dto.getLandType()));
-        sb.append(" - ");
+        // sb.append(" - ");
+        sb.append(" ");
+        sb.append(formatLandType(dto.getLandType()).toLowerCase());
+        // sb.append(" - ");
+        sb.append(" giá ");
         sb.append(formatMoney(dto.getMoney(), dto.getActionType())
             .replaceAll("<span>", "")
             .replaceAll("</span>", ""));
-        sb.append(StringUtils.isEmpty(dto.getDistrictName()) ? "" : " - " + dto.getDistrictName());
-        sb.append(StringUtils.isEmpty(dto.getCityName()) ? "" : " - " + dto.getCityName());
+        sb.append(StringUtils.isEmpty(dto.getDistrictName()) ? "" : " - " + dto.getDistrictType() + " " + dto.getDistrictName());
+        sb.append(StringUtils.isEmpty(dto.getCityName()) ? "" : ", " + dto.getCityName());
         return sb.toString();
     }
 
@@ -179,9 +181,13 @@ public class MappingUtils {
         sb.append(" ");
         sb.append(removeAccent(formatLandType(dto.getLandType())));
         sb.append(" ");
+        sb.append("giá");
+        sb.append(" ");
         sb.append(removeAccent(formatMoney(dto.getMoney(), dto.getActionType())
             .replaceAll("<span>", "")
             .replaceAll("</span>", "")));
+        sb.append(" ");
+        sb.append(removeAccent(dto.getDistrictType()));
         sb.append(" ");
         sb.append(removeAccent(dto.getDistrictName()));
         sb.append(" ");
@@ -197,9 +203,14 @@ public class MappingUtils {
         sb.append(" ");
         sb.append(removeAccent(formatLandType(dto.getLandType())));
         sb.append(" ");
+        sb.append(" ");
+        sb.append("giá");
+        sb.append(" ");
         sb.append(removeAccent(formatMoney(dto.getMoney(), dto.getActionType())
             .replaceAll("<span>", "")
             .replaceAll("</span>", "")));
+        sb.append(" ");
+        sb.append(removeAccent(dto.getDistrictType()));
         sb.append(" ");
         sb.append(removeAccent(dto.getDistrictName()));
         sb.append(" ");

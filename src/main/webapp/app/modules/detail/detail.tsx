@@ -8,12 +8,13 @@ import { Row, Col, Container } from 'reactstrap';
 // import { Carousel as Album } from 'react-responsive-carousel';
 import ImageGallery from 'react-image-gallery';
 // import Lightbox from 'lightbox-react';
+import { Helmet } from 'react-helmet';
 
 import { Tabs, Input } from 'antd';
 const { TextArea } = Input;
 const TabPane = Tabs.TabPane;
 
-import { getLandType, getDirection, getMoney, humanize, encodeId, decodeId } from 'app/shared/util/utils';
+import { getLandType, getDirection, getMoney, humanize, encodeId, decodeId, removeHtmlTag } from 'app/shared/util/utils';
 import { getEntity } from 'app/entities/house/house.reducer';
 import { getImageOfHouse } from 'app/entities/house-photo/house-photo.reducer';
 import { SERVER_API_URL, APP_LOCAL_DATE_FORMAT } from 'app/config/constants';
@@ -242,6 +243,10 @@ export class Detail extends React.Component<IDetailProp, IDetailState> {
   render() {
     return (
       <Row>
+        <Helmet>
+          <meta charSet="utf-8" />
+          <title>{this.props.houseEntity.title}</title>
+        </Helmet>
         <SearchPage location={this.props.location} history={this.props.history} />
         <Container>
           {this.props.loading && this.props.photoLoading ? (
