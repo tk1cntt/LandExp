@@ -167,7 +167,6 @@ relationship ManyToOne {
 entity Article {
    avatar ImageBlob,
    title String,
-   titleAlias String,
    summary String,
    content String,
    statusType StatusType,
@@ -184,17 +183,12 @@ relationship ManyToOne {
 
 entity Category {
    name String,
-   nameAlias String,
    createAt LocalDate,
    updateAt LocalDate
 }
 
-enum UserActivityType {
-   USER_SEARCH_BUY, USER_SEARCH_RENT, USER_VIEW_NEWS, USER_LIKE_NEWS, USER_CREATE_NEWS, USER_UPDATE_NEWS, USER_SUBSCRIPTION, USER_UNSUBSCRIPTION, USER_REGISTERED_CONSULTING, USER_UPDATE_SALE_TYPE, USER_PAID_NEWS, USER_SOLD_HOUSE, USER_BOUGTH_HOUSE, USER_CREATE_BANNER, USER_UPDATE_BANNER
-}
-
 entity UserSubscription {
-   actionType UserActivityType,
+   actionType UserActionType,
    keyword String,
    costFrom Float,
    costTo Float,
@@ -217,48 +211,13 @@ relationship ManyToOne {
    UserSubscription{district(name)} to District
 }
 
-entity UserTracking {
-   activityType UserActivityType,
-   sourceId String,
-   sourceLink String,
-   description String,
+entity UserLike {
    createAt LocalDate
 }
 
 relationship ManyToOne {
-   UserTracking{user(login} to User
-}
-
-entity UserFeed {
-   body String,
-   createAt LocalDate,
-   updateAt LocalDate
-}
-
-relationship ManyToOne {
-   UserFeed{user(login} to User
-}
-
-entity SearchTracking {
-   actionType UserActivityType,
-   keyword String,
-   costFrom Float,
-   costTo Float,
-   acreageFrom Float,
-   acreageTo Float,
-   direction DirectionType,
-   floor String,
-   bathRoom Integer,
-   bedRoom Integer,
-   parking Boolean,
-   landType LandType,
-   createAt LocalDate
-}
-
-relationship ManyToOne {
-   SearchTracking{user(login)} to User
-   SearchTracking{city(name)} to City,
-   SearchTracking{district(name)} to District
+   UserLike{house} to House,
+   UserLike{user(login)} to User
 }
 
 entity UserFinancial {
@@ -319,13 +278,13 @@ relationship ManyToOne {
 // Set pagination options
 paginate Region, City, District, Ward, House, HousePhoto with pagination
 
-paginate LandProject, Article, Category, SearchTracking with pagination
+paginate LandProject, Article, Category with pagination
 
-paginate UserSubscription, UserTracking, UserFeed, UserFinancial, PotentialCustomer, Payment with pagination
+paginate UserSubscription, UserFinancial, PotentialCustomer, Payment with pagination
 
 dto * with mapstruct
 
 // Set service options to all except few
 service all with serviceClass
 
-filter Region, City, District, Ward, House, UserSubscription, UserTracking, SearchTracking, Payment, UserFinancial, PotentialCustomer
+filter Region, City, District, Ward, House, UserSubscription, Payment, UserFinancial, PotentialCustomer

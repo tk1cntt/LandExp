@@ -1,10 +1,6 @@
 package com.landexp.domain;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-import org.hibernate.annotations.Cache;
-import org.hibernate.annotations.CacheConcurrencyStrategy;
-import org.hibernate.annotations.CreationTimestamp;
-import org.hibernate.annotations.UpdateTimestamp;
 
 import javax.persistence.*;
 
@@ -13,12 +9,11 @@ import java.time.LocalDate;
 import java.util.Objects;
 
 /**
- * A UserFeed.
+ * A UserLike.
  */
 @Entity
-@Table(name = "user_feed")
-@Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
-public class UserFeed implements Serializable {
+@Table(name = "user_like")
+public class UserLike implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
@@ -26,16 +21,12 @@ public class UserFeed implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(name = "jhi_body")
-    private String body;
-
-    @CreationTimestamp
     @Column(name = "create_at")
     private LocalDate createAt;
 
-    @UpdateTimestamp
-    @Column(name = "update_at")
-    private LocalDate updateAt;
+    @ManyToOne
+    @JsonIgnoreProperties("")
+    private House house;
 
     @ManyToOne
     @JsonIgnoreProperties("")
@@ -50,24 +41,11 @@ public class UserFeed implements Serializable {
         this.id = id;
     }
 
-    public String getBody() {
-        return body;
-    }
-
-    public UserFeed body(String body) {
-        this.body = body;
-        return this;
-    }
-
-    public void setBody(String body) {
-        this.body = body;
-    }
-
     public LocalDate getCreateAt() {
         return createAt;
     }
 
-    public UserFeed createAt(LocalDate createAt) {
+    public UserLike createAt(LocalDate createAt) {
         this.createAt = createAt;
         return this;
     }
@@ -76,24 +54,24 @@ public class UserFeed implements Serializable {
         this.createAt = createAt;
     }
 
-    public LocalDate getUpdateAt() {
-        return updateAt;
+    public House getHouse() {
+        return house;
     }
 
-    public UserFeed updateAt(LocalDate updateAt) {
-        this.updateAt = updateAt;
+    public UserLike house(House house) {
+        this.house = house;
         return this;
     }
 
-    public void setUpdateAt(LocalDate updateAt) {
-        this.updateAt = updateAt;
+    public void setHouse(House house) {
+        this.house = house;
     }
 
     public User getUser() {
         return user;
     }
 
-    public UserFeed user(User user) {
+    public UserLike user(User user) {
         this.user = user;
         return this;
     }
@@ -111,11 +89,11 @@ public class UserFeed implements Serializable {
         if (o == null || getClass() != o.getClass()) {
             return false;
         }
-        UserFeed userFeed = (UserFeed) o;
-        if (userFeed.getId() == null || getId() == null) {
+        UserLike userLike = (UserLike) o;
+        if (userLike.getId() == null || getId() == null) {
             return false;
         }
-        return Objects.equals(getId(), userFeed.getId());
+        return Objects.equals(getId(), userLike.getId());
     }
 
     @Override
@@ -125,11 +103,9 @@ public class UserFeed implements Serializable {
 
     @Override
     public String toString() {
-        return "UserFeed{" +
+        return "UserLike{" +
             "id=" + getId() +
-            ", body='" + getBody() + "'" +
             ", createAt='" + getCreateAt() + "'" +
-            ", updateAt='" + getUpdateAt() + "'" +
             "}";
     }
 }

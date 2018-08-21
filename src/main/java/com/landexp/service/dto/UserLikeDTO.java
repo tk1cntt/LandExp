@@ -5,17 +5,15 @@ import java.io.Serializable;
 import java.util.Objects;
 
 /**
- * A DTO for the UserFeed entity.
+ * A DTO for the UserLike entity.
  */
-public class UserFeedDTO implements Serializable {
+public class UserLikeDTO implements Serializable {
 
     private Long id;
 
-    private String body;
-
     private LocalDate createAt;
 
-    private LocalDate updateAt;
+    private Long houseId;
 
     private Long userId;
 
@@ -29,14 +27,6 @@ public class UserFeedDTO implements Serializable {
         this.id = id;
     }
 
-    public String getBody() {
-        return body;
-    }
-
-    public void setBody(String body) {
-        this.body = body;
-    }
-
     public LocalDate getCreateAt() {
         return createAt;
     }
@@ -45,12 +35,12 @@ public class UserFeedDTO implements Serializable {
         this.createAt = createAt;
     }
 
-    public LocalDate getUpdateAt() {
-        return updateAt;
+    public Long getHouseId() {
+        return houseId;
     }
 
-    public void setUpdateAt(LocalDate updateAt) {
-        this.updateAt = updateAt;
+    public void setHouseId(Long houseId) {
+        this.houseId = houseId;
     }
 
     public Long getUserId() {
@@ -78,11 +68,11 @@ public class UserFeedDTO implements Serializable {
             return false;
         }
 
-        UserFeedDTO userFeedDTO = (UserFeedDTO) o;
-        if (userFeedDTO.getId() == null || getId() == null) {
+        UserLikeDTO userLikeDTO = (UserLikeDTO) o;
+        if (userLikeDTO.getId() == null || getId() == null) {
             return false;
         }
-        return Objects.equals(getId(), userFeedDTO.getId());
+        return Objects.equals(getId(), userLikeDTO.getId());
     }
 
     @Override
@@ -92,11 +82,10 @@ public class UserFeedDTO implements Serializable {
 
     @Override
     public String toString() {
-        return "UserFeedDTO{" +
+        return "UserLikeDTO{" +
             "id=" + getId() +
-            ", body='" + getBody() + "'" +
             ", createAt='" + getCreateAt() + "'" +
-            ", updateAt='" + getUpdateAt() + "'" +
+            ", house=" + getHouseId() +
             ", user=" + getUserId() +
             ", user='" + getUserLogin() + "'" +
             "}";
