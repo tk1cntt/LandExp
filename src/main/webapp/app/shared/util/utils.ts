@@ -163,8 +163,12 @@ export const getMoney = (money, actionType) => {
     moneyFormat += humanize(money / 1000000);
     moneyFormat += '</span>';
     moneyFormat += ' triệu';
-  } else {
+  } else if (1000 <= money && money < 1000000) {
     moneyFormat += humanize(money / 1000);
+    moneyFormat += '</span>';
+    moneyFormat += ' ngàn';
+  } else {
+    moneyFormat += humanize(money);
     moneyFormat += '</span>';
     moneyFormat += ' ngàn';
   }

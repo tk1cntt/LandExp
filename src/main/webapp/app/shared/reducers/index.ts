@@ -61,18 +61,6 @@ import userSubscription, {
   UserSubscriptionState
 } from 'app/entities/user-subscription/user-subscription.reducer';
 // prettier-ignore
-import userTracking, {
-  UserTrackingState
-} from 'app/entities/user-tracking/user-tracking.reducer';
-// prettier-ignore
-import userFeed, {
-  UserFeedState
-} from 'app/entities/user-feed/user-feed.reducer';
-// prettier-ignore
-import searchTracking, {
-  SearchTrackingState
-} from 'app/entities/search-tracking/search-tracking.reducer';
-// prettier-ignore
 import userFinancial, {
   UserFinancialState
 } from 'app/entities/user-financial/user-financial.reducer';
@@ -109,9 +97,6 @@ export interface IRootState {
   readonly article: ArticleState;
   readonly category: CategoryState;
   readonly userSubscription: UserSubscriptionState;
-  readonly userTracking: UserTrackingState;
-  readonly userFeed: UserFeedState;
-  readonly searchTracking: SearchTrackingState;
   readonly userFinancial: UserFinancialState;
   readonly potentialCustomer: PotentialCustomerState;
   readonly payment: PaymentState;
@@ -142,9 +127,6 @@ const rootReducer = combineReducers<IRootState>({
   article,
   category,
   userSubscription,
-  userTracking,
-  userFeed,
-  searchTracking,
   userFinancial,
   potentialCustomer,
   payment,

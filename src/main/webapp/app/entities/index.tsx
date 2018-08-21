@@ -16,11 +16,8 @@ import LandProjectPhoto from './land-project-photo';
 import Article from './article';
 import Category from './category';
 import UserSubscription from './user-subscription';
-import UserTracking from './user-tracking';
-import UserFeed from './user-feed';
-import SearchTracking from './search-tracking';
+import UserLike from './user-like';
 import UserFinancial from './user-financial';
-import UserManagement from 'app/modules/account/user-management';
 import PotentialCustomer from './potential-customer';
 import Payment from './payment';
 /* jhipster-needle-add-route-import - JHipster will add routes here */
@@ -40,9 +37,7 @@ const Routes = ({ match }) => (
       <ErrorBoundaryRoute path={`${match.url}/tin-tuc`} component={Article} />
       <ErrorBoundaryRoute path={`${match.url}/danh-muc-tin-tuc`} component={Category} />
       <ErrorBoundaryRoute path={`${match.url}/user-subscription`} component={UserSubscription} />
-      <ErrorBoundaryRoute path={`${match.url}/user-tracking`} component={UserTracking} />
-      <ErrorBoundaryRoute path={`${match.url}/user-feed`} component={UserFeed} />
-      <ErrorBoundaryRoute path={`${match.url}/search-tracking`} component={SearchTracking} />
+      <ErrorBoundaryRoute path={`${match.url}/user-like`} component={UserLike} />
       <ErrorBoundaryRoute path={`${match.url}/tu-van-tai-chinh`} component={UserFinancial} />
       <ErrorBoundaryRoute path={`${match.url}/khach-hang-tiem-nang`} component={PotentialCustomer} />
       <ErrorBoundaryRoute path={`${match.url}/thanh-toan`} component={Payment} />

@@ -3,13 +3,11 @@ import './home.css';
 
 import React from 'react';
 import { connect } from 'react-redux';
-import track from 'react-tracking';
 import qs from 'query-string';
 import { Select, Cascader, Radio } from 'antd';
 const Option = Select.Option;
 const RadioGroup = Radio.Group;
 
-import { createEntity as createSearchTracking } from 'app/entities/search-tracking/search-tracking.reducer';
 import { getAllEntities as getCities } from 'app/entities/city/city.reducer';
 import { getLandType, getUid, queryString } from 'app/shared/util/utils';
 
@@ -24,7 +22,6 @@ export interface IHomeSearchBoxState {
   locations: any;
 }
 
-@track({})
 export class HomeSearchBox extends React.Component<IHomeSearchBoxProp, IHomeSearchBoxState> {
   state: IHomeSearchBoxState = {
     city: null,
@@ -105,20 +102,6 @@ export class HomeSearchBox extends React.Component<IHomeSearchBoxProp, IHomeSear
     );
   }
 
-  @track((props, state) => {
-    const { account } = props;
-    const data = {
-      uid: getUid(),
-      username: account && account.login ? account.login : undefined,
-      page: 'HomePage',
-      event: 'searchEvent',
-      pathname: props.location.pathname,
-      search: props.location.search
-    };
-    console.log(state.parameters);
-    props.createSearchTracking(state.parameters);
-    return data;
-  })
   searchClick() {
     this.props.history.push(`/tim-kiem?${queryString(this.state.parameters)}`);
   }
@@ -325,7 +308,7 @@ const mapStateToProps = storeState => ({
   cities: storeState.city.entities
 });
 
-const mapDispatchToProps = { getCities, createSearchTracking };
+const mapDispatchToProps = { getCities };
 
 type StateProps = ReturnType<typeof mapStateToProps>;
 type DispatchProps = typeof mapDispatchToProps;
