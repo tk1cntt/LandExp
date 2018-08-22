@@ -24,7 +24,7 @@ import Loading from 'app/shared/layout/loading/loading';
 import SearchPage from 'app/shared/layout/search/search-menu';
 import GoogleMaps from 'app/shared/util/google-maps';
 
-export interface IDetailProp extends StateProps, DispatchProps, RouteComponentProps<{ id: any; link: any }> { }
+export interface IDetailProp extends StateProps, DispatchProps, RouteComponentProps<{ id: any; link: any }> {}
 
 export interface IDetailState {
   images: any;
@@ -46,7 +46,7 @@ export class Detail extends React.Component<IDetailProp, IDetailState> {
     loanFromPeople: 0,
     customerMoneyHave: 0,
     customerMobile: null,
-    customerEmail: null;
+    customerEmail: null
   };
 
   componentDidMount() {
@@ -252,7 +252,7 @@ export class Detail extends React.Component<IDetailProp, IDetailState> {
     );
   }
 
-  updateMarkerPosition = () => { };
+  updateMarkerPosition = () => {};
 
   onChangeHousePrice = e => {
     this.setState({
@@ -286,13 +286,12 @@ export class Detail extends React.Component<IDetailProp, IDetailState> {
 
   houseUserFinancialForm() {
     let userFinancialResult;
-    if (this.state.housePrice !== 0
-      && this.state.savingMoney !== 0
-      && this.state.loanRate !== 0) {
-      let needMoney = this.state.housePrice - this.state.customerMoneyHave - this.state.loanFromPeople;
-      userFinancialResult = `Bạn cần vay số tiền ${needMoney} VNĐ`
-        + ` trong vòng 5 năm với số tiền tích lũy hàng tháng không nhỏ hơn ${(needMoney) / 5} VNĐ `
-        + `để có thể mua được ngôi nhà này`;
+    if (this.state.housePrice !== 0 && this.state.savingMoney !== 0 && this.state.loanRate !== 0) {
+      const needMoney = this.state.housePrice - this.state.customerMoneyHave - this.state.loanFromPeople;
+      userFinancialResult =
+        `Bạn cần vay số tiền ${needMoney} VNĐ` +
+        ` trong vòng 5 năm với số tiền tích lũy hàng tháng không nhỏ hơn ${needMoney / 5} VNĐ ` +
+        `để có thể mua được ngôi nhà này`;
     }
     return (
       <>
@@ -301,48 +300,33 @@ export class Detail extends React.Component<IDetailProp, IDetailState> {
           <Col md="5">
             <div className="form-group">
               <label>Giá trị nhà bạn muốn mua</label>
-              <Input
-                placeholder="0.0"
-                onChange={this.onChangeHousePrice}
-              />
+              <Input placeholder="0.0" onChange={this.onChangeHousePrice} />
               <span className="input-addon">VNĐ</span>
             </div>
           </Col>
           <Col md="5" style={{ marginLeft: -12 }}>
             <div className="form-group">
               <label>Số tiền tích lũy hàng tháng</label>
-              <Input
-                placeholder="0.0"
-                onChange={this.onChangeSavingMoney}
-              />
+              <Input placeholder="0.0" onChange={this.onChangeSavingMoney} />
               <span className="input-addon">VNĐ</span>
             </div>
           </Col>
           <Col md="2">
             <div className="form-group">
               <label>Lãi vay</label>
-              <Input
-                placeholder="0.0"
-                onChange={this.onChangeLoanRate}
-              />
+              <Input placeholder="0.0" onChange={this.onChangeLoanRate} />
               <span className="input-addon">%</span>
             </div>
           </Col>
           <Col md="5">
             <div className="form-group">
               <label>Số tiền bạn có</label>
-              <Input
-                placeholder="0.0"
-                onChange={this.onChangeCustomerMoneyHave}
-              />
+              <Input placeholder="0.0" onChange={this.onChangeCustomerMoneyHave} />
               <span className="input-addon">VNĐ</span>
             </div>
             <div className="form-group">
               <label>Số tiền bạn có thể vay</label>
-              <Input
-                placeholder="0.0"
-                onChange={this.onChangeLoanFromPeople}
-              />
+              <Input placeholder="0.0" onChange={this.onChangeLoanFromPeople} />
               <span className="input-addon">VNĐ</span>
             </div>
           </Col>
@@ -380,13 +364,13 @@ export class Detail extends React.Component<IDetailProp, IDetailState> {
           {this.props.loading && this.props.photoLoading ? (
             <Loading />
           ) : (
-              <Row>
-                <Row id="product-content">
-                  {this.houseImageGalleryFrom(this.state.images)}
-                  {this.houseDetailForm()}
-                  {this.houseContactForm()}
-                </Row>
-                {/*isOpen && (
+            <Row>
+              <Row id="product-content">
+                {this.houseImageGalleryFrom(this.state.images)}
+                {this.houseDetailForm()}
+                {this.houseContactForm()}
+              </Row>
+              {/*isOpen && (
                 <Lightbox
                   mainSrc={slides[photoIndex]}
                   nextSrc={slides[(photoIndex + 1) % slides.length]}
@@ -404,33 +388,31 @@ export class Detail extends React.Component<IDetailProp, IDetailState> {
                   }
                 />
               )*/}
-                <Row style={{ marginBottom: 20 }} className="location-search">
-                  <Col md="12">
-                    <h3 className="lo-title">
-                      Bản đồ vị trí và tiện ích trong khu vực
+              <Row style={{ marginBottom: 20 }} className="location-search">
+                <Col md="12">
+                  <h3 className="lo-title">
+                    Bản đồ vị trí và tiện ích trong khu vực
                     <span>{this.houseAdressFull()}</span>
-                    </h3>
-                  </Col>
-                  <Col md="5">{this.houseNearByForm()}</Col>
-                  <Col md="7">
-                    <GoogleMaps
-                      updateMarkerPosition={this.updateMarkerPosition}
-                      isMarkerDraggable={false}
-                      currentPosition={{ latitude: this.props.houseEntity.latitude, longitude: this.props.houseEntity.longitude }}
-                    />
-                  </Col>
-                </Row>
-                <Row style={{ marginBottom: 20 }}>
-                  <Col md="5">
-                    <h4>Mô tả thêm</h4>
-                    <div className="product-desc" dangerouslySetInnerHTML={{ __html: this.props.houseEntity.summary }} />
-                  </Col>
-                  <Col md="7">
-                    {this.houseUserFinancialForm()}
-                  </Col>
-                </Row>
+                  </h3>
+                </Col>
+                <Col md="5">{this.houseNearByForm()}</Col>
+                <Col md="7">
+                  <GoogleMaps
+                    updateMarkerPosition={this.updateMarkerPosition}
+                    isMarkerDraggable={false}
+                    currentPosition={{ latitude: this.props.houseEntity.latitude, longitude: this.props.houseEntity.longitude }}
+                  />
+                </Col>
               </Row>
-            )}
+              <Row style={{ marginBottom: 20 }}>
+                <Col md="5">
+                  <h4>Mô tả thêm</h4>
+                  <div className="product-desc" dangerouslySetInnerHTML={{ __html: this.props.houseEntity.summary }} />
+                </Col>
+                <Col md="7">{this.houseUserFinancialForm()}</Col>
+              </Row>
+            </Row>
+          )}
         </Container>
       </Row>
     );

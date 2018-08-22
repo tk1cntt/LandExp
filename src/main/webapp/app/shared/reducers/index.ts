@@ -64,6 +64,7 @@ import userSubscription, {
 import userFinancial, {
   UserFinancialState
 } from 'app/entities/user-financial/user-financial.reducer';
+import userLike, { UserLikeState } from 'app/entities/user-like/user-like.reducer';
 // prettier-ignore
 import potentialCustomer, {
   PotentialCustomerState
@@ -98,6 +99,7 @@ export interface IRootState {
   readonly category: CategoryState;
   readonly userSubscription: UserSubscriptionState;
   readonly userFinancial: UserFinancialState;
+  readonly userLike: UserLikeState;
   readonly potentialCustomer: PotentialCustomerState;
   readonly payment: PaymentState;
   /* jhipster-needle-add-reducer-type - JHipster will add reducer type here */
@@ -128,6 +130,7 @@ const rootReducer = combineReducers<IRootState>({
   category,
   userSubscription,
   userFinancial,
+  userLike,
   potentialCustomer,
   payment,
   /* jhipster-needle-add-reducer-combine - JHipster will add reducer here */
