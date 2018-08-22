@@ -5,7 +5,6 @@ import { RouteComponentProps } from 'react-router-dom';
 import { IPaginationBaseState, getSortState } from 'react-jhipster';
 import { connect } from 'react-redux';
 import { Row } from 'reactstrap';
-import track from 'react-tracking';
 import ReactPiwik from 'react-piwik';
 
 import { getSession } from 'app/shared/reducers/authentication';
@@ -29,7 +28,6 @@ export interface IHomeState extends IPaginationBaseState {
   showGrid: any;
 }
 
-@track({})
 export class Home extends React.Component<IHomeProp, IHomeState> {
   state: IHomeState = {
     search: '',
@@ -37,41 +35,10 @@ export class Home extends React.Component<IHomeProp, IHomeState> {
     ...getSortState(this.props.location, ITEMS_PER_PAGE)
   };
 
-  @track(props => {
-    const { account } = props;
-    const data = {
-      uid: getUid(),
-      username: account && account.login ? account.login : undefined,
-      page: 'HomePage',
-      event: 'pageview',
-      pathname: props.location.pathname,
-      search: props.location.search
-    };
-    return data;
-  })
   componentDidMount() {
-    /*
-    if (this.props.location) {
-      const parsed = qs.parse(this.props.location.search);
-      // this.props.getSession();
-      this.props.getHouses(queryStringMapping(parsed));
-    }
-    */
     this.props.getTopEntities();
   }
 
-  @track((props, state) => {
-    const { account } = props;
-    const data = {
-      uid: getUid(),
-      username: account && account.login ? account.login : undefined,
-      page: 'HomePage',
-      event: state.showGrid !== true ? 'viewGridEvent' : 'viewListEvent',
-      pathname: props.location.pathname,
-      search: props.location.search
-    };
-    return data;
-  })
   showForm(value) {
     if (!value) {
       this.props.getEntity(this.props.houseList[0].id);

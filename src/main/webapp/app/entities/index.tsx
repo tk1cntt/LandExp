@@ -42,7 +42,6 @@ const Routes = ({ match }) => (
       <ErrorBoundaryRoute path={`${match.url}/khach-hang-tiem-nang`} component={PotentialCustomer} />
       <ErrorBoundaryRoute path={`${match.url}/thanh-toan`} component={Payment} />
       <ErrorBoundaryRoute path={`${match.url}/xa-phuong`} component={Ward} />
-      <ErrorBoundaryRoute path={`${match.url}/tai-khoan-nguoi-dung`} component={UserManagement} />
       {/* jhipster-needle-add-route-path - JHipster will routes here */}
     </Switch>
   </div>

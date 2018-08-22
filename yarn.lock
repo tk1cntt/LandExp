@@ -148,12 +148,6 @@
     "@types/history" "*"
     "@types/react" "*"
 
-"@types/react-tracking@^5.0.2":
-  version "5.0.2"
-  resolved "https://registry.yarnpkg.com/@types/react-tracking/-/react-tracking-5.0.2.tgz#8fbdecf6a6b4b8611893f20eb085120e123f7f64"
-  dependencies:
-    "@types/react" "*"
-
 "@types/react@*", "@types/react@16.4.6":
   version "16.4.6"
   resolved "https://registry.yarnpkg.com/@types/react/-/react-16.4.6.tgz#5024957c6bcef4f02823accf5974faba2e54fada"
@@ -2505,10 +2499,6 @@ deep-extend@^0.6.0:
 deep-is@~0.1.3:
   version "0.1.3"
   resolved "https://registry.yarnpkg.com/deep-is/-/deep-is-0.1.3.tgz#b369d6fb5dbc13eecf524f91b070feedc357cf34"
-
-deepmerge@^2.1.0:
-  version "2.1.1"
-  resolved "https://registry.yarnpkg.com/deepmerge/-/deepmerge-2.1.1.tgz#e862b4e45ea0555072bf51e7fd0d9845170ae768"
 
 default-require-extensions@^2.0.0:
   version "2.0.0"
@@ -8829,13 +8819,6 @@ react-toastify@4.1.0:
     classnames "^2.2.5"
     prop-types "^15.6.0"
     react-transition-group "^2.2.1"
-
-react-tracking@^5.3.0:
-  version "5.3.0"
-  resolved "https://registry.yarnpkg.com/react-tracking/-/react-tracking-5.3.0.tgz#6107db448084745bc50604d1f3f1f582c0073def"
-  dependencies:
-    deepmerge "^2.1.0"
-    hoist-non-react-statics "^2.5.0"
 
 react-transition-group@2.4.0, react-transition-group@^2.2.1, react-transition-group@^2.3.1:
   version "2.4.0"

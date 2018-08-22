@@ -37,10 +37,13 @@ export interface IAppProps extends StateProps, DispatchProps {}
 
 export class App extends React.Component<IAppProps> {
   componentDidMount() {
-    const _uid = Storage.local.get('uid');
+    let _uid = Storage.local.get('uid');
     if (!_uid) {
-      Storage.local.set(UID, uid());
+      _uid = uid();
+      Storage.local.set(UID, _uid);
     }
+    ReactPiwik.push(['enableHeartBeatTimer']);
+    ReactPiwik.push(['setUserId', _uid]);
     this.props.getSession();
     this.props.getProfile();
   }
