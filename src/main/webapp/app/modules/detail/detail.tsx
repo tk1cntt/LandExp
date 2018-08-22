@@ -10,7 +10,7 @@ import ImageGallery from 'react-image-gallery';
 // import Lightbox from 'lightbox-react';
 import { Helmet } from 'react-helmet';
 
-import { Tabs, Input } from 'antd';
+import { Tabs, Input, Modal, Alert } from 'antd';
 const { TextArea } = Input;
 const TabPane = Tabs.TabPane;
 
@@ -35,6 +35,8 @@ export interface IDetailState {
   customerMoneyHave: number;
   customerMobile: string;
   customerEmail: string;
+  visible: any;
+  alerts: any;
 }
 
 export class Detail extends React.Component<IDetailProp, IDetailState> {
@@ -46,7 +48,9 @@ export class Detail extends React.Component<IDetailProp, IDetailState> {
     loanFromPeople: 0,
     customerMoneyHave: 0,
     customerMobile: null,
-    customerEmail: null
+    customerEmail: null,
+    visible: false,
+    alerts: []
   };
 
   componentDidMount() {
@@ -284,14 +288,77 @@ export class Detail extends React.Component<IDetailProp, IDetailState> {
     });
   };
 
+  onChangeCustomerMobile = e => {
+    this.setState({
+      customerMobile: e.target.value
+    });
+  };
+
+  validateUserFinancial() {
+    if (this.state.housePrice === 0 || this.state.housePrice === 0 || this.state.housePrice === 0) {
+      return false;
+    }
+    return true;
+  }
+
+  onClickUserFinancialGetAdvice = () => {
+    const alerts = [];
+    const userFinancialInfo = this.validateUserFinancial() ? null : (
+      <Row key={'action-type-value-alert'}>
+        <Col md="12">
+          <Alert type="error" message="Bạn hãy nhập đầy đủ thông tin để chúng tôi tư vấn cho bạn chính xác nhất" />
+        </Col>
+      </Row>
+    );
+    alerts.push(userFinancialInfo);
+
+    const customerMobile = this.state.customerMobile;
+    const customerMobileForm = customerMobile ? null : (
+      <Row key={'action-type-value-alert'}>
+        <Col md="12">
+          <Alert type="error" message="Bạn hãy nhập số điện để chúng tôi tư vấn cho bạn nhanh chóng nhất" />
+        </Col>
+      </Row>
+    );
+    alerts.push(customerMobileForm);
+    this.setState({ alerts });
+    if (customerMobile && this.validateUserFinancial()) {
+      // add data
+    }
+  };
+
+  onClickUserFinancialLoanRegistration = () => {
+    this.setState({
+      visible: true
+    });
+  };
+
+  handleOk = e => {
+    this.setState({
+      visible: false
+    });
+  };
+
+  handleCancel = e => {
+    this.setState({
+      visible: false
+    });
+  };
+
   houseUserFinancialForm() {
     let userFinancialResult;
     if (this.state.housePrice !== 0 && this.state.savingMoney !== 0 && this.state.loanRate !== 0) {
       const needMoney = this.state.housePrice - this.state.customerMoneyHave - this.state.loanFromPeople;
-      userFinancialResult =
-        `Bạn cần vay số tiền ${needMoney} VNĐ` +
-        ` trong vòng 5 năm với số tiền tích lũy hàng tháng không nhỏ hơn ${needMoney / 5} VNĐ ` +
-        `để có thể mua được ngôi nhà này`;
+      const loadMonth = (needMoney * this.state.loanRate) / 12;
+      const minimumSavingMoney = loadMonth + needMoney / 240;
+      if (minimumSavingMoney > this.state.savingMoney) {
+        userFinancialResult = `Số tiền tích lũy hàng tháng của bạn cần lớn hơn ${minimumSavingMoney} để đủ mua ngôi nhà này`;
+      } else {
+        userFinancialResult =
+          `Bạn cần vay số tiền ${needMoney} VNĐ` +
+          ` trong vòng ${loadMonth} tháng với số tiền tích lũy hàng tháng không nhỏ hơn ${loadMonth + needMoney / 240} VNĐ ` +
+          `để có thể mua được ngôi nhà này`;
+      }
     }
     return (
       <>
@@ -329,24 +396,32 @@ export class Detail extends React.Component<IDetailProp, IDetailState> {
               <Input placeholder="0.0" onChange={this.onChangeLoanFromPeople} />
               <span className="input-addon">VNĐ</span>
             </div>
+            <div className="form-group">
+              <label>Số điện thoại nhận tư vấn</label>
+              <Input onChange={this.onChangeCustomerMobile} />
+            </div>
           </Col>
           <Col md="7" style={{ marginLeft: -12 }}>
             <label>Tư vấn</label>
             <TextArea
-              rows={5}
+              rows={6}
+              style={{ marginBottom: 25 }}
               placeholder="Bạn cần vay số tiền { } VNĐ trong vòng { } năm với số tiền tích lũy hàng tháng không nhỏ hơn { } VNĐ để có thể mua được ngôi nhà này"
               value={userFinancialResult}
             />
-          </Col>
-          <div className="col-xs-7 col-xs-offset-5">
-            <button type="submit" className="btn btn-info">
+            <button className="btn btn-info" onClick={this.onClickUserFinancialGetAdvice}>
               Nhận tư vấn
             </button>
             {'  '}
-            <button type="submit" className="btn btn-success">
+            <button className="btn btn-success" onClick={this.onClickUserFinancialLoanRegistration}>
               Đăng ký vay
             </button>
-          </div>
+          </Col>
+          {this.state.alerts.map((item, index) => (
+            <div className="steps-action" key={index} style={{ marginTop: 10 }}>
+              {item}
+            </div>
+          ))}
         </Row>
       </>
     );

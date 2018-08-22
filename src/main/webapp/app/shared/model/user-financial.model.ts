@@ -7,6 +7,7 @@ export interface IUserFinancial {
   customerMoneyHave?: number;
   customerMobile?: string;
   customerEmail?: string;
+  financialType?: number;
   userLogin?: string;
   userId?: number;
 }
