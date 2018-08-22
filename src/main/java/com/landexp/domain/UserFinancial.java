@@ -38,6 +38,9 @@ public class UserFinancial implements Serializable {
     @Column(name = "customer_money_have")
     private Float customerMoneyHave;
 
+    @Column(name = "financial_type")
+    private Integer financialType;
+
     @Column(name = "customer_mobile")
     private String customerMobile;
 
@@ -122,6 +125,19 @@ public class UserFinancial implements Serializable {
         this.customerMoneyHave = customerMoneyHave;
     }
 
+    public String getFinancialType() {
+        return financialType;
+    }
+
+    public UserFinancial financialType(Integer financialType) {
+        this.financialType = financialType;
+        return this;
+    }
+
+    public void setFinancialType(Integer financialType) {
+        this.financialType = financialType;
+    }
+
     public String getCustomerMobile() {
         return customerMobile;
     }
@@ -191,6 +207,7 @@ public class UserFinancial implements Serializable {
             ", loanRate=" + getLoanRate() +
             ", loanFromPeople=" + getLoanFromPeople() +
             ", customerMoneyHave=" + getCustomerMoneyHave() +
+            ", financialType=" + getFinancialType() +
             ", customerMobile='" + getCustomerMobile() + "'" +
             ", customerEmail='" + getCustomerEmail() + "'" +
             "}";

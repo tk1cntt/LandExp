@@ -42,6 +42,10 @@
                 <constraints nullable="true" />
             </column>
 
+            <column name="financial_type" type="integer">
+                <constraints nullable="true" />
+            </column>
+
             <column name="customer_mobile" type="varchar(255)">
                 <constraints nullable="true" />
             </column>

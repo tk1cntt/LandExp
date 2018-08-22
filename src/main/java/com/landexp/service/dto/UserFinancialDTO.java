@@ -20,6 +20,8 @@ public class UserFinancialDTO implements Serializable {
 
     private Float customerMoneyHave;
 
+    private Integer financialType;
+
     private String customerMobile;
 
     private String customerEmail;
@@ -74,6 +76,14 @@ public class UserFinancialDTO implements Serializable {
 
     public void setCustomerMoneyHave(Float customerMoneyHave) {
         this.customerMoneyHave = customerMoneyHave;
+    }
+
+    public Float getFinancialType() {
+        return financialType;
+    }
+
+    public void setFinancialType(Integer financialType) {
+        this.financialType = financialType;
     }
 
     public String getCustomerMobile() {
