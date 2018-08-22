@@ -24,15 +24,29 @@ import Loading from 'app/shared/layout/loading/loading';
 import SearchPage from 'app/shared/layout/search/search-menu';
 import GoogleMaps from 'app/shared/util/google-maps';
 
-export interface IDetailProp extends StateProps, DispatchProps, RouteComponentProps<{ id: any; link: any }> {}
+export interface IDetailProp extends StateProps, DispatchProps, RouteComponentProps<{ id: any; link: any }> { }
 
 export interface IDetailState {
   images: any;
+  housePrice: number;
+  savingMoney: number;
+  loanRate: number;
+  loanFromPeople: number;
+  customerMoneyHave: number;
+  customerMobile: string;
+  customerEmail: string;
 }
 
 export class Detail extends React.Component<IDetailProp, IDetailState> {
   state: IDetailState = {
-    images: []
+    images: [],
+    housePrice: 0,
+    savingMoney: 0,
+    loanRate: 0,
+    loanFromPeople: 0,
+    customerMoneyHave: 0,
+    customerMobile: null,
+    customerEmail: null;
   };
 
   componentDidMount() {
@@ -188,7 +202,7 @@ export class Detail extends React.Component<IDetailProp, IDetailState> {
               <div key={`restaurant-id-${i}`}>
                 <h3>
                   <div className="title">{restaurant.title}</div>
-                  <span>{humanize(restaurant.distance / 1000)}km</span>
+                  <span>{humanize(restaurant.distance ? restaurant.distance / 1000 : 0)}km</span>
                 </h3>
                 <p style={{ padding: 5 }}>{restaurant.address}</p>
               </div>
@@ -204,13 +218,13 @@ export class Detail extends React.Component<IDetailProp, IDetailState> {
           className="nearby"
         >
           {this.props.houseEntity.hospitals &&
-            this.props.houseEntity.hospitals.map((restaurant, i) => (
+            this.props.houseEntity.hospitals.map((hospital, i) => (
               <div key={`restaurant-id-${i}`}>
                 <h3>
-                  <div className="title">{restaurant.title}</div>
-                  <span>{humanize(restaurant.distance / 1000)}km</span>
+                  <div className="title">{hospital.title}</div>
+                  <span>{humanize(hospital.distance ? hospital.distance / 1000 : 0)}km</span>
                 </h3>
-                <p style={{ padding: 5 }}>{restaurant.address}</p>
+                <p style={{ padding: 5 }}>{hospital.address}</p>
               </div>
             ))}
         </TabPane>
@@ -224,13 +238,13 @@ export class Detail extends React.Component<IDetailProp, IDetailState> {
           className="nearby"
         >
           {this.props.houseEntity.schools &&
-            this.props.houseEntity.schools.map((restaurant, i) => (
+            this.props.houseEntity.schools.map((school, i) => (
               <div key={`restaurant-id-${i}`}>
                 <h3>
-                  <div className="title">{restaurant.title}</div>
-                  <span>{humanize(restaurant.distance / 1000)}km</span>
+                  <div className="title">{school.title}</div>
+                  <span>{humanize(school.distance ? school.distance / 1000 : 0)}km</span>
                 </h3>
-                <p style={{ padding: 5 }}>{restaurant.address}</p>
+                <p style={{ padding: 5 }}>{school.address}</p>
               </div>
             ))}
         </TabPane>
@@ -238,7 +252,121 @@ export class Detail extends React.Component<IDetailProp, IDetailState> {
     );
   }
 
-  updateMarkerPosition = () => {};
+  updateMarkerPosition = () => { };
+
+  onChangeHousePrice = e => {
+    this.setState({
+      housePrice: e.target.value
+    });
+  };
+
+  onChangeSavingMoney = e => {
+    this.setState({
+      savingMoney: e.target.value
+    });
+  };
+
+  onChangeLoanRate = e => {
+    this.setState({
+      loanRate: e.target.value
+    });
+  };
+
+  onChangeCustomerMoneyHave = e => {
+    this.setState({
+      customerMoneyHave: e.target.value
+    });
+  };
+
+  onChangeLoanFromPeople = e => {
+    this.setState({
+      loanFromPeople: e.target.value
+    });
+  };
+
+  houseUserFinancialForm() {
+    let userFinancialResult;
+    if (this.state.housePrice !== 0
+      && this.state.savingMoney !== 0
+      && this.state.loanRate !== 0) {
+      let needMoney = this.state.housePrice - this.state.customerMoneyHave - this.state.loanFromPeople;
+      userFinancialResult = `Bạn cần vay số tiền ${needMoney} VNĐ`
+        + ` trong vòng 5 năm với số tiền tích lũy hàng tháng không nhỏ hơn ${(needMoney) / 5} VNĐ `
+        + `để có thể mua được ngôi nhà này`;
+    }
+    return (
+      <>
+        <h4>Tư vấn tài chính</h4>
+        <Row className="cs-content">
+          <Col md="5">
+            <div className="form-group">
+              <label>Giá trị nhà bạn muốn mua</label>
+              <Input
+                placeholder="0.0"
+                onChange={this.onChangeHousePrice}
+              />
+              <span className="input-addon">VNĐ</span>
+            </div>
+          </Col>
+          <Col md="5" style={{ marginLeft: -12 }}>
+            <div className="form-group">
+              <label>Số tiền tích lũy hàng tháng</label>
+              <Input
+                placeholder="0.0"
+                onChange={this.onChangeSavingMoney}
+              />
+              <span className="input-addon">VNĐ</span>
+            </div>
+          </Col>
+          <Col md="2">
+            <div className="form-group">
+              <label>Lãi vay</label>
+              <Input
+                placeholder="0.0"
+                onChange={this.onChangeLoanRate}
+              />
+              <span className="input-addon">%</span>
+            </div>
+          </Col>
+          <Col md="5">
+            <div className="form-group">
+              <label>Số tiền bạn có</label>
+              <Input
+                placeholder="0.0"
+                onChange={this.onChangeCustomerMoneyHave}
+              />
+              <span className="input-addon">VNĐ</span>
+            </div>
+            <div className="form-group">
+              <label>Số tiền bạn có thể vay</label>
+              <Input
+                placeholder="0.0"
+                onChange={this.onChangeLoanFromPeople}
+              />
+              <span className="input-addon">VNĐ</span>
+            </div>
+          </Col>
+          <Col md="7" style={{ marginLeft: -12 }}>
+            <label>Tư vấn</label>
+            <TextArea
+              rows={5}
+              placeholder="Bạn cần vay số tiền { } VNĐ trong vòng { } năm với số tiền tích lũy hàng tháng không nhỏ hơn { } VNĐ để có thể mua được ngôi nhà này"
+              value={userFinancialResult}
+            />
+          </Col>
+          <div className="col-xs-7 col-xs-offset-5">
+            <button type="submit" className="btn btn-info">
+              Nhận tư vấn
+            </button>
+            {'  '}
+            <button type="submit" className="btn btn-success">
+              Đăng ký vay
+            </button>
+          </div>
+        </Row>
+      </>
+    );
+  }
 
   render() {
     return (
@@ -252,13 +380,13 @@ export class Detail extends React.Component<IDetailProp, IDetailState> {
           {this.props.loading && this.props.photoLoading ? (
             <Loading />
           ) : (
-            <Row>
-              <Row id="product-content">
-                {this.houseImageGalleryFrom(this.state.images)}
-                {this.houseDetailForm()}
-                {this.houseContactForm()}
-              </Row>
-              {/*isOpen && (
+              <Row>
+                <Row id="product-content">
+                  {this.houseImageGalleryFrom(this.state.images)}
+                  {this.houseDetailForm()}
+                  {this.houseContactForm()}
+                </Row>
+                {/*isOpen && (
                 <Lightbox
                   mainSrc={slides[photoIndex]}
                   nextSrc={slides[(photoIndex + 1) % slides.length]}
@@ -276,84 +404,33 @@ export class Detail extends React.Component<IDetailProp, IDetailState> {
                   }
                 />
               )*/}
-              <Row style={{ marginBottom: 20 }} className="location-search">
-                <Col md="12">
-                  <h3 className="lo-title">
-                    Bản đồ vị trí và tiện ích trong khu vực
+                <Row style={{ marginBottom: 20 }} className="location-search">
+                  <Col md="12">
+                    <h3 className="lo-title">
+                      Bản đồ vị trí và tiện ích trong khu vực
                     <span>{this.houseAdressFull()}</span>
-                  </h3>
-                </Col>
-                <Col md="5">{this.houseNearByForm()}</Col>
-                <Col md="7">
-                  <GoogleMaps
-                    updateMarkerPosition={this.updateMarkerPosition}
-                    isMarkerDraggable={false}
-                    currentPosition={{ latitude: this.props.houseEntity.latitude, longitude: this.props.houseEntity.longitude }}
-                  />
-                </Col>
+                    </h3>
+                  </Col>
+                  <Col md="5">{this.houseNearByForm()}</Col>
+                  <Col md="7">
+                    <GoogleMaps
+                      updateMarkerPosition={this.updateMarkerPosition}
+                      isMarkerDraggable={false}
+                      currentPosition={{ latitude: this.props.houseEntity.latitude, longitude: this.props.houseEntity.longitude }}
+                    />
+                  </Col>
+                </Row>
+                <Row style={{ marginBottom: 20 }}>
+                  <Col md="5">
+                    <h4>Mô tả thêm</h4>
+                    <div className="product-desc" dangerouslySetInnerHTML={{ __html: this.props.houseEntity.summary }} />
+                  </Col>
+                  <Col md="7">
+                    {this.houseUserFinancialForm()}
+                  </Col>
+                </Row>
               </Row>
-              <Row style={{ marginBottom: 20 }}>
-                <Col md="5">
-                  <h4>Mô tả thêm</h4>
-                  <div className="product-desc" dangerouslySetInnerHTML={{ __html: this.props.houseEntity.summary }} />
-                </Col>
-                <Col md="7">
-                  <h4>Tư vấn tài chính</h4>
-                  <Row className="cs-content">
-                    <Col md="5">
-                      <div className="form-group">
-                        <label>Giá trị nhà bạn muốn mua</label>
-                        <Input placeholder="0.0" />
-                        <span className="input-addon">VNĐ</span>
-                      </div>
-                    </Col>
-                    <Col md="5" style={{ marginLeft: -12 }}>
-                      <div className="form-group">
-                        <label>Số tiền tích lũy hàng tháng</label>
-                        <Input placeholder="0.0" />
-                        <span className="input-addon">VNĐ</span>
-                      </div>
-                    </Col>
-                    <Col md="2">
-                      <div className="form-group">
-                        <label>Lãi vay</label>
-                        <Input placeholder="0.0" />
-                        <span className="input-addon">%</span>
-                      </div>
-                    </Col>
-                    <Col md="5">
-                      <div className="form-group">
-                        <label>Số tiền bạn có</label>
-                        <Input placeholder="0.0" />
-                        <span className="input-addon">VNĐ</span>
-                      </div>
-                      <div className="form-group">
-                        <label>Số tiền bạn có thể vay</label>
-                        <Input placeholder="0.0" />
-                        <span className="input-addon">VNĐ</span>
-                      </div>
-                    </Col>
-                    <Col md="7" style={{ marginLeft: -12 }}>
-                      <label>Tư vấn</label>
-                      <TextArea
-                        rows={5}
-                        placeholder="Bạn cần vay số tiền { } VNĐ trong vòng { } năm với số tiền tích lũy hàng tháng không nhỏ hơn { } VNĐ để có thể mua được ngôi nhà này"
-                      />
-                    </Col>
-                    <div className="col-xs-7 col-xs-offset-5">
-                      <button type="submit" className="btn btn-info">
-                        Nhận tư vấn
-                      </button>
-                      {'  '}
-                      <button type="submit" className="btn btn-success">
-                        Đăng ký vay
-                      </button>
-                    </div>
-                  </Row>
-                </Col>
-              </Row>
-            </Row>
-          )}
+            )}
         </Container>
       </Row>
     );
