@@ -178,6 +178,24 @@ export const getMoney = (money, actionType) => {
   return moneyFormat;
 };
 
+export const formatMoney = money => {
+  let moneyFormat = '';
+  if (money >= 1000000000) {
+    moneyFormat += humanize(money / 1000000000);
+    moneyFormat += ' tỷ';
+  } else if (1000000 <= money && money < 1000000000) {
+    moneyFormat += humanize(money / 1000000);
+    moneyFormat += ' triệu';
+  } else if (1000 <= money && money < 1000000) {
+    moneyFormat += humanize(money / 1000);
+    moneyFormat += ' ngàn';
+  } else {
+    moneyFormat += humanize(money);
+    moneyFormat += ' ngàn';
+  }
+  return moneyFormat;
+};
+
 export const humanize = x => {
   return x ? x.toFixed(2).replace(/\.?0*$/, '') : x;
 };
@@ -330,4 +348,4 @@ export const getUid = () => {
   } else {
     return undefined;
   }
-}
+};

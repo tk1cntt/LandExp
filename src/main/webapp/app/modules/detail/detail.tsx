@@ -4,17 +4,18 @@ import React from 'react';
 import { RouteComponentProps } from 'react-router-dom';
 import { TextFormat } from 'react-jhipster';
 import { connect } from 'react-redux';
+import NumberFormat from 'react-number-format';
 import { Row, Col, Container } from 'reactstrap';
 // import { Carousel as Album } from 'react-responsive-carousel';
 import ImageGallery from 'react-image-gallery';
 // import Lightbox from 'lightbox-react';
 import { Helmet } from 'react-helmet';
 
-import { Tabs, Input, Modal, Alert } from 'antd';
+import { Tabs, Input, Alert } from 'antd';
 const { TextArea } = Input;
 const TabPane = Tabs.TabPane;
 
-import { getLandType, getDirection, getMoney, humanize, encodeId, decodeId } from 'app/shared/util/utils';
+import { getLandType, getDirection, getMoney, formatMoney, humanize, encodeId, decodeId } from 'app/shared/util/utils';
 import { getEntity } from 'app/entities/house/house.reducer';
 import { getImageOfHouse } from 'app/entities/house-photo/house-photo.reducer';
 import { SERVER_API_URL, APP_LOCAL_DATE_FORMAT } from 'app/config/constants';
@@ -33,6 +34,7 @@ export interface IDetailState {
   loanRate: number;
   loanFromPeople: number;
   customerMoneyHave: number;
+  financialType: number;
   customerMobile: string;
   customerEmail: string;
   visible: any;
@@ -47,6 +49,7 @@ export class Detail extends React.Component<IDetailProp, IDetailState> {
     loanRate: 0,
     loanFromPeople: 0,
     customerMoneyHave: 0,
+    financialType: null,
     customerMobile: null,
     customerEmail: null,
     visible: false,
@@ -258,15 +261,17 @@ export class Detail extends React.Component<IDetailProp, IDetailState> {
 
   updateMarkerPosition = () => {};
 
-  onChangeHousePrice = e => {
+  onChangeHousePrice = values => {
+    const { formattedValue, value } = values;
     this.setState({
-      housePrice: e.target.value
+      housePrice: value
     });
   };
 
-  onChangeSavingMoney = e => {
+  onChangeSavingMoney = values => {
+    const { formattedValue, value } = values;
     this.setState({
-      savingMoney: e.target.value
+      savingMoney: value
     });
   };
 
@@ -276,15 +281,17 @@ export class Detail extends React.Component<IDetailProp, IDetailState> {
     });
   };
 
-  onChangeCustomerMoneyHave = e => {
+  onChangeCustomerMoneyHave = values => {
+    const { formattedValue, value } = values;
     this.setState({
-      customerMoneyHave: e.target.value
+      customerMoneyHave: value
     });
   };
 
-  onChangeLoanFromPeople = e => {
+  onChangeLoanFromPeople = values => {
+    const { formattedValue, value } = values;
     this.setState({
-      loanFromPeople: e.target.value
+      loanFromPeople: value
     });
   };
 
@@ -302,6 +309,9 @@ export class Detail extends React.Component<IDetailProp, IDetailState> {
   }
 
   onClickUserFinancialGetAdvice = () => {
+    this.setState({
+      financialType: 1
+    });
     const alerts = [];
     const userFinancialInfo = this.validateUserFinancial() ? null : (
       <Row key={'action-type-value-alert'}>
@@ -323,40 +333,57 @@ export class Detail extends React.Component<IDetailProp, IDetailState> {
     alerts.push(customerMobileForm);
     this.setState({ alerts });
     if (customerMobile && this.validateUserFinancial()) {
+      const userFinancialData = {
+        ...this.state
+      };
       // add data
     }
   };
 
   onClickUserFinancialLoanRegistration = () => {
     this.setState({
-      visible: true
+      financialType: 2
     });
-  };
+    const alerts = [];
+    const userFinancialInfo = this.validateUserFinancial() ? null : (
+      <Row key={'action-type-value-alert'}>
+        <Col md="12">
+          <Alert type="error" message="Bạn hãy nhập đầy đủ thông tin để chúng tôi tư vấn cho bạn chính xác nhất" />
+        </Col>
+      </Row>
+    );
+    alerts.push(userFinancialInfo);
 
-  handleOk = e => {
-    this.setState({
-      visible: false
-    });
-  };
-
-  handleCancel = e => {
-    this.setState({
-      visible: false
-    });
+    const customerMobile = this.state.customerMobile;
+    const customerMobileForm = customerMobile ? null : (
+      <Row key={'action-type-value-alert'}>
+        <Col md="12">
+          <Alert type="error" message="Bạn hãy nhập số điện để chúng tôi tư vấn cho bạn nhanh chóng nhất" />
+        </Col>
+      </Row>
+    );
+    alerts.push(customerMobileForm);
+    this.setState({ alerts });
+    if (customerMobile && this.validateUserFinancial()) {
+      const userFinancialData = {
+        ...this.state
+      };
+      // add data
+    }
   };
 
   houseUserFinancialForm() {
     let userFinancialResult;
     if (this.state.housePrice !== 0 && this.state.savingMoney !== 0 && this.state.loanRate !== 0) {
       const needMoney = this.state.housePrice - this.state.customerMoneyHave - this.state.loanFromPeople;
-      const loadMonth = (needMoney * this.state.loanRate) / 12;
-      const minimumSavingMoney = loadMonth + needMoney / 240;
+      const loadMonth = needMoney / (this.state.savingMoney - (needMoney * this.state.loanRate) / (100 * 12));
+      const minimumSavingMoney = (needMoney * this.state.loanRate) / (100 * 12) + needMoney / 240;
       if (minimumSavingMoney > this.state.savingMoney) {
-        userFinancialResult = `Số tiền tích lũy hàng tháng của bạn cần lớn hơn ${minimumSavingMoney} để đủ mua ngôi nhà này`;
+        userFinancialResult = `Số tiền tích lũy hàng tháng của bạn cần lớn hơn ${formatMoney(minimumSavingMoney)} để đủ mua ngôi nhà này`;
       } else {
         userFinancialResult =
-          `Bạn cần vay số tiền ${needMoney} VNĐ` +
-          ` trong vòng ${loadMonth} tháng với số tiền tích lũy hàng tháng không nhỏ hơn ${loadMonth + needMoney / 240} VNĐ ` +
+          `Bạn cần vay số tiền ${formatMoney(needMoney)} VNĐ` +
+          ` trong vòng ${humanize(loadMonth)} tháng với số tiền tích lũy hàng tháng không nhỏ hơn ${formatMoney(minimumSavingMoney)} VNĐ ` +
           `để có thể mua được ngôi nhà này`;
       }
     }
@@ -367,14 +394,26 @@ export class Detail extends React.Component<IDetailProp, IDetailState> {
           <Col md="5">
             <div className="form-group">
               <label>Giá trị nhà bạn muốn mua</label>
-              <Input placeholder="0.0" onChange={this.onChangeHousePrice} />
+              <NumberFormat
+                displayType={'input'}
+                customInput={Input}
+                thousandSeparator
+                placeholder="0.0"
+                onValueChange={this.onChangeHousePrice}
+              />
               <span className="input-addon">VNĐ</span>
             </div>
           </Col>
           <Col md="5" style={{ marginLeft: -12 }}>
             <div className="form-group">
               <label>Số tiền tích lũy hàng tháng</label>
-              <Input placeholder="0.0" onChange={this.onChangeSavingMoney} />
+              <NumberFormat
+                displayType={'input'}
+                customInput={Input}
+                thousandSeparator
+                placeholder="0.0"
+                onValueChange={this.onChangeSavingMoney}
+              />
               <span className="input-addon">VNĐ</span>
             </div>
           </Col>
@@ -388,12 +427,24 @@ export class Detail extends React.Component<IDetailProp, IDetailState> {
           <Col md="5">
             <div className="form-group">
               <label>Số tiền bạn có</label>
-              <Input placeholder="0.0" onChange={this.onChangeCustomerMoneyHave} />
+              <NumberFormat
+                displayType={'input'}
+                customInput={Input}
+                thousandSeparator
+                placeholder="0.0"
+                onValueChange={this.onChangeCustomerMoneyHave}
+              />
               <span className="input-addon">VNĐ</span>
             </div>
             <div className="form-group">
               <label>Số tiền bạn có thể vay</label>
-              <Input placeholder="0.0" onChange={this.onChangeLoanFromPeople} />
+              <NumberFormat
+                displayType={'input'}
+                customInput={Input}
+                thousandSeparator
+                placeholder="0.0"
+                onValueChange={this.onChangeLoanFromPeople}
+              />
               <span className="input-addon">VNĐ</span>
             </div>
             <div className="form-group">
