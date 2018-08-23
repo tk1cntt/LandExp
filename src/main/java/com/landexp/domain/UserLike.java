@@ -21,6 +21,9 @@ public class UserLike implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @Column(name = "user_type")
+    private Integer userType;
+
     @Column(name = "create_at")
     private LocalDate createAt;
 
@@ -39,6 +42,19 @@ public class UserLike implements Serializable {
 
     public void setId(Long id) {
         this.id = id;
+    }
+
+    public Integer getUserType() {
+        return userType;
+    }
+
+    public UserLike userType(Integer userType) {
+        this.userType = userType;
+        return this;
+    }
+
+    public void setUserType(Integer userType) {
+        this.userType = userType;
     }
 
     public LocalDate getCreateAt() {

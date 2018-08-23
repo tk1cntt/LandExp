@@ -11,6 +11,8 @@ public class UserLikeDTO implements Serializable {
 
     private Long id;
 
+    private Integer userType;
+
     private LocalDate createAt;
 
     private Long houseId;
@@ -25,6 +27,14 @@ public class UserLikeDTO implements Serializable {
 
     public void setId(Long id) {
         this.id = id;
+    }
+
+    public Integer getUserType() {
+        return userType;
+    }
+
+    public void setUserType(Integer userType) {
+        this.userType = userType;
     }
 
     public LocalDate getCreateAt() {

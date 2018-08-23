@@ -17,6 +17,8 @@ const TabPane = Tabs.TabPane;
 
 import { getLandType, getDirection, getMoney, formatMoney, humanize, encodeId, decodeId } from 'app/shared/util/utils';
 import { getEntity } from 'app/entities/house/house.reducer';
+import { createEntity as createUserLike } from 'app/entities/user-like/user-like.reducer';
+import { createEntity as createUserFinancial } from 'app/entities/user-financial/user-financial.reducer';
 import { getImageOfHouse } from 'app/entities/house-photo/house-photo.reducer';
 import { SERVER_API_URL, APP_LOCAL_DATE_FORMAT } from 'app/config/constants';
 
@@ -108,6 +110,14 @@ export class Detail extends React.Component<IDetailProp, IDetailState> {
     );
   }
 
+  onHandleUserLike = () => {
+    // console.log('user like');
+  };
+
+  onHandleUserReport = () => {
+    // console.log('user report');
+  };
+
   houseDetailForm() {
     return (
       <Col md="3" className="product-info">
@@ -141,12 +151,12 @@ export class Detail extends React.Component<IDetailProp, IDetailState> {
           <p>{this.houseAdressFull()}</p>
         </div>
         <div className="button-group">
-          <a href="#" className="like">
+          <div className="user like" onClick={this.onHandleUserLike}>
             <img src="/static/images/icon/like.png" alt="" />Yêu thích
-          </a>
-          <a href="#" className="report">
+          </div>
+          <div className="user report" onClick={this.onHandleUserReport}>
             <img src="/static/images/icon/warning.png" alt="" />Báo xấu
-          </a>
+          </div>
         </div>
       </Col>
     );
@@ -553,7 +563,7 @@ const mapStateToProps = storeState => ({
   photoLoading: storeState.housePhoto.loading
 });
 
-const mapDispatchToProps = { getEntity, getImageOfHouse };
+const mapDispatchToProps = { getEntity, getImageOfHouse, createUserLike, createUserFinancial };
 
 type StateProps = ReturnType<typeof mapStateToProps>;
 type DispatchProps = typeof mapDispatchToProps;

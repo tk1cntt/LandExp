@@ -2,6 +2,7 @@ import { Moment } from 'moment';
 
 export interface IUserLike {
   id?: number;
+  userType?: number;
   createAt?: Moment;
   houseId?: number;
   userLogin?: string;

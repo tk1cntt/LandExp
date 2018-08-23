@@ -1732,7 +1732,7 @@ label {
   margin-bottom: 15px;
 }
 
-.product-info a {
+.product-info .user {
   display: inline-block;
   height: 30px;
   line-height: 30px;
@@ -1740,26 +1740,26 @@ label {
   width: 123px;
 }
 
-.product-info a img {
+.product-info .user img {
   padding: 5px;
   border-radius: 3px;
   margin-right: 10px;
 }
 
-.product-info a.like {
+.product-info .user.like {
   color: #fe475e;
 }
 
-.product-info a.report {
+.product-info .user.report {
   text-align: right;
   color: #ffa76e;
 }
 
-.product-info a.like img {
+.product-info .user.like img {
   border: 1px solid #fe475e;
 }
 
-.product-info a.report img {
+.product-info .user.report img {
   border: 1px solid #ffa76e;
 }
 

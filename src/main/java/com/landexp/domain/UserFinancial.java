@@ -125,7 +125,7 @@ public class UserFinancial implements Serializable {
         this.customerMoneyHave = customerMoneyHave;
     }
 
-    public String getFinancialType() {
+    public Integer getFinancialType() {
         return financialType;
     }
 

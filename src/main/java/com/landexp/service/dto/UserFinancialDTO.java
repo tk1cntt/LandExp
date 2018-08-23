@@ -78,7 +78,7 @@ public class UserFinancialDTO implements Serializable {
         this.customerMoneyHave = customerMoneyHave;
     }
 
-    public Float getFinancialType() {
+    public Integer getFinancialType() {
         return financialType;
     }
 
