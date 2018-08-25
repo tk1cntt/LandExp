@@ -23,25 +23,20 @@ export interface IHouseAddressUpdateState {
 
 export class HouseAddressUpdate extends React.Component<IHouseAddressUpdateProps, IHouseAddressUpdateState> {
   state: IHouseAddressUpdateState = {
-    city: null,
-    address: null,
+    city: undefined,
+    address: undefined,
     locations: [],
-    wardEntity: null,
-    currentPosition: null,
+    wardEntity: undefined,
+    currentPosition: undefined,
     wards: []
   };
 
   componentDidMount() {
     this.mappingCity();
-    this.mappingPosition();
   }
 
   componentDidUpdate(prevProps) {
     // Typical usage (don't forget to compare props):
-    if (this.props.cities !== prevProps.cities) {
-      this.mappingCity();
-      this.mappingPosition();
-    }
     if (this.props.wardEntity !== prevProps.wardEntity) {
       const { latitude, longitude } = this.props.wardEntity;
       const currentPosition = {
@@ -52,17 +47,6 @@ export class HouseAddressUpdate extends React.Component<IHouseAddressUpdateProps
         currentPosition
       });
     }
-  }
-
-  mappingPosition() {
-    const { latitude, longitude } = this.props.houseEntity;
-    const currentPosition = {
-      latitude: latitude ? latitude : this.state.wardEntity ? this.state.wardEntity.latitude : null,
-      longitude: longitude ? longitude : this.state.wardEntity ? this.state.wardEntity.longitude : null
-    };
-    this.setState({
-      currentPosition
-    });
   }
 
   mappingCity() {
@@ -87,8 +71,13 @@ export class HouseAddressUpdate extends React.Component<IHouseAddressUpdateProps
             longitude: ward.longitude
           };
           if (this.props.houseEntity.wardId === ward.id) {
+            const { latitude, longitude } = this.props.houseEntity;
+            const currentPosition = {
+              latitude: latitude ? latitude: ward.latitude,
+              longitude: longitude ? longitude : ward.longitude
+            };
             this.setState({
-              wardEntity: ward
+              currentPosition
             });
           }
           districtData.children.push(wardData);
