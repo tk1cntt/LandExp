@@ -1,6 +1,8 @@
 package com.landexp.domain;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import org.hibernate.annotations.CacheConcurrencyStrategy;
+import org.hibernate.annotations.CreationTimestamp;
 
 import javax.persistence.*;
 
@@ -13,6 +15,7 @@ import java.util.Objects;
  */
 @Entity
 @Table(name = "user_like")
+@org.hibernate.annotations.Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
 public class UserLike implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -24,6 +27,7 @@ public class UserLike implements Serializable {
     @Column(name = "user_type")
     private Integer userType;
 
+    @CreationTimestamp
     @Column(name = "create_at")
     private LocalDate createAt;
 
