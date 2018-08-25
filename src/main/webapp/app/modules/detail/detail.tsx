@@ -11,7 +11,7 @@ import ImageGallery from 'react-image-gallery';
 // import Lightbox from 'lightbox-react';
 import { Helmet } from 'react-helmet';
 
-import { Tabs, Input, Alert } from 'antd';
+import { Tabs, Input, Alert, notification } from 'antd';
 const { TextArea } = Input;
 const TabPane = Tabs.TabPane;
 
@@ -26,6 +26,33 @@ import { SERVER_API_URL, APP_LOCAL_DATE_FORMAT } from 'app/config/constants';
 import Loading from 'app/shared/layout/loading/loading';
 import SearchPage from 'app/shared/layout/search/search-menu';
 import GoogleMaps from 'app/shared/util/google-maps';
+
+const openNotification = () => {
+  notification['success']({
+    message: 'Gửi thông tin thành công',
+    description: 'Cám ơn bạn đã tin tưởng. Chúng tôi sẽ liên lạc với bạn sớm nhất.',
+  });
+};
+
+const openLikeNotification = () => {
+  notification['success']({
+    message: 'Gửi thông tin thành công',
+    description: 'Thông tin về ngôi ngày đã được lưu lại.',
+  });
+};
+
+const openReportNotification = () => {
+  notification['success']({
+    message: 'Gửi thông tin thành công',
+    description: 'Cám ơn bạn bạn đã báo cáo. Chúng tôi sẽ kiểm tra lại thông tin về ngôi nhà.',
+  });
+};
+
+notification.config({
+  placement: 'topRight',
+  top: 50,
+  duration: 3
+});
 
 export interface IDetailProp extends StateProps, DispatchProps, RouteComponentProps<{ id: any; link: any }> {}
 
@@ -111,11 +138,25 @@ export class Detail extends React.Component<IDetailProp, IDetailState> {
   }
 
   onHandleUserLike = () => {
-    // console.log('user like');
+    // console.log('user report');
+    const userLike = {
+      userId: this.props.account.id,
+      houseId: this.props.houseEntity.id,
+      userType: 1
+    }
+    this.props.createUserLike(userLike);
+    openLikeNotification();
   };
 
   onHandleUserReport = () => {
     // console.log('user report');
+    const userLike = {
+      userId: this.props.account.id,
+      houseId: this.props.houseEntity.id,
+      userType: 2
+    }
+    this.props.createUserLike(userLike);
+    openReportNotification();
   };
 
   houseDetailForm() {
@@ -347,6 +388,8 @@ export class Detail extends React.Component<IDetailProp, IDetailState> {
         ...this.state
       };
       // add data
+      this.props.createUserFinancial(userFinancialData);
+      openNotification();
     }
   };
 
@@ -379,6 +422,8 @@ export class Detail extends React.Component<IDetailProp, IDetailState> {
         ...this.state
       };
       // add data
+      this.props.createUserFinancial(userFinancialData);
+      openNotification();
     }
   };
 
@@ -560,7 +605,8 @@ const mapStateToProps = storeState => ({
   loading: storeState.house.loadingDetail,
   updating: storeState.house.updating,
   housePhotoList: storeState.housePhoto.entities,
-  photoLoading: storeState.housePhoto.loading
+  photoLoading: storeState.housePhoto.loading,
+  account: storeState.authentication.account
 });
 
 const mapDispatchToProps = { getEntity, getImageOfHouse, createUserLike, createUserFinancial };
