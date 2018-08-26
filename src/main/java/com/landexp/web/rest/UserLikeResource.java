@@ -1,6 +1,7 @@
 package com.landexp.web.rest;
 
 import com.codahale.metrics.annotation.Timed;
+import com.landexp.security.SecurityUtils;
 import com.landexp.service.UserLikeService;
 import com.landexp.web.rest.errors.BadRequestAlertException;
 import com.landexp.web.rest.util.HeaderUtil;
@@ -9,6 +10,7 @@ import io.github.jhipster.web.util.ResponseUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.ResponseEntity;
+import org.springframework.util.ObjectUtils;
 import org.springframework.web.bind.annotation.*;
 
 import java.net.URI;
@@ -48,10 +50,18 @@ public class UserLikeResource {
         if (userLikeDTO.getId() != null) {
             throw new BadRequestAlertException("A new userLike cannot already have an ID", ENTITY_NAME, "idexists");
         }
-        UserLikeDTO result = userLikeService.save(userLikeDTO);
-        return ResponseEntity.created(new URI("/api/user-likes/" + result.getId()))
-            .headers(HeaderUtil.createEntityCreationAlert(ENTITY_NAME, result.getId().toString()))
-            .body(result);
+        String username = SecurityUtils.getCurrentUserLogin().get();
+        Optional<UserLikeDTO> userLike = userLikeService.findOne(username, userLikeDTO.getHouseId(), userLikeDTO.getUserType());
+        if (!userLike.isPresent()) {
+            UserLikeDTO result = userLikeService.save(userLikeDTO);
+            return ResponseEntity.created(new URI("/api/user-likes/" + result.getId()))
+                .headers(HeaderUtil.createEntityCreationAlert(ENTITY_NAME, result.getId().toString()))
+                .body(result);
+        } else {
+            return ResponseEntity.created(new URI("/api/user-likes/" + userLike.get().getId()))
+                .headers(HeaderUtil.createEntityCreationAlert(ENTITY_NAME, userLike.get().getId().toString()))
+                .body(userLike.get());
+        }
     }
 
     /**

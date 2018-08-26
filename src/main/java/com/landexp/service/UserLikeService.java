@@ -1,7 +1,9 @@
 package com.landexp.service;
 
+import com.landexp.domain.User;
 import com.landexp.domain.UserLike;
 import com.landexp.repository.UserLikeRepository;
+import com.landexp.repository.UserRepository;
 import com.landexp.service.dto.UserLikeDTO;
 import com.landexp.service.mapper.UserLikeMapper;
 import org.slf4j.Logger;
@@ -27,9 +29,12 @@ public class UserLikeService {
 
     private final UserLikeMapper userLikeMapper;
 
-    public UserLikeService(UserLikeRepository userLikeRepository, UserLikeMapper userLikeMapper) {
+    private final UserRepository userRepository;
+
+    public UserLikeService(UserLikeRepository userLikeRepository, UserLikeMapper userLikeMapper, UserRepository userRepository) {
         this.userLikeRepository = userLikeRepository;
         this.userLikeMapper = userLikeMapper;
+        this.userRepository = userRepository;
     }
 
     /**
@@ -69,6 +74,19 @@ public class UserLikeService {
     public Optional<UserLikeDTO> findOne(Long id) {
         log.debug("Request to get UserLike : {}", id);
         return userLikeRepository.findById(id)
+            .map(userLikeMapper::toDto);
+    }
+
+    /**
+     * Get one userLike by ... .
+     *
+     * @return the entity
+     */
+    @Transactional(readOnly = true)
+    public Optional<UserLikeDTO> findOne(String username, Long houseId, Integer userType ) {
+        log.debug("Request to check UserLike : {}", username);
+        Optional<User> existingUser = userRepository.findOneByLogin(username);
+        return userLikeRepository.findFirstByUserIdAndHouseIdAndUserType(existingUser.get().getId(), houseId, userType)
             .map(userLikeMapper::toDto);
     }
 

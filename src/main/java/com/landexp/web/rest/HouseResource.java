@@ -275,7 +275,7 @@ public class HouseResource {
     public ResponseEntity<HouseDetailDTO> getHouse(@PathVariable Long id) throws IOException {
         log.debug("REST request to get House : {}", id);
         Optional<HouseDetailDTO> houseDTO = houseService.findOne(id);
-        if (ObjectUtils.isEmpty(houseDTO.get())) {
+        if (!houseDTO.isPresent()) {
             throw new BadRequestAlertException("Not Found " + id, ENTITY_NAME, "notfound");
         }
         if (!houseDTO.get().getStatusType().equals(StatusType.PAID)
@@ -324,7 +324,7 @@ public class HouseResource {
     public ResponseEntity<Void> deleteHouse(@PathVariable Long id) {
         log.debug("REST request to delete House : {}", id);
         Optional<HouseDetailDTO> houseDTO = houseService.findOne(id);
-        if (ObjectUtils.isEmpty(houseDTO.get())) {
+        if (!houseDTO.isPresent()) {
             throw new BadRequestAlertException("Not Found " + id, ENTITY_NAME, "notfound");
         }
         if (!SecurityUtils.getCurrentUserLogin().get().equalsIgnoreCase(houseDTO.get().getCreateByLogin())
