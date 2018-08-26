@@ -16,7 +16,6 @@ import { getEntity, updateEntity, createEntity, reset } from './user-like.reduce
 import { IUserLike } from 'app/shared/model/user-like.model';
 // tslint:disable-next-line:no-unused-variable
 import { convertDateTimeFromServer } from 'app/shared/util/date-utils';
-import { mapIdList } from 'app/shared/util/entity-utils';
 
 export interface IUserLikeUpdateProps extends StateProps, DispatchProps, RouteComponentProps<{ id: number }> {}
 
