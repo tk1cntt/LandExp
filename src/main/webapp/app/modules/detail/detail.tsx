@@ -30,21 +30,21 @@ import GoogleMaps from 'app/shared/util/google-maps';
 const openNotification = () => {
   notification['success']({
     message: 'Gửi thông tin thành công',
-    description: 'Cám ơn bạn đã tin tưởng. Chúng tôi sẽ liên lạc với bạn sớm nhất.',
+    description: 'Cám ơn bạn đã tin tưởng. Chúng tôi sẽ liên lạc với bạn sớm nhất.'
   });
 };
 
 const openLikeNotification = () => {
   notification['success']({
     message: 'Gửi thông tin thành công',
-    description: 'Thông tin về ngôi ngày đã được lưu lại.',
+    description: 'Thông tin về ngôi ngày đã được lưu lại.'
   });
 };
 
 const openReportNotification = () => {
   notification['success']({
     message: 'Gửi thông tin thành công',
-    description: 'Cám ơn bạn bạn đã báo cáo. Chúng tôi sẽ kiểm tra lại thông tin về ngôi nhà.',
+    description: 'Cám ơn bạn bạn đã báo cáo. Chúng tôi sẽ kiểm tra lại thông tin về ngôi nhà.'
   });
 };
 
@@ -138,23 +138,21 @@ export class Detail extends React.Component<IDetailProp, IDetailState> {
   }
 
   onHandleUserLike = () => {
-    // console.log('user report');
     const userLike = {
       userId: this.props.account.id,
       houseId: this.props.houseEntity.id,
       userType: 1
-    }
+    };
     this.props.createUserLike(userLike);
     openLikeNotification();
   };
 
   onHandleUserReport = () => {
-    // console.log('user report');
     const userLike = {
       userId: this.props.account.id,
       houseId: this.props.houseEntity.id,
       userType: 2
-    }
+    };
     this.props.createUserLike(userLike);
     openReportNotification();
   };
@@ -412,12 +410,11 @@ export class Detail extends React.Component<IDetailProp, IDetailState> {
   };
 
   doCreateUserFinancial = financialType => {
-    let userFinancialData = {
-      ...this.state,
+    const userFinancialData = {
+      ...this.state
     };
     // add data
     userFinancialData.financialType = financialType;
-    console.log(userFinancialData);
     this.props.createUserFinancial(userFinancialData);
     openNotification();
   }

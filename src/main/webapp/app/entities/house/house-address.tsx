@@ -73,7 +73,7 @@ export class HouseAddressUpdate extends React.Component<IHouseAddressUpdateProps
           if (this.props.houseEntity.wardId === ward.id) {
             const { latitude, longitude } = this.props.houseEntity;
             const currentPosition = {
-              latitude: latitude ? latitude: ward.latitude,
+              latitude: latitude ? latitude : ward.latitude,
               longitude: longitude ? longitude : ward.longitude
             };
             this.setState({
