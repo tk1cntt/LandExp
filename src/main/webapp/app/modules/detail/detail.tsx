@@ -360,9 +360,6 @@ export class Detail extends React.Component<IDetailProp, IDetailState> {
   }
 
   onClickUserFinancialGetAdvice = () => {
-    this.setState({
-      financialType: 1
-    });
     const alerts = [];
     const userFinancialInfo = this.validateUserFinancial() ? null : (
       <Row key={'action-type-value-alert'}>
@@ -384,19 +381,11 @@ export class Detail extends React.Component<IDetailProp, IDetailState> {
     alerts.push(customerMobileForm);
     this.setState({ alerts });
     if (customerMobile && this.validateUserFinancial()) {
-      const userFinancialData = {
-        ...this.state
-      };
-      // add data
-      this.props.createUserFinancial(userFinancialData);
-      openNotification();
+      this.doCreateUserFinancial(1);
     }
   };
 
   onClickUserFinancialLoanRegistration = () => {
-    this.setState({
-      financialType: 2
-    });
     const alerts = [];
     const userFinancialInfo = this.validateUserFinancial() ? null : (
       <Row key={'action-type-value-alert'}>
@@ -418,14 +407,20 @@ export class Detail extends React.Component<IDetailProp, IDetailState> {
     alerts.push(customerMobileForm);
     this.setState({ alerts });
     if (customerMobile && this.validateUserFinancial()) {
-      const userFinancialData = {
-        ...this.state
-      };
-      // add data
-      this.props.createUserFinancial(userFinancialData);
-      openNotification();
+      this.doCreateUserFinancial(2);
     }
   };
+
+  doCreateUserFinancial = financialType => {
+    let userFinancialData = {
+      ...this.state,
+    };
+    // add data
+    userFinancialData.financialType = financialType;
+    console.log(userFinancialData);
+    this.props.createUserFinancial(userFinancialData);
+    openNotification();
+  }
 
   houseUserFinancialForm() {
     let userFinancialResult;
