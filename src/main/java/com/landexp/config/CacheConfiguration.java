@@ -57,6 +57,7 @@ public class CacheConfiguration {
             cm.createCache(com.landexp.domain.Category.class.getName(), jcacheConfiguration);
             cm.createCache(com.landexp.domain.UserSubscription.class.getName(), jcacheConfiguration);
             cm.createCache(com.landexp.domain.UserLike.class.getName(), jcacheConfiguration);
+            cm.createCache(com.landexp.domain.SearchTracking.class.getName(), jcacheConfiguration);
             cm.createCache(com.landexp.domain.UserFinancial.class.getName(), jcacheConfiguration);
             cm.createCache(com.landexp.domain.PotentialCustomer.class.getName(), jcacheConfiguration);
             cm.createCache(com.landexp.domain.Payment.class.getName(), jcacheConfiguration);

@@ -17,6 +17,7 @@ import Article from './article';
 import Category from './category';
 import UserSubscription from './user-subscription';
 import UserLike from './user-like';
+import SearchTracking from './search-tracking';
 import UserFinancial from './user-financial';
 import PotentialCustomer from './potential-customer';
 import Payment from './payment';
@@ -38,6 +39,7 @@ const Routes = ({ match }) => (
       <ErrorBoundaryRoute path={`${match.url}/danh-muc-tin-tuc`} component={Category} />
       <ErrorBoundaryRoute path={`${match.url}/user-subscription`} component={UserSubscription} />
       <ErrorBoundaryRoute path={`${match.url}/user-like`} component={UserLike} />
+      <ErrorBoundaryRoute path={`${match.url}/search-tracking`} component={SearchTracking} />
       <ErrorBoundaryRoute path={`${match.url}/tu-van-tai-chinh`} component={UserFinancial} />
       <ErrorBoundaryRoute path={`${match.url}/khach-hang-tiem-nang`} component={PotentialCustomer} />
       <ErrorBoundaryRoute path={`${match.url}/thanh-toan`} component={Payment} />
