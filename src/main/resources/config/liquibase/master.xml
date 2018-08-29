@@ -18,6 +18,7 @@
     <include file="config/liquibase/changelog/20180711140434_added_entity_Category.xml" relativeToChangelogFile="false"/>
     <include file="config/liquibase/changelog/20180711140435_added_entity_UserSubscription.xml" relativeToChangelogFile="false"/>
     <include file="config/liquibase/changelog/20180821140058_added_entity_UserLike.xml" relativeToChangelogFile="false"/>
+    <include file="config/liquibase/changelog/20180711140438_added_entity_SearchTracking.xml" relativeToChangelogFile="false"/>
     <include file="config/liquibase/changelog/20180711140439_added_entity_UserFinancial.xml" relativeToChangelogFile="false"/>
     <include file="config/liquibase/changelog/20180711140440_added_entity_PotentialCustomer.xml" relativeToChangelogFile="false"/>
     <include file="config/liquibase/changelog/20180711140441_added_entity_Payment.xml" relativeToChangelogFile="false"/>
@@ -32,6 +33,7 @@
     <include file="config/liquibase/changelog/20180711140433_added_entity_constraints_Article.xml" relativeToChangelogFile="false"/>
     <include file="config/liquibase/changelog/20180711140435_added_entity_constraints_UserSubscription.xml" relativeToChangelogFile="false"/>
     <include file="config/liquibase/changelog/20180821140058_added_entity_constraints_UserLike.xml" relativeToChangelogFile="false"/>
+    <include file="config/liquibase/changelog/20180711140438_added_entity_constraints_SearchTracking.xml" relativeToChangelogFile="false"/>
     <include file="config/liquibase/changelog/20180711140439_added_entity_constraints_UserFinancial.xml" relativeToChangelogFile="false"/>
     <include file="config/liquibase/changelog/20180711140440_added_entity_constraints_PotentialCustomer.xml" relativeToChangelogFile="false"/>
     <include file="config/liquibase/changelog/20180711140441_added_entity_constraints_Payment.xml" relativeToChangelogFile="false"/>
