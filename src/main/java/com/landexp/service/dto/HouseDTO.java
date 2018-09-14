@@ -65,7 +65,11 @@ public class HouseDTO implements Serializable {
 
     private String projectName;
 
+    private String customer;
+
     private String mobile;
+
+    private String email;
 
     private String createByLogin;
 
@@ -261,12 +265,28 @@ public class HouseDTO implements Serializable {
         this.projectName = landProjectName;
     }
 
+    public String getCustomer() {
+        return customer;
+    }
+
+    public void setCustomer(String customer) {
+        this.customer = customer;
+    }
+
     public String getMobile() {
         return mobile;
     }
 
     public void setMobile(String mobile) {
         this.mobile = mobile;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
     }
 
     public String getCreateByLogin() {
