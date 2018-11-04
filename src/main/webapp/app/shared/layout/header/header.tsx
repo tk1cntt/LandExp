@@ -215,6 +215,7 @@ export default class Header extends React.Component<IHeaderProps, IHeaderState> 
             </ul>
             {isAuthenticated ? (
               <ul className="menu right-menu">
+                {/*}
                 <li className="right-info">
                   <span className="ring-icon">
                     <span className="badge">2</span>
@@ -223,6 +224,7 @@ export default class Header extends React.Component<IHeaderProps, IHeaderState> 
                     <span className="badge">5</span>
                   </span>
                 </li>
+                {*/}
                 <li>
                   <Dropdown overlay={menu}>
                     <img className="avatar" src="/static/images/user.jpg" alt="Thong tin tai khoan" />

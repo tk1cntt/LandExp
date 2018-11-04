@@ -30,19 +30,19 @@ export class HomeNewsBox extends React.Component<IHomeProp> {
               <li key={`artivle-id-${i}`} className={`article-id-${i}`}>
                 <Link to={`/tin-tuc-chi-tiet/${encodeId(article.id)}/${article.link}`}>
                   <img src={`${SERVER_API_URL}/api/articles/${encodeId(article.id)}/avatar/${article.link}-${encodeId(article.id)}.jpg`} />
-                </Link>
-                <div className="caption">
-                  <div className="caption-content">
-                    <p>
-                      <a href="#" className="post-title">
-                        {article.title}
-                      </a>
-                    </p>
-                    <p className="border-left-red cat-title">
-                      <a href="" dangerouslySetInnerHTML={{ __html: article.categoryName }} />
-                    </p>
+                  <div className="caption">
+                    <div className="caption-content">
+                      <p>
+                        <a href="#" className="post-title">
+                          {article.title}
+                        </a>
+                      </p>
+                      <p className="border-left-red cat-title">
+                        <a href="" dangerouslySetInnerHTML={{ __html: article.categoryName }} />
+                      </p>
+                    </div>
                   </div>
-                </div>
+                </Link>
               </li>
             ))}
           </ul>

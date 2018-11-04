@@ -68,6 +68,7 @@ export class Home extends React.Component<IHomeProp, IHomeState> {
                   <span>
                     Hiển thị {from} - {this.props.totalItems < 20 ? this.props.totalItems : to} trong {this.props.totalItems} Bất động sản
                   </span>
+                  {/*}
                   <div className="toolbox">
                     <ul role="tablist">
                       <li
@@ -84,10 +85,11 @@ export class Home extends React.Component<IHomeProp, IHomeState> {
                       </li>
                     </ul>
                   </div>
+                  {*/}
                 </h2>
                 <div className="row">
                   <div className="tab-content">
-                    {this.state.showGrid ? <HomeGrid houses={this.props.houseList} /> : <HomeList houses={this.props.houseList} />}
+                    <HomeGrid houses={this.props.houseList} />
                   </div>
                 </div>
               </div>

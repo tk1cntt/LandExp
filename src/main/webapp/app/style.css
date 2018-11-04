@@ -89,11 +89,6 @@ ul.right-menu li {
   padding: 0px;
 }
 
-ul.right-menu li:first-child:after {
-  content: '|';
-  padding: 0 10px;
-}
-
 ul.right-menu li.right-info {
   position: relative;
   margin-right: 25px;
