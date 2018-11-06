@@ -25,8 +25,9 @@
 
 .nav-search button.ant-btn {
   height: 42px;
+  vertical-align: middle;
   text-transform: uppercase;
-  padding: 11px 58px;
+  padding: 10px 58px;
   background: linear-gradient(#ff8695, #ff1d3a);
   border-radius: 0px 3px 3px 0px;
   border: 0px;
@@ -53,7 +54,7 @@
 }
 
 .nav-search .ant-input,
-.nav-search .ant-input::placeholder,
+.nav-search .ant-input:placeholder,
 .nav-search .ant-select-search__field__placeholder {
   color: #454545 !important;
 }

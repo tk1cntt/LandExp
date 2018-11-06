@@ -243,6 +243,7 @@ export default class Header extends React.Component<IHeaderProps, IHeaderState> 
                     Đăng ký
                   </Link>
                 </li>
+                <li style={{ paddingLeft: 10, paddingRight: 10 }}>|</li>
                 <li>
                   <Link className="item" to={'/dang-nhap'}>
                     Đăng nhập
