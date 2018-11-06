@@ -96,7 +96,7 @@ export class SearchPage extends React.Component<ISearchPageProp> {
   actionTypeForm() {
     return (
       <Select
-        style={{ width: 140, marginRight: -2 }}
+        style={{ width: 140 }}
         value={this.state.parameters.actionType}
         placeholder="Hình thức"
         onChange={this.menuTypeClick}
@@ -118,7 +118,7 @@ export class SearchPage extends React.Component<ISearchPageProp> {
   landTypeForm() {
     return (
       <Select
-        style={{ width: 180, marginRight: -2 }}
+        style={{ width: 180 }}
         value={this.state.parameters.landType}
         placeholder="Loại bất động sản"
         onChange={this.menuLandTypeClick}
@@ -155,7 +155,7 @@ export class SearchPage extends React.Component<ISearchPageProp> {
   keywordForm() {
     return (
       <Cascader
-        style={{ width: 380, marginRight: -2 }}
+        style={{ width: 370 }}
         value={this.state.city}
         options={this.state.locations}
         onChange={this.onChangeCascader}
@@ -175,7 +175,7 @@ export class SearchPage extends React.Component<ISearchPageProp> {
   priceForm() {
     return (
       <Select
-        style={{ width: 150, marginRight: -2 }}
+        style={{ width: 150 }}
         value={this.state.parameters.money}
         placeholder="Khoảng giá"
         onChange={this.menuPriceClick}
@@ -201,7 +201,7 @@ export class SearchPage extends React.Component<ISearchPageProp> {
   acreageForm() {
     return (
       <Select
-        style={{ width: 150, marginRight: -2 }}
+        style={{ width: 150 }}
         value={this.state.parameters.acreage}
         placeholder="Diện tích"
         onChange={this.menuAcreageClick}
