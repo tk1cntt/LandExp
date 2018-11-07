@@ -127,6 +127,14 @@ ul.right-menu .button {
   font-size: 12px;
 }
 
+.view-routes>.row, .row.why-us {
+  margin: 0;
+}
+
+.view-routes>div>.row {
+  margin: 0;
+}
+
 .search {
   margin-top: 96px;
 }
@@ -242,17 +250,6 @@ ul.right-menu .button {
   float: left;
 }
 
-.top-search-box .select:after {
-  content: url('../static/images/icon/arrow-down.png');
-  position: absolute;
-  top: 0;
-  right: 0;
-  bottom: 0;
-  padding: 13px 10px;
-  background: #f5f5f5;
-  pointer-events: none;
-  border-radius: 0 3px 3px 0px;
-}
 /* Transition */
 .top-search-box .select:hover:after {
   background-color: #ccc;
@@ -289,17 +286,6 @@ ul.right-menu .button {
   float: left;
 }
 
-.bottom-search-box .select:after {
-  content: url('../static/images/icon/arrow-down.png');
-  position: absolute;
-  top: 33px;
-  right: 1px;
-  bottom: -31px;
-  padding: 15px 10px;
-  background: #f5f5f5;
-  pointer-events: none;
-  border-radius: 0 3px 3px 0px;
-}
 /* Transition */
 .bottom-search-box .select:hover:after {
   background-color: #ccc;

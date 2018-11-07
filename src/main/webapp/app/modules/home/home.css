@@ -3,6 +3,13 @@
   font-weight: 300;
 }
 
+.search-box .ant-input,
+.search-box .ant-input:placeholder,
+.search-box .ant-select-search__field__placeholder,
+.search-box .ant-select-selection__placeholder {
+    color: #454545 !important;
+}
+
 .search-box .ant-select-selection--single {
   height: 42px !important;
 }
