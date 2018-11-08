@@ -10,6 +10,7 @@ import { decodeId } from 'app/shared/util/utils';
 import { getEntity } from 'app/entities/article/article.reducer';
 
 import Loading from 'app/shared/layout/loading/loading';
+import ArticleHeader from './article-header';
 
 const data = [
   {
@@ -50,20 +51,22 @@ export class Article extends React.Component<IArticleProp> {
   render() {
     return (
       <Row className="article">
+        <ArticleHeader />
+
         <Container>
           {this.props.loading ? (
             <Loading />
           ) : (
             <Row>
               <div className="col-md-9">
-                <div className="list-news">
+                <div className="row list-news">
                   <h1>{this.props.articleEntity.title}</h1>
                   <div className="summary" dangerouslySetInnerHTML={{ __html: this.props.articleEntity.summary }} />
                   <div className="content" dangerouslySetInnerHTML={{ __html: this.props.articleEntity.content }} />
                 </div>
               </div>
               <div className="col-md-3 right-menu">
-                <div className="sidebar">
+                <div className="row sidebar">
                   <h3 className="title">Tin mới</h3>
                   <List
                     itemLayout="horizontal"
@@ -82,7 +85,7 @@ export class Article extends React.Component<IArticleProp> {
                     )}
                   />
                 </div>
-                <div className="sidebar">
+                <div className="row sidebar">
                   <h3 className="title">Tin xem nhiều</h3>
                   <List
                     itemLayout="horizontal"
