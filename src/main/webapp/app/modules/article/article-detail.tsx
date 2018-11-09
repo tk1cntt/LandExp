@@ -1,3 +1,5 @@
+// tslint:disable-next-line jsx-no-lambda
+
 import './article.css';
 
 import React from 'react';
@@ -48,6 +50,21 @@ export class Article extends React.Component<IArticleProp> {
     this.props.getEntity(articleId);
   }
 
+  listItem(item: any) {
+    return (
+      <List.Item>
+        <List.Item.Meta
+          avatar={
+            <a href={item.url}>
+              <Avatar size="large" shape="square" src={item.image} />
+            </a>
+          }
+          title={<a href={item.url}>{item.title}</a>}
+        />
+      </List.Item>
+    );
+  }
+
   render() {
     return (
       <Row className="article">
@@ -71,18 +88,7 @@ export class Article extends React.Component<IArticleProp> {
                   <List
                     itemLayout="horizontal"
                     dataSource={data}
-                    renderItem={item => (
-                      <List.Item>
-                        <List.Item.Meta
-                          avatar={
-                            <a href={item.url}>
-                              <Avatar size="large" shape="square" src={item.image} />
-                            </a>
-                          }
-                          title={<a href={item.url}>{item.title}</a>}
-                        />
-                      </List.Item>
-                    )}
+                    renderItem={this.listItem}
                   />
                 </div>
                 <div className="row sidebar">
@@ -90,18 +96,7 @@ export class Article extends React.Component<IArticleProp> {
                   <List
                     itemLayout="horizontal"
                     dataSource={data}
-                    renderItem={item => (
-                      <List.Item>
-                        <List.Item.Meta
-                          avatar={
-                            <a href={item.url}>
-                              <Avatar size="large" shape="square" src={item.image} />
-                            </a>
-                          }
-                          title={<a href={item.url}>{item.title}</a>}
-                        />
-                      </List.Item>
-                    )}
+                    renderItem={this.listItem}
                   />
                 </div>
               </div>
