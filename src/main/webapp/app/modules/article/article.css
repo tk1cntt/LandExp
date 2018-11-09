@@ -54,8 +54,9 @@
   height: 70px !important;
 }
 
-#home-content > header > h2 {
+#home-content .header h2 {
   margin-bottom: 0px !important;
+  font-size: 33px;
 }
 
 .header {
@@ -88,7 +89,7 @@
 .breadcrumb.news {
   background-color: #f6f6f6;
   height: 43px;
-  margin-bottom: -40px;
+  margin-bottom: -60px;
   padding: 11px 0;
 }
 
