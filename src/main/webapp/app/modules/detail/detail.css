@@ -1,3 +1,7 @@
+.ant-tabs {
+  font-family: Helvetica Neue !important;
+}
+
 .product-info {
   border: 1px solid #dfdfdf;
   padding: 10px;
@@ -86,7 +90,7 @@
 }
 
 .location-search .nearby div {
-  width: 430px;
+  width: 100%;
   padding-left: 5px;
   padding-right: 5px;
   display: inline-block;
@@ -94,11 +98,13 @@
 
 .location-search .nearby div h3 .title {
   color: #3a65f9;
+  font-size: 16px;
+  position: relative;
 }
 
 .location-search .nearby div h3 span {
-  float: right;
-  font-weight: 300 !important;
+  position: absolute;
+  right: 30px;
   color: #aaaaaa;
 }
 

@@ -256,16 +256,20 @@ export class Detail extends React.Component<IDetailProp, IDetailState> {
           key="1"
           className="nearby"
         >
-          {this.props.houseEntity.restaurants &&
-            this.props.houseEntity.restaurants.map((restaurant, i) => (
-              <div key={`restaurant-id-${i}`}>
-                <h3>
-                  <div className="title">{restaurant.title}</div>
-                  <span>{humanize(restaurant.distance ? restaurant.distance / 1000 : 0)}km</span>
-                </h3>
-                <p style={{ padding: 5 }}>{restaurant.address}</p>
-              </div>
-            ))}
+          <div className="result">
+            {this.props.houseEntity.restaurants &&
+              this.props.houseEntity.restaurants.map((restaurant, i) => (
+                <div key={`restaurant-id-${i}`}>
+                  <h3>
+                    <div className="title">
+                      {restaurant.title}
+                      <span>{humanize(restaurant.distance ? restaurant.distance / 1000 : 0)}km</span>
+                    </div>
+                  </h3>
+                  <p style={{ padding: 5 }}>{restaurant.address}</p>
+                </div>
+              ))}
+          </div>
         </TabPane>
         <TabPane
           tab={
@@ -276,16 +280,20 @@ export class Detail extends React.Component<IDetailProp, IDetailState> {
           key="2"
           className="nearby"
         >
-          {this.props.houseEntity.hospitals &&
-            this.props.houseEntity.hospitals.map((hospital, i) => (
-              <div key={`restaurant-id-${i}`}>
-                <h3>
-                  <div className="title">{hospital.title}</div>
-                  <span>{humanize(hospital.distance ? hospital.distance / 1000 : 0)}km</span>
-                </h3>
-                <p style={{ padding: 5 }}>{hospital.address}</p>
-              </div>
-            ))}
+          <div className="result">
+            {this.props.houseEntity.hospitals &&
+              this.props.houseEntity.hospitals.map((hospital, i) => (
+                <div key={`restaurant-id-${i}`}>
+                  <h3>
+                    <div className="title">
+                      {hospital.title}
+                      <span>{humanize(hospital.distance ? hospital.distance / 1000 : 0)}km</span>
+                    </div>
+                  </h3>
+                  <p style={{ padding: 5 }}>{hospital.address}</p>
+                </div>
+              ))}
+          </div>
         </TabPane>
         <TabPane
           tab={
@@ -296,16 +304,20 @@ export class Detail extends React.Component<IDetailProp, IDetailState> {
           key="3"
           className="nearby"
         >
-          {this.props.houseEntity.schools &&
-            this.props.houseEntity.schools.map((school, i) => (
-              <div key={`restaurant-id-${i}`}>
-                <h3>
-                  <div className="title">{school.title}</div>
-                  <span>{humanize(school.distance ? school.distance / 1000 : 0)}km</span>
-                </h3>
-                <p style={{ padding: 5 }}>{school.address}</p>
-              </div>
-            ))}
+          <div className="result">
+            {this.props.houseEntity.schools &&
+              this.props.houseEntity.schools.map((school, i) => (
+                <div key={`restaurant-id-${i}`}>
+                  <h3>
+                    <div className="title">
+                      {school.title}
+                      <span>{humanize(school.distance ? school.distance / 1000 : 0)}km</span>
+                    </div>
+                  </h3>
+                  <p style={{ padding: 5 }}>{school.address}</p>
+                </div>
+              ))}
+          </div>
         </TabPane>
       </Tabs>
     );
