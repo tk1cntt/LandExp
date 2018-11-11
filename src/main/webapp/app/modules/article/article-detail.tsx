@@ -6,9 +6,12 @@ import React from 'react';
 import { RouteComponentProps } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { Row, Col, Breadcrumb, List, Icon, Avatar } from 'antd';
+import { Translate, TextFormat } from 'react-jhipster';
 
 import { decodeId } from 'app/shared/util/utils';
 import { getEntity } from 'app/entities/article/article.reducer';
+
+import { APP_DATE_FORMAT, APP_LOCAL_DATE_FORMAT } from 'app/config/constants';
 
 import Loading from 'app/shared/layout/loading/loading';
 import ArticleHeader from './article-header';
@@ -60,8 +63,19 @@ export class Article extends React.Component<IArticleProp> {
         ) : (
           <div className="container">
             <Col md={18}>
-              <div className="list-article">
+              <div className="article-detail">
                 <h2>{this.props.articleEntity.title}</h2>
+                <p className="category border-left-red">
+                  {this.props.articleEntity.categoryName}
+                  <span className="date">
+                    <TextFormat type="date" value={this.props.articleEntity.createAt} format={APP_LOCAL_DATE_FORMAT} />
+                  </span>
+                </p>
+                <hr />
+
+                <Col md={24}>
+                  <img className="img-feature" src={this.props.articleEntity.avatar} alt="" />
+                </Col>
                 <div className="summary" dangerouslySetInnerHTML={{ __html: this.props.articleEntity.summary }} />
                 <div className="content" dangerouslySetInnerHTML={{ __html: this.props.articleEntity.content }} />
               </div>
