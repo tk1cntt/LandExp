@@ -12,7 +12,7 @@ import { IRootState } from 'app/shared/reducers';
 import { getSession } from 'app/shared/reducers/authentication';
 import { getProfile } from 'app/shared/reducers/application-profile';
 import { setLocale } from 'app/shared/reducers/locale';
-import Header from 'app/shared/layout/header/header';
+
 import Footer from 'app/shared/layout/footer/footer';
 import { hasAnyAuthority } from 'app/shared/auth/private-route';
 import ErrorBoundary from 'app/shared/error/error-boundary';
@@ -54,23 +54,8 @@ export class App extends React.Component<IAppProps> {
         <div className="app-container">
           <ToastContainer position={toast.POSITION.TOP_LEFT} className="toastify-container" toastClassName="toastify-toast" />
           <ErrorBoundary>
-            <Header
-              isAuthenticated={this.props.isAuthenticated}
-              isAdmin={this.props.isAdmin}
-              isManager={this.props.isManager}
-              isStaff={this.props.isStaff}
-              currentLocale={this.props.currentLocale}
-              onLocaleChange={this.props.setLocale}
-              ribbonEnv={this.props.ribbonEnv}
-              isInProduction={this.props.isInProduction}
-              isSwaggerEnabled={this.props.isSwaggerEnabled}
-            />
+            <AppRoutes />
           </ErrorBoundary>
-          <div id="home-content">
-            <ErrorBoundary>
-              <AppRoutes />
-            </ErrorBoundary>
-          </div>
           <Footer />
         </div>
       </Router>

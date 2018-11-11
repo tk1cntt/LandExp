@@ -41,15 +41,9 @@ ul {
 }
 
 .home .app-container {
-  background-color: rgb(255, 255, 255, 0.88);
+  /*background-color: rgb(255, 255, 255, 0.88);*/
   height: 734px;
-  min-width: 1170px !important;
-}
-
-.container {
-  width: 1170px;
-  margin-right: auto;
-  margin-left: auto;
+  /*min-width: 1170px !important;*/
 }
 
 .logo {
@@ -127,11 +121,12 @@ ul.right-menu .button {
   font-size: 12px;
 }
 
-.view-routes>.row, .row.why-us {
+.view-routes > .row,
+.row.why-us {
   margin: 0;
 }
 
-.view-routes>div>.row {
+.view-routes > div > .row {
   margin: 0;
 }
 
@@ -1046,105 +1041,6 @@ ul.right-menu .button {
 }
 
 .related .post-item,
-.gridview .post-item {
-  display: inline-block;
-  width: 280px;
-  border: 1px solid #e8e8e8;
-  padding: 0;
-  margin-top: 20px;
-  margin-right: 3px;
-}
-
-.gridview .post-item {
-  margin: 0px 8px 30px;
-  width: 280px;
-}
-
-.related .post-item:hover,
-.gridview .post-item:hover {
-  border: 1px solid #3a65f9;
-}
-
-.related .post-item .item-info,
-.gridview .post-item .item-info {
-  margin: 13px 13px 0;
-  width: 250px;
-  position: relative;
-}
-
-.related .post-item .item-info h3,
-.gridview .post-item .item-info h3 {
-  background: transparent;
-  padding-bottom: 0px;
-  padding: 0px;
-  max-height: 34px;
-  overflow: hidden;
-}
-
-.related .post-item .item-thumbnail {
-  width: 278px;
-  height: 180px;
-  position: relative;
-}
-
-.gridview .post-item .item-thumbnail {
-  width: 278px;
-  height: 180px;
-  position: relative;
-}
-
-.related .like-button,
-.gridview .like-button {
-  position: absolute;
-  top: 10px;
-  right: 10px;
-  color: #fe475e;
-  font-size: 24px;
-}
-
-.related .post-date,
-.gridview .post-date {
-  position: absolute;
-  top: 25px;
-  right: 5px;
-  text-align: right;
-  font-size: 12px;
-  color: #aaaaaa;
-}
-
-.related .post-date span,
-.gridview .post-date span {
-  font-size: 14px;
-  color: #3a65f9;
-}
-
-.related .post-item .property,
-.gridview .post-item .property {
-  width: inherit;
-}
-
-.related .post-item .property span,
-.gridview .post-item .property span {
-  margin: 0 5px 0 0;
-  width: initial;
-}
-
-.related .item-info .location {
-  margin-top: 20px;
-  padding-top: 10px;
-  margin-left: -13px;
-  margin-right: -15px;
-  padding-left: 13px;
-}
-
-.gridview .item-info .location {
-  margin-top: 20px;
-  padding-top: 10px;
-  margin-left: -13px;
-  margin-right: -15px;
-  padding-left: 13px;
-}
-
 .circle {
   border-radius: 50%;
   border: 1px solid;
@@ -1657,93 +1553,6 @@ label {
 
 /* PRODUCT CONTENT */
 
-.product-info {
-  border: 1px solid #dfdfdf;
-  width: 284px;
-}
-
-.product-info h1 {
-  margin-bottom: 0px;
-  margin-top: 20px;
-  font-size: 18px;
-  font-weight: bold;
-}
-
-.product-info .post-date {
-  display: contents;
-  margin: 0;
-  color: #888888;
-}
-
-.product-info .price {
-  font-size: 22px;
-  color: #3a65f9;
-  margin-top: 9px;
-  margin-bottom: 0px;
-}
-
-.product-info .property {
-  background: transparent;
-}
-
-.product-info .property span {
-  font-weight: bold;
-}
-
-.product-info .location {
-  border-top: 1px solid #f6f6f6;
-  position: relative;
-  padding-top: 17px;
-  margin: 20px 0px;
-}
-
-.product-info .location span.title {
-  position: absolute;
-  top: -12px;
-  display: block;
-  padding-right: 5px;
-  background: #fff;
-  color: #888888;
-}
-
-.product-info .button-group {
-  border: none;
-  text-align: inherit;
-  margin-top: 15px;
-  margin-bottom: 15px;
-}
-
-.product-info .user {
-  display: inline-block;
-  height: 30px;
-  line-height: 30px;
-  margin: 10px auto;
-  width: 123px;
-}
-
-.product-info .user img {
-  padding: 5px;
-  border-radius: 3px;
-  margin-right: 10px;
-}
-
-.product-info .user.like {
-  color: #fe475e;
-}
-
-.product-info .user.report {
-  text-align: right;
-  color: #ffa76e;
-}
-
-.product-info .user.like img {
-  border: 1px solid #fe475e;
-}
-
-.product-info .user.report img {
-  border: 1px solid #ffa76e;
-}
-
 #product-content .contact-box {
 }
 
@@ -1981,84 +1790,6 @@ label {
 
 .desc {
   width: 460px;
-}
-
-.product-desc {
-  border: 1px solid #dfdfdf;
-  padding: 15px;
-  text-align: justify;
-  margin-bottom: 30px;
-  height: 356px;
-  overflow-y: scroll;
-}
-
-.consultant {
-  width: 740px;
-}
-
-.cs-content {
-  border: 1px solid #dfdfdf;
-  padding: 15px;
-  text-align: justify;
-  margin-bottom: 30px;
-}
-
-.cs-content .col-xs-5 {
-  width: 40%;
-}
-
-.cs-content .col-xs-2 {
-  width: 20%;
-}
-
-.cs-content .col-xs-7 {
-  width: 60%;
-}
-
-.cs-content .col-xs-offset-5 {
-  margin-left: 40%;
-}
-
-.cs-content textarea {
-  height: 120px;
-  border-radius: 0px;
-  border-color: #dfdfdf;
-}
-
-.cs-content .btn {
-  padding: 9px 30px;
-}
-
-.cs-content .btn-info {
-  background: linear-gradient(#6b92ff, #3a65f9);
-}
-
-.cs-content .btn-success {
-  background: linear-gradient(#7be583, #19bf25);
-  border: #19bf25;
-}
-
-.cs-content input {
-  border-radius: 0px;
-  border-color: #dfdfdf;
-  height: 40px;
-}
-
-.cs-content input[type='text'],
-.cs-content input[type='text']::placeholder {
-  color: #19bf25;
-  font-weight: bold;
-}
-
-.cs-content .form-group {
-  position: relative;
-}
-
-.cs-content .input-addon {
-  position: absolute;
-  right: 15px;
-  top: 35px;
-  color: #888888;
 }
 
 .carousel {

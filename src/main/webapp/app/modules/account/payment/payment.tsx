@@ -8,6 +8,7 @@ const RadioGroup = Radio.Group;
 import { getEntity as getPayment } from 'app/entities/payment/payment.reducer';
 import { decodePayment } from 'app/shared/util/utils';
 
+import Header from 'app/shared/layout/header/header';
 import SearchPage from 'app/shared/layout/search/search-menu';
 
 export interface IPaymentProp extends StateProps, DispatchProps, RouteComponentProps<{ id: any }> {}
@@ -81,6 +82,21 @@ export class Payment extends React.Component<IPaymentProp, IPaymentState> {
     };
     return (
       <div>
+        <header>
+          <div className="container">
+            <Header
+              isAuthenticated={this.props.isAuthenticated}
+              isAdmin={this.props.isAdmin}
+              isManager={this.props.isManager}
+              isStaff={this.props.isStaff}
+              currentLocale={this.props.currentLocale}
+              onLocaleChange={this.props.setLocale}
+              ribbonEnv={this.props.ribbonEnv}
+              isInProduction={this.props.isInProduction}
+              isSwaggerEnabled={this.props.isSwaggerEnabled}
+            />
+          </div>
+        </header>
         <SearchPage location={this.props.location} history={this.props.history} />
         <Container>
           <Row>

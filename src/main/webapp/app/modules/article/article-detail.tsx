@@ -5,42 +5,14 @@ import './article.css';
 import React from 'react';
 import { RouteComponentProps } from 'react-router-dom';
 import { connect } from 'react-redux';
-import { Row, Col, Container } from 'reactstrap';
-import { List, Avatar } from 'antd';
+import { Row, Col, Breadcrumb, List, Icon, Avatar } from 'antd';
 
 import { decodeId } from 'app/shared/util/utils';
 import { getEntity } from 'app/entities/article/article.reducer';
 
 import Loading from 'app/shared/layout/loading/loading';
 import ArticleHeader from './article-header';
-
-const data = [
-  {
-    image: '/static/upload/products/item-1.png',
-    url: '/news',
-    title: 'Bí quyết để có một ngôi nhà đẹp'
-  },
-  {
-    image: '/static/upload/products/item-1.png',
-    url: '/news',
-    title: 'Giao dịch sôi động tại sự kiện mở bán tòa M1 - Mipec City View'
-  },
-  {
-    image: '/static/upload/products/item-1.png',
-    url: '/news',
-    title: 'Lợi thế cạnh tranh của dự án Ramada by Wyndham Ha Long Bay View'
-  },
-  {
-    image: '/static/upload/products/item-1.png',
-    url: '/news',
-    title: 'Hệ thống tiện ích hoàn chỉnh tại dự án cao cấp nhất khu Midtown'
-  },
-  {
-    image: '/static/upload/products/item-1.png',
-    url: '/news',
-    title: 'Làm thế nào nhận diện căn hộ homestay phù hợp để kinh doanh'
-  }
-];
+import ArticleSide from './article-side';
 
 export interface IArticleProp extends StateProps, DispatchProps, RouteComponentProps<{ id: any; link: any }> {}
 
@@ -67,42 +39,38 @@ export class Article extends React.Component<IArticleProp> {
 
   render() {
     return (
-      <Row className="article">
+      <Row>
         <ArticleHeader />
-
-        <Container>
-          {this.props.loading ? (
-            <Loading />
-          ) : (
-            <Row>
-              <div className="col-md-9">
-                <div className="row list-news">
-                  <h1>{this.props.articleEntity.title}</h1>
-                  <div className="summary" dangerouslySetInnerHTML={{ __html: this.props.articleEntity.summary }} />
-                  <div className="content" dangerouslySetInnerHTML={{ __html: this.props.articleEntity.content }} />
-                </div>
+        <div className="breadcrumb article">
+          <div className="container">
+            <Breadcrumb>
+              <Breadcrumb.Item href="">
+                <Icon type="home" style={{ fontSize: '20px' }} />
+                <span>Trang chủ</span>
+              </Breadcrumb.Item>
+              <Breadcrumb.Item href="/#/tin-tuc">
+                <span>Tin tức</span>
+              </Breadcrumb.Item>
+              <Breadcrumb.Item>{this.props.articleEntity.title}</Breadcrumb.Item>
+            </Breadcrumb>
+          </div>
+        </div>
+        {this.props.loading ? (
+          <Loading />
+        ) : (
+          <div className="container">
+            <Col md={18}>
+              <div className="list-article">
+                <h2>{this.props.articleEntity.title}</h2>
+                <div className="summary" dangerouslySetInnerHTML={{ __html: this.props.articleEntity.summary }} />
+                <div className="content" dangerouslySetInnerHTML={{ __html: this.props.articleEntity.content }} />
               </div>
-              <div className="col-md-3 right-menu">
-                <div className="row sidebar">
-                  <h3 className="title">Tin mới</h3>
-                  <List
-                    itemLayout="horizontal"
-                    dataSource={data}
-                    renderItem={this.listItem}
-                  />
-                </div>
-                <div className="row sidebar">
-                  <h3 className="title">Tin xem nhiều</h3>
-                  <List
-                    itemLayout="horizontal"
-                    dataSource={data}
-                    renderItem={this.listItem}
-                  />
-                </div>
-              </div>
-            </Row>
-          )}
-        </Container>
+            </Col>
+            <Col md={6}>
+              <ArticleSide />
+            </Col>
+          </div>
+        )}
       </Row>
     );
   }

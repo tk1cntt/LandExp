@@ -4,7 +4,7 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import { Translate, TextFormat } from 'react-jhipster';
 import { connect } from 'react-redux';
-import { Row, Col, Alert } from 'reactstrap';
+import { Row, Col, Alert } from 'antd';
 import { getSession } from 'app/shared/reducers/authentication';
 import { getActionType, getLandType, getCityType, getDirection, getPresent, getSaleType, getMoney, encodeId } from 'app/shared/util/utils';
 import { APP_DATE_FORMAT, APP_LOCAL_DATE_FORMAT } from 'app/config/constants';
@@ -19,46 +19,49 @@ export class HomeGrid extends React.Component<IHomeProp> {
   render() {
     return (
       <div role="tabpanel" className="tab-pane active" id="grid">
-        <div className="gridview">
+        <Row className="gridview" gutter={16}>
           {this.props.houses.map((house, i) => (
-            <div key={`entity-${i}`} className="col-md-3 post-item">
-              <div className="item-thumbnail">
-                <Link to={`/bat-dong-san/${encodeId(house.id)}/${house.link}`}>
-                  <img src="/static/upload/products/item-1.png" />
-                </Link>
-                {house.actionType === 'FOR_SELL' ? <div className="type ban">BÁN</div> : <div className="type chothue">CHO THUÊ</div>}
-                <a href="#" className="like-button">
-                  <i className="fa fa-heart-o" />
-                </a>
-              </div>
-              <a href="#" className="like-button" />
-              <div className="item-info">
-                <a href="#" className="like-button" />
-                <a href="#">
-                  <h3 className="title">{getLandType(house.landType)}</h3>
-                </a>
-                <p className="subtitle">{house.projectName}</p>
-                <p className="price" dangerouslySetInnerHTML={{ __html: getMoney(house.money, house.actionType) }} />
-                <div className="post-date">
-                  Ngày đăng{' '}
-                  <span>
-                    <TextFormat type="date" value={house.createAt} format={APP_LOCAL_DATE_FORMAT} />
-                  </span>
+            <Col key={`entity-${i}`} sm={12} md={8} lg={6}>
+              <Col className="house-item">
+                <div className="item-thumbnail">
+                  <Link to={`/bat-dong-san/${encodeId(house.id)}/${house.link}`}>
+                    <img src="/static/upload/products/item-1.png" />
+                  </Link>
+                  {house.actionType === 'FOR_SELL' ? <div className="type ban">BÁN</div> : <div className="type chothue">CHO THUÊ</div>}
+                  <a href="#" className="like-button">
+                    <i className="fa fa-heart-o" />
+                  </a>
                 </div>
-                <div className="property">
-                  <span className="compact">{house.acreage}m2</span>
-                  <span className="bedroom">{house.bedRoom}</span>
-                  <span className="bathroom">{house.bathRoom}</span>
-                  <span className="gara">{house.parking ? <i className="fa fa-check" /> : <i className="fa fa-times" />}</span>
+                <div className="item-info">
+                  <h3 className="title">
+                    <Link to={`/bat-dong-san/${encodeId(house.id)}/${house.link}`}>{getLandType(house.landType)}</Link>
+                  </h3>
+                  <p className="subtitle">{house.projectName}</p>
+                  <div className="price-container">
+                    <p className="price" dangerouslySetInnerHTML={{ __html: getMoney(house.money, house.actionType) }} />
+                    <div className="post-date">
+                      Ngày đăng{' '}
+                      <span>
+                        <TextFormat type="date" value={house.createAt} format={APP_LOCAL_DATE_FORMAT} />
+                      </span>
+                    </div>
+                  </div>
+                  <ul className="property">
+                    <li className="compact">{house.acreage}m2</li>
+                    <li className="bedroom">{house.bedRoom}</li>
+                    <li className="bathroom">{house.bathRoom}</li>
+                    <li className="gara">{house.parking ? <i className="fa fa-check" /> : <i className="fa fa-times" />}</li>
+                  </ul>
                 </div>
-                <p className="location">
-                  {house.districtType} {house.districtName}, {house.cityName}
-                </p>
-              </div>
-              <div className="clearfix" />
-            </div>
+                <div className="location">
+                  <p>
+                    {house.districtType} {house.districtName}, {house.cityName}
+                  </p>
+                </div>
+              </Col>
+            </Col>
           ))}
-        </div>
+        </Row>
       </div>
     );
   }

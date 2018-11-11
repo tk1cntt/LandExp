@@ -1,19 +1,21 @@
 import './article.css';
 
 import React from 'react';
-import { RouteComponentProps } from 'react-router-dom';
+import Loadable from 'react-loadable';
+import { Switch, RouteComponentProps } from 'react-router-dom';
+import ErrorBoundaryRoute from 'app/shared/error/error-boundary-route';
 import { connect } from 'react-redux';
-import { Row, Col, Container } from 'reactstrap';
+import { Row, Col, Breadcrumb, Icon } from 'antd';
 
 import { getEntities } from 'app/entities/article/article.reducer';
 
 import Loading from 'app/shared/layout/loading/loading';
 import SearchPage from 'app/shared/layout/search/search-menu';
+import ArticleHeader from './article-header';
 
-import HomeNewsBox from 'app/modules/home/home-newsbox';
-
-import ArticleBox from './article-box';
-import ArticleItem from './article-item';
+import ArticleList from './article-list';
+import ArticleDetail from './article-detail';
+import ArticleSide from './article-side';
 
 export interface IArticleProp extends StateProps, DispatchProps, RouteComponentProps<{}> {}
 
@@ -25,16 +27,28 @@ export class Article extends React.Component<IArticleProp> {
   render() {
     return (
       <Row>
-        <Container className="article">
-          <HomeNewsBox />
-          <Row>
-            <Row>
-              <div className="gridview">
-                {this.props.articleList.map((article, i) => <ArticleItem key={`article-id-${i}`} article={article} />)}
-              </div>
-            </Row>
-          </Row>
-        </Container>
+        <ArticleHeader />
+        <div className="breadcrumb article">
+          <div className="container">
+            <Breadcrumb>
+              <Breadcrumb.Item href="">
+                <Icon type="home" style={{ fontSize: '20px' }} />
+                <span>Trang chủ</span>
+              </Breadcrumb.Item>
+              <Breadcrumb.Item>
+                <span>Tin tức</span>
+              </Breadcrumb.Item>
+            </Breadcrumb>
+          </div>
+        </div>
+        <div className="container">
+          <Col md={18}>
+            <ArticleList />
+          </Col>
+          <Col md={6}>
+            <ArticleSide />
+          </Col>
+        </div>
       </Row>
     );
   }

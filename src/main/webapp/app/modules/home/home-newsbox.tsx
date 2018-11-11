@@ -18,7 +18,7 @@ export class HomeNewsBox extends React.Component<IHomeProp> {
 
   render() {
     return (
-      <div className="row featured-posts">
+      <div className="featured-posts">
         <h2>
           Tin mới<span>Thứ 5, ngày 31 tháng 05 năm 2018</span>
         </h2>
@@ -33,7 +33,7 @@ export class HomeNewsBox extends React.Component<IHomeProp> {
                   <div className="caption">
                     <div className="caption-content">
                       <p>
-                        <a href="#" className="post-title">
+                        <a href={`/tin-tuc-chi-tiet/${encodeId(article.id)}/${article.link}`} className="post-title">
                           {article.title}
                         </a>
                       </p>
