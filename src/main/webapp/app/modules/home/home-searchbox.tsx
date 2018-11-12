@@ -64,7 +64,7 @@ export class HomeSearchBox extends React.Component<IHomeSearchBoxProp, IHomeSear
       city.districts.map(district => {
         const districtData = {
           value: district.id,
-          label: district.type + ' ' + district.name,
+          label: district.type + ' ' + district.name
         };
         cityData.children.push(districtData);
       });
@@ -283,21 +283,6 @@ export class HomeSearchBox extends React.Component<IHomeSearchBoxProp, IHomeSear
           <button type="submit" onClick={this.searchClick.bind(this)}>
             TÌM KIẾM
           </button>
-        </div>
-        <div className="download">
-          <p>Tải ứng dụng trên Store</p>
-          <div className="app-icon">
-            <span>
-              <a href="#">
-                <i className="fa fa-apple" />
-              </a>
-            </span>
-            <span>
-              <a href="#">
-                <i className="fa fa-android" />
-              </a>
-            </span>
-          </div>
         </div>
       </div>
     );

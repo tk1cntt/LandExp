@@ -5,13 +5,13 @@ import { RouteComponentProps } from 'react-router-dom';
 import { TextFormat } from 'react-jhipster';
 import { connect } from 'react-redux';
 import NumberFormat from 'react-number-format';
-import { Row, Col, Container } from 'reactstrap';
+import { Container } from 'reactstrap';
 // import { Carousel as Album } from 'react-responsive-carousel';
 import ImageGallery from 'react-image-gallery';
 // import Lightbox from 'lightbox-react';
 import { Helmet } from 'react-helmet';
 
-import { Tabs, Input, Alert, notification } from 'antd';
+import { Row, Col, Tabs, Input, Alert, notification } from 'antd';
 const { TextArea } = Input;
 const TabPane = Tabs.TabPane;
 
@@ -24,6 +24,7 @@ import { SERVER_API_URL, APP_LOCAL_DATE_FORMAT } from 'app/config/constants';
 
 // import Permission from 'app/shared/layout/no/Permission';
 import Loading from 'app/shared/layout/loading/loading';
+import Header from 'app/shared/layout/header/header';
 import SearchPage from 'app/shared/layout/search/search-menu';
 import GoogleMaps from 'app/shared/util/google-maps';
 
@@ -120,7 +121,7 @@ export class Detail extends React.Component<IDetailProp, IDetailState> {
 
   houseImageGalleryFrom(images: any) {
     return (
-      <Col md="6">
+      <Col md={12}>
         <div style={{ border: '1px solid #dfdfdf' }}>
           <ImageGallery items={images} showPlayButton={false} showFullscreenButton={false} autoPlay lazyLoad />
         </div>
@@ -159,42 +160,44 @@ export class Detail extends React.Component<IDetailProp, IDetailState> {
 
   houseDetailForm() {
     return (
-      <Col md="3" className="product-info">
-        <h1>{getLandType(this.props.houseEntity.landType)}</h1>
-        <p className="post-date">
-          <TextFormat type="date" value={this.props.houseEntity.createAt} format={APP_LOCAL_DATE_FORMAT} />
-        </p>
-        <p
-          className="price"
-          dangerouslySetInnerHTML={{ __html: getMoney(this.props.houseEntity.money, this.props.houseEntity.actionType) }}
-        />
-        <div className="property">
-          <p className="compact">
-            Diện tích:<span>{this.props.houseEntity.acreage}m2</span>
+      <Col md={6}>
+        <div className="product-info">
+          <h1>{getLandType(this.props.houseEntity.landType)}</h1>
+          <p className="post-date">
+            <TextFormat type="date" value={this.props.houseEntity.createAt} format={APP_LOCAL_DATE_FORMAT} />
           </p>
-          <p className="compass">
-            Hướng:<span>{getDirection(this.props.houseEntity.direction)}</span>
-          </p>
-          <p className="bedroom">
-            Phòng ngủ:<span>{this.props.houseEntity.bedRoom}</span>
-          </p>
-          <p className="bathroom">
-            Phòng tắm:<span>{this.props.houseEntity.bathRoom}</span>
-          </p>
-          <p className="gara">
-            Chỗ để ô tô:<span>{this.props.houseEntity.parking ? 'Có' : 'Không'}</span>
-          </p>
-        </div>
-        <div className="location">
-          <span className="title">Địa chỉ</span>
-          <p>{this.houseAdressFull()}</p>
-        </div>
-        <div className="button-group">
-          <div className="user like" onClick={this.onHandleUserLike}>
-            <img src="/static/images/icon/like.png" alt="" />Yêu thích
+          <p
+            className="price"
+            dangerouslySetInnerHTML={{ __html: getMoney(this.props.houseEntity.money, this.props.houseEntity.actionType) }}
+          />
+          <div className="property">
+            <p className="compact">
+              Diện tích:<span>{this.props.houseEntity.acreage}m2</span>
+            </p>
+            <p className="compass">
+              Hướng:<span>{getDirection(this.props.houseEntity.direction)}</span>
+            </p>
+            <p className="bedroom">
+              Phòng ngủ:<span>{this.props.houseEntity.bedRoom}</span>
+            </p>
+            <p className="bathroom">
+              Phòng tắm:<span>{this.props.houseEntity.bathRoom}</span>
+            </p>
+            <p className="gara">
+              Chỗ để ô tô:<span>{this.props.houseEntity.parking ? 'Có' : 'Không'}</span>
+            </p>
           </div>
-          <div className="user report" onClick={this.onHandleUserReport}>
-            <img src="/static/images/icon/warning.png" alt="" />Báo xấu
+          <div className="location">
+            <span className="title">Địa chỉ</span>
+            <p>{this.houseAdressFull()}</p>
+          </div>
+          <div className="button-group">
+            <div className="user like" onClick={this.onHandleUserLike}>
+              <img src="/static/images/icon/like.png" alt="" />Yêu thích
+            </div>
+            <div className="user report" onClick={this.onHandleUserReport}>
+              <img src="/static/images/icon/warning.png" alt="" />Báo xấu
+            </div>
           </div>
         </div>
       </Col>
@@ -203,7 +206,7 @@ export class Detail extends React.Component<IDetailProp, IDetailState> {
 
   houseContactForm() {
     return (
-      <Col md="3" className="contact-box">
+      <Col md={6} className="contact-box">
         <div className="contact">
           <h3>Liên hệ chủ nhà</h3>
           <p>
@@ -253,16 +256,20 @@ export class Detail extends React.Component<IDetailProp, IDetailState> {
           key="1"
           className="nearby"
         >
-          {this.props.houseEntity.restaurants &&
-            this.props.houseEntity.restaurants.map((restaurant, i) => (
-              <div key={`restaurant-id-${i}`}>
-                <h3>
-                  <div className="title">{restaurant.title}</div>
-                  <span>{humanize(restaurant.distance ? restaurant.distance / 1000 : 0)}km</span>
-                </h3>
-                <p style={{ padding: 5 }}>{restaurant.address}</p>
-              </div>
-            ))}
+          <div className="result">
+            {this.props.houseEntity.restaurants &&
+              this.props.houseEntity.restaurants.map((restaurant, i) => (
+                <div key={`restaurant-id-${i}`}>
+                  <h3>
+                    <div className="title">
+                      {restaurant.title}
+                      <span>{humanize(restaurant.distance ? restaurant.distance / 1000 : 0)}km</span>
+                    </div>
+                  </h3>
+                  <p style={{ padding: 5 }}>{restaurant.address}</p>
+                </div>
+              ))}
+          </div>
         </TabPane>
         <TabPane
           tab={
@@ -273,16 +280,20 @@ export class Detail extends React.Component<IDetailProp, IDetailState> {
           key="2"
           className="nearby"
         >
-          {this.props.houseEntity.hospitals &&
-            this.props.houseEntity.hospitals.map((hospital, i) => (
-              <div key={`restaurant-id-${i}`}>
-                <h3>
-                  <div className="title">{hospital.title}</div>
-                  <span>{humanize(hospital.distance ? hospital.distance / 1000 : 0)}km</span>
-                </h3>
-                <p style={{ padding: 5 }}>{hospital.address}</p>
-              </div>
-            ))}
+          <div className="result">
+            {this.props.houseEntity.hospitals &&
+              this.props.houseEntity.hospitals.map((hospital, i) => (
+                <div key={`restaurant-id-${i}`}>
+                  <h3>
+                    <div className="title">
+                      {hospital.title}
+                      <span>{humanize(hospital.distance ? hospital.distance / 1000 : 0)}km</span>
+                    </div>
+                  </h3>
+                  <p style={{ padding: 5 }}>{hospital.address}</p>
+                </div>
+              ))}
+          </div>
         </TabPane>
         <TabPane
           tab={
@@ -293,16 +304,20 @@ export class Detail extends React.Component<IDetailProp, IDetailState> {
           key="3"
           className="nearby"
         >
-          {this.props.houseEntity.schools &&
-            this.props.houseEntity.schools.map((school, i) => (
-              <div key={`restaurant-id-${i}`}>
-                <h3>
-                  <div className="title">{school.title}</div>
-                  <span>{humanize(school.distance ? school.distance / 1000 : 0)}km</span>
-                </h3>
-                <p style={{ padding: 5 }}>{school.address}</p>
-              </div>
-            ))}
+          <div className="result">
+            {this.props.houseEntity.schools &&
+              this.props.houseEntity.schools.map((school, i) => (
+                <div key={`restaurant-id-${i}`}>
+                  <h3>
+                    <div className="title">
+                      {school.title}
+                      <span>{humanize(school.distance ? school.distance / 1000 : 0)}km</span>
+                    </div>
+                  </h3>
+                  <p style={{ padding: 5 }}>{school.address}</p>
+                </div>
+              ))}
+          </div>
         </TabPane>
       </Tabs>
     );
@@ -417,7 +432,7 @@ export class Detail extends React.Component<IDetailProp, IDetailState> {
     userFinancialData.financialType = financialType;
     this.props.createUserFinancial(userFinancialData);
     openNotification();
-  }
+  };
 
   houseUserFinancialForm() {
     let userFinancialResult;
@@ -438,83 +453,92 @@ export class Detail extends React.Component<IDetailProp, IDetailState> {
       <>
         <h4>Tư vấn tài chính</h4>
         <Row className="cs-content">
-          <Col md="5">
-            <div className="form-group">
-              <label>Giá trị nhà bạn muốn mua</label>
-              <NumberFormat
-                displayType={'input'}
-                customInput={Input}
-                thousandSeparator
-                placeholder="0.0"
-                onValueChange={this.onChangeHousePrice}
+          <Row gutter={30}>
+            <Col md={10}>
+              <div className="form-group">
+                <label>Giá trị nhà bạn muốn mua</label>
+                <NumberFormat
+                  displayType={'input'}
+                  customInput={Input}
+                  thousandSeparator
+                  placeholder="0.0"
+                  onValueChange={this.onChangeHousePrice}
+                />
+                <span className="input-addon">VNĐ</span>
+              </div>
+            </Col>
+            <Col md={10} style={{ marginLeft: -12 }}>
+              <div className="form-group">
+                <label>Số tiền tích lũy hàng tháng</label>
+                <NumberFormat
+                  displayType={'input'}
+                  customInput={Input}
+                  thousandSeparator
+                  placeholder="0.0"
+                  onValueChange={this.onChangeSavingMoney}
+                />
+                <span className="input-addon">VNĐ</span>
+              </div>
+            </Col>
+            <Col md={4}>
+              <div className="form-group">
+                <label>Lãi vay</label>
+                <Input placeholder="0.0" onChange={this.onChangeLoanRate} />
+                <span className="input-addon">%</span>
+              </div>
+            </Col>
+          </Row>
+          <Row gutter={30}>
+            <Col md={10}>
+              <div className="form-group">
+                <label>Số tiền bạn có</label>
+                <NumberFormat
+                  displayType={'input'}
+                  customInput={Input}
+                  thousandSeparator
+                  placeholder="0.0"
+                  onValueChange={this.onChangeCustomerMoneyHave}
+                />
+                <span className="input-addon">VNĐ</span>
+              </div>
+              <div className="form-group">
+                <label>Số tiền bạn có thể vay</label>
+                <NumberFormat
+                  displayType={'input'}
+                  customInput={Input}
+                  thousandSeparator
+                  placeholder="0.0"
+                  onValueChange={this.onChangeLoanFromPeople}
+                />
+                <span className="input-addon">VNĐ</span>
+              </div>
+            </Col>
+            <Col md={14} style={{ marginLeft: -12 }}>
+              <label>Tư vấn</label>
+              <TextArea
+                rows={6}
+                style={{ marginBottom: 25 }}
+                placeholder="Bạn cần vay số tiền { } VNĐ trong vòng { } năm với số tiền tích lũy hàng tháng không nhỏ hơn { } VNĐ để có thể mua được ngôi nhà này"
+                value={userFinancialResult}
               />
-              <span className="input-addon">VNĐ</span>
-            </div>
-          </Col>
-          <Col md="5" style={{ marginLeft: -12 }}>
-            <div className="form-group">
-              <label>Số tiền tích lũy hàng tháng</label>
-              <NumberFormat
-                displayType={'input'}
-                customInput={Input}
-                thousandSeparator
-                placeholder="0.0"
-                onValueChange={this.onChangeSavingMoney}
-              />
-              <span className="input-addon">VNĐ</span>
-            </div>
-          </Col>
-          <Col md="2">
-            <div className="form-group">
-              <label>Lãi vay</label>
-              <Input placeholder="0.0" onChange={this.onChangeLoanRate} />
-              <span className="input-addon">%</span>
-            </div>
-          </Col>
-          <Col md="5">
-            <div className="form-group">
-              <label>Số tiền bạn có</label>
-              <NumberFormat
-                displayType={'input'}
-                customInput={Input}
-                thousandSeparator
-                placeholder="0.0"
-                onValueChange={this.onChangeCustomerMoneyHave}
-              />
-              <span className="input-addon">VNĐ</span>
-            </div>
-            <div className="form-group">
-              <label>Số tiền bạn có thể vay</label>
-              <NumberFormat
-                displayType={'input'}
-                customInput={Input}
-                thousandSeparator
-                placeholder="0.0"
-                onValueChange={this.onChangeLoanFromPeople}
-              />
-              <span className="input-addon">VNĐ</span>
-            </div>
-            <div className="form-group">
-              <label>Số điện thoại nhận tư vấn</label>
-              <Input onChange={this.onChangeCustomerMobile} />
-            </div>
-          </Col>
-          <Col md="7" style={{ marginLeft: -12 }}>
-            <label>Tư vấn</label>
-            <TextArea
-              rows={6}
-              style={{ marginBottom: 25 }}
-              placeholder="Bạn cần vay số tiền { } VNĐ trong vòng { } năm với số tiền tích lũy hàng tháng không nhỏ hơn { } VNĐ để có thể mua được ngôi nhà này"
-              value={userFinancialResult}
-            />
-            <button className="btn btn-info" onClick={this.onClickUserFinancialGetAdvice}>
-              Nhận tư vấn
-            </button>
-            {'  '}
-            <button className="btn btn-success" onClick={this.onClickUserFinancialLoanRegistration}>
-              Đăng ký vay
-            </button>
-          </Col>
+            </Col>
+          </Row>
+          <Row gutter={30}>
+            <Col md={10}>
+              <div className="form-group">
+                <Input onChange={this.onChangeCustomerMobile} placeholder="Số điện thoại nhận tư vấn" />
+              </div>
+            </Col>
+            <Col md={14}>
+              <button className="btn btn-info" onClick={this.onClickUserFinancialGetAdvice}>
+                Nhận tư vấn
+              </button>
+              {'  '}
+              <button className="btn btn-success" onClick={this.onClickUserFinancialLoanRegistration}>
+                Đăng ký vay
+              </button>
+            </Col>
+          </Row>
           {this.state.alerts.map((item, index) => (
             <div className="steps-action" key={index} style={{ marginTop: 10 }}>
               {item}
@@ -532,13 +556,28 @@ export class Detail extends React.Component<IDetailProp, IDetailState> {
           <meta charSet="utf-8" />
           <title>{this.props.houseEntity.title}</title>
         </Helmet>
-        <SearchPage location={this.props.location} history={this.props.history} />
+        <header>
+          <div className="container">
+            <Header
+              isAuthenticated={this.props.isAuthenticated}
+              isAdmin={this.props.isAdmin}
+              isManager={this.props.isManager}
+              isStaff={this.props.isStaff}
+              currentLocale={this.props.currentLocale}
+              onLocaleChange={this.props.setLocale}
+              ribbonEnv={this.props.ribbonEnv}
+              isInProduction={this.props.isInProduction}
+              isSwaggerEnabled={this.props.isSwaggerEnabled}
+            />
+          </div>
+          <SearchPage location={this.props.location} history={this.props.history} />
+        </header>
         <Container>
           {this.props.loading && this.props.photoLoading ? (
             <Loading />
           ) : (
             <Row>
-              <Row id="product-content">
+              <Row id="product-content" gutter={16}>
                 {this.houseImageGalleryFrom(this.state.images)}
                 {this.houseDetailForm()}
                 {this.houseContactForm()}
@@ -562,27 +601,27 @@ export class Detail extends React.Component<IDetailProp, IDetailState> {
                 />
               )*/}
               <Row style={{ marginBottom: 20 }} className="location-search">
-                <Col md="12">
-                  <h3 className="lo-title">
-                    Bản đồ vị trí và tiện ích trong khu vực
-                    <span>{this.houseAdressFull()}</span>
-                  </h3>
-                </Col>
-                <Col md="5">{this.houseNearByForm()}</Col>
-                <Col md="7">
-                  <GoogleMaps
-                    updateMarkerPosition={this.updateMarkerPosition}
-                    isMarkerDraggable={false}
-                    currentPosition={{ latitude: this.props.houseEntity.latitude, longitude: this.props.houseEntity.longitude }}
-                  />
-                </Col>
+                <h3 className="lo-title">
+                  Bản đồ vị trí và tiện ích trong khu vực
+                  <span>{this.houseAdressFull()}</span>
+                </h3>
+                <Row>
+                  <Col md={10}>{this.houseNearByForm()}</Col>
+                  <Col md={14}>
+                    <GoogleMaps
+                      updateMarkerPosition={this.updateMarkerPosition}
+                      isMarkerDraggable={false}
+                      currentPosition={{ latitude: this.props.houseEntity.latitude, longitude: this.props.houseEntity.longitude }}
+                    />
+                  </Col>
+                </Row>
               </Row>
               <Row style={{ marginBottom: 20 }}>
-                <Col md="5">
+                <Col md={10}>
                   <h4>Mô tả thêm</h4>
                   <div className="product-desc" dangerouslySetInnerHTML={{ __html: this.props.houseEntity.summary }} />
                 </Col>
-                <Col md="7">{this.houseUserFinancialForm()}</Col>
+                <Col md={14}>{this.houseUserFinancialForm()}</Col>
               </Row>
             </Row>
           )}

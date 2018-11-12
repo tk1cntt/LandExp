@@ -4,7 +4,7 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import LoadingBar from 'react-redux-loading-bar';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { Menu, Dropdown, Icon } from 'antd';
+import { Menu, Dropdown, Modal, Row, Icon } from 'antd';
 const SubMenu = Menu.SubMenu;
 const MenuItemGroup = Menu.ItemGroup;
 
@@ -189,33 +189,32 @@ export default class Header extends React.Component<IHeaderProps, IHeaderState> 
         </SubMenu>
       </Menu>
     );
+
     return (
-      <header>
+      <Row>
         <LoadingBar />
-        <div className="container">
-          <div className="row">
-            <div className="logo">
-              <Link to={'/'}>
-                <img src="/static/images/logo.png" alt="LandExp" />
-              </Link>
-            </div>
-            <ul className="menu left-menu">
-              <li>
-                <Link to={'/tim-kiem?actionType=FOR_SELL'}>Mua</Link>
-              </li>
-              <li>
-                <Link to={'/tim-kiem?actionType=FOR_RENT'}>Thuê</Link>
-              </li>
-              <li>
-                <Link to={'/tro-giup'}>Trợ giúp</Link>
-              </li>
-              <li>
-                <Link to={'/tin-tuc'}>Tin tức</Link>
-              </li>
-            </ul>
-            {isAuthenticated ? (
-              <ul className="menu right-menu">
-                {/*}
+        <div className="logo">
+          <Link to={'/'}>
+            <img src="/static/images/logo.png" alt="LandExp" />
+          </Link>
+        </div>
+        <ul className="menu left-menu">
+          <li>
+            <Link to={'/tim-kiem?actionType=FOR_SELL'}>Mua</Link>
+          </li>
+          <li>
+            <Link to={'/tim-kiem?actionType=FOR_RENT'}>Thuê</Link>
+          </li>
+          <li>
+            <Link to={'/tro-giup'}>Trợ giúp</Link>
+          </li>
+          <li>
+            <Link to={'/tin-tuc'}>Tin tức</Link>
+          </li>
+        </ul>
+        {isAuthenticated ? (
+          <ul className="menu right-menu">
+            {/*}
                 <li className="right-info">
                   <span className="ring-icon">
                     <span className="badge">2</span>
@@ -225,42 +224,40 @@ export default class Header extends React.Component<IHeaderProps, IHeaderState> 
                   </span>
                 </li>
                 {*/}
-                <li>
-                  <Dropdown overlay={menu}>
-                    <img className="avatar" src="/static/images/user.jpg" alt="Thong tin tai khoan" />
-                  </Dropdown>
-                </li>
-                <li>
-                  <Link className="button" to={'/tai-khoan/dang-tin'}>
-                    Đăng tin
-                  </Link>
-                </li>
-              </ul>
-            ) : (
-              <ul className="menu right-menu">
-                <li>
-                  <Link className="item" to={'/dang-ky'}>
-                    Đăng ký
-                  </Link>
-                </li>
-                <li style={{ paddingLeft: 10, paddingRight: 10 }}>|</li>
-                <li>
-                  <Link className="item" to={'/dang-nhap'}>
-                    Đăng nhập
-                  </Link>
-                </li>
-                <li>
-                  <div>
-                    <Link className="button" to={'/tai-khoan/dang-tin'}>
-                      Đăng tin
-                    </Link>
-                  </div>
-                </li>
-              </ul>
-            )}
-          </div>
-        </div>
-      </header>
+            <li>
+              <Dropdown overlay={menu}>
+                <img className="avatar" src="/static/images/user.jpg" alt="Thong tin tai khoan" />
+              </Dropdown>
+            </li>
+            <li>
+              <Link className="button" to={'/tai-khoan/dang-tin'}>
+                Đăng tin
+              </Link>
+            </li>
+          </ul>
+        ) : (
+          <ul className="menu right-menu">
+            <li>
+              <Link className="item" to={'/dang-ky'}>
+                Đăng ký
+              </Link>
+            </li>
+            <li style={{ paddingLeft: 10, paddingRight: 10 }}>|</li>
+            <li>
+              <Link className="item" to={'/dang-nhap'}>
+                Đăng nhập
+              </Link>
+            </li>
+            <li>
+              <div>
+                <Link className="button" to={'/tai-khoan/dang-tin'}>
+                  Đăng tin
+                </Link>
+              </div>
+            </li>
+          </ul>
+        )}
+      </Row>
     );
   }
 }

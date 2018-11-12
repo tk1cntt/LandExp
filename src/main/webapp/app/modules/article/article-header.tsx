@@ -8,6 +8,7 @@ import { Row, Col, Breadcrumb, Icon } from 'antd';
 import { getTopList } from 'app/entities/article/article.reducer';
 
 import Loading from 'app/shared/layout/loading/loading';
+import Header from 'app/shared/layout/header/header';
 
 export interface IArticleHeaderProp extends StateProps, DispatchProps {}
 
@@ -16,7 +17,20 @@ export class ArticleHeader extends React.Component<IArticleHeaderProp> {
 
   render() {
     return (
-      <div className="header">
+      <header className="article">
+        <div className="container">
+          <Header
+            isAuthenticated={this.props.isAuthenticated}
+            isAdmin={this.props.isAdmin}
+            isManager={this.props.isManager}
+            isStaff={this.props.isStaff}
+            currentLocale={this.props.currentLocale}
+            onLocaleChange={this.props.setLocale}
+            ribbonEnv={this.props.ribbonEnv}
+            isInProduction={this.props.isInProduction}
+            isSwaggerEnabled={this.props.isSwaggerEnabled}
+          />
+        </div>
         <h2 className="header-title">Tin tức</h2>
         <Row>
           <Col lg={{ span: 14, offset: 5 }}>
@@ -26,23 +40,7 @@ export class ArticleHeader extends React.Component<IArticleHeaderProp> {
             </p>
           </Col>
         </Row>
-        <div className="breadcrumb news">
-          <div className="container">
-            <div className="row">
-              <Breadcrumb>
-                <Breadcrumb.Item href="">
-                  <Icon type="home" style={{ fontSize: '20px' }} />
-                  <span>Trang chủ</span>
-                </Breadcrumb.Item>
-                <Breadcrumb.Item href="">
-                  <span>Tin tức</span>
-                </Breadcrumb.Item>
-                <Breadcrumb.Item>Application</Breadcrumb.Item>
-              </Breadcrumb>
-            </div>
-          </div>
-        </div>
-      </div>
+      </header>
     );
   }
 }

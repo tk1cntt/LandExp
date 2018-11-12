@@ -9,7 +9,7 @@ import { Card } from 'antd';
 import PasswordStrengthBar from 'app/shared/layout/password/password-strength-bar';
 import { IRootState } from 'app/shared/reducers';
 import { handleRegister, reset } from './register.reducer';
-
+import Header from 'app/shared/layout/header/header';
 import SearchPage from 'app/shared/layout/search/search-menu';
 
 export interface IRegisterProps extends StateProps, DispatchProps, RouteComponentProps<{ url: string }> {}
@@ -39,6 +39,21 @@ export class RegisterPage extends React.Component<IRegisterProps, IRegisterState
   render() {
     return (
       <Row>
+        <header>
+          <div className="container">
+            <Header
+              isAuthenticated={this.props.isAuthenticated}
+              isAdmin={this.props.isAdmin}
+              isManager={this.props.isManager}
+              isStaff={this.props.isStaff}
+              currentLocale={this.props.currentLocale}
+              onLocaleChange={this.props.setLocale}
+              ribbonEnv={this.props.ribbonEnv}
+              isInProduction={this.props.isInProduction}
+              isSwaggerEnabled={this.props.isSwaggerEnabled}
+            />
+          </div>
+        </header>
         <SearchPage location={this.props.location} history={this.props.history} />
         <Container>
           <Row>

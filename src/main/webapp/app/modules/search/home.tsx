@@ -14,6 +14,7 @@ import * as qs from 'query-string';
 import Loading from 'app/shared/layout/loading/loading';
 
 import { queryStringMapping, getUid } from 'app/shared/util/utils';
+import Header from 'app/shared/layout/header/header';
 import SearchPage from 'app/shared/layout/search/search-menu';
 import HomeGrid from '../home/home-grid';
 import HomeList from '../home/home-list';
@@ -65,14 +66,29 @@ export class Home extends React.Component<IHomeProp, IHomeState> {
 
     return (
       <Row>
-        <SearchPage location={this.props.location} history={this.props.history} />
-        <HomePanelGuest />
-        <div className="container">
+        <header>
+          <div className="container">
+            <Header
+              isAuthenticated={this.props.isAuthenticated}
+              isAdmin={this.props.isAdmin}
+              isManager={this.props.isManager}
+              isStaff={this.props.isStaff}
+              currentLocale={this.props.currentLocale}
+              onLocaleChange={this.props.setLocale}
+              ribbonEnv={this.props.ribbonEnv}
+              isInProduction={this.props.isInProduction}
+              isSwaggerEnabled={this.props.isSwaggerEnabled}
+            />
+          </div>
+          <SearchPage location={this.props.location} history={this.props.history} />
+          <HomePanelGuest />
+        </header>
+        <div className="container" id="home-content">
           {this.props.loading ? (
             <Loading />
           ) : (
             <>
-              <div className="row lastest-posts">
+              <div className="lastest-posts">
                 <h2>
                   Tin mới đăng
                   <span>
@@ -97,10 +113,8 @@ export class Home extends React.Component<IHomeProp, IHomeState> {
                   </div>
                   {*/}
                 </h2>
-                <div className="row">
-                  <div className="tab-content">
-                    <HomeGrid houses={this.props.houseList} />
-                  </div>
+                <div className="tab-content">
+                  <HomeGrid houses={this.props.houseList} />
                 </div>
               </div>
             </>

@@ -12,6 +12,7 @@ import PasswordStrengthBar from 'app/shared/layout/password/password-strength-ba
 import { savePassword, reset } from './password.reducer';
 
 import Loading from 'app/shared/layout/loading/loading';
+import Header from 'app/shared/layout/header/header';
 import SearchPage from 'app/shared/layout/search/search-menu';
 
 export interface IUserPasswordProps extends StateProps, DispatchProps, RouteComponentProps<{ url: string }> {}
@@ -47,6 +48,21 @@ export class PasswordPage extends React.Component<IUserPasswordProps, IUserPassw
 
     return (
       <Row>
+        <header>
+          <div className="container">
+            <Header
+              isAuthenticated={this.props.isAuthenticated}
+              isAdmin={this.props.isAdmin}
+              isManager={this.props.isManager}
+              isStaff={this.props.isStaff}
+              currentLocale={this.props.currentLocale}
+              onLocaleChange={this.props.setLocale}
+              ribbonEnv={this.props.ribbonEnv}
+              isInProduction={this.props.isInProduction}
+              isSwaggerEnabled={this.props.isSwaggerEnabled}
+            />
+          </div>
+        </header>
         <SearchPage location={this.props.location} history={this.props.history} />
         <Container>
           <Row>

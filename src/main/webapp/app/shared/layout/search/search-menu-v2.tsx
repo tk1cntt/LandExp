@@ -95,12 +95,7 @@ export class SearchPage extends React.Component<ISearchPageProp> {
 
   actionTypeForm() {
     return (
-      <Select
-        style={{ width: 140 }}
-        value={this.state.parameters.actionType}
-        placeholder="Hình thức"
-        onChange={this.menuTypeClick}
-      >
+      <Select style={{ width: 110 }} value={this.state.parameters.actionType} placeholder="Hình thức" onChange={this.menuTypeClick}>
         <Option value="FOR_SELL">Bán</Option>
         <Option value="FOR_RENT">Cho thuê</Option>
       </Select>
@@ -154,13 +149,7 @@ export class SearchPage extends React.Component<ISearchPageProp> {
 
   keywordForm() {
     return (
-      <Cascader
-        style={{ width: 370 }}
-        value={this.state.city}
-        options={this.state.locations}
-        onChange={this.onChangeCascader}
-        placeholder="Chọn thành phố"
-      />
+      <Cascader value={this.state.city} options={this.state.locations} onChange={this.onChangeCascader} placeholder="Chọn thành phố" />
     );
   }
 
@@ -174,12 +163,7 @@ export class SearchPage extends React.Component<ISearchPageProp> {
 
   priceForm() {
     return (
-      <Select
-        style={{ width: 150 }}
-        value={this.state.parameters.money}
-        placeholder="Khoảng giá"
-        onChange={this.menuPriceClick}
-      >
+      <Select value={this.state.parameters.money} placeholder="Khoảng giá" onChange={this.menuPriceClick}>
         <Option value="0">Bất kỳ</Option>
         <Option value="1">&lt; 500 triệu</Option>
         <Option value="2">500 triệu - 1 tỷ</Option>
@@ -200,12 +184,7 @@ export class SearchPage extends React.Component<ISearchPageProp> {
 
   acreageForm() {
     return (
-      <Select
-        style={{ width: 150 }}
-        value={this.state.parameters.acreage}
-        placeholder="Diện tích"
-        onChange={this.menuAcreageClick}
-      >
+      <Select value={this.state.parameters.acreage} placeholder="Diện tích" onChange={this.menuAcreageClick}>
         <Option value="0">Bất kỳ</Option>
         <Option value="1">&lt; 50 m2</Option>
         <Option value="2">50 - 80 m2</Option>
@@ -222,20 +201,16 @@ export class SearchPage extends React.Component<ISearchPageProp> {
 
   render() {
     return (
-      <Col span={24}>
-        <div className="nav-search">
-          <div className="container">
-            <div className="row">
-              {this.actionTypeForm()}
-              {this.landTypeForm()}
-              {this.keywordForm()}
-              {this.priceForm()}
-              {this.acreageForm()}
-              <Button onClick={this.searchClick}>Tìm kiếm</Button>
-            </div>
-          </div>
+      <div className="nav-search">
+        <div className="container">
+          {this.actionTypeForm()}
+          {this.landTypeForm()}
+          {this.keywordForm()}
+          {this.priceForm()}
+          {this.acreageForm()}
+          <Button onClick={this.searchClick}>Tìm kiếm</Button>
         </div>
-      </Col>
+      </div>
     );
   }
 }

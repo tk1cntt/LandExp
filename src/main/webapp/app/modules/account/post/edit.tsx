@@ -6,7 +6,17 @@ import { Row, Col, Container, Alert } from 'reactstrap';
 import { Steps, Button, Card, Spin } from 'antd';
 const Step = Steps.Step;
 
-import { getActionType, getLandType, getCityType, getDirection, getPresent, getSaleType, encodeId, encodePayment, decodeId } from 'app/shared/util/utils';
+import {
+  getActionType,
+  getLandType,
+  getCityType,
+  getDirection,
+  getPresent,
+  getSaleType,
+  encodeId,
+  encodePayment,
+  decodeId
+} from 'app/shared/util/utils';
 
 import { getEntity as getHouse, updateEntity as updateHouse, reset as clearHouse } from 'app/entities/house/house.reducer';
 import { getEntities as getServiceFees } from 'app/entities/service-fee/service-fee.reducer';
@@ -17,6 +27,7 @@ import {
   reset as clearPhoto
 } from 'app/entities/house-photo/house-photo.reducer';
 
+import Header from 'app/shared/layout/header/header';
 import SearchPage from 'app/shared/layout/search/search-menu';
 
 import StepOne from './stepOne';
@@ -553,6 +564,21 @@ export class EditPage extends React.Component<IEditProp, IEditState> {
 
     return (
       <Row>
+        <header>
+          <div className="container">
+            <Header
+              isAuthenticated={this.props.isAuthenticated}
+              isAdmin={this.props.isAdmin}
+              isManager={this.props.isManager}
+              isStaff={this.props.isStaff}
+              currentLocale={this.props.currentLocale}
+              onLocaleChange={this.props.setLocale}
+              ribbonEnv={this.props.ribbonEnv}
+              isInProduction={this.props.isInProduction}
+              isSwaggerEnabled={this.props.isSwaggerEnabled}
+            />
+          </div>
+        </header>
         <SearchPage location={this.props.location} history={this.props.history} />
         <Container>
           <div style={{ marginBottom: 20 }}>

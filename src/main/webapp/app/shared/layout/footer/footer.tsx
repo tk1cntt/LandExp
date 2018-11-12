@@ -1,14 +1,16 @@
+import './footer.css';
+
 import React from 'react';
 import { Translate } from 'react-jhipster';
-import { Col, Row } from 'reactstrap';
-import FontAwesomeIcon from '@fortawesome/react-fontawesome';
+import { Col, Row, Icon } from 'antd';
+// import FontAwesomeIcon from '@fortawesome/react-fontawesome';
 
 const Footer = props => (
-  <div className="footer page-content">
+  <Row>
     <footer>
       <div className="container">
-        <div className="row">
-          <div className="col-md-4">
+        <Row gutter={20}>
+          <Col md={7}>
             <h2>LandExp.com.vn</h2>
             <p>Hotline office: 0909333333</p>
             <p>Email: office@landexp.com.vn</p>
@@ -17,8 +19,8 @@ const Footer = props => (
               Địa chỉ: Số 02, ngách 158/51 Nguyễn Khánh Toàn,<br /> P.Quan Hoa, Q.Cầu Giấy, TP.Hà Nội
             </p>
             <img src="/static/images/dadangky.png" alt="Bat dong san LandExp" />
-          </div>
-          <div className="col-md-2">
+          </Col>
+          <Col md={5}>
             <h2>Về chúng tôi</h2>
             <ul>
               <li>
@@ -34,8 +36,8 @@ const Footer = props => (
                 <a href="#">Liên hệ</a>
               </li>
             </ul>
-          </div>
-          <div className="col-md-2">
+          </Col>
+          <Col md={5}>
             <h2>Hỗ trợ</h2>
             <ul>
               <li>
@@ -48,8 +50,8 @@ const Footer = props => (
                 <a href="#">Chính sách hợp tác</a>
               </li>
             </ul>
-          </div>
-          <div className="col-md-4">
+          </Col>
+          <Col md={7}>
             <h2>Tải ứng dụng</h2>
             <p>Tải ứng dụng Bất động sản của LandExp để mua bán cho thuê nhanh chóng nhất.</p>
             <p className="link-app">
@@ -77,15 +79,41 @@ const Footer = props => (
                 <i className="fa fa-google-plus" />
               </a>
             </div>
-          </div>
-          <div className="clearfix" />
-        </div>
+          </Col>
+        </Row>
         <div className="copyright">
-          <p>Copyright © 2018 LandExp. All rights reserved.</p>
+          <p>Copyright © 2018 TinVang. All rights reserved.</p>
         </div>
       </div>
     </footer>
-  </div>
+    <div className="mobile-nav">
+      <ul>
+        <li>
+          <a href="/#">
+            <Icon type="home" />
+            <p>Trang chủ</p>
+          </a>
+        </li>
+        <li>
+          <a href="/#">
+            <Icon type="heart" />
+            <p>Yêu thích</p>
+          </a>
+        </li>
+        <li>
+          <a href="/#">
+            <Icon type="user" />
+            <p>Tài khoản</p>
+          </a>
+        </li>
+        <li>
+          <a href="/#">
+            <i className="icon menu" />
+          </a>
+        </li>
+      </ul>
+    </div>
+  </Row>
 );
 
 export default Footer;
