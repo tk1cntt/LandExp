@@ -12,9 +12,9 @@ import SearchPage from 'app/shared/layout/search/search-menu';
 
 import ArticleItem from './article-item';
 
-export interface IArticleProp extends StateProps, DispatchProps, RouteComponentProps<{}> {}
+export interface IArticleProp extends StateProps, DispatchProps {}
 
-export class Article extends React.Component<IArticleProp> {
+export class ArticleList extends React.Component<IArticleProp> {
   componentDidMount() {
     this.props.getEntities();
   }
@@ -41,4 +41,4 @@ type DispatchProps = typeof mapDispatchToProps;
 export default connect(
   mapStateToProps,
   mapDispatchToProps
-)(Article);
+)(ArticleList);

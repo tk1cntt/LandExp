@@ -1,30 +1,30 @@
 import './header.css';
 
 import React from 'react';
+import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 import LoadingBar from 'react-redux-loading-bar';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { Menu, Dropdown, Modal, Row, Icon } from 'antd';
+
+import { hasAnyAuthority } from 'app/shared/auth/private-route';
+import { AUTHORITIES } from 'app/config/constants';
+
 const SubMenu = Menu.SubMenu;
 const MenuItemGroup = Menu.ItemGroup;
 
-export interface IHeaderProps {
+export interface IHeaderProps extends StateProps, DispatchProps {
   isAuthenticated: boolean;
   isAdmin: boolean;
   isManager: boolean;
   isStaff: boolean;
-  ribbonEnv: string;
-  isInProduction: boolean;
-  isSwaggerEnabled: boolean;
-  currentLocale: string;
-  onLocaleChange: Function;
 }
 
 export interface IHeaderState {
   menuOpen: boolean;
 }
 
-export default class Header extends React.Component<IHeaderProps, IHeaderState> {
+export class Header extends React.Component<IHeaderProps, IHeaderState> {
   state: IHeaderState = {
     menuOpen: false
   };
@@ -156,7 +156,7 @@ export default class Header extends React.Component<IHeaderProps, IHeaderState> 
   }
 
   render() {
-    const { currentLocale, isAuthenticated, isAdmin, isManager, isStaff, isSwaggerEnabled, isInProduction } = this.props;
+    const { isAuthenticated, isAdmin, isManager, isStaff } = this.props;
     const menu = (
       <Menu>
         {this.menuUser()}
@@ -261,3 +261,20 @@ export default class Header extends React.Component<IHeaderProps, IHeaderState> 
     );
   }
 }
+
+const mapStateToProps = ({ authentication }) => ({
+  isAuthenticated: authentication.isAuthenticated,
+  isAdmin: hasAnyAuthority(authentication.account.authorities, [AUTHORITIES.ADMIN]),
+  isManager: hasAnyAuthority(authentication.account.authorities, [AUTHORITIES.MANAGER]),
+  isStaff: hasAnyAuthority(authentication.account.authorities, [AUTHORITIES.STAFF])
+});
+
+const mapDispatchToProps = {};
+
+type StateProps = ReturnType<typeof mapStateToProps>;
+type DispatchProps = typeof mapDispatchToProps;
+
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(Header);

@@ -22,6 +22,7 @@ import { getUsers, updateUser } from './user-management.reducer';
 import { IRootState } from 'app/shared/reducers';
 
 import Loading from 'app/shared/layout/loading/loading';
+import Header from 'app/shared/layout/header/header';
 import SearchPage from 'app/shared/layout/search/search-menu';
 
 export interface IUserManagementProps extends StateProps, DispatchProps, RouteComponentProps<{}> {}
@@ -68,6 +69,11 @@ export class UserManagement extends React.Component<IUserManagementProps, IPagin
     const { users, account, match, totalItems } = this.props;
     return (
       <Row>
+        <header>
+          <div className="container">
+            <Header />
+          </div>
+        </header>
         <SearchPage location={this.props.location} history={this.props.history} />
         <Container>
           <Row>

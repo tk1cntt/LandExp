@@ -68,17 +68,7 @@ export class Home extends React.Component<IHomeProp, IHomeState> {
       <Row>
         <header>
           <div className="container">
-            <Header
-              isAuthenticated={this.props.isAuthenticated}
-              isAdmin={this.props.isAdmin}
-              isManager={this.props.isManager}
-              isStaff={this.props.isStaff}
-              currentLocale={this.props.currentLocale}
-              onLocaleChange={this.props.setLocale}
-              ribbonEnv={this.props.ribbonEnv}
-              isInProduction={this.props.isInProduction}
-              isSwaggerEnabled={this.props.isSwaggerEnabled}
-            />
+            <Header />
           </div>
           <SearchPage location={this.props.location} history={this.props.history} />
           <HomePanelGuest />

@@ -62,17 +62,7 @@ export class Home extends React.Component<IHomeProp, IHomeState> {
         <ErrorBoundary>
           <header className="home">
             <div className="container">
-              <Header
-                isAuthenticated={this.props.isAuthenticated}
-                isAdmin={this.props.isAdmin}
-                isManager={this.props.isManager}
-                isStaff={this.props.isStaff}
-                currentLocale={this.props.currentLocale}
-                onLocaleChange={this.props.setLocale}
-                ribbonEnv={this.props.ribbonEnv}
-                isInProduction={this.props.isInProduction}
-                isSwaggerEnabled={this.props.isSwaggerEnabled}
-              />
+              <Header />
               <HomeSearchBox location={this.props.location} history={this.props.history} />
             </div>
           </header>
@@ -121,17 +111,6 @@ export class Home extends React.Component<IHomeProp, IHomeState> {
     );
   }
 }
-
-const mapStateToProps = ({ authentication, applicationProfile, locale }: IRootState) => ({
-  currentLocale: locale.currentLocale,
-  isAuthenticated: authentication.isAuthenticated,
-  isAdmin: hasAnyAuthority(authentication.account.authorities, [AUTHORITIES.ADMIN]),
-  isManager: hasAnyAuthority(authentication.account.authorities, [AUTHORITIES.MANAGER]),
-  isStaff: hasAnyAuthority(authentication.account.authorities, [AUTHORITIES.STAFF]),
-  ribbonEnv: applicationProfile.ribbonEnv,
-  isInProduction: applicationProfile.inProduction,
-  isSwaggerEnabled: applicationProfile.isSwaggerEnabled
-});
 
 const mapStateToProps = storeState => ({
   account: storeState.authentication.account,

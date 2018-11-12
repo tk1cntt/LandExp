@@ -376,7 +376,7 @@ export class Detail extends React.Component<IDetailProp, IDetailState> {
     const alerts = [];
     const userFinancialInfo = this.validateUserFinancial() ? null : (
       <Row key={'action-type-value-alert'}>
-        <Col md="12">
+        <Col>
           <Alert type="error" message="Bạn hãy nhập đầy đủ thông tin để chúng tôi tư vấn cho bạn chính xác nhất" />
         </Col>
       </Row>
@@ -386,7 +386,7 @@ export class Detail extends React.Component<IDetailProp, IDetailState> {
     const customerMobile = this.state.customerMobile;
     const customerMobileForm = customerMobile ? null : (
       <Row key={'action-type-value-alert'}>
-        <Col md="12">
+        <Col>
           <Alert type="error" message="Bạn hãy nhập số điện để chúng tôi tư vấn cho bạn nhanh chóng nhất" />
         </Col>
       </Row>
@@ -402,7 +402,7 @@ export class Detail extends React.Component<IDetailProp, IDetailState> {
     const alerts = [];
     const userFinancialInfo = this.validateUserFinancial() ? null : (
       <Row key={'action-type-value-alert'}>
-        <Col md="12">
+        <Col>
           <Alert type="error" message="Bạn hãy nhập đầy đủ thông tin để chúng tôi tư vấn cho bạn chính xác nhất" />
         </Col>
       </Row>
@@ -412,7 +412,7 @@ export class Detail extends React.Component<IDetailProp, IDetailState> {
     const customerMobile = this.state.customerMobile;
     const customerMobileForm = customerMobile ? null : (
       <Row key={'action-type-value-alert'}>
-        <Col md="12">
+        <Col>
           <Alert type="error" message="Bạn hãy nhập số điện để chúng tôi tư vấn cho bạn nhanh chóng nhất" />
         </Col>
       </Row>
@@ -558,17 +558,7 @@ export class Detail extends React.Component<IDetailProp, IDetailState> {
         </Helmet>
         <header>
           <div className="container">
-            <Header
-              isAuthenticated={this.props.isAuthenticated}
-              isAdmin={this.props.isAdmin}
-              isManager={this.props.isManager}
-              isStaff={this.props.isStaff}
-              currentLocale={this.props.currentLocale}
-              onLocaleChange={this.props.setLocale}
-              ribbonEnv={this.props.ribbonEnv}
-              isInProduction={this.props.isInProduction}
-              isSwaggerEnabled={this.props.isSwaggerEnabled}
-            />
+            <Header />
           </div>
           <SearchPage location={this.props.location} history={this.props.history} />
         </header>

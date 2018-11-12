@@ -73,17 +73,7 @@ export class House extends React.Component<IHouseProps, IHouseState> {
       <Row>
         <header>
           <div className="container">
-            <Header
-              isAuthenticated={this.props.isAuthenticated}
-              isAdmin={this.props.isAdmin}
-              isManager={this.props.isManager}
-              isStaff={this.props.isStaff}
-              currentLocale={this.props.currentLocale}
-              onLocaleChange={this.props.setLocale}
-              ribbonEnv={this.props.ribbonEnv}
-              isInProduction={this.props.isInProduction}
-              isSwaggerEnabled={this.props.isSwaggerEnabled}
-            />
+            <Header />
           </div>
         </header>
         <SearchPage location={this.props.location} history={this.props.history} />

@@ -5,6 +5,7 @@ import { AvForm, AvField } from 'availity-reactstrap-validation';
 import { Link } from 'react-router-dom';
 import { Card, Alert } from 'antd';
 
+import Header from 'app/shared/layout/header/header';
 import SearchPage from 'app/shared/layout/search/search-menu';
 
 export interface ILoginModalProps {
@@ -28,6 +29,11 @@ class LoginModal extends React.Component<ILoginModalProps> {
 
     return (
       <Row>
+        <header>
+          <div className="container">
+            <Header />
+          </div>
+        </header>
         <SearchPage location={this.props.location} history={this.props.history} />
         <Container>
           <Row>

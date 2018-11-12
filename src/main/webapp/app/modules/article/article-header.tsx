@@ -19,17 +19,7 @@ export class ArticleHeader extends React.Component<IArticleHeaderProp> {
     return (
       <header className="article">
         <div className="container">
-          <Header
-            isAuthenticated={this.props.isAuthenticated}
-            isAdmin={this.props.isAdmin}
-            isManager={this.props.isManager}
-            isStaff={this.props.isStaff}
-            currentLocale={this.props.currentLocale}
-            onLocaleChange={this.props.setLocale}
-            ribbonEnv={this.props.ribbonEnv}
-            isInProduction={this.props.isInProduction}
-            isSwaggerEnabled={this.props.isSwaggerEnabled}
-          />
+          <Header />
         </div>
         <h2 className="header-title">Tin tức</h2>
         <Row>
