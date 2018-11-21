@@ -133,28 +133,29 @@ public class HouseResource {
         if (houseDTO.getId() == null) {
             throw new BadRequestAlertException("Invalid id", ENTITY_NAME, "idnull");
         }
-        HouseDetailDTO currentDTO = houseService.findOne(houseDTO.getId()).get();
-        if (ObjectUtils.isEmpty(currentDTO)) {
+        Optional<HouseDetailDTO> currentDTO = houseService.findOne(houseDTO.getId());
+        if (!currentDTO.isPresent()) {
+            log.warn("Not Found " + houseDTO.getId());
             throw new BadRequestAlertException("Not Found " + houseDTO.getId(), ENTITY_NAME, "notfound");
         }
         String username = SecurityUtils.getCurrentUserLogin().get();
-        if (!username.equalsIgnoreCase(currentDTO.getCreateByLogin())
+        if (!username.equalsIgnoreCase(currentDTO.get().getCreateByLogin())
             && !SecurityUtils.isCurrentUserInRole(AuthoritiesConstants.STAFF)) {
             throw new BadRequestAlertException("No permission", ENTITY_NAME, "nopermission");
         }
-        if (currentDTO.getStatusType().equals(StatusType.OPEN)) {
+        if (currentDTO.get().getStatusType().equals(StatusType.OPEN)) {
             houseDTO.setStatusType(StatusType.PENDING);
-            ServiceFeeDTO serviceFee = serviceFeeService.findBySaleType(houseDTO.getSaleType()).get();
-            if (!ObjectUtils.isEmpty(serviceFee)) {
+            Optional<ServiceFeeDTO> serviceFee = serviceFeeService.findBySaleType(houseDTO.getSaleType());
+            if (serviceFee.isPresent()) {
                 PaymentDTO paymentDTO = paymentService.findByHouse(houseDTO.getId()).get();
                 if (!ObjectUtils.isEmpty(paymentDTO) && paymentDTO.getPaymentStatus() != PaymentStatusType.PAID) {
                     paymentDTO.setPaymentStatus(PaymentStatusType.PENDING);
-                    paymentDTO.setMoney(serviceFee.getFee());
+                    paymentDTO.setMoney(serviceFee.get().getFee());
                     paymentService.updateByUsername(paymentDTO, username);
                 }
             }
         } else {
-            houseDTO.setStatusType(currentDTO.getStatusType());
+            houseDTO.setStatusType(currentDTO.get().getStatusType());
         }
         houseDTO.setUpdateAt(LocalDate.now());
         HouseDetailDTO result = houseService.updateByUsername(houseDTO, username);
