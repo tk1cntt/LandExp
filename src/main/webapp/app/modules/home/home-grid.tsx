@@ -47,10 +47,19 @@ export class HomeGrid extends React.Component<IHomeProp> {
                     </div>
                   </div>
                   <ul className="property">
-                    <li className="compact">{house.acreage}m2</li>
-                    <li className="bedroom">{house.bedRoom}</li>
-                    <li className="bathroom">{house.bathRoom}</li>
-                    <li className="gara">{house.parking ? <i className="fa fa-check" /> : <i className="fa fa-times" />}</li>
+                    <li>
+                      <img src="/static/images/icon/ic_view_compact.png" /> {house.acreage}m2
+                    </li>
+                    <li>
+                      <img src="/static/images/icon/ic_hotel.png" /> {house.bedRoom}
+                    </li>
+                    <li>
+                      <img src="/static/images/icon/bathtub.png" /> {house.bathRoom}
+                    </li>
+                    <li>
+                      <img src="/static/images/icon/ic_directions_car.png" />{' '}
+                      {house.parking ? <i className="fa fa-check" /> : <i className="fa fa-times" />}
+                    </li>
                   </ul>
                 </div>
                 <div className="location">

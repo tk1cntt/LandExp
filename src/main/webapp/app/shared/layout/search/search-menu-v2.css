@@ -1,12 +1,10 @@
 .nav-search .ant-cascader-picker,
 .nav-search .ant-select-selection {
   border-radius: 0;
-  /*Thêm đoạn dưới đây*/
   border: none;
   border-right: 1px solid #dfdfdf;
   height: 42px;
   vertical-align: middle;
-  /* END */
 }
 
 .nav-search .ant-select-selection__rendered {
@@ -53,6 +51,7 @@
   font-weight: 300;
   color: #454545 !important;
   width: 150px;
+  vertical-align: middle;
 }
 
 .nav-search .ant-input,
@@ -72,5 +71,12 @@
   }
   .nav-search button.ant-btn {
     padding: 10px 35px;
+  }
+}
+
+@media (max-width: 768px) {
+  .nav-search,
+  .why-us {
+    display: none;
   }
 }

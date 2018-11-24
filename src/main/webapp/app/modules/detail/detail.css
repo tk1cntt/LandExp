@@ -197,3 +197,9 @@
   top: 35px;
   color: #888888;
 }
+
+@media (max-width: 768px) {
+  .product-desc {
+    margin-right: 0px;
+  }
+}
