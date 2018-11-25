@@ -91,13 +91,7 @@ export class HomeSearchBox extends React.Component<IHomeSearchBoxProp, IHomeSear
   menuCityForm() {
     return (
       <div className="keyword">
-        <Cascader
-          style={{ width: 530, marginLeft: 48 }}
-          value={this.state.city}
-          options={this.state.locations}
-          onChange={this.onChangeCascader}
-          placeholder="Chọn thành phố"
-        />
+        <Cascader value={this.state.city} options={this.state.locations} onChange={this.onChangeCascader} placeholder="Chọn thành phố" />
       </div>
     );
   }
@@ -117,12 +111,7 @@ export class HomeSearchBox extends React.Component<IHomeSearchBoxProp, IHomeSear
   landTypeForm() {
     return (
       <div className="select">
-        <Select
-          style={{ width: 175, marginRight: -2 }}
-          value={this.state.parameters.landType}
-          placeholder="Loại bất động sản"
-          onChange={this.menuLandTypeClick}
-        >
+        <Select value={this.state.parameters.landType} placeholder="Loại bất động sản" onChange={this.menuLandTypeClick}>
           <Option value="APARTMENT">{getLandType('APARTMENT')}</Option>
           <Option value="HOME">{getLandType('HOME')}</Option>
           <Option value="HOME_VILLA">{getLandType('HOME_VILLA')}</Option>
@@ -152,7 +141,7 @@ export class HomeSearchBox extends React.Component<IHomeSearchBoxProp, IHomeSear
     return (
       <div className="select">
         <label>Khoảng giá</label>
-        <Select style={{ width: 175 }} value={this.state.parameters.money} placeholder="Khoảng giá" onChange={this.menuPriceClick}>
+        <Select value={this.state.parameters.money} placeholder="Khoảng giá" onChange={this.menuPriceClick}>
           <Option value="0">Bất kỳ</Option>
           <Option value="1">&lt; 500 triệu</Option>
           <Option value="2">500 triệu - 1 tỷ</Option>
@@ -176,7 +165,7 @@ export class HomeSearchBox extends React.Component<IHomeSearchBoxProp, IHomeSear
     return (
       <div className="select">
         <label>Diện tích</label>
-        <Select style={{ width: 175 }} value={this.state.parameters.acreage} placeholder="Diện tích" onChange={this.menuAcreageClick}>
+        <Select value={this.state.parameters.acreage} placeholder="Diện tích" onChange={this.menuAcreageClick}>
           <Option value="0">Bất kỳ</Option>
           <Option value="1">&lt; 50 m2</Option>
           <Option value="2">50 - 80 m2</Option>
@@ -200,7 +189,7 @@ export class HomeSearchBox extends React.Component<IHomeSearchBoxProp, IHomeSear
     return (
       <div className="select">
         <label>Số phòng tắm</label>
-        <Select style={{ width: 175 }} value={this.state.parameters.bathRoom} placeholder="Số phòng tắm" onChange={this.menuBathRoomClick}>
+        <Select value={this.state.parameters.bathRoom} placeholder="Số phòng tắm" onChange={this.menuBathRoomClick}>
           <Option value="0">Bất kỳ</Option>
           <Option value="1">+1</Option>
           <Option value="2">+2</Option>
@@ -224,7 +213,7 @@ export class HomeSearchBox extends React.Component<IHomeSearchBoxProp, IHomeSear
     return (
       <div className="select">
         <label>Số phòng ngủ</label>
-        <Select style={{ width: 175 }} value={this.state.parameters.bedRoom} placeholder="Số phòng ngủ" onChange={this.menuBedRoomClick}>
+        <Select value={this.state.parameters.bedRoom} placeholder="Số phòng ngủ" onChange={this.menuBedRoomClick}>
           <Option value="0">Bất kỳ</Option>
           <Option value="1">1</Option>
           <Option value="2">2</Option>

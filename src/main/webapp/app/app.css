@@ -1,4 +1,25 @@
+.ant-select,
+.ant-input,
+.ant-radio,
+.ant-radio-wrapper,
+.ant-radio-group,
 .ant-card {
+  font-family: 'Helvetica Neue' !important;
+  font-size: 16px !important;
+}
+
+.ant-input::-webkit-input-placeholder,
+.ant-select-search__field__placeholder,
+.ant-select-selection__placeholder {
+  color: #454545 !important;
+}
+
+.ant-input::-moz-placeholder {
+  color: #454545 !important;
+}
+
+.ant-card {
+  font-size: 14px !important;
   border: 1px solid #f6f6f6;
   border-radius: 3px;
   box-shadow: 0px 3px 6px #00000014;
@@ -35,51 +56,51 @@
 }
 
 .cc-selector .aparment {
-  background-image: url('../static/images/icon/aparment.png');
+  background-image: url('../static/images/icon/icon_chungcu.svg');
 }
 
 .cc-selector .home {
-  background-image: url('../static/images/icon/house.png');
+  background-image: url('../static/images/icon/icon_nharieng.svg');
 }
 
 .cc-selector .home-villa {
-  background-image: url('../static/images/icon/house.png');
+  background-image: url('../static/images/icon/icon_bietthu.svg');
 }
 
 .cc-selector .home-street-side {
-  background-image: url('../static/images/icon/house.png');
+  background-image: url('../static/images/icon/icon_nhamatpho.svg');
 }
 
 .cc-selector .land-scape {
-  background-image: url('../static/images/icon/house-plan-scale.png');
+  background-image: url('../static/images/icon/icon_datthocu.svg');
 }
 
 .cc-selector .land-of-project {
-  background-image: url('../static/images/icon/house-sketch.png');
+  background-image: url('../static/images/icon/icon_datduan.svg');
 }
 
 .cc-selector .land-farm {
-  background-image: url('../static/images/icon/house-sketch.png');
+  background-image: url('../static/images/icon/icon_datnongnghiep.svg');
 }
 
 .cc-selector .land-resort {
-  background-image: url('../static/images/icon/hotel.png');
+  background-image: url('../static/images/icon/icon_resort.svg');
 }
 
 .cc-selector .office {
-  background-image: url('../static/images/icon/hotel.png');
+  background-image: url('../static/images/icon/icon_vanphong.svg');
 }
 
 .cc-selector .warehouses {
-  background-image: url('../static/images/icon/warehouse.png');
+  background-image: url('../static/images/icon/icon_nhaxuong.svg');
 }
 
 .cc-selector .kiosks {
-  background-image: url('../static/images/icon/shop.png');
+  background-image: url('../static/images/icon/icon_cuahang.svg');
 }
 
 .cc-selector .motel-room {
-  background-image: url('../static/images/icon/hotel.png');
+  background-image: url('../static/images/icon/icon_phongtro.svg');
 }
 
 .cc-selector input:active + .drinkcard-cc {
@@ -100,7 +121,7 @@
   width: 100px;
   height: 100px;
   margin: 10px 5px;
-  padding: 25px 15px;
+  /*padding: 25px 15px;*/
   border: 1px solid #dfdfdf;
   border-radius: 3px;
 }
@@ -127,8 +148,10 @@
   background-size: contain;
   background-repeat: no-repeat;
   display: inline-block;
-  width: 146px;
-  height: 146px;
+  width: 100px;
+  height: 100px;
+  background-size: 68px 68px !important;
+  background-position: center center;
   -webkit-transition: all 100ms ease-in;
   -moz-transition: all 100ms ease-in;
   transition: all 100ms ease-in;

@@ -467,7 +467,7 @@ export class Detail extends React.Component<IDetailProp, IDetailState> {
                 <span className="input-addon">VNĐ</span>
               </div>
             </Col>
-            <Col md={10} style={{ marginLeft: -12 }}>
+            <Col md={10}>
               <div className="form-group">
                 <label>Số tiền tích lũy hàng tháng</label>
                 <NumberFormat
@@ -513,7 +513,7 @@ export class Detail extends React.Component<IDetailProp, IDetailState> {
                 <span className="input-addon">VNĐ</span>
               </div>
             </Col>
-            <Col md={14} style={{ marginLeft: -12 }}>
+            <Col md={14}>
               <label>Tư vấn</label>
               <TextArea
                 rows={6}
