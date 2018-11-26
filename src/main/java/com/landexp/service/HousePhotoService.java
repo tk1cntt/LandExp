@@ -71,6 +71,18 @@ public class HousePhotoService {
             .map(housePhotoMapper::toResponse);
     }
 
+    /**
+     * Get first the housePhotos.
+     *
+     * @return the list of entities
+     */
+    @Transactional(readOnly = true)
+    public Optional<HousePhotoDTO> findFirstByHouse(Long id) {
+        log.debug("Request to get photo of house {}", id);
+        return housePhotoRepository.findFirstByHouseId(id)
+            .map(housePhotoMapper::toDto);
+    }
+
 
     /**
      * Get one housePhoto by id.

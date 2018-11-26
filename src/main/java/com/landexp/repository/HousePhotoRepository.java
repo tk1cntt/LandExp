@@ -7,6 +7,7 @@ import org.springframework.data.jpa.repository.*;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
+import java.util.Optional;
 
 /**
  * Spring Data  repository for the HousePhoto entity.
@@ -22,4 +23,6 @@ public interface HousePhotoRepository extends JpaRepository<HousePhoto, Long> {
     List<HousePhoto> findByUpdateByIsCurrentUser();
 
     Page<HousePhoto> findByHouseId(Long id, Pageable pageable);
+
+    Optional<HousePhoto> findFirstByHouseId(Long id);
 }

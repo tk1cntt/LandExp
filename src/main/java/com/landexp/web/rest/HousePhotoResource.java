@@ -142,6 +142,30 @@ public class HousePhotoResource {
         return bao.toByteArray();
     }
 
+
+    /**
+     * GET  /house-photos/{houseId}/thumbnails : get thumbnail in byte array.
+     */
+    @GetMapping("/house-photos/{houseId}/thumbnails")
+    @Timed
+    @ResponseBody
+    public byte[] getFirstPhotoThumbnail(@PathVariable String houseId) throws IOException {
+        log.debug("REST request to get a image data in byte array");
+        Optional<HousePhotoDTO> dto = housePhotoService.findFirstByHouse(Utils.decodeId(houseId));
+        byte[] imageByte = null;
+        if (dto.isPresent()) {
+            imageByte = dto.get().getImage();
+        } else {
+            imageByte = Utils.getImageDefault("default.png");
+        }
+        ByteArrayOutputStream bao = new ByteArrayOutputStream();
+        Thumbnails.of(MappingUtils.createImageFromBytes(imageByte))
+            .size(92, 67)
+            .outputFormat("jpg")
+            .toOutputStream(bao);
+        return bao.toByteArray();
+    }
+
     /**
      * GET  /house-photos/:id : get the "id" housePhoto.
      *
