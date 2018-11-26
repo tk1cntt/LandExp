@@ -44,6 +44,7 @@ export class StepFive extends React.Component<IStepFiveProp, IStepFiveState> {
     });
   };
 
+  /*
   onChangeMoneyDiscount = values => {
     const { formattedValue, value } = values;
     this.setState({
@@ -53,7 +54,7 @@ export class StepFive extends React.Component<IStepFiveProp, IStepFiveState> {
       discount: value
     });
   };
-
+  */
   onChangePresent = e => {
     this.setState({
       present: e.target.value
@@ -107,15 +108,6 @@ export class StepFive extends React.Component<IStepFiveProp, IStepFiveState> {
                 customInput={Input}
                 thousandSeparator
                 onValueChange={this.onChangeMoney}
-              />
-            </FormItem>
-            <FormItem {...formItemLayout} label="Giá mong muốn">
-              <NumberFormat
-                value={this.state.discount || this.props.house.discount}
-                displayType={'input'}
-                customInput={Input}
-                thousandSeparator
-                onValueChange={this.onChangeMoneyDiscount}
               />
             </FormItem>
           </Form>
