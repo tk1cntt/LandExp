@@ -3,7 +3,9 @@
 .ant-radio,
 .ant-radio-wrapper,
 .ant-radio-group,
-.ant-card {
+.ant-card,
+.ant-steps,
+.ant-form-item {
   font-family: 'Helvetica Neue' !important;
   font-size: 16px !important;
 }
@@ -37,6 +39,32 @@
 
 .ant-tabs .ant-tabs-content {
   min-height: 300px;
+}
+
+label {
+  font-weight: 300 !important;
+  font-size: 14px;
+}
+
+.steps-content .ant-input::-webkit-input-placeholder {
+  color: #9a9a9a !important;
+  font-size: 14px !important;
+}
+
+.ant-input-group-addon,
+.ant-input-group-wrap {
+  width: 130px !important;
+  font-size: 14px !important;
+}
+
+.steps-content .ant-checkbox-wrapper,
+.steps-content .ant-cascader-picker {
+  font-family: 'Helvetica Neue' !important;
+  font-size: 14px !important;
+}
+
+.steps-action {
+  text-align: center;
 }
 
 .cc-selector input {
@@ -114,13 +142,13 @@
 }
 
 .cc-selector .image-block {
-  display: inline-block;
+  /*display: inline-block;*/
 }
 
 .cc-selector .image-block .image-item {
   width: 100px;
   height: 100px;
-  margin: 10px 5px;
+  margin: 10px auto;
   /*padding: 25px 15px;*/
   border: 1px solid #dfdfdf;
   border-radius: 3px;
@@ -133,7 +161,7 @@
 .cc-selector .image-block .image-big-item {
   width: 140px;
   height: 140px;
-  margin: 10px 5px;
+  margin: 10px auto;
   padding: 25px 15px;
   border: 1px solid #dfdfdf;
   border-radius: 3px;
@@ -228,4 +256,31 @@
   min-height: 42px;
   max-height: 42px;
   overflow: hidden;
+}
+
+@media (max-width: 320px) {
+  .cc-selector .image-block .image-big-item {
+    width: 100px;
+    height: 100px;
+    padding: 0;
+  }
+  .cc-selector.step-1 .image-block p {
+    width: 100px;
+    height: 40px;
+    margin: 0 auto;
+  }
+  .cc-selector .image-block .image-item {
+    width: 70px;
+    height: 70px;
+  }
+  .cc-selector .image-block .image-item .drinkcard-cc {
+    width: 70px;
+    height: 70px;
+    background-size: 60px 60px !important;
+  }
+  .cc-selector.step-2 .image-block p {
+    width: 70px;
+    height: 40px;
+    margin: 0 auto;
+  }
 }

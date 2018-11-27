@@ -8,13 +8,11 @@ import { Col, Row, Icon, Menu, Dropdown } from 'antd';
 const menu = (
   <Menu>
     <Menu.Item key="0">
-      <a href="http://www.alipay.com/">1st menu item</a>
+      <a href="/#/">Trợ giúp</a>
     </Menu.Item>
     <Menu.Item key="1">
-      <a href="http://www.taobao.com/">2nd menu item</a>
+      <a href="/#/tin-tuc">Tin tức</a>
     </Menu.Item>
-    <Menu.Divider />
-    <Menu.Item key="3">3rd menu item</Menu.Item>
   </Menu>
 );
 
@@ -108,19 +106,19 @@ const Footer = props => (
           </a>
         </li>
         <li>
-          <a href="/#">
-            <Icon type="heart" />
-            <p>Yêu thích</p>
+          <a href="/#/tai-khoan/dang-tin">
+            <Icon type="edit" />
+            <p>Đăng tin</p>
           </a>
         </li>
         <li>
-          <a href="/#">
+          <a href="/#/tai-khoan/thong-tin-tai-khoan">
             <Icon type="user" />
             <p>Tài khoản</p>
           </a>
         </li>
         <li>
-          <Dropdown overlay={menu}>
+          <Dropdown overlay={menu} trigger={['click']} placement={['topLeft']}>
             <a className="ant-dropdown-link" href="#">
               <i className="icon menu" />
             </a>
