@@ -258,7 +258,7 @@ label {
   overflow: hidden;
 }
 
-@media (max-width: 320px) {
+@media (max-width: 375px) {
   .cc-selector .image-block .image-big-item {
     width: 100px;
     height: 100px;
