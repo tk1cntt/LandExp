@@ -118,7 +118,7 @@ const Footer = props => (
           </a>
         </li>
         <li>
-          <Dropdown overlay={menu} trigger={['click']} placement={['topLeft']}>
+          <Dropdown overlay={menu} trigger={['click']} placement={'topLeft'}>
             <a className="ant-dropdown-link" href="#">
               <i className="icon menu" />
             </a>

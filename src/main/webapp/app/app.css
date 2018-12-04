@@ -283,4 +283,7 @@ label {
     height: 40px;
     margin: 0 auto;
   }
+  .featured-posts h2 span {
+    display: none;
+  }
 }

@@ -176,5 +176,9 @@ header.home:before {
   }
   #home-content .featured-posts ul li {
     width: 100% !important;
+    height: auto !important;
+  }
+  #home-content .featured-posts ul li:first-child .caption-content .post-title {
+    font-size: 16px;
   }
 }

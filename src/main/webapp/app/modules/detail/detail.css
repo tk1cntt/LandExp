@@ -125,7 +125,7 @@
   text-align: justify;
   margin-bottom: 30px;
   margin-right: 30px;
-  height: 356px;
+  height: 350px;
   overflow-y: auto;
 }
 
@@ -198,8 +198,22 @@
   color: #888888;
 }
 
+@media (max-width: 540px) {
+  .lo-title {
+    margin-bottom: 40px;
+  }
+  .lo-title span {
+    bottom: -35px;
+    left: 0px;
+    right: auto;
+  }
+}
+
 @media (max-width: 768px) {
   .product-desc {
     margin-right: 0px;
+  }
+  .cs-content .btn {
+    padding: 9px 23px;
   }
 }
