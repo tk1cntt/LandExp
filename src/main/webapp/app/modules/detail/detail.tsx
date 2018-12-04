@@ -515,7 +515,7 @@ export class Detail extends React.Component<IDetailProp, IDetailState> {
             </Col>
             <Col md={14}>
               <label>Tư vấn</label>
-              <TextArea rows={6} style={{ marginBottom: 25 }} value={userFinancialResult} />
+              <TextArea rows={5} style={{ marginBottom: 25 }} value={userFinancialResult} />
             </Col>
           </Row>
           <Row gutter={30}>
