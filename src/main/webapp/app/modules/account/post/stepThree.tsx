@@ -187,7 +187,7 @@ export class StepThree extends React.Component<IStepThreeProp, IStepThreeState> 
               type="number"
               value={this.state.acreage || this.props.house.acreage}
               onChange={this.onChangeAcreage}
-              placeholder="Diện tích theo mét vuông?"
+              placeholder="Số m2. Ví dụ: 65"
             />
           </div>
         </Col>
@@ -199,7 +199,7 @@ export class StepThree extends React.Component<IStepThreeProp, IStepThreeState> 
                 type="number"
                 value={this.state.acreageStreetSide || this.props.house.acreageStreetSide}
                 onChange={this.onChangeAcreageStreetSide}
-                placeholder="Diện tích theo mét?"
+                placeholder="Số m. Ví dụ: 5"
               />
             </div>
           </Col>
@@ -214,7 +214,7 @@ export class StepThree extends React.Component<IStepThreeProp, IStepThreeState> 
                 type="number"
                 value={this.state.bedRoom || this.props.house.bedRoom}
                 onChange={this.onChangeBedRoom}
-                placeholder="Có bao nhiêu phòng ngủ?"
+                placeholder="Ví dụ: 3"
               />
             </div>
           </Col>
@@ -229,7 +229,7 @@ export class StepThree extends React.Component<IStepThreeProp, IStepThreeState> 
                 type="number"
                 value={this.state.bathRoom || this.props.house.bathRoom}
                 onChange={this.onChangeBathRoom}
-                placeholder="Có bao nhiêu phòng tắm?"
+                placeholder="Ví dụ: 3"
               />
             </div>
           </Col>
@@ -243,7 +243,7 @@ export class StepThree extends React.Component<IStepThreeProp, IStepThreeState> 
                 addonBefore="Tầng số"
                 value={this.state.floor || this.props.house.floor}
                 onChange={this.onChangeFloor}
-                placeholder="Nhà bạn ở tầng bao nhiêu?"
+                placeholder="Ví dụ: 20"
               />
             </div>
           </Col>
@@ -258,7 +258,7 @@ export class StepThree extends React.Component<IStepThreeProp, IStepThreeState> 
                 type="number"
                 value={this.state.numberOfFloor || this.props.house.numberOfFloor}
                 onChange={this.onChangeNumberOfFloor}
-                placeholder="Nhà bạn có bao nhiêu tầng?"
+                placeholder="Ví dụ: 5"
               />
             </div>
           </Col>

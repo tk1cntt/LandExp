@@ -77,8 +77,8 @@ export class StepOne extends React.Component<IStepOneProp, IStepOneState> {
         <Spin spinning={this.props.loading} tip="Đang cập nhật dữ liệu...">
           <Col md="12">
             <div style={{ marginTop: 16 }}>
-              <AntdRow className="cc-selector" type="flex" justify="center" align="middle">
-                <AntdCol span={6} style={{ alignItems: 'center' }}>
+              <AntdRow className="cc-selector step-1" type="flex" justify="center" align="middle">
+                <AntdCol xs={12} md={6} style={{ alignItems: 'center' }}>
                   <div className="image-block">
                     <div className="image-big-item">
                       <input
@@ -94,7 +94,7 @@ export class StepOne extends React.Component<IStepOneProp, IStepOneState> {
                     <p>{getActionType('FOR_SELL')}</p>
                   </div>
                 </AntdCol>
-                <AntdCol span={6} style={{ alignItems: 'center' }}>
+                <AntdCol xs={12} md={6} style={{ alignItems: 'center' }}>
                   <div className="image-block">
                     <div className="image-big-item">
                       <input

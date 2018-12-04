@@ -75,8 +75,8 @@ export class StepOne extends React.Component<IStepOneProp, IStepOneState> {
           </AntdRow>
         </Col>
         <Col md="12">
-          <AntdRow className="cc-selector" type="flex" justify="space-around" align="middle">
-            <AntdCol span={4} style={{ alignItems: 'center' }}>
+          <AntdRow className="cc-selector step-2" type="flex" justify="space-around" align="middle">
+            <AntdCol xs={8} md={6} style={{ alignItems: 'center' }}>
               <div className="image-block">
                 <div className="image-item">
                   <input
@@ -92,7 +92,7 @@ export class StepOne extends React.Component<IStepOneProp, IStepOneState> {
                 <p>{getLandType('APARTMENT')}</p>
               </div>
             </AntdCol>
-            <AntdCol span={4} style={{ alignItems: 'center' }}>
+            <AntdCol xs={8} md={6} style={{ alignItems: 'center' }}>
               <div className="image-block">
                 <div className="image-item">
                   <input
@@ -108,7 +108,7 @@ export class StepOne extends React.Component<IStepOneProp, IStepOneState> {
                 <p>{getLandType('HOME')}</p>
               </div>
             </AntdCol>
-            <AntdCol span={4} style={{ alignItems: 'center' }}>
+            <AntdCol xs={8} md={6} style={{ alignItems: 'center' }}>
               <div className="image-block">
                 <div className="image-item">
                   <input
@@ -124,7 +124,7 @@ export class StepOne extends React.Component<IStepOneProp, IStepOneState> {
                 <p>{getLandType('HOME_VILLA')}</p>
               </div>
             </AntdCol>
-            <AntdCol span={4} style={{ alignItems: 'center' }}>
+            <AntdCol xs={8} md={6} style={{ alignItems: 'center' }}>
               <div className="image-block">
                 <div className="image-item">
                   <input
@@ -140,11 +140,7 @@ export class StepOne extends React.Component<IStepOneProp, IStepOneState> {
                 <p>{getLandType('HOME_STREET_SIDE')}</p>
               </div>
             </AntdCol>
-          </AntdRow>
-        </Col>
-        <Col md="12">
-          <AntdRow className="cc-selector" type="flex" justify="space-around" align="middle">
-            <AntdCol span={4} style={{ alignItems: 'center' }}>
+            <AntdCol xs={8} md={6} style={{ alignItems: 'center' }}>
               <div className="image-block">
                 <div className="image-item">
                   <input
@@ -160,7 +156,7 @@ export class StepOne extends React.Component<IStepOneProp, IStepOneState> {
                 <p>{getLandType('LAND_SCAPE')}</p>
               </div>
             </AntdCol>
-            <AntdCol span={4} style={{ alignItems: 'center' }}>
+            <AntdCol xs={8} md={6} style={{ alignItems: 'center' }}>
               <div className="image-block">
                 <div className="image-item">
                   <input
@@ -176,7 +172,7 @@ export class StepOne extends React.Component<IStepOneProp, IStepOneState> {
                 <p>{getLandType('LAND_OF_PROJECT')}</p>
               </div>
             </AntdCol>
-            <AntdCol span={4} style={{ alignItems: 'center' }}>
+            <AntdCol xs={8} md={6} style={{ alignItems: 'center' }}>
               <div className="image-block">
                 <div className="image-item">
                   <input
@@ -192,7 +188,7 @@ export class StepOne extends React.Component<IStepOneProp, IStepOneState> {
                 <p>{getLandType('LAND_FARM')}</p>
               </div>
             </AntdCol>
-            <AntdCol span={4} style={{ alignItems: 'center' }}>
+            <AntdCol xs={8} md={6} style={{ alignItems: 'center' }}>
               <div className="image-block">
                 <div className="image-item">
                   <input
@@ -208,11 +204,8 @@ export class StepOne extends React.Component<IStepOneProp, IStepOneState> {
                 <p>{getLandType('LAND_RESORT')}</p>
               </div>
             </AntdCol>
-          </AntdRow>
-        </Col>
-        <Col md="12">
-          <AntdRow className="cc-selector" type="flex" justify="space-around" align="middle">
-            <AntdCol span={4} style={{ alignItems: 'center' }}>
+
+            <AntdCol xs={8} md={6} style={{ alignItems: 'center' }}>
               <div className="image-block">
                 <div className="image-item">
                   <input
@@ -228,7 +221,7 @@ export class StepOne extends React.Component<IStepOneProp, IStepOneState> {
                 <p>{getLandType('OFFICE')}</p>
               </div>
             </AntdCol>
-            <AntdCol span={4} style={{ alignItems: 'center' }}>
+            <AntdCol xs={8} md={6} style={{ alignItems: 'center' }}>
               <div className="image-block">
                 <div className="image-item">
                   <input
@@ -244,7 +237,7 @@ export class StepOne extends React.Component<IStepOneProp, IStepOneState> {
                 <p>{getLandType('WAREHOUSES')}</p>
               </div>
             </AntdCol>
-            <AntdCol span={4} style={{ alignItems: 'center' }}>
+            <AntdCol xs={8} md={6} style={{ alignItems: 'center' }}>
               <div className="image-block">
                 <div className="image-item">
                   <input
@@ -260,7 +253,7 @@ export class StepOne extends React.Component<IStepOneProp, IStepOneState> {
                 <p>{getLandType('KIOSKS')}</p>
               </div>
             </AntdCol>
-            <AntdCol span={4} style={{ alignItems: 'center' }}>
+            <AntdCol xs={8} md={6} style={{ alignItems: 'center' }}>
               <div className="image-block">
                 <div className="image-item">
                   <input
