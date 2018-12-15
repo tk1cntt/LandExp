@@ -176,7 +176,7 @@ export class SearchPage extends React.Component<ISearchPageProp> {
 
   onChangeCity = value => {
     if (!value) return;
-    console.log(value);
+    // console.log(value);
     const parameters = {
       cityId: value.cityId,
       districtId: value.districtId
