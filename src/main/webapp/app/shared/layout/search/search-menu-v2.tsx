@@ -3,6 +3,8 @@ import './search-menu-v2.css';
 import React from 'react';
 import { connect } from 'react-redux';
 import qs from 'query-string';
+import AsyncSelect from 'react-select';
+// import AsyncSelect from 'react-select/lib/Async';
 import { Col, Select, Button, Cascader } from 'antd';
 const Option = Select.Option;
 
@@ -70,17 +72,27 @@ export class SearchPage extends React.Component<ISearchPageProp> {
           label: district.type + ' ' + district.name,
           children: []
         };
+        const address = {
+          value: stringToSlug(district.type + district.name + city.name),
+          label: district.type + ' ' + district.name + ' - ' + city.name,
+          cityId: city.id,
+          districtId: district.id,
+          id: district.id
+        };
+        addresses.push(address);
         district.wards.map(ward => {
           const wardData = {
             value: ward.id,
             label: ward.type + ' ' + ward.name
           };
+          /*
           const address = {
             value: stringToSlug(ward.type + ward.name + district.type + district.name + city.name),
             label: ward.type + ' ' + ward.name + ' - ' + district.type + ' ' + district.name + ' - ' + city.name,
             id: ward.id
           };
           addresses.push(address);
+          */
           districtData.children.push(wardData);
         });
         cityData.children.push(districtData);
@@ -105,7 +117,12 @@ export class SearchPage extends React.Component<ISearchPageProp> {
 
   actionTypeForm() {
     return (
-      <Select style={{ width: 110 }} value={this.state.parameters.actionType} placeholder="Hình thức" onChange={this.menuTypeClick}>
+      <Select
+        style={{ width: 110, float: 'left' }}
+        value={this.state.parameters.actionType}
+        placeholder="Hình thức"
+        onChange={this.menuTypeClick}
+      >
         <Option value="FOR_SELL">Bán</Option>
         <Option value="FOR_RENT">Cho thuê</Option>
       </Select>
@@ -123,7 +140,7 @@ export class SearchPage extends React.Component<ISearchPageProp> {
   landTypeForm() {
     return (
       <Select
-        style={{ width: 180 }}
+        style={{ width: 180, float: 'left' }}
         value={this.state.parameters.landType}
         placeholder="Loại bất động sản"
         onChange={this.menuLandTypeClick}
@@ -157,9 +174,32 @@ export class SearchPage extends React.Component<ISearchPageProp> {
     });
   };
 
+  onChangeCity = value => {
+    if (!value) return;
+    console.log(value);
+    const parameters = {
+      cityId: value.cityId,
+      districtId: value.districtId
+    };
+    const nextParameter = { ...this.state.parameters, ...parameters };
+    this.setState({
+      parameters: nextParameter,
+      city: value
+    });
+  };
+
   keywordForm() {
     return (
-      <Cascader value={this.state.city} options={this.state.locations} onChange={this.onChangeCascader} placeholder="Chọn thành phố" />
+      <AsyncSelect
+        autoFocus
+        isClearable
+        className="address"
+        value={this.state.city}
+        onChange={this.onChangeCity}
+        placeholder="Chọn một thành phố"
+        options={this.state.addresses}
+      />
+      // <Cascader value={this.state.city} options={this.state.locations} onChange={this.onChangeCascader} placeholder="Chọn thành phố" />
     );
   }
 

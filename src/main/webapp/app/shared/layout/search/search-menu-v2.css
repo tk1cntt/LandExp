@@ -17,6 +17,18 @@
   border-radius: 0px;
 }
 
+.nav-search .address {
+  width: 370px;
+  padding: 0 !important;
+  float: left;
+}
+
+.nav-search .address > div {
+  min-height: 42px !important;
+  border: none;
+  border-radius: 0;
+}
+
 .nav-search .ant-cascader-picker {
   height: 42px !important;
   width: 370px;
