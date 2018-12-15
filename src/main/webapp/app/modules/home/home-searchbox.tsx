@@ -4,12 +4,13 @@ import './home.css';
 import React from 'react';
 import { connect } from 'react-redux';
 import qs from 'query-string';
+import AsyncSelect from 'react-select';
 import { Select, Cascader, Radio } from 'antd';
 const Option = Select.Option;
 const RadioGroup = Radio.Group;
 
 import { getAllEntities as getCities } from 'app/entities/city/city.reducer';
-import { getLandType, getUid, queryString } from 'app/shared/util/utils';
+import { getLandType, getUid, queryString, stringToSlug } from 'app/shared/util/utils';
 
 export interface IHomeSearchBoxProp extends StateProps, DispatchProps {
   location: any;
@@ -20,13 +21,15 @@ export interface IHomeSearchBoxState {
   city: any;
   parameters: any;
   locations: any;
+  addresses: any;
 }
 
 export class HomeSearchBox extends React.Component<IHomeSearchBoxProp, IHomeSearchBoxState> {
   state: IHomeSearchBoxState = {
     city: null,
     parameters: { actionType: 'FOR_SELL' },
-    locations: []
+    locations: [],
+    addresses: []
   };
 
   componentDidMount() {
@@ -54,7 +57,8 @@ export class HomeSearchBox extends React.Component<IHomeSearchBoxProp, IHomeSear
   }
 
   mappingCity() {
-    const locations = this.state.locations;
+    const locations = []; // this.state.locations;
+    const addresses = [];
     this.props.cities.map(city => {
       const cityData = {
         value: city.id,
@@ -64,14 +68,24 @@ export class HomeSearchBox extends React.Component<IHomeSearchBoxProp, IHomeSear
       city.districts.map(district => {
         const districtData = {
           value: district.id,
-          label: district.type + ' ' + district.name
+          label: district.type + ' ' + district.name,
+          children: []
         };
+        const address = {
+          value: stringToSlug(district.type + district.name + city.name),
+          label: district.type + ' ' + district.name + ' - ' + city.name,
+          cityId: city.id,
+          districtId: district.id,
+          id: district.id
+        };
+        addresses.push(address);
         cityData.children.push(districtData);
       });
       locations.push(cityData);
     });
     this.setState({
-      locations
+      locations,
+      addresses
     });
   }
 
@@ -88,10 +102,32 @@ export class HomeSearchBox extends React.Component<IHomeSearchBoxProp, IHomeSear
     });
   };
 
+  onChangeCity = value => {
+    if (!value) return;
+    // console.log(value);
+    const parameters = {
+      cityId: value.cityId,
+      districtId: value.districtId
+    };
+    const nextParameter = { ...this.state.parameters, ...parameters };
+    this.setState({
+      parameters: nextParameter,
+      city: value
+    });
+  };
+
   menuCityForm() {
     return (
       <div className="keyword">
-        <Cascader value={this.state.city} options={this.state.locations} onChange={this.onChangeCascader} placeholder="Chọn thành phố" />
+        <AsyncSelect
+          autoFocus
+          className="address"
+          classNamePrefix="address"
+          value={this.state.city}
+          onChange={this.onChangeCity}
+          placeholder="Chọn một thành phố"
+          options={this.state.addresses}
+        />
       </div>
     );
   }
