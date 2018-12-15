@@ -7,7 +7,7 @@ import { Col, Select, Button, Cascader } from 'antd';
 const Option = Select.Option;
 
 import { getAllEntities as getCities } from 'app/entities/city/city.reducer';
-import { getLandType, queryString } from 'app/shared/util/utils';
+import { getLandType, queryString, stringToSlug } from 'app/shared/util/utils';
 
 export interface ISearchPageProp extends StateProps, DispatchProps {
   location: any;
@@ -18,13 +18,15 @@ export interface ISearchPageState {
   city: any;
   parameters: any;
   locations: any;
+  addresses: any;
 }
 
 export class SearchPage extends React.Component<ISearchPageProp> {
   state: ISearchPageState = {
     city: null,
     parameters: {},
-    locations: []
+    locations: [],
+    addresses: []
   };
 
   componentDidMount() {
@@ -55,6 +57,7 @@ export class SearchPage extends React.Component<ISearchPageProp> {
 
   mappingCity() {
     const locations = []; // this.state.locations;
+    const addresses = [];
     this.props.cities.map(city => {
       const cityData = {
         value: city.id,
@@ -72,6 +75,12 @@ export class SearchPage extends React.Component<ISearchPageProp> {
             value: ward.id,
             label: ward.type + ' ' + ward.name
           };
+          const address = {
+            value: stringToSlug(ward.type + ward.name + district.type + district.name + city.name),
+            label: ward.type + ' ' + ward.name + ' - ' + district.type + ' ' + district.name + ' - ' + city.name,
+            id: ward.id
+          };
+          addresses.push(address);
           districtData.children.push(wardData);
         });
         cityData.children.push(districtData);
@@ -79,7 +88,8 @@ export class SearchPage extends React.Component<ISearchPageProp> {
       locations.push(cityData);
     });
     this.setState({
-      locations
+      locations,
+      addresses
     });
   }
 

@@ -160,7 +160,7 @@
         "nopermission": "Bạn không được phép xem tin này",
         "idnull": "Invalid ID",
         "http": {
-          "401": "Không có quyền"
+          "401": "Không được phép"
         }
     },
     "footer": "Đây là chân trang của bạn"

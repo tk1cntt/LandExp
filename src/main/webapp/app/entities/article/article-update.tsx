@@ -234,7 +234,7 @@ export class ArticleUpdate extends React.Component<IArticleUpdateProps, IArticle
                       >
                         {categories
                           ? categories.map(otherEntity => (
-                              <Option value={otherEntity.id} key={otherEntity.id}>
+                              <Option value={otherEntity.id} key={`${otherEntity.id}`}>
                                 {otherEntity.name}
                               </Option>
                             ))

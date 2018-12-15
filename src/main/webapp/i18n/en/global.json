@@ -161,7 +161,7 @@
         "nopermission": "No permission",
         "idnull": "Invalid ID",
         "http": {
-          "401": "No permission"
+          "401": "Unauthorized"
         }
     },
     "footer": "This is your footer"
