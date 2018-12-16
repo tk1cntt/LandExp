@@ -21,6 +21,7 @@
   width: 370px;
   padding: 0 !important;
   float: left;
+  border-right: 1px solid #d9d9d9;
 }
 
 .nav-search .address > div {
