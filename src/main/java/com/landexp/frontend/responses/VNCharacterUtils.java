@@ -1,5 +1,7 @@
 package com.landexp.frontend.responses;
 
+import org.apache.commons.lang3.StringUtils;
+
 import java.util.Arrays;
 
 /**
@@ -56,10 +58,13 @@ public class VNCharacterUtils {
      * @return
      */
     public static String removeAccent(String s) {
+        return StringUtils.stripAccents(s);
+        /*
         StringBuilder sb = new StringBuilder(s);
         for (int i = 0; i < sb.length(); i++) {
             sb.setCharAt(i, removeAccent(sb.charAt(i)));
         }
         return sb.toString();
+        */
     }
 }

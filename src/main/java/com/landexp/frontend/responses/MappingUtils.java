@@ -36,6 +36,7 @@ public class MappingUtils {
         System.out.println(formatMoney(900000000f, UserActionType.FOR_SELL));
         System.out.println(formatMoney(5f, UserActionType.FOR_SELL));
         System.out.println(VNCharacterUtils.removeAccent("Đất dự án"));
+        System.out.println(VNCharacterUtils.removeAccent("Bán đất thổ cư giá 50 triệu - Quận Ba Đình, Hà Nội 6JiJ43bX"));
     }
 
     public static String numberFormat(double number) {
