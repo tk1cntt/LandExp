@@ -191,7 +191,7 @@ public class MappingUtils {
         sb.append(" ");
         sb.append(removeAccent(formatLandType(dto.getLandType())));
         sb.append(" ");
-        sb.append("giá");
+        sb.append("gia");
         sb.append(" ");
         sb.append(removeAccent(formatMoney(dto.getMoney(), dto.getActionType())
             .replaceAll("<span>", "")
@@ -217,7 +217,7 @@ public class MappingUtils {
         sb.append(removeAccent(formatLandType(dto.getLandType())));
         sb.append(" ");
         sb.append(" ");
-        sb.append("giá");
+        sb.append("gia");
         sb.append(" ");
         sb.append(removeAccent(formatMoney(dto.getMoney(), dto.getActionType())
             .replaceAll("<span>", "")
