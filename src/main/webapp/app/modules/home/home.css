@@ -162,6 +162,9 @@ header.home:before {
   .top-search-box .select {
     width: 100% !important;
   }
+  .search-box .address {
+    margin-left: 0px !important;
+  }
   .bottom-search-box {
     padding: 10px;
     height: 200px;
