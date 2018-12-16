@@ -156,7 +156,7 @@ public class MappingUtils {
         sb.append(StringUtils.isEmpty(dto.getAddress()) ? "" : dto.getAddress());
         sb.append(StringUtils.isEmpty(dto.getWardName()) ? "" : ", " + dto.getWardType() + " " + dto.getWardName());
         sb.append(StringUtils.isEmpty(dto.getDistrictName()) ? "" : ", " + dto.getDistrictType() + " " + dto.getDistrictName());
-        sb.append(StringUtils.isEmpty(dto.getCityName()) ? "" : ", " + dto.getCityName());
+        sb.append(StringUtils.isEmpty(dto.getCityName()) ? "" : " - " + dto.getCityName());
         return sb.toString();
     }
 
@@ -173,7 +173,7 @@ public class MappingUtils {
             .replaceAll("</span>", "")
             .replaceAll("\\/", "-"));
         sb.append(StringUtils.isEmpty(dto.getDistrictName()) ? "" : " - " + dto.getDistrictType() + " " + dto.getDistrictName());
-        sb.append(StringUtils.isEmpty(dto.getCityName()) ? "" : ", " + dto.getCityName());
+        sb.append(StringUtils.isEmpty(dto.getCityName()) ? "" : " - " + dto.getCityName());
         return sb.toString();
     }
 
